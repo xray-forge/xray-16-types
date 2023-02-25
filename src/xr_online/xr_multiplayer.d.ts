@@ -23,7 +23,7 @@ declare module "xray16" {
     public get_artefacts(): u16;
     public get_deaths(): i16;
     public get_frags(): i16;
-    public get_name() : string;
+    public get_name(): string;
     public get_rank(): u8;
     public get_spots(): i16;
     public get_team(): u8;
@@ -125,7 +125,7 @@ declare module "xray16" {
    * @customConstructor account_profiles_cb
    */
   export class XR_account_profiles_cb {
-    public constructor (object: object, cb: (this: object, code: number, description: string) => void);
+    public constructor(object: object, cb: (this: object, code: number, description: string) => void);
     public bind(object: object, cb: (this: object, code: number, description: string) => void): void;
     public clear(): void;
   }
@@ -135,10 +135,7 @@ declare module "xray16" {
    * @customConstructor login_operation_cb
    */
   export class XR_login_operation_cb {
-    public constructor (
-      object: object,
-      cb: (this: object, profile: XR_profile | null, description: string) => void
-    );
+    public constructor(object: object, cb: (this: object, profile: XR_profile | null, description: string) => void);
 
     public bind(object: object, cb: (this: object, profile: XR_profile | null, description: string) => void): void;
     public clear(): void;
@@ -149,7 +146,7 @@ declare module "xray16" {
    * @customConstructor connect_error_cb
    */
   export class XR_connect_error_cb {
-    public constructor (object: object, cb: (this: object, code: number, description: string) => void);
+    public constructor(object: object, cb: (this: object, code: number, description: string) => void);
     public bind(object: object, cb: (this: object, code: number, description: string) => void): void;
     public clear(): void;
   }
@@ -159,7 +156,7 @@ declare module "xray16" {
    * @customConstructor account_operation_cb
    */
   export class XR_account_operation_cb {
-    public constructor (object: object, cb: (this: object, code: number, description: string) => void);
+    public constructor(object: object, cb: (this: object, code: number, description: string) => void);
 
     public bind(object: object, cb: (this: object, code: number, description: string) => void): void;
     public clear(): void;
@@ -170,7 +167,7 @@ declare module "xray16" {
    * @customConstructor found_email_cb
    */
   export class XR_found_email_cb {
-    public constructor (object: object, cb: (this: object, found: boolean, description: string) => void);
+    public constructor(object: object, cb: (this: object, found: boolean, description: string) => void);
 
     public bind(object: object, cb: (this: object, found: boolean, description: string) => void): void;
     public clear(): void;
@@ -181,7 +178,7 @@ declare module "xray16" {
    * @customConstructor store_operation_cb
    */
   export class XR_store_operation_cb {
-    public constructor (object: object, cb: (this: object, code: number, description: string) => void);
+    public constructor(object: object, cb: (this: object, code: number | boolean, description: string) => void);
 
     public bind(object: object, cb: (this: object, code: number, description: string) => void): void;
     public clear(): void;
@@ -192,7 +189,7 @@ declare module "xray16" {
    * @customConstructor suggest_nicks_cb
    */
   export class XR_suggest_nicks_cb {
-    public constructor (object: object, cb: (this: object, result: number, description: string) => void);
+    public constructor(object: object, cb: (this: object, result: number, description: string) => void);
 
     public bind(object: object, cb: (this: object, result: number, description: string) => void): void;
     public clear(): void;
@@ -273,5 +270,5 @@ declare module "xray16" {
     protected constructor();
   }
 
-  export type TXR_game_message = EnumerateStaticsValues<XR_game_messages>
+  export type TXR_game_message = EnumerateStaticsValues<XR_game_messages>;
 }

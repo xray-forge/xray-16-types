@@ -4,8 +4,7 @@ declare module "xray16" {
    * @customConstructor CUIWindow
    */
   export class XR_CUIWindow extends XR_EngineBinding {
-    public static __init(this: void, target: XR_CUIWindow): void;
-    public constructor();
+    public constructor(target: XR_CUIWindow);
 
     public IsShown(): boolean;
     public IsEnabled(): boolean;
@@ -137,28 +136,14 @@ declare module "xray16" {
    * C++ class CUIScriptWnd : CUIDialogWnd,DLL_Pure {
    * @customConstructor CUIScriptWnd
    */
-
   export class XR_CUIScriptWnd extends XR_CUIDialogWnd {
     public constructor();
 
-    public static OnKeyboard(this: void, base: XR_CUIWindow, key: TXR_DIK_key, message: TXR_ui_event): boolean;
     public OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean;
-
-    public static Update(this: void, base: XR_CUIWindow): boolean;
     public Update(): void;
-
-    public static AddCallback(
-      this: void, base: XR_CUIWindow, name: string, event: number, cb: () => void, source?: XR_CUIWindow
-    ): void;
     public AddCallback(name: string, event: number, cb: () => void, source?: XR_CUIWindow): void;
-
-    public static Dispatch(this: void, base: XR_CUIWindow, cmd: number, param: number): boolean;
-    public Dispatch(cmd: number, param: number): boolean;
-
-    public static Register(this: void, base: XR_CUIWindow, window: XR_CUIWindow, name: string): void;
+    public Dispatch(command: number, parameter: number): boolean;
     public Register(window: XR_CUIWindow, name: string): void;
-
-    public static Load(this: void, base: XR_CUIWindow, value: string): boolean;
     public Load(value: string): boolean;
 
     public GetListWnd(id: string): XR_CUIListWnd | null;
@@ -243,9 +228,9 @@ declare module "xray16" {
    * @customConstructor CUIListBoxItem
    */
   export class XR_CUIListBoxItem extends XR_CUIFrameLineWnd {
-    public static __init(this: void, target: XR_CUIListBoxItem): void;
-    public static __init(this: void, target: XR_CUIListBoxItem, height: f32): void;
     public constructor(height: f32);
+    public constructor(target: XR_CUIListBoxItem);
+    public constructor(target: XR_CUIListBoxItem, height: f32);
 
     public AddIconField(value: f32): XR_CUIStatic;
     public SetTextColor(color: u32): void;
@@ -343,7 +328,7 @@ declare module "xray16" {
     public AddItem(id: string): void;
     public AutoUpdateSize(): void;
     public RemoveItem(index: u32): void;
-    public RemoveAll(): void
+    public RemoveAll(): void;
     public Hide(): void;
 
     public Show(show: boolean): void;
@@ -377,28 +362,25 @@ declare module "xray16" {
     public GetMinScrollPos(): i32;
     public ScrollToEnd(): void;
     public Clear(): void;
-    public SetFixedScrollBar(fixed: boolean): void
+    public SetFixedScrollBar(fixed: boolean): void;
   }
 
   /**
    * C++ class CUISleepStatic : CUIStatic {
    * @customConstructor CUISleepStatic
    */
-  export class XR_CUISleepStatic extends XR_CUIStatic {
-  }
+  export class XR_CUISleepStatic extends XR_CUIStatic {}
 
   /**
    * C++ class CUISpinFlt : CUICustomSpin {
    * @customConstructor CUISpinFlt
    */
-  export class XR_CUISpinFlt extends XR_CUICustomSpin {
-  }
+  export class XR_CUISpinFlt extends XR_CUICustomSpin {}
 
   /**
    * C++ class CUISpinNum : CUICustomSpin {
    */
-  export class XR_CUISpinNum extends XR_CUICustomSpin {
-  }
+  export class XR_CUISpinNum extends XR_CUICustomSpin {}
 
   /**
    * C++ class CUISpinText : CUICustomSpin {
@@ -433,7 +415,7 @@ declare module "xray16" {
     public SetColor(color: u32): void;
     public SetElipsis(a: i32, b: i32): void;
     public GetHeading(): f32;
-    public SetText(text: string): void
+    public SetText(text: string): void;
     public GetOriginalRect(): XR_Frect;
     public SetOriginalRect(frect: XR_Frect): void;
   }
@@ -576,7 +558,7 @@ declare module "xray16" {
    * C++ class CUIListWnd : CUIWindow
    * @customConstructor CUIListWnd
    */
-  export class XR_CUIListWnd extends XR_CUIWindow{
+  export class XR_CUIListWnd extends XR_CUIWindow {
     public SetVertFlip(flip: boolean): void;
     public RemoveItem(index: i32): void;
     public ScrollToPos(position: i32): void;
@@ -605,8 +587,7 @@ declare module "xray16" {
    * C++ class CUIListItem : CUIButton {
    * @customConstructor CUIListItem
    */
-  export class XR_CUIListItem extends XR_CUIButton {
-  }
+  export class XR_CUIListItem extends XR_CUIButton {}
 
   /**
    * C++ class CUIListItemEx : CUIListItem {
