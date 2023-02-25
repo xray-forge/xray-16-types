@@ -46,6 +46,7 @@ declare module "xray16" {
     public static __add(this: void): void;
     public __add(): void;
 
+    public static readonly __name: string;
     public readonly __name: string;
   }
 

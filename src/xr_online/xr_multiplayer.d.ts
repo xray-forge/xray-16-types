@@ -85,7 +85,7 @@ declare module "xray16" {
     private constructor();
 
     public forgot_password(url: string): void;
-    public get_current_profile(): XR_profile;
+    public get_current_profile(): XR_profile | null;
     public get_email_from_registry(): string;
     public get_nick_from_registry(): string;
     public get_password_from_registry(): string;
