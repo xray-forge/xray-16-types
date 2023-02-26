@@ -515,7 +515,6 @@ declare module "xray16" {
    *  holder* cast_HolderCustom();
    *  int get_ammo_count_for_type(unsigned char);
    *
-   *  unsigned char get_ammo_type();
    *  unsigned char get_max_uses();
    *  unsigned char get_remaining_uses();
    *  unsigned char get_restrictor_type();
@@ -760,6 +759,7 @@ declare module "xray16" {
     public fake_death_stand_up(): void;
     public fov(): f32;
     public get_ammo_total(): u32;
+    public get_ammo_type(): u8;
     public get_artefact(): XR_CArtefact;
     public get_campfire(): XR_CZoneCampfire;
     public get_current_outfit(): XR_game_object | null;
