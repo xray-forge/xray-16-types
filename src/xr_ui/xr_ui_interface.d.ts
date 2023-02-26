@@ -4,7 +4,7 @@ declare module "xray16" {
    * @customConstructor CUIWindow
    */
   export class XR_CUIWindow extends XR_EngineBinding {
-    public constructor(target: XR_CUIWindow);
+    public constructor();
 
     public IsShown(): boolean;
     public IsEnabled(): boolean;

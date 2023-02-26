@@ -4,8 +4,8 @@ declare module "xray16" {
    * @customConstructor world_state
    */
   export class XR_world_state extends XR_EngineBinding {
-    public constructor ();
-    public constructor (world_state: XR_world_state);
+    public constructor();
+    public constructor(world_state: XR_world_state);
 
     public add_property(world_property: XR_world_property): void;
     public clear(): void;
@@ -88,12 +88,7 @@ declare module "xray16" {
     public constructor();
     public constructor(action: unknown);
     public constructor(action: unknown, value: number);
-    public constructor(
-      bodyState: number,
-      movementType: TXR_move,
-      pathType: unknown,
-      game_object: XR_game_object
-    );
+    public constructor(bodyState: number, movementType: TXR_move, pathType: unknown, game_object: XR_game_object);
     public constructor(
       bodyState: number,
       movementType: TXR_move,
@@ -101,32 +96,10 @@ declare module "xray16" {
       game_object: XR_game_object,
       value: f32
     );
-    public constructor(
-      bodyState: number,
-      movementType: TXR_move,
-      pathType: unknown,
-      patrol: XR_patrol
-    );
-    public constructor(
-      bodyState: number,
-      movementType: TXR_move,
-      pathType: unknown,
-      patrol: XR_patrol,
-      value: f32
-    );
-    public constructor(
-      bodyState: number,
-      movementType: TXR_move,
-      pathType: unknown,
-      vector: XR_vector
-    );
-    public constructor(
-      bodyState: number,
-      movementType: TXR_move,
-      pathType: unknown,
-      vector: XR_vector,
-      value: f32
-    );
+    public constructor(bodyState: number, movementType: TXR_move, pathType: unknown, patrol: XR_patrol);
+    public constructor(bodyState: number, movementType: TXR_move, pathType: unknown, patrol: XR_patrol, value: f32);
+    public constructor(bodyState: number, movementType: TXR_move, pathType: unknown, vector: XR_vector);
+    public constructor(bodyState: number, movementType: TXR_move, pathType: unknown, vector: XR_vector, value: f32);
     public constructor(vector: XR_vector, value: number);
     public constructor(moveAction: TXR_move, vector: XR_vector);
     public constructor(moveAction: TXR_move, patrol: XR_patrol);
@@ -138,12 +111,7 @@ declare module "xray16" {
     public constructor(moveAction: TXR_move, game_object: XR_game_object, value: f32);
     public constructor(moveAction: TXR_move, vector: XR_vector, value: f32, speedParam: number);
     public constructor(moveAction: TXR_move, patrol: XR_patrol, value: f32, speedParam: number);
-    public constructor(
-      moveAction: TXR_move,
-      game_object: XR_game_object,
-      value: number,
-      speedParam: unknown
-    );
+    public constructor(moveAction: TXR_move, game_object: XR_game_object, value: number, speedParam: unknown);
 
     public completed(): boolean;
     public path(EDetailPathType: number): void;
@@ -167,18 +135,18 @@ declare module "xray16" {
     // public static readonly stop: 1;
 
     // EPatrolStartType:
-    public static readonly start : 0;
+    public static readonly start: 0;
     public static readonly continue: 1;
     public static readonly nearest: 2;
-    public static readonly custom : 3;
-    public static readonly next : 4;
-    public static readonly dummy:-1;
+    public static readonly custom: 3;
+    public static readonly next: 4;
+    public static readonly dummy: -1;
 
     public constructor(name: string);
     public constructor(name: string);
     public constructor(name: string, startType: TXR_patrol_type);
     public constructor(name: string, startType: TXR_patrol_type, routeType: TXR_patrol_type);
-    public constructor(name: string, startType: TXR_patrol_type, routeType: TXR_patrol_type, bool: boolean)
+    public constructor(name: string, startType: TXR_patrol_type, routeType: TXR_patrol_type, bool: boolean);
     public constructor(name: string, startType: TXR_patrol_type, routeType: TXR_patrol_type, bool: boolean, int: u32);
 
     public count(): u32;
@@ -194,7 +162,7 @@ declare module "xray16" {
     public terminal(point_index: u32): boolean;
   }
 
-  export type TXR_patrol_type = EnumerateStaticsValues<typeof XR_patrol>
+  export type TXR_patrol_type = EnumerateStaticsValues<typeof XR_patrol>;
 
   /**
    * C++ class look {
@@ -224,7 +192,7 @@ declare module "xray16" {
     public direct(vector: Readonly<XR_vector>): void;
   }
 
-  export type TXR_look = EnumerateStaticsValues<typeof XR_look>
+  export type TXR_look = EnumerateStaticsValues<typeof XR_look>;
 
   /**
    * C++ class anim {
@@ -259,9 +227,9 @@ declare module "xray16" {
     public anim(value: string): void;
   }
 
-  export type TXR_animation_key = EnumerateStaticsKeys<typeof XR_anim>
+  export type TXR_animation_key = EnumerateStaticsKeys<typeof XR_anim>;
 
-  export type TXR_animation = EnumerateStaticsValues<typeof XR_anim>
+  export type TXR_animation = EnumerateStaticsValues<typeof XR_anim>;
 
   /**
    * C++ class sound {
@@ -300,7 +268,7 @@ declare module "xray16" {
     public constructor(sound_object: XR_sound_object, vector: XR_vector, vector2: XR_vector, value: boolean);
     public constructor(type: unknown /* MonsterSound::EType */);
     public constructor(type: unknown /* enum MonsterSound::EType*/, value: number);
-    public constructor(value1:string, value2: string, type: unknown /* enum MonsterSpace::EMonsterHeadAnimType */);
+    public constructor(value1: string, value2: string, type: unknown /* enum MonsterSpace::EMonsterHeadAnimType */);
 
     public set_sound(value: string): void;
     public set_sound(sound_object: XR_sound_object): void;
@@ -311,9 +279,9 @@ declare module "xray16" {
     public completed(): boolean;
   }
 
-  export type TXR_sound_key = EnumerateStaticsKeys<typeof XR_sound>
+  export type TXR_sound_key = EnumerateStaticsKeys<typeof XR_sound>;
 
-  export type TXR_sound_type = EnumerateStaticsValues<typeof XR_sound>
+  export type TXR_sound_type = EnumerateStaticsValues<typeof XR_sound>;
 
   /**
    * C++ class cond {
@@ -333,7 +301,7 @@ declare module "xray16" {
     public constructor(value1: u32, value2: f64);
   }
 
-  export type TXR_cond = EnumerateStaticsValues<typeof XR_cond>
+  export type TXR_cond = EnumerateStaticsValues<typeof XR_cond>;
 
   /**
    * C++ class action_base {
@@ -344,46 +312,18 @@ declare module "xray16" {
     public readonly storage: XR_property_storage;
 
     public constructor();
-    public constructor(game_object: XR_game_object);
-    public constructor(game_object: XR_game_object, value: string);
+    public constructor(game_object: XR_game_object | null);
+    public constructor(game_object: XR_game_object | null, value: string);
 
-    public static __init(
-      this: void, target: XR_action_base, game_object: XR_game_object | null, value: string | null
-    ): void;
-    public __init(): void;
-    public __init(game_object: XR_game_object): void;
-    public __init(game_object: XR_game_object, value: string): void;
-
-    public static finalize(this: void, target: XR_action_base): void;
     public finalize(): void;
-
-    public static add_precondition(this: void, target: XR_action_base, world_property: XR_world_property): void;
     public add_precondition(world_property: XR_world_property): void;
-
-    public static execute(this: void, target: XR_action_base): void;
     public execute(): void;
-
-    public static remove_precondition(this: void, target: XR_action_base, id: u32): void;
     public remove_precondition(id: u32): void;
-
-    public static setup(
-      this: void, target: XR_action_base, game_object: XR_game_object, property_storage: XR_property_storage
-    ): void;
     public setup(game_object: XR_game_object, property_storage: XR_property_storage): void;
-
-    public static set_weight(this: void, target: XR_action_base, weight: u16): void;
     public set_weight(weight: u16): void;
-
-    public static add_effect(this: void, target: XR_action_base, world_property: XR_world_property): void;
     public add_effect(world_property: XR_world_property): void;
-
-    public static show(this: void, target: XR_action_base, value: string): void;
     public show(value: string): void;
-
-    public static initialize(this: void, target: XR_action_base): void;
     public initialize(): void;
-
-    public static remove_effect(this: void, target: XR_action_base, id: u32): void;
     public remove_effect(id: u32): void;
   }
 
@@ -452,17 +392,10 @@ declare module "xray16" {
     public readonly storage: XR_property_storage;
 
     public constructor();
-    public constructor(game_object: XR_game_object);
-    public constructor(game_object: XR_CGameObject, name: string);
+    public constructor(game_object: XR_game_object | null);
+    public constructor(game_object: XR_game_object | null, name: string);
 
-    public static __init(
-      this: void, target: XR_property_evaluator, game_object?: XR_CGameObject | null, name?: string
-    ): void;
-
-    public static evaluate(this: void, target: XR_property_evaluator): boolean;
     public evaluate(): boolean;
-
-    public static setup(this: void, target: XR_property_evaluator): void;
     public setup(game_object: XR_game_object, property_storage: XR_property_storage): void;
   }
 
