@@ -207,7 +207,7 @@ declare module "xray16" {
     public accessible(value: u32): boolean;
     public accessible(value1: u32, value2: boolean): void;
 
-    public levels(): LuaIterable<XR_cse_abstract>
+    public levels(): LuaIterable<XR_cse_abstract>;
   }
 
   /**
@@ -229,7 +229,7 @@ declare module "xray16" {
    * C++ class MonsterHitInfo {
    * @customConstructor MonsterHitInfo
    */
-  export class XR_MonsterHitInfo extends XR_EngineBinding{
+  export class XR_MonsterHitInfo extends XR_EngineBinding {
     private constructor();
 
     public direction: XR_vector;
@@ -270,16 +270,10 @@ declare module "xray16" {
    * @customConstructor effector
    */
   export class XR_effector extends XR_EngineBinding {
-    public static __init(this: void, target: XR_effector, int: i32, float: f32): void;
     public constructor(int: i32, float: f32);
 
-    public static start(this: void, target: XR_effector): void;
     public start(): void;
-
-    public static process(this: void, target: XR_effector, effector_params: XR_effector_params): void
     public process(effector_params: XR_effector_params): boolean;
-
-    public static finish(this: void, target: XR_effector): void;
     public finish(): void;
   }
 

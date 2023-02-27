@@ -28,7 +28,7 @@ For easier navigation over codebase and typing following rules are applied:
 <p>
 C++ classes can be extended in Lua code with 'class' keyword. 
 Class declaration registers table as userdata and adds constructor/destructor metamethods. <br/>
-In TS codebase 'declare_xr_class' function can be used.
+In TS codebase '@LuabindClass' decorator can be used to modify transformation and enable virtual calls.
 
 </p>
 
