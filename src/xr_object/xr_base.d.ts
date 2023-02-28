@@ -32,48 +32,16 @@ declare module "xray16" {
 
     public constructor(object: T);
 
-    public static __init(this: void, target: XR_object_binder, object: XR_game_object): void;
-    public __init(object: T): void;
-
-    public static save(this: void, target: XR_object_binder, packet: XR_net_packet): void;
     public save(packet: XR_net_packet): void;
-
-    public static update(this: void, target: XR_object_binder, delta: u32): void;
-    public update(delta: u32): void;
-
-    public static reload(this: void, target: XR_object_binder, section: string): void;
-    public reload(section: string): void;
-
-    public static net_export(this: void, target: XR_object_binder, net_packet: XR_net_packet): void;
-    public net_export(net_packet: XR_net_packet): void;
-
-    public net_save_relevant(this: void, target: XR_object_binder): boolean;
-    public net_save_relevant(): boolean;
-
-    public static load(this: void, target: XR_object_binder, reader: XR_reader): void;
     public load(reader: XR_reader): void;
-
-    public static net_destroy(this: void, target: XR_object_binder): void;
-    public net_destroy(): void;
-
-    public static reinit(this: void, target: XR_object_binder): void;
+    public update(delta: u32): void;
+    public reload(section: string): void;
     public reinit(): void;
-
-    public static net_Relcase<ST extends XR_game_object = XR_game_object>(
-      this: void,
-      target: XR_object_binder,
-      game_object: ST
-    ): void;
+    public net_export(net_packet: XR_net_packet): void;
+    public net_save_relevant(): boolean;
+    public net_destroy(): void;
     public net_Relcase(object: T): void;
-
-    public static net_spawn<ST extends XR_game_object = XR_game_object>(
-      this: void,
-      target: XR_object_binder,
-      object: XR_cse_alife_object
-    ): boolean;
     public net_spawn(object: XR_cse_alife_object): boolean;
-
-    public static net_import(this: void, target: XR_object_binder, net_packet: XR_net_packet): void;
     public net_import(net_packet: XR_net_packet): void;
   }
 
@@ -279,7 +247,7 @@ declare module "xray16" {
      */
     public set_callback(
       type: TXR_callbacks["task_state"],
-      cb?: ((task: XR_CGameTask, state: number) => void) | null,
+      cb?: ((task: XR_CGameTask, state: TXR_TaskState) => void) | null,
       object?: XR_object_binder | null
     ): void;
 
