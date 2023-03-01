@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
+    "noImplicitOverride": true,
     "lib": ["esnext"],
     "moduleResolution": "node",
     "types": ["@typescript-to-lua/language-extensions"]

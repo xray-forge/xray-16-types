@@ -448,10 +448,10 @@ declare module "xray16" {
       T extends XR_cse_alife_creature_abstract = XR_cse_alife_creature_abstract
     >
     extends XR_cse_alife_dynamic_object
-    implements IXR_cse_alife_schedulable {
+    implements IXR_cse_alife_schedulable
+  {
     public readonly object: T;
 
-    public update(): void;
     public register_member(id: u16): void;
     public clear_location_types(): void;
     public get_current_task(): XR_CALifeSmartTerrainTask;
@@ -489,7 +489,6 @@ declare module "xray16" {
     public suitable(cse_alife_monster_abstract: XR_cse_alife_creature_abstract): unknown;
     public task(cse_alife_monster_abstract: XR_cse_alife_creature_abstract): XR_CALifeSmartTerrainTask | null;
     public enabled(cse_alife_monster_abstract: XR_cse_alife_creature_abstract): unknown;
-    public update(): void;
   }
 
   /**
@@ -537,7 +536,8 @@ declare module "xray16" {
    */
   export class XR_cse_alife_creature_actor
     extends XR_cse_alife_creature_abstract
-    implements IXR_cse_ph_skeleton, XR_cse_alife_trader_abstract {
+    implements IXR_cse_ph_skeleton, XR_cse_alife_trader_abstract
+  {
     public profile_name(): string;
     public community(): string;
     public rank(): i32;

@@ -242,7 +242,6 @@ declare module "xray16" {
    * @customConstructor color_animator
    */
   export class XR_color_animator extends XR_EngineBinding {
-    public static __init(this: void, target: XR_color_animator, value: string): void;
     public constructor(value: string);
 
     public length(): u32;

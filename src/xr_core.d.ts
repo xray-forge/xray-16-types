@@ -1,56 +1,5 @@
 declare module "xray16" {
   /**
-   * Base for bindings brought from LuaBind library.
-   * todo: Correct signatures.
-   */
-  export class XR_EngineBinding {
-    public static __init(this: void, ...args: Array<any>): void;
-    public __init(...args: Array<any>): void;
-
-    public static __finalize(this: void): void;
-    public __finalize(): void;
-
-    public static __call(this: void): void;
-    public __call(args: Array<any>): void;
-
-    public static __tostring(this: void): string;
-    public __tostring(): string;
-
-    public static __len(this: void): void;
-    public __len(): void;
-
-    public static __unm(this: void): void;
-    public __unm(): void;
-
-    public static __eq(this: void): void;
-    public __eq(): void;
-
-    public static __le(this: void): void;
-    public __le(): void;
-
-    public static __lt(this: void): void;
-    public __lt(): void;
-
-    public static __pow(this: void): void;
-    public __pow(): void;
-
-    public static __div(this: void): void;
-    public __div(): void;
-
-    public static __mul(this: void): void;
-    public __mul(): void;
-
-    public static __sub(this: void): void;
-    public __sub(): void;
-
-    public static __add(this: void): void;
-    public __add(): void;
-
-    public static readonly __name: string;
-    public readonly __name: string;
-  }
-
-  /**
    * C++ class DLL_Pure {
    */
   export class XR_DLL_Pure extends XR_EngineBinding {
@@ -87,7 +36,7 @@ declare module "xray16" {
    * C++ class explosive {
    * @customConstructor explosive
    */
-  export class XR_explosive extends XR_EngineBinding{
+  export class XR_explosive extends XR_EngineBinding {
     protected constructor();
 
     public explode(): void;
@@ -193,7 +142,7 @@ declare module "xray16" {
    * C++ class not_yet_visible_object {
    * @customConstructor not_yet_visible_object
    */
-  export class XR_not_yet_visible_object extends XR_EngineBinding{
+  export class XR_not_yet_visible_object extends XR_EngineBinding {
     protected constructor();
 
     public value: f32;
@@ -239,8 +188,15 @@ declare module "xray16" {
     public add(time: XR_CTime): void;
     public dateToString(time: i32): string;
     public diffSec(time: XR_CTime): f32;
-    public get(y: u32, m: u32, d: u32, h: u32, min: u32, sec: u32, ms: u32):
-      LuaMultiReturn<[u32, u32, u32, u32, u32, u32, u32 ]>;
+    public get(
+      y: u32,
+      m: u32,
+      d: u32,
+      h: u32,
+      min: u32,
+      sec: u32,
+      ms: u32
+    ): LuaMultiReturn<[u32, u32, u32, u32, u32, u32, u32]>;
     public set(y: i32, m: i32, d: i32, h: i32, min: i32, sec: i32, ms: i32): void;
     public setHMS(a: i32, b: i32, c: i32): void;
     public setHMSms(a: i32, b: i32, c: i32, d: i32): void;
@@ -333,7 +289,10 @@ declare module "xray16" {
     public evaluate(str: string, game_object: XR_game_object): f32;
     public evaluate(str: string, game_object1: XR_game_object, game_object2: XR_game_object): f32;
     public evaluate(
-      str: string, game_object1: XR_game_object, game_object2: XR_game_object, game_object3: XR_game_object
+      str: string,
+      game_object1: XR_game_object,
+      game_object2: XR_game_object,
+      game_object3: XR_game_object
     ): f32;
     public evaluate(
       str: string,
@@ -343,9 +302,7 @@ declare module "xray16" {
       game_object4: XR_game_object
     ): f32;
     public evaluate(str: string, cse_alife_object: XR_cse_alife_object): f32;
-    public evaluate(
-      str: string, cse_alife_object1: XR_cse_alife_object, cse_alife_object2: XR_cse_alife_object
-    ): f32;
+    public evaluate(str: string, cse_alife_object1: XR_cse_alife_object, cse_alife_object2: XR_cse_alife_object): f32;
     public evaluate(
       str: string,
       cse_alife_object1: XR_cse_alife_object,

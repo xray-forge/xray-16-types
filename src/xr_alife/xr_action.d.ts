@@ -412,7 +412,6 @@ declare module "xray16" {
    * @customConstructor world_property
    */
   export class XR_world_property extends XR_EngineBinding {
-    public static __init(this: void, target: XR_world_property, id: u32, enabled: boolean): void;
     public constructor(id: u32, enabled: boolean);
 
     public value(): boolean;

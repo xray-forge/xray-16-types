@@ -36,7 +36,6 @@ declare module "xray16" {
    * @customConstructor CSavedGameWrapper
    */
   export class XR_CSavedGameWrapper extends XR_EngineBinding {
-    public __init(this: void, target: XR_CSavedGameWrapper, name: string): void;
     public constructor(name: string);
 
     public level_name(): string;
@@ -134,11 +133,11 @@ declare module "xray16" {
     public r_string(section: string, param: string): string;
     public line_exist(section: string, param: string): boolean;
 
-    public w_fvector2(section: string, param: string, vector: XR_vector2, chat: string): void
-    public w_fvector3(section: string, param: string, vector: XR_vector, chat: string): void
-    public w_fvector4(section: string, param: string, vector: never, chat: string): void // struct _vector4<float>
-    public w_fcolor(section: string, param: string, color: XR_fcolor, chat: string): void
-    public w_color(section: string, param: string, color: u32, chat: string): void
+    public w_fvector2(section: string, param: string, vector: XR_vector2, chat: string): void;
+    public w_fvector3(section: string, param: string, vector: XR_vector, chat: string): void;
+    public w_fvector4(section: string, param: string, vector: never, chat: string): void; // struct _vector4<float>
+    public w_fcolor(section: string, param: string, color: XR_fcolor, chat: string): void;
+    public w_color(section: string, param: string, color: u32, chat: string): void;
 
     public w_bool(section: string, param: string, bool: boolean, chat: string): void;
     public w_s8(section: string, param: string, uchar: u8, chat: string): void;
@@ -149,8 +148,8 @@ declare module "xray16" {
     public w_u32(section: string, param: string, uint: u32, chat: string): void;
     public w_s64(section: string, param: string, sint: i64, chat: string): void;
     public w_u64(section: string, param: string, uint: u64, chat: string): void;
-    public w_float(section: string, param: string, float: f32, char: string): void
-    public w_string(section: string, param: string, string: string, char: string): void
+    public w_float(section: string, param: string, float: f32, char: string): void;
+    public w_string(section: string, param: string, string: string, char: string): void;
 
     public set_override_names(override: boolean): void;
     public save_as(path: string): boolean;
@@ -250,7 +249,7 @@ declare module "xray16" {
     public r_s8(value: i8): i8;
     public r_sdir(vector: XR_vector): void;
     public r_seek(value: u64): void;
-    public r_stringZ<T extends string>(): T ;
+    public r_stringZ<T extends string>(): T;
     public r_tell(): u64;
     public r_u16(): i16;
     public r_u16(value: i16): i16;
