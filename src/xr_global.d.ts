@@ -53,7 +53,7 @@ declare module "xray16" {
   export function flush(this: void): void;
   export function is_enough_address_space_available(this: void): boolean;
   export function class_names(this: void, lua_state: unknown /* lua_State*/): object;
-  export function class_info(this: void, arg: unknown /* luabind::argument */): XR_class_info_data
+  export function class_info(this: void, arg: unknown /* luabind::argument */): XR_class_info_data;
   /**
    * Is dev editor tool enabled currently used.
    */
@@ -99,13 +99,13 @@ declare module "xray16" {
     enable_input(this: void): void;
     environment(this: void): unknown /* XR_CEnvironment */;
     game_id(this: void): u32;
-    get_active_cam(): u8;
+    get_active_cam(this: void): u8;
     get_bounding_volume(this: void): XR_Fbox;
     get_game_difficulty(this: void): TXR_game_difficulty;
     get_snd_volume(this: void): f32;
-    get_target_dist(): f32;
-    get_target_element(): u32;
-    get_target_obj(): XR_game_object | null;
+    get_target_dist(this: void): f32;
+    get_target_element(this: void): u32;
+    get_target_obj(this: void): XR_game_object | null;
     get_time_days(this: void): u32;
     get_time_factor(this: void): f32;
     get_time_hours(this: void): u32;
@@ -120,7 +120,7 @@ declare module "xray16" {
     iterate_sounds(this: void, str: string, num: u32, cb: () => void): void;
     iterate_sounds(this: void, str: string, num: u32, object: object, cb: () => void): void;
     low_cover_in_direction(this: void, num: u32, vector: XR_vector): f32;
-    main_input_receiver(): XR_CUIDialogWnd;
+    main_input_receiver(this: void): XR_CUIDialogWnd;
     map_add_object_spot(this: void, id: u16, section: string, hint: string): void;
     map_add_object_spot_ser(this: void, id: u16, str1: string, str2: string): void;
     map_change_spot_hint(this: void, num: u16, str1: string, str2: string): void;
@@ -161,7 +161,13 @@ declare module "xray16" {
     vertex_in_direction(this: void, num1: u32, vector: XR_vector, num2: f32): u32;
     vertex_position(this: void, id: u32): XR_vector;
     ray_pick(
-      this: void, vec: XR_vector, vec2: XR_vector, fl: f32, enumc: unknown, rqres: unknown, gobj: XR_game_object
+      this: void,
+      vec: XR_vector,
+      vec2: XR_vector,
+      fl: f32,
+      enumc: unknown,
+      rqres: unknown,
+      gobj: XR_game_object
     ): boolean;
   }
 
@@ -205,8 +211,8 @@ declare module "xray16" {
     reload_language(this: void): void;
     get_game_time(this: void): XR_CTime;
     log_stack_trace(this: void): void;
-    jump_to_level(this: void, level_name: string): void
-    jump_to_level(this: void, position: XR_vector, lvi: u32, gvi: u16): void
+    jump_to_level(this: void, level_name: string): void;
+    jump_to_level(this: void, position: XR_vector, lvi: u32, gvi: u16): void;
     start_tutorial(this: void, tutorial_id: string): void;
     has_active_tutorial(this: void): boolean;
     active_tutorial_name(this: void): string;
