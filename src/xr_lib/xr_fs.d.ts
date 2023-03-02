@@ -125,7 +125,12 @@ declare module "xray16" {
     public r_float(section: string, param: string): f32;
     public r_clsid(section: string, param: string): i32;
     public r_s32(section: string, param: string): i32;
-    public r_line(section: string, line_number: number, c: string, d: string): LuaMultiReturn<Array<string>>;
+    public r_line<T extends string = string, P extends string = string>(
+      section: string,
+      line_number: number,
+      c: string,
+      d: string
+    ): LuaMultiReturn<[string, T, P]>;
     public r_token(section: string, param: string, list: XR_token_list): i32;
     public r_vector(section: string, param: string): XR_vector;
     public r_u32(section: string, param: string): u32;
