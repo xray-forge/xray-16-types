@@ -1,14 +1,16 @@
 declare module "xray16" {
   /**
-   * C++ class IRender_Visual {
+   * @source C++ class IRender_Visual
+   * @group xr_object_base
    */
   export interface IXR_IRender_Visual {
     dcast_PKinematicsAnimated(): XR_IKinematicsAnimated;
   }
 
   /**
-   * C++ class global {
+   * @source C++ class global
    * @customConstructor object_factory
+   * @group xr_object_base
    */
   export class XR_object_factory {
     protected constructor();
@@ -24,8 +26,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class object_binder {
+   * @source C++ class object_binder
    * @customConstructor object_binder
+   * @group xr_object_base
    */
   export class XR_object_binder<T = XR_game_object> extends XR_EngineBinding {
     public readonly object: T;
@@ -46,8 +49,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class particle {
+   * @source C++ class particle
    * @customConstructor particle
+   * @group xr_object_base
    */
   export class XR_particle extends XR_EngineBinding {
     public constructor();
@@ -66,8 +70,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class particle_params {
+   * @source C++ class particle_params
    * @customConstructor particle_params
+   * @group xr_object_base
    */
   export class XR_particle_params {
     public constructor();
@@ -77,8 +82,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class holder {
+   * @source C++ class holder
    * @customConstructor holder
+   * @group xr_object_base
    */
   export class XR_holder {
     public engaged(): boolean;
@@ -87,8 +93,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CGameObject : DLL_Pure,ISheduled,ICollidable,IRenderable {
+   * @source C++ class CGameObject : DLL_Pure, ISheduled, ICollidable, IRenderable
    * @customConstructor CGameObject
+   * @group xr_object_base
    */
   export class XR_CGameObject extends XR_DLL_Pure {
     public Visual(): IXR_IRender_Visual;
@@ -102,8 +109,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class hit {
+   * @source C++ class hit
    * @customConstructor hit
+   * @group xr_object_base
    */
   export class XR_hit {
     public static readonly burn = 0;
@@ -130,12 +138,20 @@ declare module "xray16" {
     public bone(bone: string): void;
   }
 
+  /**
+   * @group xr_object_base
+   */
   export type TXR_hit_types = typeof XR_hit;
-  export type TXR_hit_type = TXR_hit_types[Exclude<keyof TXR_hit_types, "prototype" | "constructor">];
 
   /**
-   * C++ class danger_object {
+   * @group xr_object_base
+   */
+  export type TXR_hit_type = EnumerateStaticsValues<TXR_hit_types>;
+
+  /**
+   * @source C++ class danger_object
    * @customConstructor danger_object
+   * @group xr_object_base
    */
   export class XR_danger_object {
     public static attack_sound: 1;
@@ -158,13 +174,21 @@ declare module "xray16" {
     public dependent_object(): XR_game_object;
   }
 
+  /**
+   * @group xr_object_base
+   */
   export type TXR_danger_objects = typeof XR_danger_object;
 
-  export type TXR_danger_object = TXR_danger_objects[Exclude<keyof TXR_danger_objects, "constructor" | "prototype">];
+  /**
+   * @group xr_object_base
+   */
+  export type TXR_danger_object = EnumerateStaticsValues<TXR_danger_objects>;
 
   /**
    * Custom extension.
    * For reference: src/xrGame/script_game_object_script.cpp
+   *
+   * @group xr_object_base
    */
   class XR_game_object_callbacks_base {
     /**
@@ -418,7 +442,7 @@ declare module "xray16" {
     public set_smart_cover_target_selector(cb?: (object: XR_game_object) => void, object?: object): void;
   }
 
-  /**
+  /*
    *  CAI_Stalker* cast_Stalker();
    *  CActor* cast_Actor();
    *  CArtefact* cast_Artefact();
@@ -538,7 +562,8 @@ declare module "xray16" {
    */
 
   /**
-   * C++ class game_object {
+   * @source C++ class game_object
+   * @group xr_object_base
    */
   export class XR_game_object extends XR_game_object_callbacks_base {
     public static readonly dummy: -1;
@@ -579,6 +604,8 @@ declare module "xray16" {
     public power: f32;
     public psy_health: f32;
     public radiation: f32;
+
+    protected constructor();
 
     /**
      * Get engine object ID.
@@ -1040,29 +1067,37 @@ declare module "xray16" {
     public unregister_door_for_npc(): void;
   }
 
+  /**
+   * @group xr_object_base
+   */
   export type TXR_relation = 0 | 1 | 2;
 
   /**
-   * C++ class CSpaceRestrictor : CGameObject {
+   * @source C++ class CSpaceRestrictor : CGameObject
    * @customConstructor CSpaceRestrictor
+   * @group xr_object_base
    */
   export class XR_CSpaceRestrictor extends XR_CGameObject {}
 
   /**
-   * C++ class CLevelChanger : CGameObject {
+   * @source C++ class CLevelChanger : CGameObject
    * @customConstructor CLevelChanger
+   * @group xr_object_base
    */
   export class XR_CLevelChanger extends XR_CGameObject {}
 
   /**
-   * C++ class smart_cover_object : CGameObject {
+   * @source C++ class smart_cover_object : CGameObject
+   * @customConstructor smart_cover_object
+   * @group xr_object_base
    */
   export class XR_smart_cover_object extends XR_CGameObject {}
 
   // todo: Correct overloading for callbacks.
   /**
-   * C++ class SGameTaskObjective
+   * @source C++ class SGameTaskObjective
    * @customConstructor SGameTaskObjective
+   * @group xr_object_base
    */
   export class XR_SGameTaskObjective {
     public constructor(task: XR_CGameTask, id: i32);

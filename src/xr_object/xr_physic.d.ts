@@ -1,7 +1,8 @@
 declare module "xray16" {
   /**
-   * C++ class physics_element {
+   * @source C++ class physics_element
    * @customConstructor physics_element
+   * @group xr_physic
    */
   export class XR_physics_element {
     public apply_force(a: f32, b: f32, c: f32): void;
@@ -18,8 +19,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class particles_object {
+   * @source C++ class particles_object
    * @customConstructor particles_object
+   * @group xr_physic
    */
   export class XR_particles_object {
     public constructor(value: string);
@@ -42,8 +44,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class physics_joint {
+   * @source C++ class physics_joint
    * @customConstructor physics_joint
+   * @group xr_physic
    */
   export class XR_physics_joint {
     public get_anchor(vector: XR_vector): void;
@@ -70,8 +73,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class physics_shell {
+   * @source C++ class physics_shell
    * @customConstructor physics_shell
+   * @group xr_physic
    */
   export class XR_physics_shell {
     private constructor();
@@ -94,8 +98,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class physics_world {
+   * @source C++ class physics_world
    * @customConstructor physics_world
+   * @group xr_physic
    */
   export class XR_physics_world {
     public set_gravity(value: f32): void;
@@ -104,8 +109,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class IKinematicsAnimated {
+   * @source C++ class IKinematicsAnimated
    * @customConstructor IKinematicsAnimated
+   * @group xr_physic
    */
   export class XR_IKinematicsAnimated {
     public PlayCycle(value: string): void;

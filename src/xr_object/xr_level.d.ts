@@ -1,7 +1,8 @@
 declare module "xray16" {
   /**
-   * C++ class CZoneCampfire : CGameObject {
+   * @source C++ class CZoneCampfire : CGameObject
    * @customConstructor CZoneCampfire
+   * @group xr_level
    */
   export class XR_CZoneCampfire extends XR_CGameObject {
     public constructor();
@@ -12,8 +13,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CPhysicObject : CGameObject {
+   * @source C++ class CPhysicObject : CGameObject
    * @customConstructor CPhysicObject
+   * @group xr_level
    */
   export class XR_CPhysicObject extends XR_CGameObject {
     public set_door_ignore_dynamics(): void;
@@ -28,8 +30,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class hanging_lamp : CGameObject {
+   * @source C++ class hanging_lamp : CGameObject
    * @customConstructor hanging_lamp
+   * @group xr_level
    */
   export class XR_hanging_lamp extends XR_CGameObject {
     public constructor();
@@ -39,8 +42,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CCar : CGameObject,holder {
+   * @source C++ class CCar : CGameObject, holder
    * @customConstructor CCar
+   * @group xr_level
    */
   export class XR_CCar extends XR_CGameObject implements XR_holder {
     public static eWpnActivate: 3;
@@ -50,11 +54,11 @@ declare module "xray16" {
     public static eWpnFire: 4;
     public static eWpnToDefaultDir: 6;
 
-    public constructor ();
+    public constructor();
 
     public CanHit(): boolean;
     public CarExplode(): void;
-    public ChangefFuel(fule: f32): void
+    public ChangefFuel(fule: f32): void;
     public ChangefHealth(value: f32): void;
     public CurrentVel(): XR_vector;
     public ExplodeTime(): u32;
@@ -82,11 +86,15 @@ declare module "xray16" {
     public SetParam(value: TXR_CCar_weapon_param, vector: XR_vector): void;
   }
 
+  /**
+   * @group xr_level
+   */
   export type TXR_CCar_weapon_param = EnumerateStaticsValues<typeof XR_CCar>;
 
   /**
-   * C++ class CHelicopter : CGameObject {
+   * @source C++ class CHelicopter : CGameObject
    * @customConstructor CHelicopter
+   * @group xr_level
    */
   export class XR_CHelicopter extends XR_CGameObject {
     public static readonly eAlive: 0;

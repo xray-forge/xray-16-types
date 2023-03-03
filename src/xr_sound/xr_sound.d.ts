@@ -1,7 +1,8 @@
 declare module "xray16" {
   /**
-   * C++ class sound_params {
+   * @source C++ class sound_params
    * @customConstructor sound_params
+   * @group xr_sound
    */
   export class XR_sound_params {
     public frequency: f32;
@@ -14,8 +15,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class sound_object {
+   * @source C++ class sound_object
    * @customConstructor sound_object
+   * @group xr_sound
    */
   export class XR_sound_object {
     public static s3d: 0;
@@ -62,11 +64,15 @@ declare module "xray16" {
     public stop_deffered(): void;
   }
 
+  /**
+   * @group xr_sound
+   */
   export type TXR_sound_object_type = EnumerateStaticsValues<typeof XR_sound_object>;
 
   /**
-   * C++ class snd_type
+   * @source C++ class snd_type
    * @customConstructor snd_type
+   * @group xr_sound
    */
   export class XR_snd_type {
     public static ambient: 128;
@@ -119,11 +125,15 @@ declare module "xray16" {
     private constructor();
   }
 
+  /**
+   * @group xr_sound
+   */
   export type TXR_snd_type = EnumerateStaticsValues<typeof XR_snd_type>;
 
   /**
-   * C++ class SoundInfo {
+   * @source C++ class SoundInfo
    * @customConstructor SoundInfo
+   * @group xr_sound
    */
   export class XR_SoundInfo {
     public danger: i32;
@@ -136,8 +146,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class sound_memory_object : game_memory_object {
+   * @source C++ class sound_memory_object : game_memory_object
    * @customConstructor sound_memory_object
+   * @group xr_sound
    */
   export class XR_sound_memory_object extends XR_game_memory_object {
     public readonly power: f32;

@@ -1,7 +1,8 @@
 declare module "xray16" {
   /**
-   * C++ class demo_info {
+   * @source C++ class demo_info
    * @customConstructor demo_info
+   * @group xr_multiplayer
    */
   export class XR_demo_info {
     protected constructor();
@@ -16,8 +17,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class demo_player_info {
+   * @source C++ class demo_player_info
    * @customConstructor demo_player_info
+   * @group xr_multiplayer
    */
   export class XR_demo_player_info {
     public get_artefacts(): u16;
@@ -30,8 +32,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class SServerFilters {
+   * @source C++ class SServerFilters
    * @customConstructor SServerFilters
+   * @group xr_multiplayer
    */
   export class XR_SServerFilters {
     public empty: boolean;
@@ -45,8 +48,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class profile {
+   * @source C++ class profile
    * @customConstructor XR_profile
+   * @group xr_multiplayer
    */
   export class XR_profile {
     public unique_nick(): string;
@@ -54,8 +58,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class account_manager {
+   * @source C++ class account_manager
    * @customConstructor account_manager
+   * @group xr_multiplayer
    */
   export class XR_account_manager {
     private constructor();
@@ -79,7 +84,8 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class login_manager {
+   * @source C++ class login_manager
+   * @group xr_multiplayer
    */
   export class XR_login_manager {
     private constructor();
@@ -103,8 +109,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class award_pair_t {
-   * @constructor award_pair_t
+   * @source C++ class award_pair_t
+   * @customConstructor award_pair_t
+   * @group xr_multiplayer
    */
   export class XR_award_pair_t {
     public readonly first: XR_award_data;
@@ -112,8 +119,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class best_scores_pair_t {
+   * @source C++ class best_scores_pair_t
    * @customConstructor best_scores_pair_t
+   * @group xr_multiplayer
    */
   export class XR_best_scores_pair_t {
     public first: XR_award_data;
@@ -121,8 +129,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class account_profiles_cb {
+   * @source C++ class account_profiles_cb
    * @customConstructor account_profiles_cb
+   * @group xr_multiplayer
    */
   export class XR_account_profiles_cb {
     public constructor(object: object, cb: (this: object, code: number, description: string) => void);
@@ -131,8 +140,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class login_operation_cb {
+   * @source C++ class login_operation_cb
    * @customConstructor login_operation_cb
+   * @group xr_multiplayer
    */
   export class XR_login_operation_cb {
     public constructor(object: object, cb: (this: object, profile: XR_profile | null, description: string) => void);
@@ -142,8 +152,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class connect_error_cb {
+   * @source C++ class connect_error_cb
    * @customConstructor connect_error_cb
+   * @group xr_multiplayer
    */
   export class XR_connect_error_cb {
     public constructor(object: object, cb: (this: object, code: number, description: string) => void);
@@ -152,8 +163,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class account_operation_cb {
+   * @source C++ class account_operation_cb
    * @customConstructor account_operation_cb
+   * @group xr_multiplayer
    */
   export class XR_account_operation_cb {
     public constructor(object: object, cb: (this: object, code: number, description: string) => void);
@@ -163,8 +175,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class found_email_cb {
+   * @source C++ class found_email_cb
    * @customConstructor found_email_cb
+   * @group xr_multiplayer
    */
   export class XR_found_email_cb {
     public constructor(object: object, cb: (this: object, found: boolean, description: string) => void);
@@ -174,8 +187,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class store_operation_cb {
+   * @source C++ class store_operation_cb
    * @customConstructor store_operation_cb
+   * @group xr_multiplayer
    */
   export class XR_store_operation_cb {
     public constructor(object: object, cb: (this: object, code: number | boolean, description: string) => void);
@@ -185,8 +199,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class suggest_nicks_cb {
+   * @source C++ class suggest_nicks_cb
    * @customConstructor suggest_nicks_cb
+   * @group xr_multiplayer
    */
   export class XR_suggest_nicks_cb {
     public constructor(object: object, cb: (this: object, result: number, description: string) => void);
@@ -196,8 +211,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class Patch_Dawnload_Progress {
+   * @source C++ class Patch_Dawnload_Progress
    * @customConstructor Patch_Dawnload_Progress
+   * @group xr_multiplayer
    */
   export class XR_Patch_Dawnload_Progress {
     public GetProgress(): f32;
@@ -207,8 +223,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class profile_store {
+   * @source C++ class profile_store
    * @customConstructor profile_store
+   * @group xr_multiplayer
    */
   export class XR_profile_store {
     public static readonly at_award_massacre: 0;
@@ -231,8 +248,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class award_data {
+   * @source C++ class award_data
    * @customConstructor award_data
+   * @group xr_multiplayer
    */
   export class XR_award_data {
     public m_count: u16;
@@ -240,8 +258,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class game_messages {
+   * @source C++ class game_messages
    * @customConstructor game_messages
+   * @group xr_multiplayer
    */
   export class XR_game_messages {
     public static GAME_EVENT_ARTEFACT_DESTROYED: 17;
@@ -270,5 +289,8 @@ declare module "xray16" {
     protected constructor();
   }
 
+  /**
+   * @group xr_multiplayer
+   */
   export type TXR_game_message = EnumerateStaticsValues<XR_game_messages>;
 }

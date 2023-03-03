@@ -1,7 +1,8 @@
 declare module "xray16" {
   /**
-   * C++ class fcolor {
+   * @source C++ class fcolor
    * @customConstructor fcolor
+   * @group xr_utils
    */
   export class XR_fcolor extends XR_EngineBinding {
     public a: f32;
@@ -15,8 +16,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class flags8 {
+   * @source C++ class flags8
    * @customConstructor flags8
+   * @group xr_utils
    */
   export class XR_flags8 {
     public constructor();
@@ -44,8 +46,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class flags16 {
+   * @source C++ class flags16
    * @customConstructor flags16
+   * @group xr_utils
    */
   export class XR_flags16 {
     public constructor();
@@ -73,8 +76,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class flags32 {
+   * @source C++ class flags32
    * @customConstructor flags32
+   * @group xr_utils
    */
   export class XR_flags32 {
     public constructor();
@@ -102,8 +106,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class color {
+   * @source C++ class color
    * @customConstructor color
+   * @group xr_utils
    */
   export class XR_color {
     public b: f32;
@@ -117,8 +122,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class duality {
+   * @source C++ class duality
    * @customConstructor duality
+   * @group xr_utils
    */
   export class XR_duality {
     public v: f32;
@@ -131,8 +137,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class noise {
+   * @source C++ class noise
    * @customConstructor XR_noise
+   * @group xr_utils
    */
   export class XR_noise {
     public fps: f32;
@@ -146,8 +153,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class object_params {
+   * @source C++ class object_params
    * @customConstructor object_params
+   * @group xr_utils
    */
   export class XR_object_params {
     public level_vertex: u32;
@@ -157,8 +165,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class token {
+   * @source C++ class token
    * @customConstructor token
+   * @group xr_utils
    */
   export class XR_token {
     public id: i32;
@@ -168,8 +177,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class rtoken_list {
+   * @source C++ class rtoken_list
    * @customConstructor rtoken_list
+   * @group xr_utils
    */
   export class XR_rtoken_list {
     public constructor();
@@ -182,8 +192,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class token_list {
+   * @source C++ class token_list
    * @customConstructor token_list
+   * @group xr_utils
    */
   export class XR_token_list {
     public constructor();
@@ -196,8 +207,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CGameGraph {
+   * @source C++ class CGameGraph
    * @customConstructor CGameGraph
+   * @group xr_utils
    */
   export class XR_CGameGraph {
     public valid_vertex_id(value: u32): boolean;
@@ -211,8 +223,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class act {
+   * @source C++ class act
    * @customConstructor act
+   * @group xr_utils
    */
   export class XR_act {
     public static readonly attack: 2;
@@ -226,8 +239,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class MonsterHitInfo {
+   * @source C++ class MonsterHitInfo
    * @customConstructor MonsterHitInfo
+   * @group xr_utils
    */
   export class XR_MonsterHitInfo extends XR_EngineBinding {
     private constructor();
@@ -238,8 +252,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class color_animator {
+   * @source C++ class color_animator
    * @customConstructor color_animator
+   * @group xr_utils
    */
   export class XR_color_animator extends XR_EngineBinding {
     public constructor(value: string);
@@ -250,8 +265,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class profile_timer {
+   * @source C++ class profile_timer
    * @customConstructor profile_timer
+   * @group xr_utils
    */
   export class XR_profile_timer extends XR_EngineBinding {
     public constructor();
@@ -261,12 +277,18 @@ declare module "xray16" {
     public start(): void;
     public time(): f32;
 
+    /**
+     * Overridden string cast is implemented for profiling timer.
+     *
+     * @returns serialized profile time.
+     */
     public __tostring(): string;
   }
 
   /**
-   * C++ class effector {
+   * @source C++ class effector
    * @customConstructor effector
+   * @group xr_utils
    */
   export class XR_effector extends XR_EngineBinding {
     public constructor(int: i32, float: f32);
@@ -277,8 +299,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class effector_params {
+   * @source C++ class effector_params
    * @customConstructor effector_params
+   * @group xr_utils
    */
   export class XR_effector_params extends XR_EngineBinding {
     public color_add: XR_color;
@@ -295,8 +318,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class properties_list_helper {
+   * @source C++ class properties_list_helper
    * @customConstructor properties_list_helper
+   * @group xr_utils
    */
   export class XR_properties_list_helper extends XR_EngineBinding {
     public create_vangle(): unknown;
@@ -403,14 +427,16 @@ declare module "xray16" {
   }
 
   /**
-   * LuaBind class properties_list_helper {
+   * @source C++ class properties_helper
    * @customConstructor properties_helper
+   * @group xr_utils
    */
   export class XR_properties_helper extends XR_properties_list_helper {}
 
   /**
-   * LuaBind class prop_value {
+   * @source C++ class prop_value
    * @customConstructor prop_value
+   * @group xr_utils
    */
   export class XR_prop_value {
     public token16_value(): unknown;
@@ -424,8 +450,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class TEX_INFO
+   * @source C++ class TEX_INFO
    * @customConstructor TEX_INFO
+   * @group xr_utils
    */
   export class XR_TEX_INFO {
     public get_rect(): XR_Frect;
