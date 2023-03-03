@@ -16,7 +16,7 @@ Here we only try to represent correct types.
 For easier navigation over codebase and typing following rules are applied:
 
 - Runtime accessible values should be re-exported with index.d.ts file, all other things are considered ambient
-- Type declaration should have @source docblock with matching c++ counterpart signature
+- Type declaration should have \@source docblock with matching c++ counterpart signature
 - Follow tsdoc guidelines
 - Variable and class namings follow c++ conventions for easier binding
 - XRay types should be prefixed with XR, IXR or TXR

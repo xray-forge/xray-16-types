@@ -1067,6 +1067,9 @@ declare module "xray16" {
     public unregister_door_for_npc(): void;
   }
 
+  /**
+   * @group xr_object_base
+   */
   export type TXR_relation = 0 | 1 | 2;
 
   /**
