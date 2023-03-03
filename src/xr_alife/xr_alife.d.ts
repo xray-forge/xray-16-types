@@ -32,7 +32,9 @@ declare module "xray16" {
     public kill_entity(monster: XR_cse_alife_monster_abstract): void;
     public kill_entity(monster: XR_cse_alife_monster_abstract, value: u16): void;
     public kill_entity(
-      monster1: XR_cse_alife_monster_abstract, value: u16, monster2: XR_cse_alife_monster_abstract
+      monster1: XR_cse_alife_monster_abstract,
+      value: u16,
+      monster2: XR_cse_alife_monster_abstract
     ): void;
 
     public object<T extends XR_cse_alife_object = XR_cse_alife_object>(id: number): T | null;
@@ -44,7 +46,7 @@ declare module "xray16" {
       position: XR_vector,
       lvi: u32,
       gvi: u32,
-      pid: i32,
+      pid: i32
     ): T;
     public create<T extends XR_cse_alife_object = XR_cse_alife_object>(
       item_section: string | number,
@@ -61,9 +63,9 @@ declare module "xray16" {
    */
   export class XR_CALifeSmartTerrainTask {
     // todo: Clarify constructor namings
-    public constructor (a: string);
-    public constructor (a: string, b: u32);
-    public constructor (a: u16, b: u32);
+    public constructor(a: string);
+    public constructor(a: string, b: u32);
+    public constructor(a: u16, b: u32);
 
     public level_vertex_id(): u16;
     public game_vertex_id(): u16;
@@ -82,7 +84,7 @@ declare module "xray16" {
     public process_task(): void;
     public default_behaviour(): void;
 
-    public can_choose_alife_tasks(): boolean
+    public can_choose_alife_tasks(): boolean;
     public can_choose_alife_tasks(value: boolean): void;
 
     public on_state_write(packet: XR_net_packet): void;
@@ -97,8 +99,7 @@ declare module "xray16" {
     public update_script(): void;
 
     public perform_attack(): boolean;
-    public action_type(
-      tpALifeSchedulable: unknown, index: number, mutual_detection: boolean): unknown;
+    public action_type(tpALifeSchedulable: unknown, index: number, mutual_detection: boolean): unknown;
     public object(): unknown;
     public movement(): unknown;
     public smart_terrain(): unknown;
@@ -121,8 +122,7 @@ declare module "xray16" {
    * @customConstructor CALifeHumanBrain
    * @group xr_alife
    */
-  export class XR_CALifeHumanBrain extends XR_CALifeMonsterBrain {
-  }
+  export class XR_CALifeHumanBrain extends XR_CALifeMonsterBrain {}
 
   /**
    * @source C++ class CALifeMonsterDetailPathManager
@@ -193,7 +193,7 @@ declare module "xray16" {
    */
   export class XR_client_spawn_manager {
     public remove(number1: u16, number2: u16): void;
-    public add(number1: u16, number2: u16, cb: () => void): void ;
-    public add(number1: u16, number2: u16, cb: () => void, object: XR_object): void ;
+    public add(number1: u16, number2: u16, cb: () => void): void;
+    public add(number1: u16, number2: u16, cb: () => void, object: XR_object): void;
   }
 }

@@ -54,11 +54,11 @@ declare module "xray16" {
     public static eWpnFire: 4;
     public static eWpnToDefaultDir: 6;
 
-    public constructor ();
+    public constructor();
 
     public CanHit(): boolean;
     public CarExplode(): void;
-    public ChangefFuel(fule: f32): void
+    public ChangefFuel(fule: f32): void;
     public ChangefHealth(value: f32): void;
     public CurrentVel(): XR_vector;
     public ExplodeTime(): u32;

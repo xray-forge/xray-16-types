@@ -4,7 +4,7 @@ declare module "xray16" {
    * @customConstructor stalker_ids
    * @group xr_constants
    */
-  export class XR_stalker_ids  {
+  export class XR_stalker_ids {
     public static readonly action_accomplish_task: 7;
     public static readonly action_aim_enemy: 16;
     public static readonly action_alife_planner: 88;
@@ -236,7 +236,7 @@ declare module "xray16" {
   /**
    * @group xr_constants
    */
-  export type TXR_callback = EnumerateStaticsValues<TXR_callbacks>
+  export type TXR_callback = EnumerateStaticsValues<TXR_callbacks>;
 
   /**
    * @source C++ class key_bindings
@@ -615,12 +615,12 @@ declare module "xray16" {
   /**
    * @group xr_constants
    */
-  export type TXR_MonsterBodyStateKey = EnumerateStaticsKeys<typeof XR_MonsterSpace>
+  export type TXR_MonsterBodyStateKey = EnumerateStaticsKeys<typeof XR_MonsterSpace>;
 
   /**
    * @group xr_constants
    */
-  export type TXR_MonsterBodyState = EnumerateStaticsValues<typeof XR_MonsterSpace>
+  export type TXR_MonsterBodyState = EnumerateStaticsValues<typeof XR_MonsterSpace>;
 
   /**
    * @source C++ class CSightParams
@@ -629,7 +629,7 @@ declare module "xray16" {
    **/
   export class XR_CSightParams {
     public static readonly eSightTypeDummy: -1;
-    public static readonly eSightTypeCurrentDirection : 0;
+    public static readonly eSightTypeCurrentDirection: 0;
     public static readonly eSightTypePathDirection: 1;
     public static readonly eSightTypeDirection: 2;
     public static readonly eSightTypePosition: 3;
@@ -652,7 +652,7 @@ declare module "xray16" {
   /**
    * @group xr_constants
    */
-  export type TXR_SightType = EnumerateStaticsValues<typeof XR_CSightParams>
+  export type TXR_SightType = EnumerateStaticsValues<typeof XR_CSightParams>;
 
   /**
    * @source C++ class DIK_keys

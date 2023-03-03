@@ -214,7 +214,6 @@ declare module "xray16" {
    */
   export const UIHint: typeof XR_UIHint;
 
-
   /**
    * @group export
    */

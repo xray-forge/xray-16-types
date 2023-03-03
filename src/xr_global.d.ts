@@ -248,7 +248,7 @@ declare module "xray16" {
   /**
    * @group xr_global
    */
-  export function class_info(this: void, arg: unknown /* luabind::argument */): XR_class_info_data
+  export function class_info(this: void, arg: unknown /* luabind::argument */): XR_class_info_data;
 ;
   /**
    * @group xr_global

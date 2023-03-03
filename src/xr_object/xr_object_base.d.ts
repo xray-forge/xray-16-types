@@ -146,7 +146,7 @@ declare module "xray16" {
   /**
    * @group xr_object_base
    */
-  export type TXR_hit_type = EnumerateStaticsValues<TXR_hit_types>
+  export type TXR_hit_type = EnumerateStaticsValues<TXR_hit_types>;
 
   /**
    * @source C++ class danger_object
@@ -1072,7 +1072,7 @@ declare module "xray16" {
   /**
    * @source C++ class CSpaceRestrictor : CGameObject
    * @customConstructor CSpaceRestrictor
-    * @group xr_object_base
+   * @group xr_object_base
    */
   export class XR_CSpaceRestrictor extends XR_CGameObject {}
 

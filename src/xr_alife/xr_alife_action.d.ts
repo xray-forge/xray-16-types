@@ -126,9 +126,9 @@ declare module "xray16" {
     public body(EBodyState: number): void;
   }
 
- /**
-  * @group xr_alife_action
-  */
+  /**
+   * @group xr_alife_action
+   */
   export type TXR_move = EnumerateStaticsValues<typeof XR_move>;
 
   /**
