@@ -206,7 +206,7 @@ declare module "xray16" {
   export interface IXR_game {
     CTime: (this: void) => XR_CTime;
 
-    translate_string(this: void, key: string): string;
+    translate_string(this: void, string_key: string): string;
     time(this: void): u32;
     reload_language(this: void): void;
     get_game_time(this: void): XR_CTime;
