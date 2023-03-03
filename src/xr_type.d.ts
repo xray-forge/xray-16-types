@@ -3,24 +3,69 @@
  * Main purpose is to indicate what is used with C++ side for better documentation.
  */
 declare module "xray16" {
+  /**
+   * @group xr_types
+   */
   type i8 = number;
+
+  /**
+   * @group xr_types
+   */
   type u8 = number;
 
+  /**
+   * @group xr_types
+   */
   type i16 = number;
+
+  /**
+   * @group xr_types
+   */
   type u16 = number;
 
+  /**
+   * @group xr_types
+   */
   type f32 = number;
+
+  /**
+   * @group xr_types
+   */
   type i32 = number;
+
+  /**
+   * @group xr_types
+   */
   type u32 = number;
 
+  /**
+   * @group xr_types
+   */
   type f64 = number;
+
+  /**
+   * @group xr_types
+   */
   type i64 = number;
+
+  /**
+   * @group xr_types
+   */
   type u64 = number;
 
+  /**
+   * @group xr_types
+   */
   type XR_EngineBindingStaticMethods = keyof typeof XR_EngineBinding;
 
+  /**
+   * @group xr_types
+   */
   type EnumerateStaticsKeys<T> = Exclude<keyof T, "constructor" | XR_EngineBindingStaticMethods>;
 
+  /**
+   * @group xr_types
+   */
   type EnumerateStaticsValues<T> = T[
     Exclude<keyof T, "constructor" | XR_EngineBindingStaticMethods>
   ]

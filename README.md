@@ -1,4 +1,4 @@
-# XRay-16 typescript definitions
+# XRay-16 engine typescript definitions
 
 For usage with [TypeScriptToLua](https://typescripttolua.github.io/docs/getting-started).
 

@@ -1,7 +1,8 @@
 declare module "xray16" {
   /**
-   * C++ class CUIWindow {
+   * @source C++ class CUIWindow
    * @customConstructor CUIWindow
+   * @group xr_ui_interface
    */
   export class XR_CUIWindow extends XR_EngineBinding {
     public constructor();
@@ -42,8 +43,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CServerList : CUIWindow {
+   * @source C++ class CServerList : CUIWindow
    * @customConstructor CServerList
+   * @group xr_ui_interface
    */
   export class XR_CServerList extends XR_CUIWindow {
     public static readonly ece_unique_nick_expired: 2;
@@ -61,20 +63,23 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CUIButton : CUIStatic {
+   * @source C++ class CUIButton : CUIStatic
    * @customConstructor CUIButton
+   * @group xr_ui_interface
    */
   export class XR_CUIButton extends XR_CUIStatic {}
 
   /**
-   * C++ class CUI3tButton : CUIButton {
+   * @source C++ class CUI3tButton : CUIButton
    * @customConstructor CUI3tButton
+   * @group xr_ui_interface
    */
   export class XR_CUI3tButton extends XR_CUIButton {}
 
   /**
-   * C++ class CUICheckButton : CUI3tButton {
+   * @source C++ class CUICheckButton : CUI3tButton
    * @customConstructor CUICheckButton
+   * @group xr_ui_interface
    */
   export class XR_CUICheckButton extends XR_CUI3tButton {
     public SetCheck(value: boolean): void;
@@ -83,8 +88,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CUIComboBox : CUIWindow {
+   * @source C++ class CUIComboBox : CUIWindow
    * @customConstructor CUIComboBox
+   * @group xr_ui_interface
    */
   export class XR_CUIComboBox extends XR_CUIWindow {
     public enable_id(id: i32): void;
@@ -102,8 +108,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CUICustomEdit : CUIWindow {
+   * @source C++ class CUICustomEdit : CUIWindow
    * @customConstructor CUICustomEdit
+   * @group xr_ui_interface
    */
   export class XR_CUICustomEdit extends XR_CUIWindow {
     public GetText(): string;
@@ -113,16 +120,18 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CUICustomSpin : CUIWindow {
+   * @source C++ class CUICustomSpin : CUIWindow
    * @customConstructor CUICustomSpin
+   * @group xr_ui_interface
    */
   export class XR_CUICustomSpin extends XR_CUIWindow {
     public GetText(): string;
   }
 
   /**
-   * C++ class CUIDialogWnd : CUIWindow {
+   * @source C++ class CUIDialogWnd : CUIWindow
    * @customConstructor CUIDialogWnd
+   * @group xr_ui_interface
    */
 
   export class XR_CUIDialogWnd extends XR_CUIWindow {
@@ -133,8 +142,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CUIScriptWnd : CUIDialogWnd,DLL_Pure {
+   * @source C++ class CUIScriptWnd : CUIDialogWnd,DLL_Pure
    * @customConstructor CUIScriptWnd
+   * @group xr_ui_interface
    */
   export class XR_CUIScriptWnd extends XR_CUIDialogWnd {
     public constructor();
@@ -145,7 +155,6 @@ declare module "xray16" {
     public Dispatch(command: number, parameter: number): boolean;
     public Register(window: XR_CUIWindow, name: string): void;
     public Load(value: string): boolean;
-
     public GetListWnd(id: string): XR_CUIListWnd | null;
     public GetDialogWnd(id: string): XR_CUIDialogWnd | null;
     public GetEditBox(id: string): XR_CUIEditBox | null;
@@ -158,40 +167,45 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CUIEditBox : CUICustomEdit {
+   * @source C++ class CUIEditBox : CUICustomEdit
    * @customConstructor CUIEditBox
+   * @group xr_ui_interface
    */
   export class XR_CUIEditBox extends XR_CUICustomEdit {
     public InitTexture(texture_id: string): void;
   }
 
   /**
-   * C++ class CUIEditBoxEx : CUICustomEdit {
+   * @source C++ class CUIEditBoxEx : CUICustomEdit
    * @customConstructor CUIEditBoxEx
+   * @group xr_ui_interface
    */
   export class XR_CUIEditBoxEx extends XR_CUICustomEdit {
     public InitTexture(texture_id: string): void;
   }
 
   /**
-   * C++ class CUIFrameLineWnd : CUIWindow {
+   * @source C++ class CUIFrameLineWnd : CUIWindow
    * @customConstructor CUIFrameLineWnd
+   * @group xr_ui_interface
    */
   export class XR_CUIFrameLineWnd extends XR_CUIWindow {
     public SetColor(color: u32): void;
   }
 
   /**
-   * C++ class CUIFrameWindow : CUIWindow {
+   * @source C++ class CUIFrameWindow : CUIWindow
    * @customConstructor CUIFrameWindow
+   * @group xr_ui_interface
    */
   export class XR_CUIFrameWindow extends XR_CUIWindow {
     public SetColor(color: u32): void;
   }
 
   /**
-   * C++ class CUILines {
+   * @source C++ class CUILines
    * @customConstructor CUILines
+   * @group xr_ui_interface
    */
   export class XR_CUILines {
     public GetText(): string;
@@ -203,8 +217,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CUIListBox : CUIScrollView {
+   * @source C++ class CUIListBox : CUIScrollView
    * @customConstructor CUIListBox
+   * @group xr_ui_interface
    */
   export class XR_CUIListBox<T extends XR_CUIListBoxItem = XR_CUIListBoxItem> extends XR_CUIScrollView {
     public GetSize(): u32;
@@ -224,8 +239,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CUIListBoxItem : CUIFrameLineWnd {
+   * @source C++ class CUIListBoxItem : CUIFrameLineWnd
    * @customConstructor CUIListBoxItem
+   * @group xr_ui_interface
    */
   export class XR_CUIListBoxItem extends XR_CUIFrameLineWnd {
     public constructor(height: f32);
@@ -239,14 +255,16 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CUIListBoxItemMsgChain : CUIListBoxItem {
-   *  @customConstructor CUIListBoxItemMsgChain
+   * @source C++ class CUIListBoxItemMsgChain : CUIListBoxItem
+   * @customConstructor CUIListBoxItemMsgChain
+   * @group xr_ui_interface
    */
   export class XR_CUIListBoxItemMsgChain extends XR_CUIListBoxItem {}
 
   /**
-   * C++ class CUIMMShniaga : CUIWindow {
+   * @source C++ class CUIMMShniaga : CUIWindow
    * @customConstructor CUIMMShniaga
+   * @group xr_ui_interface
    */
   export class XR_CUIMMShniaga extends XR_CUIWindow {
     public static readonly epi_main: 0;
@@ -258,19 +276,24 @@ declare module "xray16" {
     public SetVisibleMagnifier(visible: boolean): void;
   }
 
+  /**
+   * @group xr_ui_interface
+   */
   export type TXR_MMShniaga_page = EnumerateStaticsValues<typeof XR_CUIMMShniaga>;
 
   /**
-   * C++ class CUIMapInfo : CUIWindow {
+   * @source C++ class CUIMapInfo : CUIWindow
    * @customConstructor CUIMapInfo
+   * @group xr_ui_interface
    */
   export class XR_CUIMapInfo extends XR_CUIWindow {
     public InitMap(a: string, b: string): void;
   }
 
   /**
-   * C++ class CUIMapList : CUIWindow {
+   * @source C++ class CUIMapList : CUIWindow
    * @customConstructor CUIMapList
+   * @group xr_ui_interface
    */
   export class XR_CUIMapList extends XR_CUIWindow {
     public ClearList(): void;
@@ -289,8 +312,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CUIMessageBox : CUIStatic {
+   * @source C++ class CUIMessageBox : CUIStatic
    * @customConstructor CUIMessageBox
+   * @group xr_ui_interface
    */
   export class XR_CUIMessageBox extends XR_CUIStatic {
     public InitMessageBox(value: string): boolean;
@@ -299,8 +323,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CUIMessageBoxEx : CUIDialogWnd {
+   * @source C++ class CUIMessageBoxEx : CUIDialogWnd
    * @customConstructor CUIMessageBoxEx
+   * @group xr_ui_interface
    */
   export class XR_CUIMessageBoxEx extends XR_CUIDialogWnd {
     public InitMessageBox(selector: string): void;
@@ -310,8 +335,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CUIProgressBar : CUIWindow {
+   * @source C++ class CUIProgressBar : CUIWindow
    * @customConstructor CUIProgressBar
+   * @group xr_ui_interface
    */
   export class XR_CUIProgressBar extends XR_CUIWindow {
     public GetRange_max(): f32;
@@ -321,8 +347,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CUIPropertiesBox : CUIFrameWindow {
+   * @source C++ class CUIPropertiesBox : CUIFrameWindow
    * @customConstructor CUIPropertiesBox
+   * @group xr_ui_interface
    */
   export class XR_CUIPropertiesBox extends XR_CUIFrameWindow {
     public AddItem(id: string): void;
@@ -336,8 +363,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CUIVersionList : CUIWindow
+   * @source C++ class CUIVersionList : CUIWindow
    * @customConstructor CUIVersionList
+   * @group xr_ui_interface
    */
   export class XR_CUIVersionList {
     public constructor();
@@ -349,8 +377,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CUIScrollView : CUIWindow {
+   * @source C++ class CUIScrollView : CUIWindow
    * @customConstructor CUIScrollView
+   * @group xr_ui_interface
    */
   export class XR_CUIScrollView extends XR_CUIWindow {
     public SetScrollPos(position: i32): void;
@@ -366,31 +395,37 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CUISleepStatic : CUIStatic {
+   * @source C++ class CUISleepStatic : CUIStatic
    * @customConstructor CUISleepStatic
+   * @group xr_ui_interface
    */
   export class XR_CUISleepStatic extends XR_CUIStatic {}
 
   /**
-   * C++ class CUISpinFlt : CUICustomSpin {
+   * @source C++ class CUISpinFlt : CUICustomSpin
    * @customConstructor CUISpinFlt
+   * @group xr_ui_interface
    */
   export class XR_CUISpinFlt extends XR_CUICustomSpin {}
 
   /**
-   * C++ class CUISpinNum : CUICustomSpin {
+   * @source C++ class CUISpinNum : CUICustomSpin
+   * @customConstructor CUISpinNum
+   * @group xr_ui_interface
    */
   export class XR_CUISpinNum extends XR_CUICustomSpin {}
 
   /**
-   * C++ class CUISpinText : CUICustomSpin {
+   * @source C++ class CUISpinText : CUICustomSpin
    * @customConstructor CUISpinText
+   * @group xr_ui_interface
    */
   export class XR_CUISpinText extends XR_CUICustomSpin {}
 
   /**
-   * C++ class CUIStatic : CUIWindow {
+   * @source C++ class CUIStatic : CUIWindow
    * @customConstructor CUIStatic
+   * @group xr_ui_interface
    */
   export class XR_CUIStatic extends XR_CUIWindow {
     public GetColor(): u32;
@@ -421,14 +456,16 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CUITabButton : CUIButton {
+   * @source C++ class CUITabButton : CUIButton
    * @customConstructor CUITabButton
+   * @group xr_ui_interface
    */
   export class XR_CUITabButton extends XR_CUIButton {}
 
   /**
-   * C++ class CUITabControl : CUIWindow {
+   * @source C++ class CUITabControl : CUIWindow
    * @customConstructor CUITabControl
+   * @group xr_ui_interface
    */
   export class XR_CUITabControl extends XR_CUIWindow {
     public GetActiveId(): string;
@@ -446,8 +483,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CUITextWnd : CUIWindow {
+   * @source C++ class CUITextWnd : CUIWindow
    * @customConstructor CUITextWnd
+   * @group xr_ui_interface
    */
   export class XR_CUITextWnd extends XR_CUIWindow {
     public SetTextOffset(x: f32, y: f32): void;
@@ -465,8 +503,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CUITrackBar : CUIWindow {
+   * @source C++ class CUITrackBar : CUIWindow
    * @customConstructor CUITrackBar
+   * @group xr_ui_interface
    */
   export class XR_CUITrackBar extends XR_CUIWindow {
     public SetCheck(value: boolean): void;
@@ -481,8 +520,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CDialogHolder {
+   * @source C++ class CDialogHolder
    * @customConstructor CDialogHolder
+   * @group xr_ui_interface
    */
   export class XR_CDialogHolder {
     public RemoveDialogToRender(window: XR_CUIWindow): void;
@@ -493,8 +533,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CGameTask : SGameTaskObjective {
+   * @source C++ class CGameTask : SGameTaskObjective
    * @customConstructor CGameTask
+   * @group xr_ui_interface
    */
   export class XR_CGameTask extends XR_SGameTaskObjective {
     public constructor();
@@ -506,8 +547,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CPhraseScript {
+   * @source C++ class CPhraseScript
    * @customConstructor CPhraseScript
+   * @group xr_ui_interface
    */
   export class XR_CPhraseScript {
     public AddAction(value: string): void;
@@ -520,24 +562,27 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CPhrase {
+   * @source C++ class CPhrase
    * @customConstructor CPhrase
+   * @group xr_ui_interface
    */
   export class XR_CPhrase {
     public GetPhraseScript(): XR_CPhraseScript;
   }
 
   /**
-   * C++ class CPhraseDialog {
+   * @source C++ class CPhraseDialog
    * @customConstructor CPhraseDialog
+   * @group xr_ui_interface
    */
   export class XR_CPhraseDialog {
     public AddPhrase(text: string, phrase_id: string, prev_phrase_id: string, goodwill_level: number): XR_CPhrase;
   }
 
   /**
-   * C++ class StaticDrawableWrapper
+   * @source C++ class StaticDrawableWrapper
    * @customConstructor StaticDrawableWrapper
+   * @group xr_ui_interface
    */
   export class XR_StaticDrawableWrapper {
     public m_endTime: f32;
@@ -555,8 +600,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CUIListWnd : CUIWindow
+   * @source C++ class CUIListWnd : CUIWindow
    * @customConstructor CUIListWnd
+   * @group xr_ui_interface
    */
   export class XR_CUIListWnd extends XR_CUIWindow {
     public SetVertFlip(flip: boolean): void;
@@ -584,22 +630,25 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CUIListItem : CUIButton {
+   * @source C++ class CUIListItem : CUIButton
    * @customConstructor CUIListItem
+   * @group xr_ui_interface
    */
   export class XR_CUIListItem extends XR_CUIButton {}
 
   /**
-   * C++ class CUIListItemEx : CUIListItem {
+   * @source C++ class CUIListItemEx : CUIListItem
    * @customConstructor CUIListItemEx
+   * @group xr_ui_interface
    */
   export class XR_CUIListItemEx extends XR_CUIListItem {
     public SetSelectionColor(color: u32): void;
   }
 
   /**
-   * C++ class UIHint : CUIWindow {
+   * @source C++ class UIHint : CUIWindow
    * @customConstructor UIHint
+   * @group xr_ui_interface
    */
   export class XR_UIHint extends XR_CUIWindow {
     public constructor();

@@ -1,9 +1,10 @@
 declare module "xray16" {
   /**
-   * C++ class stalker_ids {
+   * @source C++ class stalker_ids
    * @customConstructor stalker_ids
+   * @group xr_constants
    */
-  export class XR_stalker_ids extends XR_action_planner {
+  export class XR_stalker_ids  {
     public static readonly action_accomplish_task: 7;
     public static readonly action_aim_enemy: 16;
     public static readonly action_alife_planner: 88;
@@ -131,7 +132,8 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class spawn_story_ids {
+   * @source C++ class spawn_story_ids
+   * @group xr_constants
    */
   export class XR_spawn_story_ids {
     public static readonly INVALID_SPAWN_STORY_ID: -1;
@@ -140,7 +142,8 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class story_ids {
+   * @source C++ class story_ids
+   * @group xr_constants
    */
   export class XR_story_ids {
     public static readonly INVALID_STORY_ID: -1;
@@ -153,7 +156,8 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class callback {
+   * @source C++ class callback
+   * @group xr_constants
    */
   export class XR_callback {
     /**
@@ -224,12 +228,19 @@ declare module "xray16" {
     public static readonly weapon_jammed: 53;
   }
 
+  /**
+   * @group xr_constants
+   */
   export type TXR_callbacks = typeof XR_callback;
 
+  /**
+   * @group xr_constants
+   */
   export type TXR_callback = EnumerateStaticsValues<TXR_callbacks>
 
   /**
-   * C++ class key_bindings {
+   * @source C++ class key_bindings
+   * @group xr_constants
    */
   export class XR_key_bindings {
     public static readonly kACCEL: 7;
@@ -277,7 +288,8 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class GAME_TYPE {
+   * @source C++ class GAME_TYPE
+   * @group xr_constants
    */
   export class XR_GAME_TYPE {
     public static readonly eGameIDArtefactHunt: 8;
@@ -299,10 +311,14 @@ declare module "xray16" {
     public static readonly GAME_DUMMY: 255; // temporary g
   }
 
+  /**
+   * @group xr_constants
+   */
   type TXR_GAME_TYPE = EnumerateStaticsValues<typeof XR_GAME_TYPE>;
 
   /**
-   * C++ class game_difficulty {
+   * @source C++ class game_difficulty
+   * @group xr_constants
    */
   export class XR_game_difficulty {
     public static readonly novice: 0;
@@ -311,12 +327,19 @@ declare module "xray16" {
     public static readonly master: 3;
   }
 
+  /**
+   * @group xr_constants
+   */
   export type TXR_game_difficulty_name = EnumerateStaticsKeys<typeof XR_game_difficulty>;
 
+  /**
+   * @group xr_constants
+   */
   export type TXR_game_difficulty = EnumerateStaticsValues<typeof XR_game_difficulty>;
 
   /**
-   * C++ class task {
+   * @source C++ class task
+   * @group xr_constants
    */
   export class XR_task {
     public static readonly additional: 1;
@@ -329,54 +352,20 @@ declare module "xray16" {
     private constructor();
   }
 
+  /**
+   * @group xr_constants
+   */
   export type TXR_task_state_name = EnumerateStaticsKeys<typeof XR_task>;
 
   /**
    * ETaskState
+   * @group xr_constants
    */
   export type TXR_TaskState = EnumerateStaticsValues<typeof XR_task>;
 
   /**
-   * C++ class ui_events {
-   */
-  export class XR_ui_events {
-    public static readonly BUTTON_CLICKED: 19;
-    public static readonly BUTTON_DOWN: 20;
-    public static readonly CHECK_BUTTON_RESET: 23;
-    public static readonly CHECK_BUTTON_SET: 22;
-    public static readonly EDIT_TEXT_COMMIT: 79;
-    public static readonly LIST_ITEM_CLICKED: 37;
-    public static readonly LIST_ITEM_SELECT: 38;
-    public static readonly LIST_ITEM_UNSELECT: 39;
-    public static readonly MAIN_MENU_RELOADED: 84;
-    public static readonly MESSAGE_BOX_CANCEL_CLICKED: 47;
-    public static readonly MESSAGE_BOX_COPY_CLICKED: 48;
-    public static readonly MESSAGE_BOX_NO_CLICKED: 46;
-    public static readonly MESSAGE_BOX_OK_CLICKED: 42;
-    public static readonly MESSAGE_BOX_QUIT_GAME_CLICKED: 45;
-    public static readonly MESSAGE_BOX_QUIT_WIN_CLICKED: 44;
-    public static readonly MESSAGE_BOX_YES_CLICKED: 43;
-    public static readonly PROPERTY_CLICKED: 41;
-    public static readonly RADIOBUTTON_SET: 24;
-    public static readonly SCROLLBAR_HSCROLL: 34;
-    public static readonly SCROLLBAR_VSCROLL: 33;
-    public static readonly SCROLLBOX_MOVE: 32;
-    public static readonly TAB_CHANGED: 21;
-    public static readonly WINDOW_KEYBOARD_CAPTURE_LOST: 16;
-    public static readonly WINDOW_KEY_PRESSED: 12;
-    public static readonly WINDOW_KEY_RELEASED: 13;
-    public static readonly WINDOW_LBUTTON_DB_CLICK: 11;
-    public static readonly WINDOW_LBUTTON_DOWN: 0;
-    public static readonly WINDOW_LBUTTON_UP: 3;
-    public static readonly WINDOW_MOUSE_MOVE: 6;
-    public static readonly WINDOW_RBUTTON_DOWN: 1;
-    public static readonly WINDOW_RBUTTON_UP: 4;
-  }
-
-  type TXR_ui_event = EnumerateStaticsValues<typeof XR_ui_events>;
-
-  /**
-   * C++ class clsid {
+   * @source C++ class clsid
+   * @group xr_constants
    */
   export class XR_clsid {
     public static readonly actor: 90;
@@ -600,13 +589,20 @@ declare module "xray16" {
     public static readonly zone_torrid_s: 203;
   }
 
+  /**
+   * @group xr_constants
+   */
   type TXR_cls_key = EnumerateStaticsKeys<typeof XR_clsid>;
 
+  /**
+   * @group xr_constants
+   */
   type TXR_cls_id = EnumerateStaticsValues<typeof XR_clsid>;
 
   /**
-   * C++ class MonsterSpace {
+   * @source C++ class MonsterSpace
    * @customConstructor MonsterSpace
+   * @group xr_constants
    */
   export class XR_MonsterSpace {
     public static readonly head_anim_angry: 1;
@@ -616,13 +612,20 @@ declare module "xray16" {
     public static readonly sound_script: 128;
   }
 
+  /**
+   * @group xr_constants
+   */
   export type TXR_MonsterBodyStateKey = EnumerateStaticsKeys<typeof XR_MonsterSpace>
 
+  /**
+   * @group xr_constants
+   */
   export type TXR_MonsterBodyState = EnumerateStaticsValues<typeof XR_MonsterSpace>
 
   /**
-   * C++ class CSightParams {
+   * @source C++ class CSightParams
    * @customConstructor XR_CSightParams
+   * @group xr_constants
    **/
   export class XR_CSightParams {
     public static readonly eSightTypeDummy: -1;
@@ -646,10 +649,14 @@ declare module "xray16" {
     public constructor();
   }
 
+  /**
+   * @group xr_constants
+   */
   export type TXR_SightType = EnumerateStaticsValues<typeof XR_CSightParams>
 
   /**
-   * C++ class DIK_keys {
+   * @source C++ class DIK_keys
+   * @group xr_constants
    */
   export class XR_DIK_keys {
     public static readonly DIK_0: 39;
@@ -915,13 +922,20 @@ declare module "xray16" {
     protected constructor();
   }
 
+  /**
+   * @group xr_constants
+   */
   type TXR_DIK_key_name = EnumerateStaticsKeys<typeof DIK_keys>;
 
+  /**
+   * @group xr_constants
+   */
   type TXR_DIK_key = EnumerateStaticsValues<typeof DIK_keys>;
 
   /**
-   * C++ class FactionState {
+   * @source C++ class FactionState
    * @customConstructor FactionState
+   * @group xr_constants
    */
   export class XR_FactionState {
     public actor_goodwill: i32;

@@ -1,7 +1,8 @@
 declare module "xray16" {
   /**
-   * C++ class FS_file_list {
+   * @source C++ class FS_file_list
    * @customConstructor FS_file_list
+   * @group xr_fs
    */
   export class XR_FS_file_list {
     public Free(): void;
@@ -10,8 +11,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class FS_file_list_ex {
+   * @source C++ class FS_file_list_ex
    * @customConstructor FS_file_list_ex
+   * @group xr_fs
    */
   export class XR_FS_file_list_ex {
     public Sort(number: u32): void;
@@ -20,8 +22,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class FS_item {
+   * @source C++ class FS_item
    * @customConstructor FS_item
+   * @group xr_fs
    */
   export class XR_FS_item {
     public Modif(): string;
@@ -32,8 +35,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CSavedGameWrapper {
+   * @source C++ class CSavedGameWrapper
    * @customConstructor CSavedGameWrapper
+   * @group xr_fs
    */
   export class XR_CSavedGameWrapper extends XR_EngineBinding {
     public constructor(name: string);
@@ -45,8 +49,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class fs_file {
+   * @source C++ class fs_file
    * @customConstructor fs_file
+   * @group xr_fs
    */
   export class XR_fs_file {
     public modif: u32;
@@ -57,8 +62,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class FS {
+   * @source C++ class FS
    * @customConstructor FS
+   * @group xr_fs
    */
   export class XR_FS {
     public static FS_ClampExt: 4;
@@ -104,13 +110,17 @@ declare module "xray16" {
     public w_open(a: string): unknown /* IWriter */;
   }
 
+  /**
+   * @group xr_fs
+   */
   export type TXR_fs_type = EnumerateStaticsValues<typeof XR_FS>;
 
   // todo: Clarify param names.
   // todo: Clarify read line multireturn.
   /**
-   * C++ class ini_file {
+   * @source C++ class ini_file
    * @customConstructor ini_file
+   * @group xr_fs
    */
   export class XR_ini_file {
     public constructor();
@@ -162,8 +172,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class net_packet {
+   * @source C++ class net_packet
    * @customConstructor net_packet
+   * @group xr_fs
    */
   export class XR_net_packet {
     public r_advance(value: u32): void;
@@ -229,8 +240,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class reader {
+   * @source C++ class reader
    * @customConstructor reader
+   * @group xr_fs
    */
   export class XR_reader {
     public r_advance(value: u64): void;
@@ -267,5 +279,8 @@ declare module "xray16" {
     public r_vec3(vector: XR_vector): void;
   }
 
+  /**
+   * @group xr_fs
+   */
   export type TXR_net_processor = XR_reader | XR_net_packet;
 }

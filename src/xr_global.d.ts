@@ -1,85 +1,328 @@
 declare module "xray16" {
   /**
-   * namespace global {
+   * @source namespace global
+   * @group xr_global
+   */
+
+  /**
+   * @group xr_global
    */
   export function GetFontDI(this: void): XR_CGameFont;
-  export function GetFontGraffiti19Russian(this: void): XR_CGameFont;
-  export function GetFontGraffiti32Russian(this: void): XR_CGameFont;
-  export function GetFontGraffiti50Russian(this: void): XR_CGameFont;
-  export function GetFontLetterica18Russian(this: void): XR_CGameFont;
-  export function GetFontLetterica25(this: void): XR_CGameFont;
-  export function GetFontMedium(this: void): XR_CGameFont;
-  export function GetFontSmall(this: void): XR_CGameFont;
-  export function GetTextureInfo(this: void, char: string, char2: string, tex_info: XR_TEX_INFO): boolean;
-  export function GetTextureName(this: void, char: string): string;
-  export function IsGameTypeSingle(this: void): boolean;
-  export function app_ready(this: void): boolean;
-  export function bit_and(this: void, left: i32, right: i32): i32;
-  export function buy_condition(this: void, a: f32, b: f32): void;
-  export function buy_condition(this: void, a: unknown, b: string): void;
-  export function cast_planner(this: void, base_action: XR_action_base): XR_action_planner;
-  export function command_line(this: void): string;
-  export function create_ini_file(this: void, content: string): XR_ini_file;
-  export function game_ini(this: void): XR_ini_file;
-  export function device(this: void): XR_render_device;
-  export function dik_to_bind(this: void, keycode: i32): i32;
-  export function game_graph(this: void): XR_CGameGraph;
-  export function xrRender_test_r2_hw(this: void): boolean;
-  export function getFS(this: void): XR_FS;
-  export function get_console(this: void): XR_CConsole;
-  export function get_hud(this: void): XR_CUIGameCustom;
-  export function render_get_dx_level(this: void): number;
-  export function sell_condition(this: void, a: number, b: number): void;
-  export function sell_condition(this: void, a: unknown, b: string): void;
-  export function valid_saved_game(this: void, filename: string): boolean;
-  export function renderer_allow_override(this: void): boolean;
-  export function GetTextureRect(this: void, str: string): XR_Frect;
-  export function GetCursorPosition(this: void): XR_vector2;
-  export function SetCursorPosition(this: void, vector: XR_vector2): void;
+
   /**
-   * Is dynamic music allowed in game settings.
+   * @group xr_global
+   */
+  export function GetFontGraffiti19Russian(this: void): XR_CGameFont;
+
+  /**
+   * @group xr_global
+   */
+  export function GetFontGraffiti32Russian(this: void): XR_CGameFont;
+
+  /**
+   * @group xr_global
+   */
+  export function GetFontGraffiti50Russian(this: void): XR_CGameFont;
+
+  /**
+   * @group xr_global
+   */
+  export function GetFontLetterica18Russian(this: void): XR_CGameFont;
+
+  /**
+   * @group xr_global
+   */
+  export function GetFontLetterica25(this: void): XR_CGameFont;
+
+  /**
+   * @group xr_global
+   */
+  export function GetFontMedium(this: void): XR_CGameFont;
+
+  /**
+   * @group xr_global
+   */
+  export function GetFontSmall(this: void): XR_CGameFont;
+
+  /**
+   * @group xr_global
+   */
+  export function GetTextureInfo(this: void, char: string, char2: string, tex_info: XR_TEX_INFO): boolean;
+
+  /**
+   * @group xr_global
+   */
+  export function GetTextureName(this: void, char: string): string;
+
+  /**
+   * @group xr_global
+   */
+  export function IsGameTypeSingle(this: void): boolean;
+
+  /**
+   * @group xr_global
+   */
+  export function app_ready(this: void): boolean;
+
+  /**
+   * @group xr_global
+   */
+  export function bit_and(this: void, left: i32, right: i32): i32;
+
+  /**
+   * @group xr_global
+   */
+  export function buy_condition(this: void, a: f32, b: f32): void;
+
+  /**
+   * @group xr_global
+   */
+  export function buy_condition(this: void, a: unknown, b: string): void;
+
+  /**
+   * @group xr_global
+   */
+  export function cast_planner(this: void, base_action: XR_action_base): XR_action_planner;
+
+  /**
+   * @group xr_global
+   */
+  export function command_line(this: void): string;
+
+  /**
+   * @group xr_global
+   */
+  export function create_ini_file(this: void, content: string): XR_ini_file;
+
+  /**
+   * @group xr_global
+   */
+  export function game_ini(this: void): XR_ini_file;
+
+  /**
+   * @group xr_global
+   */
+  export function device(this: void): XR_render_device;
+
+  /**
+   * @group xr_global
+   */
+  export function dik_to_bind(this: void, keycode: i32): i32;
+
+  /**
+   * @group xr_global
+   */
+  export function game_graph(this: void): XR_CGameGraph;
+
+  /**
+   * @group xr_global
+   */
+  export function xrRender_test_r2_hw(this: void): boolean;
+
+  /**
+   * @group xr_global
+   */
+  export function getFS(this: void): XR_FS;
+
+  /**
+   * @group xr_global
+   */
+  export function get_console(this: void): XR_CConsole;
+
+  /**
+   * @group xr_global
+   */
+  export function get_hud(this: void): XR_CUIGameCustom;
+
+  /**
+   * @group xr_global
+   */
+  export function render_get_dx_level(this: void): number;
+
+  /**
+   * @group xr_global
+   */
+  export function sell_condition(this: void, a: number, b: number): void;
+
+  /**
+   * @group xr_global
+   */
+  export function sell_condition(this: void, a: unknown, b: string): void;
+
+  /**
+   * @group xr_global
+   */
+  export function valid_saved_game(this: void, filename: string): boolean;
+
+  /**
+   * @group xr_global
+   */
+  export function renderer_allow_override(this: void): boolean;
+
+  /**
+   * @group xr_global
+   */
+  export function GetTextureRect(this: void, str: string): XR_Frect;
+
+  /**
+   * @group xr_global
+   */
+  export function GetCursorPosition(this: void): XR_vector2;
+
+  /**
+   * @group xr_global
+   */
+  export function SetCursorPosition(this: void, vector: XR_vector2): void;
+
+  /**
+   * @group xr_global
+   * @returns is dynamic music allowed in game settings.
    */
   export function IsDynamicMusic(this: void): boolean;
-  export function GetFontLetterica16Russian(this: void): XR_CGameFont;
-  export function log(this: void, text: string): void;
-  export function error_log(this: void, text: string): void;
-  export function print_stack(this: void): void;
-  export function show_condition(this: void, file: XR_ini_file, str: string): void;
-  export function IsImportantSave(this: void): boolean;
-  export function FitInRect(this: void, window: XR_CUIWindow, rect: XR_Frect, a: number, b: number): boolean;
-  export function reload_system_ini(this: void): XR_ini_file;
-  export function system_ini(this: void): XR_ini_file;
-  export function alife(this: void): XR_alife_simulator;
-  export function flush(this: void): void;
-  export function is_enough_address_space_available(this: void): boolean;
-  export function class_names(this: void, lua_state: unknown /* lua_State*/): object;
-  export function class_info(this: void, arg: unknown /* luabind::argument */): XR_class_info_data;
+
   /**
-   * Is dev editor tool enabled currently used.
+   * @group xr_global
+   */
+  export function GetFontLetterica16Russian(this: void): XR_CGameFont;
+
+  /**
+   * @group xr_global
+   */
+  export function log(this: void, text: string): void;
+
+  /**
+   * @group xr_global
+   */
+  export function error_log(this: void, text: string): void;
+
+  /**
+   * @group xr_global
+   */
+  export function print_stack(this: void): void;
+
+  /**
+   * @group xr_global
+   */
+  export function show_condition(this: void, file: XR_ini_file, str: string): void;
+
+  /**
+   * @group xr_global
+   */
+  export function IsImportantSave(this: void): boolean;
+
+  /**
+   * @group xr_global
+   */
+  export function FitInRect(this: void, window: XR_CUIWindow, rect: XR_Frect, a: number, b: number): boolean;
+
+  /**
+   * @group xr_global
+   */
+  export function reload_system_ini(this: void): XR_ini_file;
+
+  /**
+   * @group xr_global
+   */
+  export function system_ini(this: void): XR_ini_file;
+
+  /**
+   * @group xr_global
+   */
+  export function alife(this: void): XR_alife_simulator;
+
+  /**
+   * @group xr_global
+   */
+  export function flush(this: void): void;
+
+  /**
+   * @group xr_global
+   */
+  export function is_enough_address_space_available(this: void): boolean;
+
+  /**
+   * @group xr_global
+   */
+  export function class_names(this: void, lua_state: unknown /* lua_State*/): object;
+
+  /**
+   * @group xr_global
+   */
+  export function class_info(this: void, arg: unknown /* luabind::argument */): XR_class_info_data
+;
+  /**
+   * @group xr_global
+   * @returns is dev editor tool enabled currently used.
    */
   export function editor(this: void): boolean;
+
+  /**
+   * @group xr_global
+   */
   export function bit_or(this: void, first: i32, second: i32): i32;
+
+  /**
+   * @group xr_global
+   */
   export function GetFontGraffiti22Russian(this: void): XR_CGameFont;
+
   /**
    * Prefetch provided script before executing next lines.
+   *
+   * @group xr_global
    */
   export function prefetch(this: void, path: string): void;
+
   /**
-   * Returns 'ms' from game start.
-   * Examples: 0, 1000, 60000
+   * @group xr_global
+   * @returns 'ms' from game start.
+   * @example 0, 1000, 60000
    */
   export function time_global(this: void): u32;
+
+  /**
+   * @group xr_global
+   */
   export function time_global_async(this: void): u32;
+
+  /**
+   * @group xr_global
+   */
   export function verify_if_thread_is_running(this: void): void;
+
+  /**
+   * @group xr_global
+   */
   export function script_server_object_version(this: void): u16;
+
+  /**
+   * @group xr_global
+   */
   export function bit_not(this: void, value: i32): i32;
+
+  /**
+   * @group xr_global
+   */
   export function ef_storage(this: void): XR_cef_storage;
+
+  /**
+   * @group xr_global
+   */
   export function GetARGB(this: void, a: u16, r: u16, g: u16, b: u16): i32;
+
+  /**
+   * @group xr_global
+   */
   export function user_name(this: void): string;
+
+  /**
+   * @group xr_global
+   */
   export function bit_xor(this: void, left: i32, right: i32): i32;
 
   /**
-   * namespace level {
+   * @source namespace level
+   * @group xr_global
    */
   export interface IXR_level {
     add_call(this: void, cb1: () => boolean, cb2: () => boolean): void;
@@ -172,14 +415,16 @@ declare module "xray16" {
   }
 
   /**
-   * namespace main_menu {
+   * @source namespace main_menu
+   * @group xr_global
    */
   export interface IXR_main_menu {
     get_main_menu(this: void): XR_CMainMenu;
   }
 
   /**
-   * namespace relation_registry {
+   * @source namespace relation_registry
+   * @group xr_global
    */
   export interface IXR_relation_registry {
     change_community_goodwill(this: void, community_a: string, value2: i32, value3: i32): void;
@@ -191,7 +436,8 @@ declare module "xray16" {
   }
 
   /**
-   * namespace actor_stats {
+   * @source namespace actor_stats
+   * @group xr_global
    */
   export interface IXR_actor_stats {
     add_points_str(this: void, value1: string, value2: string, value3: string): void;
@@ -201,7 +447,8 @@ declare module "xray16" {
   }
 
   /**
-   * namespace game {
+   * @source namespace game
+   * @group xr_global
    */
   export interface IXR_game {
     CTime: (this: void) => XR_CTime;

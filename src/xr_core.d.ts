@@ -1,13 +1,15 @@
 declare module "xray16" {
   /**
-   * C++ class DLL_Pure {
+   * @source C++ class DLL_Pure
+   * @group xr_core
    */
   export class XR_DLL_Pure extends XR_EngineBinding {
     protected constructor();
   }
 
   /**
-   * C++ class GameGraph__CVertex {
+   * @source C++ class GameGraph__CVertex
+   * @group xr_core
    */
   export class XR_GameGraph__CVertex extends XR_EngineBinding {
     protected constructor();
@@ -19,22 +21,25 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class ce_script_zone : DLL_Pure {
+   * @source C++ class ce_script_zone : DLL_Pure
+   * @group xr_core
    */
   export class XR_ce_script_zone extends XR_DLL_Pure {
     protected constructor();
   }
 
   /**
-   * C++ class ce_smart_zone : DLL_Pure {
+   * @source C++ class ce_smart_zone : DLL_Pure
+   * @group xr_core
    */
   export class XR_ce_smart_zone extends XR_DLL_Pure {
     protected constructor();
   }
 
   /**
-   * C++ class explosive {
+   * @source C++ class explosive
    * @customConstructor explosive
+   * @group xr_core
    */
   export class XR_explosive extends XR_EngineBinding {
     protected constructor();
@@ -43,8 +48,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class ClientID {
+   * @source C++ class ClientID
    * @customConstructor ClientID
+   * @group xr_core
    */
   export class XR_ClientID extends XR_EngineBinding {
     protected constructor();
@@ -54,8 +60,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class memory_object {
+   * @source C++ class memory_object
    * @customConstructor memory_object
+   * @group xr_core
    */
   export class XR_memory_object extends XR_EngineBinding {
     public readonly last_level_time: u32;
@@ -65,8 +72,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class object {
+   * @source C++ class object
    * @customConstructor object
+   * @group xr_core
    */
   export class XR_object extends XR_EngineBinding {
     public static readonly activate: 16;
@@ -99,11 +107,15 @@ declare module "xray16" {
     public completed(): boolean;
   }
 
+  /**
+   * @group xr_core
+   */
   export type TXR_object_state = EnumerateStaticsValues<typeof XR_object>;
 
   /**
-   * C++ class entity_memory_object : memory_object {
+   * @source C++ class entity_memory_object : memory_object
    * @customConstructor entity_memory_object
+   * @group xr_core
    */
   export class XR_entity_memory_object extends XR_memory_object {
     public readonly object_info: object;
@@ -115,8 +127,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class hit_memory_object : entity_memory_object {
+   * @source C++ class hit_memory_object : entity_memory_object
    * @customConstructor hit_memory_object
+   * @group xr_core
    */
   export class XR_hit_memory_object extends XR_entity_memory_object {
     public readonly amount: f32;
@@ -127,8 +140,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class game_memory_object : memory_object {
+   * @source C++ class game_memory_object : memory_object
    * @customConstructor game_memory_object
+   * @group xr_core
    */
   export class XR_game_memory_object extends XR_memory_object {
     public object_info: unknown; /* MemorySpace::CObjectParams<class CGameObject>& */
@@ -139,8 +153,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class not_yet_visible_object {
+   * @source C++ class not_yet_visible_object
    * @customConstructor not_yet_visible_object
+   * @group xr_core
    */
   export class XR_not_yet_visible_object extends XR_EngineBinding {
     protected constructor();
@@ -150,16 +165,18 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class visible_memory_object {
+   * @source C++ class visible_memory_object
    * @customConstructor visible_memory_object
+   * @group xr_core
    */
   export class XR_visible_memory_object extends XR_game_memory_object {
     protected constructor();
   }
 
   /**
-   * C++ class memory_info : visible_memory_object {
+   * @source C++ class memory_info : visible_memory_object
    * @customConstructor visible_memory_object
+   * @group xr_core
    */
   export class XR_memory_info extends XR_visible_memory_object {
     public readonly hit_info: boolean;
@@ -170,8 +187,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CTime {
+   * @source C++ class CTime
    * @customConstructor CTime
+   * @group xr_core
    */
   export class XR_CTime extends XR_EngineBinding {
     public static DateToDay: 0;
@@ -205,8 +223,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CConsole {
+   * @source C++ class CConsole
    * @customConstructor CConsole
+   * @group xr_core
    */
   export class XR_CConsole extends XR_EngineBinding {
     private constructor();
@@ -226,8 +245,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class game_GameState : DLL_Pure
+   * @source C++ class game_GameState : DLL_Pure
    * @customConstructor game_GameState
+   * @group xr_core
    */
   export class XR_game_GameState extends XR_DLL_Pure {
     public round: i32;
@@ -243,8 +263,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class class_info_data
+   * @source C++ class class_info_data
    * @customConstructor class_info_data
+   * @group xr_core
    */
   export class XR_class_info_data extends XR_EngineBinding {
     public readonly methods: object;
@@ -255,8 +276,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class render_device {
+   * @source C++ class render_device
    * @customConstructor render_device
+   * @group xr_core
    */
   export class XR_render_device {
     private constructor();
@@ -280,8 +302,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class cef_storage {
+   * @source C++ class cef_storage
    * @customConstructor cef_storage
+   * @group xr_core
    */
   export class XR_cef_storage extends XR_EngineBinding {
     private constructor();

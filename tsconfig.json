@@ -5,5 +5,9 @@
     "lib": ["esnext"],
     "moduleResolution": "node",
     "types": ["@typescript-to-lua/language-extensions"]
+  },
+  "typedocOptions": {
+    "entryPoints": ["src/index.d.ts"],
+    "out": "docs"
   }
 }

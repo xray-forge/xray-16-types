@@ -1,7 +1,8 @@
 declare module "xray16" {
   /**
-   * C++ class world_state {
+   * @source C++ class world_state
    * @customConstructor world_state
+   * @group xr_alife_action
    */
   export class XR_world_state extends XR_EngineBinding {
     public constructor();
@@ -15,8 +16,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class entity_action {
+   * @source C++ class entity_action
    * @customConstructor entity_action
+   * @group xr_alife_action
    */
   export class XR_entity_action extends XR_EngineBinding {
     public constructor();
@@ -43,8 +45,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class move {
+   * @source C++ class move
    * @customConstructor move
+   * @group xr_alife_action
    */
   export class XR_move extends XR_EngineBinding {
     // todo: All enums are in one static, probably should declare few parent interfaces / classes with enums
@@ -123,11 +126,15 @@ declare module "xray16" {
     public body(EBodyState: number): void;
   }
 
+ /**
+  * @group xr_alife_action
+  */
   export type TXR_move = EnumerateStaticsValues<typeof XR_move>;
 
   /**
-   * C++ class patrol {
+   * @source C++ class patrol
    * @customConstructor patrol
+   * @group xr_alife_action
    */
   export class XR_patrol extends XR_EngineBinding {
     // EPatrolRouteType:
@@ -162,11 +169,15 @@ declare module "xray16" {
     public terminal(point_index: u32): boolean;
   }
 
+  /**
+   * @group xr_alife_action
+   */
   export type TXR_patrol_type = EnumerateStaticsValues<typeof XR_patrol>;
 
   /**
-   * C++ class look {
+   * @source C++ class look
    * @customConstructor look
+   * @group xr_alife_action
    */
   export class XR_look extends XR_EngineBinding {
     public static readonly cur_dir: 0;
@@ -192,11 +203,15 @@ declare module "xray16" {
     public direct(vector: Readonly<XR_vector>): void;
   }
 
+  /**
+   * @group xr_alife_action
+   */
   export type TXR_look = EnumerateStaticsValues<typeof XR_look>;
 
   /**
-   * C++ class anim {
+   * @source C++ class anim
    * @customConstructor anim
+   * @group xr_alife_action
    */
   export class XR_anim extends XR_EngineBinding {
     // Mental state:
@@ -227,13 +242,20 @@ declare module "xray16" {
     public anim(value: string): void;
   }
 
+  /**
+   * @group xr_alife_action
+   */
   export type TXR_animation_key = EnumerateStaticsKeys<typeof XR_anim>;
 
+  /**
+   * @group xr_alife_action
+   */
   export type TXR_animation = EnumerateStaticsValues<typeof XR_anim>;
 
   /**
-   * C++ class sound {
+   * @source C++ class sound
    * @customConstructor sound
+   * @group xr_alife_action
    */
   export class XR_sound extends XR_EngineBinding {
     public static readonly attack: 3;
@@ -279,13 +301,20 @@ declare module "xray16" {
     public completed(): boolean;
   }
 
+  /**
+   * @group xr_alife_action
+   */
   export type TXR_sound_key = EnumerateStaticsKeys<typeof XR_sound>;
 
+  /**
+   * @group xr_alife_action
+   */
   export type TXR_sound_type = EnumerateStaticsValues<typeof XR_sound>;
 
   /**
-   * C++ class cond {
+   * @source C++ class cond
    * @customConstructor cond
+   * @group xr_alife_action
    */
   export class XR_cond extends XR_EngineBinding {
     public static readonly act_end: 128;
@@ -301,11 +330,15 @@ declare module "xray16" {
     public constructor(value1: u32, value2: f64);
   }
 
+  /**
+   * @group xr_alife_action
+   */
   export type TXR_cond = EnumerateStaticsValues<typeof XR_cond>;
 
   /**
-   * C++ class action_base {
+   * @source C++ class action_base
    * @customConstructor action_base
+   * @group xr_alife_action
    */
   export class XR_action_base extends XR_EngineBinding {
     public readonly object: XR_game_object;
@@ -328,8 +361,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class action_planner {
+   * @source C++ class action_planner
    * @customConstructor action_planner
+   * @group xr_alife_action
    */
   export class XR_action_planner extends XR_EngineBinding {
     public readonly object: XR_game_object;
@@ -355,8 +389,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class planner_action : action_planner,action_base {
+   * @source C++ class planner_action : action_planner,action_base
    * @customConstructor planner_action
+   * @group xr_alife_action
    */
   export class XR_planner_action extends XR_action_planner {
     public constructor();
@@ -375,8 +410,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class property_storage {
+   * @source C++ class property_storage
    * @customConstructor property_storage
+   * @group xr_alife_action
    */
   export class XR_property_storage extends XR_EngineBinding {
     public property(value: u32): boolean;
@@ -384,8 +420,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class property_evaluator {
+   * @source C++ class property_evaluator
    * @customConstructor property_evaluator
+   * @group xr_alife_action
    */
   export class XR_property_evaluator extends XR_EngineBinding {
     public readonly object: XR_game_object;
@@ -400,16 +437,18 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class property_evaluator_const : property_evaluator {
+   * @source C++ class property_evaluator_const : property_evaluator
    * @customConstructor property_evaluator_const
+   * @group xr_alife_action
    */
   export class XR_property_evaluator_const extends XR_property_evaluator {
     public constructor(value: boolean);
   }
 
   /**
-   * C++ class world_property {
+   * @source C++ class world_property
    * @customConstructor world_property
+   * @group xr_alife_action
    */
   export class XR_world_property extends XR_EngineBinding {
     public constructor(id: u32, enabled: boolean);

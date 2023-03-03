@@ -1,7 +1,8 @@
 declare module "xray16" {
   /**
-   * C++ class alife_simulator {
+   * @source C++ class alife_simulator
    * @customConstructor alife_simulator
+   * @group xr_alife
    */
   export class XR_alife_simulator {
     public actor(): XR_cse_alife_creature_actor;
@@ -54,8 +55,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CALifeSmartTerrainTask {
+   * @source C++ class CALifeSmartTerrainTask
    * @customConstructor CALifeSmartTerrainTask
+   * @group xr_alife
    */
   export class XR_CALifeSmartTerrainTask {
     // todo: Clarify constructor namings
@@ -69,7 +71,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CALifeMonsterBrain {}
+   * @source C++ class CALifeMonsterBrain
+   * @customConstructor CAILifeMonsterBrain
+   * @group xr_alife
    */
   export class XR_CAILifeMonsterBrain {
     public constructor(object: unknown);
@@ -101,8 +105,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CALifeMonsterBrain {
+   * @source C++ class CALifeMonsterBrain
    * @customConstructor CALifeMonsterBrain
+   * @group xr_alife
    */
   export class XR_CALifeMonsterBrain {
     public movement(): XR_CALifeMonsterMovementManager;
@@ -112,15 +117,17 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CALifeHumanBrain : CALifeMonsterBrain {
+   * @source C++ class CALifeHumanBrain : CALifeMonsterBrain
    * @customConstructor CALifeHumanBrain
+   * @group xr_alife
    */
   export class XR_CALifeHumanBrain extends XR_CALifeMonsterBrain {
   }
 
   /**
-   * C++ class CALifeMonsterDetailPathManager {
+   * @source C++ class CALifeMonsterDetailPathManager
    * @customConstructor CALifeMonsterDetailPathManager
+   * @group xr_alife
    */
   export class XR_CALifeMonsterDetailPathManager {
     public completed(): boolean;
@@ -134,8 +141,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CALifeMonsterMovementManager {
+   * @source C++ class CALifeMonsterMovementManager
    * @customConstructor CALifeMonsterMovementManager
+   * @group xr_alife
    */
   export class XR_CALifeMonsterMovementManager {
     public completed(): boolean;
@@ -146,8 +154,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CALifeMonsterPatrolPathManager {
+   * @source C++ class CALifeMonsterPatrolPathManager
    * @customConstructor CALifeMonsterPatrolPathManager
+   * @group xr_alife
    */
   export class XR_CALifeMonsterPatrolPathManager {
     public path(string: string): void;
@@ -166,7 +175,8 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class cover_point
+   * @source C++ class cover_point
+   * @group xr_alife
    */
   export class XR_cover_point {
     private constructor();
@@ -177,8 +187,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class client_spawn_manager {
+   * @source C++ class client_spawn_manager
    * @customConstructor client_spawn_manager
+   * @group xr_alife
    */
   export class XR_client_spawn_manager {
     public remove(number1: u16, number2: u16): void;

@@ -1,7 +1,8 @@
 declare module "xray16" {
   /**
-   * C++ class COptionsManager {
+   * @source C++ class COptionsManager
    * @customConstructor COptionsManager
+   * @group xr_ui_core
    */
   export class XR_COptionsManager {
     public constructor();
@@ -18,8 +19,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CMainMenu {
+   * @source C++ class CMainMenu
    * @customConstructor CMainMenu
+   * @group xr_ui_core
    */
   export class XR_CMainMenu {
     public GetCDKey(): string;
@@ -35,8 +37,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CUIGameCustom {
+   * @source C++ class CUIGameCustom
    * @customConstructor CUIGameCustom
+   * @group xr_ui_core
    */
   export class XR_CUIGameCustom {
     public AddCustomStatic(id: string, b: boolean): XR_StaticDrawableWrapper;
@@ -57,8 +60,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CScriptXmlInit {
+   * @source C++ class CScriptXmlInit
    * @customConstructor CScriptXmlInit
+   * @group xr_ui_core
    */
   export class XR_CScriptXmlInit {
     public constructor();
@@ -101,16 +105,64 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class CGameFont {
+   * @source C++ class CGameFont
+   * @group xr_ui_core
    */
   export class XR_CGameFont {
     public static readonly alCenter: 2;
     public static readonly alLeft: 0;
     public static readonly alRight: 1;
+
+    private constructor();
   }
 
   /**
    * EVTextAlignment.
+   *
+   * @group xr_ui_core
    */
   export type TXR_CGameFont_alignment = EnumerateStaticsValues<typeof XR_CGameFont>;
+
+  /**
+   * @source C++ class ui_events
+   * @group xr_ui_core
+   */
+  export class XR_ui_events {
+    public static readonly BUTTON_CLICKED: 19;
+    public static readonly BUTTON_DOWN: 20;
+    public static readonly CHECK_BUTTON_RESET: 23;
+    public static readonly CHECK_BUTTON_SET: 22;
+    public static readonly EDIT_TEXT_COMMIT: 79;
+    public static readonly LIST_ITEM_CLICKED: 37;
+    public static readonly LIST_ITEM_SELECT: 38;
+    public static readonly LIST_ITEM_UNSELECT: 39;
+    public static readonly MAIN_MENU_RELOADED: 84;
+    public static readonly MESSAGE_BOX_CANCEL_CLICKED: 47;
+    public static readonly MESSAGE_BOX_COPY_CLICKED: 48;
+    public static readonly MESSAGE_BOX_NO_CLICKED: 46;
+    public static readonly MESSAGE_BOX_OK_CLICKED: 42;
+    public static readonly MESSAGE_BOX_QUIT_GAME_CLICKED: 45;
+    public static readonly MESSAGE_BOX_QUIT_WIN_CLICKED: 44;
+    public static readonly MESSAGE_BOX_YES_CLICKED: 43;
+    public static readonly PROPERTY_CLICKED: 41;
+    public static readonly RADIOBUTTON_SET: 24;
+    public static readonly SCROLLBAR_HSCROLL: 34;
+    public static readonly SCROLLBAR_VSCROLL: 33;
+    public static readonly SCROLLBOX_MOVE: 32;
+    public static readonly TAB_CHANGED: 21;
+    public static readonly WINDOW_KEYBOARD_CAPTURE_LOST: 16;
+    public static readonly WINDOW_KEY_PRESSED: 12;
+    public static readonly WINDOW_KEY_RELEASED: 13;
+    public static readonly WINDOW_LBUTTON_DB_CLICK: 11;
+    public static readonly WINDOW_LBUTTON_DOWN: 0;
+    public static readonly WINDOW_LBUTTON_UP: 3;
+    public static readonly WINDOW_MOUSE_MOVE: 6;
+    public static readonly WINDOW_RBUTTON_DOWN: 1;
+    public static readonly WINDOW_RBUTTON_UP: 4;
+  }
+
+  /**
+   * @group xr_ui_core
+   */
+  type TXR_ui_event = EnumerateStaticsValues<typeof XR_ui_events>;
 }

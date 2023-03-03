@@ -3,8 +3,9 @@ declare module "xray16" {
    * Frame rectangle.
    * Describing x1, y1 top left start point and x2, y2 bottom right end point.
    *
-   * C++ class Frect {
+   * @source C++ class Frect
    * @customConstructor Frect
+   * @group xr_math
    */
   export class XR_Frect extends XR_EngineBinding {
     public lt: XR_vector2;
@@ -19,8 +20,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class Fbox {
+   * @source C++ class Fbox
    * @customConstructor Fbox
+   * @group xr_math
    */
   export class XR_Fbox {
     public max: XR_vector;
@@ -30,8 +32,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class rotation {
+   * @source C++ class rotation
    * @customConstructor rotation
+   * @group xr_math
    */
   export class XR_rotation {
     public yaw: f32;
@@ -39,8 +42,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class vector2 {
+   * @source C++ class vector2
    * @customConstructor vector2
+   * @group xr_math
    */
   export class XR_vector2 {
     public x: f32;
@@ -51,8 +55,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class XR_vector {
+   * @source C++ class XR_vector
    * @customConstructor vector
+   * @group xr_math
    */
   export class XR_vector {
     public x: f32;
@@ -115,7 +120,8 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class RPoint {
+   * @source C++ class RPoint
+   * @group xr_math
    */
   export class XR_RPoint {
     public A: XR_vector;
@@ -125,8 +131,9 @@ declare module "xray16" {
   }
 
   /**
-   * C++ class matrix {
+   * @source C++ class matrix
    * @customConstructor matrix
+   * @group xr_math
    */
   export class XR_matrix {
     public _14_: f32;
