@@ -110,7 +110,7 @@ declare module "xray16" {
 
   /**
    * @source C++ class award_pair_t
-   * @constructor award_pair_t
+   * @customConstructor award_pair_t
    * @group xr_multiplayer
    */
   export class XR_award_pair_t {

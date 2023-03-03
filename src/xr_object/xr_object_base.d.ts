@@ -442,7 +442,7 @@ declare module "xray16" {
     public set_smart_cover_target_selector(cb?: (object: XR_game_object) => void, object?: object): void;
   }
 
-  /**
+  /*
    *  CAI_Stalker* cast_Stalker();
    *  CActor* cast_Actor();
    *  CArtefact* cast_Artefact();
