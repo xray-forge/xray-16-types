@@ -11,6 +11,10 @@ Here we only try to represent correct types.
 
 </p>
 
+## 🗻 Docs 
+
+Types [documentation](https://stalker-xrts.github.io/xray-16-types/modules.html) can be checked here.
+
 ## 🎮 Rules
 
 For easier navigation over codebase and typing following rules are applied:
