@@ -650,7 +650,7 @@ declare module "xray16" {
     public not_yet_visible_objects(): unknown;
     public object_count(): u32;
     public path_completed(): boolean;
-    public relation(game_object: XR_game_object): number;
+    public relation(game_object: XR_game_object): TXR_relation;
     public release_stand_sleep_animation(): void;
     public reset_action_queue(): void;
     public restore_sound_threshold(): void;
@@ -1039,6 +1039,8 @@ declare module "xray16" {
     public target_mental_state(): TXR_animation;
     public unregister_door_for_npc(): void;
   }
+
+  export type TXR_relation = 0 | 1 | 2;
 
   /**
    * C++ class CSpaceRestrictor : CGameObject {
