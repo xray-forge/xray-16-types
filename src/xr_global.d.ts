@@ -340,7 +340,12 @@ declare module "xray16" {
     disable_input(this: void): void;
     enable_input(this: void): void;
     environment(this: void): unknown /* XR_CEnvironment */;
-    game_id(this: void): u32;
+
+    /**
+     * @returns current game state ID.
+     */
+    game_id(this: void): TXR_EGameID;
+
     get_active_cam(this: void): u8;
     get_bounding_volume(this: void): XR_Fbox;
     get_game_difficulty(this: void): TXR_game_difficulty;
