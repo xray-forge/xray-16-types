@@ -491,7 +491,8 @@ declare module "xray16" {
       T extends XR_cse_alife_creature_abstract = XR_cse_alife_creature_abstract
     >
     extends XR_cse_alife_dynamic_object
-    implements IXR_cse_alife_schedulable {
+    implements IXR_cse_alife_schedulable
+  {
     public readonly object: T;
 
     public register_member(id: u16): void;
@@ -527,13 +528,13 @@ declare module "xray16" {
    * @group xr_alife_object
    */
   export class XR_cse_alife_smart_zone extends XR_cse_alife_space_restrictor implements IXR_cse_alife_schedulable {
-    public detect_probability(): unknown;
-    public smart_touch(cse_alife_monster_abstract: XR_cse_alife_creature_abstract): unknown;
-    public unregister_npc(cse_alife_monster_abstract: XR_cse_alife_creature_abstract): unknown;
-    public register_npc(cse_alife_monster_abstract: XR_cse_alife_creature_abstract): unknown;
-    public suitable(cse_alife_monster_abstract: XR_cse_alife_creature_abstract): unknown;
+    public detect_probability(): void;
+    public smart_touch(cse_alife_monster_abstract: XR_cse_alife_creature_abstract): void;
+    public unregister_npc(cse_alife_monster_abstract: XR_cse_alife_creature_abstract): void;
+    public register_npc(cse_alife_monster_abstract: XR_cse_alife_creature_abstract): void;
+    public suitable(cse_alife_monster_abstract: XR_cse_alife_creature_abstract): void;
     public task(cse_alife_monster_abstract: XR_cse_alife_creature_abstract): XR_CALifeSmartTerrainTask | null;
-    public enabled(cse_alife_monster_abstract: XR_cse_alife_creature_abstract): unknown;
+    public enabled(cse_alife_monster_abstract: XR_cse_alife_creature_abstract): void;
   }
 
   /**
@@ -587,7 +588,8 @@ declare module "xray16" {
    */
   export class XR_cse_alife_creature_actor
     extends XR_cse_alife_creature_abstract
-    implements IXR_cse_ph_skeleton, XR_cse_alife_trader_abstract {
+    implements IXR_cse_ph_skeleton, XR_cse_alife_trader_abstract
+  {
     public profile_name(): string;
     public community(): string;
     public rank(): i32;
