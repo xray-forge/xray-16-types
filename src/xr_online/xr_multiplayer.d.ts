@@ -292,5 +292,5 @@ declare module "xray16" {
   /**
    * @group xr_multiplayer
    */
-  export type TXR_game_message = EnumerateStaticsValues<XR_game_messages>;
+  export type TXR_game_message = EnumeratedStaticsValues<XR_game_messages>;
 }

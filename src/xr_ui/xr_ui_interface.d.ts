@@ -279,7 +279,7 @@ declare module "xray16" {
   /**
    * @group xr_ui_interface
    */
-  export type TXR_MMShniaga_page = EnumerateStaticsValues<typeof XR_CUIMMShniaga>;
+  export type TXR_MMShniaga_page = EnumeratedStaticsValues<typeof XR_CUIMMShniaga>;
 
   /**
    * @source C++ class CUIMapInfo : CUIWindow

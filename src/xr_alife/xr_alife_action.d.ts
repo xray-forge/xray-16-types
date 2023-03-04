@@ -129,7 +129,7 @@ declare module "xray16" {
   /**
    * @group xr_alife_action
    */
-  export type TXR_move = EnumerateStaticsValues<typeof XR_move>;
+  export type TXR_move = EnumeratedStaticsValues<typeof XR_move>;
 
   /**
    * @source C++ class patrol
@@ -172,7 +172,7 @@ declare module "xray16" {
   /**
    * @group xr_alife_action
    */
-  export type TXR_patrol_type = EnumerateStaticsValues<typeof XR_patrol>;
+  export type TXR_patrol_type = EnumeratedStaticsValues<typeof XR_patrol>;
 
   /**
    * @source C++ class look
@@ -206,7 +206,7 @@ declare module "xray16" {
   /**
    * @group xr_alife_action
    */
-  export type TXR_look = EnumerateStaticsValues<typeof XR_look>;
+  export type TXR_look = EnumeratedStaticsValues<typeof XR_look>;
 
   /**
    * @source C++ class anim
@@ -245,12 +245,12 @@ declare module "xray16" {
   /**
    * @group xr_alife_action
    */
-  export type TXR_animation_key = EnumerateStaticsKeys<typeof XR_anim>;
+  export type TXR_animation_key = EnumeratedStaticsKeys<typeof XR_anim>;
 
   /**
    * @group xr_alife_action
    */
-  export type TXR_animation = EnumerateStaticsValues<typeof XR_anim>;
+  export type TXR_animation = EnumeratedStaticsValues<typeof XR_anim>;
 
   /**
    * @source C++ class sound
@@ -304,12 +304,12 @@ declare module "xray16" {
   /**
    * @group xr_alife_action
    */
-  export type TXR_sound_key = EnumerateStaticsKeys<typeof XR_sound>;
+  export type TXR_sound_key = EnumeratedStaticsKeys<typeof XR_sound>;
 
   /**
    * @group xr_alife_action
    */
-  export type TXR_sound_type = EnumerateStaticsValues<typeof XR_sound>;
+  export type TXR_sound_type = EnumeratedStaticsValues<typeof XR_sound>;
 
   /**
    * @source C++ class cond
@@ -333,7 +333,7 @@ declare module "xray16" {
   /**
    * @group xr_alife_action
    */
-  export type TXR_cond = EnumerateStaticsValues<typeof XR_cond>;
+  export type TXR_cond = EnumeratedStaticsValues<typeof XR_cond>;
 
   /**
    * @source C++ class action_base

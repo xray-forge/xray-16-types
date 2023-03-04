@@ -236,7 +236,7 @@ declare module "xray16" {
   /**
    * @group xr_constants
    */
-  export type TXR_callback = EnumerateStaticsValues<TXR_callbacks>;
+  export type TXR_callback = EnumeratedStaticsValues<TXR_callbacks>;
 
   /**
    * @source C++ class key_bindings
@@ -314,7 +314,7 @@ declare module "xray16" {
   /**
    * @group xr_constants
    */
-  type TXR_GAME_TYPE = EnumerateStaticsValues<typeof XR_GAME_TYPE>;
+  type TXR_GAME_TYPE = EnumeratedStaticsValues<typeof XR_GAME_TYPE>;
 
   /**
    * @source C++ class game_difficulty
@@ -330,12 +330,12 @@ declare module "xray16" {
   /**
    * @group xr_constants
    */
-  export type TXR_game_difficulty_name = EnumerateStaticsKeys<typeof XR_game_difficulty>;
+  export type TXR_game_difficulty_name = EnumeratedStaticsKeys<typeof XR_game_difficulty>;
 
   /**
    * @group xr_constants
    */
-  export type TXR_game_difficulty = EnumerateStaticsValues<typeof XR_game_difficulty>;
+  export type TXR_game_difficulty = EnumeratedStaticsValues<typeof XR_game_difficulty>;
 
   /**
    * @source C++ class task
@@ -355,13 +355,13 @@ declare module "xray16" {
   /**
    * @group xr_constants
    */
-  export type TXR_task_state_name = EnumerateStaticsKeys<typeof XR_task>;
+  export type TXR_task_state_name = EnumeratedStaticsKeys<typeof XR_task>;
 
   /**
    * ETaskState
    * @group xr_constants
    */
-  export type TXR_TaskState = EnumerateStaticsValues<typeof XR_task>;
+  export type TXR_TaskState = EnumeratedStaticsValues<typeof XR_task>;
 
   /**
    * @source C++ class clsid
@@ -592,12 +592,12 @@ declare module "xray16" {
   /**
    * @group xr_constants
    */
-  type TXR_cls_key = EnumerateStaticsKeys<typeof XR_clsid>;
+  type TXR_cls_key = EnumeratedStaticsKeys<typeof XR_clsid>;
 
   /**
    * @group xr_constants
    */
-  type TXR_cls_id = EnumerateStaticsValues<typeof XR_clsid>;
+  type TXR_cls_id = EnumeratedStaticsValues<typeof XR_clsid>;
 
   /**
    * @source C++ class MonsterSpace
@@ -615,12 +615,12 @@ declare module "xray16" {
   /**
    * @group xr_constants
    */
-  export type TXR_MonsterBodyStateKey = EnumerateStaticsKeys<typeof XR_MonsterSpace>;
+  export type TXR_MonsterBodyStateKey = EnumeratedStaticsKeys<typeof XR_MonsterSpace>;
 
   /**
    * @group xr_constants
    */
-  export type TXR_MonsterBodyState = EnumerateStaticsValues<typeof XR_MonsterSpace>;
+  export type TXR_MonsterBodyState = EnumeratedStaticsValues<typeof XR_MonsterSpace>;
 
   /**
    * @source C++ class CSightParams
@@ -652,7 +652,7 @@ declare module "xray16" {
   /**
    * @group xr_constants
    */
-  export type TXR_SightType = EnumerateStaticsValues<typeof XR_CSightParams>;
+  export type TXR_SightType = EnumeratedStaticsValues<typeof XR_CSightParams>;
 
   /**
    * @source C++ class DIK_keys
@@ -925,12 +925,12 @@ declare module "xray16" {
   /**
    * @group xr_constants
    */
-  type TXR_DIK_key_name = EnumerateStaticsKeys<typeof DIK_keys>;
+  type TXR_DIK_key_name = EnumeratedStaticsKeys<typeof DIK_keys>;
 
   /**
    * @group xr_constants
    */
-  type TXR_DIK_key = EnumerateStaticsValues<typeof DIK_keys>;
+  type TXR_DIK_key = EnumeratedStaticsValues<typeof DIK_keys>;
 
   /**
    * @source C++ class FactionState

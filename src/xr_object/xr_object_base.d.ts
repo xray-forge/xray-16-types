@@ -146,7 +146,7 @@ declare module "xray16" {
   /**
    * @group xr_object_base
    */
-  export type TXR_hit_type = EnumerateStaticsValues<TXR_hit_types>;
+  export type TXR_hit_type = EnumeratedStaticsValues<TXR_hit_types>;
 
   /**
    * @source C++ class danger_object
@@ -182,7 +182,7 @@ declare module "xray16" {
   /**
    * @group xr_object_base
    */
-  export type TXR_danger_object = EnumerateStaticsValues<TXR_danger_objects>;
+  export type TXR_danger_object = EnumeratedStaticsValues<TXR_danger_objects>;
 
   /**
    * Custom extension.

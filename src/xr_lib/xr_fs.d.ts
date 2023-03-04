@@ -113,7 +113,7 @@ declare module "xray16" {
   /**
    * @group xr_fs
    */
-  export type TXR_fs_type = EnumerateStaticsValues<typeof XR_FS>;
+  export type TXR_fs_type = EnumeratedStaticsValues<typeof XR_FS>;
 
   // todo: Clarify param names.
   // todo: Clarify read line multireturn.

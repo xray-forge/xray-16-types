@@ -1,6 +1,10 @@
 declare module "xray16" {
   /**
    * Base for bindings brought from LuaBind library.
+   * todo: Correct signatures.
+   *
+   * @source luabind
+   * @group xr_luabind
    */
   export class XR_EngineBinding {
     public static readonly __name: string;
@@ -48,4 +52,9 @@ declare module "xray16" {
     public static __add(this: void): void;
     public __add(): void;
   }
+
+  /**
+   * @group xr_types
+   */
+  type XR_EngineBindingStaticMethods = keyof typeof XR_EngineBinding;
 }

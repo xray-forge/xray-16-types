@@ -56,15 +56,10 @@ declare module "xray16" {
   /**
    * @group xr_types
    */
-  type XR_EngineBindingStaticMethods = keyof typeof XR_EngineBinding;
+  type EnumeratedStaticsKeys<T> = Exclude<keyof T, "constructor" | XR_EngineBindingStaticMethods>;
 
   /**
    * @group xr_types
    */
-  type EnumerateStaticsKeys<T> = Exclude<keyof T, "constructor" | XR_EngineBindingStaticMethods>;
-
-  /**
-   * @group xr_types
-   */
-  type EnumerateStaticsValues<T> = T[Exclude<keyof T, "constructor" | XR_EngineBindingStaticMethods>];
+  type EnumeratedStaticsValues<T> = T[Exclude<keyof T, "constructor" | XR_EngineBindingStaticMethods>];
 }

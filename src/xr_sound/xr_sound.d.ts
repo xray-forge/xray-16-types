@@ -67,7 +67,7 @@ declare module "xray16" {
   /**
    * @group xr_sound
    */
-  export type TXR_sound_object_type = EnumerateStaticsValues<typeof XR_sound_object>;
+  export type TXR_sound_object_type = EnumeratedStaticsValues<typeof XR_sound_object>;
 
   /**
    * @source C++ class snd_type
@@ -128,7 +128,7 @@ declare module "xray16" {
   /**
    * @group xr_sound
    */
-  export type TXR_snd_type = EnumerateStaticsValues<typeof XR_snd_type>;
+  export type TXR_snd_type = EnumeratedStaticsValues<typeof XR_snd_type>;
 
   /**
    * @source C++ class SoundInfo

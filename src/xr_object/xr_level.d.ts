@@ -89,7 +89,7 @@ declare module "xray16" {
   /**
    * @group xr_level
    */
-  export type TXR_CCar_weapon_param = EnumerateStaticsValues<typeof XR_CCar>;
+  export type TXR_CCar_weapon_param = EnumeratedStaticsValues<typeof XR_CCar>;
 
   /**
    * @source C++ class CHelicopter : CGameObject

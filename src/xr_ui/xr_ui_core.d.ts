@@ -121,7 +121,7 @@ declare module "xray16" {
    *
    * @group xr_ui_core
    */
-  export type TXR_CGameFont_alignment = EnumerateStaticsValues<typeof XR_CGameFont>;
+  export type TXR_CGameFont_alignment = EnumeratedStaticsValues<typeof XR_CGameFont>;
 
   /**
    * @source C++ class ui_events
@@ -164,5 +164,5 @@ declare module "xray16" {
   /**
    * @group xr_ui_core
    */
-  type TXR_ui_event = EnumerateStaticsValues<typeof XR_ui_events>;
+  type TXR_ui_event = EnumeratedStaticsValues<typeof XR_ui_events>;
 }

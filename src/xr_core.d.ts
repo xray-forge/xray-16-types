@@ -110,7 +110,7 @@ declare module "xray16" {
   /**
    * @group xr_core
    */
-  export type TXR_object_state = EnumerateStaticsValues<typeof XR_object>;
+  export type TXR_object_state = EnumeratedStaticsValues<typeof XR_object>;
 
   /**
    * @source C++ class entity_memory_object : memory_object
