@@ -17,7 +17,7 @@ declare module "xray16" {
   }
 
   /**
-   * @group xr_types
+   * @group xr_luabind
    */
   type XR_EngineBindingStaticMethods = keyof typeof XR_EngineBinding;
 
@@ -27,7 +27,7 @@ declare module "xray16" {
    * Luabind variant is less flexible and has many limitations,
    * but allows extension of engine exported classes and virtual methods.
    *
-   * @group xr_types
+   * @group xr_luabind
    */
   export function LuabindClass(): ClassDecorator;
 }
