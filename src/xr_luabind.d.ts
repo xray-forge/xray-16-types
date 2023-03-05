@@ -20,4 +20,14 @@ declare module "xray16" {
    * @group xr_types
    */
   type XR_EngineBindingStaticMethods = keyof typeof XR_EngineBinding;
+
+  /**
+   * Decorator to mark classes as luabind transformed.
+   * Marked classes will be declared using luabind tools instead of default typescript-to-lua approach.
+   * Luabind variant is less flexible and has many limitations,
+   * but allows extension of engine exported classes and virtual methods.
+   *
+   * @group xr_types
+   */
+  export function LuabindClass(): ClassDecorator;
 }
