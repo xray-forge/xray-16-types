@@ -13,7 +13,7 @@ Here we only try to represent correct types.
 
 ## 🗻 Docs 
 
-Types [documentation](https://stalker-xrts.github.io/xray-16-types/modules.html) can be checked here.
+Types documentation can be checked [here](https://stalker-xrts.github.io/xray-16-types/modules.html).
 
 ## 🎮 Rules
 
