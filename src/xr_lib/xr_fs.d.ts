@@ -131,7 +131,7 @@ declare module "xray16" {
     public remove_line(section: string, param: string): void;
 
     public r_bool(section: string, param: string): boolean;
-    public section_exist(section: string): boolean;
+    public section_exist(section: string | null): boolean;
     public r_float(section: string, param: string): f32;
     public r_clsid(section: string, param: string): i32;
     public r_s32(section: string, param: string): i32;
@@ -146,7 +146,7 @@ declare module "xray16" {
     public r_u32(section: string, param: string): u32;
     public r_string_wq(section: string, param: string): string;
     public r_string(section: string, param: string): string;
-    public line_exist(section: string, param: string): boolean;
+    public line_exist(section: string | null, param: string): boolean;
 
     public w_fvector2(section: string, param: string, vector: XR_vector2, chat: string): void;
     public w_fvector3(section: string, param: string, vector: XR_vector, chat: string): void;
