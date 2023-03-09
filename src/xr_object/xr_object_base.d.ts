@@ -278,7 +278,7 @@ declare module "xray16" {
     // 14 todo: map_location_added
 
     /**
-     * 15 todo;
+     * 15 Use some object.
      */
     public set_callback(
       type: TXR_callbacks["use_object"],

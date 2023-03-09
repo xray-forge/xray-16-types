@@ -8,7 +8,7 @@ declare module "xray16" {
     public actor(): XR_cse_alife_creature_actor;
     public add_in_restriction(monster: XR_cse_alife_monster_abstract, value: u16): void;
     public add_out_restriction(monster: XR_cse_alife_monster_abstract, value: u16): void;
-    public create_ammo(section: string, vector: XR_vector, lvi: u32, gvi: u16, pid: u16, num: i32): XR_cse_abstract;
+    public create_ammo(section: string, vector: XR_vector, lvi: u32, gvi: u16, pid: u16, count: i32): XR_cse_abstract;
     public dont_has_info(objectId: u16, infoId: string): boolean;
     public has_info(objectId: u16, infoId: string): boolean;
     public iterate_objects(cb: () => boolean): void;
