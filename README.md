@@ -1,4 +1,4 @@
-# 📡 XRay-16 engine typescript definitions
+# [📡 XRay-16 engine typescript definitions](https://github.com/stalker-xrts/xray-16-types)
 
 For usage with [TypeScriptToLua](https://typescripttolua.github.io/docs/getting-started).
 
