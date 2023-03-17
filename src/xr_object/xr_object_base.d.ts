@@ -19,10 +19,10 @@ declare module "xray16" {
       client_object_class: string,
       server_object_class: string,
       clsid: string,
-      script_clsid: TXR_cls_key
+      script_clsid: TXR_class_key
     ): void;
 
-    public register(client_object_class: string, clsid: string, script_clsid: TXR_cls_key): void;
+    public register(client_object_class: string, clsid: string, script_clsid: TXR_class_key): void;
   }
 
   /**
@@ -614,7 +614,7 @@ declare module "xray16" {
     public story_id(): u32;
     public object(value: string): XR_game_object | null;
     public object(value: i32): XR_game_object | null;
-    public clsid(): TXR_cls_id;
+    public clsid(): TXR_class_id;
 
     public add_animation(value1: string, value2: boolean, value3: boolean): void;
     public add_animation(value1: string, value2: boolean, value3: XR_vector, value4: XR_vector, value: boolean): void;

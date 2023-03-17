@@ -121,7 +121,7 @@ declare module "xray16" {
     public constructor(section: string);
 
     public name<T extends string>(): T;
-    public clsid(): TXR_cls_id;
+    public clsid(): TXR_class_id;
     public spawn_ini(): XR_ini_file;
     public section_name<T extends string>(): T;
 
@@ -491,7 +491,8 @@ declare module "xray16" {
       T extends XR_cse_alife_creature_abstract = XR_cse_alife_creature_abstract
     >
     extends XR_cse_alife_dynamic_object
-    implements IXR_cse_alife_schedulable {
+    implements IXR_cse_alife_schedulable
+  {
     public readonly object: T;
 
     public register_member(id: u16): void;
@@ -587,7 +588,8 @@ declare module "xray16" {
    */
   export class XR_cse_alife_creature_actor
     extends XR_cse_alife_creature_abstract
-    implements IXR_cse_ph_skeleton, XR_cse_alife_trader_abstract {
+    implements IXR_cse_ph_skeleton, XR_cse_alife_trader_abstract
+  {
     public profile_name(): string;
     public community(): string;
     public rank(): i32;

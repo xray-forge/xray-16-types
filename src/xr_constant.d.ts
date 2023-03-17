@@ -355,7 +355,7 @@ declare module "xray16" {
   /**
    * @group xr_constants
    */
-  export type TXR_task_state_name = EnumeratedStaticsKeys<typeof XR_task>;
+  export type TXR_TaskStateName = EnumeratedStaticsKeys<typeof XR_task>;
 
   /**
    * ETaskState
@@ -592,12 +592,12 @@ declare module "xray16" {
   /**
    * @group xr_constants
    */
-  type TXR_cls_key = EnumeratedStaticsKeys<typeof XR_clsid>;
+  type TXR_class_key = EnumeratedStaticsKeys<typeof XR_clsid>;
 
   /**
    * @group xr_constants
    */
-  type TXR_cls_id = EnumeratedStaticsValues<typeof XR_clsid>;
+  type TXR_class_id = EnumeratedStaticsValues<typeof XR_clsid>;
 
   /**
    * @source C++ class MonsterSpace

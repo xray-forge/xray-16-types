@@ -31,7 +31,6 @@ declare module "xray16" {
     public set_action(particle: XR_particle): void;
     public set_action(objec: XR_object): void;
     public set_action(cond: XR_cond): void;
-    public set_action(act: unknown): void; /* monster action */
 
     public move(): boolean;
     public particle(): boolean;
@@ -43,6 +42,11 @@ declare module "xray16" {
     public sound(): boolean;
     public anim(): boolean;
   }
+
+  /**
+   * @group xr_alife_action
+   */
+  export type TXR_entity_action = XR_move | XR_look | XR_anim | XR_sound | XR_particle | XR_object | XR_cond;
 
   /**
    * @source C++ class move
