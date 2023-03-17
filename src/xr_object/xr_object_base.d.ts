@@ -554,7 +554,7 @@ declare module "xray16" {
    *  void set_restrictor_type(unsigned char);
    *  void set_spatial_type(unsigned int);
    *  void set_weapon_type(unsigned int);
-   *  void set_weight(float);
+
    *  void start_trade(game_object*);
    *  void start_upgrade(game_object*);
    *  void switch_state(unsigned int);
@@ -681,6 +681,7 @@ declare module "xray16" {
     public release_stand_sleep_animation(): void;
     public reset_action_queue(): void;
     public restore_sound_threshold(): void;
+    public set_weight(weight: f32): void;
     public set_actor_direction(value: f32): void;
     public set_ammo_elapsed(value: i32): void;
     public set_community_goodwill(first: string, second: i32): void;
