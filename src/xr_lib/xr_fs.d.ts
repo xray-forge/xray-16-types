@@ -135,9 +135,13 @@ declare module "xray16" {
     public r_float(section: string, param: string): f32;
     public r_clsid(section: string, param: string): i32;
     public r_s32(section: string, param: string): i32;
+
+    /**
+     * @returns tuple with three elements, where first is *, second is key, third is value.
+     */
     public r_line<T extends string = string, P extends string = string>(
       section: string,
-      line_number: number,
+      line_number: i32,
       c: string,
       d: string
     ): LuaMultiReturn<[string, T, P]>;
