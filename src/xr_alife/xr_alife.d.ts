@@ -5,7 +5,7 @@ declare module "xray16" {
    * @group xr_alife
    */
   export class XR_alife_simulator {
-    public actor(): XR_cse_alife_creature_actor;
+    public actor<T extends XR_cse_alife_creature_actor>(): T;
     public add_in_restriction(monster: XR_cse_alife_monster_abstract, value: u16): void;
     public add_out_restriction(monster: XR_cse_alife_monster_abstract, value: u16): void;
     public create_ammo(section: string, vector: XR_vector, lvi: u32, gvi: u16, pid: u16, count: i32): XR_cse_abstract;
