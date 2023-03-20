@@ -137,6 +137,8 @@ declare module "xray16" {
     public r_s32(section: string, param: string): i32;
 
     /**
+     * Read text line from ini config file.
+     *
      * @returns tuple with three elements, where first is *, second is key, third is value.
      */
     public r_line<T extends string = string, P extends string = string>(

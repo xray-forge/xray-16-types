@@ -562,6 +562,8 @@ declare module "xray16" {
    */
 
   /**
+   * Client object base representing generic in-game entities from items to mutants and stalkers.
+   *
    * @source C++ class game_object
    * @group xr_object_base
    */
@@ -608,7 +610,7 @@ declare module "xray16" {
     protected constructor();
 
     /**
-     * Get engine object ID.
+     * Get engine client object ID.
      */
     public id(): u16;
     public story_id(): u32;

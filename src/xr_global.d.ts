@@ -125,7 +125,11 @@ declare module "xray16" {
   export function getFS(this: void): XR_FS;
 
   /**
+   * Get console object reference.
+   * Allows flushing logs / executing commands / getting global engine variables.
+   *
    * @group xr_global
+   * @returns console object reference
    */
   export function get_console(this: void): XR_CConsole;
 
@@ -175,6 +179,9 @@ declare module "xray16" {
   export function SetCursorPosition(this: void, vector: XR_vector2): void;
 
   /**
+   * Check whether dynamic music setting is enabled.
+   * Dynamic music starts playing different kind of ambient sounds in actor combat.
+   *
    * @group xr_global
    * @returns is dynamic music allowed in game settings.
    */
@@ -186,7 +193,13 @@ declare module "xray16" {
   export function GetFontLetterica16Russian(this: void): XR_CGameFont;
 
   /**
+   * Log formatted message in game console and log file.
+   * Resulting message looks like "[LUA]  %s", where message is provided text parameter.
+   *
+   * Note: text length is limited and supplying too long value will crash the game. todo: check exact limit.
+   *
    * @group xr_global
+   * @param text - string to print
    */
   export function log(this: void, text: string): void;
 

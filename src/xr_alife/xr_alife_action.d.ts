@@ -78,6 +78,10 @@ declare module "xray16" {
     public static readonly off: 512;
     public static readonly on: 256;
     public static readonly right: 16;
+
+    /**
+     * Fast run movement type, not sprint but generic fast movement.
+     */
     public static readonly run: 1;
     public static readonly run_fwd: 2;
     public static readonly run_with_leader: 7;
@@ -85,7 +89,9 @@ declare module "xray16" {
     public static readonly standing: 1;
     public static readonly steal: 5;
     public static readonly up: 32;
-
+    /**
+     * Normal walk movement type, generic movement type used in most cases.
+     */
     public static readonly walk: 0;
 
     public static readonly walk_fwd: 0;
