@@ -273,8 +273,11 @@ declare module "xray16" {
   export function prefetch(this: void, path: string): void;
 
   /**
+   * Get absolute time in millis from executable start.
+   * Returns time in milliseconds.
+   *
    * @group xr_global
-   * @returns 'ms' from game start.
+   * @returns 'ms' from game executable start.
    * @example 0, 1000, 60000
    */
   export function time_global(this: void): u32;
@@ -352,6 +355,9 @@ declare module "xray16" {
     get_snd_volume(this: void): f32;
     get_target_dist(this: void): f32;
     get_target_element(this: void): u32;
+    /**
+     * Get object target aimed by cursor.
+     */
     get_target_obj(this: void): XR_game_object | null;
     get_time_days(this: void): u32;
     get_time_factor(this: void): f32;
