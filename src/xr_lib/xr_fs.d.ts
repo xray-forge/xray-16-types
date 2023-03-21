@@ -252,37 +252,33 @@ declare module "xray16" {
    */
   export class XR_reader {
     public r_advance(value: u64): void;
-    public r_angle16(): f32;
-    public r_angle8(): f32;
-    public r_bool(): boolean;
-    public r_dir(vector: XR_vector): void;
     public r_elapsed(): i64;
     public r_eof(): boolean;
-    public r_float(): f32;
-    public r_float(value: f32): f32;
-    public r_float_q16(value1: f32, value2: f32): f32;
-    public r_float_q8(value1: f32, value2: f32): f32;
-    public r_s16(): i16;
-    public r_s16(value: i16): void;
-    public r_s32(): i32;
-    public r_s32(value: i32): i32;
-    public r_s64(): i64;
-    public r_s64(value: number): i64;
-    public r_s8(): i8;
-    public r_s8(value: i8): i8;
     public r_sdir(vector: XR_vector): void;
     public r_seek(value: u64): void;
-    public r_stringZ<T extends string>(): T;
     public r_tell(): u64;
-    public r_u16(): i16;
-    public r_u16(value: i16): i16;
-    public r_u32(): u32;
-    public r_u32(value: u32): u32;
-    public r_u64(): u64;
-    public r_u64(value: u64): u64;
-    public r_u8(): u8;
-    public r_u8(value: u8): u8;
+
+    public r_dir(vector: XR_vector): void;
     public r_vec3(vector: XR_vector): void;
+    public r_angle16(): f32;
+    public r_angle8(): f32;
+
+    public r_bool(): boolean;
+    public r_stringZ<T extends string>(): T;
+
+    public r_float<T extends f32>(value?: T): T;
+    public r_float_q16<T extends f32>(value1: T, value2: T): T;
+    public r_float_q8<T extends f32>(value1: T, value2: T): T;
+
+    public r_s16<T extends i16 = i16>(value?: T): T;
+    public r_s32<T extends i32 = i32>(value?: T): T;
+    public r_s64<T extends i64 = i64>(value?: T): T;
+    public r_s8<T extends i8 = i8>(value?: T): T;
+
+    public r_u16<T extends u16 = u16>(value?: T): T;
+    public r_u32<T extends u32 = u32>(value?: T): T;
+    public r_u64<T extends u64 = u64>(value?: T): T;
+    public r_u8<T extends u8 = u8>(value?: T): T;
   }
 
   /**
