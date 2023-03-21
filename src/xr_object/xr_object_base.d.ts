@@ -435,9 +435,11 @@ declare module "xray16" {
     // 53 todo: weapon_jammed
 
     public set_enemy_callback(cb: null): void;
-    public set_enemy_callback(cb: () => boolean): void;
-    public set_enemy_callback(cb: () => boolean, object: XR_game_object): void;
-    public set_fastcall<T>(cb: (this: T) => boolean, object: T): void;
+    public set_enemy_callback<T>(
+      cb: (this: T, object: XR_game_object, enemy: XR_game_object) => boolean,
+      object: T
+    ): void;
+    public set_fastcall<T>(cb: (this: T) => boolean, context: T): void;
     public set_patrol_extrapolate_callback(cb?: ((cur_pt: number) => boolean) | null, object?: object): void;
     public set_smart_cover_target_selector(cb?: (object: XR_game_object) => void, object?: object): void;
   }
