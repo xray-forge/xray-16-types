@@ -106,6 +106,8 @@ declare module "xray16" {
   }
 
   /**
+   * Base abstract logic for any representation of objects on server side.
+   *
    * @source C++ class cse_abstract : cpure_server_object
    * @customConstructor cse_abstract
    * @group xr_alife_object
@@ -133,6 +135,8 @@ declare module "xray16" {
   }
 
   /**
+   * Base representation of any object on server side.
+   *
    * @source C++ class cse_alife_object : cse_abstract
    * @customConstructor cse_alife_object
    * @group xr_alife_object
@@ -200,6 +204,8 @@ declare module "xray16" {
   export class XR_cse_custom_zone extends XR_cse_alife_dynamic_object implements IXR_cse_shape {}
 
   /**
+   * Base representation of any alive creature on server side.
+   *
    * @source C++ class cse_alife_creature_abstract : cse_alife_dynamic_object_visual
    * @customConstructor cse_alife_creature_abstract
    * @group xr_alife_object
@@ -233,6 +239,8 @@ declare module "xray16" {
   }
 
   /**
+   * Base representation of any human stalker on server side.
+   *
    * @source C++ class cse_alife_human_abstract : cse_alife_trader_abstract,cse_alife_monster_abstract
    * @customConstructor XR_cse_alife_human_abstract
    * @group xr_alife_object
@@ -245,6 +253,8 @@ declare module "xray16" {
   }
 
   /**
+   * Base representation of any item on server side.
+   *
    * @source C++ class cse_alife_item : cse_alife_dynamic_object_visual,cse_alife_inventory_item
    * @customConstructor cse_alife_item
    * @group xr_alife_object
@@ -254,6 +264,8 @@ declare module "xray16" {
   }
 
   /**
+   * Base representation of any weapon item on server side.
+   *
    * @source C++ class cse_alife_item_weapon : cse_alife_item
    * @customConstructor cse_alife_item_weapon
    * @group xr_alife_object
@@ -491,7 +503,8 @@ declare module "xray16" {
       T extends XR_cse_alife_creature_abstract = XR_cse_alife_creature_abstract
     >
     extends XR_cse_alife_dynamic_object
-    implements IXR_cse_alife_schedulable {
+    implements IXR_cse_alife_schedulable
+  {
     public readonly object: T;
 
     public register_member(id: u16): void;
@@ -587,7 +600,8 @@ declare module "xray16" {
    */
   export class XR_cse_alife_creature_actor
     extends XR_cse_alife_creature_abstract
-    implements IXR_cse_ph_skeleton, XR_cse_alife_trader_abstract {
+    implements IXR_cse_ph_skeleton, XR_cse_alife_trader_abstract
+  {
     public profile_name(): string;
     public community(): string;
     public rank(): i32;
