@@ -17,7 +17,7 @@ Types documentation can be checked [here](https://stalker-xrts.github.io/xray-16
 
 ## 🧱 Usage
 
-Types are used with [xrts template](https://stalker-xrts.github.io/xray-16-types/modules.html) and are heavy part of it.
+Types are used with [xrts template](https://github.com/stalker-xrts/stalker-xrts-template) and are heavy part of it.
 
 ## 🎮 Updating types
 
