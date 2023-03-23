@@ -1,5 +1,4 @@
 # [📡 XRay-16 engine typescript definitions](https://github.com/stalker-xrts/xray-16-types)
-[![Node.js CI](https://github.com/stalker-xrts/xray-16-types/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/stalker-xrts/xray-16-types/actions/workflows/build_and_test.yml)
 
 For usage with [TypeScriptToLua](https://typescripttolua.github.io/docs/getting-started).
 
@@ -12,11 +11,15 @@ Here we only try to represent correct types.
 
 </p>
 
-## 🗻 Docs 
+## 🗻 Docs
 
 Types documentation can be checked [here](https://stalker-xrts.github.io/xray-16-types/modules.html).
 
-## 🎮 Rules
+## 🧱 Usage
+
+Types are used with [xrts template](https://stalker-xrts.github.io/xray-16-types/modules.html) and are heavy part of it.
+
+## 🎮 Updating types
 
 For easier navigation over codebase and typing following rules are applied:
 
@@ -45,7 +48,7 @@ In TS codebase '@LuabindClass' decorator can be used to modify transformation an
 Separate transformer is needed to build luabind classes instead of table-based classes.
 </p>
 
-## 🧱 How to get up-to-date LUA bindings
+## 🧱 Getting up-to-date LUA bindings
 
 - Run game engine with `-dump_bindings` flag
 - Check userdata folder _(where game saves are stored)_ `scriptbindings_*.txt` files
