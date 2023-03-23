@@ -1,4 +1,5 @@
 # [📡 XRay-16 engine typescript definitions](https://github.com/stalker-xrts/xray-16-types)
+[![Node.js CI](https://github.com/stalker-xrts/xray-16-types/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/stalker-xrts/xray-16-types/actions/workflows/build_and_test.yml)
 
 For usage with [TypeScriptToLua](https://typescripttolua.github.io/docs/getting-started).
 
