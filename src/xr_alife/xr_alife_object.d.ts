@@ -580,7 +580,7 @@ declare module "xray16" {
    * @group xr_alife_object
    */
   export class XR_cse_smart_cover extends XR_cse_alife_dynamic_object {
-    public description(): string | null;
+    public description<T extends string>(): T | null;
     public set_available_loopholes(object: unknown): void;
     public set_loopholes_table_checker(value: boolean): void;
   }
