@@ -230,8 +230,8 @@ declare module "xray16" {
   export class XR_CConsole extends XR_EngineBinding {
     private constructor();
 
-    public execute(cmd: string): void;
-    public execute_deferred(cmd: string): void;
+    public execute(command: string): void;
+    public execute_deferred(command: string): void;
     public execute_script(script: string): void;
 
     public show(): void;

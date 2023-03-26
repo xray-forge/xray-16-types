@@ -219,6 +219,8 @@ declare module "xray16" {
   export function show_condition(this: void, file: XR_ini_file, str: string): void;
 
   /**
+   * Whether auto-save on important checkpoints option is turned on.
+   *
    * @group xr_global
    */
   export function IsImportantSave(this: void): boolean;
@@ -326,7 +328,10 @@ declare module "xray16" {
   export function GetARGB(this: void, a: u16, r: u16, g: u16, b: u16): i32;
 
   /**
+   * Get operating system active user name.
+   *
    * @group xr_global
+   * @returns username string
    */
   export function user_name(this: void): string;
 
