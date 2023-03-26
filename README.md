@@ -1,6 +1,6 @@
-# [📡 XRay-16 engine typescript definitions](https://github.com/stalker-xrts/xray-16-types)
+# [📡 XRay-16 engine typescript definitions](https://github.com/xray-forge/xray-16-types)
 
-[![Node.js CI](https://github.com/stalker-xrts/xray-16-types/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/stalker-xrts/xray-16-types/actions/workflows/build_and_test.yml)
+[![Node.js CI](https://github.com/xray-forge/xray-16-types/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/xray-forge/xray-16-types/actions/workflows/build_and_test.yml)
 
 For usage with [TypeScriptToLua](https://typescripttolua.github.io/docs/getting-started).
 
@@ -15,11 +15,11 @@ Here we only try to represent correct types.
 
 ## 🗻 Docs
 
-Types documentation can be checked [here](https://stalker-xrts.github.io/xray-16-types/modules.html).
+Types documentation can be checked [here](https://xray-forge.github.io/xray-16-types/modules.html).
 
 ## 🧱 Usage
 
-Types are used with [xrts template](https://github.com/stalker-xrts/stalker-xrts-template) and are heavy part of it.
+Types are used with [xrf template](https://github.com/xray-forge/stalker-xrf-template) and are heavy part of it.
 
 ## 🎮 Updating types
 
