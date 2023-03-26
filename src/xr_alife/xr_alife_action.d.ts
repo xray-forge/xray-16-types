@@ -365,7 +365,14 @@ declare module "xray16" {
     public setup(game_object: XR_game_object, property_storage: XR_property_storage): void;
     public set_weight(weight: u16): void;
     public add_effect(world_property: XR_world_property): void;
-    public show(value: string): void;
+
+    /**
+     * With mixed / debug build allows investigation of evaluators and actions matches.
+     * Helps to debug custom actions and actions pre-conditions with state printing in log files.
+     *
+     * Note: Available only in mixed / debug engine builds, not for direct usage from lua.
+     */
+    public show(value?: string): void;
     public initialize(): void;
     public remove_effect(id: u32): void;
   }
