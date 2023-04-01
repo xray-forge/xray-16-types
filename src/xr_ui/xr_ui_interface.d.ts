@@ -21,7 +21,7 @@ declare module "xray16" {
     public SetFont(font: XR_CGameFont): void;
     public SetWndSize(vector2: XR_vector2): void;
     public SetWndSize(width: f32, height: f32): void;
-    public SetWindowName(value: string): void;
+    public SetWindowName(name: string): void;
     public SetWndPos(vector2: XR_vector2): void;
     public SetWndPos(x1: f32, y1: f32): void;
     public SetAutoDelete(auto_delete: boolean): void;

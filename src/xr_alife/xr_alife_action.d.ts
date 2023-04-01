@@ -388,11 +388,13 @@ declare module "xray16" {
 
     public constructor();
 
+    /**
+     * @returns whether object action planner is already initialized
+     */
     public initialized(): boolean;
     public remove_action(value: u32): void;
     public action(value: u32): XR_action_base;
     public add_action(value: u64, action_base: XR_action_base): void;
-    public show(char: string): void;
     public update(): void;
     public clear(): void;
     public evaluator(value: u32): XR_property_evaluator;
@@ -402,7 +404,9 @@ declare module "xray16" {
     public add_evaluator(id: u32, property_evaluator: XR_property_evaluator): void;
     public remove_evaluator(value: u32): void;
     public current_action_id(): u32;
-    public actual(): void;
+    public actual(): boolean;
+
+    public show(char: string): void;
   }
 
   /**
@@ -411,9 +415,7 @@ declare module "xray16" {
    * @group xr_alife_action
    */
   export class XR_planner_action extends XR_action_planner {
-    public constructor();
-    public constructor(game_object: XR_game_object);
-    public constructor(game_object: XR_game_object, value: string);
+    public constructor(game_object?: XR_game_object, value?: string);
 
     public add_effect(world_property: XR_world_property): unknown;
     public add_precondition(world_property: XR_world_property): void;
@@ -427,12 +429,22 @@ declare module "xray16" {
   }
 
   /**
+   * Storage of object evaluators cached state for handling of in-game logic.
+   *
    * @source C++ class property_storage
    * @customConstructor property_storage
    * @group xr_alife_action
    */
   export class XR_property_storage extends XR_EngineBinding {
+    /**
+     * Get property evaluator value by ID.
+     *
+     * @param value - evaluator property ID
+     * @returns evaluation value
+     * @throws if property is not declared in storage
+     */
     public property(value: u32): boolean;
+
     public set_property(value1: u32, value2: boolean): void;
   }
 
