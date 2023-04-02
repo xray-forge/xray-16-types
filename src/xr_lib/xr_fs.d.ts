@@ -172,9 +172,15 @@ declare module "xray16" {
     public w_float(section: string, param: string, float: f32, char: string): void;
     public w_string(section: string, param: string, string: string, char: string): void;
 
+    /**
+     * Get file name of ini file.
+     */
+    public fname(): string;
+    public set_readonly(is_readonly: boolean): void;
     public set_override_names(override: boolean): void;
     public save_as(path: string): boolean;
     public save_at_end(bool: boolean): void;
+    public section_for_each(cb: (name: string) => void): void;
   }
 
   /**

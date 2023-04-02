@@ -1043,7 +1043,7 @@ declare module "xray16" {
     public alive(): boolean;
     public base_in_restrictions(): string;
     public can_script_capture(): boolean;
-    public character_community(): string;
+    public character_community<T extends string>(): T;
     public external_sound_stop(): void;
     public find_best_cover(vector: XR_vector): XR_cover_point;
     public game_vertex_id(): u32;
