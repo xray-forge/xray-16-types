@@ -29,16 +29,13 @@ declare module "xray16" {
     public teleport_object(lvi: u16, gvi: u16, int: u32, vector: XR_vector): void;
     public valid_object_id(value: u16): boolean;
 
-    public kill_entity(monster: XR_cse_alife_monster_abstract): void;
-    public kill_entity(monster: XR_cse_alife_monster_abstract, value: u16): void;
     public kill_entity(
       monster1: XR_cse_alife_monster_abstract,
-      value: u16,
-      monster2: XR_cse_alife_monster_abstract
+      value?: u16,
+      monster2?: XR_cse_alife_monster_abstract
     ): void;
 
-    public object<T extends XR_cse_alife_object = XR_cse_alife_object>(id: number): T | null;
-    public object<T extends XR_cse_alife_object = XR_cse_alife_object>(id: number, value2: boolean): T | null;
+    public object<T extends XR_cse_alife_object = XR_cse_alife_object>(id: number, value2?: boolean): T | null;
 
     public create<T extends XR_cse_alife_object = XR_cse_alife_object>(value: u32): T;
     public create<T extends XR_cse_alife_object = XR_cse_alife_object>(
@@ -46,13 +43,7 @@ declare module "xray16" {
       position: XR_vector,
       lvi: u32,
       gvi: u32,
-      pid: i32
-    ): T;
-    public create<T extends XR_cse_alife_object = XR_cse_alife_object>(
-      item_section: string | number,
-      position: XR_vector,
-      lvi: u32,
-      gvi: u16
+      pid?: i32
     ): T;
   }
 
