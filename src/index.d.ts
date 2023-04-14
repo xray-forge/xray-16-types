@@ -17,6 +17,11 @@ declare module "xray16" {
   /**
    * @group export
    */
+  export const CGameTask: typeof XR_CGameTask;
+
+  /**
+   * @group export
+   */
   export const CMainMenu: typeof XR_CMainMenu;
 
   /**

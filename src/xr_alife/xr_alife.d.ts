@@ -53,10 +53,8 @@ declare module "xray16" {
    * @group xr_alife
    */
   export class XR_CALifeSmartTerrainTask {
-    // todo: Clarify constructor namings
-    public constructor(a: string);
-    public constructor(a: string, b: u32);
-    public constructor(a: u16, b: u32);
+    public constructor(patrol_path_name: string, patrol_point_index?: u32);
+    public constructor(game_vertex_id: u16, level_vertex_id: u32);
 
     public level_vertex_id(): u16;
     public game_vertex_id(): u16;

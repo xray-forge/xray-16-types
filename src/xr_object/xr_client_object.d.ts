@@ -1,7 +1,7 @@
 declare module "xray16" {
   /**
    * @source C++ class IRender_Visual
-   * @group xr_object_base
+   * @group xr_client_object
    */
   export interface IXR_IRender_Visual {
     dcast_PKinematicsAnimated(): XR_IKinematicsAnimated;
@@ -10,7 +10,7 @@ declare module "xray16" {
   /**
    * @source C++ class global
    * @customConstructor object_factory
-   * @group xr_object_base
+   * @group xr_client_object
    */
   export class XR_object_factory {
     protected constructor();
@@ -28,7 +28,7 @@ declare module "xray16" {
   /**
    * @source C++ class object_binder
    * @customConstructor object_binder
-   * @group xr_object_base
+   * @group xr_client_object
    */
   export class XR_object_binder<T = XR_game_object> extends XR_EngineBinding {
     public readonly object: T;
@@ -51,15 +51,16 @@ declare module "xray16" {
   /**
    * @source C++ class particle
    * @customConstructor particle
-   * @group xr_object_base
+   * @group xr_client_object
    */
   export class XR_particle extends XR_EngineBinding {
-    public constructor();
-    public constructor(value1: string, value2: string);
-    public constructor(value1: string, value2: string, value3: XR_particle_params);
-    public constructor(value1: string, value2: string, particle_params: XR_particle_params, value3: boolean);
-    public constructor(value1: string, particle_params: XR_particle_params);
-    public constructor(value1: string, particle_params: XR_particle_params, value2: boolean);
+    public constructor(particle_to_run: string, particle_params?: XR_particle_params, auto_remove?: boolean);
+    public constructor(
+      particle_to_run: string,
+      bone_name: string,
+      particle_params: XR_particle_params,
+      auto_remove: boolean
+    );
 
     public completed(): boolean;
     public set_angles(vector: XR_vector): void;
@@ -72,19 +73,17 @@ declare module "xray16" {
   /**
    * @source C++ class particle_params
    * @customConstructor particle_params
-   * @group xr_object_base
+   * @group xr_client_object
    */
   export class XR_particle_params {
     public constructor();
-    public constructor(vector: XR_vector);
-    public constructor(vector1: XR_vector, vector2: XR_vector);
-    public constructor(vector1: XR_vector, vector2: XR_vector, vector3: XR_vector);
+    public constructor(first?: XR_vector, second?: XR_vector, third?: XR_vector);
   }
 
   /**
    * @source C++ class holder
    * @customConstructor holder
-   * @group xr_object_base
+   * @group xr_client_object
    */
   export class XR_holder {
     public engaged(): boolean;
@@ -95,7 +94,7 @@ declare module "xray16" {
   /**
    * @source C++ class CGameObject : DLL_Pure, ISheduled, ICollidable, IRenderable
    * @customConstructor CGameObject
-   * @group xr_object_base
+   * @group xr_client_object
    */
   export class XR_CGameObject extends XR_DLL_Pure {
     public Visual(): IXR_IRender_Visual;
@@ -111,7 +110,7 @@ declare module "xray16" {
   /**
    * @source C++ class hit
    * @customConstructor hit
-   * @group xr_object_base
+   * @group xr_client_object
    */
   export class XR_hit {
     public static readonly burn = 0;
@@ -139,19 +138,19 @@ declare module "xray16" {
   }
 
   /**
-   * @group xr_object_base
+   * @group xr_client_object
    */
   export type TXR_hit_types = typeof XR_hit;
 
   /**
-   * @group xr_object_base
+   * @group xr_client_object
    */
   export type TXR_hit_type = EnumeratedStaticsValues<TXR_hit_types>;
 
   /**
    * @source C++ class danger_object
    * @customConstructor danger_object
-   * @group xr_object_base
+   * @group xr_client_object
    */
   export class XR_danger_object {
     public static attack_sound: 1;
@@ -175,12 +174,12 @@ declare module "xray16" {
   }
 
   /**
-   * @group xr_object_base
+   * @group xr_client_object
    */
   export type TXR_danger_objects = typeof XR_danger_object;
 
   /**
-   * @group xr_object_base
+   * @group xr_client_object
    */
   export type TXR_danger_object = EnumeratedStaticsValues<TXR_danger_objects>;
 
@@ -188,7 +187,7 @@ declare module "xray16" {
    * Custom extension.
    * For reference: src/xrGame/script_game_object_script.cpp
    *
-   * @group xr_object_base
+   * @group xr_client_object
    */
   class XR_game_object_callbacks_base {
     /**
@@ -567,7 +566,7 @@ declare module "xray16" {
    * Client object base representing generic in-game entities from items to mutants and stalkers.
    *
    * @source C++ class game_object
-   * @group xr_object_base
+   * @group xr_client_object
    */
   export class XR_game_object extends XR_game_object_callbacks_base {
     public static readonly dummy: -1;
@@ -909,12 +908,21 @@ declare module "xray16" {
     public get_enemy_strength(): i32;
     public get_physics_shell(): XR_physics_shell | null;
     public get_start_dialog(): void;
-    public get_task(task_id: string, value2: boolean): XR_CGameTask | null;
+    public get_task(task_id: string, only_in_process: boolean): XR_CGameTask | null;
     public get_task_state(value: string): unknown;
     public give_info_portion(value: string): boolean;
     public give_money(value: i32): void;
     public give_talk_message2(value1: string, value2: string, value3: string, selector: string): void;
-    public give_task(task: XR_CGameTask, value1: u32, value2: boolean, value3: u32): void;
+
+    /**
+     * Give game task for an object, usually it is actor object.
+     *
+     * @param task
+     * @param time_to_complete
+     * @param check_existing
+     * @param timer_ttl
+     */
+    public give_task(task: XR_CGameTask, time_to_complete: u32, check_existing: boolean, timer_ttl: u32): void;
     public goodwill(game_object: XR_game_object): i32;
     public group_throw_time_interval(): u32;
     public group_throw_time_interval(value: u32): void;
@@ -1073,61 +1081,28 @@ declare module "xray16" {
   }
 
   /**
-   * @group xr_object_base
+   * @group xr_client_object
    */
   export type TXR_relation = 0 | 1 | 2;
 
   /**
    * @source C++ class CSpaceRestrictor : CGameObject
    * @customConstructor CSpaceRestrictor
-   * @group xr_object_base
+   * @group xr_client_object
    */
   export class XR_CSpaceRestrictor extends XR_CGameObject {}
 
   /**
    * @source C++ class CLevelChanger : CGameObject
    * @customConstructor CLevelChanger
-   * @group xr_object_base
+   * @group xr_client_object
    */
   export class XR_CLevelChanger extends XR_CGameObject {}
 
   /**
    * @source C++ class smart_cover_object : CGameObject
    * @customConstructor smart_cover_object
-   * @group xr_object_base
+   * @group xr_client_object
    */
   export class XR_smart_cover_object extends XR_CGameObject {}
-
-  // todo: Correct overloading for callbacks.
-  /**
-   * @source C++ class SGameTaskObjective
-   * @customConstructor SGameTaskObjective
-   * @group xr_object_base
-   */
-  export class XR_SGameTaskObjective {
-    public constructor(task: XR_CGameTask, id: i32);
-
-    public remove_map_locations(flag: boolean): void;
-    public set_icon_name(icon_name: string): void;
-    public get_icon_name(): string;
-    public set_description(title: string): void;
-    public get_description(): string;
-    public set_title(title: string): void;
-    public get_title(): string;
-    public set_map_location(location: string): void;
-    public add_on_complete_func(value: string): void;
-    public add_complete_info(value: string): void;
-    public add_on_fail_info(value: string): void;
-    public add_on_fail_func(value: string): void;
-    public add_on_complete_info(value: string): void;
-    public add_complete_func(value: string): void;
-    public add_fail_func(value: string): void;
-    public add_fail_info(value: string): void;
-    public get_state(): TXR_TaskState;
-    public get_type(): number; /* ETaskType */
-    public set_type(type: i32 /* ETaskType */): void;
-    public set_map_hint(hint: string): void;
-    public change_map_location(value: string, value2: u16): void;
-    public set_map_object_id(id: i32): void;
-  }
 }
