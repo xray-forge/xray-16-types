@@ -733,8 +733,8 @@ declare module "xray16" {
     public bone_position(value: string): XR_vector;
     public buy_item_condition_factor(value: f32): void;
     public change_team(value1: u8, value2: u8, value3: u8): void;
-    public character_icon(): string;
-    public character_name(): string;
+    public character_icon<T extends string>(): T;
+    public character_name<T extends string>(): T;
     public character_rank(): i32;
     public condition(): f32;
     public cost(): u32;
@@ -912,7 +912,16 @@ declare module "xray16" {
     public get_task_state(value: string): unknown;
     public give_info_portion(value: string): boolean;
     public give_money(value: i32): void;
-    public give_talk_message2(value1: string, value2: string, value3: string, selector: string): void;
+
+    /**
+     * Show talk dialog message with icon.
+     *
+     * @param title - title of the message
+     * @param text - text of the message
+     * @param icon_texture_name - icon to display in message image
+     * @param selector - path in form XML to message template
+     */
+    public give_talk_message2(title: string, text: string, icon_texture_name: string, selector: string): void;
 
     /**
      * Give game task for an object, usually it is actor object.
@@ -997,17 +1006,26 @@ declare module "xray16" {
     public weapon_is_silencer(): boolean;
     public weapon_scope_status(): i32;
     public weight(): f32;
-    public give_game_news(caption: string, news_text: string, texture: string, timeout: i32, show_time: i32): void;
+
+    /**
+     * Display in-game UI notification.
+     *
+     * @param title - notification title
+     * @param text - notification text
+     * @param icon_texture - notification icon texture
+     * @param delay - delay before show notification
+     * @param show_time - time to show notification before hiding it
+     * @param type - type of the notification (eNews = 0, eTalk = 1)
+     */
     public give_game_news(
-      caption: string,
-      news_text: string,
-      texture: string,
-      timeout: i32,
+      title: string,
+      text: string,
+      icon_texture: string,
+      delay: i32,
       show_time: i32,
-      value6: i32
+      type?: Maybe<i32>
     ): void;
-    public accessible(vector: XR_vector): boolean;
-    public accessible(vertex_id: u32): boolean;
+    public accessible(vector: XR_vector | u32): boolean;
     public accuracy(): f32;
     public attachable_item_load_attach(value: string): void;
     public best_cover(vector1: XR_vector, vector2: XR_vector, value3: f32, value4: f32, value5: f32): XR_cover_point;

@@ -56,6 +56,11 @@ declare module "xray16" {
   /**
    * @group xr_types
    */
+  type Maybe<T> = T | null | undefined;
+
+  /**
+   * @group xr_types
+   */
   type EnumeratedStaticsKeys<T> = Exclude<keyof T, "constructor" | XR_EngineBindingStaticMethods>;
 
   /**

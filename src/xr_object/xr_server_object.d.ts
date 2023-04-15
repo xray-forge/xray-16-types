@@ -145,6 +145,9 @@ declare module "xray16" {
     public readonly m_game_vertex_id: u16;
     public readonly m_level_vertex_id: u32;
     public readonly m_story_id: u32;
+    /**
+     * Whether server object has client representation and is in online mode.
+     */
     public readonly online: boolean;
 
     public constructor(section: string);
@@ -160,8 +163,8 @@ declare module "xray16" {
     public visible_for_map(value: boolean): void;
     public can_switch_offline(): boolean;
     public can_switch_offline(value: boolean): void;
-    public move_offline(): void;
-    public move_offline(value: boolean): void;
+    public move_offline(): boolean;
+    public move_offline(value?: boolean): void;
     public update(): void;
   }
 

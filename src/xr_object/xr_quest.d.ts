@@ -9,7 +9,7 @@ declare module "xray16" {
 
     public remove_map_locations(flag: boolean): void;
     public set_icon_name(icon_name: string): void;
-    public get_icon_name(): string;
+    public get_icon_name<T extends string>(): T | null;
     public set_description(description: string): void;
     public get_description(): string;
     public set_title(title: string): void;
