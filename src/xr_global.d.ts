@@ -348,12 +348,20 @@ declare module "xray16" {
     add_call(this: void, cb1: () => boolean, cb2: () => boolean): void;
     add_call(this: void, object: object, cb1: () => boolean, cb2: () => boolean): void;
     add_call(this: void, object: object, str1: string, str2: string): void;
-    add_cam_effector(this: void, effect: string, id: i32, val: boolean, scriptPath: string): void;
+    add_cam_effector(this: void, effect: string, id: i32, val: boolean, script_path: string): void;
     add_cam_effector2(this: void, str1: string, id: i32, val: boolean, str2: string, num2: number): void;
     add_complex_effector(this: void, str: string, num: i32): void;
     add_dialog_to_render(this: void, window: XR_CUIDialogWnd): void;
     add_pp_effector(this: void, str: string, index: i32, val: boolean): void;
-    change_game_time(this: void, num1: u32, num2: u32, num3: u32): void;
+
+    /**
+     * Move time forward based on provided parameters.
+     *
+     * @param days - days to move forward
+     * @param hours - hours to move forward
+     * @param minutes - minutes to move forward
+     */
+    change_game_time(this: void, days: u32, hours: u32, minutes: u32): void;
     check_object(this: void, object: XR_game_object): void;
     client_spawn_manager(this: void): XR_client_spawn_manager;
     debug_actor(this: void): XR_game_object;

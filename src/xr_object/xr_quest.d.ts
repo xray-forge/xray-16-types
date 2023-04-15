@@ -10,18 +10,18 @@ declare module "xray16" {
     public remove_map_locations(flag: boolean): void;
     public set_icon_name(icon_name: string): void;
     public get_icon_name(): string;
-    public set_description(title: string): void;
+    public set_description(description: string): void;
     public get_description(): string;
     public set_title(title: string): void;
     public get_title(): string;
     public set_map_location(location: string): void;
-    public add_on_complete_func(value: string): void;
+    public add_on_complete_func(function_name: string): void;
     public add_complete_info(value: string): void;
     public add_on_fail_info(value: string): void;
-    public add_on_fail_func(value: string): void;
+    public add_on_fail_func(function_name: string): void;
     public add_on_complete_info(value: string): void;
-    public add_complete_func(value: string): void;
-    public add_fail_func(value: string): void;
+    public add_complete_func(function_name: string): void;
+    public add_fail_func(function_name: string): void;
     public add_fail_info(value: string): void;
     public get_state(): TXR_TaskState;
     public get_type(): number; /* ETaskType */
@@ -40,7 +40,7 @@ declare module "xray16" {
     public constructor();
 
     public get_id(): string;
-    public set_priority(value: i32): void;
+    public set_priority(priority: i32): void;
     public set_id(id: string): void;
     public get_priority(): u32;
   }

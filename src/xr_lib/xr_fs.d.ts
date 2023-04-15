@@ -146,7 +146,7 @@ declare module "xray16" {
       line_number: i32,
       c: string,
       d: string
-    ): LuaMultiReturn<[string, T, P]>;
+    ): LuaMultiReturn<[boolean, T, P]>;
     public r_token(section: string, param: string, list: XR_token_list): i32;
     public r_vector(section: string, param: string): XR_vector;
     public r_u32(section: string, param: string): u32;
