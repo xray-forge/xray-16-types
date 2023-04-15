@@ -615,8 +615,7 @@ declare module "xray16" {
      */
     public id(): u16;
     public story_id(): u32;
-    public object(value: string): XR_game_object | null;
-    public object(value: i32): XR_game_object | null;
+    public object(value: i32 | string): XR_game_object | null;
     public clsid(): TXR_class_id;
 
     public add_animation(value1: string, value2: boolean, value3: boolean): void;
@@ -997,7 +996,7 @@ declare module "xray16" {
     public switch_to_upgrade(): void;
     public target_body_state(): TXR_move;
     public target_movement_type(): number; /* EMovementType */
-    public transfer_item(item: XR_game_object, from: XR_game_object): void;
+    public transfer_item(item: XR_game_object, to: XR_game_object): void;
     public transfer_money(value: i32, from: XR_game_object): void;
     public unregister_in_combat(): void;
     public vertex_in_direction(value1: u32, vector: XR_vector, value2: f32): u32;
