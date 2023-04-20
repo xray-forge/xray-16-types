@@ -233,7 +233,10 @@ declare module "xray16" {
     public travel_speed(): unknown;
     public travel_speed(value: number): void;
     public smart_terrain_task_deactivate(): unknown;
-    public smart_terrain_task_activate(): unknown;
+    /**
+     * Works for `CSE_ALifeMonsterAbstract`, marks smart terrain as reached and switches logic to terrain task.
+     */
+    public smart_terrain_task_activate(): void;
     public current_level_travel_speed(): unknown;
     public current_level_travel_speed(value: number): unknown;
     public brain(): XR_CAILifeMonsterBrain;
@@ -498,6 +501,16 @@ declare module "xray16" {
   export class XR_cse_alife_object_projector extends XR_cse_alife_dynamic_object_visual {}
 
   /**
+   * Squad member representation.
+   *
+   * @group xr_server_object
+   **/
+  export interface IXR_squad_member<T extends XR_cse_alife_creature_abstract> {
+    id: u16;
+    object: T;
+  }
+
+  /**
    * @source C++ class cse_alife_online_offline_group : cse_alife_dynamic_object,cse_alife_schedulable
    * @customConstructor cse_alife_online_offline_group
    * @group xr_server_object
@@ -514,7 +527,7 @@ declare module "xray16" {
     public get_current_task(): XR_CALifeSmartTerrainTask;
     public commander_id(): u16;
     public unregister_member(id: u16): void;
-    public squad_members(): LuaIterable<{ id: u16; object: T }>; // struct std::less<unsigned short> 3rd param
+    public squad_members(): LuaIterable<IXR_squad_member<T>>; // struct std::less<unsigned short> 3rd param
     public force_change_position(vector: XR_vector): void;
     public add_location_type(location: string): void;
     public npc_count(): i32;
