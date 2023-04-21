@@ -400,10 +400,10 @@ declare module "xray16" {
     iterate_sounds(this: void, str: string, num: u32, object: object, cb: () => void): void;
     low_cover_in_direction(this: void, num: u32, vector: XR_vector): f32;
     main_input_receiver(this: void): XR_CUIDialogWnd;
-    map_add_object_spot(this: void, id: u16, section: string, hint: string): void;
+    map_add_object_spot(this: void, id: u16, selector: string, hint: string): void;
     map_add_object_spot_ser(this: void, id: u16, str1: string, str2: string): void;
-    map_change_spot_hint(this: void, num: u16, str1: string, str2: string): void;
-    map_has_object_spot(this: void, object_id: u16, str: string): number;
+    map_change_spot_hint(this: void, num: u16, selector: string, hint: string): void;
+    map_has_object_spot(this: void, object_id: u16, selector: string): number;
     map_remove_object_spot(this: void, id: u16, selector: string): void;
     name<T extends string = string>(this: void): T;
     object_by_id(this: void, object_id: u16): XR_game_object | null;
@@ -463,12 +463,15 @@ declare module "xray16" {
    * @group xr_global
    */
   export interface IXR_relation_registry {
-    change_community_goodwill(this: void, community_a: string, value2: i32, value3: i32): void;
-    community_goodwill(this: void, community: string, object_id: i32): i32;
-    community_relation(this: void, community_a: string, community_b: string): i32;
-    get_general_goodwill_between(this: void, from_id: u16, to_id: u16): i32;
-    set_community_goodwill(this: void, community_a: string, value2: i32, value3: i32): void;
-    set_community_relation(this: void, community_a: string, community_b: string, value3: i32): void;
+    /**
+     * Change relation from community to object by `delta_goodwill`.
+     */
+    change_community_goodwill(this: void, from_community: string, to_object_id: i32, delta_goodwill: i32): void;
+    community_goodwill(this: void, from_community: string, to_object_id: i32): i32;
+    community_relation(this: void, from_community: string, to_community: string): i32;
+    get_general_goodwill_between(this: void, from_object_id: u16, to_object_id: u16): i32;
+    set_community_goodwill(this: void, from_community: string, to_object_id: i32, goodwill: i32): void;
+    set_community_relation(this: void, from_community: string, to_community: string, goodwill: i32): void;
   }
 
   /**

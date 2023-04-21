@@ -519,12 +519,16 @@ declare module "xray16" {
       T extends XR_cse_alife_creature_abstract = XR_cse_alife_creature_abstract
     >
     extends XR_cse_alife_dynamic_object
-    implements IXR_cse_alife_schedulable {
+    implements IXR_cse_alife_schedulable
+  {
     public readonly object: T;
 
     public register_member(id: u16): void;
     public clear_location_types(): void;
     public get_current_task(): XR_CALifeSmartTerrainTask;
+    /**
+     * Get current squad command ID.
+     */
     public commander_id(): u16;
     public unregister_member(id: u16): void;
     public squad_members(): LuaIterable<IXR_squad_member<T>>; // struct std::less<unsigned short> 3rd param
@@ -615,7 +619,8 @@ declare module "xray16" {
    */
   export class XR_cse_alife_creature_actor
     extends XR_cse_alife_creature_abstract
-    implements IXR_cse_ph_skeleton, XR_cse_alife_trader_abstract {
+    implements IXR_cse_ph_skeleton, XR_cse_alife_trader_abstract
+  {
     public profile_name(): string;
     public community(): string;
     public rank(): i32;

@@ -881,9 +881,9 @@ declare module "xray16" {
     public buy_condition(ini_file: XR_ini_file, value: string): void;
     public buy_condition(value1: f32, value2: f32): void;
     public change_character_reputation(value: i32): void;
-    public change_goodwill(value: i32, game_object: XR_game_object): void;
+    public change_goodwill(delta_goodwill: i32, to_object: XR_game_object): void;
     public character_reputation(): i32;
-    public community_goodwill(value: string): i32;
+    public community_goodwill(from_community: string): i32;
     public deadbody_can_take(value: boolean): void;
     public deadbody_can_take_status(): boolean;
     public detail_path_type(): unknown;
