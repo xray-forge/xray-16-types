@@ -563,6 +563,18 @@ declare module "xray16" {
    */
 
   /**
+   * Visibility state of bloodsucker.
+   * Possible values are:
+   * - unset = -1,
+   * - no_visibility = 0,
+   * - partial_visibility = 1,
+   * - full_visibility = 2
+   *
+   * @source C++ enum visibility_t
+   */
+  export type TXR_bloodsucker_visibility_state = -1 | 0 | 1 | 2;
+
+  /**
    * Client object base representing generic in-game entities from items to mutants and stalkers.
    *
    * @source C++ class game_object
@@ -894,8 +906,11 @@ declare module "xray16" {
     public enable_trade(): void;
     public enable_vision(value: boolean): void;
     public fake_death_fall_down(): boolean;
-    public force_set_goodwill(value: i32, game_object: XR_game_object): void;
-    public force_visibility_state(value: i32): void;
+    public force_set_goodwill(goodwill: i32, to_object: XR_game_object): void;
+    /**
+     * For bloodsuckers specifically set current visibility state.
+     */
+    public force_visibility_state(state: TXR_bloodsucker_visibility_state): void;
     public general_goodwill(game_object: XR_game_object): i32;
     public get_actor_relation_flags(): XR_flags32;
     public get_ammo_in_magazine(): u32;
