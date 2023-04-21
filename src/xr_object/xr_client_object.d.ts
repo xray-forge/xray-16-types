@@ -787,7 +787,11 @@ declare module "xray16" {
     public in_loophole_fov(value1: string, valu2: string, value3: XR_vector): boolean;
     public in_restrictions(): string;
     public in_smart_cover(): boolean;
-    public info_add(value: string): void;
+    /**
+     * Available only in debug mode.
+     * Sets information for game object for debug.
+     */
+    public info_add(text: string): void;
     public inv_box_can_take(value: boolean): boolean;
     public invulnerable(): boolean;
     public invulnerable(value: boolean): void;
@@ -953,6 +957,10 @@ declare module "xray16" {
     public ignore_monster_threshold(): f32;
     public ignore_monster_threshold(value: f32): void;
     public in_current_loophole_range(vector: XR_vector): boolean;
+    /**
+     * Reset debugging information about object.
+     * Available only for debug builds.
+     */
     public info_clear(): void;
     public inside(vector: XR_vector): boolean;
     public inside(vector: XR_vector, value: number /* ? */): boolean;
