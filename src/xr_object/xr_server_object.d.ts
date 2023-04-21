@@ -519,8 +519,7 @@ declare module "xray16" {
       T extends XR_cse_alife_creature_abstract = XR_cse_alife_creature_abstract
     >
     extends XR_cse_alife_dynamic_object
-    implements IXR_cse_alife_schedulable
-  {
+    implements IXR_cse_alife_schedulable {
     public readonly object: T;
 
     public register_member(id: u16): void;
@@ -619,8 +618,7 @@ declare module "xray16" {
    */
   export class XR_cse_alife_creature_actor
     extends XR_cse_alife_creature_abstract
-    implements IXR_cse_ph_skeleton, XR_cse_alife_trader_abstract
-  {
+    implements IXR_cse_ph_skeleton, XR_cse_alife_trader_abstract {
     public profile_name(): string;
     public community(): string;
     public rank(): i32;
