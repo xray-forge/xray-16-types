@@ -24,8 +24,16 @@ declare module "xray16" {
     public set_switch_online(value1: u16, value2: boolean): void;
     public spawn_id(value: u32): u16;
     public story_object(value: u32): XR_cse_alife_object;
+    /**
+     * @returns alife server-client switch distance
+     */
     public switch_distance(): f32;
-    public switch_distance(value: f32): void;
+    /**
+     * Set alife server-client switch distance.
+     *
+     * @param distance - distance to set
+     */
+    public switch_distance(distance: f32): void;
     public teleport_object(lvi: u16, gvi: u16, int: u32, vector: XR_vector): void;
     public valid_object_id(value: u16): boolean;
 
@@ -41,8 +49,8 @@ declare module "xray16" {
     public create<T extends XR_cse_alife_object = XR_cse_alife_object>(
       item_section: string,
       position: XR_vector,
-      lvi: u32,
-      gvi: u32,
+      level_vertex_id: u32,
+      game_vertex_id: u32,
       pid?: i32
     ): T;
   }
