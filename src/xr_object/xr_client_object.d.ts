@@ -466,8 +466,7 @@ declare module "xray16" {
    *  CTime get_info_time(char const*);
    *  bool bone_visible(char const*);
    *  bool has_ammo_type(unsigned char)
-   *  bool has_upgrade(char const*);
-   *  bool install_upgrade(char const*);
+
    *  bool is_on_belt(game_object*);
    *  bool use(game_object*);
    *
@@ -526,7 +525,7 @@ declare module "xray16" {
    *  void force_set_position(vector,bool);
    *
    *  void iterate_feel_touch(function<void>);
-   *  void iterate_installed_upgrades(function<void>);
+
    *  void phantom_set_enemy(game_object*);
    *  void set_actor_jump_speed(float);
    *  void set_actor_max_walk_weight(float);
@@ -1017,6 +1016,9 @@ declare module "xray16" {
     public start_particles(value1: string, value2: string): void;
     public stop_talk(): void;
     public switch_to_upgrade(): void;
+    public has_upgrade(upgrade_section: string): boolean;
+    public install_upgrade(upgrade_section: string): boolean;
+    public iterate_installed_upgrades(callback: (upgrade_section: string, object: XR_game_object) => void): void;
     public target_body_state(): TXR_move;
     public target_movement_type(): number; /* EMovementType */
     public transfer_item(item: XR_game_object, to: XR_game_object): void;
