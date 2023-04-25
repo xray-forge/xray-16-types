@@ -629,8 +629,14 @@ declare module "xray16" {
     public object(value: i32 | string): XR_game_object | null;
     public clsid(): TXR_class_id;
 
-    public add_animation(value1: string, value2: boolean, value3: boolean): void;
-    public add_animation(value1: string, value2: boolean, value3: XR_vector, value4: XR_vector, value: boolean): void;
+    public add_animation(animation: string, hand_usage: boolean, use_movement_controller: boolean): void;
+    public add_animation(
+      animation: string,
+      hand_usage: boolean,
+      position: XR_vector,
+      rotation: XR_vector,
+      local_animation: boolean
+    ): void;
 
     public action(): XR_entity_action;
     public action_count(): u32;
@@ -859,15 +865,17 @@ declare module "xray16" {
     public unlock_door_for_npc(): void;
     public visibility_threshold(): f32;
     public weapon_is_grenadelauncher(): boolean;
-    public set_sight(type: TXR_SightType, vector: XR_vector | null, value: number): void;
-    public set_sight(type: TXR_SightType, torso_look: boolean, fire_object: boolean): void;
-    public set_sight(type: TXR_SightType, value1: XR_vector, torso_look: boolean, fire_object: boolean): void;
-    public set_sight(type: TXR_SightType, vector: XR_vector, value: boolean): void;
+    public set_sight(type: TXR_SightType, torso_look: boolean, path: boolean): void;
+    public set_sight(type: TXR_SightType, vector: XR_vector | null, lookOverDelay: u32): void;
+    public set_sight(type: TXR_SightType, vector: XR_vector, torso_look: boolean, fire_object: boolean): void;
+    public set_sight(type: TXR_SightType, vector: XR_vector, torso_look: boolean): void;
     public set_sight(type: TXR_SightType, vector: XR_vector): void;
-    public set_sight(game_object: XR_game_object): void;
-    public set_sight(game_object: XR_game_object, torso_look: boolean): void;
-    public set_sight(game_object: XR_game_object, torso_look: boolean, fire_object: boolean): void;
-    public set_sight(game_object: XR_game_object, torso_look: boolean, fire_object: boolean, value3: boolean): void;
+    public set_sight(
+      game_object: XR_game_object,
+      torso_look?: boolean,
+      fire_object?: boolean,
+      no_pitch?: boolean
+    ): void;
     public set_task_state(state: TXR_TaskState, value: string): void;
     public set_visual_memory_enabled(enabled: boolean): void;
     public show_condition(ini_file: unknown, value: string): void;
