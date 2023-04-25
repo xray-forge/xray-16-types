@@ -348,11 +348,11 @@ declare module "xray16" {
     add_call(this: void, cb1: () => boolean, cb2: () => boolean): void;
     add_call(this: void, object: object, cb1: () => boolean, cb2: () => boolean): void;
     add_call(this: void, object: object, str1: string, str2: string): void;
-    add_cam_effector(this: void, effect: string, id: i32, val: boolean, script_path: string): void;
-    add_cam_effector2(this: void, str1: string, id: i32, val: boolean, str2: string, num2: number): void;
-    add_complex_effector(this: void, str: string, num: i32): void;
+    add_cam_effector(this: void, effect: string, id: i32, is_cyclic: boolean, callback: string): void;
+    add_cam_effector2(this: void, effect: string, id: i32, is_cyclic: boolean, callback: string, camera_fov: f32): void;
+    add_complex_effector(this: void, section: string, id: i32): void;
     add_dialog_to_render(this: void, window: XR_CUIDialogWnd): void;
-    add_pp_effector(this: void, str: string, index: i32, val: boolean): void;
+    add_pp_effector(this: void, fn: string, id: i32, is_cyclic: boolean): void;
 
     /**
      * Move time forward based on provided parameters.
@@ -419,12 +419,11 @@ declare module "xray16" {
     remove_cam_effector(this: void, id: i32): void;
     remove_complex_effector(this: void, id: i32): void;
     remove_dialog_to_render(this: void, window: XR_CUIDialogWnd): void;
-    remove_pp_effector(this: void, num: i32): void;
+    remove_pp_effector(this: void, id: i32): void;
     send(net_packet: XR_net_packet, bool1: boolean, bool2: boolean, bool3: boolean, bool4: boolean): void;
     set_active_cam(this: void, id: u8): void;
     set_game_difficulty(this: void, difficulty: unknown /* enum ESingleGameDifficulty */): void;
-    set_pp_effector_factor(this: void, index: i32, factor: f32): void;
-    set_pp_effector_factor(this: void, index: i32, factor: f32, num3: number): void;
+    set_pp_effector_factor(this: void, id: i32, f: f32, f_sp?: f32): void;
     set_snd_volume(this: void, num: f32): void;
     set_time_factor(this: void, factor: f32): void;
     set_weather(this: void, str: string, val: boolean): void;
