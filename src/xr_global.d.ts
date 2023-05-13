@@ -411,6 +411,9 @@ declare module "xray16" {
     physics_world(this: void): XR_physics_world;
     prefetch_sound(this: void, str: string): void;
     present(this: void): boolean;
+    /**
+     * @returns intensity of rain, 0 if no rain active
+     */
     rain_factor(this: void): f32;
     remove_call(this: void, cb1: () => boolean, cb2: () => void): void;
     remove_call(this: void, object: object, cb1: () => boolean, cb2: () => void): void;
