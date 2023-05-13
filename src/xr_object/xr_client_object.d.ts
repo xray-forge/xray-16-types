@@ -642,7 +642,10 @@ declare module "xray16" {
     public action_count(): u32;
     public active_detector(): XR_game_object | null;
     public active_item(): XR_game_object | null;
-    public active_slot(): u32;
+    /**
+     * @returns active item slot of game object
+     */
+    public active_slot<T extends u32>(): T;
     public active_zone_contact(value: u16): boolean;
     public add_restrictions(zone: string, value2: string): void;
     public animation_slot(): i32;
@@ -664,7 +667,12 @@ declare module "xray16" {
     public disable_talk(): void;
     public disable_trade(): void;
     public dont_has_info(value: string): boolean;
-    public drop_item(game_object: XR_game_object): void;
+    /**
+     * Drop item from inventory.
+     *
+     * @param item - game object to drop
+     */
+    public drop_item(item: XR_game_object): void;
     public enable_night_vision(value: boolean): void;
     public external_sound_start(value: string): void;
     public get_bone_id(value: string): u16;
