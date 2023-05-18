@@ -850,7 +850,7 @@ declare module "xray16" {
     public set_dest_game_vertex_id(value: u16): void;
     public set_dest_level_vertex_id(vertex_id: u32): void;
     public set_detail_path_type(EDetailPathType: unknown /** enum DetailPathManager::EDetailPathType */): void;
-    public set_invisible(value: boolean): void;
+    public set_invisible(is_invisible: boolean): void;
     public set_movement_selection_type(type: unknown /** enum ESelectionType */): void;
     public set_patrol_path(value1: string, EPatrolStartType: number, EPatrolRouteType: number, value2: boolean): void;
     public set_smart_cover_target_idle(): void;

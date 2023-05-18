@@ -90,7 +90,11 @@ declare module "xray16" {
   export function command_line(this: void): string;
 
   /**
+   * Create ini file instance based on provided string content.
+   *
    * @group xr_global
+   * @param content - string value to be read as ini file
+   * @returns new ini file instance based on provided content
    */
   export function create_ini_file(this: void, content: string): XR_ini_file;
 

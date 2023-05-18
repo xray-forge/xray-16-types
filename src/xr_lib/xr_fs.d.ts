@@ -115,8 +115,6 @@ declare module "xray16" {
    */
   export type TXR_fs_type = EnumeratedStaticsValues<typeof XR_FS>;
 
-  // todo: Clarify param names.
-  // todo: Clarify read line multireturn.
   /**
    * @source C++ class ini_file
    * @customConstructor ini_file
