@@ -774,7 +774,12 @@ declare module "xray16" {
     public drop_item_and_teleport(game_object: XR_game_object, vector: XR_vector): void;
     public eat(game_object: XR_game_object): void;
     public enable_inv_upgrade(): void;
-    public enable_level_changer(value: boolean): void;
+    /**
+     * Switch client level changed enabled state.
+     *
+     * @param is_enabled - whether level changer should be enabled
+     */
+    public enable_level_changer(is_enabled: boolean): void;
     public enable_memory_object(game_object: XR_game_object, value: boolean): void;
     public explode(value: u32): void;
     public extrapolate_length(): f32;
@@ -1016,6 +1021,11 @@ declare module "xray16" {
     public set_goodwill(value: i32, game_object: XR_game_object): void;
     public set_home(value1: string | null, value2: f32, value3?: f32, value4?: boolean, value5?: f32): void;
     public set_home(value1: u32 | null, value2: f32, value3?: f32, value4?: boolean, value5?: f32): void;
+    /**
+     * Set level changer invitation hint text.
+     *
+     * @param hint - text to show when trying to change level
+     */
     public set_level_changer_invitation(hint: string): void;
     public set_nonscript_usable(is_usable: boolean): void;
     public set_queue_size(value: u32): void;
