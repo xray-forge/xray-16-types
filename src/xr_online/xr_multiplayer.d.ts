@@ -4,7 +4,7 @@ declare module "xray16" {
    * @customConstructor demo_info
    * @group xr_multiplayer
    */
-  export class XR_demo_info {
+  export class demo_info {
     protected constructor();
 
     public get_author_name(): string;
@@ -12,7 +12,7 @@ declare module "xray16" {
     public get_game_type(): string;
     public get_map_name(): string;
     public get_map_version(): string;
-    public get_player(value: u32): XR_demo_player_info;
+    public get_player(value: u32): demo_player_info;
     public get_players_count(): u32;
   }
 
@@ -21,7 +21,7 @@ declare module "xray16" {
    * @customConstructor demo_player_info
    * @group xr_multiplayer
    */
-  export class XR_demo_player_info {
+  export class demo_player_info {
     public get_artefacts(): u16;
     public get_deaths(): i16;
     public get_frags(): i16;
@@ -36,7 +36,7 @@ declare module "xray16" {
    * @customConstructor SServerFilters
    * @group xr_multiplayer
    */
-  export class XR_SServerFilters {
+  export class SServerFilters {
     public empty: boolean;
     public full: boolean;
     public listen_servers: boolean;
@@ -52,7 +52,7 @@ declare module "xray16" {
    * @customConstructor XR_profile
    * @group xr_multiplayer
    */
-  export class XR_profile {
+  export class profile {
     public unique_nick(): string;
     public online(): boolean;
   }
@@ -62,20 +62,20 @@ declare module "xray16" {
    * @customConstructor account_manager
    * @group xr_multiplayer
    */
-  export class XR_account_manager {
+  export class account_manager {
     private constructor();
 
-    public create_profile(acc: string, nick: string, mail: string, password: string, cb: XR_account_profiles_cb): void;
-    public delete_profile(operation: XR_account_operation_cb): void;
-    public get_account_profiles(email: string, password: string, cb: XR_account_profiles_cb): unknown;
+    public create_profile(acc: string, nick: string, mail: string, password: string, cb: account_profiles_cb): void;
+    public delete_profile(operation: account_operation_cb): void;
+    public get_account_profiles(email: string, password: string, cb: account_profiles_cb): unknown;
     public get_found_profiles(): LuaIterable<string>;
     public get_suggested_unicks(): LuaIterable<string>;
     public get_verify_error_descr(): string;
-    public search_for_email(email: string, cb: XR_found_email_cb): void;
+    public search_for_email(email: string, cb: found_email_cb): void;
     public stop_fetching_account_profiles(): void;
     public stop_searching_email(): void;
     public stop_suggest_unique_nicks(): void;
-    public suggest_unique_nicks(nick: string, b: XR_suggest_nicks_cb): void;
+    public suggest_unique_nicks(nick: string, b: suggest_nicks_cb): void;
     public verify_email(email: string): boolean;
     public verify_password(password: string): boolean;
     public verify_unique_nick(nick: string): boolean;
@@ -85,25 +85,26 @@ declare module "xray16" {
 
   /**
    * @source C++ class login_manager
+   * @customConstructor login_manager
    * @group xr_multiplayer
    */
-  export class XR_login_manager {
+  export class login_manager {
     private constructor();
 
     public forgot_password(url: string): void;
-    public get_current_profile(): XR_profile | null;
+    public get_current_profile(): profile | null;
     public get_email_from_registry(): string;
     public get_nick_from_registry(): string;
     public get_password_from_registry(): string;
     public get_remember_me_from_registry(): boolean;
-    public login(mail: string, profile: string, password: string, cb: XR_login_operation_cb): void;
-    public login_offline(nick: string, cb: XR_login_operation_cb): void;
+    public login(mail: string, profile: string, password: string, cb: login_operation_cb): void;
+    public login_offline(nick: string, cb: login_operation_cb): void;
     public logout(): void;
     public save_email_to_registry(email: string): void;
     public save_nick_to_registry(nick: string): void;
     public save_password_to_registry(password: string): void;
     public save_remember_me_to_registry(remember_me: boolean): void;
-    public set_unique_nick(nick: string, cb: XR_login_operation_cb): void;
+    public set_unique_nick(nick: string, cb: login_operation_cb): void;
     public stop_login(): void;
     public stop_setting_unique_nick(): void;
   }
@@ -113,9 +114,9 @@ declare module "xray16" {
    * @customConstructor award_pair_t
    * @group xr_multiplayer
    */
-  export class XR_award_pair_t {
-    public readonly first: XR_award_data;
-    public readonly second: XR_award_data;
+  export class award_pair_t {
+    public readonly first: award_data;
+    public readonly second: award_data;
   }
 
   /**
@@ -123,9 +124,9 @@ declare module "xray16" {
    * @customConstructor best_scores_pair_t
    * @group xr_multiplayer
    */
-  export class XR_best_scores_pair_t {
-    public first: XR_award_data;
-    public second: XR_award_data;
+  export class best_scores_pair_t {
+    public first: award_data;
+    public second: award_data;
   }
 
   /**
@@ -133,8 +134,9 @@ declare module "xray16" {
    * @customConstructor account_profiles_cb
    * @group xr_multiplayer
    */
-  export class XR_account_profiles_cb {
+  export class account_profiles_cb {
     public constructor(object: object, cb: (this: object, code: number, description: string) => void);
+
     public bind(object: object, cb: (this: object, code: number, description: string) => void): void;
     public clear(): void;
   }
@@ -144,10 +146,10 @@ declare module "xray16" {
    * @customConstructor login_operation_cb
    * @group xr_multiplayer
    */
-  export class XR_login_operation_cb {
-    public constructor(object: object, cb: (this: object, profile: XR_profile | null, description: string) => void);
+  export class login_operation_cb {
+    public constructor(object: object, cb: (this: object, profile: profile | null, description: string) => void);
 
-    public bind(object: object, cb: (this: object, profile: XR_profile | null, description: string) => void): void;
+    public bind(object: object, cb: (this: object, profile: profile | null, description: string) => void): void;
     public clear(): void;
   }
 
@@ -156,8 +158,9 @@ declare module "xray16" {
    * @customConstructor connect_error_cb
    * @group xr_multiplayer
    */
-  export class XR_connect_error_cb {
+  export class connect_error_cb {
     public constructor(object: object, cb: (this: object, code: number, description: string) => void);
+
     public bind(object: object, cb: (this: object, code: number, description: string) => void): void;
     public clear(): void;
   }
@@ -167,7 +170,7 @@ declare module "xray16" {
    * @customConstructor account_operation_cb
    * @group xr_multiplayer
    */
-  export class XR_account_operation_cb {
+  export class account_operation_cb {
     public constructor(object: object, cb: (this: object, code: number, description: string) => void);
 
     public bind(object: object, cb: (this: object, code: number, description: string) => void): void;
@@ -179,7 +182,7 @@ declare module "xray16" {
    * @customConstructor found_email_cb
    * @group xr_multiplayer
    */
-  export class XR_found_email_cb {
+  export class found_email_cb {
     public constructor(object: object, cb: (this: object, found: boolean, description: string) => void);
 
     public bind(object: object, cb: (this: object, found: boolean, description: string) => void): void;
@@ -191,7 +194,7 @@ declare module "xray16" {
    * @customConstructor store_operation_cb
    * @group xr_multiplayer
    */
-  export class XR_store_operation_cb {
+  export class store_operation_cb {
     public constructor(object: object, cb: (this: object, code: number | boolean, description: string) => void);
 
     public bind(object: object, cb: (this: object, code: number, description: string) => void): void;
@@ -203,7 +206,7 @@ declare module "xray16" {
    * @customConstructor suggest_nicks_cb
    * @group xr_multiplayer
    */
-  export class XR_suggest_nicks_cb {
+  export class suggest_nicks_cb {
     public constructor(object: object, cb: (this: object, result: number, description: string) => void);
 
     public bind(object: object, cb: (this: object, result: number, description: string) => void): void;
@@ -215,7 +218,7 @@ declare module "xray16" {
    * @customConstructor Patch_Dawnload_Progress
    * @group xr_multiplayer
    */
-  export class XR_Patch_Dawnload_Progress {
+  export class Patch_Dawnload_Progress {
     public GetProgress(): f32;
     public GetInProgress(): boolean;
     public GetStatus(): string;
@@ -227,7 +230,7 @@ declare module "xray16" {
    * @customConstructor profile_store
    * @group xr_multiplayer
    */
-  export class XR_profile_store {
+  export class profile_store {
     public static readonly at_award_massacre: 0;
     public static readonly at_awards_count: 30;
     public static readonly bst_backstabs_in_row: 2;
@@ -241,9 +244,9 @@ declare module "xray16" {
 
     protected constructor();
 
-    public get_awards(): LuaIterable<XR_award_pair_t>;
-    public get_best_scores(): LuaIterable<XR_best_scores_pair_t>;
-    public load_current_profile(onProgress: XR_store_operation_cb, onComlete: XR_store_operation_cb): void;
+    public get_awards(): LuaIterable<award_pair_t>;
+    public get_best_scores(): LuaIterable<best_scores_pair_t>;
+    public load_current_profile(onProgress: store_operation_cb, onComlete: store_operation_cb): void;
     public stop_loading(): void;
   }
 
@@ -252,7 +255,7 @@ declare module "xray16" {
    * @customConstructor award_data
    * @group xr_multiplayer
    */
-  export class XR_award_data {
+  export class award_data {
     public m_count: u16;
     public m_last_reward_date: u32;
   }
@@ -262,7 +265,7 @@ declare module "xray16" {
    * @customConstructor game_messages
    * @group xr_multiplayer
    */
-  export class XR_game_messages {
+  export class game_messages {
     public static GAME_EVENT_ARTEFACT_DESTROYED: 17;
     public static GAME_EVENT_ARTEFACT_DROPPED: 19;
     public static GAME_EVENT_ARTEFACT_ONBASE: 20;
@@ -292,5 +295,5 @@ declare module "xray16" {
   /**
    * @group xr_multiplayer
    */
-  export type TXR_game_message = EnumeratedStaticsValues<XR_game_messages>;
+  export type TXR_game_message = EnumeratedStaticsValues<game_messages>;
 }

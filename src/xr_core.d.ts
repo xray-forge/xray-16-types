@@ -1,50 +1,43 @@
 declare module "xray16" {
   /**
    * @source C++ class DLL_Pure
+   * @customConstructor DLL_Pure
    * @group xr_core
    */
-  export class XR_DLL_Pure extends XR_EngineBinding {
+  export class DLL_Pure extends EngineBinding {
     protected constructor();
   }
 
   /**
    * @source C++ class GameGraph__CVertex
+   * @customConstructor GameGraph__CVertex
    * @group xr_core
    */
-  export class XR_GameGraph__CVertex extends XR_EngineBinding {
+  export class GameGraph__CVertex extends EngineBinding {
     protected constructor();
 
     public level_vertex_id(): u32;
     public level_id(): u8;
-    public game_point(): XR_vector;
-    public level_point(): XR_vector;
+    public game_point(): vector;
+    public level_point(): vector;
   }
 
   /**
    * @source C++ class ce_script_zone : DLL_Pure
+   * @customConstructor ce_script_zone
    * @group xr_core
    */
-  export class XR_ce_script_zone extends XR_DLL_Pure {
+  export class ce_script_zone extends DLL_Pure {
     protected constructor();
   }
 
   /**
    * @source C++ class ce_smart_zone : DLL_Pure
+   * @customConstructor ce_smart_zone
    * @group xr_core
    */
-  export class XR_ce_smart_zone extends XR_DLL_Pure {
+  export class ce_smart_zone extends DLL_Pure {
     protected constructor();
-  }
-
-  /**
-   * @source C++ class explosive
-   * @customConstructor explosive
-   * @group xr_core
-   */
-  export class XR_explosive extends XR_EngineBinding {
-    protected constructor();
-
-    public explode(): void;
   }
 
   /**
@@ -52,7 +45,7 @@ declare module "xray16" {
    * @customConstructor ClientID
    * @group xr_core
    */
-  export class XR_ClientID extends XR_EngineBinding {
+  export class ClientID extends EngineBinding {
     protected constructor();
 
     public value(): u32;
@@ -64,7 +57,7 @@ declare module "xray16" {
    * @customConstructor memory_object
    * @group xr_core
    */
-  export class XR_memory_object extends XR_EngineBinding {
+  export class memory_object extends EngineBinding {
     public readonly last_level_time: u32;
     public readonly level_time: u32;
 
@@ -76,7 +69,7 @@ declare module "xray16" {
    * @customConstructor object
    * @group xr_core
    */
-  export class XR_object extends XR_EngineBinding {
+  export class XR_object extends EngineBinding {
     public static readonly activate: 16;
     public static readonly aim1: 4;
     public static readonly aim2: 5;
@@ -101,7 +94,7 @@ declare module "xray16" {
 
     public constructor(value: string);
     public constructor(value: string, type: number /* MonsterSpace::EObjectAction */);
-    public constructor(game_object: XR_game_object);
+    public constructor(game_object: game_object);
 
     public action(space: unknown /** enum MonsterSpace::EObjectAction */): void;
     public completed(): boolean;
@@ -117,13 +110,13 @@ declare module "xray16" {
    * @customConstructor entity_memory_object
    * @group xr_core
    */
-  export class XR_entity_memory_object extends XR_memory_object {
+  export class entity_memory_object extends memory_object {
     public readonly object_info: object;
     public readonly self_info: object;
 
     protected constructor();
 
-    public object(): XR_game_object;
+    public object(): game_object;
   }
 
   /**
@@ -131,10 +124,10 @@ declare module "xray16" {
    * @customConstructor hit_memory_object
    * @group xr_core
    */
-  export class XR_hit_memory_object extends XR_entity_memory_object {
+  export class hit_memory_object extends entity_memory_object {
     public readonly amount: f32;
     public readonly bone_index: u16;
-    public readonly direction: XR_vector;
+    public readonly direction: vector;
 
     protected constructor();
   }
@@ -144,10 +137,10 @@ declare module "xray16" {
    * @customConstructor game_memory_object
    * @group xr_core
    */
-  export class XR_game_memory_object extends XR_memory_object {
+  export class game_memory_object extends memory_object {
     public object_info: unknown; /* MemorySpace::CObjectParams<class CGameObject>& */
     public self_info: unknown; /* MemorySpace::CObjectParams<class CGameObject>& */
-    public object(): XR_game_object;
+    public object(): game_object;
 
     protected constructor();
   }
@@ -157,11 +150,11 @@ declare module "xray16" {
    * @customConstructor not_yet_visible_object
    * @group xr_core
    */
-  export class XR_not_yet_visible_object extends XR_EngineBinding {
+  export class not_yet_visible_object extends EngineBinding {
     protected constructor();
 
     public value: f32;
-    public object(): XR_game_object;
+    public object(): game_object;
   }
 
   /**
@@ -169,7 +162,7 @@ declare module "xray16" {
    * @customConstructor visible_memory_object
    * @group xr_core
    */
-  export class XR_visible_memory_object extends XR_game_memory_object {
+  export class visible_memory_object extends game_memory_object {
     protected constructor();
   }
 
@@ -178,7 +171,7 @@ declare module "xray16" {
    * @customConstructor visible_memory_object
    * @group xr_core
    */
-  export class XR_memory_info extends XR_visible_memory_object {
+  export class memory_info extends visible_memory_object {
     public readonly hit_info: boolean;
     public readonly sound_info: boolean;
     public readonly visual_info: boolean;
@@ -191,7 +184,7 @@ declare module "xray16" {
    * @customConstructor CTime
    * @group xr_core
    */
-  export class XR_CTime extends XR_EngineBinding {
+  export class CTime extends EngineBinding {
     public static DateToDay: 0;
     public static DateToMonth: 1;
     public static DateToYear: 2;
@@ -201,11 +194,11 @@ declare module "xray16" {
     public static TimeToSeconds: 2;
 
     public constructor();
-    public constructor(time: XR_CTime);
+    public constructor(time: CTime);
 
-    public add(time: XR_CTime): void;
+    public add(time: CTime): void;
     public dateToString(time: i32): string;
-    public diffSec(time: XR_CTime): f32;
+    public diffSec(time: CTime): f32;
     public get(
       y: u32,
       m: u32,
@@ -218,7 +211,7 @@ declare module "xray16" {
     public set(y: i32, m: i32, d: i32, h: i32, min: i32, sec: i32, ms: i32): void;
     public setHMS(a: i32, b: i32, c: i32): void;
     public setHMSms(a: i32, b: i32, c: i32, d: i32): void;
-    public sub(time: XR_CTime): void;
+    public sub(time: CTime): void;
     public timeToString(time: i32): string;
   }
 
@@ -227,7 +220,7 @@ declare module "xray16" {
    * @customConstructor CConsole
    * @group xr_core
    */
-  export class XR_CConsole extends XR_EngineBinding {
+  export class CConsole extends EngineBinding {
     private constructor();
 
     public execute(command: string): void;
@@ -249,7 +242,7 @@ declare module "xray16" {
    * @customConstructor game_GameState
    * @group xr_core
    */
-  export class XR_game_GameState extends XR_DLL_Pure {
+  export class game_GameState extends DLL_Pure {
     public round: i32;
     public start_time: u32;
     public type: number; /* EGameIDs */
@@ -267,7 +260,7 @@ declare module "xray16" {
    * @customConstructor class_info_data
    * @group xr_core
    */
-  export class XR_class_info_data extends XR_EngineBinding {
+  export class class_info_data extends EngineBinding {
     public readonly methods: object;
     public readonly attributes: object;
     public readonly name: string;
@@ -280,13 +273,13 @@ declare module "xray16" {
    * @customConstructor render_device
    * @group xr_core
    */
-  export class XR_render_device {
+  export class render_device {
     private constructor();
 
-    public readonly cam_dir: XR_vector;
-    public readonly cam_pos: XR_vector;
-    public readonly cam_right: XR_vector;
-    public readonly cam_top: XR_vector;
+    public readonly cam_dir: vector;
+    public readonly cam_pos: vector;
+    public readonly cam_right: vector;
+    public readonly cam_top: vector;
     public readonly aspect_ratio: f32;
     public readonly fov: f32;
     public readonly precache_frame: u32;
@@ -306,38 +299,33 @@ declare module "xray16" {
    * @customConstructor cef_storage
    * @group xr_core
    */
-  export class XR_cef_storage extends XR_EngineBinding {
+  export class cef_storage extends EngineBinding {
     private constructor();
 
-    public evaluate(str: string, game_object: XR_game_object): f32;
-    public evaluate(str: string, game_object1: XR_game_object, game_object2: XR_game_object): f32;
+    public evaluate(str: string, game_object: game_object): f32;
+    public evaluate(str: string, game_object1: game_object, game_object2: game_object): f32;
+    public evaluate(str: string, game_object1: game_object, game_object2: game_object, game_object3: game_object): f32;
     public evaluate(
       str: string,
-      game_object1: XR_game_object,
-      game_object2: XR_game_object,
-      game_object3: XR_game_object
+      game_object1: game_object,
+      game_object2: game_object,
+      game_object3: game_object,
+      game_object4: game_object
+    ): f32;
+    public evaluate(str: string, cse_alife_object: cse_alife_object): f32;
+    public evaluate(str: string, cse_alife_object1: cse_alife_object, cse_alife_object2: cse_alife_object): f32;
+    public evaluate(
+      str: string,
+      cse_alife_object1: cse_alife_object,
+      cse_alife_object2: cse_alife_object,
+      cse_alife_object3: cse_alife_object
     ): f32;
     public evaluate(
       str: string,
-      game_object1: XR_game_object,
-      game_object2: XR_game_object,
-      game_object3: XR_game_object,
-      game_object4: XR_game_object
-    ): f32;
-    public evaluate(str: string, cse_alife_object: XR_cse_alife_object): f32;
-    public evaluate(str: string, cse_alife_object1: XR_cse_alife_object, cse_alife_object2: XR_cse_alife_object): f32;
-    public evaluate(
-      str: string,
-      cse_alife_object1: XR_cse_alife_object,
-      cse_alife_object2: XR_cse_alife_object,
-      cse_alife_object3: XR_cse_alife_object
-    ): f32;
-    public evaluate(
-      str: string,
-      cse_alife_object1: XR_cse_alife_object,
-      cse_alife_object2: XR_cse_alife_object,
-      cse_alife_object3: XR_cse_alife_object,
-      cse_alife_object4: XR_cse_alife_object
+      cse_alife_object1: cse_alife_object,
+      cse_alife_object2: cse_alife_object,
+      cse_alife_object3: cse_alife_object,
+      cse_alife_object4: cse_alife_object
     ): f32;
   }
 }

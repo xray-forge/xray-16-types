@@ -7,47 +7,47 @@ declare module "xray16" {
   /**
    * @group xr_global
    */
-  export function GetFontDI(this: void): XR_CGameFont;
+  export function GetFontDI(this: void): CGameFont;
 
   /**
    * @group xr_global
    */
-  export function GetFontGraffiti19Russian(this: void): XR_CGameFont;
+  export function GetFontGraffiti19Russian(this: void): CGameFont;
 
   /**
    * @group xr_global
    */
-  export function GetFontGraffiti32Russian(this: void): XR_CGameFont;
+  export function GetFontGraffiti32Russian(this: void): CGameFont;
 
   /**
    * @group xr_global
    */
-  export function GetFontGraffiti50Russian(this: void): XR_CGameFont;
+  export function GetFontGraffiti50Russian(this: void): CGameFont;
 
   /**
    * @group xr_global
    */
-  export function GetFontLetterica18Russian(this: void): XR_CGameFont;
+  export function GetFontLetterica18Russian(this: void): CGameFont;
 
   /**
    * @group xr_global
    */
-  export function GetFontLetterica25(this: void): XR_CGameFont;
+  export function GetFontLetterica25(this: void): CGameFont;
 
   /**
    * @group xr_global
    */
-  export function GetFontMedium(this: void): XR_CGameFont;
+  export function GetFontMedium(this: void): CGameFont;
 
   /**
    * @group xr_global
    */
-  export function GetFontSmall(this: void): XR_CGameFont;
+  export function GetFontSmall(this: void): CGameFont;
 
   /**
    * @group xr_global
    */
-  export function GetTextureInfo(this: void, char: string, char2: string, tex_info: XR_TEX_INFO): boolean;
+  export function GetTextureInfo(this: void, char: string, char2: string, tex_info: TEX_INFO): boolean;
 
   /**
    * @group xr_global
@@ -82,7 +82,7 @@ declare module "xray16" {
   /**
    * @group xr_global
    */
-  export function cast_planner(this: void, base_action: XR_action_base): XR_action_planner;
+  export function cast_planner(this: void, base_action: action_base): action_planner;
 
   /**
    * @group xr_global
@@ -96,17 +96,17 @@ declare module "xray16" {
    * @param content - string value to be read as ini file
    * @returns new ini file instance based on provided content
    */
-  export function create_ini_file(this: void, content: string): XR_ini_file;
+  export function create_ini_file(this: void, content: string): ini_file;
 
   /**
    * @group xr_global
    */
-  export function game_ini(this: void): XR_ini_file;
+  export function game_ini(this: void): ini_file;
 
   /**
    * @group xr_global
    */
-  export function device(this: void): XR_render_device;
+  export function device(this: void): render_device;
 
   /**
    * @group xr_global
@@ -116,7 +116,7 @@ declare module "xray16" {
   /**
    * @group xr_global
    */
-  export function game_graph(this: void): XR_CGameGraph;
+  export function game_graph(this: void): CGameGraph;
 
   /**
    * @group xr_global
@@ -126,7 +126,7 @@ declare module "xray16" {
   /**
    * @group xr_global
    */
-  export function getFS(this: void): XR_FS;
+  export function getFS(this: void): FS;
 
   /**
    * Get console object reference.
@@ -135,12 +135,12 @@ declare module "xray16" {
    * @group xr_global
    * @returns console object reference
    */
-  export function get_console(this: void): XR_CConsole;
+  export function get_console(this: void): CConsole;
 
   /**
    * @group xr_global
    */
-  export function get_hud(this: void): XR_CUIGameCustom;
+  export function get_hud(this: void): CUIGameCustom;
 
   /**
    * @group xr_global
@@ -170,17 +170,17 @@ declare module "xray16" {
   /**
    * @group xr_global
    */
-  export function GetTextureRect(this: void, str: string): XR_Frect;
+  export function GetTextureRect(this: void, str: string): Frect;
 
   /**
    * @group xr_global
    */
-  export function GetCursorPosition(this: void): XR_vector2;
+  export function GetCursorPosition(this: void): vector2;
 
   /**
    * @group xr_global
    */
-  export function SetCursorPosition(this: void, vector: XR_vector2): void;
+  export function SetCursorPosition(this: void, vector: vector2): void;
 
   /**
    * Check whether dynamic music setting is enabled.
@@ -194,7 +194,7 @@ declare module "xray16" {
   /**
    * @group xr_global
    */
-  export function GetFontLetterica16Russian(this: void): XR_CGameFont;
+  export function GetFontLetterica16Russian(this: void): CGameFont;
 
   /**
    * Log formatted message in game console and log file.
@@ -220,7 +220,7 @@ declare module "xray16" {
   /**
    * @group xr_global
    */
-  export function show_condition(this: void, file: XR_ini_file, str: string): void;
+  export function show_condition(this: void, file: ini_file, str: string): void;
 
   /**
    * Whether auto-save on important checkpoints option is turned on.
@@ -232,22 +232,22 @@ declare module "xray16" {
   /**
    * @group xr_global
    */
-  export function FitInRect(this: void, window: XR_CUIWindow, rect: XR_Frect, a: number, b: number): boolean;
+  export function FitInRect(this: void, window: CUIWindow, rect: Frect, a: number, b: number): boolean;
 
   /**
    * @group xr_global
    */
-  export function reload_system_ini(this: void): XR_ini_file;
+  export function reload_system_ini(this: void): ini_file;
 
   /**
    * @group xr_global
    */
-  export function system_ini(this: void): XR_ini_file;
+  export function system_ini(this: void): ini_file;
 
   /**
    * @group xr_global
    */
-  export function alife(this: void): XR_alife_simulator;
+  export function alife(this: void): alife_simulator;
 
   /**
    * @group xr_global
@@ -267,7 +267,7 @@ declare module "xray16" {
   /**
    * @group xr_global
    */
-  export function class_info(this: void, arg: unknown /* luabind::argument */): XR_class_info_data;
+  export function class_info(this: void, arg: unknown /* luabind::argument */): class_info_data;
   /**
    * @group xr_global
    * @returns is dev editor tool enabled currently used.
@@ -282,7 +282,7 @@ declare module "xray16" {
   /**
    * @group xr_global
    */
-  export function GetFontGraffiti22Russian(this: void): XR_CGameFont;
+  export function GetFontGraffiti22Russian(this: void): CGameFont;
 
   /**
    * Prefetch provided script before executing next lines.
@@ -324,7 +324,7 @@ declare module "xray16" {
   /**
    * @group xr_global
    */
-  export function ef_storage(this: void): XR_cef_storage;
+  export function ef_storage(this: void): cef_storage;
 
   /**
    * @group xr_global
@@ -355,7 +355,7 @@ declare module "xray16" {
     add_cam_effector(this: void, effect: string, id: i32, is_cyclic: boolean, callback: string): void;
     add_cam_effector2(this: void, effect: string, id: i32, is_cyclic: boolean, callback: string, camera_fov: f32): void;
     add_complex_effector(this: void, section: string, id: i32): void;
-    add_dialog_to_render(this: void, window: XR_CUIDialogWnd): void;
+    add_dialog_to_render(this: void, window: CUIDialogWnd): void;
     add_pp_effector(this: void, fn: string, id: i32, is_cyclic: boolean): void;
 
     /**
@@ -366,10 +366,10 @@ declare module "xray16" {
      * @param minutes - minutes to move forward
      */
     change_game_time(this: void, days: u32, hours: u32, minutes: u32): void;
-    check_object(this: void, object: XR_game_object): void;
-    client_spawn_manager(this: void): XR_client_spawn_manager;
-    debug_actor(this: void): XR_game_object;
-    debug_object(this: void, str: string): XR_game_object;
+    check_object(this: void, object: game_object): void;
+    client_spawn_manager(this: void): client_spawn_manager;
+    debug_actor(this: void): game_object;
+    debug_object(this: void, str: string): game_object;
     disable_input(this: void): void;
     enable_input(this: void): void;
     environment(this: void): unknown /* XR_CEnvironment */;
@@ -380,7 +380,7 @@ declare module "xray16" {
     game_id(this: void): TXR_EGameID;
 
     get_active_cam(this: void): u8;
-    get_bounding_volume(this: void): XR_Fbox;
+    get_bounding_volume(this: void): Fbox;
     get_game_difficulty(this: void): TXR_game_difficulty;
     get_snd_volume(this: void): f32;
     get_target_dist(this: void): f32;
@@ -388,7 +388,7 @@ declare module "xray16" {
     /**
      * Get object target aimed by cursor.
      */
-    get_target_obj(this: void): XR_game_object | null;
+    get_target_obj(this: void): game_object | null;
     get_time_days(this: void): u32;
     get_time_factor(this: void): f32;
     get_time_hours(this: void): u32;
@@ -397,22 +397,22 @@ declare module "xray16" {
     get_wfx_time(this: void): f32;
     hide_indicators(this: void): void;
     hide_indicators_safe(this: void): void;
-    high_cover_in_direction(this: void, num: u32, vector: XR_vector): f32;
+    high_cover_in_direction(this: void, num: u32, vector: vector): f32;
     is_wfx_playing(this: void): boolean;
     iterate_online_objects(this: void, cb: () => void): void;
     iterate_sounds(this: void, str: string, num: u32, cb: () => void): void;
     iterate_sounds(this: void, str: string, num: u32, object: object, cb: () => void): void;
-    low_cover_in_direction(this: void, num: u32, vector: XR_vector): f32;
-    main_input_receiver(this: void): XR_CUIDialogWnd;
+    low_cover_in_direction(this: void, num: u32, vector: vector): f32;
+    main_input_receiver(this: void): CUIDialogWnd;
     map_add_object_spot(this: void, id: u16, selector: string, hint: string): void;
     map_add_object_spot_ser(this: void, id: u16, str1: string, str2: string): void;
     map_change_spot_hint(this: void, num: u16, selector: string, hint: string): void;
     map_has_object_spot(this: void, object_id: u16, selector: string): number;
     map_remove_object_spot(this: void, id: u16, selector: string): void;
     name<T extends string = string>(this: void): T;
-    object_by_id(this: void, object_id: u16): XR_game_object | null;
+    object_by_id(this: void, object_id: u16): game_object | null;
     patrol_path_exists(this: void, path_name: string): boolean;
-    physics_world(this: void): XR_physics_world;
+    physics_world(this: void): physics_world;
     prefetch_sound(this: void, str: string): void;
     present(this: void): boolean;
     /**
@@ -425,9 +425,9 @@ declare module "xray16" {
     remove_calls_for_object(this: void, object: object): void;
     remove_cam_effector(this: void, id: i32): void;
     remove_complex_effector(this: void, id: i32): void;
-    remove_dialog_to_render(this: void, window: XR_CUIDialogWnd): void;
+    remove_dialog_to_render(this: void, window: CUIDialogWnd): void;
     remove_pp_effector(this: void, id: i32): void;
-    send(net_packet: XR_net_packet, bool1: boolean, bool2: boolean, bool3: boolean, bool4: boolean): void;
+    send(net_packet: net_packet, bool1: boolean, bool2: boolean, bool3: boolean, bool4: boolean): void;
     set_active_cam(this: void, id: u8): void;
     set_game_difficulty(this: void, difficulty: unknown /* enum ESingleGameDifficulty */): void;
     set_pp_effector_factor(this: void, id: i32, f: f32, f_sp?: f32): void;
@@ -437,22 +437,22 @@ declare module "xray16" {
     set_weather_fx(this: void, str: string): boolean;
     show_indicators(this: void): void;
     show_weapon(this: void, val: boolean): void;
-    spawn_item(this: void, str: string, vector: XR_vector, uint: u32, ushort: u16, bool: boolean): void;
-    spawn_phantom(this: void, vector: XR_vector): void;
-    start_stop_menu(this: void, dialog: XR_CUIDialogWnd, bool: boolean): void;
+    spawn_item(this: void, str: string, vector: vector, uint: u32, ushort: u16, bool: boolean): void;
+    spawn_phantom(this: void, vector: vector): void;
+    start_stop_menu(this: void, dialog: CUIDialogWnd, bool: boolean): void;
     start_weather_fx_from_time(this: void, str: string, num: f32): boolean;
     stop_weather_fx(this: void): void;
-    vertex_id(this: void, vector: XR_vector): u32;
-    vertex_in_direction(this: void, num1: u32, vector: XR_vector, num2: f32): u32;
-    vertex_position(this: void, id: u32): XR_vector;
+    vertex_id(this: void, vector: vector): u32;
+    vertex_in_direction(this: void, num1: u32, vector: vector, num2: f32): u32;
+    vertex_position(this: void, id: u32): vector;
     ray_pick(
       this: void,
-      vec: XR_vector,
-      vec2: XR_vector,
+      vec: vector,
+      vec2: vector,
       fl: f32,
       enumc: unknown,
       rqres: unknown,
-      gobj: XR_game_object
+      gobj: game_object
     ): boolean;
   }
 
@@ -461,7 +461,7 @@ declare module "xray16" {
    * @group xr_global
    */
   export interface IXR_main_menu {
-    get_main_menu(this: void): XR_CMainMenu;
+    get_main_menu(this: void): CMainMenu;
   }
 
   /**
@@ -496,15 +496,15 @@ declare module "xray16" {
    * @group xr_global
    */
   export interface IXR_game {
-    CTime: (this: void) => XR_CTime;
+    CTime: (this: void) => CTime;
 
     translate_string(this: void, translation_key: string): string;
     time(this: void): u32;
     reload_language(this: void): void;
-    get_game_time(this: void): XR_CTime;
+    get_game_time(this: void): CTime;
     log_stack_trace(this: void): void;
     jump_to_level(this: void, level_name: string): void;
-    jump_to_level(this: void, position: XR_vector, lvi: u32, gvi: u16): void;
+    jump_to_level(this: void, position: vector, lvi: u32, gvi: u16): void;
     start_tutorial(this: void, tutorial_id: string): void;
     has_active_tutorial(this: void): boolean;
     active_tutorial_name(this: void): string;

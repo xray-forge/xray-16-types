@@ -7,16 +7,16 @@ declare module "xray16" {
    * @customConstructor Frect
    * @group xr_math
    */
-  export class XR_Frect extends XR_EngineBinding {
-    public lt: XR_vector2;
-    public rb: XR_vector2;
+  export class Frect extends EngineBinding {
+    public lt: vector2;
+    public rb: vector2;
 
     public x1: f32;
     public x2: f32;
     public y1: f32;
     public y2: f32;
 
-    public set(x1: f32, y1: f32, x2: f32, y2: f32): XR_Frect;
+    public set(x1: f32, y1: f32, x2: f32, y2: f32): Frect;
   }
 
   /**
@@ -24,9 +24,9 @@ declare module "xray16" {
    * @customConstructor Fbox
    * @group xr_math
    */
-  export class XR_Fbox {
-    public max: XR_vector;
-    public min: XR_vector;
+  export class Fbox {
+    public max: vector;
+    public min: vector;
 
     public constructor();
   }
@@ -36,7 +36,7 @@ declare module "xray16" {
    * @customConstructor rotation
    * @group xr_math
    */
-  export class XR_rotation {
+  export class rotation {
     public yaw: f32;
     public pitch: f32;
   }
@@ -46,12 +46,12 @@ declare module "xray16" {
    * @customConstructor vector2
    * @group xr_math
    */
-  export class XR_vector2 {
+  export class vector2 {
     public x: f32;
     public y: f32;
 
-    public set(x: f32, y: f32): XR_vector2;
-    public set(vector: XR_vector2): XR_vector2;
+    public set(x: f32, y: f32): vector2;
+    public set(vector: vector2): vector2;
   }
 
   /**
@@ -59,73 +59,74 @@ declare module "xray16" {
    * @customConstructor vector
    * @group xr_math
    */
-  export class XR_vector {
+  export class vector {
     public x: f32;
     public y: f32;
     public z: f32;
 
-    public abs(vector: Readonly<XR_vector>): XR_vector;
-    public add(val: f32): XR_vector;
-    public add(vector1: Readonly<XR_vector>, vector2: Readonly<XR_vector>): XR_vector;
-    public add(vector: Readonly<XR_vector>): XR_vector;
-    public add(vector: Readonly<XR_vector>, val: f32): XR_vector;
-    public align(): XR_vector;
-    public average(vector1: Readonly<XR_vector>, vector2: Readonly<XR_vector>): XR_vector;
-    public average(vector: Readonly<XR_vector>): XR_vector;
-    public clamp(vector1: Readonly<XR_vector>, vector2: Readonly<XR_vector>): XR_vector;
-    public clamp(vector: Readonly<XR_vector>): XR_vector;
-    public crossproduct(vector1: Readonly<XR_vector>, vector2: Readonly<XR_vector>): XR_vector;
-    public distance_to(vector: Readonly<XR_vector>): f32;
-    public distance_to_sqr(vector: Readonly<XR_vector>): f32;
-    public distance_to_xz(vector: Readonly<XR_vector>): f32;
-    public div(val: f32): XR_vector;
-    public div(vector1: Readonly<XR_vector>, vector2: Readonly<XR_vector>): XR_vector;
-    public div(vector: Readonly<XR_vector>): XR_vector;
-    public div(vector: Readonly<XR_vector>, val: f32): XR_vector;
-    public dotproduct(vector: Readonly<XR_vector>): f32;
+    public abs(vector: Readonly<vector>): vector;
+    public add(val: f32): vector;
+    public add(vector1: Readonly<vector>, vector2: Readonly<vector>): vector;
+    public add(vector: Readonly<vector>): vector;
+    public add(vector: Readonly<vector>, val: f32): vector;
+    public align(): vector;
+    public average(vector1: Readonly<vector>, vector2: Readonly<vector>): vector;
+    public average(vector: Readonly<vector>): vector;
+    public clamp(vector1: Readonly<vector>, vector2: Readonly<vector>): vector;
+    public clamp(vector: Readonly<vector>): vector;
+    public crossproduct(vector1: Readonly<vector>, vector2: Readonly<vector>): vector;
+    public distance_to(vector: Readonly<vector>): f32;
+    public distance_to_sqr(vector: Readonly<vector>): f32;
+    public distance_to_xz(vector: Readonly<vector>): f32;
+    public div(val: f32): vector;
+    public div(vector1: Readonly<vector>, vector2: Readonly<vector>): vector;
+    public div(vector: Readonly<vector>): vector;
+    public div(vector: Readonly<vector>, val: f32): vector;
+    public dotproduct(vector: Readonly<vector>): f32;
     public getH(): f32;
     public getP(): f32;
-    public inertion(vector: Readonly<XR_vector>, val: f32): XR_vector;
-    public invert(): XR_vector;
-    public invert(vector: Readonly<XR_vector>): XR_vector;
-    public lerp(vector1: Readonly<XR_vector>, vector2: Readonly<XR_vector>, val: f32): XR_vector;
-    public mad(vector1: Readonly<XR_vector>, vector2: Readonly<XR_vector>): XR_vector;
-    public mad(vector1: Readonly<XR_vector>, vector2: Readonly<XR_vector>, val: f32): XR_vector;
-    public mad(vector1: Readonly<XR_vector>, vector2: Readonly<XR_vector>, vector3: Readonly<XR_vector>): XR_vector;
-    public mad(vector: Readonly<XR_vector>, val: f32): XR_vector;
+    public inertion(vector: Readonly<vector>, val: f32): vector;
+    public invert(): vector;
+    public invert(vector: Readonly<vector>): vector;
+    public lerp(vector1: Readonly<vector>, vector2: Readonly<vector>, val: f32): vector;
+    public mad(vector1: Readonly<vector>, vector2: Readonly<vector>): vector;
+    public mad(vector1: Readonly<vector>, vector2: Readonly<vector>, val: f32): vector;
+    public mad(vector1: Readonly<vector>, vector2: Readonly<vector>, vector3: Readonly<vector>): vector;
+    public mad(vector: Readonly<vector>, val: f32): vector;
     public magnitude(): f32;
-    public max(vector1: Readonly<XR_vector>, vector2: Readonly<XR_vector>): XR_vector;
-    public max(vector: Readonly<XR_vector>): XR_vector;
-    public min(vector1: Readonly<XR_vector>, vector2: Readonly<XR_vector>): XR_vector;
-    public min(vector: Readonly<XR_vector>): XR_vector;
-    public mul(val: f32): XR_vector;
-    public mul(vector1: Readonly<XR_vector>, vector2: Readonly<XR_vector>): XR_vector;
-    public mul(vector: Readonly<XR_vector>): XR_vector;
-    public mul(vector: Readonly<XR_vector>, val: f32): XR_vector;
-    public normalize(): XR_vector;
-    public normalize(vector: Readonly<XR_vector>): XR_vector;
-    public normalize_safe(): XR_vector;
-    public normalize_safe(vector: Readonly<XR_vector>): XR_vector;
-    public reflect(vector1: Readonly<XR_vector>, vector2: Readonly<XR_vector>): XR_vector;
-    public set(vector: Readonly<XR_vector>): XR_vector;
-    public set(x: f32, y: f32, z: f32): XR_vector;
-    public setHP(val1: f32, val2: f32): XR_vector;
-    public set_length(val: f32): XR_vector;
-    public similar(vector: Readonly<XR_vector>, val: f32): boolean;
-    public slide(vector1: Readonly<XR_vector>, vector2: Readonly<XR_vector>): XR_vector;
-    public sub(val: f32): XR_vector;
-    public sub(vector1: Readonly<XR_vector>, vector2: Readonly<XR_vector>): XR_vector;
-    public sub(vector: Readonly<XR_vector>): XR_vector;
-    public sub(vector: Readonly<XR_vector>, val: f32): XR_vector;
+    public max(vector1: Readonly<vector>, vector2: Readonly<vector>): vector;
+    public max(vector: Readonly<vector>): vector;
+    public min(vector1: Readonly<vector>, vector2: Readonly<vector>): vector;
+    public min(vector: Readonly<vector>): vector;
+    public mul(val: f32): vector;
+    public mul(vector1: Readonly<vector>, vector2: Readonly<vector>): vector;
+    public mul(vector: Readonly<vector>): vector;
+    public mul(vector: Readonly<vector>, val: f32): vector;
+    public normalize(): vector;
+    public normalize(vector: Readonly<vector>): vector;
+    public normalize_safe(): vector;
+    public normalize_safe(vector: Readonly<vector>): vector;
+    public reflect(vector1: Readonly<vector>, vector2: Readonly<vector>): vector;
+    public set(vector: Readonly<vector>): vector;
+    public set(x: f32, y: f32, z: f32): vector;
+    public setHP(val1: f32, val2: f32): vector;
+    public set_length(val: f32): vector;
+    public similar(vector: Readonly<vector>, val: f32): boolean;
+    public slide(vector1: Readonly<vector>, vector2: Readonly<vector>): vector;
+    public sub(val: f32): vector;
+    public sub(vector1: Readonly<vector>, vector2: Readonly<vector>): vector;
+    public sub(vector: Readonly<vector>): vector;
+    public sub(vector: Readonly<vector>, val: f32): vector;
   }
 
   /**
    * @source C++ class RPoint
+   * @customConstructor RPoint
    * @group xr_math
    */
-  export class XR_RPoint {
-    public A: XR_vector;
-    public P: XR_vector;
+  export class RPoint {
+    public A: vector;
+    public P: vector;
 
     public constructor();
   }
@@ -135,30 +136,30 @@ declare module "xray16" {
    * @customConstructor matrix
    * @group xr_math
    */
-  export class XR_matrix {
+  export class matrix {
     public _14_: f32;
     public _24_: f32;
     public _34_: f32;
     public _44_: f32;
-    public c: XR_vector;
-    public i: XR_vector;
-    public j: XR_vector;
-    public k: XR_vector;
+    public c: vector;
+    public i: vector;
+    public j: vector;
+    public k: vector;
 
     public constructor();
 
-    public mk_xform(x: unknown /* _quaternion<float> */, vector: XR_vector): XR_matrix;
-    public set(matix: XR_matrix): XR_matrix;
-    public set(vector1: XR_vector, vector2: XR_vector, vector3: XR_vector, vector4: XR_vector): XR_matrix;
-    public div(matix: XR_matrix, number: f32): XR_matrix;
-    public div(number: f32): XR_matrix;
-    public identity(): XR_matrix;
-    public setHPB(number1: f32, number2: f32, number3: f32): XR_matrix;
-    public setXYZ(x: f32, y: f32, z: f32): XR_matrix;
-    public getHPB(matrix: XR_matrix, number1: f32, number2: f32, number3: f32): XR_matrix;
-    public mul(matix1: XR_matrix, matix2: XR_matrix): XR_matrix;
-    public mul(matix: XR_matrix, number: f32): XR_matrix;
-    public mul(number: f32): XR_matrix;
-    public setXYZi(number1: f32, number2: f32, number3: f32): XR_matrix;
+    public mk_xform(x: unknown /* _quaternion<float> */, vector: vector): matrix;
+    public set(matix: matrix): matrix;
+    public set(vector1: vector, vector2: vector, vector3: vector, vector4: vector): matrix;
+    public div(matix: matrix, number: f32): matrix;
+    public div(number: f32): matrix;
+    public identity(): matrix;
+    public setHPB(number1: f32, number2: f32, number3: f32): matrix;
+    public setXYZ(x: f32, y: f32, z: f32): matrix;
+    public getHPB(matrix: matrix, number1: f32, number2: f32, number3: f32): matrix;
+    public mul(matix1: matrix, matix2: matrix): matrix;
+    public mul(matix: matrix, number: f32): matrix;
+    public mul(number: f32): matrix;
+    public setXYZi(number1: f32, number2: f32, number3: f32): matrix;
   }
 }

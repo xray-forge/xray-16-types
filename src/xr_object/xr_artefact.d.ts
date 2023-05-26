@@ -4,83 +4,95 @@ declare module "xray16" {
    * @customConstructor CArtefact
    * @group xr_artefact
    */
-  export class XR_CArtefact extends XR_CGameObject {
+  export class CArtefact extends CGameObject {
     public constructor();
 
-    public FollowByPath(a: string, b: i32, c: XR_vector): void;
+    public FollowByPath(a: string, b: i32, c: vector): void;
     public GetAfRank(): u8;
     public SwitchVisibility(to: boolean): void;
   }
 
   /**
    * @source C++ class CZudaArtefact : CArtefact
+   * @customConstructor CZudaArtefact
    * @group xr_artefact
    */
-  export class XR_CZudaArtefact extends XR_CArtefact {}
+  export class CZudaArtefact extends CArtefact {}
 
   /**
    * @source C++ class CThornArtefact : CArtefact
+   * @customConstructor CThornArtefact
    * @group xr_artefact
    */
-  export class XR_CThornArtefact extends XR_CArtefact {}
+  export class CThornArtefact extends CArtefact {}
 
   /**
    * @source C++ class CBastArtefact : CArtefact
+   * @customConstructor CBastArtefact
    * @group xr_artefact
    */
-  export class XR_CBastArtefact extends XR_CArtefact {}
+  export class CBastArtefact extends CArtefact {}
 
   /**
    * @source C++ class CBlackDrops : CArtefact
+   * @customConstructor CBlackDrops
    * @group xr_artefact
    */
-  export class XR_CBlackDrops extends XR_CArtefact {}
+  export class CBlackDrops extends CArtefact {}
 
   /**
    * @source C++ class CBlackGraviArtefact : CArtefact
+   * @customConstructor CBlackGraviArtefact
    * @group xr_artefact
    */
-  export class XR_CBlackGraviArtefact extends XR_CArtefact {}
+  export class CBlackGraviArtefact extends CArtefact {}
 
   /**
    * @source C++ class CDummyArtefact : CArtefact
+   * @customConstructor CDummyArtefact
    * @group xr_artefact
    */
-  export class XR_CDummyArtefact extends XR_CArtefact {}
+  export class CDummyArtefact extends CArtefact {}
 
   /**
    * @source C++ class CElectricBall : CArtefact
+   * @customConstructor CElectricBall
    * @group xr_artefact
    */
-  export class XR_CElectricBall extends XR_CArtefact {}
+  export class CElectricBall extends CArtefact {}
 
   /**
    * @source C++ class CFadedBall : CArtefact
+   * @customConstructor CFadedBall
    * @group xr_artefact
    */
-  export class XR_CFadedBall extends XR_CArtefact {}
+  export class CFadedBall extends CArtefact {}
 
   /**
    * @source C++ class CGalantineArtefact : CArtefact
+   * @customConstructor CGalantineArtefact
    * @group xr_artefact
    */
-  export class XR_CGalantineArtefact extends XR_CArtefact {}
+  export class CGalantineArtefact extends CArtefact {}
 
   /**
    * @source C++ class CGraviArtefact : CArtefact
+   * @customConstructor CGraviArtefact
    * @group xr_artefact
    */
-  export class XR_CGraviArtefact extends XR_CArtefact {}
+  export class CGraviArtefact extends CArtefact {}
 
   /**
    * @source C++ class CMercuryBall : CArtefact
+   * @customConstructor CMercuryBall
    * @group xr_artefact
    */
-  export class XR_CMercuryBall extends XR_CArtefact {}
+  export class CMercuryBall extends CArtefact {}
 
   /**
    * @source C++ class CRustyHairArtefact : CArtefact
+   * @customConstructor CRustyHairArtefact
    * @group xr_artefact
    */
-  export class XR_CRustyHairArtefact extends XR_CArtefact {}
+  export class CRustyHairArtefact extends CArtefact {}
 }

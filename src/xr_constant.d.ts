@@ -4,7 +4,7 @@ declare module "xray16" {
    * @customConstructor stalker_ids
    * @group xr_constants
    */
-  export class XR_stalker_ids {
+  export class stalker_ids {
     public static readonly action_accomplish_task: 7;
     public static readonly action_aim_enemy: 16;
     public static readonly action_alife_planner: 88;
@@ -133,9 +133,10 @@ declare module "xray16" {
 
   /**
    * @source C++ class spawn_story_ids
+   * @customConstructor spawn_story_ids
    * @group xr_constants
    */
-  export class XR_spawn_story_ids {
+  export class spawn_story_ids {
     public static readonly INVALID_SPAWN_STORY_ID: -1;
 
     private constructor();
@@ -143,9 +144,10 @@ declare module "xray16" {
 
   /**
    * @source C++ class story_ids
+   * @customConstructor story_ids
    * @group xr_constants
    */
-  export class XR_story_ids {
+  export class story_ids {
     public static readonly INVALID_STORY_ID: -1;
     public static readonly Invalid: 65535;
     public static readonly test_01: 65000;
@@ -157,9 +159,10 @@ declare module "xray16" {
 
   /**
    * @source C++ class callback
+   * @customConstructor callback
    * @group xr_constants
    */
-  export class XR_callback {
+  export class callback {
     /**
      * Placeholder.
      */
@@ -231,7 +234,7 @@ declare module "xray16" {
   /**
    * @group xr_constants
    */
-  export type TXR_callbacks = typeof XR_callback;
+  export type TXR_callbacks = typeof callback;
 
   /**
    * @group xr_constants
@@ -240,9 +243,10 @@ declare module "xray16" {
 
   /**
    * @source C++ class key_bindings
+   * @customConstructor key_bindings
    * @group xr_constants
    */
-  export class XR_key_bindings {
+  export class key_bindings {
     public static readonly kACCEL: 7;
     public static readonly kBACK: 10;
     public static readonly kBUY: 52;
@@ -289,9 +293,10 @@ declare module "xray16" {
 
   /**
    * @source C++ class GAME_TYPE
+   * @customConstructor GAME_TYPE
    * @group xr_constants
    */
-  export class XR_GAME_TYPE {
+  export class GAME_TYPE {
     public static readonly eGameIDArtefactHunt: 8;
     public static readonly eGameIDCaptureTheArtefact: 16;
     public static readonly eGameIDDeathmatch: 2;
@@ -314,13 +319,14 @@ declare module "xray16" {
   /**
    * @group xr_constants
    */
-  type TXR_GAME_TYPE = EnumeratedStaticsValues<typeof XR_GAME_TYPE>;
+  type TXR_GAME_TYPE = EnumeratedStaticsValues<typeof GAME_TYPE>;
 
   /**
    * @source C++ class game_difficulty
+   * @customConstructor game_difficulty
    * @group xr_constants
    */
-  export class XR_game_difficulty {
+  export class game_difficulty {
     public static readonly novice: 0;
     public static readonly stalker: 1;
     public static readonly veteran: 2;
@@ -330,18 +336,19 @@ declare module "xray16" {
   /**
    * @group xr_constants
    */
-  export type TXR_game_difficulty_name = EnumeratedStaticsKeys<typeof XR_game_difficulty>;
+  export type TXR_game_difficulty_name = EnumeratedStaticsKeys<typeof game_difficulty>;
 
   /**
    * @group xr_constants
    */
-  export type TXR_game_difficulty = EnumeratedStaticsValues<typeof XR_game_difficulty>;
+  export type TXR_game_difficulty = EnumeratedStaticsValues<typeof game_difficulty>;
 
   /**
    * @source C++ class task
+   * @customConstructor task
    * @group xr_constants
    */
-  export class XR_task {
+  export class task {
     public static readonly additional: 1;
     public static readonly completed: 2;
     public static readonly fail: 0;
@@ -355,19 +362,20 @@ declare module "xray16" {
   /**
    * @group xr_constants
    */
-  export type TXR_TaskStateName = EnumeratedStaticsKeys<typeof XR_task>;
+  export type TXR_TaskStateName = EnumeratedStaticsKeys<typeof task>;
 
   /**
    * ETaskState
    * @group xr_constants
    */
-  export type TXR_TaskState = EnumeratedStaticsValues<typeof XR_task>;
+  export type TXR_TaskState = EnumeratedStaticsValues<typeof task>;
 
   /**
    * @source C++ class clsid
+   * @customConstructor clsid
    * @group xr_constants
    */
-  export class XR_clsid {
+  export class clsid {
     public static readonly actor: 90;
     public static readonly art_bast_artefact: 0;
     public static readonly art_black_drops: 1;
@@ -592,19 +600,19 @@ declare module "xray16" {
   /**
    * @group xr_constants
    */
-  type TXR_class_key = EnumeratedStaticsKeys<typeof XR_clsid>;
+  type TXR_class_key = EnumeratedStaticsKeys<typeof clsid>;
 
   /**
    * @group xr_constants
    */
-  type TXR_class_id = EnumeratedStaticsValues<typeof XR_clsid>;
+  type TXR_class_id = EnumeratedStaticsValues<typeof clsid>;
 
   /**
    * @source C++ class MonsterSpace
    * @customConstructor MonsterSpace
    * @group xr_constants
    */
-  export class XR_MonsterSpace {
+  export class MonsterSpace {
     public static readonly head_anim_angry: 1;
     public static readonly head_anim_glad: 2;
     public static readonly head_anim_kind: 3;
@@ -615,19 +623,19 @@ declare module "xray16" {
   /**
    * @group xr_constants
    */
-  export type TXR_MonsterBodyStateKey = EnumeratedStaticsKeys<typeof XR_MonsterSpace>;
+  export type TXR_MonsterBodyStateKey = EnumeratedStaticsKeys<typeof MonsterSpace>;
 
   /**
    * @group xr_constants
    */
-  export type TXR_MonsterBodyState = EnumeratedStaticsValues<typeof XR_MonsterSpace>;
+  export type TXR_MonsterBodyState = EnumeratedStaticsValues<typeof MonsterSpace>;
 
   /**
    * @source C++ class CSightParams
    * @customConstructor XR_CSightParams
    * @group xr_constants
    **/
-  export class XR_CSightParams {
+  export class CSightParams {
     public static readonly eSightTypeDummy: -1;
     public static readonly eSightTypeCurrentDirection: 0;
     public static readonly eSightTypePathDirection: 1;
@@ -642,9 +650,9 @@ declare module "xray16" {
     public static readonly eSightTypeFirePosition: 10;
     public static readonly eSightTypeAnimationDirection: 11;
 
-    public readonly m_object: XR_game_object;
+    public readonly m_object: game_object;
     public readonly m_sight_type: TXR_SightType;
-    public readonly m_vector: XR_vector;
+    public readonly m_vector: vector;
 
     public constructor();
   }
@@ -652,13 +660,14 @@ declare module "xray16" {
   /**
    * @group xr_constants
    */
-  export type TXR_SightType = EnumeratedStaticsValues<typeof XR_CSightParams>;
+  export type TXR_SightType = EnumeratedStaticsValues<typeof CSightParams>;
 
   /**
    * @source C++ class DIK_keys
+   * @customConstructor DIK_keys
    * @group xr_constants
    */
-  export class XR_DIK_keys {
+  export class DIK_keys {
     public static readonly DIK_0: 39;
     public static readonly DIK_1: 30;
     public static readonly DIK_2: 31;
@@ -937,7 +946,7 @@ declare module "xray16" {
    * @customConstructor FactionState
    * @group xr_constants
    */
-  export class XR_FactionState {
+  export class FactionState {
     public actor_goodwill: i32;
     public bonus: i32;
     public faction_id: string;

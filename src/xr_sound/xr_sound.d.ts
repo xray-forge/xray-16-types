@@ -4,11 +4,11 @@ declare module "xray16" {
    * @customConstructor sound_params
    * @group xr_sound
    */
-  export class XR_sound_params {
+  export class sound_params {
     public frequency: f32;
     public max_distance: f32;
     public min_distance: f32;
-    public position: XR_vector;
+    public position: vector;
     public volume: f32;
 
     private constructor();
@@ -19,7 +19,7 @@ declare module "xray16" {
    * @customConstructor sound_object
    * @group xr_sound
    */
-  export class XR_sound_object {
+  export class sound_object {
     public static s3d: 0;
     public static looped: 1;
     public static s2d: 2;
@@ -41,22 +41,22 @@ declare module "xray16" {
 
     public length(): u32;
     public playing(): boolean;
-    public get_position(): XR_vector;
+    public get_position(): vector;
 
-    public set_position(vector: XR_vector): void;
+    public set_position(vector: vector): void;
     public attach_tail(sound_path: string): void;
 
-    public play(object: XR_game_object | null): void;
-    public play(object: XR_game_object | null, delay: f32): void;
-    public play(object: XR_game_object | null, delay: f32, type: TXR_sound_object_type): void;
-    public play_at_pos(object: XR_game_object, position: XR_vector): void;
-    public play_at_pos(object: XR_game_object, position: XR_vector, delay: f32): void;
-    public play_at_pos(object: XR_game_object, position: XR_vector, delay: f32, type: TXR_sound_object_type): void;
+    public play(object: game_object | null): void;
+    public play(object: game_object | null, delay: f32): void;
+    public play(object: game_object | null, delay: f32, type: TXR_sound_object_type): void;
+    public play_at_pos(object: game_object, position: vector): void;
+    public play_at_pos(object: game_object, position: vector, delay: f32): void;
+    public play_at_pos(object: game_object, position: vector, delay: f32, type: TXR_sound_object_type): void;
     public play_no_feedback(
-      object: XR_game_object,
+      object: game_object,
       type: TXR_sound_object_type,
       value1: f32,
-      position: XR_vector,
+      position: vector,
       value2: f32
     ): void;
 
@@ -67,14 +67,14 @@ declare module "xray16" {
   /**
    * @group xr_sound
    */
-  export type TXR_sound_object_type = EnumeratedStaticsValues<typeof XR_sound_object>;
+  export type TXR_sound_object_type = EnumeratedStaticsValues<typeof sound_object>;
 
   /**
    * @source C++ class snd_type
    * @customConstructor snd_type
    * @group xr_sound
    */
-  export class XR_snd_type {
+  export class snd_type {
     public static ambient: 128;
     public static anomaly: 268435456;
     public static anomaly_idle: 268437504;
@@ -128,19 +128,19 @@ declare module "xray16" {
   /**
    * @group xr_sound
    */
-  export type TXR_snd_type = EnumeratedStaticsValues<typeof XR_snd_type>;
+  export type TXR_snd_type = EnumeratedStaticsValues<typeof snd_type>;
 
   /**
    * @source C++ class SoundInfo
    * @customConstructor SoundInfo
    * @group xr_sound
    */
-  export class XR_SoundInfo {
+  export class SoundInfo {
     public danger: i32;
-    public position: XR_vector;
+    public position: vector;
     public power: f32;
     public time: i32;
-    public who: XR_game_object;
+    public who: game_object;
 
     private constructor();
   }
@@ -150,7 +150,7 @@ declare module "xray16" {
    * @customConstructor sound_memory_object
    * @group xr_sound
    */
-  export class XR_sound_memory_object extends XR_game_memory_object {
+  export class sound_memory_object extends game_memory_object {
     public readonly power: f32;
     public type(): i32;
 

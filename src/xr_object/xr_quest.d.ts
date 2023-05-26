@@ -4,8 +4,8 @@ declare module "xray16" {
    * @customConstructor SGameTaskObjective
    * @group xr_quest
    */
-  export class XR_SGameTaskObjective {
-    public constructor(task: XR_CGameTask, id: i32);
+  export class SGameTaskObjective {
+    public constructor(task: CGameTask, id: i32);
 
     public remove_map_locations(flag: boolean): void;
     public set_icon_name(icon_name: string): void;
@@ -36,7 +36,7 @@ declare module "xray16" {
    * @customConstructor CGameTask
    * @group xr_quest
    */
-  export class XR_CGameTask extends XR_SGameTaskObjective {
+  export class CGameTask extends SGameTaskObjective {
     public constructor();
 
     public get_id(): string;

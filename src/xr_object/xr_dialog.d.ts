@@ -4,7 +4,7 @@ declare module "xray16" {
    * @customConstructor CPhraseScript
    * @group xr_dialog
    */
-  export class XR_CPhraseScript {
+  export class CPhraseScript {
     public AddAction(value: string): void;
     public AddDisableInfo(value: string): void;
     public AddDontHasInfo(value: string): void;
@@ -19,8 +19,8 @@ declare module "xray16" {
    * @customConstructor CPhrase
    * @group xr_dialog
    */
-  export class XR_CPhrase {
-    public GetPhraseScript(): XR_CPhraseScript;
+  export class CPhrase {
+    public GetPhraseScript(): CPhraseScript;
   }
 
   /**
@@ -28,7 +28,7 @@ declare module "xray16" {
    * @customConstructor CPhraseDialog
    * @group xr_dialog
    */
-  export class XR_CPhraseDialog {
-    public AddPhrase(text: string, phrase_id: string, prev_phrase_id: string, goodwill_level: number): XR_CPhrase;
+  export class CPhraseDialog {
+    public AddPhrase(text: string, phrase_id: string, prev_phrase_id: string, goodwill_level: number): CPhrase;
   }
 }

@@ -6,7 +6,7 @@ declare module "xray16" {
    * @source luabind
    * @group xr_luabind
    */
-  export class XR_EngineBinding {
+  export class EngineBinding {
     public static readonly __name: string;
     public readonly __name: string;
 
@@ -19,7 +19,7 @@ declare module "xray16" {
   /**
    * @group xr_luabind
    */
-  type XR_EngineBindingStaticMethods = keyof typeof XR_EngineBinding;
+  type TEngineBindingStaticMethods = keyof typeof EngineBinding;
 
   /**
    * Decorator to mark classes as luabind transformed.

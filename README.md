@@ -29,7 +29,7 @@ For easier navigation over codebase and typing following rules are applied:
 - Type declaration should have \@source docblock with matching c++ counterpart signature
 - Follow tsdoc guidelines
 - Variable and class namings follow c++ conventions for easier binding
-- XRay types should be prefixed with XR, IXR or TXR
+- XRay types should be prefixed with IXR or TXR if they do match runtime types
 - If method is not native to X-Ray engine and was added in one of updates, mark it with comment annotation if possible
 
 ! Do not use XR\_\* prefixed classes in runtime since it will cause error, consider it only for typing.

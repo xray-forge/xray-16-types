@@ -1,205 +1,239 @@
 declare module "xray16" {
   /**
    * @source C++ class CAntirad : CGameObject
+   * @customConstructor CAntirad
    * @group xr_item
    */
-  export class XR_CAntirad extends XR_CGameObject {}
+  export class CAntirad extends CGameObject {}
 
   /**
    * @source C++ class CStalkerOutfit : CGameObject
+   * @customConstructor CStalkerOutfit
    * @group xr_item
    */
-  export class XR_CStalkerOutfit extends XR_CGameObject {}
+  export class CStalkerOutfit extends CGameObject {}
 
   /**
    * @source C++ class CInventoryBox : CGameObject
+   * @customConstructor CInventoryBox
    * @group xr_item
    */
-  export class XR_CInventoryBox extends XR_CGameObject {}
+  export class CInventoryBox extends CGameObject {}
 
   /**
    * @source C++ class CBottleItem : CGameObject
+   * @customConstructor CBottleItem
    * @group xr_item
    */
-  export class XR_CBottleItem extends XR_CGameObject {}
+  export class CBottleItem extends CGameObject {}
 
   /**
    * @source C++ class CFoodItem : CGameObject
+   * @customConstructor CFoodItem
    * @group xr_item
    */
-  export class XR_CFoodItem extends XR_CGameObject {}
+  export class CFoodItem extends CGameObject {}
 
   /**
    * @source C++ class CMedkit : CGameObject
+   * @customConstructor CMedkit
    * @group xr_item
    */
-  export class XR_CMedkit extends XR_CGameObject {}
+  export class CMedkit extends CGameObject {}
 
   /**
    * @source C++ class CExplosiveItem : CGameObject
+   * @customConstructor CExplosiveItem
    * @group xr_item
    */
-  export class XR_CExplosiveItem extends XR_CGameObject {}
+  export class CExplosiveItem extends CGameObject {}
 
   /**
    * @source C++ class CWeaponAK74 : CGameObject
+   * @customConstructor CWeaponAK74
    * @group xr_item
    */
-  export class XR_CCWeaponAK74 extends XR_CGameObject {}
+  export class CCWeaponAK74 extends CGameObject {}
 
   /**
    * @source C++ class CGrenadeLauncher : CGameObject
+   * @customConstructor CGrenadeLauncher
    * @group xr_item
    */
-  export class XR_CGrenadeLauncher extends XR_CGameObject {}
+  export class CGrenadeLauncher extends CGameObject {}
 
   /**
    * @source C++ class CWeaponAmmo : CGameObject
+   * @customConstructor CWeaponAmmo
    * @group xr_item
    */
-  export class XR_CWeaponAmmo extends XR_CGameObject {}
+  export class CWeaponAmmo extends CGameObject {}
 
   /**
    * @source C++ class CWeaponAutomaticShotgun : CGameObject
+   * @customConstructor CWeaponAutomaticShotgun
    * @group xr_item
    */
-  export class XR_CWeaponAutomaticShotgun extends XR_CGameObject {}
+  export class CWeaponAutomaticShotgun extends CGameObject {}
 
   /**
    * @source C++ class CWeaponBM16 : CGameObject
+   * @customConstructor CWeaponBM16
    * @group xr_item
    */
-  export class XR_CWeaponBM16 extends XR_CGameObject {}
+  export class CWeaponBM16 extends CGameObject {}
 
   /**
    * @source C++ class CWeaponBinoculars : CGameObject
+   * @customConstructor CWeaponBinoculars
    * @group xr_item
    */
-  export class XR_CWeaponBinoculars extends XR_CGameObject {}
+  export class CWeaponBinoculars extends CGameObject {}
 
   /**
    * @source C++ class CWeaponFN2000 : CGameObject
+   * @customConstructor CWeaponFN2000
    * @group xr_item
    */
-  export class XR_CWeaponFN2000 extends XR_CGameObject {}
+  export class CWeaponFN2000 extends CGameObject {}
 
   /**
    * @source C++ class CWeaponFORT : CGameObject
+   * @customConstructor CWeaponFORT
    * @group xr_item
    */
-  export class XR_CWeaponFORT extends XR_CGameObject {}
+  export class CWeaponFORT extends CGameObject {}
 
   /**
    * @source C++ class CWeaponGroza : CGameObject
+   * @customConstructor CWeaponGroza
    * @group xr_item
    */
-  export class XR_CWeaponGroza extends XR_CGameObject {}
+  export class CWeaponGroza extends CGameObject {}
 
   /**
    * @source C++ class CWeaponHPSA : CGameObject
+   * @customConstructor CWeaponHPSA
    * @group xr_item
    */
-  export class XR_CWeaponHPSA extends XR_CGameObject {}
+  export class CWeaponHPSA extends CGameObject {}
 
   /**
    * @source C++ class CWeaponKnife : CGameObject
+   * @customConstructor CWeaponKnife
    * @group xr_item
    */
-  export class XR_CWeaponKnife extends XR_CGameObject {}
+  export class CWeaponKnife extends CGameObject {}
 
   /**
    * @source C++ class CWeaponLR300 : CGameObject
+   * @customConstructor CWeaponLR300
    * @group xr_item
    */
-  export class XR_CWeaponLR300 extends XR_CGameObject {}
+  export class CWeaponLR300 extends CGameObject {}
 
   /**
    * @source C++ class CWeaponPM : CGameObject
+   * @customConstructor CWeaponPM
    * @group xr_item
    */
-  export class XR_CWeaponPM extends XR_CGameObject {}
+  export class CWeaponPM extends CGameObject {}
 
   /**
    * @source C++ class CWeaponRG6 : CGameObject
+   * @customConstructor CWeaponRG6
    * @group xr_item
    */
-  export class XR_CWeaponRG6 extends XR_CGameObject {}
+  export class CWeaponRG6 extends CGameObject {}
 
   /**
    * @source C++ class CWeaponRPG7 : CGameObject
+   * @customConstructor CWeaponRPG7
    * @group xr_item
    */
-  export class XR_CWeaponRPG7 extends XR_CGameObject {}
+  export class CWeaponRPG7 extends CGameObject {}
 
   /**
    * @source C++ class CWeaponSVD : CGameObject
+   * @customConstructor CWeaponSVD
    * @group xr_item
    */
-  export class XR_CWeaponSVD extends XR_CGameObject {}
+  export class CWeaponSVD extends CGameObject {}
 
   /**
    * @source C++ class CWeaponSVU : CGameObject
+   * @customConstructor CWeaponSVU
    * @group xr_item
    */
-  export class XR_CWeaponSVU extends XR_CGameObject {}
+  export class CWeaponSVU extends CGameObject {}
 
   /**
    * @source C++ class CWeaponShotgun : CGameObject
+   * @customConstructor CWeaponShotgun
    * @group xr_item
    */
-  export class XR_CWeaponShotgun extends XR_CGameObject {}
+  export class CWeaponShotgun extends CGameObject {}
 
   /**
    * @source C++ class CWeaponUSP45 : CGameObject
+   * @customConstructor CWeaponUSP45
    * @group xr_item
    */
-  export class XR_CWeaponUSP45 extends XR_CGameObject {}
+  export class CWeaponUSP45 extends CGameObject {}
 
   /**
    * @source C++ class CWeaponVal : CGameObject
+   * @customConstructor CWeaponVal
    * @group xr_item
    */
-  export class XR_CWeaponVal extends XR_CGameObject {}
+  export class CWeaponVal extends CGameObject {}
 
   /**
    * @source C++ class CWeaponVintorez : CGameObject
+   * @customConstructor CWeaponVintorez
    * @group xr_item
    */
-  export class XR_CWeaponVintorez extends XR_CGameObject {}
+  export class CWeaponVintorez extends CGameObject {}
 
   /**
    * @source C++ class CWeaponWalther : CGameObject
+   * @customConstructor CWeaponWalther
    * @group xr_item
    */
-  export class XR_CWeaponWalther extends XR_CGameObject {}
+  export class CWeaponWalther extends CGameObject {}
 
   /**
    * @source C++ class CSilencer : CGameObject
+   * @customConstructor CSilencer
    * @group xr_item
    */
-  export class XR_CSilencer extends XR_CGameObject {}
+  export class CSilencer extends CGameObject {}
 
   /**
    * @source C++ class CScope : CGameObject
+   * @customConstructor CScope
    * @group xr_item
    */
-  export class XR_CScope extends XR_CGameObject {}
+  export class CScope extends CGameObject {}
 
   /**
    * @source C++ class CRGD5 : CGameObject
+   * @customConstructor CRGD5
    * @group xr_item
    */
-  export class XR_CRGD5 extends XR_CGameObject {}
+  export class CRGD5 extends CGameObject {}
 
   /**
    * @source C++ class CF1 : CGameObject
+   * @customConstructor CF1
    * @group xr_item
    */
-  export class XR_CF1 extends XR_CGameObject {}
+  export class CF1 extends CGameObject {}
 
   /**
    * @source C++ class CPda : CGameObject
+   * @customConstructor CPda
    * @group xr_item
    */
-  export class XR_CPda extends XR_CGameObject {}
+  export class CPda extends CGameObject {}
 }
