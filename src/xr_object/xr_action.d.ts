@@ -175,7 +175,7 @@ declare module "xray16" {
     public index(value: string): u32;
     public level_vertex_id(value: u32): u32;
     public name(point_index: u32): string;
-    public point(value: u32): vector;
+    public point(index: u32): vector;
     public terminal(point_index: u32): boolean;
   }
 
