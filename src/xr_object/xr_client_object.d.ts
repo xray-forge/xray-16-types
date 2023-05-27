@@ -606,6 +606,11 @@ declare module "xray16" {
   export type TXR_bloodsucker_visibility_state = -1 | 0 | 1 | 2;
 
   /**
+   * @source C++ enum visibility_t
+   */
+  export type TXR_game_object_path = 0 | 1 | 2 | 3 | number;
+
+  /**
    * Client object base representing generic in-game entities from items to mutants and stalkers.
    *
    * @source C++ class game_object
@@ -753,7 +758,7 @@ declare module "xray16" {
     public set_item(action_id: number, game_object: game_object | null, value1?: u32, value2?: u32): void;
     public set_mental_state(state: TXR_animation): void;
     public set_override_animation(animation: string): void;
-    public set_path_type(type: number /** enum MovementManager::EPathType */): void;
+    public set_path_type(type: TXR_game_object_path): void;
     public set_previous_point(point: i32): void;
     public set_smart_cover_target(): void;
     public set_smart_cover_target(game_object: game_object): void;
