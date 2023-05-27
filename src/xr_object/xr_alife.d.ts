@@ -8,9 +8,16 @@ declare module "xray16" {
     public actor<T extends cse_alife_creature_actor>(): T;
     public add_in_restriction(monster: cse_alife_monster_abstract, value: u16): void;
     public add_out_restriction(monster: cse_alife_monster_abstract, value: u16): void;
-    public create_ammo(section: string, vector: vector, lvi: u32, gvi: u16, pid: u16, count: i32): cse_abstract;
-    public dont_has_info(objectId: u16, infoId: string): boolean;
-    public has_info(objectId: u16, infoId: string): boolean;
+    public create_ammo(
+      section: string,
+      vector: vector,
+      level_vertex_id: u32,
+      game_vertex_id: u16,
+      pid: u16,
+      count: i32
+    ): cse_abstract;
+    public dont_has_info(object_id: u16, info_id: string): boolean;
+    public has_info(object_id: u16, info_id: string): boolean;
     public iterate_objects(cb: () => boolean): void;
     public level_id(): u32;
     public level_name<T extends string = string>(value: i32): T;
@@ -34,7 +41,7 @@ declare module "xray16" {
      * @param distance - distance to set
      */
     public switch_distance(distance: f32): void;
-    public teleport_object(lvi: u16, gvi: u16, int: u32, vector: vector): void;
+    public teleport_object(level_vertex_id: u16, game_vertex_id: u16, int: u32, vector: vector): void;
     public valid_object_id(value: u16): boolean;
 
     public kill_entity(monster1: cse_alife_monster_abstract, value?: u16, monster2?: cse_alife_monster_abstract): void;
