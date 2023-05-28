@@ -297,7 +297,7 @@ declare module "xray16" {
    */
   export class CUIMapList extends CUIWindow {
     public ClearList(): void;
-    public GetCommandLine(value: string): string;
+    public GetCommandLine<T extends string>(value: string): T;
     public GetCurGameType(): TXR_GAME_TYPE;
     public IsEmpty(): boolean;
     public LoadMapList(): void;

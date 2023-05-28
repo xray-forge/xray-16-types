@@ -48,7 +48,7 @@ declare module "xray16" {
 
     public play(object: game_object | null): void;
     public play(object: game_object | null, delay: f32): void;
-    public play(object: game_object | null, delay: f32, type: TXR_sound_object_type): void;
+    public play(object: game_object | null, delay: f32, type: i32): void;
     public play_at_pos(object: game_object, position: vector): void;
     public play_at_pos(object: game_object, position: vector, delay: f32): void;
     public play_at_pos(object: game_object, position: vector, delay: f32, type: i32): void;
