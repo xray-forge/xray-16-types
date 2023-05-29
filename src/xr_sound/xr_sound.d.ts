@@ -52,13 +52,7 @@ declare module "xray16" {
     public play_at_pos(object: game_object, position: vector): void;
     public play_at_pos(object: game_object, position: vector, delay: f32): void;
     public play_at_pos(object: game_object, position: vector, delay: f32, type: i32): void;
-    public play_no_feedback(
-      object: game_object,
-      type: TXR_sound_object_type,
-      value1: f32,
-      position: vector,
-      value2: f32
-    ): void;
+    public play_no_feedback(object: game_object, type: i32, value1: f32, position: vector, value2: f32): void;
 
     public stop(): void;
     public stop_deffered(): void;
