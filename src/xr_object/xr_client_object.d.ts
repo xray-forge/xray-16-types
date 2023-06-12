@@ -685,7 +685,7 @@ declare module "xray16" {
      */
     public active_slot<T extends u32>(): T;
     public active_zone_contact(value: u16): boolean;
-    public add_restrictions(zone: string, value2: string): void;
+    public add_restrictions(out_restriction: string, in_restriction: string): void;
     public animation_slot(): i32;
     public base_out_restrictions(): string;
     public best_item(): game_object | null;
