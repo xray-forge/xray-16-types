@@ -1052,8 +1052,20 @@ declare module "xray16" {
     public set_dest_loophole(): void;
     public set_dest_loophole(value: string): void;
     public set_goodwill(value: i32, game_object: game_object): void;
-    public set_home(value1: string | null, value2: f32, value3?: f32, value4?: boolean, value5?: f32): void;
-    public set_home(value1: u32 | null, value2: f32, value3?: f32, value4?: boolean, value5?: f32): void;
+    public set_home(
+      name: string | null,
+      min_radius: f32,
+      max_radius?: f32,
+      is_agressive?: boolean,
+      mid_radius?: f32
+    ): void;
+    public set_home(
+      lvid: u32 | null,
+      min_radius: f32,
+      max_radius?: f32,
+      is_agressive?: boolean,
+      mid_radius?: f32
+    ): void;
     /**
      * Set level changer invitation hint text.
      *
