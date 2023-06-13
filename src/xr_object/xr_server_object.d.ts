@@ -101,8 +101,13 @@ declare module "xray16" {
   export class cse_alife_trader_abstract {
     public reputation(): i32;
     public rank(): i32;
+    public set_rank(rank: i32): void;
     public community(): string;
     public profile_name(): string;
+    public character_name(): string;
+    public character_icon(): string;
+    public set_profile_name(name: string): void;
+    public set_character_name(name: string): void;
   }
 
   /**
