@@ -331,7 +331,9 @@ declare module "xray16" {
    * @customConstructor cse_alife_level_changer
    * @group xr_server_object
    */
-  export class cse_alife_level_changer extends cse_alife_space_restrictor {}
+  export class cse_alife_level_changer extends cse_alife_space_restrictor {
+    public get_dest_level_name(): string;
+  }
 
   /**
    * @source C++ class cse_alife_monster_abstract : cse_alife_creature_abstract,cse_alife_schedulable
@@ -513,7 +515,8 @@ declare module "xray16" {
    **/
   export class cse_alife_online_offline_group<T extends cse_alife_creature_abstract = cse_alife_creature_abstract>
     extends cse_alife_dynamic_object
-    implements IXR_cse_alife_schedulable {
+    implements IXR_cse_alife_schedulable
+  {
     public readonly object: T;
 
     public register_member(id: u16): void;
@@ -610,7 +613,8 @@ declare module "xray16" {
    */
   export class cse_alife_creature_actor
     extends cse_alife_creature_abstract
-    implements IXR_cse_ph_skeleton, cse_alife_trader_abstract {
+    implements IXR_cse_ph_skeleton, cse_alife_trader_abstract
+  {
     public profile_name(): string;
     public community(): string;
     public rank(): i32;

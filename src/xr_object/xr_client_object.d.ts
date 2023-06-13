@@ -486,7 +486,6 @@ declare module "xray16" {
 
   /*
    *  CAI_Stalker* cast_Stalker();
-   *  CActor* cast_Actor();
    *  CArtefact* cast_Artefact();
    *  CCar* cast_Car();
    *  CGameObject* cast_GameObject();
@@ -496,11 +495,8 @@ declare module "xray16" {
    *  CWeaponAmmo* cast_Ammo();
    *  CWeaponMagazined* cast_WeaponMagazined();
    *  ce_script_zone* cast_ScriptZone();
-   *  class CCustomMonster* cast_Monster();
    *  class CCustomZone* cast_CustomZone();
    *  class CEntityAlive* cast_EntityAlive();
-   *  class CInventoryItem* cast_InventoryItem();
-   *  class CInventoryOwner* cast_InventoryOwner();
    *  class CPhysicsShellHolder* cast_PhysicsShellHolder();
    *  explosive* cast_Explosive();
    *

@@ -7,6 +7,27 @@ declare module "xray16" {
   export class CActor extends CGameObject {}
 
   /**
+   * @source C++ class CCustomMonster : CGameObject
+   * @customConstructor CCustomMonster
+   * @group xr_creature
+   */
+  export class CCustomMonster extends CGameObject {}
+
+  /**
+   * @source C++ class CInventoryOwner : CGameObject
+   * @customConstructor CInventoryOwner
+   * @group xr_creature
+   */
+  export class CInventoryOwner extends CGameObject {}
+
+  /**
+   * @source C++ class CInventoryItem : CGameObject
+   * @customConstructor CInventoryItem
+   * @group xr_creature
+   */
+  export class CInventoryItem extends CGameObject {}
+
+  /**
    * @source C++ class CZombie : CGameObject
    * @customConstructor CZombie
    * @group xr_creature
