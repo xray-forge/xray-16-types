@@ -252,6 +252,16 @@ declare module "xray16" {
   /**
    * @group xr_global
    */
+  export function set_start_position(position: vector): void;
+
+  /**
+   * @group xr_global
+   */
+  export function set_start_game_vertex_id(gvid: i32): void;
+
+  /**
+   * @group xr_global
+   */
   export function flush(this: void): void;
 
   /**
