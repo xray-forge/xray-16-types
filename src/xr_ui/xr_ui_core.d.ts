@@ -48,6 +48,7 @@ declare module "xray16" {
     public CurrentItemAtCell(): game_object;
     public GetCustomStatic(value: string): StaticDrawableWrapper | null;
     public HideActorMenu(): void;
+    public ShowActorMenu(): boolean;
     public HidePdaMenu(): void;
     public RemoveCustomStatic(id: string): void;
     public RemoveDialogToRender(window: CUIWindow): void;

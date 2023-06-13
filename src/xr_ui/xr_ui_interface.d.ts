@@ -528,6 +528,7 @@ declare module "xray16" {
     public RemoveDialogToRender(window: CUIWindow): void;
     public AddDialogToRender(window: CUIWindow): void;
     public TopInputReceiver(): CUIDialogWnd;
+    public SetMainInputReceiver(window: CUIDialogWnd, find_remove: boolean): boolean;
     public MainInputReceiver(): CUIDialogWnd;
     public start_stop_menu(window: CUIWindow, value: boolean): void;
   }
