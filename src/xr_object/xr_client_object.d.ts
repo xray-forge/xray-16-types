@@ -477,6 +477,7 @@ declare module "xray16" {
 
     // 53 todo: weapon_jammed
 
+    public clear_callbacks(): void;
     public set_enemy_callback(cb: null): void;
     public set_enemy_callback<T>(cb: (this: T, object: game_object, enemy: game_object) => boolean, object: T): void;
     public set_fastcall<T>(cb: (this: T) => boolean, context: T): void;
@@ -551,6 +552,10 @@ declare module "xray16" {
    *  unsigned int belt_count();
    *  unsigned int get_main_weapon_type();
    *  unsigned int get_spatial_type();
+   *  remove_danger();
+   *  remove_memory_sound_object();
+   *  remove_memory_visible_object();
+   *  remove_memory_hit_object();
    *  unsigned int get_state();
    *  unsigned int get_weapon_type();
    *  unsigned int play_hud_motion(char const*,bool,unsigned int);

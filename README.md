@@ -2,14 +2,14 @@
 
 [![Node.js CI](https://github.com/xray-forge/xray-16-types/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/xray-forge/xray-16-types/actions/workflows/build_and_test.yml)
 
+X-Ray16 engine bindings documentation and types. <br/>
 For usage with [TypeScriptToLua](https://typescripttolua.github.io/docs/getting-started).
 
 <p>
 Module contains xray engine globals typedefs for typescript. <br/>
-By default x-ray export many bindings that can be used from lua scripts.
+By default x-ray export many bindings that can be used from lua scripts, but without game API documentation.
 
 To check more details / correct typing you always can reference X-Ray source code.
-Here we only try to represent correct types.
 
 </p>
 
@@ -19,20 +19,15 @@ Types documentation can be checked [here](https://xray-forge.github.io/xray-16-t
 
 ## 🧱 Usage
 
-Types are used with [xrf template](https://github.com/xray-forge/stalker-xrf-template) and are heavy part of it.
+Types are used with [xrf template](https://github.com/xray-forge/stalker-xrf-template) and can be referenced as an example.
 
 ## 🎮 Updating types
 
 For easier navigation over codebase and typing following rules are applied:
 
-- Runtime accessible values should be re-exported with index.d.ts file, all other things are considered ambient
 - Type declaration should have \@source docblock with matching c++ counterpart signature
-- Follow tsdoc guidelines
-- Variable and class namings follow c++ conventions for easier binding
-- XRay types should be prefixed with IXR or TXR if they do match runtime types
-- If method is not native to X-Ray engine and was added in one of updates, mark it with comment annotation if possible
-
-! Do not use XR\_\* prefixed classes in runtime since it will cause error, consider it only for typing.
+- Variable and class namings follow c++ conventions for easier binding and matching engine codebase
+- XRay types should be prefixed with IXR or TXR if they do not have runtime representation
 
 ## 📦Extending C++ classes and overriding virtual methods
 
