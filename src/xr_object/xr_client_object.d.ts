@@ -1195,5 +1195,8 @@ declare module "xray16" {
     public set_visual_name(name: string): void;
     public target_mental_state(): TXR_animation;
     public unregister_door_for_npc(): void;
+    public ammo_get_count(): u16;
+    public ammo_set_count(count: u16): void;
+    public ammo_box_size(): u16;
   }
 }
