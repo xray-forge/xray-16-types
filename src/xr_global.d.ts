@@ -295,6 +295,31 @@ declare module "xray16" {
   export function GetFontGraffiti22Russian(this: void): CGameFont;
 
   /**
+   * @group xr_global
+   */
+  export function GetDefaultUIPath(this: void): string;
+
+  /**
+   * @group xr_global
+   */
+  export function GetDefaultUIPathWithDelimiter(this: void): string;
+
+  /**
+   * @group xr_global
+   */
+  export function GetUIPath(this: void): string;
+
+  /**
+   * @group xr_global
+   */
+  export function GetUIPathWithDelimiter(this: void): string;
+
+  /**
+   * @group xr_global
+   */
+  export function GetUIStyleManager(this: void): UIStyleManager;
+
+  /**
    * Prefetch provided script before executing next lines.
    *
    * @group xr_global

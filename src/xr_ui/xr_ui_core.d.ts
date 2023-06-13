@@ -106,6 +106,20 @@ declare module "xray16" {
   }
 
   /**
+   * @source C++ class UIStyleManager
+   * @customConstructor UIStyleManager
+   * @group xr_ui_core
+   */
+  export class UIStyleManager {
+    private constructor();
+
+    public GetAllStyles(): LuaIterable<token>;
+    public DefaultStyleIsSet(): boolean;
+    public GetCurrentStyleId(): u32;
+    public SetStyle(id: u32, reload_ui?: boolean): void;
+  }
+
+  /**
    * @source C++ class CGameFont
    * @customConstructor CGameFont
    * @group xr_ui_core
