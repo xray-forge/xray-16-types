@@ -505,6 +505,7 @@ declare module "xray16" {
     log_stack_trace(this: void): void;
     jump_to_level(this: void, level_name: string): void;
     jump_to_level(this: void, position: vector, lvi: u32, gvi: u16): void;
+    jump_to_level(this: void, position: vector, lvi: u32, gvi: u16, direction: vector): void;
     start_tutorial(this: void, tutorial_id: string): void;
     has_active_tutorial(this: void): boolean;
     active_tutorial_name(this: void): string;
