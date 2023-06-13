@@ -399,7 +399,7 @@ declare module "xray16" {
     hide_indicators_safe(this: void): void;
     high_cover_in_direction(this: void, num: u32, vector: vector): f32;
     is_wfx_playing(this: void): boolean;
-    iterate_online_objects(this: void, cb: () => void): void;
+    iterate_online_objects(this: void, cb: (object: game_object) => void | boolean): void;
     iterate_sounds(this: void, str: string, num: u32, cb: () => void): void;
     iterate_sounds(this: void, str: string, num: u32, object: object, cb: () => void): void;
     low_cover_in_direction(this: void, num: u32, vector: vector): f32;
