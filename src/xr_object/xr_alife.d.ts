@@ -18,7 +18,7 @@ declare module "xray16" {
     ): cse_abstract;
     public dont_has_info(object_id: u16, info_id: string): boolean;
     public has_info(object_id: u16, info_id: string): boolean;
-    public iterate_objects(cb: () => boolean): void;
+    public iterate_objects(cb: (object: cse_alife_object) => boolean | void): void;
     public level_id(): u32;
     public level_name<T extends string = string>(value: i32): T;
     public release(cse_abstract: cse_alife_object | null, flag: boolean): void;
