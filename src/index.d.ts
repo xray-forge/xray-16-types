@@ -1,8 +1,15 @@
+import { IXR_ActorMenu } from "xray16";
+
 declare module "xray16" {
   /**
    * @group export
    */
   export const actor_stats: IXR_actor_stats;
+
+  /**
+   * @group export
+   */
+  export const ActorMenu: IXR_ActorMenu;
 
   /**
    * @group export

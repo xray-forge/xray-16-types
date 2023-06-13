@@ -609,4 +609,57 @@ declare module "xray16" {
     public GetHintText(): string;
     public SetHintText(hint: string): void;
   }
+
+  /**
+   * @source C++ class CUIPdaWnd : CUIDialogWnd
+   * @customConstructor CUIPdaWnd
+   * @group xr_ui_interface
+   */
+  export class CUIPdaWnd extends CUIDialogWnd {
+    public constructor();
+
+    public SetActiveSubdialog(section: string): void;
+    public GetActiveSection(): string;
+    public GetTabControl(): CUITabControl;
+  }
+
+  /**
+   * @source C++ class CUIActorMenu : CUIDialogWnd
+   * @customConstructor CUIActorMenu
+   * @group xr_ui_interface
+   */
+  export class CUIActorMenu extends CUIDialogWnd {
+    public constructor();
+
+    public get_drag_item(): game_object | null;
+    public highlight_section_in_slot(section: string, type: TXR_EDDListType, slot_id: u16): void;
+    public highlight_for_each_in_slot(
+      functor: (object: game_object) => boolean,
+      type: TXR_EDDListType,
+      slot_id: u16
+    ): void;
+    public refresh_current_cell_item(): void;
+  }
+
+  /**
+   * @source C++ enum EDDListType
+   * @customConstructor EDDListType
+   * @group xr_ui_interface
+   */
+  export class EDDListType {
+    public static readonly iActorBag: 2;
+    public static readonly iActorBelt: 3;
+    public static readonly iActorSlot: 1;
+    public static readonly iActorTrade: 4;
+    public static readonly iDeadBodyBag: 7;
+    public static readonly iInvalid: 0;
+    public static readonly iPartnerTrade: 6;
+    public static readonly iPartnerTradeBag: 5;
+    public static readonly iQuickSlot: 8;
+    public static readonly iTrashSlot: 9;
+
+    private constructor();
+  }
+
+  export type TXR_EDDListType = EnumeratedStaticsValues<typeof EDDListType>;
 }

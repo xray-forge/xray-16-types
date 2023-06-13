@@ -492,6 +492,27 @@ declare module "xray16" {
   }
 
   /**
+   * @source namespace ActorMenu
+   * @group xr_global
+   */
+  export interface IXR_ActorMenu {
+    get_pda_menu(this: void): CUIPdaWnd;
+    get_actor_menu(this: void): CUIActorMenu;
+    /**
+     * enum EMenuMode
+     * {
+     *     mmUndefined,
+     *     mmInventory,
+     *     mmTrade,
+     *     mmUpgrade,
+     *     mmDeadBodySearch,
+     * };
+     */
+    get_menu_mode(this: void): number;
+    // get_maingame(this: void): unknown; // CUIMainIngameWnd - not registered, throws exception
+  }
+
+  /**
    * @source namespace game
    * @group xr_global
    */
