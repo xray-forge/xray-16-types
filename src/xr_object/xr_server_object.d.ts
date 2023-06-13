@@ -98,7 +98,7 @@ declare module "xray16" {
    * @customConstructor cse_alife_trader_abstract
    * @group xr_server_object
    */
-  export class cse_alife_trader_abstract {
+  export class cse_alife_trader_abstract extends cse_alife_dynamic_object_visual {
     public reputation(): i32;
     public rank(): i32;
     public set_rank(rank: i32): void;
@@ -586,10 +586,15 @@ declare module "xray16" {
    * @group xr_server_object
    */
   export class cse_alife_trader extends cse_alife_dynamic_object_visual implements cse_alife_trader_abstract {
-    public profile_name(): string;
-    public community(): string;
-    public rank(): i32;
     public reputation(): i32;
+    public rank(): i32;
+    public set_rank(rank: i32): void;
+    public community(): string;
+    public profile_name(): string;
+    public character_name(): string;
+    public character_icon(): string;
+    public set_profile_name(name: string): void;
+    public set_character_name(name: string): void;
   }
 
   /**
@@ -618,10 +623,15 @@ declare module "xray16" {
   export class cse_alife_creature_actor
     extends cse_alife_creature_abstract
     implements IXR_cse_ph_skeleton, cse_alife_trader_abstract {
-    public profile_name(): string;
-    public community(): string;
-    public rank(): i32;
     public reputation(): i32;
+    public rank(): i32;
+    public set_rank(rank: i32): void;
+    public community(): string;
+    public profile_name(): string;
+    public character_name(): string;
+    public character_icon(): string;
+    public set_profile_name(name: string): void;
+    public set_character_name(name: string): void;
   }
 
   /**
