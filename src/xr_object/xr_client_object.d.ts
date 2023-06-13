@@ -195,9 +195,18 @@ declare module "xray16" {
   export type TXR_danger_object = EnumeratedStaticsValues<TXR_danger_objects>;
 
   /**
+   * Enumeration of relations.
+   *
+   * eRelationTypeFriend - 0
+   * eRelationTypeNeutral - 1
+   * eRelationTypeEnemy - 2
+   * eRelationTypeWorstEnemy - 3
+   * eRelationTypeLast - 4
+   * eRelationTypeDummy - -1
+   *
    * @group xr_client_object
    */
-  export type TXR_relation = 0 | 1 | 2;
+  export type TXR_relation = 0 | 1 | 2 | 3;
 
   /**
    * @source C++ class CSpaceRestrictor : CGameObject
@@ -505,7 +514,6 @@ declare module "xray16" {
    *  vector<MemorySpace::CNotYetVisibleObject,xalloc<MemorySpace::CNotYetVisibleObject> > not_yet_visible_objects();
    *  vector<MemorySpace::CSoundObject,xalloc<MemorySpace::CSoundObject>> memory_sound_objects();
 
-   *  enum ALife::ERelationType relation(game_object*);
    *  enum DetailPathManager::EDetailPathType detail_path_type();
    *  enum ETaskState get_task_state(char const*);
    *  enum MonsterSpace::EBodyState body_state();
