@@ -126,13 +126,13 @@ declare module "xray16" {
 
     public line_count(section: string): u32;
     public section_count(): u32;
-    public remove_line(section: string, param: string): void;
+    public remove_line(section: string, field: string): void;
 
-    public r_bool(section: string, param: string): boolean;
+    public r_bool(section: string, field: string): boolean;
     public section_exist(section: string | null): boolean;
-    public r_float(section: string, param: string): f32;
-    public r_clsid(section: string, param: string): i32;
-    public r_s32(section: string, param: string): i32;
+    public r_float(section: string, field: string): f32;
+    public r_clsid(section: string, field: string): i32;
+    public r_s32(section: string, field: string): i32;
 
     /**
      * Read text line from ini config file.
@@ -145,30 +145,30 @@ declare module "xray16" {
       c: string,
       d: string
     ): LuaMultiReturn<[boolean, T, P]>;
-    public r_token(section: string, param: string, list: token_list): i32;
-    public r_vector(section: string, param: string): vector;
-    public r_u32(section: string, param: string): u32;
-    public r_string_wq(section: string, param: string): string;
-    public r_string(section: string, param: string): string;
-    public line_exist(section: string | null, param: string): boolean;
+    public r_token(section: string, field: string, list: token_list): i32;
+    public r_vector(section: string, field: string): vector;
+    public r_u32(section: string, field: string): u32;
+    public r_string_wq(section: string, field: string): string;
+    public r_string(section: string, field: string): string;
+    public line_exist(section: string | null, field: string): boolean;
 
-    public w_fvector2(section: string, param: string, vector: vector2, chat: string): void;
-    public w_fvector3(section: string, param: string, vector: vector, chat: string): void;
-    public w_fvector4(section: string, param: string, vector: never, chat: string): void; // struct _vector4<float>
-    public w_fcolor(section: string, param: string, color: fcolor, chat: string): void;
-    public w_color(section: string, param: string, color: u32, chat: string): void;
+    public w_fvector2(section: string, field: string, vector: vector2, chat: string): void;
+    public w_fvector3(section: string, field: string, vector: vector, chat: string): void;
+    public w_fvector4(section: string, field: string, vector: never, chat: string): void; // struct _vector4<float>
+    public w_fcolor(section: string, field: string, color: fcolor, chat: string): void;
+    public w_color(section: string, field: string, color: u32, chat: string): void;
 
-    public w_bool(section: string, param: string, bool: boolean, chat: string): void;
-    public w_s8(section: string, param: string, uchar: u8, chat: string): void;
-    public w_u8(section: string, param: string, uchar: u8, chat: string): void;
-    public w_s16(section: string, param: string, sshort: i16, chat: string): void;
-    public w_u16(section: string, param: string, ushort: u16, chat: string): void;
-    public w_s32(section: string, param: string, sint: i32, chat: string): void;
-    public w_u32(section: string, param: string, uint: u32, chat: string): void;
-    public w_s64(section: string, param: string, sint: i64, chat: string): void;
-    public w_u64(section: string, param: string, uint: u64, chat: string): void;
-    public w_float(section: string, param: string, float: f32, char: string): void;
-    public w_string(section: string, param: string, string: string, char: string): void;
+    public w_bool(section: string, field: string, bool: boolean, chat: string): void;
+    public w_s8(section: string, field: string, uchar: u8, chat: string): void;
+    public w_u8(section: string, field: string, uchar: u8, chat: string): void;
+    public w_s16(section: string, field: string, sshort: i16, chat: string): void;
+    public w_u16(section: string, field: string, ushort: u16, chat: string): void;
+    public w_s32(section: string, field: string, sint: i32, chat: string): void;
+    public w_u32(section: string, field: string, uint: u32, chat: string): void;
+    public w_s64(section: string, field: string, sint: i64, chat: string): void;
+    public w_u64(section: string, field: string, uint: u64, chat: string): void;
+    public w_float(section: string, field: string, float: f32, char: string): void;
+    public w_string(section: string, field: string, string: string, char: string): void;
 
     /**
      * Get file name of ini file.
