@@ -1,5 +1,3 @@
-import { IXR_ActorMenu } from "xray16";
-
 declare module "xray16" {
   /**
    * @group export
