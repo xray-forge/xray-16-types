@@ -803,7 +803,10 @@ declare module "xray16" {
     public body_state(): void;
     public bone_position(value: string): vector;
     public buy_item_condition_factor(value: f32): void;
-    public change_team(value1: u8, value2: u8, value3: u8): void;
+    /**
+     * Change object squad/faction?
+     */
+    public change_team(community_id: u8, squad_id: u8, group_id: u8): void;
     public character_icon<T extends string>(): T;
     public character_name<T extends string>(): T;
     public character_rank(): i32;
