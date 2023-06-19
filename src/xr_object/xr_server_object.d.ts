@@ -223,7 +223,8 @@ declare module "xray16" {
     public squad: u8;
     public team: u8;
     public group_id: number;
-    public m_smart_terrain_id: number;
+    public m_smart_terrain_id: u16;
+
     public health(): f32;
     public alive(): boolean;
     public g_team(): u8;
@@ -231,7 +232,7 @@ declare module "xray16" {
     public g_squad(): u8;
     public o_torso(): rotation;
     public on_death(killer: cse_alife_creature_abstract): void;
-    public smart_terrain_id(): number;
+    public smart_terrain_id(): u16;
     public kill(): void;
     public force_set_goodwill(goodwill: number, npc_id: number): void;
     public clear_smart_terrain(): void;
@@ -520,7 +521,8 @@ declare module "xray16" {
    **/
   export class cse_alife_online_offline_group<T extends cse_alife_creature_abstract = cse_alife_creature_abstract>
     extends cse_alife_dynamic_object
-    implements IXR_cse_alife_schedulable {
+    implements IXR_cse_alife_schedulable
+  {
     public readonly object: T;
 
     public register_member(id: u16): void;
@@ -622,7 +624,8 @@ declare module "xray16" {
    */
   export class cse_alife_creature_actor
     extends cse_alife_creature_abstract
-    implements IXR_cse_ph_skeleton, cse_alife_trader_abstract {
+    implements IXR_cse_ph_skeleton, cse_alife_trader_abstract
+  {
     public reputation(): i32;
     public rank(): i32;
     public set_rank(rank: i32): void;
