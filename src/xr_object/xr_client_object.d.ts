@@ -729,6 +729,9 @@ declare module "xray16" {
     public get_dest_smart_cover_name(): string | null;
     public get_monster_hit_info(): MonsterHitInfo;
     public get_physics_object(): CPhysicObject;
+    /**
+     * @returns whether object is controlled by lua script
+     */
     public get_script(): boolean;
     public get_smart_cover_description(): string;
     public give_talk_message(value1: string, value2: string, value3: string): void;
@@ -846,6 +849,9 @@ declare module "xray16" {
     public get_hanging_lamp(): hanging_lamp;
     public get_holder_class(): holder;
     public get_movement_speed(): vector;
+    /**
+     * @returns name of lua script controlling monster object
+     */
     public get_script_name(): string;
     public get_visual_name<T extends string>(): T;
     public has_info(value: string): boolean;

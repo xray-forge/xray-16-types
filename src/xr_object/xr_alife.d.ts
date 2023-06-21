@@ -41,6 +41,12 @@ declare module "xray16" {
      * @param distance - distance to set
      */
     public switch_distance(distance: f32): void;
+    /**
+     * Set count of object updated in alife per one tick.
+     *
+     * @param count - count of objects to update per tick
+     */
+    public set_objects_per_update(count: u16): void;
     public teleport_object(level_vertex_id: u16, game_vertex_id: u16, int: u32, vector: vector): void;
     public valid_object_id(value: u16): boolean;
 
