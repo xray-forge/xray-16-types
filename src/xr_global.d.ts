@@ -418,10 +418,13 @@ declare module "xray16" {
     get_bounding_volume(this: void): Fbox;
     get_game_difficulty(this: void): TXR_game_difficulty;
     get_snd_volume(this: void): f32;
+    /**
+     * Get object target distance aimed by crosshair.
+     */
     get_target_dist(this: void): f32;
     get_target_element(this: void): u32;
     /**
-     * Get object target aimed by cursor.
+     * Get object target aimed by crosshair.
      */
     get_target_obj(this: void): game_object | null;
     get_time_days(this: void): u32;
@@ -509,6 +512,9 @@ declare module "xray16" {
      */
     change_community_goodwill(this: void, from_community: string, to_object_id: i32, delta_goodwill: i32): void;
     community_goodwill(this: void, from_community: string, to_object_id: i32): i32;
+    /**
+     * @returns relation points between communities, usually between `-5000` and `5000`
+     */
     community_relation(this: void, from_community: string, to_community: string): i32;
     get_general_goodwill_between(this: void, from_object_id: u16, to_object_id: u16): i32;
     set_community_goodwill(this: void, from_community: string, to_object_id: i32, goodwill: i32): void;

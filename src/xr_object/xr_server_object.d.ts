@@ -149,6 +149,10 @@ declare module "xray16" {
   export class cse_alife_object extends cse_abstract {
     public readonly m_game_vertex_id: u16;
     public readonly m_level_vertex_id: u32;
+    /**
+     * Always numeric value.
+     * Returns maximal u32 (4294967295) value if object has no story id.
+     */
     public readonly m_story_id: u32;
     /**
      * Whether server object has client representation and is in online mode.
@@ -222,7 +226,10 @@ declare module "xray16" {
     public group: u8;
     public squad: u8;
     public team: u8;
-    public group_id: number;
+    /**
+     * Object squad id, maximal u16 (65535) if no squad assigned.
+     */
+    public group_id: u16;
     public m_smart_terrain_id: u16;
 
     public health(): f32;

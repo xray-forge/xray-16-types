@@ -780,6 +780,9 @@ declare module "xray16" {
     public set_smart_cover_target_lookout(): void;
     public set_start_point(point: i32): void;
     public sound_voice_prefix(): string;
+    /**
+     * @returns game object squad id
+     */
     public squad(): i32;
     public switch_to_talk(): void;
     public team(): i32;
