@@ -989,7 +989,15 @@ declare module "xray16" {
      * For bloodsuckers specifically set current visibility state.
      */
     public force_visibility_state(state: TXR_bloodsucker_visibility_state): void;
-    public general_goodwill(game_object: game_object): i32;
+
+    /**
+     * Return formula: `personal_goodwill + reputation_goodwill + rank_goodwill +
+     *   community_goodwill + community_to_community`
+     *
+     * @param target - target client object
+     * @returns goodwill level from object to target
+     */
+    public general_goodwill(target: game_object): i32;
     public get_actor_relation_flags(): flags32;
     public get_ammo_in_magazine(): u32;
     public get_anomaly_power(): unknown;
@@ -1024,7 +1032,14 @@ declare module "xray16" {
      * @param timer_ttl
      */
     public give_task(task: CGameTask, time_to_complete: u32, check_existing: boolean, timer_ttl: u32): void;
-    public goodwill(game_object: game_object): i32;
+    /**
+     * Returns level of goodwill stored for an object.
+     * No strict formulas, just get actual value.
+     *
+     * @param target - target client object
+     * @returns goodwill level to target object
+     */
+    public goodwill(target: game_object): i32;
     public group_throw_time_interval(): u32;
     public group_throw_time_interval(value: u32): void;
     public head_orientation(): vector;
