@@ -5,9 +5,9 @@ name: build-and-test
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["main"]
 
 jobs:
   build:
@@ -33,6 +33,7 @@ jobs:
     - run: npm run typedoc
 
     - name: Deploy to GH pages
+      if: ${{ github.ref_name == 'main' && github.event_name != 'pull_request' }}
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
