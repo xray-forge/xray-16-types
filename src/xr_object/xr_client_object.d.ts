@@ -659,7 +659,15 @@ declare module "xray16" {
     public static readonly action_type_count: 6;
 
     public satiety: f32;
+    /**
+     * Intensity of actor bleeding.
+     * 0 - no bleeding.
+     */
     public bleeding: f32;
+    /**
+     * Object health value
+     * From 0 to 1.
+     */
     public health: f32;
     public morale: f32;
     public power: f32;
