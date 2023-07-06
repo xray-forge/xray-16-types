@@ -321,13 +321,13 @@ declare module "xray16" {
    * @group xr_action
    */
   export class cond extends EngineBinding {
-    public static readonly act_end: 128;
-    public static readonly anim_end: 4;
-    public static readonly look_end: 2;
     public static readonly move_end: 1;
-    public static readonly object_end: 32;
+    public static readonly look_end: 2;
+    public static readonly anim_end: 4;
     public static readonly sound_end: 8;
+    public static readonly object_end: 32;
     public static readonly time_end: 64;
+    public static readonly act_end: 128;
 
     public constructor();
     public constructor(value: u32);

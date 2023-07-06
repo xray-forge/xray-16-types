@@ -1192,7 +1192,14 @@ declare module "xray16" {
       value6: string
     ): u32;
     public berserk(): void;
-    public command(entity_action: entity_action, value: boolean): void;
+    /**
+     * Add action for game object entity.
+     * Depending on priority pushes it to back or front of actions list.
+     *
+     * @param entity_action - action to perform
+     * @param is_high_priority - whether it is high priority action
+     */
+    public command(entity_action: entity_action, is_high_priority: boolean): void;
     public hit(hit: hit): void;
     public inactualize_patrol_path(): void;
     public iterate_inventory(cb: (owner: game_object, item: game_object) => void, object: game_object): void;
