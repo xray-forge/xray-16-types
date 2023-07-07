@@ -1215,6 +1215,9 @@ declare module "xray16" {
     public alive(): boolean;
     public base_in_restrictions(): string;
     public can_script_capture(): boolean;
+    /**
+     * @returns object community like `monolith`, `stalker` or `zombied`
+     */
     public character_community<T extends string>(): T;
     public external_sound_stop(): void;
     public find_best_cover(vector: vector): cover_point;
