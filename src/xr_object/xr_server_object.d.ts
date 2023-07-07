@@ -531,8 +531,7 @@ declare module "xray16" {
    **/
   export class cse_alife_online_offline_group<T extends cse_alife_creature_abstract = cse_alife_creature_abstract>
     extends cse_alife_dynamic_object
-    implements IXR_cse_alife_schedulable
-  {
+    implements IXR_cse_alife_schedulable {
     public readonly object: T;
 
     public register_member(id: u16): void;
@@ -634,8 +633,7 @@ declare module "xray16" {
    */
   export class cse_alife_creature_actor
     extends cse_alife_creature_abstract
-    implements IXR_cse_ph_skeleton, cse_alife_trader_abstract
-  {
+    implements IXR_cse_ph_skeleton, cse_alife_trader_abstract {
     public reputation(): i32;
     public rank(): i32;
     public set_rank(rank: i32): void;
