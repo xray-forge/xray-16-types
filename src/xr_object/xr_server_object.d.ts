@@ -488,7 +488,7 @@ declare module "xray16" {
    * @source C++ class cse_alife_object_climable : cse_shape,cse_abstract
    * @customConstructor cse_alife_object_climable
    * @group xr_server_object
-   **/
+   */
   export class cse_alife_object_climable extends cse_abstract implements IXR_cse_shape {
     public init(): void;
   }
@@ -497,28 +497,28 @@ declare module "xray16" {
    * @source C++ class cse_alife_object_hanging_lamp : cse_alife_dynamic_object_visual,cse_ph_skeleton
    * @customConstructor cse_alife_object_hanging_lamp
    * @group xr_server_object
-   **/
+   */
   export class cse_alife_object_hanging_lamp extends cse_alife_dynamic_object_visual implements IXR_cse_ph_skeleton {}
 
   /**
    * @source C++ class cse_alife_object_physic : cse_alife_dynamic_object_visual,cse_ph_skeleton
    * @customConstructor cse_alife_object_physic
    * @group xr_server_object
-   **/
+   */
   export class cse_alife_object_physic extends cse_alife_dynamic_object_visual implements IXR_cse_ph_skeleton {}
 
   /**
    * @source C++ class cse_alife_object_projector : cse_alife_dynamic_object_visual
    * @customConstructor cse_alife_object_projector
    * @group xr_server_object
-   **/
+   */
   export class cse_alife_object_projector extends cse_alife_dynamic_object_visual {}
 
   /**
    * Squad member representation.
    *
    * @group xr_server_object
-   **/
+   */
   export interface IXR_squad_member<T extends cse_alife_creature_abstract> {
     id: u16;
     object: T;
@@ -528,7 +528,7 @@ declare module "xray16" {
    * @source C++ class cse_alife_online_offline_group : cse_alife_dynamic_object,cse_alife_schedulable
    * @customConstructor cse_alife_online_offline_group
    * @group xr_server_object
-   **/
+   */
   export class cse_alife_online_offline_group<T extends cse_alife_creature_abstract = cse_alife_creature_abstract>
     extends cse_alife_dynamic_object
     implements IXR_cse_alife_schedulable {

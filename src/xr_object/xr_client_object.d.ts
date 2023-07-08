@@ -238,6 +238,7 @@ declare module "xray16" {
   class game_object_callbacks_base {
     /**
      * Remove callback.
+     *
      * @param type - type of callback
      * @param cb - null to reset
      */

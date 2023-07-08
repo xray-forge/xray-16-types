@@ -28,6 +28,7 @@ declare module "xray16" {
    * but allows extension of engine exported classes and virtual methods.
    *
    * @group xr_luabind
+   * @returns class decorator to mark class as luabind implementation
    */
   export function LuabindClass(): ClassDecorator;
 }

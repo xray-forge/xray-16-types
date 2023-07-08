@@ -366,6 +366,7 @@ declare module "xray16" {
 
   /**
    * ETaskState
+   *
    * @group xr_constants
    */
   export type TXR_TaskState = EnumeratedStaticsValues<typeof task>;
@@ -634,7 +635,7 @@ declare module "xray16" {
    * @source C++ class CSightParams
    * @customConstructor XR_CSightParams
    * @group xr_constants
-   **/
+   */
   export class CSightParams {
     public static readonly eSightTypeDummy: -1;
     public static readonly eSightTypeCurrentDirection: 0;
