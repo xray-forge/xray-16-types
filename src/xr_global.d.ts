@@ -420,18 +420,28 @@ declare module "xray16" {
     get_bounding_volume(this: void): Fbox;
     get_game_difficulty(this: void): TXR_game_difficulty;
     get_snd_volume(this: void): f32;
+
     /**
      * Get object target distance aimed by crosshair.
      */
     get_target_dist(this: void): f32;
     get_target_element(this: void): u32;
+
     /**
      * Get object target aimed by crosshair.
      */
     get_target_obj(this: void): game_object | null;
     get_time_days(this: void): u32;
     get_time_factor(this: void): f32;
+
+    /**
+     * @returns current hours time number
+     */
     get_time_hours(this: void): u32;
+
+    /**
+     * @returns current minutes time number
+     */
     get_time_minutes(this: void): u32;
     get_weather(this: void): string;
     get_wfx_time(this: void): f32;
@@ -454,10 +464,12 @@ declare module "xray16" {
     patrol_path_exists(this: void, path_name: string): boolean;
     physics_world(this: void): physics_world;
     prefetch_sound(this: void, str: string): void;
+
     /**
      * @returns whether game level is loaded
      */
     present(this: void): boolean;
+
     /**
      * @returns intensity of rain, 0 if no rain active
      */
@@ -520,10 +532,12 @@ declare module "xray16" {
      */
     change_community_goodwill(this: void, from_community: string, to_object_id: i32, delta_goodwill: i32): void;
     community_goodwill(this: void, from_community: string, to_object_id: i32): i32;
+
     /**
      * @returns relation points between communities, usually between `-5000` and `5000`
      */
     community_relation(this: void, from_community: string, to_community: string): i32;
+
     /**
      * Get relation from object to actor.
      * Return formula looks like `personal_goodwill + community_to_obj_goodwill + community_to_community_goodwill`.
@@ -555,6 +569,7 @@ declare module "xray16" {
   export interface IXR_ActorMenu {
     get_pda_menu(this: void): CUIPdaWnd;
     get_actor_menu(this: void): CUIActorMenu;
+
     /**
      * enum EMenuMode
      * {

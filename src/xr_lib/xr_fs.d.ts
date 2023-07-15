@@ -124,8 +124,23 @@ declare module "xray16" {
     public constructor();
     public constructor(path: string);
 
+    /**
+     * @param section - target section to check lines count
+     * @returns count of lines for provided section
+     */
     public line_count(section: string): u32;
+
+    /**
+     * @returns sections count for ini file
+     */
     public section_count(): u32;
+
+    /**
+     * Remove ini file section field.
+     *
+     * @param section - target section to modify
+     * @param field - target section field to remove
+     */
     public remove_line(section: string, field: string): void;
 
     public r_bool(section: string, field: string): boolean;
@@ -150,25 +165,31 @@ declare module "xray16" {
     public r_u32(section: string, field: string): u32;
     public r_string_wq(section: string, field: string): string;
     public r_string(section: string, field: string): string;
+
+    /**
+     * @param section - target section to check
+     * @param field - section field to check
+     * @returns whether line exists
+     */
     public line_exist(section: string | null, field: string): boolean;
 
-    public w_fvector2(section: string, field: string, vector: vector2, chat: string): void;
-    public w_fvector3(section: string, field: string, vector: vector, chat: string): void;
-    public w_fvector4(section: string, field: string, vector: never, chat: string): void; // struct _vector4<float>
-    public w_fcolor(section: string, field: string, color: fcolor, chat: string): void;
-    public w_color(section: string, field: string, color: u32, chat: string): void;
+    public w_fvector2(section: string, field: string, vector: vector2, comment?: string): void;
+    public w_fvector3(section: string, field: string, vector: vector, comment?: string): void;
+    public w_fvector4(section: string, field: string, vector: never, comment?: string): void; // struct _vector4<float>
+    public w_fcolor(section: string, field: string, color: fcolor, comment?: string): void;
+    public w_color(section: string, field: string, color: u32, comment?: string): void;
 
-    public w_bool(section: string, field: string, bool: boolean, chat: string): void;
-    public w_s8(section: string, field: string, uchar: u8, chat: string): void;
-    public w_u8(section: string, field: string, uchar: u8, chat: string): void;
-    public w_s16(section: string, field: string, sshort: i16, chat: string): void;
-    public w_u16(section: string, field: string, ushort: u16, chat: string): void;
-    public w_s32(section: string, field: string, sint: i32, chat: string): void;
-    public w_u32(section: string, field: string, uint: u32, chat: string): void;
-    public w_s64(section: string, field: string, sint: i64, chat: string): void;
-    public w_u64(section: string, field: string, uint: u64, chat: string): void;
-    public w_float(section: string, field: string, float: f32, char: string): void;
-    public w_string(section: string, field: string, string: string, char: string): void;
+    public w_bool(section: string, field: string, bool: boolean, comment?: string): void;
+    public w_s8(section: string, field: string, uchar: u8, comment?: string): void;
+    public w_u8(section: string, field: string, uchar: u8, comment?: string): void;
+    public w_s16(section: string, field: string, sshort: i16, comment?: string): void;
+    public w_u16(section: string, field: string, ushort: u16, comment?: string): void;
+    public w_s32(section: string, field: string, sint: i32, comment?: string): void;
+    public w_u32(section: string, field: string, uint: u32, comment?: string): void;
+    public w_s64(section: string, field: string, sint: i64, comment?: string): void;
+    public w_u64(section: string, field: string, uint: u64, comment?: string): void;
+    public w_float(section: string, field: string, float: f32, comment?: string): void;
+    public w_string(section: string, field: string, string: string, comment?: string): void;
 
     /**
      * Get file name of ini file.
