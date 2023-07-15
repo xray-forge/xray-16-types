@@ -452,6 +452,9 @@ declare module "xray16" {
     patrol_path_exists(this: void, path_name: string): boolean;
     physics_world(this: void): physics_world;
     prefetch_sound(this: void, str: string): void;
+    /**
+     * @returns whether game level is loaded
+     */
     present(this: void): boolean;
     /**
      * @returns intensity of rain, 0 if no rain active
@@ -499,6 +502,9 @@ declare module "xray16" {
    * @group xr_global
    */
   export interface IXR_main_menu {
+    /**
+     * @returns main game menu c++ controller singleton
+     */
     get_main_menu(this: void): CMainMenu;
   }
 

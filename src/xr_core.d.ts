@@ -289,8 +289,24 @@ declare module "xray16" {
     public readonly f_time_delta: f32;
     public readonly width: u32;
 
+    /**
+     * Get current game timestamp.
+     *
+     * @example `29319`,`46297`
+     * @returns milliseconds from game start
+     */
     public time_global(): u32;
+
+    /**
+     * @returns whether game is paused
+     */
     public is_paused(): boolean;
+
+    /**
+     * Change game pause state.
+     *
+     * @param paused - whether game should be paused
+     */
     public pause(paused: boolean): void;
   }
 
