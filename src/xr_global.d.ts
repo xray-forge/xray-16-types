@@ -109,6 +109,8 @@ declare module "xray16" {
   export function device(this: void): render_device;
 
   /**
+   * Transforms dik key enumeration code to key binding code.
+   *
    * @group xr_global
    */
   export function dik_to_bind(this: void, keycode: i32): i32;
