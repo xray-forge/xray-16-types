@@ -122,7 +122,21 @@ declare module "xray16" {
    */
   export class ini_file {
     public constructor();
+    /**
+     * Create ini file representation based on file name.
+     * Full path is limited to 520 chars.
+     *
+     * @param path - file name and relative path to gamedata configs folder
+     */
     public constructor(path: string);
+    /**
+     * Create ini file representation based on file name.
+     * Full path is limited to 520 chars.
+     *
+     * @param initial - base to count relative path from, `$game_data$` is an example
+     * @param path - file name and relative path from initial entrypoint
+     */
+    public constructor(initial: string, path: string);
 
     /**
      * @param section - target section to check lines count
@@ -152,7 +166,7 @@ declare module "xray16" {
     /**
      * Read text line from ini config file.
      *
-     * @returns tuple with three elements, where first is *, second is key, third is value.
+     * @returns tuple with three elements, where first is success status, second is key, third is value.
      */
     public r_line<T extends string = string, P extends string = string>(
       section: string,
@@ -198,7 +212,13 @@ declare module "xray16" {
     public set_readonly(is_readonly: boolean): void;
     public set_override_names(override: boolean): void;
     public save_as(path: string): boolean;
-    public save_at_end(bool: boolean): void;
+
+    /**
+     * Adjust saving on file closing/destructor calls.
+     *
+     * @param should_save - whether ini file should be saved when destructor is called
+     */
+    public save_at_end(should_save: boolean): void;
     public section_for_each(cb: (name: string) => void): void;
   }
 
