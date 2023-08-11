@@ -610,4 +610,39 @@ declare module "xray16" {
     active_tutorial_name(this: void): string;
     stop_tutorial(this: void): void;
   }
+
+  /**
+   * @group xr_global
+   */
+  export const actor_stats: IXR_actor_stats;
+
+  /**
+   * @group xr_global
+   */
+  export const ActorMenu: IXR_ActorMenu;
+
+  /**
+   * @group xr_global
+   */
+  export const game: IXR_game;
+
+  /**
+   * @group xr_global
+   */
+  export const level: IXR_level;
+
+  /**
+   * @group xr_global
+   */
+  export const main_menu: IXR_main_menu;
+
+  /**
+   * @group xr_global
+   */
+  export const object: typeof XR_object;
+
+  /**
+   * @group xr_global
+   */
+  export const relation_registry: IXR_relation_registry;
 }

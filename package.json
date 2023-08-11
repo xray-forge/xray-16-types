@@ -4,9 +4,12 @@
   "author": "Neloreck",
   "repository": "https://github.com/stalker-xrts/xray-16-types",
   "private": false,
-  "main": "src/index.d.ts",
-  "types": "src/index.d.ts",
+  "main": "types/index.d.ts",
+  "types": "types/index.d.ts",
   "scripts": {
+    "prepublish": "npm run build:plugins",
+    "build:plugins": "tsc -p ./src/tsconfig.json",
+    "build:types": "typedoc",
     "typecheck": "tsc --noEmit",
     "typedoc": "typedoc",
     "format": "prettier --write \"**/*.(js|ts|tsx|md)\" && eslint . --ext .ts,.tsx,.js --fix",
@@ -31,7 +34,7 @@
   },
   "files": [
     "plugins/**/*",
-    "src/**/*",
+    "types/**/*",
     "README.md",
     "LICENSE"
   ]

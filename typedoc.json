@@ -1,6 +1,8 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "entryPoints": ["src/index.d.ts"],
+  "entryPoints": [
+    "types/xr_global.d.ts"
+  ],
   "out": "docs",
   "sort": [
     "alphabetical",

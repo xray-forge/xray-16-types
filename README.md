@@ -41,7 +41,7 @@ Class declaration registers table as userdata and adds constructor/destructor me
 ### Typescript
 
 <p>
-In TS codebase '@LuabindClass' decorator can be used to modify transformation and enable virtual calls. <br/>
+In TS codebase 'LuabindClass' decorator can be used to modify transformation and enable virtual calls. <br/>
 Separate transformer is needed to build luabind classes instead of table-based classes.
 </p>
 
@@ -61,7 +61,7 @@ Separate transformer is needed to build luabind classes instead of table-based c
 Package includes plugins for typescript-to-lua for easier work with xray16 typings. <br/>
 Following ones are available:
 
-- transform_luabind_class - transforms @LuaBind declared classes in a specific way
+- transform_luabind_class - transforms LuaBind decorated classes in a specific way
 - built_at_info - adds build information in resulting files
 - from_cast_utils - additional utils that should be removed in runtime
 - global_declarations_transform - transforms xray16 imports and removes them from runtime
@@ -74,12 +74,12 @@ Plugins can be included in tsconfig file as following:
 {
   "tstl": {
     "luaPlugins": [
-      { "name": "xray16/plugins/transform_luabind_class/plugin.ts" },
-      { "name": "xray16/plugins/global_declarations_transform.ts" },
-      { "name": "xray16/plugins/built_at_info.ts" },
-      { "name": "xray16/plugins/strip_lua_logger.ts" },
-      { "name": "xray16/plugins/inject_filename.ts" },
-      { "name": "xray16/plugins/from_cast_utils.ts" }
+      { "name": "xray16/plugins/transform_luabind_class/plugin" },
+      { "name": "xray16/plugins/global_declarations_transform" },
+      { "name": "xray16/plugins/built_at_info" },
+      { "name": "xray16/plugins/strip_lua_logger" },
+      { "name": "xray16/plugins/inject_filename" },
+      { "name": "xray16/plugins/from_cast_utils" }
     ]
   }
 }
