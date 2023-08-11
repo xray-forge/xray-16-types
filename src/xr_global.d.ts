@@ -488,8 +488,14 @@ declare module "xray16" {
     set_pp_effector_factor(this: void, id: i32, f: f32, f_sp?: f32): void;
     set_snd_volume(this: void, num: f32): void;
     set_time_factor(this: void, factor: f32): void;
+    /**
+     * Change active game weather.
+     *
+     * @param weather_name - name of weather config to apply (gamedata\configs\environment\weathers)
+     * @param is_forced - whether weather change should be forced
+     */
     set_weather(this: void, weather_name: string, is_forced: boolean): void;
-    set_weather_fx(this: void, str: string): boolean;
+    set_weather_fx(this: void, weather_fs_name: string): boolean;
     show_indicators(this: void): void;
     show_weapon(this: void, val: boolean): void;
     spawn_item(this: void, str: string, vector: vector, uint: u32, ushort: u16, bool: boolean): void;
