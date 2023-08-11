@@ -1,16 +1,17 @@
-import {
-  transformLuabindClassDeclaration,
-  transformNewCallExpression,
-  isLuabindClassSuperCall,
-  transformClassSuperMethodExpression,
-  transformLuabindConstructorSuperCall,
-  ITransformationContext,
-  isLuabindClassType,
-  isLuabindDecoratedClass,
-  isLuabindClassSuperMethodCall,
-} from "./transformation";
 import { CallExpression, NewExpression, SuperExpression, SyntaxKind } from "typescript";
 import { Plugin } from "typescript-to-lua";
+
+import {
+  isLuabindClassSuperCall,
+  isLuabindClassSuperMethodCall,
+  isLuabindClassType,
+  isLuabindDecoratedClass,
+  ITransformationContext,
+  transformClassSuperMethodExpression,
+  transformLuabindClassDeclaration,
+  transformLuabindConstructorSuperCall,
+  transformNewCallExpression,
+} from "./transformation";
 
 /**
  * Plugin that transform TS classes marked with decorator to luabind class declaration.

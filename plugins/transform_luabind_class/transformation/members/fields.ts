@@ -1,10 +1,11 @@
-import { unsupportedPropertyDecorator } from "../errors";
 import { AccessorDeclaration, canHaveDecorators, getDecorators, PropertyDeclaration } from "typescript";
 import { TransformationContext } from "typescript-to-lua";
 import * as tstl from "typescript-to-lua";
 import { createSelfIdentifier } from "typescript-to-lua/dist/transformation/utils/lua-ast";
 import { transformInPrecedingStatementScope } from "typescript-to-lua/dist/transformation/utils/preceding-statements";
 import { transformPropertyName } from "typescript-to-lua/dist/transformation/visitors/literal";
+
+import { unsupportedPropertyDecorator } from "../errors";
 
 /**
  * Verify whether decorators provided for luabind class.

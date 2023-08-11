@@ -1,7 +1,8 @@
-import { ITransformationContext } from "./index";
 import { NewExpression } from "typescript";
 import * as tstl from "typescript-to-lua";
 import { transformArguments } from "typescript-to-lua/dist/transformation/visitors/call";
+
+import { ITransformationContext } from "./index";
 
 /**
  * Transform new call for luabind class as ClassConstructor() instead of TS_NEW from tstl.

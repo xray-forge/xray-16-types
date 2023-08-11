@@ -1,12 +1,3 @@
-import { LUABIND_CONSTRUCTOR_METHOD } from "./constants";
-import { checkLuabindClassDecoratorExpression } from "./decorators";
-import { unsupportedStaticMethod } from "./errors";
-import { transformAccessorDeclarations } from "./members/accessors";
-import { createConstructorName, transformConstructorDeclaration } from "./members/constructor";
-import { verifyPropertyDecoratingExpression, transformClassInstanceFields } from "./members/fields";
-import { verifyMethodDecoratingExpression, transformMethodDeclaration } from "./members/method";
-import { createClassSetup } from "./setup";
-import { getExtendedNode, getExtendedType, isStaticNode, markTypeAsLuabind } from "./utils";
 import {
   canHaveDecorators,
   ClassLikeDeclaration,
@@ -32,6 +23,16 @@ import { transformInPrecedingStatementScope } from "typescript-to-lua/dist/trans
 import { createSafeName, isUnsafeName } from "typescript-to-lua/dist/transformation/utils/safe-names";
 import { transformIdentifier } from "typescript-to-lua/dist/transformation/visitors/identifier";
 
+import { LUABIND_CONSTRUCTOR_METHOD } from "./constants";
+import { checkLuabindClassDecoratorExpression } from "./decorators";
+import { unsupportedStaticMethod } from "./errors";
+import { transformAccessorDeclarations } from "./members/accessors";
+import { createConstructorName, transformConstructorDeclaration } from "./members/constructor";
+import { transformClassInstanceFields, verifyPropertyDecoratingExpression } from "./members/fields";
+import { transformMethodDeclaration, verifyMethodDecoratingExpression } from "./members/method";
+import { createClassSetup } from "./setup";
+import { getExtendedNode, getExtendedType, isStaticNode, markTypeAsLuabind } from "./utils";
+
 export interface ITransformationContext extends TransformationContext {
   classSuperInfos: Array<ClassSuperInfo>;
 }
@@ -42,12 +43,15 @@ export const transformLuabindClassDeclaration = (declaration, context: Transform
     // Class declaration including assignment to ____exports.default are in preceding statements
     const { precedingStatements } = transformInPrecedingStatementScope(context, () => {
       transformClassAsExpression(declaration, context as ITransformationContext);
+
       return [];
     });
+
     return precedingStatements;
   }
 
   const { statements } = transformClassLikeDeclaration(declaration, context as ITransformationContext);
+
   return statements;
 };
 
@@ -56,7 +60,9 @@ export function transformClassAsExpression(
   context: ITransformationContext
 ): tstl.Expression {
   const { statements, name } = transformClassLikeDeclaration(expression, context);
+
   context.addPrecedingStatements(statements);
+
   return name;
 }
 
@@ -99,6 +105,7 @@ export function transformClassLikeDeclaration(
   const result: tstl.Statement[] = [];
 
   let localClassName: tstl.Identifier;
+
   if (isUnsafeName(className.text, context.options)) {
     localClassName = tstl.createIdentifier(
       createSafeName(className.text),
@@ -160,13 +167,16 @@ export function transformClassLikeDeclaration(
         [createSelfIdentifier(), argsExpression]
       )
     );
+
     constructorBody.unshift(superCall);
+
     const constructorFunction = tstl.createFunctionExpression(
       tstl.createBlock(constructorBody),
       [createSelfIdentifier()],
       tstl.createDotsLiteral(),
       tstl.NodeFlags.Declaration
     );
+
     result.push(
       tstl.createAssignmentStatement(createConstructorName(localClassName), constructorFunction, classDeclaration)
     );
@@ -175,10 +185,13 @@ export function transformClassLikeDeclaration(
   // Transform accessors
   for (const member of classDeclaration.members) {
     if (!isAccessor(member)) continue;
+
     const accessors = context.resolver.getAllAccessorDeclarations(member);
+
     if (accessors.firstAccessor !== member) continue;
 
     const accessorsResult = transformAccessorDeclarations(context, accessors, localClassName);
+
     if (accessorsResult) {
       result.push(accessorsResult);
     }
@@ -191,7 +204,9 @@ export function transformClassLikeDeclaration(
       verifyPropertyDecoratingExpression(context, member);
     } else if (isMethodDeclaration(member)) {
       const statement = transformMethodDeclaration(context, member, localClassName);
+
       if (statement) result.push(statement);
+
       if (member.body) {
         verifyMethodDecoratingExpression(context, member);
       }
@@ -216,6 +231,7 @@ export function transformClassLikeDeclaration(
         : createExportedIdentifier(context, className);
 
       const classAssignment = tstl.createAssignmentStatement(exportExpression, localClassName);
+
       result.push(classAssignment);
     }
   }

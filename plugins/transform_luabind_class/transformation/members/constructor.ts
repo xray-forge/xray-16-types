@@ -1,4 +1,3 @@
-import { LUABIND_CONSTRUCTOR_METHOD } from "../constants";
 import {
   ClassLikeDeclaration,
   ConstructorDeclaration,
@@ -18,6 +17,9 @@ import {
   transformParameters,
 } from "typescript-to-lua/dist/transformation/visitors/function";
 import { transformIdentifier } from "typescript-to-lua/dist/transformation/visitors/identifier";
+
+import { LUABIND_CONSTRUCTOR_METHOD } from "../constants";
+
 import { transformClassInstanceFields } from "./fields";
 
 export function createConstructorName(className: lua.Identifier): lua.TableIndexExpression {
@@ -65,12 +67,14 @@ export function transformConstructorDeclaration(
     statement.body.statements.length > 0
   ) {
     const firstStatement = statement.body.statements[0];
+
     if (
       isExpressionStatement(firstStatement) &&
       isCallExpression(firstStatement.expression) &&
       firstStatement.expression.expression.kind === SyntaxKind.SuperKeyword
     ) {
       const superCall = body.shift();
+
       if (superCall) {
         bodyWithFieldInitializers.push(superCall);
       }
@@ -85,6 +89,7 @@ export function transformConstructorDeclaration(
         lua.createTableIndexExpression(createSelfIdentifier(), lua.createStringLiteral(declaration.name.text)),
         transformIdentifier(context, declaration.name)
       );
+
       bodyWithFieldInitializers.push(assignment);
     }
     // else { TypeScript error: A parameter property may not be declared using a binding pattern }

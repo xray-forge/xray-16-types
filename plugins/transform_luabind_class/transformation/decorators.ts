@@ -1,7 +1,8 @@
-import { unsupportedClassDecorator } from "./errors";
-import { LUABIND_DECORATOR } from "./constants";
 import { CallExpression, Decorator, Identifier } from "typescript";
 import { TransformationContext } from "typescript-to-lua";
+
+import { LUABIND_DECORATOR } from "./constants";
+import { unsupportedClassDecorator } from "./errors";
 
 /**
  * Transform decorator call expressions for luabind class.

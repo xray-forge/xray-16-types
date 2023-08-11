@@ -1,5 +1,6 @@
 import { isIdentifier, SyntaxKind } from "typescript";
 import { Plugin } from "typescript-to-lua";
+
 import { createErrorDiagnosticFactory } from "./utils/diagnostics";
 
 const FROM_CAST_METHODS: Array<string> = ["$fromObject", "$fromArray", "$fromLuaArray", "$fromLuaTable"];

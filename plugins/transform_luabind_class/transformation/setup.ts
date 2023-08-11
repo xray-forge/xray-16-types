@@ -1,4 +1,3 @@
-import { LUABIND_NAME_FIELD } from "./constants";
 import { ClassLikeDeclarationBase, isIdentifier, isVariableDeclaration } from "typescript";
 import * as tstl from "typescript-to-lua";
 import { TransformationContext } from "typescript-to-lua";
@@ -12,6 +11,8 @@ import {
   createExportsIdentifier,
   createLocalOrExportedOrGlobalDeclaration,
 } from "typescript-to-lua/dist/transformation/utils/lua-ast";
+
+import { LUABIND_NAME_FIELD } from "./constants";
 import { getExtendedNode } from "./utils";
 
 /**
@@ -48,6 +49,7 @@ export function createClassSetup(
     result.push(tstl.createVariableDeclarationStatement(localClassName, defaultExportLeftHandSide));
   } else {
     const exportScope = getIdentifierExportScope(context, className);
+
     if (exportScope) {
       // local localClassName = ____exports.className
       result.push(

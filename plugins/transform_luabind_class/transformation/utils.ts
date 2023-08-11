@@ -1,4 +1,3 @@
-import { LUABIND_DECORATOR, LUABIND_SYMBOL } from "./constants";
 import {
   ClassLikeDeclaration,
   ClassLikeDeclarationBase,
@@ -11,6 +10,8 @@ import {
   Type,
 } from "typescript";
 import { TransformationContext } from "typescript-to-lua";
+
+import { LUABIND_DECORATOR, LUABIND_SYMBOL } from "./constants";
 
 /**
  * Whether method / field is static.
@@ -31,6 +32,7 @@ export function getExtendsClause(node: ClassLikeDeclarationBase): HeritageClause
  */
 export function getExtendedNode(node: ClassLikeDeclarationBase): ExpressionWithTypeArguments | undefined {
   const extendsClause = getExtendsClause(node);
+
   if (!extendsClause) return;
 
   return extendsClause.types[0];
@@ -41,6 +43,7 @@ export function getExtendedNode(node: ClassLikeDeclarationBase): ExpressionWithT
  */
 export function getExtendedType(context: TransformationContext, node: ClassLikeDeclarationBase): Type | undefined {
   const extendedNode = getExtendedNode(node);
+
   return extendedNode && context.checker.getTypeAtLocation(extendedNode);
 }
 
@@ -79,6 +82,7 @@ export function isLuabindClassType(
 
   if (typeSymbol) {
     const isMarked = (typeSymbol as {})[LUABIND_SYMBOL] === true;
+
     if (isMarked) {
       return true;
     } else {

@@ -1,4 +1,5 @@
 import * as path from "path";
+
 import { SyntaxKind } from "typescript";
 import { createStringLiteral, Plugin } from "typescript-to-lua";
 

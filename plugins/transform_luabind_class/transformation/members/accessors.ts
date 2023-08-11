@@ -1,4 +1,3 @@
-import { unsupportedStaticAccessor } from "../errors";
 import { AccessorDeclaration } from "typescript";
 import { AllAccessorDeclarations, LuaLibFeature, TransformationContext } from "typescript-to-lua";
 import * as lua from "typescript-to-lua";
@@ -6,11 +5,14 @@ import { createSelfIdentifier } from "typescript-to-lua/dist/transformation/util
 import { transformLuaLibFunction } from "typescript-to-lua/dist/transformation/utils/lualib";
 import { transformFunctionBody, transformParameters } from "typescript-to-lua/dist/transformation/visitors/function";
 import { transformPropertyName } from "typescript-to-lua/dist/transformation/visitors/literal";
+
+import { unsupportedStaticAccessor } from "../errors";
 import { isStaticNode } from "../utils";
 
 function transformAccessor(context: TransformationContext, node: AccessorDeclaration): lua.FunctionExpression {
   const [params, dot, restParam] = transformParameters(context, node.parameters, createSelfIdentifier());
   const body = node.body ? transformFunctionBody(context, node.parameters, node.body, restParam)[0] : [];
+
   return lua.createFunctionExpression(lua.createBlock(body), params, dot, lua.NodeFlags.Declaration);
 }
 
@@ -24,11 +26,13 @@ export function transformAccessorDeclarations(
 
   if (getAccessor) {
     const getterFunction = transformAccessor(context, getAccessor);
+
     descriptor.fields.push(lua.createTableFieldExpression(getterFunction, lua.createStringLiteral("get")));
   }
 
   if (setAccessor) {
     const setterFunction = transformAccessor(context, setAccessor);
+
     descriptor.fields.push(lua.createTableFieldExpression(setterFunction, lua.createStringLiteral("set")));
   }
 
@@ -36,6 +40,7 @@ export function transformAccessorDeclarations(
 
   if (isStatic) {
     context.diagnostics.push(unsupportedStaticAccessor(firstAccessor));
+
     return;
   }
 
@@ -44,5 +49,6 @@ export function transformAccessorDeclarations(
   const parameters: lua.Expression[] = [target, propertyName, descriptor];
 
   const call = transformLuaLibFunction(context, feature, undefined, ...parameters);
+
   return lua.createExpressionStatement(call);
 }

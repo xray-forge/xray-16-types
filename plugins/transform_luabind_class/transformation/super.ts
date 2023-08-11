@@ -3,6 +3,7 @@ import * as tstl from "typescript-to-lua";
 import { isSymbolExported } from "typescript-to-lua/dist/transformation/utils/export";
 import { getCalledExpression, transformArguments } from "typescript-to-lua/dist/transformation/visitors/call";
 import { transformIdentifier } from "typescript-to-lua/dist/transformation/visitors/identifier";
+
 import { ITransformationContext } from "./class_declaration";
 import { LUABIND_CONSTRUCTOR_METHOD } from "./constants";
 import { isLuabindClassType } from "./utils";
@@ -27,6 +28,7 @@ export function transformClassSuperMethodExpression(expression: Expression, cont
 
   if (extendsExpression && isIdentifier(extendsExpression)) {
     const symbol = context.checker.getSymbolAtLocation(extendsExpression);
+
     if (symbol && !isSymbolExported(context, symbol)) {
       // Use "baseClassName" if base is a simple identifier
       baseClassName = transformIdentifier(context, extendsExpression);
