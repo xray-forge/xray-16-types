@@ -1203,7 +1203,7 @@ declare module "xray16" {
     public command(entity_action: entity_action, is_high_priority: boolean): void;
     public hit(hit: hit): void;
     public inactualize_patrol_path(): void;
-    public iterate_inventory(cb: (owner: game_object, item: game_object) => void, object: game_object): void;
+    public iterate_inventory(cb: (this: void, owner: game_object, item: game_object) => void, object: game_object): void;
     public movement_enabled(): boolean;
     public movement_enabled(value: boolean): void;
     public set_condition(condition: f32): void;

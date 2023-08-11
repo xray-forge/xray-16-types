@@ -4,6 +4,6 @@
     "noImplicitOverride": true,
     "lib": ["esnext"],
     "moduleResolution": "node",
-    "types": ["@typescript-to-lua/language-extensions"]
+    "types": ["node", "@typescript-to-lua/language-extensions"],
   }
 }

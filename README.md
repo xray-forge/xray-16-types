@@ -55,3 +55,32 @@ Separate transformer is needed to build luabind classes instead of table-based c
 - X-Ray C++ source code
 - LuaBind sources and docs
 - LuaJit sources and docs
+
+## 🧱 Plugins
+
+Package includes plugins for typescript-to-lua for easier work with xray16 typings. <br/>
+Following ones are available:
+
+- transform_luabind_class - transforms @LuaBind declared classes in a specific way
+- built_at_info - adds build information in resulting files
+- from_cast_utils - additional utils that should be removed in runtime
+- global_declarations_transform - transforms xray16 imports and removes them from runtime
+- inject_filename - adds $filename global variable to access current file name
+- strip_lua_logger - removes lua logger from runtime
+
+Plugins can be included in tsconfig file as following:
+
+```json
+{
+  "tstl": {
+    "luaPlugins": [
+      { "name": "xray16/plugins/transform_luabind_class/plugin.ts" },
+      { "name": "xray16/plugins/global_declarations_transform.ts" },
+      { "name": "xray16/plugins/built_at_info.ts" },
+      { "name": "xray16/plugins/strip_lua_logger.ts" },
+      { "name": "xray16/plugins/inject_filename.ts" },
+      { "name": "xray16/plugins/from_cast_utils.ts" }
+    ]
+  }
+}
+```
