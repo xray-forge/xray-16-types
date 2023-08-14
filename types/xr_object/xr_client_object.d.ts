@@ -26,6 +26,8 @@ declare module "xray16" {
   }
 
   /**
+   * Class to link client side object implementation and wrap it with custom lua side logics.
+   *
    * @source C++ class object_binder
    * @customConstructor object_binder
    * @group xr_client_object

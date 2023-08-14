@@ -329,6 +329,8 @@ declare module "xray16" {
   export class cse_alife_item_weapon_magazined extends cse_alife_item_weapon {}
 
   /**
+   * Base class for magazined weapons with grenade launcher.
+   *
    * @source C++ class cse_alife_item_weapon_magazined_w_gl : cse_alife_item_weapon_magazined
    * @customConstructor cse_alife_item_weapon_magazined_w_gl
    * @group xr_server_object

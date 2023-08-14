@@ -219,7 +219,14 @@ declare module "xray16" {
      * @param should_save - whether ini file should be saved when destructor is called
      */
     public save_at_end(should_save: boolean): void;
-    public section_for_each(cb: (name: string) => void): void;
+
+    /**
+     * Iterate over ini file sections.
+     * Calls provided callback for each ini section in file.
+     *
+     * @param cb - callback to call on each ini file section, where name is section name
+     */
+    public section_for_each(cb: (this: void, name: string) => void): void;
   }
 
   /**
