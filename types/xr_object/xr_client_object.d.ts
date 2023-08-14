@@ -255,7 +255,7 @@ declare module "xray16" {
      */
     public set_callback(
       type: TXR_callbacks["trade_sell_buy_item"],
-      cb?: ((item: game_object, money_direction: boolean, money: number) => void) | null,
+      cb?: ((this: void, item: game_object, money_direction: boolean, money: number) => void) | null,
       object?: object_binder | null
     ): void;
 
@@ -266,7 +266,7 @@ declare module "xray16" {
      */
     public set_callback(
       type: TXR_callbacks["zone_enter"],
-      cb?: ((zone: game_object, object: game_object) => void) | null,
+      cb?: ((this: void, zone: game_object, object: game_object) => void) | null,
       object?: object_binder | null
     ): void;
 
@@ -275,7 +275,7 @@ declare module "xray16" {
      */
     public set_callback(
       type: TXR_callbacks["zone_exit"],
-      cb?: ((zone: game_object, object: game_object) => void) | null,
+      cb?: ((this: void, zone: game_object, object: game_object) => void) | null,
       object?: object_binder | null
     ): void;
 
@@ -288,7 +288,7 @@ declare module "xray16" {
      */
     public set_callback(
       type: TXR_callbacks["death"],
-      cb?: (target: game_object, killer: game_object) => void,
+      cb?: (this: void, target: game_object, killer: game_object) => void,
       object?: object_binder
     ): void;
 
@@ -297,7 +297,7 @@ declare module "xray16" {
      */
     public set_callback(
       type: TXR_callbacks["patrol_path_in_point"],
-      cb?: ((object: game_object, action_type: number, point_index: number) => void) | null,
+      cb?: ((this: void, object: game_object, action_type: number, point_index: number) => void) | null,
       object?: object_binder | null
     ): void;
 
@@ -308,7 +308,7 @@ declare module "xray16" {
      */
     public set_callback(
       type: TXR_callbacks["inventory_info"],
-      cb?: ((npc: game_object, info_id: string) => void) | null,
+      cb?: ((this: void, npc: game_object, info_id: string) => void) | null,
       object?: object_binder | null
     ): void;
 
@@ -319,7 +319,7 @@ declare module "xray16" {
      */
     public set_callback(
       type: TXR_callbacks["task_state"],
-      cb?: ((task: CGameTask, state: TXR_TaskState) => void) | null,
+      cb?: ((this: void, task: CGameTask, state: TXR_TaskState) => void) | null,
       object?: object_binder | null
     ): void;
 
@@ -330,12 +330,12 @@ declare module "xray16" {
      */
     public set_callback(
       type: TXR_callbacks["use_object"],
-      cb?: ((object: game_object) => void) | null,
+      cb?: ((this: void, object: game_object) => void) | null,
       object?: object_binder | null
     ): void;
     public set_callback(
       type: TXR_callbacks["use_object"],
-      cb?: ((object: game_object, who: game_object) => void) | null,
+      cb?: ((this: void, object: game_object, who: game_object) => void) | null,
       object?: object_binder | null
     ): void;
 
@@ -344,7 +344,16 @@ declare module "xray16" {
      */
     public set_callback(
       type: TXR_callbacks["hit"],
-      cb?: ((object: game_object, damage: number, direction: vector, who: game_object, bone_id: number) => void) | null,
+      cb?:
+        | ((
+            this: void,
+            object: game_object,
+            damage: number,
+            direction: vector,
+            who: game_object,
+            bone_id: number
+          ) => void)
+        | null,
       object?: object_binder | null
     ): void;
 
@@ -387,7 +396,7 @@ declare module "xray16" {
      */
     public set_callback(
       type: TXR_callbacks["helicopter_on_point"],
-      cb?: ((distance: number, current_position: vector, vertex_id: number) => void) | null,
+      cb?: ((this: void, distance: number, current_position: vector, vertex_id: number) => void) | null,
       object?: object_binder | null
     ): void;
 
@@ -396,7 +405,7 @@ declare module "xray16" {
      */
     public set_callback(
       type: TXR_callbacks["helicopter_on_hit"],
-      cb?: ((damage: number, impulse: number, hit_type: number, who_id: number) => void) | null,
+      cb?: ((this: void, damage: number, impulse: number, hit_type: number, who_id: number) => void) | null,
       object?: object_binder | null
     ): void;
 
@@ -405,7 +414,7 @@ declare module "xray16" {
      */
     public set_callback(
       type: TXR_callbacks["on_item_take"],
-      cb?: ((npc: game_object, item: game_object) => void) | null,
+      cb?: ((this: void, object: game_object, item: game_object) => void) | null,
       object?: object_binder | null
     ): void;
 
@@ -414,7 +423,7 @@ declare module "xray16" {
      */
     public set_callback(
       type: TXR_callbacks["on_item_drop"],
-      cb?: ((npc: game_object, item: game_object) => void) | null,
+      cb?: ((this: void, object: game_object, item: game_object) => void) | null,
       object?: object_binder | null
     ): void;
 
@@ -423,7 +432,7 @@ declare module "xray16" {
      */
     public set_callback(
       type: TXR_callbacks["script_animation"],
-      cb?: ((skip_multi_anim_check?: boolean) => void) | null,
+      cb?: ((this: void, skip_multi_anim_check?: boolean) => void) | null,
       object?: object | null
     ): void;
 
@@ -438,7 +447,7 @@ declare module "xray16" {
      */
     public set_callback(
       type: TXR_callbacks["take_item_from_box"],
-      cb?: ((npc: game_object, box: game_object, item: game_object) => void) | null,
+      cb?: ((this: void, object: game_object, box: game_object, item: game_object) => void) | null,
       object?: object_binder | null
     ): void;
 
