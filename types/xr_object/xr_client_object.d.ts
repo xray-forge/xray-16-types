@@ -758,11 +758,14 @@ declare module "xray16" {
     public idle_max_time(): f32;
     public idle_max_time(time: f32): void;
     public in_current_loophole_fov(vector: vector): boolean;
-    public inventory_for_each(cb: () => void): void;
+    public inventory_for_each(cb: (this: void) => void): void;
     public is_door_blocked_by_npc(): boolean;
     public is_talk_enabled(): boolean;
     public is_weapon_going_to_be_strapped(weapon: game_object | null): boolean;
-    public iterate_inventory_box(cb: (box: game_object, item: game_object) => void, object: game_object): void;
+    public iterate_inventory_box(
+      cb: (this: void, box: game_object, item: game_object) => void,
+      object: game_object
+    ): void;
     public lookout_max_time(): f32;
     public lookout_max_time(value: f32): void;
     public max_ignore_monster_distance(): f32;

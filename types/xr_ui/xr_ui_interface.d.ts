@@ -151,7 +151,7 @@ declare module "xray16" {
 
     public OnKeyboard(key: TXR_DIK_key, event: TXR_ui_event): boolean;
     public Update(): void;
-    public AddCallback(name: string, event: number, cb: () => void, source?: CUIWindow): void;
+    public AddCallback(name: string, event: number, cb: (this: void) => void, source?: CUIWindow): void;
     public Dispatch(command: number, parameter: number): boolean;
     public Register(window: CUIWindow, name: string): void;
     public Load(value: string): boolean;

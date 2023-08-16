@@ -18,7 +18,7 @@ declare module "xray16" {
     ): cse_abstract;
     public dont_has_info(object_id: u16, info_id: string): boolean;
     public has_info(object_id: u16, info_id: string): boolean;
-    public iterate_objects(cb: (object: cse_alife_object) => boolean | void): void;
+    public iterate_objects(cb: (this: void, object: cse_alife_object) => boolean | void): void;
     public level_id(): u32;
     public level_name<T extends string = string>(value: i32): T;
     public release(cse_abstract: cse_alife_object | null, flag: boolean): void;
@@ -200,7 +200,7 @@ declare module "xray16" {
    */
   export class client_spawn_manager {
     public remove(number1: u16, number2: u16): void;
-    public add(number1: u16, number2: u16, cb: () => void): void;
-    public add(number1: u16, number2: u16, cb: () => void, object: XR_object): void;
+    public add(number1: u16, number2: u16, cb: (this: void) => void): void;
+    public add(number1: u16, number2: u16, cb: (this: void) => void, object: XR_object): void;
   }
 }

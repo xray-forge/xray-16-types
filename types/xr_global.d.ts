@@ -386,8 +386,8 @@ declare module "xray16" {
    * @group xr_global
    */
   export interface IXR_level {
-    add_call(this: void, cb1: () => boolean, cb2: () => boolean): void;
-    add_call(this: void, object: object, cb1: () => boolean, cb2: () => boolean): void;
+    add_call(this: void, cb1: (this: void) => boolean, cb2: (this: void) => boolean): void;
+    add_call(this: void, object: object, cb1: (this: void) => boolean, cb2: (this: void) => boolean): void;
     add_call(this: void, object: object, str1: string, str2: string): void;
     add_cam_effector(this: void, effect: string, id: i32, is_cyclic: boolean, callback: string): void;
     add_cam_effector2(this: void, effect: string, id: i32, is_cyclic: boolean, callback: string, camera_fov: f32): void;
@@ -449,9 +449,9 @@ declare module "xray16" {
     hide_indicators_safe(this: void): void;
     high_cover_in_direction(this: void, num: u32, vector: vector): f32;
     is_wfx_playing(this: void): boolean;
-    iterate_online_objects(this: void, cb: (object: game_object) => void | boolean): void;
-    iterate_sounds(this: void, str: string, num: u32, cb: () => void): void;
-    iterate_sounds(this: void, str: string, num: u32, object: object, cb: () => void): void;
+    iterate_online_objects(this: void, cb: (this: void, object: game_object) => void | boolean): void;
+    iterate_sounds(this: void, str: string, num: u32, cb: (this: void) => void): void;
+    iterate_sounds(this: void, str: string, num: u32, object: object, cb: (this: void) => void): void;
     low_cover_in_direction(this: void, num: u32, vector: vector): f32;
     main_input_receiver(this: void): CUIDialogWnd;
     map_add_object_spot(this: void, id: u16, selector: string, hint: string): void;
@@ -474,8 +474,8 @@ declare module "xray16" {
      * @returns intensity of rain, 0 if no rain active
      */
     rain_factor(this: void): f32;
-    remove_call(this: void, cb1: () => boolean, cb2: () => void): void;
-    remove_call(this: void, object: object, cb1: () => boolean, cb2: () => void): void;
+    remove_call(this: void, cb1: (this: void) => boolean, cb2: (this: void) => void): void;
+    remove_call(this: void, object: object, cb1: (this: void) => boolean, cb2: (this: void) => void): void;
     remove_call(this: void, object: object, str1: string, str2: string): void;
     remove_calls_for_object(this: void, object: object): void;
     remove_cam_effector(this: void, id: i32): void;
