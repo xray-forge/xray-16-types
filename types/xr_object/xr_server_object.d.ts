@@ -255,6 +255,10 @@ declare module "xray16" {
     public brain(): CAILifeMonsterBrain;
     public has_detector(): boolean;
     public rank(): i32;
+    /**
+     * @returns object community like `monolith`, `stalker` or `zombied`
+     */
+    public community<T extends string>(): T;
   }
 
   /**
@@ -268,10 +272,6 @@ declare module "xray16" {
     public profile_name(): string;
     public set_rank(rank: i32): void;
     public reputation(): i32;
-    /**
-     * @returns object community like `monolith`, `stalker` or `zombied`
-     */
-    public community<T extends string>(): T;
   }
 
   /**
@@ -639,7 +639,6 @@ declare module "xray16" {
     public reputation(): i32;
     public rank(): i32;
     public set_rank(rank: i32): void;
-    public community(): string;
     public profile_name(): string;
     public character_name(): string;
     public character_icon(): string;
