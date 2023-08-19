@@ -1217,8 +1217,16 @@ declare module "xray16" {
     public command(entity_action: entity_action, is_high_priority: boolean): void;
     public hit(hit: hit): void;
     public inactualize_patrol_path(): void;
+    /**
+     * Iterate over game object inventory.
+     * Runs supplied callback for each item in inventory of the object.
+     * If callback returns `true`, the cycle breaks.
+     *
+     * @param cb - callback to run for each item
+     * @param object - target object to run callback for (actually unused by the engine)
+     */
     public iterate_inventory(
-      cb: (this: void, owner: game_object, item: game_object) => void,
+      cb: (this: void, owner: game_object, item: game_object) => void | boolean,
       object: game_object
     ): void;
     public movement_enabled(): boolean;

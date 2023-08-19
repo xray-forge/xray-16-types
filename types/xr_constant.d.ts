@@ -86,6 +86,9 @@ declare module "xray16" {
     public static readonly property_inside_anomaly: 47;
     public static readonly property_item_can_kill: 11;
     public static readonly property_item_to_kill: 9;
+    /**
+     * Whether object has valuable items to be looted after death.
+     */
     public static readonly property_items: 6;
     public static readonly property_looked_around: 44;
     public static readonly property_looked_out: 19;
