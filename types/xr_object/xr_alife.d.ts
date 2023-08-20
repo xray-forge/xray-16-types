@@ -20,7 +20,14 @@ declare module "xray16" {
     public has_info(object_id: u16, info_id: string): boolean;
     public iterate_objects(cb: (this: void, object: cse_alife_object) => boolean | void): void;
     public level_id(): u32;
-    public level_name<T extends string = string>(value: i32): T;
+    /**
+     * Method to get level name based on level ID.
+     * Easy way to get level is to get it by game vertex ID graph or iterate over all levels in graphs.
+     *
+     * @param level_id - ID of the level
+     * @returns level name based on level ID provided
+     */
+    public level_name<T extends string = string>(level_id: i32): T;
     public release(cse_abstract: cse_alife_object | null, flag: boolean): void;
     public remove_all_restrictions(value: u16, type: i32 /* enum RestrictionSpace::ERestrictorTypes */): void;
     public remove_in_restriction(monster: cse_alife_monster_abstract, value: u16): void;

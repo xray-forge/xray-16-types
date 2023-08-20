@@ -219,6 +219,11 @@ declare module "xray16" {
     public accessible(value: u32): boolean;
     public accessible(value1: u32, value2: boolean): void;
 
+    /**
+     * Method to iterate over game levels registered in `all.spawn`.
+     *
+     * @returns level abstract object with every iteration
+     */
     public levels(): LuaIterable<cse_abstract>;
   }
 
