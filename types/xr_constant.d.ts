@@ -64,6 +64,9 @@ declare module "xray16" {
     public static readonly detect_anomaly: 11;
     public static readonly get_out_of_anomaly: 10;
     public static readonly property_alife: 3;
+    /**
+     * Whether object is alive.
+     */
     public static readonly property_alive: 0;
     public static readonly property_already_dead: 2;
     public static readonly property_anomaly: 46;
@@ -76,6 +79,9 @@ declare module "xray16" {
     public static readonly property_danger_in_direction: 39;
     public static readonly property_danger_unknown: 38;
     public static readonly property_dead: 1;
+    /**
+     * Whether object has any enemy.
+     */
     public static readonly property_enemy: 7;
     public static readonly property_enemy_critically_wounded: 30;
     public static readonly property_enemy_detoured: 21;
@@ -92,13 +98,24 @@ declare module "xray16" {
     public static readonly property_items: 6;
     public static readonly property_looked_around: 44;
     public static readonly property_looked_out: 19;
+    /**
+     * Whether object should panic.
+     */
     public static readonly property_panic: 17;
     public static readonly property_position_holded: 20;
     public static readonly property_pure_enemy: 23;
+    /**
+     * Whether object has solved zone puzzle.
+     * Originally alife was different and it was end goal of each stalker.
+     * To solve zone puzzle stalkers collected artefacts, did quests etc.
+     */
     public static readonly property_puzzle_solved: 4;
     public static readonly property_ready_to_detour: 14;
     public static readonly property_ready_to_kill: 13;
     public static readonly property_script: 74;
+    /**
+     * Whether object see enemy.
+     */
     public static readonly property_see_enemy: 15;
     public static readonly property_smart_terrain_task: 5;
     public static readonly property_use_crouch_to_look_out: 24;
