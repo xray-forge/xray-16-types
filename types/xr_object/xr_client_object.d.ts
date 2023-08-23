@@ -1002,7 +1002,13 @@ declare module "xray16" {
     public detail_path_type(): unknown;
     public disable_show_hide_sounds(value: boolean): void;
     public enable_anomaly(): void;
-    public enable_attachable_item(value: boolean): void;
+    /**
+     * Method for inventory items to set them enabled / disabled for stalkers.
+     * As result, medkit or detector can be activated by stalker.
+     *
+     * @param is_enabled - whether item should be enabled for usage by owning object
+     */
+    public enable_attachable_item(is_enabled: boolean): void;
     public enable_talk(): void;
     public enable_trade(): void;
     public enable_vision(value: boolean): void;
