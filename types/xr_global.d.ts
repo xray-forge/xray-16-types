@@ -464,7 +464,7 @@ declare module "xray16" {
      * @param spot_type - map spot type (icon type to display for the object)
      * @returns whether object map spot with provided selector is registered
      */
-    map_has_object_spot(this: void, object_id: u16, spot_type: string): number;
+    map_has_object_spot(this: void, object_id: u16, spot_type: string): u16;
     /**
      * Remove object map spot if it exists.
      * Checks if map spot is registered and then removes it in such case.
