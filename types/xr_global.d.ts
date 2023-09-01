@@ -457,8 +457,23 @@ declare module "xray16" {
     map_add_object_spot(this: void, id: u16, selector: string, hint: string): void;
     map_add_object_spot_ser(this: void, id: u16, str1: string, str2: string): void;
     map_change_spot_hint(this: void, num: u16, selector: string, hint: string): void;
-    map_has_object_spot(this: void, object_id: u16, selector: string): number;
-    map_remove_object_spot(this: void, id: u16, selector: string): void;
+    /**
+     * Checks if object has map spot registered with provided selector.
+     *
+     * @param object_id - game object id to check map spot
+     * @param spot_type - map spot type (icon type to display for the object)
+     * @returns whether object map spot with provided selector is registered
+     */
+    map_has_object_spot(this: void, object_id: u16, spot_type: string): number;
+    /**
+     * Remove object map spot if it exists.
+     * Checks if map spot is registered and then removes it in such case.
+     * There is no sense in checking object spot before calling removal since action will be duplicated.
+     *
+     * @param object_id - game object id to check map spot
+     * @param spot_type - map spot type (icon type to display for the object)
+     */
+    map_remove_object_spot(this: void, object_id: u16, spot_type: string): void;
     name<T extends string = string>(this: void): T;
     object_by_id(this: void, object_id: u16): game_object | null;
     patrol_path_exists(this: void, path_name: string): boolean;
