@@ -238,7 +238,7 @@ declare module "xray16" {
     public g_group(): u8;
     public g_squad(): u8;
     public o_torso(): rotation;
-    public on_death(killer: cse_alife_creature_abstract): void;
+    public on_death(killer: cse_alife_object): void;
     public smart_terrain_id(): u16;
     public kill(): void;
     public force_set_goodwill(goodwill: number, npc_id: number): void;

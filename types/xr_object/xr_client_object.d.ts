@@ -923,7 +923,7 @@ declare module "xray16" {
     public section<T extends string = string>(): T;
     public see(game_object: game_object): boolean;
     public see(value: string): boolean;
-    public sell_condition(ini_file: ini_file, value: string): void;
+    public sell_condition(ini_file: ini_file, section: string): void;
     public sell_condition(value1: f32, value2: f32): void;
     public set__force(vector: vector, value1: number, value2: number): void;
     public set_actor_relation_flags(value: flags32): void;
@@ -991,7 +991,7 @@ declare module "xray16" {
     public attachable_item_enabled(): boolean;
     public burer_get_force_gravi_attack(): boolean;
     public burer_get_force_anti_aim(): boolean;
-    public buy_condition(ini_file: ini_file, value: string): void;
+    public buy_condition(ini_file: ini_file, section: string): void;
     public buy_condition(value1: f32, value2: f32): void;
     public change_character_reputation(value: i32): void;
     public change_goodwill(delta_goodwill: i32, to_object: game_object): void;

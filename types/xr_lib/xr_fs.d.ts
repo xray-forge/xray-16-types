@@ -206,7 +206,11 @@ declare module "xray16" {
     public w_string(section: string, field: string, string: string, comment?: string): void;
 
     /**
-     * Get file name of ini file.
+     * Get file name and path of ini file.
+     *
+     * @example `f:\applications\steam\steamapps\common\stalker call of pripyat\gamedata\configs\misc\task_manager.ltx`
+     *
+     * @returns full path to ini file
      */
     public fname(): string;
     public set_readonly(is_readonly: boolean): void;
