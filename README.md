@@ -19,7 +19,7 @@ Types documentation can be checked [here](https://xray-forge.github.io/xray-16-t
 
 ## 🧱 Usage
 
-Types are used with [xrf template](https://github.com/xray-forge/stalker-xrf-template) and can be referenced as an example.
+Types are used with [xrf template](https://github.com/xray-forge/stalker-xrf-engine) and can be referenced as an example.
 
 ## 🎮 Updating types
 
