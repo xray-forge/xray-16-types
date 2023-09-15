@@ -287,7 +287,7 @@ declare module "xray16" {
      *
      * @returns serialized profile time.
      */
-    public __tostring(): string;
+    public toString(): string;
   }
 
   /**

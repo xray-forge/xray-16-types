@@ -1,5 +1,8 @@
 # [📡 XRay-16 engine typescript definitions](https://github.com/xray-forge/xray-16-types)
 
+[![types](https://img.shields.io/badge/docs-types-blue.svg?style=flat)](https://xray-forge.github.io/xray-16-types/index.html)
+[![book](https://img.shields.io/badge/docs-book-blue.svg?style=flat)](https://xray-forge.github.io/stalker-xrf-book)
+<br/>
 [![Node.js CI](https://github.com/xray-forge/xray-16-types/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/xray-forge/xray-16-types/actions/workflows/build_and_test.yml)
 
 X-Ray16 engine bindings documentation and types. <br/>
