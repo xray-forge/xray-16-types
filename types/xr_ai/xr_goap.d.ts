@@ -1,5 +1,159 @@
 declare module "xray16" {
   /**
+   * @source C++ class stalker_ids
+   * @customConstructor stalker_ids
+   * @group xr_goap
+   */
+  export class stalker_ids {
+    public static readonly action_accomplish_task: 7;
+    public static readonly action_aim_enemy: 16;
+    public static readonly action_alife_planner: 88;
+    public static readonly action_anomaly_planner: 90;
+    public static readonly action_combat_planner: 89;
+    public static readonly action_communicate_with_customer: 9;
+    public static readonly action_critically_wounded: 36;
+    public static readonly action_danger_by_sound_planner: 73;
+    public static readonly action_danger_grenade_look_around: 85;
+    public static readonly action_danger_grenade_planner: 72;
+    public static readonly action_danger_grenade_search: 86;
+    public static readonly action_danger_grenade_take_cover: 82;
+    public static readonly action_danger_grenade_take_cover_after_explosion: 84;
+    public static readonly action_danger_grenade_wait_for_explosion: 83;
+    public static readonly action_danger_in_direction_detour: 80;
+    public static readonly action_danger_in_direction_hold_position: 79;
+    public static readonly action_danger_in_direction_look_out: 78;
+    public static readonly action_danger_in_direction_planner: 71;
+    public static readonly action_danger_in_direction_search: 81;
+    public static readonly action_danger_in_direction_take_cover: 77;
+    public static readonly action_danger_planner: 91;
+    public static readonly action_danger_unknown_look_around: 75;
+    public static readonly action_danger_unknown_planner: 70;
+    public static readonly action_danger_unknown_search: 76;
+    public static readonly action_danger_unknown_take_cover: 74;
+    public static readonly action_dead: 0;
+    public static readonly action_death_planner: 87;
+    public static readonly action_detour_enemy: 25;
+    public static readonly action_dying: 1;
+    public static readonly action_find_ammo: 15;
+    public static readonly action_find_item_to_kill: 13;
+    public static readonly action_gather_items: 2;
+    public static readonly action_get_distance: 24;
+    public static readonly action_get_item_to_kill: 12;
+    public static readonly action_get_ready_to_kill: 17;
+    public static readonly action_hold_position: 23;
+    public static readonly action_kill_enemy: 19;
+    public static readonly action_kill_enemy_if_not_visible: 29;
+    public static readonly action_kill_if_enemy_critically_wounded: 37;
+    public static readonly action_kill_if_player_on_the_path: 35;
+    public static readonly action_kill_wounded_enemy: 33;
+    public static readonly action_look_out: 22;
+    public static readonly action_make_item_killing: 14;
+    public static readonly action_no_alife: 3;
+    public static readonly action_post_combat_wait: 34;
+    public static readonly action_prepare_wounded_enemy: 32;
+    public static readonly action_reach_customer_location: 8;
+    public static readonly action_reach_task_location: 6;
+    public static readonly action_reach_wounded_enemy: 30;
+    public static readonly action_retreat_from_enemy: 20;
+    public static readonly action_script: 92;
+    public static readonly action_search_enemy: 26;
+    public static readonly action_smart_terrain_task: 4;
+    public static readonly action_solve_zone_puzzle: 5;
+    public static readonly action_sudden_attack: 28;
+    public static readonly action_take_cover: 21;
+    public static readonly detect_anomaly: 11;
+    public static readonly get_out_of_anomaly: 10;
+
+    public static readonly property_alife: 3;
+    /**
+     * Whether object is alive.
+     */
+    public static readonly property_alive: 0;
+    public static readonly property_already_dead: 2;
+    public static readonly property_anomaly: 46;
+    public static readonly property_cover_actual: 42;
+    public static readonly property_cover_reached: 43;
+    public static readonly property_critically_wounded: 29;
+    public static readonly property_danger: 8;
+    public static readonly property_danger_by_sound: 41;
+    public static readonly property_danger_grenade: 40;
+    public static readonly property_danger_in_direction: 39;
+    public static readonly property_danger_unknown: 38;
+    public static readonly property_dead: 1;
+    /**
+     * Whether object has any enemy.
+     */
+    public static readonly property_enemy: 7;
+    public static readonly property_enemy_critically_wounded: 30;
+    public static readonly property_enemy_detoured: 21;
+    public static readonly property_found_ammo: 12;
+    public static readonly property_found_item_to_kill: 10;
+    public static readonly property_grenade_exploded: 45;
+    public static readonly property_in_cover: 18;
+    public static readonly property_inside_anomaly: 47;
+    public static readonly property_item_can_kill: 11;
+    public static readonly property_item_to_kill: 9;
+    /**
+     * Whether object has valuable items to be looted after death.
+     */
+    public static readonly property_items: 6;
+    public static readonly property_looked_around: 44;
+    public static readonly property_looked_out: 19;
+    /**
+     * Whether object should panic.
+     */
+    public static readonly property_panic: 17;
+    public static readonly property_position_holded: 20;
+    public static readonly property_pure_enemy: 23;
+    /**
+     * Whether object has solved zone puzzle.
+     * Originally alife was different and it was end goal of each stalker.
+     * To solve zone puzzle stalkers collected artefacts, did quests etc.
+     */
+    public static readonly property_puzzle_solved: 4;
+    public static readonly property_ready_to_detour: 14;
+    public static readonly property_ready_to_kill: 13;
+    public static readonly property_script: 74;
+    /**
+     * Whether object see enemy.
+     */
+    public static readonly property_see_enemy: 15;
+    public static readonly property_smart_terrain_task: 5;
+    public static readonly property_use_crouch_to_look_out: 24;
+    public static readonly property_use_suddenness: 22;
+
+    public static readonly sound_alarm: 4;
+    public static readonly sound_attack_allies_several_enemies: 7;
+    public static readonly sound_attack_allies_single_enemy: 6;
+    public static readonly sound_attack_no_allies: 5;
+    public static readonly sound_backup: 8;
+    public static readonly sound_detour: 9;
+    public static readonly sound_die: 0;
+    public static readonly sound_die_in_anomaly: 1;
+    public static readonly sound_enemy_critically_wounded: 24;
+    public static readonly sound_enemy_killed_or_wounded = -805289984;
+    public static readonly sound_enemy_lost_no_allies: 12;
+    public static readonly sound_enemy_lost_with_allies: 13;
+    public static readonly sound_friendly_grenade_alarm: 20;
+    public static readonly sound_grenade_alarm: 19;
+    public static readonly sound_humming: 3;
+    public static readonly sound_injuring: 2;
+    public static readonly sound_injuring_by_friend: 14;
+    public static readonly sound_kill_wounded: 23;
+    public static readonly sound_need_backup: 21;
+    public static readonly sound_panic_human: 15;
+    public static readonly sound_panic_monster: 16;
+    public static readonly sound_running_in_danger: 22;
+    public static readonly sound_script: 27;
+    public static readonly sound_search1_no_allies: 11;
+    public static readonly sound_search1_with_allies: 10;
+    public static readonly sound_tolls: 17;
+    public static readonly sound_wounded: 18;
+
+    public constructor();
+  }
+
+  /**
    * Generic container object for GOAP world properties.
    *
    * @source C++ class world_property

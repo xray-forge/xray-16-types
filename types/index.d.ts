@@ -8,7 +8,6 @@ import "./xr_ai/xr_memory";
 import "./xr_lib/xr_animation";
 import "./xr_lib/xr_bitwise";
 import "./xr_lib/xr_color";
-import "./xr_lib/xr_constant";
 import "./xr_lib/xr_debug";
 import "./xr_lib/xr_dialog";
 import "./xr_lib/xr_flags";
@@ -46,6 +45,7 @@ import "./xr_object/server/xr_server_object";
 
 import "./xr_ui/xr_ui_asset";
 import "./xr_ui/xr_ui_core";
+import "./xr_ui/xr_ui_event";
 import "./xr_ui/xr_ui_interface";
 import "./xr_ui/xr_ui_menu";
 

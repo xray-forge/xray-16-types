@@ -1,7 +1,7 @@
 {
   "$schema": "https://typedoc.org/schema.json",
   "entryPoints": [
-    "types/xr_global.d.ts"
+    "types/xr_object/script/xr_script_object.d.ts"
   ],
   "out": "docs",
   "sort": [

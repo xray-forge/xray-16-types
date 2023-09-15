@@ -872,5 +872,8 @@ declare module "xray16" {
     private constructor();
   }
 
+  /**
+   * @group xr_ui_interface
+   */
   export type TXR_EDDListType = EnumeratedStaticsValues<typeof EDDListType>;
 }

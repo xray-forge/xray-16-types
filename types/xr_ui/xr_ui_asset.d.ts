@@ -1,5 +1,42 @@
 declare module "xray16" {
   /**
+   * @source C++ class UIStyleManager
+   * @customConstructor UIStyleManager
+   * @group xr_ui_asset
+   */
+  export class UIStyleManager {
+    private constructor();
+
+    public GetAllStyles(): LuaIterable<token>;
+
+    public DefaultStyleIsSet(): boolean;
+
+    public GetCurrentStyleId(): u32;
+
+    public SetStyle(id: u32, reload_ui?: boolean): void;
+  }
+
+  /**
+   * @source C++ class CGameFont
+   * @customConstructor CGameFont
+   * @group xr_ui_asset
+   */
+  export class CGameFont {
+    public static readonly alCenter: 2;
+    public static readonly alLeft: 0;
+    public static readonly alRight: 1;
+
+    private constructor();
+  }
+
+  /**
+   * EVTextAlignment.
+   *
+   * @group xr_ui_asset
+   */
+  export type TXR_CGameFont_alignment = EnumeratedStaticsValues<typeof CGameFont>;
+
+  /**
    * @group xr_ui_asset
    */
   export function GetFontDI(this: void): CGameFont;

@@ -117,23 +117,6 @@ declare module "xray16" {
    */
 
   /**
-   * Visibility state of bloodsucker.
-   * Possible values are:
-   * - unset = -1,
-   * - no_visibility = 0,
-   * - partial_visibility = 1,
-   * - full_visibility = 2
-   *
-   * @source C++ enum visibility_t
-   */
-  export type TXR_bloodsucker_visibility_state = -1 | 0 | 1 | 2;
-
-  /**
-   * @source C++ enum visibility_t
-   */
-  export type TXR_game_object_path = 0 | 1 | 2 | 3 | number;
-
-  /**
    * Client object base presentation as script object.
    * Generic in-game entities from items to mutants and stalkers wrapped with luabind export.
    *
@@ -141,7 +124,7 @@ declare module "xray16" {
    * @customConstructor game_object
    * @group xr_script_object
    */
-  export class game_object extends game_object_callbacks_base {
+  export class game_object extends game_object_callbacks_implementation_base {
     public static readonly dummy: -1;
 
     public static readonly game_path: 0;

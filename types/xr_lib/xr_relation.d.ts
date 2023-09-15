@@ -1,7 +1,39 @@
 declare module "xray16" {
   /**
+   * @source C++ class FactionState
+   * @customConstructor FactionState
+   * @group xr_relation
+   */
+  export class FactionState {
+    public actor_goodwill: i32;
+    public bonus: i32;
+    public faction_id: string;
+    public icon: string;
+    public icon_big: string;
+    public location: string;
+    public member_count: i32;
+    public name: string;
+    public power: f32;
+    public resource: f32;
+    public target: string;
+    public target_desc: string;
+    public war_state1: string;
+    public war_state2: string;
+    public war_state3: string;
+    public war_state4: string;
+    public war_state5: string;
+    public war_state_hint1: string;
+    public war_state_hint2: string;
+    public war_state_hint3: string;
+    public war_state_hint4: string;
+    public war_state_hint5: string;
+
+    protected constructor();
+  }
+
+  /**
    * @source namespace relation_registry
-   * @group xr_global_relation
+   * @group xr_relation
    */
   export interface IXR_relation_registry {
     /**
@@ -32,7 +64,21 @@ declare module "xray16" {
   }
 
   /**
-   * @group xr_global_relation
+   * @group xr_relation
    */
   export const relation_registry: IXR_relation_registry;
+
+  /**
+   * Enumeration of relations.
+   *
+   * eRelationTypeFriend - 0
+   * eRelationTypeNeutral - 1
+   * eRelationTypeEnemy - 2
+   * eRelationTypeWorstEnemy - 3
+   * eRelationTypeLast - 4
+   * eRelationTypeDummy - -1
+   *
+   * @group xr_relation
+   */
+  export type TXR_relation = 0 | 1 | 2 | 3;
 }

@@ -1,5 +1,28 @@
 declare module "xray16" {
   /**
+   * @source C++ class MonsterSpace
+   * @customConstructor MonsterSpace
+   * @group xr_action
+   */
+  export class MonsterSpace {
+    public static readonly head_anim_angry: 1;
+    public static readonly head_anim_glad: 2;
+    public static readonly head_anim_kind: 3;
+    public static readonly head_anim_normal: 0;
+    public static readonly sound_script: 128;
+  }
+
+  /**
+   * @group xr_action
+   */
+  export type TXR_MonsterBodyStateKey = EnumeratedStaticsKeys<typeof MonsterSpace>;
+
+  /**
+   * @group xr_action
+   */
+  export type TXR_MonsterBodyState = EnumeratedStaticsValues<typeof MonsterSpace>;
+
+  /**
    * @source C++ class entity_action
    * @customConstructor entity_action
    * @group xr_action
@@ -238,6 +261,38 @@ declare module "xray16" {
    * @group xr_action
    */
   export type TXR_patrol_type = EnumeratedStaticsValues<typeof patrol>;
+
+  /**
+   * @source C++ class CSightParams
+   * @customConstructor XR_CSightParams
+   * @group xr_action
+   */
+  export class CSightParams {
+    public static readonly eSightTypeDummy: -1;
+    public static readonly eSightTypeCurrentDirection: 0;
+    public static readonly eSightTypePathDirection: 1;
+    public static readonly eSightTypeDirection: 2;
+    public static readonly eSightTypePosition: 3;
+    public static readonly eSightTypeObject: 4;
+    public static readonly eSightTypeCover: 5;
+    public static readonly eSightTypeSearch: 6;
+    public static readonly eSightTypeLookOver: 7;
+    public static readonly eSightTypeCoverLookOver: 8;
+    public static readonly eSightTypeFireObject: 9;
+    public static readonly eSightTypeFirePosition: 10;
+    public static readonly eSightTypeAnimationDirection: 11;
+
+    public readonly m_object: game_object;
+    public readonly m_sight_type: TXR_SightType;
+    public readonly m_vector: vector;
+
+    public constructor();
+  }
+
+  /**
+   * @group xr_action
+   */
+  export type TXR_SightType = EnumeratedStaticsValues<typeof CSightParams>;
 
   /**
    * @source C++ class look

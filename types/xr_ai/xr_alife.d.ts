@@ -251,6 +251,31 @@ declare module "xray16" {
 
     public actual(): boolean;
   }
+  /**
+   * @source C++ class spawn_story_ids
+   * @customConstructor spawn_story_ids
+   * @group xr_alife
+   */
+  export class spawn_story_ids {
+    public static readonly INVALID_SPAWN_STORY_ID: -1;
+
+    private constructor();
+  }
+
+  /**
+   * @source C++ class story_ids
+   * @customConstructor story_ids
+   * @group xr_alife
+   */
+  export class story_ids {
+    public static readonly INVALID_STORY_ID: -1;
+    public static readonly Invalid: 65535;
+    public static readonly test_01: 65000;
+    public static readonly test_02: 65001;
+    public static readonly test_03: 65002;
+    public static readonly test_04: 65003;
+    public static readonly test_05: 65004;
+  }
 
   /**
    * @source C++ class client_spawn_manager
@@ -264,6 +289,243 @@ declare module "xray16" {
 
     public add(number1: u16, number2: u16, cb: (this: void) => void, object: XR_object): void;
   }
+
+  /**
+   * @source C++ class clsid
+   * @customConstructor clsid
+   * @group xr_alife
+   */
+  export class clsid {
+    public static readonly actor: 90;
+    public static readonly art_bast_artefact: 0;
+    public static readonly art_black_drops: 1;
+    public static readonly art_cta: 3;
+    public static readonly art_dummy: 4;
+    public static readonly art_electric_ball: 5;
+    public static readonly art_faded_ball: 6;
+    public static readonly art_galantine: 7;
+    public static readonly art_gravi: 8;
+    public static readonly art_gravi_black: 2;
+    public static readonly art_mercury_ball: 9;
+    public static readonly art_needles: 10;
+    public static readonly art_rusty_hair: 11;
+    public static readonly art_thorn: 12;
+    public static readonly art_zuda: 13;
+    public static readonly artefact: 41;
+    public static readonly artefact_s: 102;
+    public static readonly bloodsucker: 14;
+    public static readonly bloodsucker_s: 108;
+    public static readonly boar: 15;
+    public static readonly boar_s: 109;
+    public static readonly burer: 16;
+    public static readonly burer_s: 110;
+    public static readonly car: 52;
+    public static readonly cat: 17;
+    public static readonly cat_s: 111;
+    public static readonly chimera: 29;
+    public static readonly chimera_s: 112;
+    public static readonly controller: 18;
+    public static readonly controller_s: 113;
+    public static readonly crow: 19;
+    public static readonly destrphys_s: 93;
+    public static readonly device_detector_advanced: 53;
+    public static readonly device_detector_elite: 54;
+    public static readonly device_detector_scientific: 57;
+    public static readonly detector_scientific_s: -1;
+    public static readonly device_detector_simple: 58;
+    public static readonly device_flare: 55;
+    public static readonly device_pda: 56;
+    public static readonly device_torch: 59;
+    public static readonly device_torch_s: 146;
+    public static readonly dog_black: 20;
+    public static readonly dog_red: 23;
+    public static readonly dog_s: 116;
+    public static readonly equ_exo: 60;
+    public static readonly equ_military: 61;
+    public static readonly equ_scientific: 62;
+    public static readonly equ_stalker: 63;
+    public static readonly equ_stalker_s: 65;
+    public static readonly equ_helmet_s: 70;
+    public static readonly flesh: 24;
+    public static readonly flesh_group: 25;
+    public static readonly flesh_s: 117;
+    public static readonly fracture: 26;
+    public static readonly fracture_s: 119;
+    public static readonly game: 70;
+    public static readonly game_cl_artefact_hunt: 45;
+    public static readonly game_cl_capture_the_artefact: 46;
+    public static readonly game_cl_deathmatch: 47;
+    public static readonly game_cl_single: 48;
+    public static readonly game_cl_team_deathmatch: 49;
+    public static readonly game_sv_artefact_hunt: 129;
+    public static readonly game_sv_capture_the_artefact: 130;
+    public static readonly game_sv_deathmatch: 131;
+    public static readonly game_sv_single: 132;
+    public static readonly game_sv_team_deathmatch: 133;
+    public static readonly game_ui_artefact_hunt: 147;
+    public static readonly game_ui_capture_the_artefact: 148;
+    public static readonly game_ui_deathmatch: 149;
+    public static readonly game_ui_single: 150;
+    public static readonly game_ui_team_deathmatch: 151;
+    public static readonly gigant_s: 118;
+    public static readonly graph_point: 28;
+    public static readonly hanging_lamp: 94;
+    public static readonly helicopter: 50;
+    public static readonly helmet: 64;
+    public static readonly hlamp_s: 125;
+    public static readonly hud_manager: 74;
+    public static readonly inventory_box: 95;
+    public static readonly inventory_box_s: 140;
+    public static readonly level: 69;
+    public static readonly level_changer: 84;
+    public static readonly level_changer_s: 85;
+    public static readonly main_menu: 86;
+    public static readonly mp_players_bag: 87;
+    public static readonly nogravity_zone: 211;
+    public static readonly obj_antirad: 75;
+    public static readonly obj_antirad_s: 135;
+    public static readonly obj_attachable: 76;
+    public static readonly obj_bandage: 77;
+    public static readonly obj_bandage_s: 136;
+    public static readonly obj_bolt: 78;
+    public static readonly obj_bottle: 79;
+    public static readonly obj_bottle_s: 137;
+    public static readonly obj_breakable: 91;
+    public static readonly obj_climable: 92;
+    public static readonly obj_document: 80;
+    public static readonly obj_explosive: 81;
+    public static readonly obj_explosive_s: 138;
+    public static readonly obj_food: 82;
+    public static readonly obj_food_s: 139;
+    public static readonly obj_medkit: 83;
+    public static readonly obj_medkit_s: 142;
+    public static readonly obj_pda_s: 144;
+    public static readonly obj_phskeleton: 100;
+    public static readonly obj_phys_destroyable: 99;
+    public static readonly obj_physic: 96;
+    public static readonly online_offline_group: 88;
+    public static readonly online_offline_group_s: 89;
+    public static readonly phantom: 30;
+    public static readonly poltergeist: 31;
+    public static readonly poltergeist_s: 120;
+    public static readonly projector: 98;
+    public static readonly pseudo_gigant: 27;
+    public static readonly pseudodog_s: 121;
+    public static readonly psy_dog: 22;
+    public static readonly psy_dog_phantom: 21;
+    public static readonly psy_dog_phantom_s: 114;
+    public static readonly psy_dog_s: 115;
+    public static readonly rat: 32;
+    public static readonly script_actor: 134;
+    public static readonly script_heli: 51;
+    public static readonly script_object: 103;
+    public static readonly script_phys: 97;
+    public static readonly script_restr: 127;
+    public static readonly script_stalker: 35;
+    public static readonly script_zone: 101;
+    public static readonly smart_cover: 104;
+    public static readonly smart_terrain: 105;
+    public static readonly smart_zone: 106;
+    public static readonly smartcover_s: 107;
+    public static readonly snork: 33;
+    public static readonly snork_s: 122;
+    public static readonly space_restrictor: 126;
+    public static readonly spectator: 128;
+    public static readonly stalker: 34;
+    public static readonly team_base_zone: 214;
+    public static readonly torrid_zone: 215;
+    public static readonly trader: 36;
+    public static readonly tushkano: 37;
+    public static readonly tushkano_s: 123;
+    public static readonly wpn_ak74: 173;
+    public static readonly wpn_ak74_s: 152;
+    public static readonly wpn_ammo: 39;
+    public static readonly wpn_ammo_m209: 42;
+    public static readonly wpn_ammo_m209_s: 141;
+    public static readonly wpn_ammo_og7b: 43;
+    public static readonly wpn_ammo_og7b_s: 143;
+    public static readonly wpn_ammo_s: 40;
+    public static readonly wpn_ammo_vog25: 44;
+    public static readonly wpn_ammo_vog25_s: 145;
+    public static readonly wpn_auto_shotgun_s: 153;
+    public static readonly wpn_binocular: 174;
+    public static readonly wpn_binocular_s: 154;
+    public static readonly wpn_bm16: 175;
+    public static readonly wpn_bm16_s: 155;
+    public static readonly wpn_fn2000: 176;
+    public static readonly wpn_fort: 177;
+    public static readonly wpn_grenade_f1: 66;
+    public static readonly wpn_grenade_f1_s: 67;
+    public static readonly wpn_grenade_fake: 68;
+    public static readonly wpn_grenade_launcher: 178;
+    public static readonly wpn_grenade_launcher_s: 156;
+    public static readonly wpn_grenade_rgd5: 71;
+    public static readonly wpn_grenade_rgd5_s: 72;
+    public static readonly wpn_grenade_rpg7: 73;
+    public static readonly wpn_groza: 179;
+    public static readonly wpn_groza_s: 157;
+    public static readonly wpn_hpsa: 180;
+    public static readonly wpn_hpsa_s: 158;
+    public static readonly wpn_knife: 181;
+    public static readonly wpn_knife_s: 159;
+    public static readonly wpn_lr300: 182;
+    public static readonly wpn_lr300_s: 160;
+    public static readonly wpn_pm: 183;
+    public static readonly wpn_pm_s: 161;
+    public static readonly wpn_rg6: 184;
+    public static readonly wpn_rg6_s: 162;
+    public static readonly wpn_rpg7: 185;
+    public static readonly wpn_rpg7_s: 163;
+    public static readonly wpn_scope: 186;
+    public static readonly wpn_scope_s: 164;
+    public static readonly wpn_shotgun: 187;
+    public static readonly wpn_shotgun_s: 165;
+    public static readonly wpn_silencer: 188;
+    public static readonly wpn_silencer_s: 166;
+    public static readonly wpn_stat_mgun: 189;
+    public static readonly wpn_svd: 190;
+    public static readonly wpn_svd_s: 167;
+    public static readonly wpn_svu: 191;
+    public static readonly wpn_svu_s: 168;
+    public static readonly wpn_usp45: 192;
+    public static readonly wpn_usp45_s: 169;
+    public static readonly wpn_val: 193;
+    public static readonly wpn_val_s: 170;
+    public static readonly wpn_vintorez: 194;
+    public static readonly wpn_vintorez_s: 171;
+    public static readonly wpn_walther: 195;
+    public static readonly wpn_walther_s: 172;
+    public static readonly wpn_wmagaz: 196;
+    public static readonly wpn_wmaggl: 197;
+    public static readonly zombie: 38;
+    public static readonly zombie_s: 124;
+    public static readonly zone: 216;
+    public static readonly zone_acid_fog: 204;
+    public static readonly zone_bfuzz: 205;
+    public static readonly zone_bfuzz_s: 198;
+    public static readonly zone_campfire: 206;
+    public static readonly zone_dead: 207;
+    public static readonly zone_galant_s: 199;
+    public static readonly zone_galantine: 208;
+    public static readonly zone_mbald_s: 200;
+    public static readonly zone_mincer: 210;
+    public static readonly zone_mincer_s: 201;
+    public static readonly zone_mosquito_bald: 209;
+    public static readonly zone_radio_s: 202;
+    public static readonly zone_radioactive: 212;
+    public static readonly zone_rusty_hair: 213;
+    public static readonly zone_torrid_s: 203;
+  }
+
+  /**
+   * @group xr_alife
+   */
+  type TXR_class_key = EnumeratedStaticsKeys<typeof clsid>;
+
+  /**
+   * @group xr_alife
+   */
+  type TXR_class_id = EnumeratedStaticsValues<typeof clsid>;
 
   /**
    * @source C++ class global
