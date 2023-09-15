@@ -61,6 +61,11 @@ declare module "xray16" {
   /**
    * @group xr_type
    */
+  type AnyObject = Record<string, any>;
+
+  /**
+   * @group xr_type
+   */
   type EnumeratedStaticsKeys<T> = Exclude<keyof T, "constructor" | TEngineBindingStaticMethods>;
 
   /**

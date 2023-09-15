@@ -178,10 +178,10 @@ declare module "xray16" {
     /**
      * 2 todo;
      */
-    public set_callback(
+    public set_callback<T extends AnyObject>(
       type: TXR_callbacks["trade_sell_buy_item"],
       cb?: ((this: void, item: game_object, money_direction: boolean, money: number) => void) | null,
-      object?: object_binder | null
+      object?: Maybe<T>
     ): void;
 
     // 3 todo: trade_perform_operation
@@ -189,19 +189,19 @@ declare module "xray16" {
     /**
      * 4 todo;
      */
-    public set_callback(
+    public set_callback<T extends AnyObject>(
       type: TXR_callbacks["zone_enter"],
       cb?: ((this: void, zone: game_object, object: game_object) => void) | null,
-      object?: object_binder | null
+      object?: Maybe<T>
     ): void;
 
     /**
      * 4 todo;
      */
-    public set_callback(
+    public set_callback<T extends AnyObject>(
       type: TXR_callbacks["zone_exit"],
       cb?: ((this: void, zone: game_object, object: game_object) => void) | null,
-      object?: object_binder | null
+      object?: Maybe<T>
     ): void;
 
     // 6 todo: level_border_exit
@@ -211,19 +211,19 @@ declare module "xray16" {
     /**
      * 8 todo;
      */
-    public set_callback(
+    public set_callback<T extends AnyObject>(
       type: TXR_callbacks["death"],
       cb?: (this: void, target: game_object, killer: game_object) => void,
-      object?: object_binder
+      object?: Maybe<T>
     ): void;
 
     /**
      * 9 todo;
      */
-    public set_callback(
+    public set_callback<T extends AnyObject>(
       type: TXR_callbacks["patrol_path_in_point"],
       cb?: ((this: void, object: game_object, action_type: number, point_index: number) => void) | null,
-      object?: object_binder | null
+      object?: Maybe<T>
     ): void;
 
     // 10 todo: inventory_pda
@@ -231,10 +231,10 @@ declare module "xray16" {
     /**
      * 11 todo:
      */
-    public set_callback(
+    public set_callback<T extends AnyObject>(
       type: TXR_callbacks["inventory_info"],
       cb?: ((this: void, npc: game_object, info_id: string) => void) | null,
-      object?: object_binder | null
+      object?: Maybe<T>
     ): void;
 
     // 12 todo: article_info
@@ -242,10 +242,10 @@ declare module "xray16" {
     /**
      * 13 todo;
      */
-    public set_callback(
+    public set_callback<T extends AnyObject>(
       type: TXR_callbacks["task_state"],
       cb?: ((this: void, task: CGameTask, state: TXR_TaskState) => void) | null,
-      object?: object_binder | null
+      object?: Maybe<T>
     ): void;
 
     // 14 todo: map_location_added
@@ -253,21 +253,21 @@ declare module "xray16" {
     /**
      * 15 Use some object.
      */
-    public set_callback(
+    public set_callback<T extends AnyObject>(
       type: TXR_callbacks["use_object"],
       cb?: ((this: void, object: game_object) => void) | null,
-      object?: object_binder | null
+      object?: Maybe<T>
     ): void;
-    public set_callback(
+    public set_callback<T extends AnyObject>(
       type: TXR_callbacks["use_object"],
       cb?: ((this: void, object: game_object, who: game_object) => void) | null,
-      object?: object_binder | null
+      object?: Maybe<T>
     ): void;
 
     /**
      * 16 Entity got hit.
      */
-    public set_callback(
+    public set_callback<T extends AnyObject>(
       type: TXR_callbacks["hit"],
       cb?:
         | ((
@@ -279,13 +279,13 @@ declare module "xray16" {
         bone_id: number
       ) => void)
         | null,
-      object?: object_binder | null
+      object?: Maybe<T>
     ): void;
 
     /**
      * 17 todo;
      */
-    public set_callback(
+    public set_callback<T extends AnyObject>(
       type: TXR_callbacks["sound"],
       cb?:
         | ((
@@ -297,7 +297,7 @@ declare module "xray16" {
         sound_power: number
       ) => void)
         | null,
-      object?: object_binder | null
+      object?: Maybe<T>
     ): void;
 
     // 18 todo: action_movement
@@ -319,43 +319,43 @@ declare module "xray16" {
     /**
      * 26 todo;
      */
-    public set_callback(
+    public set_callback<T extends AnyObject>(
       type: TXR_callbacks["helicopter_on_point"],
       cb?: ((this: void, distance: number, current_position: vector, vertex_id: number) => void) | null,
-      object?: object_binder | null
+      object?: Maybe<T>
     ): void;
 
     /**
      * 27 todo;
      */
-    public set_callback(
+    public set_callback<T extends AnyObject>(
       type: TXR_callbacks["helicopter_on_hit"],
       cb?: ((this: void, damage: number, impulse: number, hit_type: number, who_id: number) => void) | null,
-      object?: object_binder | null
+      object?: Maybe<T>
     ): void;
 
     /**
      * 28 todo;
      */
-    public set_callback(
+    public set_callback<T extends AnyObject>(
       type: TXR_callbacks["on_item_take"],
       cb?: ((this: void, object: game_object, item: game_object) => void) | null,
-      object?: object_binder | null
+      object?: Maybe<T>
     ): void;
 
     /**
      * 29 todo;
      */
-    public set_callback(
+    public set_callback<T extends AnyObject>(
       type: TXR_callbacks["on_item_drop"],
       cb?: ((this: void, object: game_object, item: game_object) => void) | null,
-      object?: object_binder | null
+      object?: Maybe<T>
     ): void;
 
     /**
      * 30 todo;
      */
-    public set_callback(
+    public set_callback<T extends AnyObject>(
       type: TXR_callbacks["script_animation"],
       cb?: ((this: void, skip_multi_anim_check?: boolean) => void) | null,
       object?: object | null
@@ -370,10 +370,10 @@ declare module "xray16" {
     /**
      * 34 todo;
      */
-    public set_callback(
+    public set_callback<T extends AnyObject>(
       type: TXR_callbacks["take_item_from_box"],
       cb?: ((this: void, object: game_object, box: game_object, item: game_object) => void) | null,
-      object?: object_binder | null
+      object?: Maybe<T>
     ): void;
 
     // 35 todo: weapon_no_ammo
