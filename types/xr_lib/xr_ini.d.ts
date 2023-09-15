@@ -149,4 +149,28 @@ declare module "xray16" {
      */
     public section_for_each(cb: (this: void, name: string) => void): void;
   }
+
+  /**
+   * Create ini file instance based on provided string content.
+   *
+   * @group xr_ini
+   * @param content - string value to be read as ini file
+   * @returns new ini file instance based on provided content
+   */
+  export function create_ini_file(this: void, content: string): ini_file;
+
+  /**
+   * @group xr_ini
+   */
+  export function game_ini(this: void): ini_file;
+
+  /**
+   * @group xr_ini
+   */
+  export function system_ini(this: void): ini_file;
+
+  /**
+   * @group xr_ini
+   */
+  export function reload_system_ini(this: void): ini_file;
 }

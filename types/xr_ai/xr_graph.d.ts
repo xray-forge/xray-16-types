@@ -40,4 +40,8 @@ declare module "xray16" {
     public levels(): LuaIterable<cse_abstract>;
   }
 
+  /**
+   * @group xr_graph
+   */
+  export function game_graph(this: void): CGameGraph;
 }

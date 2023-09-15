@@ -282,4 +282,9 @@ declare module "xray16" {
 
     public register(client_object_class: string, clsid: string, script_clsid: TXR_class_key): void;
   }
+
+  /**
+   * @group xr_alife
+   */
+  export function alife(this: void): alife_simulator;
 }

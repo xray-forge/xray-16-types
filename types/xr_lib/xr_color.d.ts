@@ -32,4 +32,9 @@ declare module "xray16" {
 
     public set(r: f32, g: f32, b: f32): void;
   }
+
+  /**
+   * @group xr_color
+   */
+  export function GetARGB(this: void, a: u16, r: u16, g: u16, b: u16): i32;
 }

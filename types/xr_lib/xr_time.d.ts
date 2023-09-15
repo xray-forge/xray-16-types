@@ -43,4 +43,19 @@ declare module "xray16" {
 
     public timeToString(time: i32): string;
   }
+
+  /**
+   * Get absolute time in millis from executable start.
+   * Returns time in milliseconds.
+   *
+   * @group xr_time
+   * @returns 'ms' from game executable start.
+   * @example 0, 1000, 60000
+   */
+  export function time_global(this: void): u32;
+
+  /**
+   * @group xr_time
+   */
+  export function time_global_async(this: void): u32;
 }

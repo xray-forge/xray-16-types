@@ -2,7 +2,7 @@ declare module "xray16" {
   /**
    * @source C++ class render_device
    * @customConstructor render_device
-   * @group xr_core
+   * @group xr_render
    */
   export class render_device {
     private constructor();
@@ -40,5 +40,31 @@ declare module "xray16" {
      */
     public pause(paused: boolean): void;
   }
+
+  /**
+   * @group xr_render
+   */
+  export function device(this: void): render_device;
+
+  /**
+   * @group xr_render
+   */
+  export function app_ready(this: void): boolean;
+
+  /**
+   * @group xr_render
+   */
+  export function xrRender_test_r2_hw(this: void): boolean;
+
+  /**
+   * @group xr_render
+   */
+  export function render_get_dx_level(this: void): number;
+
+  /**
+   * @group xr_global_declaration
+   * @returns whether renderer setting can be changed
+   */
+  export function renderer_allow_override(this: void): boolean;
 
 }

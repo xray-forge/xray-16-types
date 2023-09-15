@@ -33,4 +33,9 @@ declare module "xray16" {
       cse_alife_object4: cse_alife_object
     ): f32;
   }
+
+  /**
+   * @group xr_enemy_evaluation
+   */
+  export function ef_storage(this: void): cef_storage;
 }

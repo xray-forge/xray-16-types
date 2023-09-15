@@ -246,4 +246,31 @@ declare module "xray16" {
    * @group xr_ui_core
    */
   type TXR_ui_event = EnumeratedStaticsValues<typeof ui_events>;
+
+  /**
+   * @group xr_ui_core
+   */
+  export function FitInRect(this: void, window: CUIWindow, rect: Frect, a: number, b: number): boolean;
+
+  /**
+   * @group xr_ui_core
+   */
+  export function GetTextureRect(this: void, str: string): Frect;
+
+  /**
+   * @group xr_ui_core
+   */
+  export function GetCursorPosition(this: void): vector2;
+
+  /**
+   * @group xr_ui_core
+   */
+  export function SetCursorPosition(this: void, vector: vector2): void;
+
+  /**
+   * Transforms dik key enumeration code to key binding code.
+   *
+   * @group xr_ui_core
+   */
+  export function dik_to_bind(this: void, keycode: i32): i32;
 }

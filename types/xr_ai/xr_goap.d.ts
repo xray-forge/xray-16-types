@@ -4,7 +4,7 @@ declare module "xray16" {
    *
    * @source C++ class world_property
    * @customConstructor world_property
-   * @group xr_ai
+   * @group xr_goap
    */
   export class world_property extends EngineBinding {
     /**
@@ -33,7 +33,7 @@ declare module "xray16" {
    *
    * @source C++ class world_state
    * @customConstructor world_state
-   * @group xr_ai
+   * @group xr_goap
    */
   export class world_state extends EngineBinding {
     /**
@@ -90,7 +90,7 @@ declare module "xray16" {
    *
    * @source C++ class property_storage
    * @customConstructor property_storage
-   * @group xr_ai
+   * @group xr_goap
    */
   export class property_storage extends EngineBinding {
     /**
@@ -118,7 +118,7 @@ declare module "xray16" {
    *
    * @source C++ class property_evaluator
    * @customConstructor property_evaluator
-   * @group xr_ai
+   * @group xr_goap
    */
   export class property_evaluator extends EngineBinding {
     /**
@@ -168,7 +168,7 @@ declare module "xray16" {
    *
    * @source C++ class property_evaluator_const : property_evaluator
    * @customConstructor property_evaluator_const
-   * @group xr_ai
+   * @group xr_goap
    */
   export class property_evaluator_const extends property_evaluator {
     /**
@@ -182,7 +182,7 @@ declare module "xray16" {
    *
    * @source C++ class action_base
    * @customConstructor action_base
-   * @group xr_ai
+   * @group xr_goap
    */
   export abstract class action_base extends EngineBinding {
     /**
@@ -291,7 +291,7 @@ declare module "xray16" {
   /**
    * @source C++ class action_planner
    * @customConstructor action_planner
-   * @group xr_ai
+   * @group xr_goap
    */
   export class action_planner extends EngineBinding {
     /**
@@ -422,7 +422,7 @@ declare module "xray16" {
    *
    * @source C++ class planner_action : action_planner,action_base
    * @customConstructor planner_action
-   * @group xr_ai
+   * @group xr_goap
    */
   export class planner_action extends action_planner {
     /**
@@ -506,4 +506,9 @@ declare module "xray16" {
      */
     public weight(first: world_state, second: world_state): u16;
   }
+
+  /**
+   * @group xr_global_declaration
+   */
+  export function cast_planner(this: void, base_action: action_base): action_planner;
 }

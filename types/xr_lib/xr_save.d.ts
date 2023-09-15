@@ -215,4 +215,9 @@ declare module "xray16" {
 
     public actor_health(): f32;
   }
+
+  /**
+   * @group xr_save
+   */
+  export function valid_saved_game(this: void, filename: string): boolean;
 }

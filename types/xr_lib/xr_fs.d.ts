@@ -132,4 +132,17 @@ declare module "xray16" {
    * @group xr_fs
    */
   export type TXR_fs_type = EnumeratedStaticsValues<typeof FS>;
+
+  /**
+   * @group xr_fs
+   */
+  export function getFS(this: void): FS;
+
+  /**
+   * Get operating system active username.
+   *
+   * @group xr_fs
+   * @returns username string
+   */
+  export function user_name(this: void): string;
 }

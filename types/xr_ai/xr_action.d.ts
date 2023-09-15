@@ -89,6 +89,13 @@ declare module "xray16" {
   export type TXR_object_action = EnumeratedStaticsValues<typeof XR_object>;
 
   /**
+   * Note: typescript workaround since global type `object` is reserved.
+   *
+   * @group xr_global_declaration
+   */
+  export const object: typeof XR_object;
+
+  /**
    * @source C++ class move
    * @customConstructor move
    * @group xr_action

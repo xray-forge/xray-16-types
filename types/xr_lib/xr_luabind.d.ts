@@ -46,4 +46,14 @@ declare module "xray16" {
 
     private constructor();
   }
+
+  /**
+   * @group xr_luabind
+   */
+  export function class_names(this: void, lua_state: unknown /* lua_State*/): object;
+
+  /**
+   * @group xr_luabind
+   */
+  export function class_info(this: void, target: unknown): class_info_data;
 }
