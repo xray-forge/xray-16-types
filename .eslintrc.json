@@ -9,7 +9,8 @@
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/errors",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "plugin:jsdoc/recommended"
   ],
   "ignorePatterns": [
     "docs/**/*",
@@ -39,6 +40,14 @@
     "@typescript-eslint/no-inferrable-types": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-unused-vars": "off",
+    "jsdoc/require-param-type": "off",
+    "jsdoc/require-returns-type": "off",
+    "jsdoc/tag-lines": ["error", "any", { "startLines": 1, "endLines": 0 }],
+    "jsdoc/check-tag-names": "off",
+    "jsdoc/require-param": "off",
+    "jsdoc/require-returns": "off",
+    "jsdoc/require-param-description": "off",
+    "jsdoc/require-jsdoc": "off",
     "array-element-newline": [
       "error",
       "consistent"

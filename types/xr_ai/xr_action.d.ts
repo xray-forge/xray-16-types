@@ -1,24 +1,8 @@
 declare module "xray16" {
   /**
-   * @source C++ class world_state
-   * @customConstructor world_state
-   * @group xr_action
-   */
-  export class world_state extends EngineBinding {
-    public constructor();
-    public constructor(world_state: world_state);
-
-    public add_property(world_property: world_property): void;
-    public clear(): void;
-    public includes(world_state: world_state): boolean;
-    public property(value: u32): world_property;
-    public remove_property(value: u32): void;
-  }
-
-  /**
    * @source C++ class entity_action
    * @customConstructor entity_action
-   * @group xr_action
+   * @group xr_ai
    */
   export class entity_action extends EngineBinding {
     public constructor();
@@ -44,14 +28,14 @@ declare module "xray16" {
   }
 
   /**
-   * @group xr_action
+   * @group xr_ai
    */
   export type TXR_entity_action = move | look | anim | sound | particle | XR_object | cond;
 
   /**
    * @source C++ class move
    * @customConstructor move
-   * @group xr_action
+   * @group xr_ai
    */
   export class move extends EngineBinding {
     // todo: All enums are in one static, probably should declare few parent interfaces / classes with enums
@@ -137,14 +121,14 @@ declare module "xray16" {
   }
 
   /**
-   * @group xr_action
+   * @group xr_ai
    */
   export type TXR_move = EnumeratedStaticsValues<typeof move>;
 
   /**
    * @source C++ class patrol
    * @customConstructor patrol
-   * @group xr_action
+   * @group xr_ai
    */
   export class patrol extends EngineBinding {
     // EPatrolRouteType:
@@ -180,14 +164,14 @@ declare module "xray16" {
   }
 
   /**
-   * @group xr_action
+   * @group xr_ai
    */
   export type TXR_patrol_type = EnumeratedStaticsValues<typeof patrol>;
 
   /**
    * @source C++ class look
    * @customConstructor look
-   * @group xr_action
+   * @group xr_ai
    */
   export class look extends EngineBinding {
     public static readonly cur_dir: 0;
@@ -214,14 +198,14 @@ declare module "xray16" {
   }
 
   /**
-   * @group xr_action
+   * @group xr_ai
    */
   export type TXR_look = EnumeratedStaticsValues<typeof look>;
 
   /**
    * @source C++ class anim
    * @customConstructor anim
-   * @group xr_action
+   * @group xr_ai
    */
   export class anim extends EngineBinding {
     // Mental state:
@@ -253,19 +237,19 @@ declare module "xray16" {
   }
 
   /**
-   * @group xr_action
+   * @group xr_ai
    */
   export type TXR_animation_key = EnumeratedStaticsKeys<typeof anim>;
 
   /**
-   * @group xr_action
+   * @group xr_ai
    */
   export type TXR_animation = EnumeratedStaticsValues<typeof anim>;
 
   /**
    * @source C++ class sound
    * @customConstructor sound
-   * @group xr_action
+   * @group xr_ai
    */
   export class sound extends EngineBinding {
     public static readonly attack: 3;
@@ -306,19 +290,19 @@ declare module "xray16" {
   }
 
   /**
-   * @group xr_action
+   * @group xr_ai
    */
   export type TXR_sound_key = EnumeratedStaticsKeys<typeof sound>;
 
   /**
-   * @group xr_action
+   * @group xr_ai
    */
   export type TXR_sound_type = EnumeratedStaticsValues<typeof sound>;
 
   /**
    * @source C++ class cond
    * @customConstructor cond
-   * @group xr_action
+   * @group xr_ai
    */
   export class cond extends EngineBinding {
     public static readonly move_end: 1;
@@ -335,148 +319,7 @@ declare module "xray16" {
   }
 
   /**
-   * @group xr_action
+   * @group xr_ai
    */
   export type TXR_cond = EnumeratedStaticsValues<typeof cond>;
-
-  /**
-   * @source C++ class action_base
-   * @customConstructor action_base
-   * @group xr_action
-   */
-  export class action_base extends EngineBinding {
-    public readonly object: game_object;
-    public readonly storage: property_storage;
-
-    public constructor();
-    public constructor(object: game_object | null);
-    public constructor(object: game_object | null, value: string);
-
-    public finalize(): void;
-    public add_precondition(world_property: world_property): void;
-    public execute(): void;
-    public remove_precondition(id: u32): void;
-    public setup(object: game_object, property_storage: property_storage): void;
-    public set_weight(weight: u16): void;
-    public add_effect(world_property: world_property): void;
-
-    /**
-     * With mixed / debug build allows investigation of evaluators and actions matches.
-     * Helps to debug custom actions and actions pre-conditions with state printing in log files.
-     *
-     * Note: Available only in mixed / debug engine builds, not for direct usage from lua.
-     */
-    public show(value?: string): void;
-    public initialize(): void;
-    public remove_effect(id: u32): void;
-  }
-
-  /**
-   * @source C++ class action_planner
-   * @customConstructor action_planner
-   * @group xr_action
-   */
-  export class action_planner extends EngineBinding {
-    public readonly object: game_object;
-    public readonly storage: property_storage;
-
-    public constructor();
-
-    /**
-     * @returns whether object action planner is already initialized
-     */
-    public initialized(): boolean;
-    public remove_action(value: u32): void;
-    public action(value: u32): action_base;
-    public add_action(value: u64, action_base: action_base): void;
-    public update(): void;
-    public clear(): void;
-    public evaluator(value: u32): property_evaluator;
-    public setup(game_object: game_object): void;
-    public set_goal_world_state(world_state: world_state): void;
-    public current_action(): action_base;
-    public add_evaluator(id: u32, property_evaluator: property_evaluator): void;
-    public remove_evaluator(value: u32): void;
-    public current_action_id(): u32;
-    public actual(): boolean;
-
-    public show(char: string): void;
-  }
-
-  /**
-   * @source C++ class planner_action : action_planner,action_base
-   * @customConstructor planner_action
-   * @group xr_action
-   */
-  export class planner_action extends action_planner {
-    public constructor(game_object?: game_object, value?: string);
-
-    public add_effect(world_property: world_property): unknown;
-    public add_precondition(world_property: world_property): void;
-    public execute(): unknown;
-    public finalize(): void;
-    public initialize(): void;
-    public remove_effect(id: number): void;
-    public remove_precondition(id: number): unknown;
-    public set_weight(weight: number): unknown;
-    public weight(world_state1: world_state, world_state2: world_state): u16;
-  }
-
-  /**
-   * Storage of object evaluators cached state for handling of in-game logic.
-   *
-   * @source C++ class property_storage
-   * @customConstructor property_storage
-   * @group xr_action
-   */
-  export class property_storage extends EngineBinding {
-    /**
-     * Get property evaluator value by ID.
-     *
-     * @param value - evaluator property ID
-     * @returns evaluation value
-     * @throws if property is not declared in storage
-     */
-    public property(value: u32): boolean;
-
-    public set_property(value1: u32, value2: boolean): void;
-  }
-
-  /**
-   * @source C++ class property_evaluator
-   * @customConstructor property_evaluator
-   * @group xr_action
-   */
-  export class property_evaluator extends EngineBinding {
-    public readonly object: game_object;
-    public readonly storage: property_storage;
-
-    public constructor();
-    public constructor(game_object: game_object | null);
-    public constructor(game_object: game_object | null, name: string);
-
-    public evaluate(): boolean;
-    public setup(game_object: game_object, property_storage: property_storage): void;
-  }
-
-  /**
-   * @source C++ class property_evaluator_const : property_evaluator
-   * @customConstructor property_evaluator_const
-   * @group xr_action
-   */
-  export class property_evaluator_const extends property_evaluator {
-    public constructor(value: boolean);
-  }
-
-  /**
-   * @source C++ class world_property
-   * @customConstructor world_property
-   * @group xr_action
-   */
-  export class world_property extends EngineBinding {
-    public constructor(id: u32, enabled: boolean);
-
-    public value(): boolean;
-    public condition(): u32;
-  }
 }
