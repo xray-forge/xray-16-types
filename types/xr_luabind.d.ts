@@ -7,7 +7,14 @@ declare module "xray16" {
    * @group xr_luabind
    */
   export class EngineBinding {
+    /**
+     * Name of luabind class constructor.
+     */
     public static readonly __name: string;
+
+    /**
+     * Name of luabind class instance constructor.
+     */
     public readonly __name: string;
   }
 
@@ -26,4 +33,17 @@ declare module "xray16" {
    * @returns class decorator to mark class as luabind implementation
    */
   export function LuabindClass(): ClassDecorator;
+
+  /**
+   * @source C++ class class_info_data
+   * @customConstructor class_info_data
+   * @group xr_luabind
+   */
+  export class class_info_data extends EngineBinding {
+    public readonly methods: object;
+    public readonly attributes: object;
+    public readonly name: string;
+
+    private constructor();
+  }
 }

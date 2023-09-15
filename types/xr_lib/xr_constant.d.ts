@@ -364,34 +364,6 @@ declare module "xray16" {
   export type TXR_game_difficulty = EnumeratedStaticsValues<typeof game_difficulty>;
 
   /**
-   * @source C++ class task
-   * @customConstructor task
-   * @group xr_constants
-   */
-  export class task {
-    public static readonly additional: 1;
-    public static readonly completed: 2;
-    public static readonly fail: 0;
-    public static readonly in_progress: 1;
-    public static readonly storyline: 0;
-    public static readonly task_dummy: 65535;
-
-    private constructor();
-  }
-
-  /**
-   * @group xr_constants
-   */
-  export type TXR_TaskStateName = EnumeratedStaticsKeys<typeof task>;
-
-  /**
-   * ETaskState
-   *
-   * @group xr_constants
-   */
-  export type TXR_TaskState = EnumeratedStaticsValues<typeof task>;
-
-  /**
    * @source C++ class clsid
    * @customConstructor clsid
    * @group xr_constants
@@ -993,4 +965,20 @@ declare module "xray16" {
 
     protected constructor();
   }
+
+  /**
+   * Enumeration with possible game types:
+   * - eGameIDNoGame = u32(0),
+   * - eGameIDSingle = u32(1) << 0,
+   * - eGameIDDeathmatch = u32(1) << 1,
+   * - eGameIDTeamDeathmatch = u32(1) << 2,
+   * - eGameIDArtefactHunt = u32(1) << 3,
+   * - eGameIDCaptureTheArtefact = u32(1) << 4,
+   * - eGameIDDominationZone = u32(1) << 5,
+   * - eGameIDTeamDominationZone = u32(1) << 6,
+   *
+   * @source C++ enum EGameIDs
+   * @group xr_constant
+   */
+  export type TXR_EGameID = 0 | 1 | 2 | 8 | 16 | 32 | 64;
 }

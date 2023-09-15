@@ -40,21 +40,31 @@ declare module "xray16" {
     public constructor(sound_path: string, type: TXR_snd_type);
 
     public length(): u32;
+
     public playing(): boolean;
+
     public get_position(): vector;
 
     public set_position(vector: vector): void;
+
     public attach_tail(sound_path: string): void;
 
     public play(object: game_object | null): void;
+
     public play(object: game_object | null, delay: f32): void;
+
     public play(object: game_object | null, delay: f32, type: i32): void;
+
     public play_at_pos(object: game_object, position: vector): void;
+
     public play_at_pos(object: game_object, position: vector, delay: f32): void;
+
     public play_at_pos(object: game_object, position: vector, delay: f32, type: i32): void;
+
     public play_no_feedback(object: game_object, type: i32, value1: f32, position: vector, value2: f32): void;
 
     public stop(): void;
+
     public stop_deffered(): void;
   }
 
@@ -137,17 +147,5 @@ declare module "xray16" {
     public who: game_object;
 
     private constructor();
-  }
-
-  /**
-   * @source C++ class sound_memory_object : game_memory_object
-   * @customConstructor sound_memory_object
-   * @group xr_sound
-   */
-  export class sound_memory_object extends game_memory_object {
-    public readonly power: f32;
-    public type(): i32;
-
-    protected constructor();
   }
 }

@@ -296,4 +296,56 @@ declare module "xray16" {
    * @group xr_multiplayer
    */
   export type TXR_game_message = EnumeratedStaticsValues<game_messages>;
+
+  /**
+   * @source C++ class game_GameState : DLL_Pure
+   * @customConstructor game_GameState
+   * @group xr_multiplayer
+   */
+  export class game_GameState extends DLL_Pure {
+    public round: i32;
+    public start_time: u32;
+    public type: number; /* EGameIDs */
+
+    public constructor();
+
+    public StartTime(): u32;
+
+    public Round(): i32;
+
+    public Phase(): u16;
+
+    public Type(): number; /* EGameIDs */
+  }
+
+  /**
+   * todo:
+   *
+   *    class_<game_PlayerState, no_bases, default_holder, WrapType>("game_PlayerState")
+   *         .def(constructor<>())
+   *         .def_readwrite("team", &BaseType::team)
+   *         .def_readwrite("kills", &BaseType::m_iRivalKills)
+   *         .def_readwrite("deaths", &BaseType::m_iDeaths)
+   *         .def_readwrite("money_for_round", &BaseType::money_for_round)
+   *         .def_readwrite("flags", &BaseType::flags__)
+   *         .def_readwrite("ping", &BaseType::ping)
+   *         .def_readwrite("GameID", &BaseType::GameID)
+   *         //.def_readwrite("Skip", &BaseType::Skip)
+   *         .def_readwrite("lasthitter", &BaseType::lasthitter)
+   *         .def_readwrite("lasthitweapon", &BaseType::lasthitweapon)
+   *         .def_readwrite("skin", &BaseType::skin)
+   *         .def_readwrite("RespawnTime", &BaseType::RespawnTime)
+   *         .def_readwrite("money_delta", &BaseType::money_delta)
+   *
+   *         .def_readwrite("pItemList", &BaseType::pItemList)
+   *         .def_readwrite("LastBuyAcount", &BaseType::LastBuyAcount)
+   *         .def("testFlag", &BaseType::testFlag)
+   *         .def("setFlag", &BaseType::setFlag)
+   *         .def("resetFlag", &BaseType::resetFlag)
+   *         .def("getName", &BaseType::getName)
+   *         .def("setName", &BaseType::setName)
+   *         .def("clear", &BaseType::clear, &WrapType::clear_static)
+   *         .def("net_Export", &BaseType::net_Export, &WrapType::net_Export_static)
+   *         .def("net_Import", &BaseType::net_Import, &WrapType::net_Import_static)
+   */
 }

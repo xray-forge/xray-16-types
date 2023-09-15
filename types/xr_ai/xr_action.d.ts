@@ -2,40 +2,96 @@ declare module "xray16" {
   /**
    * @source C++ class entity_action
    * @customConstructor entity_action
-   * @group xr_ai
+   * @group xr_action
    */
   export class entity_action extends EngineBinding {
     public constructor();
-    public constructor(entity: entity_action);
+    public constructor(action: entity_action);
 
     public set_action(move: move): void;
+
     public set_action(look: look): void;
+
     public set_action(anim: anim): void;
+
     public set_action(sound: sound): void;
+
     public set_action(particle: particle): void;
+
     public set_action(objec: XR_object): void;
+
     public set_action(cond: cond): void;
 
     public move(): boolean;
+
     public particle(): boolean;
+
     public completed(): boolean;
+
     public object(): boolean;
+
     public all(): boolean;
+
     public time(): boolean;
+
     public look(): boolean;
+
     public sound(): boolean;
+
     public anim(): boolean;
   }
 
   /**
-   * @group xr_ai
+   * @group xr_action
    */
   export type TXR_entity_action = move | look | anim | sound | particle | XR_object | cond;
 
   /**
+   * @source C++ class object
+   * @customConstructor object
+   * @group xr_action
+   */
+  export class XR_object extends EngineBinding {
+    public static readonly activate: 16;
+    public static readonly aim1: 4;
+    public static readonly aim2: 5;
+    public static readonly deactivate: 17;
+    public static readonly drop: 11;
+    public static readonly dummy: -1;
+    public static readonly fire1: 6;
+    public static readonly fire2: 8;
+    public static readonly hide: 22;
+    public static readonly idle: 9;
+    public static readonly reload: 2;
+    public static readonly reload1: 2;
+    public static readonly reload2: 3;
+    public static readonly show: 21;
+    public static readonly strap: 10;
+    public static readonly switch1: 0;
+    public static readonly switch2: 1;
+    public static readonly take: 23;
+    public static readonly turn_off: 20;
+    public static readonly turn_on: 19;
+    public static readonly use: 18;
+
+    public constructor(value: string);
+    public constructor(value: string, type: number /* MonsterSpace::EObjectAction */);
+    public constructor(game_object: game_object);
+
+    public action(space: unknown /** enum MonsterSpace::EObjectAction */): void;
+
+    public completed(): boolean;
+  }
+
+  /**
+   * @group xr_action
+   */
+  export type TXR_object_action = EnumeratedStaticsValues<typeof XR_object>;
+
+  /**
    * @source C++ class move
    * @customConstructor move
-   * @group xr_ai
+   * @group xr_action
    */
   export class move extends EngineBinding {
     // todo: All enums are in one static, probably should declare few parent interfaces / classes with enums
@@ -111,24 +167,31 @@ declare module "xray16" {
     public constructor(moveAction: TXR_move, game_object: game_object, value: number, speedParam: unknown);
 
     public completed(): boolean;
+
     public path(EDetailPathType: number): void;
+
     public move(EMovementType: number): void;
+
     public position(vector: vector): void;
+
     public input(EInputKeys: number): void;
+
     public patrol(patrolPath: unknown, shared_str: string): void;
+
     public object(game_object: game_object): void;
+
     public body(EBodyState: number): void;
   }
 
   /**
-   * @group xr_ai
+   * @group xr_action
    */
   export type TXR_move = EnumeratedStaticsValues<typeof move>;
 
   /**
    * @source C++ class patrol
    * @customConstructor patrol
-   * @group xr_ai
+   * @group xr_action
    */
   export class patrol extends EngineBinding {
     // EPatrolRouteType:
@@ -143,12 +206,13 @@ declare module "xray16" {
     public static readonly next: 4;
     public static readonly dummy: -1;
 
-    public constructor(name: string);
-    public constructor(name: string);
-    public constructor(name: string, startType: TXR_patrol_type);
-    public constructor(name: string, startType: TXR_patrol_type, routeType: TXR_patrol_type);
-    public constructor(name: string, startType: TXR_patrol_type, routeType: TXR_patrol_type, bool: boolean);
-    public constructor(name: string, startType: TXR_patrol_type, routeType: TXR_patrol_type, bool: boolean, int: u32);
+    public constructor(
+      name?: string,
+      startType?: TXR_patrol_type,
+      routeType?: TXR_patrol_type,
+      bool?: boolean,
+      int?: u32
+    );
 
     public count(): u32;
     public flag(value1: u32, value2: u8): boolean;
@@ -164,14 +228,14 @@ declare module "xray16" {
   }
 
   /**
-   * @group xr_ai
+   * @group xr_action
    */
   export type TXR_patrol_type = EnumeratedStaticsValues<typeof patrol>;
 
   /**
    * @source C++ class look
    * @customConstructor look
-   * @group xr_ai
+   * @group xr_action
    */
   export class look extends EngineBinding {
     public static readonly cur_dir: 0;
@@ -198,14 +262,14 @@ declare module "xray16" {
   }
 
   /**
-   * @group xr_ai
+   * @group xr_action
    */
   export type TXR_look = EnumeratedStaticsValues<typeof look>;
 
   /**
    * @source C++ class anim
    * @customConstructor anim
-   * @group xr_ai
+   * @group xr_action
    */
   export class anim extends EngineBinding {
     // Mental state:
@@ -237,19 +301,19 @@ declare module "xray16" {
   }
 
   /**
-   * @group xr_ai
+   * @group xr_action
    */
   export type TXR_animation_key = EnumeratedStaticsKeys<typeof anim>;
 
   /**
-   * @group xr_ai
+   * @group xr_action
    */
   export type TXR_animation = EnumeratedStaticsValues<typeof anim>;
 
   /**
    * @source C++ class sound
    * @customConstructor sound
-   * @group xr_ai
+   * @group xr_action
    */
   export class sound extends EngineBinding {
     public static readonly attack: 3;
@@ -281,28 +345,34 @@ declare module "xray16" {
     public constructor(value1: string, value2: string, type: unknown /* enum MonsterSpace::EMonsterHeadAnimType */);
 
     public set_sound(value: string): void;
+
     public set_sound(sound_object: sound_object): void;
+
     public set_position(vector: vector): void;
+
     public set_bone(value: string): void;
+
     public set_angles(vector: vector): void;
+
     public set_sound_type(type: unknown /* ESoundTypes */): void;
+
     public completed(): boolean;
   }
 
   /**
-   * @group xr_ai
+   * @group xr_action
    */
   export type TXR_sound_key = EnumeratedStaticsKeys<typeof sound>;
 
   /**
-   * @group xr_ai
+   * @group xr_action
    */
   export type TXR_sound_type = EnumeratedStaticsValues<typeof sound>;
 
   /**
    * @source C++ class cond
    * @customConstructor cond
-   * @group xr_ai
+   * @group xr_action
    */
   export class cond extends EngineBinding {
     public static readonly move_end: 1;
@@ -319,7 +389,60 @@ declare module "xray16" {
   }
 
   /**
-   * @group xr_ai
+   * @group xr_action
    */
   export type TXR_cond = EnumeratedStaticsValues<typeof cond>;
+
+  /**
+   * @source C++ class act
+   * @customConstructor act
+   * @group xr_action
+   */
+  export class act {
+    public static readonly attack: 2;
+    public static readonly eat: 1;
+    public static readonly panic: 3;
+    public static readonly rest: 0;
+
+    public constructor();
+    public constructor(EScriptMonsterGlobalAction: number);
+    public constructor(EScriptMonsterGlobalAction: number, game_object: game_object);
+  }
+
+  /**
+   * @source C++ class particle_params
+   * @customConstructor particle_params
+   * @group xr_action
+   */
+  export class particle_params {
+    public constructor();
+    public constructor(first?: vector, second?: vector, third?: vector);
+  }
+
+  /**
+   * @source C++ class particle
+   * @customConstructor particle
+   * @group xr_action
+   */
+  export class particle extends EngineBinding {
+    public constructor(particle_to_run: string, particle_params?: particle_params, auto_remove?: boolean);
+    public constructor(
+      particle_to_run: string,
+      bone_name: string,
+      particle_params: particle_params,
+      auto_remove: boolean
+    );
+
+    public completed(): boolean;
+
+    public set_angles(vector: vector): void;
+
+    public set_bone(bone_id: string): void;
+
+    public set_particle(value1: string, value2: boolean): void;
+
+    public set_position(vector: vector): void;
+
+    public set_velocity(vector: vector): void;
+  }
 }

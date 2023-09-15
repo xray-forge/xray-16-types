@@ -8,13 +8,21 @@ declare module "xray16" {
     public constructor();
 
     public SendMessage2Group(group: string, message: string): void;
+
     public UndoGroup(group: string): void;
+
     public SaveBackupValues(group: string): void;
+
     public IsGroupChanged(group: string): boolean;
+
     public SaveValues(group: string): void;
+
     public SetCurrentValues(group: string): void;
+
     public NeedSystemRestart(): boolean;
+
     public NeedVidRestart(): boolean;
+
     public OptionsPostAccept(): void;
   }
 
@@ -25,14 +33,23 @@ declare module "xray16" {
    */
   export class CMainMenu {
     public GetCDKey(): string;
+
     public GetAccountMngr(): account_manager;
+
     public GetDemoInfo(fileName: string): demo_info | null;
+
     public GetPatchProgress(): Patch_Dawnload_Progress;
+
     public GetProfileStore(): profile_store;
+
     public GetGSVer(): string;
+
     public GetLoginMngr(): login_manager;
+
     public GetPlayerName(): string;
+
     public CancelDownload(): void;
+
     public ValidateCDKey(): boolean;
   }
 
@@ -43,20 +60,35 @@ declare module "xray16" {
    */
   export class CUIGameCustom {
     public AddCustomStatic(id: string, b: boolean): StaticDrawableWrapper;
+
     public AddCustomStatic(id: string, b: boolean, n: f32): StaticDrawableWrapper;
+
     public AddDialogToRender(window: CUIWindow): void;
+
     public CurrentItemAtCell(): game_object;
+
     public GetCustomStatic(value: string): StaticDrawableWrapper | null;
+
     public HideActorMenu(): void;
+
     public ShowActorMenu(): boolean;
+
     public HidePdaMenu(): void;
+
     public RemoveCustomStatic(id: string): void;
+
     public RemoveDialogToRender(window: CUIWindow): void;
+
     public UpdateActorMenu(): void;
+
     public enable_fake_indicators(enabled: boolean): void;
+
     public hide_messages(): void;
+
     public show_messages(): void;
+
     public update_fake_indicators(u8: number, enabled: boolean): void;
+
     public update_fake_indicators(u8: number, value: f32): void;
   }
 
@@ -69,39 +101,68 @@ declare module "xray16" {
     public constructor();
 
     public ParseFile(path: string): void;
+
     public ParseShTexInfo(path: string): void;
 
     public Init3tButton(selector: string, window: CUIWindow | null): CUI3tButton;
+
     public InitAnimStatic(selector: string, window: CUIWindow | null): CUIStatic;
+
     public InitCDkey(selector: string, window: CUIWindow | null): CUIEditBox;
+
     public InitCheck(selector: string, window: CUIWindow | null): CUICheckButton;
+
     public InitComboBox(selector: string, window: CUIWindow | null): CUIComboBox;
+
     public InitEditBox(selector: string, window: CUIWindow | null): CUIEditBox;
+
     public InitFrame(selector: string, window: CUIWindow | null): CUIFrameWindow;
+
     public InitFrameLine(selector: string, window: CUIWindow | null): CUIFrameLineWnd;
+
     public InitKeyBinding(selector: string, window: CUIWindow | null): CUIWindow;
+
     public InitLabel(selector: string, window: CUIWindow | null): CUIStatic;
+
     public InitList(selector: string, window: CUIWindow | null): CUIListWnd;
+
     public InitListBox<T extends CUIListBoxItem = CUIListBoxItem>(
       selector: string,
       window: CUIWindow | null
     ): CUIListBox<T>;
+
     public InitMMShniaga(selector: string, window: CUIWindow | null): CUIMMShniaga;
+
     public InitMPPlayerName(selector: string, window: CUIWindow | null): CUIEditBox;
+
     public InitMapInfo(selector: string, window: CUIWindow | null): CUIMapInfo;
+
     public InitMapList(selector: string, window: CUIWindow | null): CUIMapList;
+
     public InitProgressBar(selector: string, window: CUIWindow | null): CUIProgressBar;
+
     public InitScrollView(selector: string, window: CUIWindow | null): CUIScrollView;
+
     public InitServerList(selector: string, window: CUIWindow | null): CServerList;
+
     public InitSleepStatic(selector: string, window: CUIWindow | null): CUISleepStatic;
+
     public InitSpinFlt(selector: string, window: CUIWindow | null): CUISpinFlt;
+
     public InitSpinNum(selector: string, window: CUIWindow | null): CUISpinNum;
+
     public InitSpinText(selector: string, window: CUIWindow | null): CUISpinText;
+
     public InitStatic(selector: string, window: CUIWindow | null): CUIStatic;
+
     public InitTab(selector: string, window: CUIWindow | null): CUITabControl;
+
     public InitTextWnd(selector: string, window: CUIWindow | null): CUITextWnd;
+
     public InitTrackBar(selector: string, window: CUIWindow | null): CUITrackBar;
+
     public InitVerList(selector: string, window: CUIWindow | null): CUIVersionList;
+
     public InitWindow(selector: string, index: i32, window: CUIWindow | null): void;
   }
 
@@ -114,8 +175,11 @@ declare module "xray16" {
     private constructor();
 
     public GetAllStyles(): LuaIterable<token>;
+
     public DefaultStyleIsSet(): boolean;
+
     public GetCurrentStyleId(): u32;
+
     public SetStyle(id: u32, reload_ui?: boolean): void;
   }
 
