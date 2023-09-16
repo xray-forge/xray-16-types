@@ -12,7 +12,7 @@ import {
 import { Plugin } from "typescript-to-lua";
 
 const LUA_LOGGER_STRIP_TARGET: string = "LuaLogger";
-const IS_LUA_LOGGER_DISABLED: boolean = process.argv.includes("--no-lua-logs");
+const IS_LUA_LOGGER_DISABLED: boolean = process.argv.includes("--no-lua-logs") || process.env.NO_LUA_LOGS === "true";
 
 /**
  * Plugin that removes all LuaLogger instance creations and calls when possible.
