@@ -40,8 +40,8 @@ declare module "xray16" {
    * @group xr_luabind
    */
   export class class_info_data extends EngineBinding {
-    public readonly methods: object;
-    public readonly attributes: object;
+    public readonly methods: LuaTable<string, (...args: Array<unknown>) => unknown>;
+    public readonly attributes: LuaTable<number, string>;
     public readonly name: string;
 
     private constructor();
@@ -50,7 +50,7 @@ declare module "xray16" {
   /**
    * @group xr_luabind
    */
-  export function class_names(this: void, lua_state: unknown /* lua_State*/): object;
+  export function class_names(this: void, lua_state: unknown /* lua_State*/): LuaTable<number, string>;
 
   /**
    * @group xr_luabind

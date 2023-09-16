@@ -979,6 +979,10 @@ declare module "xray16" {
 
     public inactualize_patrol_path(): void;
 
+    public inactualize_level_path(): void;
+
+    public inactualize_game_path(): void;
+
     /**
      * Iterate over game object inventory.
      * Runs supplied callback for each item in inventory of the object.
