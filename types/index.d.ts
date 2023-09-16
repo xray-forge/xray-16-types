@@ -49,4 +49,6 @@ import "./xr_ui/xr_ui_event";
 import "./xr_ui/xr_ui_interface";
 import "./xr_ui/xr_ui_menu";
 
+import "./xrf_plugin";
+
 declare module "xray16" {}
