@@ -30,30 +30,6 @@ declare module "xray16" {
   }
 
   /**
-   * @source C++ class explosive
-   * @customConstructor explosive
-   * @group xr_script_interface
-   */
-  export class explosive extends EngineBinding {
-    protected constructor();
-
-    public explode(): void;
-  }
-
-  /**
-   * @source C++ class holder
-   * @customConstructor holder
-   * @group xr_script_interface
-   */
-  export class holder {
-    public engaged(): boolean;
-
-    public Action(value1: u16, value2: u32): void;
-
-    public SetParam(value: i32, vector: vector): void;
-  }
-
-  /**
    * Visibility state of bloodsucker.
    * Possible values are:
    * - unset = -1,

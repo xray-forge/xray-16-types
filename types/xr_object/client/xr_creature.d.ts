@@ -1,5 +1,12 @@
 declare module "xray16" {
   /**
+   * @source C++ class CEntityAlive : public CEntity
+   * @customConstructor CEntityAlive
+   * @group xr_creature
+   */
+  export class CEntityAlive extends CGameObject {}
+
+  /**
    * @source C++ class CActor : CGameObject
    * @customConstructor CActor
    * @group xr_creature

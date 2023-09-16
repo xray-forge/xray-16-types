@@ -1,121 +1,4 @@
 declare module "xray16" {
-  /*
-   *  CAI_Stalker* cast_Stalker();
-   *  CArtefact* cast_Artefact();
-   *  CCar* cast_Car();
-   *  CGameObject* cast_GameObject();
-   *  CHelicopter* cast_Heli();
-   *  CSpaceRestrictor* cast_SpaceRestrictor();
-   *  CWeapon* cast_Weapon();
-   *  CWeaponAmmo* cast_Ammo();
-   *  CWeaponMagazined* cast_WeaponMagazined();
-   *  ce_script_zone* cast_ScriptZone();
-   *  class CCustomZone* cast_CustomZone();
-   *  class CEntityAlive* cast_EntityAlive();
-   *  class CPhysicsShellHolder* cast_PhysicsShellHolder();
-   *  explosive* cast_Explosive();
-   *
-   *  CTime get_info_time(char const*);
-   *  bool bone_visible(char const*);
-   *  bool has_ammo_type(unsigned char)
-
-   *  bool is_on_belt(game_object*);
-   *  bool use(game_object*);
-   *
-   *  vector<MemorySpace::CNotYetVisibleObject,xalloc<MemorySpace::CNotYetVisibleObject> > not_yet_visible_objects();
-   *  vector<MemorySpace::CSoundObject,xalloc<MemorySpace::CSoundObject>> memory_sound_objects();
-
-   *  enum DetailPathManager::EDetailPathType detail_path_type();
-   *  enum ETaskState get_task_state(char const*);
-   *  enum MonsterSpace::EBodyState body_state();
-   *  enum MonsterSpace::EBodyState target_body_state();
-   *  enum MonsterSpace::EMentalState mental_state();
-   *  enum MonsterSpace::EMentalState target_mental_state();
-   *  enum MonsterSpace::EMovementType movement_type();
-   *  enum MovementManager::EPathType path_type();
-   *
-   *  float get_actor_jump_speed();
-   *  float get_actor_max_walk_weight();
-   *  float get_actor_max_weight();
-   *  float get_actor_run_coef();
-   *  float get_actor_runback_coef();
-   *  float get_actor_sprint_koef();
-   *  float get_additional_max_walk_weight();
-   *  float get_additional_max_weight();
-   *  float get_anomaly_power();
-   *  float get_artefact_bleeding();
-   *  float get_artefact_health();
-   *  float get_artefact_power();
-   *  float get_artefact_radiation();
-   *  float get_artefact_satiety();
-   *  float get_luminocity();
-   *  float get_luminocity_hemi();
-   *  float get_total_weight();
-   *
-
-   *  game_object* get_attached_vehicle();
-   *
-   *  holder* cast_HolderCustom();
-   *  int get_ammo_count_for_type(unsigned char);
-   *
-   *  unsigned char get_max_uses();
-   *  unsigned char get_remaining_uses();
-   *  unsigned char get_restrictor_type();
-   *  unsigned char get_weapon_substate();
-   *
-   *  unsigned int belt_count();
-   *  unsigned int get_main_weapon_type();
-   *  unsigned int get_spatial_type();
-   *  remove_danger();
-   *  remove_memory_sound_object();
-   *  remove_memory_visible_object();
-   *  remove_memory_hit_object();
-   *  unsigned int get_state();
-   *  unsigned int get_weapon_type();
-   *  unsigned int play_hud_motion(char const*,bool,unsigned int);
-   *
-   *  void attach_vehicle(game_object*);
-   *  void clear_game_news();
-   *  void detach_vehicle();
-   *  void force_set_position(vector,bool);
-   *
-   *  void iterate_feel_touch(function<void>);
-
-   *  void phantom_set_enemy(game_object*);
-   *  void set_actor_jump_speed(float);
-   *  void set_actor_max_walk_weight(float);
-   *  void set_actor_max_weight(float);
-   *  void set_actor_run_coef(float);
-   *  void set_actor_runback_coef(float);
-   *  void set_actor_sprint_koef(float);
-   *  void set_additional_max_walk_weight(float);
-   *  void set_additional_max_weight(float);
-   *  void set_alien_control(bool);
-   *  void set_ammo_type(unsigned char);
-   *
-   *  void set_artefact_bleeding(float);
-   *  void set_artefact_health(float);
-   *  void set_artefact_power(float);
-   *  void set_artefact_radiation(float);
-   *  void set_artefact_satiety(float);
-   *
-   *  void set_bone_visible(char const*,bool,bool);
-   *  void set_character_icon(char const*);
-   *  void set_health_ex(float);
-   *  void set_main_weapon_type(unsigned int);
-
-   *
-   *  void set_remaining_uses(unsigned char);
-   *  void set_restrictor_type(unsigned char);
-   *  void set_spatial_type(unsigned int);
-   *  void set_weapon_type(unsigned int);
-
-   *  void start_trade(game_object*);
-   *  void start_upgrade(game_object*);
-   *  void switch_state(unsigned int);
-   * }
-   */
-
   /**
    * Client object base presentation as script object.
    * Generic in-game entities from items to mutants and stalkers wrapped with luabind export.
@@ -605,7 +488,7 @@ declare module "xray16" {
 
     public set_actor_relation_flags(value: flags32): void;
 
-    public set_alien_control(value: boolean): void;
+    public set_alien_control(is_enabled: boolean): void;
 
     public set_body_state(state: TXR_MonsterBodyState): void;
 
@@ -772,7 +655,7 @@ declare module "xray16" {
 
     /**
      * Return formula: `personal_goodwill + reputation_goodwill + rank_goodwill +
-     *   community_goodwill + community_to_community`
+     *  community_goodwill + community_to_community`
      *
      * @param target - target client object
      * @returns goodwill level from object to target
@@ -782,8 +665,6 @@ declare module "xray16" {
     public get_actor_relation_flags(): flags32;
 
     public get_ammo_in_magazine(): u32;
-
-    public get_anomaly_power(): unknown;
 
     public get_car(): CCar;
 
@@ -1195,5 +1076,187 @@ declare module "xray16" {
     public ammo_set_count(count: u16): void;
 
     public ammo_box_size(): u16;
+
+    public cast_Stalker(): CAI_Stalker;
+
+    public cast_Artefact(): CArtefact;
+
+    public cast_Car(): CCar;
+
+    public cast_GameObject(): CGameObject;
+
+    public cast_Heli(): CHelicopter;
+
+    public cast_SpaceRestrictor(): CSpaceRestrictor;
+
+    public cast_HolderCustom(): holder;
+
+    public cast_Weapon(): CWeapon;
+
+    public cast_Ammo(): CWeaponAmmo;
+
+    public cast_WeaponMagazined(): CWeaponMagazined;
+
+    public cast_ScriptZone(): ce_script_zone;
+
+    public cast_CustomZone(): CCustomZone;
+
+    public cast_EntityAlive(): CEntityAlive;
+
+    public cast_Explosive(): explosive;
+
+    public cast_PhysicsShellHolder(): CPhysicsShellHolder;
+
+    public get_info_time(info: string): CTime;
+
+    public bone_visible(bone: string): boolean;
+
+    public has_ammo_type(type: string): boolean;
+
+    public is_on_belt(object: game_object): boolean;
+
+    public use(object: game_object): void;
+
+    /**
+     * Set remaining item uses count.
+     *
+     * @param remaining - count of remaining uses for item before destroy
+     */
+    public set_remaining_uses(remaining: u8): void;
+
+    public get_max_uses(): u8;
+
+    public get_remaining_uses(): u8;
+
+    public set_restrictor_type(type: u8): void;
+
+    public get_restrictor_type(): u8;
+
+    public set_spatial_type(type: u8): void;
+
+    public set_weapon_type(type: u8): void;
+
+    public get_weapon_substate(): u8;
+
+    public start_trade(object: game_object): void;
+
+    public start_upgrade(object: game_object): void;
+
+    public switch_state(state: u32): void;
+
+    public phantom_set_enemy(object: game_object): void;
+
+    public set_actor_jump_speed(speed: f32): void;
+
+    public set_actor_max_walk_weight(weight: f32): void;
+
+    public set_actor_max_weight(weight: f32): void;
+
+    public set_actor_run_coef(coef: f32): void;
+
+    public set_actor_runback_coef(coef: f32): void;
+
+    public set_actor_sprint_koef(coef: f32): void;
+
+    public set_additional_max_walk_weight(weight: f32): void;
+
+    public set_additional_max_weight(weight: f32): void;
+
+    public set_ammo_type(type: u8): void;
+
+    public set_artefact_bleeding(rate: f32): void;
+
+    public set_artefact_health(rate: f32): void;
+
+    public set_artefact_power(rate: f32): void;
+
+    public set_artefact_radiation(rate: f32): void;
+
+    public set_artefact_satiety(rate: f32): void;
+
+    public set_bone_visible(name: string, a: boolean, b: boolean): void;
+
+    public set_character_icon(icon: string): void;
+
+    public set_health_ex(value: f32): void;
+
+    public set_main_weapon_type(type: u32): void;
+
+    public get_actor_jump_speed(): f32;
+
+    public get_actor_max_walk_weight(): f32;
+
+    public get_actor_max_weight(): f32;
+
+    public get_actor_run_coef(): f32;
+
+    public get_actor_runback_coef(): f32;
+
+    public get_actor_sprint_koef(): f32;
+
+    public get_additional_max_walk_weight(): f32;
+
+    public get_additional_max_weight(): f32;
+
+    public get_anomaly_power(): f32;
+
+    public get_artefact_bleeding(): f32;
+
+    public get_artefact_health(): f32;
+
+    public get_artefact_power(): f32;
+
+    public get_artefact_radiation(): f32;
+
+    public get_artefact_satiety(): f32;
+
+    public get_luminocity(): f32;
+
+    public get_luminocity_hemi(): f32;
+
+    public get_total_weight(): f32;
+
+    public get_attached_vehicle(): game_object;
+
+    public belt_count(): u32;
+
+    public get_main_weapon_type(): u32;
+
+    public get_spatial_type(): u32;
+
+    public get_state(): u32;
+
+    public get_weapon_type(): u32;
+
+    public play_hud_motion(chat: string, bool: boolean, int: u32): u32;
+
+    public attach_vehicle(vehicle: game_object): void;
+
+    public clear_game_news(): void;
+
+    public detach_vehicle(): void;
+
+    public force_set_position(position: vector, bool: boolean): void;
+
+    public get_ammo_count_for_type(type: u8): i32;
   }
+
+  /*
+  * vector<MemorySpace::CNotYetVisibleObject,xalloc<MemorySpace::CNotYetVisibleObject> > not_yet_visible_objects();
+  * vector<MemorySpace::CSoundObject,xalloc<MemorySpace::CSoundObject>> memory_sound_objects();
+  * enum DetailPathManager::EDetailPathType detail_path_type();
+  * enum ETaskState get_task_state(char const*);
+  * enum MonsterSpace::EBodyState body_state();
+  * enum MonsterSpace::EBodyState target_body_state();
+  * enum MonsterSpace::EMentalState mental_state();
+  * enum MonsterSpace::EMentalState target_mental_state();
+  * enum MonsterSpace::EMovementType movement_type();
+  * enum MovementManager::EPathType path_type();
+  * remove_danger();
+  * remove_memory_sound_object();
+  * remove_memory_visible_object();
+  * remove_memory_hit_object();
+  * void iterate_feel_touch(function<void>);
+  * }
+  */
 }

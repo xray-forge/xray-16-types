@@ -1,3 +1,4 @@
+
 declare module "xray16" {
   /**
    * @source C++ class physics_element
@@ -173,5 +174,28 @@ declare module "xray16" {
    */
   export class IKinematicsAnimated {
     public PlayCycle(value: string): void;
+  }
+
+  /**
+   * @source C++ class CPhysicsShellHolder : public CGameObject, CParticlesPlayer,
+   *   IObjectPhysicsCollision, IPhysicsShellHolder
+   * @customConstructor CPhysicsShellHolder
+   * @group xr_physic
+   */
+  export class CPhysicsShellHolder extends EngineBinding {
+    protected constructor();
+  }
+
+  /**
+   * @source C++ class holder
+   * @customConstructor holder
+   * @group xr_physic
+   */
+  export class holder {
+    public engaged(): boolean;
+
+    public Action(value1: u16, value2: u32): void;
+
+    public SetParam(value: i32, vector: vector): void;
   }
 }

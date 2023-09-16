@@ -1,5 +1,16 @@
 declare module "xray16" {
   /**
+   * @source C++ class explosive
+   * @customConstructor explosive
+   * @group xr_item
+   */
+  export class explosive extends EngineBinding {
+    protected constructor();
+
+    public explode(): void;
+  }
+
+  /**
    * @source C++ class CAntirad : CGameObject
    * @customConstructor CAntirad
    * @group xr_item
@@ -70,18 +81,32 @@ declare module "xray16" {
   export class CWeaponAmmo extends CGameObject {}
 
   /**
+   * @source C++ class CWeapon : public CHudItemObject, public CShootingObject
+   * @customConstructor CWeaponAmmo
+   * @group xr_item
+   */
+  export class CWeapon extends CInventoryItem {}
+
+  /**
+   * @source C++ class CWeaponMagazined : public CWeapon
+   * @customConstructor CWeaponMagazined
+   * @group xr_item
+   */
+  export class CWeaponMagazined extends CWeapon {}
+
+  /**
    * @source C++ class CWeaponAutomaticShotgun : CGameObject
    * @customConstructor CWeaponAutomaticShotgun
    * @group xr_item
    */
-  export class CWeaponAutomaticShotgun extends CGameObject {}
+  export class CWeaponAutomaticShotgun extends CWeaponMagazined {}
 
   /**
    * @source C++ class CWeaponBM16 : CGameObject
    * @customConstructor CWeaponBM16
    * @group xr_item
    */
-  export class CWeaponBM16 extends CGameObject {}
+  export class CWeaponBM16 extends CWeaponShotgun {}
 
   /**
    * @source C++ class CWeaponBinoculars : CGameObject

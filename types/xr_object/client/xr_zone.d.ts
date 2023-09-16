@@ -7,6 +7,13 @@ declare module "xray16" {
   export class CSpaceRestrictor extends CGameObject {}
 
   /**
+   * @source C++ class CCustomZone : public CSpaceRestrictor, public Feel::Touch
+   * @customConstructor CCustomZone
+   * @group xr_zone
+   */
+  export class CCustomZone extends CSpaceRestrictor {}
+
+  /**
    * @source C++ class CLevelChanger : CGameObject
    * @customConstructor CLevelChanger
    * @group xr_zone
