@@ -313,10 +313,7 @@ declare module "xray16" {
 
     public buy_item_condition_factor(value: f32): void;
 
-    /**
-     * Change object squad/faction?
-     */
-    public change_team(community_id: u8, squad_id: u8, group_id: u8): void;
+    public change_team(team_id: u8, squad_id: u8, group_id: u8): void;
 
     public character_icon<T extends string>(): T;
 

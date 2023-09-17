@@ -249,9 +249,21 @@ declare module "xray16" {
    * @group xr_object_server
    */
   export class cse_alife_creature_abstract extends cse_alife_dynamic_object_visual {
-    public group: u8;
+    /**
+     * Squad identifier that links squad and parent smart terrain.
+     */
     public squad: u8;
+
+    /**
+     * Team (community) of the object.
+     * Defined in game_relations.ltx -> [game_relations] -> [communities].
+     *
+     * Example: 8 is monster, 9 is stalker, 0 is actor, 4 is freedom
+     */
     public team: u8;
+
+    public group: u8;
+
     /**
      * Object squad id, maximal u16 (65535) if no squad assigned.
      */
