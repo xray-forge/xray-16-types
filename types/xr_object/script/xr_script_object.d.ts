@@ -123,7 +123,14 @@ declare module "xray16" {
 
     public clear_override_animation(): void;
 
-    public debug_planner(action_planner: action_planner): void;
+    /**
+     * Sets provided planner as `debugged` for stalker object.
+     * As result, when console command `ai_dbg_stalker on` is toggled, GOAP state of planner is displayed.
+     * Requires `mixed` build engine.
+     *
+     * @param planner - action planner to show in stalker stats when debugging is enabled
+     */
+    public debug_planner(planner: action_planner): void;
 
     public disable_info_portion(value: string): boolean;
 
