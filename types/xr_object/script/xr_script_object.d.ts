@@ -1007,9 +1007,9 @@ declare module "xray16" {
     public set_condition(condition: f32): void;
 
     /**
-     * @returns vertex_id of accessible position
+     * @returns [vertex_id, vector] tuple of accessible position id and vector
      */
-    public accessible_nearest(vector1: vector, vector2: vector): u32;
+    public accessible_nearest(vertex_position: vector, vector2: vector): LuaMultiReturn<[u32, vector]>;
 
     public action_by_index(value: u32): entity_action | null;
 
