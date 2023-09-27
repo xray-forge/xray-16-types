@@ -55,7 +55,7 @@ declare module "xray16" {
 
     public spawn_id(value: u32): u16;
 
-    public story_object(value: u32): cse_alife_object;
+    public story_object(value: u32): cse_alife_object | null;
 
     /**
      * @returns alife server-client switch distance
