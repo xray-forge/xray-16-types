@@ -78,7 +78,7 @@ declare module "xray16" {
       local_animation: boolean
     ): void;
 
-    public action(): entity_action;
+    public action(): entity_action | null;
 
     public action_count(): u32;
 
