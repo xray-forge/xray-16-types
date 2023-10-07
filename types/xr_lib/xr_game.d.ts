@@ -135,17 +135,17 @@ declare module "xray16" {
   /**
    * @group xr_game
    */
-  export function set_start_position(position: vector): void;
+  export function set_start_position(this: void, position: vector): void;
 
   /**
    * @group xr_game
    */
-  export function set_start_direction(direction: vector): void;
+  export function set_start_direction(this: void, direction: vector): void;
 
   /**
    * @group xr_game
    */
-  export function set_start_game_vertex_id(gvid: i32): void;
+  export function set_start_game_vertex_id(this: void, gvid: i32): void;
 
   /**
    * @group xr_game
