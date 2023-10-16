@@ -739,9 +739,9 @@ declare module "xray16" {
      */
     public info_clear(): void;
 
-    public inside(vector: vector): boolean;
+    public inside(position: vector): boolean;
 
-    public inside(vector: vector, value: number /* ? */): boolean;
+    public inside(position: vector, epsilon: f32): boolean;
 
     public inv_box_can_take_status(): boolean;
 
@@ -875,10 +875,55 @@ declare module "xray16" {
 
     public switch_to_upgrade(): void;
 
+    // For weapons / outfits:
+
+    /**
+     * @param upgrade_section - section of upgrade to check
+     * @returns whether upgrade can be added
+     */
+    public can_add_upgrade(upgrade_section: string): boolean;
+
+    /**
+     * @param upgrade_section - section of upgrade to check
+     * @returns whether upgrade can be installed
+     */
+    public can_install_upgrade(upgrade_section: string): boolean;
+
+    /**
+     * @param upgrade_section - section of upgrade to check
+     * @returns whether upgrade is installed
+     */
     public has_upgrade(upgrade_section: string): boolean;
 
+    /**
+     * @param upgrade_group_section - section of upgrade group to check
+     * @returns whether upgrade group is installed
+     */
+    public has_upgrade_group(upgrade_group_section: string): boolean;
+
+    /**
+     * @param upgrade_section - section of upgrade to check parent group
+     * @returns whether upgrade parent group is installed
+     */
+    public has_upgrade_group_by_upgrade_id(upgrade_section: string): boolean;
+
+    /**
+     * @param upgrade_section - section of upgrade to add
+     * @returns whether upgrade is installed successfully or not
+     */
+    public add_upgrade(upgrade_section: string): boolean;
+
+    /**
+     * @param upgrade_section - section of upgrade to install
+     * @returns whether upgrade is installed successfully or not
+     */
     public install_upgrade(upgrade_section: string): boolean;
 
+    /**
+     * Iterate over all item upgrades.
+     *
+     * @param callback - callback to call on each iteration to check installed upgrades
+     */
     public iterate_installed_upgrades(callback: (upgrade_section: string, object: game_object) => void): void;
 
     public target_body_state(): TXR_move;

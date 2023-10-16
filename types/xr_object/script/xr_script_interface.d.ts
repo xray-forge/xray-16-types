@@ -164,6 +164,8 @@ declare module "xray16" {
 
     /**
      * 4 todo;
+     *
+     * Works with script_zone objects.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["zone_enter"],
@@ -173,6 +175,8 @@ declare module "xray16" {
 
     /**
      * 4 todo;
+     *
+     * Works with script_zone objects.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["zone_exit"],
