@@ -127,13 +127,13 @@ declare module "xray16" {
 
     public constructor(section: string);
 
-    public name<T extends string>(): T;
+    public name<T extends string = string>(): T;
 
     public clsid(): TXR_class_id;
 
     public spawn_ini(): ini_file;
 
-    public section_name<T extends string>(): T;
+    public section_name<T extends string = string>(): T;
 
     public UPDATE_Read(packet: net_packet): void;
 
@@ -316,7 +316,7 @@ declare module "xray16" {
     /**
      * @returns object community like `monolith`, `stalker` or `zombied`
      */
-    public community<T extends string>(): T;
+    public community<T extends string = string>(): T;
   }
 
   /**
@@ -698,7 +698,7 @@ declare module "xray16" {
    * @group xr_object_server
    */
   export class cse_smart_cover extends cse_alife_dynamic_object {
-    public description<T extends string>(): T | null;
+    public description<T extends string = string>(): T | null;
 
     public set_available_loopholes(object: unknown): void;
 

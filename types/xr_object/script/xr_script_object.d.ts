@@ -322,9 +322,9 @@ declare module "xray16" {
 
     public change_team(team_id: u8, squad_id: u8, group_id: u8): void;
 
-    public character_icon<T extends string>(): T;
+    public character_icon<T extends string = string>(): T;
 
-    public character_name<T extends string>(): T;
+    public character_name<T extends string = string>(): T;
 
     public character_rank(): i32;
 
@@ -400,7 +400,7 @@ declare module "xray16" {
      */
     public get_script_name(): string;
 
-    public get_visual_name<T extends string>(): T;
+    public get_visual_name<T extends string = string>(): T;
 
     public has_info(value: string): boolean;
 
@@ -1070,7 +1070,7 @@ declare module "xray16" {
     /**
      * @returns object community like `monolith`, `stalker` or `zombied`
      */
-    public character_community<T extends string>(): T;
+    public character_community<T extends string = string>(): T;
 
     public external_sound_stop(): void;
 

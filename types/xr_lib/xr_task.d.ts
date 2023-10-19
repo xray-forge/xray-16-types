@@ -39,7 +39,7 @@ declare module "xray16" {
 
     public set_icon_name(icon_name: string): void;
 
-    public get_icon_name<T extends string>(): T | null;
+    public get_icon_name<T extends string = string>(): T | null;
 
     public set_description(description: string): void;
 

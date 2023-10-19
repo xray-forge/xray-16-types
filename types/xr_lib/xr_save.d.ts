@@ -65,7 +65,7 @@ declare module "xray16" {
 
     public r_seek(value: u32): void;
 
-    public r_stringZ<T extends string>(): T;
+    public r_stringZ<T extends string = string>(): T;
 
     public r_tell(): u32;
 
@@ -166,7 +166,7 @@ declare module "xray16" {
 
     public r_bool(): boolean;
 
-    public r_stringZ<T extends string>(): T;
+    public r_stringZ<T extends string = string>(): T;
 
     public r_float<T extends f32>(value?: T): T;
 
