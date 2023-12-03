@@ -967,7 +967,17 @@ declare module "xray16" {
       type?: Maybe<i32>
     ): void;
 
-    public accessible(vector: vector | u32): boolean;
+    /**
+     * @param position - target position to check
+     * @returns if target position is accessible by the object
+     */
+    public accessible(position: vector): boolean;
+
+    /**
+     * @param vertexId - target vertex ID to check
+     * @returns if target vertex is accessible by the object
+     */
+    public accessible(vertexId: u32): boolean;
 
     public accuracy(): f32;
 
