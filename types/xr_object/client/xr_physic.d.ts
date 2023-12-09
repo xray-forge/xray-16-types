@@ -35,7 +35,7 @@ declare module "xray16" {
    * @group xr_physic
    */
   export class particles_object {
-    public constructor(value: string);
+    public constructor(name: string);
 
     public pause_path(value: boolean): void;
 

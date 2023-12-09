@@ -76,6 +76,8 @@ declare module "xray16" {
 
     public r_string_wq(section: string, field: string): string;
 
+    public r_string_wb(section: string, field: string): string;
+
     public r_string(section: string, field: string): string;
 
     /**
