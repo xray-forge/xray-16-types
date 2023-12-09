@@ -76,8 +76,18 @@ declare module "xray16" {
 
     public r_string_wq(section: string, field: string): string;
 
+    /**
+     * @param section - ini file section
+     * @param field - ini section field
+     * @returns if quoted, parsed string data inside quotes including spaces, else is same data as with r_string
+     */
     public r_string_wb(section: string, field: string): string;
 
+    /**
+     * @param section - ini file section
+     * @param field - ini section field
+     * @returns raw string from ltx file without spaces in it
+     */
     public r_string(section: string, field: string): string;
 
     /**
