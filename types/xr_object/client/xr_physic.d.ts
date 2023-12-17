@@ -47,7 +47,7 @@ declare module "xray16" {
 
     public load_path(path: string): void;
 
-    public start_path(value: boolean): void;
+    public start_path(is_looped: boolean): void;
 
     public stop(): void;
 
