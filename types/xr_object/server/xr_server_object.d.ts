@@ -131,7 +131,7 @@ declare module "xray16" {
 
     public clsid(): TXR_class_id;
 
-    public spawn_ini(): ini_file;
+    public spawn_ini(): ini_file | null;
 
     public section_name<T extends string = string>(): T;
 

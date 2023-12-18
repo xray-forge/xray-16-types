@@ -532,7 +532,7 @@ declare module "xray16" {
 
     public sniper_update_rate(value: boolean): void;
 
-    public spawn_ini(): ini_file;
+    public spawn_ini(): ini_file | null;
 
     public special_danger_move(): boolean;
 
