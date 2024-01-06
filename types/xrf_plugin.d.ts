@@ -1,10 +1,17 @@
 declare global {
   /**
-   * Utility to get current filename, similar to __filename in nodejs.
+   * Utility to get current file name as inline value during transpiling, similar to __filename in node.
    *
    * @group xrf_plugin
    */
   const $filename: string;
+
+  /**
+   * Utility to get current directory name as inline value during transpiling, similar to __dirname in node.
+   *
+   * @group xrf_plugin
+   */
+  const $dirname: string;
 
   /**
    * Utility to transform TS provided array to a lua one.
