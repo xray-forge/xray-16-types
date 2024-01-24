@@ -404,6 +404,6 @@ declare module "xray16" {
 
     public set_patrol_extrapolate_callback(cb?: ((cur_pt: number) => boolean) | null, object?: object): void;
 
-    public set_smart_cover_target_selector(cb?: (object: game_object) => void, object?: object): void;
+    public set_smart_cover_target_selector(cb?: (object: game_object) => void | null, object?: object | null): void;
   }
 }
