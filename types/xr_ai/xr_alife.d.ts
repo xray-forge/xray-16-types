@@ -16,7 +16,7 @@ declare module "xray16" {
       vector: vector,
       level_vertex_id: u32,
       game_vertex_id: u16,
-      pid: u16,
+      parent_object_id: u16,
       count: i32
     ): cse_abstract;
 
@@ -80,17 +80,21 @@ declare module "xray16" {
 
     public valid_object_id(value: u16): boolean;
 
-    public kill_entity(monster1: cse_alife_monster_abstract, value?: u16, monster2?: cse_alife_monster_abstract): void;
+    public kill_entity(
+      monster: cse_alife_monster_abstract,
+      graph_id?: u16,
+      schedulable?: cse_alife_monster_abstract
+    ): void;
 
-    public object<T extends cse_alife_object = cse_alife_object>(id: number, value2?: boolean): T | null;
+    public object<T extends cse_alife_object = cse_alife_object>(object_id: u16, no_assert?: boolean): T | null;
 
-    public create<T extends cse_alife_object = cse_alife_object>(value: u32): T;
+    public create<T extends cse_alife_object = cse_alife_object>(object_id: u16): T;
     public create<T extends cse_alife_object = cse_alife_object>(
       item_section: string,
       position: vector,
       level_vertex_id: u32,
       game_vertex_id: u32,
-      pid?: i32
+      parent_object_id?: u16
     ): T;
   }
 
