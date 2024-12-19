@@ -1,6 +1,6 @@
 {
   "name": "xray16",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": "Neloreck",
   "repository": "https://github.com/stalker-xrts/xray-16-types",
   "private": false,
@@ -16,10 +16,10 @@
     "lint": "eslint . --ext .ts,.tsx,.js"
   },
   "peerDependencies": {
-    "typescript-to-lua": "1.16.3"
+    "typescript-to-lua": "^1.28.1"
   },
   "devDependencies": {
-    "@types/node": "20.3.1",
+    "@types/node": "22.10.2",
     "@typescript-eslint/eslint-plugin": "^5.54.0",
     "@typescript-eslint/parser": "^5.54.0",
     "@typescript-to-lua/language-extensions": "1.0.0",
@@ -29,9 +29,9 @@
     "eslint-plugin-jest": "^27.2.1",
     "eslint-plugin-jsdoc": "^46.8.0",
     "eslint-plugin-sort-keys-fix": "^1.1.2",
-    "prettier": "^3.0.1",
-    "typedoc": "^0.24.8",
-    "typescript": "5.1.6"
+    "prettier": "^3.4.2",
+    "typedoc": "^0.27.5",
+    "typescript": "^5.7.2"
   },
   "files": [
     "plugins/**/*",

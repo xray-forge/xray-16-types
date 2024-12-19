@@ -6,12 +6,12 @@ import {
   factory,
   getDecorators,
   isAccessor,
-  isConstructorDeclaration,
+  isConstructorDeclaration, isGetAccessor,
   isMethodDeclaration,
-  isPropertyDeclaration,
+  isPropertyDeclaration, isSetAccessor,
 } from "typescript";
 import * as tstl from "typescript-to-lua";
-import { LuaTarget, TransformationContext } from "typescript-to-lua";
+import { AllAccessorDeclarations, LuaTarget, TransformationContext } from "typescript-to-lua";
 import {
   createDefaultExportExpression,
   createExportedIdentifier,
@@ -186,7 +186,7 @@ export function transformClassLikeDeclaration(
   for (const member of classDeclaration.members) {
     if (!isAccessor(member)) continue;
 
-    const accessors = context.resolver.getAllAccessorDeclarations(member);
+    const accessors = getAllAccessorDeclarations(classDeclaration);
 
     if (accessors.firstAccessor !== member) continue;
 
@@ -239,4 +239,18 @@ export function transformClassLikeDeclaration(
   context.classSuperInfos.pop();
 
   return { statements: result, name: className };
+}
+
+function getAllAccessorDeclarations(classDeclaration: ClassLikeDeclaration): AllAccessorDeclarations {
+  const getAccessor = classDeclaration.members.find(isGetAccessor);
+  const setAccessor = classDeclaration.members.find(isSetAccessor);
+  // Get the first of the two (that is not undefined)
+  const firstAccessor =
+    getAccessor && (!setAccessor || getAccessor.pos < setAccessor.pos) ? getAccessor : setAccessor!;
+
+  return {
+    firstAccessor,
+    setAccessor,
+    getAccessor,
+  };
 }
