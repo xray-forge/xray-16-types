@@ -67,6 +67,10 @@ declare module "xray16" {
 
     public constructor();
 
+    public SetEnterLocked(is_enabled: boolean): void;
+
+    public SetExitLocked(is_enabled: boolean): void;
+
     public CanHit(): boolean;
 
     public CarExplode(): void;
