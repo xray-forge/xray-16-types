@@ -378,5 +378,4 @@ declare module "xray16" {
    * @group xr_ui_event
    */
   export function dik_to_bind(this: void, keycode: i32): i32;
-
 }

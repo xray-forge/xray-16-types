@@ -1,4 +1,3 @@
-
 declare module "xray16" {
   /**
    * @source C++ class physics_element
@@ -194,8 +193,22 @@ declare module "xray16" {
   export class holder {
     public engaged(): boolean;
 
-    public Action(value1: u16, value2: u32): void;
+    public Action(id: u16, flags: u32): void;
 
-    public SetParam(value: i32, vector: vector): void;
+    public SetParam(id: i32, value: vector): void;
+
+    /**
+     * Set holder object enter state.
+     *
+     * @param is_enabled - whether holder object can be entered
+     */
+    public SetEnterLocked(is_enabled: boolean): void;
+
+    /**
+     * Set holder object exist state.
+     *
+     * @param is_enabled - whether holder object can be exited
+     */
+    public SetExitLocked(is_enabled: boolean): void;
   }
 }

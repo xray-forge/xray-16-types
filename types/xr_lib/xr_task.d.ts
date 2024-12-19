@@ -35,8 +35,6 @@ declare module "xray16" {
   export class SGameTaskObjective {
     public constructor(task: CGameTask, id: i32);
 
-    public remove_map_locations(flag: boolean): void;
-
     public set_icon_name(icon_name: string): void;
 
     public get_icon_name<T extends string = string>(): T | null;
@@ -75,7 +73,21 @@ declare module "xray16" {
 
     public set_map_hint(hint: string): void;
 
-    public change_map_location(value: string, value2: u16): void;
+    /**
+     * @returns target map location of task object
+     */
+    public get_map_location(): string;
+
+    /**
+     * @returns target map object ID of task object
+     */
+    public get_map_object_id(): u16;
+
+    public change_map_location(new_map_location: string, new_map_object_id: u16): void;
+
+    public remove_map_locations(notify: boolean): void;
+
+    public create_map_location(on_load: boolean): void;
 
     public set_map_object_id(id: i32): void;
   }

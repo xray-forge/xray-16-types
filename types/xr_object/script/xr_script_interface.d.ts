@@ -55,11 +55,6 @@ declare module "xray16" {
    */
   export class callback {
     /**
-     * Placeholder.
-     */
-    public static readonly dummy: -1;
-
-    /**
      * Default x-ray 16 callbacks.
      */
     public static readonly trade_start: 0;
@@ -98,28 +93,31 @@ declare module "xray16" {
     public static readonly trader_sound_end: 33;
     public static readonly take_item_from_box: 34;
     public static readonly weapon_no_ammo: 35;
+    public static readonly hud_animation_end: 36;
 
-    /**
-     * Custom callbacks from open x-ray:
-     */
-    public static readonly key_press: 36;
-    public static readonly key_release: 37;
-    public static readonly key_hold: 38;
-    public static readonly mouse_move: 39;
-    public static readonly mouse_wheel: 40;
-    public static readonly controller_press: 41;
-    public static readonly controller_release: 42;
-    public static readonly controller_hold: 43;
-    public static readonly item_to_belt: 44;
-    public static readonly item_to_slot: 45;
-    public static readonly item_to_ruck: 46;
-    public static readonly actor_before_death: 47;
-    public static readonly on_attach_vehicle: 48;
-    public static readonly on_detach_vehicle: 49;
-    public static readonly on_use_vehicle: 50;
-    public static readonly weapon_zoom_in: 51;
-    public static readonly weapon_zoom_out: 52;
-    public static readonly weapon_jammed: 53;
+    public static readonly key_press: 37;
+    public static readonly key_release: 38;
+    public static readonly key_hold: 39;
+    public static readonly mouse_move: 40;
+    public static readonly mouse_wheel: 41;
+    public static readonly controller_press: 42;
+    public static readonly controller_release: 43;
+    public static readonly controller_hold: 44;
+    // public static readonly controller_attitude_change: 45;
+
+    public static readonly item_to_belt: 46;
+    public static readonly item_to_slot: 47;
+    public static readonly item_to_ruck: 48;
+
+    public static readonly weapon_zoom_in: 49;
+    public static readonly weapon_zoom_out: 50;
+    public static readonly weapon_jammed: 51;
+    public static readonly weapon_magazine_empty: 52;
+
+    public static readonly actor_before_death: 53;
+    public static readonly on_attach_vehicle: 54;
+    public static readonly on_detach_vehicle: 55;
+    public static readonly on_use_vehicle: 56;
   }
 
   /**
@@ -251,13 +249,13 @@ declare module "xray16" {
       type: TXR_callbacks["hit"],
       cb?:
         | ((
-        this: void,
-        object: game_object,
-        damage: number,
-        direction: vector,
-        who: game_object,
-        bone_id: number
-      ) => void)
+            this: void,
+            object: game_object,
+            damage: number,
+            direction: vector,
+            who: game_object,
+            bone_id: number
+          ) => void)
         | null,
       object?: Maybe<T>
     ): void;
@@ -269,13 +267,13 @@ declare module "xray16" {
       type: TXR_callbacks["sound"],
       cb?:
         | ((
-        this: void,
-        object: game_object,
-        source_id: number,
-        sound_type: TXR_snd_type,
-        position: vector,
-        sound_power: number
-      ) => void)
+            this: void,
+            object: game_object,
+            source_id: number,
+            sound_type: TXR_snd_type,
+            position: vector,
+            sound_power: number
+          ) => void)
         | null,
       object?: Maybe<T>
     ): void;

@@ -75,7 +75,11 @@ declare module "xray16" {
    * @source C++ class cse_alife_inventory_item
    * @group xr_object_server
    */
-  export interface IXR_cse_alife_inventory_item {}
+  export interface IXR_cse_alife_inventory_item {
+    has_upgrade(section: string): boolean;
+
+    add_upgrade(section: string): boolean;
+  }
 
   /**
    * @source C++ class cse_alife_object_breakable : cse_alife_dynamic_object_visual
@@ -343,6 +347,10 @@ declare module "xray16" {
    */
   export class cse_alife_item extends cse_alife_dynamic_object_visual implements IXR_cse_alife_inventory_item {
     public bfUseful(): boolean;
+
+    public has_upgrade(section: string): boolean;
+
+    public add_upgrade(section: string): boolean;
   }
 
   /**
@@ -354,6 +362,12 @@ declare module "xray16" {
    */
   export class cse_alife_item_weapon extends cse_alife_item {
     public clone_addons(cse_alife_item_weapon: cse_alife_item_weapon): void;
+
+    public set_ammo_elapsed(count: u16): void;
+
+    public get_ammo_elapsed(): u16;
+
+    public get_ammo_magsize(): u16;
   }
 
   /**
@@ -432,7 +446,7 @@ declare module "xray16" {
    * @customConstructor cse_alife_monster_rat
    * @group xr_object_server
    */
-  export class cse_alife_monster_rat extends cse_alife_monster_abstract implements IXR_cse_alife_inventory_item {}
+  export class cse_alife_monster_rat extends cse_alife_monster_abstract {}
 
   /**
    * @source C++ class cse_alife_monster_zombie : cse_alife_monster_abstract

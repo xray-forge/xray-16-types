@@ -66,5 +66,4 @@ declare module "xray16" {
    * @returns whether renderer setting can be changed
    */
   export function renderer_allow_override(this: void): boolean;
-
 }

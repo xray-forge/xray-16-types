@@ -502,6 +502,8 @@ declare module "xray16" {
 
     public set_character_rank(value: i32): void;
 
+    public set_character_reputation(value: i32): void;
+
     public set_collision_off(value: boolean): void;
 
     public set_default_panic_threshold(): void;
@@ -619,6 +621,8 @@ declare module "xray16" {
     public change_character_reputation(value: i32): void;
 
     public change_goodwill(delta_goodwill: i32, to_object: game_object): void;
+
+    public change_character_rank(value: i32): void;
 
     public character_reputation(): i32;
 
@@ -1302,24 +1306,85 @@ declare module "xray16" {
     public force_set_position(position: vector, bool: boolean): void;
 
     public get_ammo_count_for_type(type: u8): i32;
+
+    public weapon_in_grenade_mode(): boolean;
+
+    public is_entity_alive(): boolean;
+
+    public is_inventory_item(): boolean;
+
+    public is_inventory_owner(): boolean;
+
+    public is_actor(): boolean;
+
+    public is_custom_monster(): boolean;
+
+    public is_weapon(): boolean;
+
+    public is_outfit(): boolean;
+
+    public is_scope(): boolean;
+
+    public is_silencer(): boolean;
+
+    public is_grenade_launcher(): boolean;
+
+    public is_weapon_magazined(): boolean;
+
+    public is_space_restrictor(): boolean;
+
+    public is_stalker(): boolean;
+
+    public is_anomaly(): boolean;
+
+    public is_monster(): boolean;
+
+    public is_artefact(): boolean;
+
+    public is_ammo(): boolean;
+
+    public is_trader(): boolean;
+
+    public is_hud_item(): boolean;
+
+    public is_weapon_gl(): boolean;
+
+    public is_inventory_box(): boolean;
   }
 
   /*
-  * vector<MemorySpace::CNotYetVisibleObject,xalloc<MemorySpace::CNotYetVisibleObject> > not_yet_visible_objects();
-  * vector<MemorySpace::CSoundObject,xalloc<MemorySpace::CSoundObject>> memory_sound_objects();
-  * enum DetailPathManager::EDetailPathType detail_path_type();
-  * enum ETaskState get_task_state(char const*);
-  * enum MonsterSpace::EBodyState body_state();
-  * enum MonsterSpace::EBodyState target_body_state();
-  * enum MonsterSpace::EMentalState mental_state();
-  * enum MonsterSpace::EMentalState target_mental_state();
-  * enum MonsterSpace::EMovementType movement_type();
-  * enum MovementManager::EPathType path_type();
-  * remove_danger();
-  * remove_memory_sound_object();
-  * remove_memory_visible_object();
-  * remove_memory_hit_object();
-  * void iterate_feel_touch(function<void>);
-  * }
-  */
+   * vector<MemorySpace::CNotYetVisibleObject,xalloc<MemorySpace::CNotYetVisibleObject> > not_yet_visible_objects();
+   * vector<MemorySpace::CSoundObject,xalloc<MemorySpace::CSoundObject>> memory_sound_objects();
+   * enum DetailPathManager::EDetailPathType detail_path_type();
+   * enum ETaskState get_task_state(char const*);
+   * enum MonsterSpace::EBodyState body_state();
+   * enum MonsterSpace::EBodyState target_body_state();
+   * enum MonsterSpace::EMentalState mental_state();
+   * enum MonsterSpace::EMentalState target_mental_state();
+   * enum MonsterSpace::EMovementType movement_type();
+   * enum MovementManager::EPathType path_type();
+   * remove_danger();
+   * remove_memory_sound_object();
+   * remove_memory_visible_object();
+   * remove_memory_hit_object();
+   * void iterate_feel_touch(function<void>);
+   * }
+   *
+   * //.def("is_medkit", &CScriptGameObject::IsMedkit)
+   * //.def("is_eatable_item", &CScriptGameObject::IsEatableItem)
+   * //.def("is_antirad", &CScriptGameObject::IsAntirad)
+   * //.def("is_game_object", &CScriptGameObject::IsGameObject)
+   * //.def("is_car", &CScriptGameObject::IsCar)
+   * //.def("is_helicopter", &CScriptGameObject::IsHeli)
+   * //.def("is_holder", &CScriptGameObject::IsHolderCustom)
+   * //.def("is_explosive", &CScriptGameObject::IsExplosive)
+   * //.def("is_script_zone", &CScriptGameObject::IsScriptZone)
+   * //.def("is_projector", &CScriptGameObject::IsProjector)
+   * //.def("is_food_item", &CScriptGameObject::IsFoodItem)
+   * //.def("is_missile", &CScriptGameObject::IsMissile)
+   * //.def("is_physics_shell_holder", &CScriptGameObject::IsPhysicsShellHolder)
+   * //.def("is_grenade", &CScriptGameObject::IsGrenade)
+   * //.def("is_bottle_item", &CScriptGameObject::IsBottleItem)
+   * //.def("is_torch", &CScriptGameObject::IsTorch)
+   */
 }
