@@ -1,3 +1,5 @@
+import { vector2 } from "xray16";
+
 declare module "xray16" {
   /**
    * @source C++ class CUIWindow
@@ -152,6 +154,12 @@ declare module "xray16" {
     public SetVertScroll(enabled: boolean): void;
 
     public SetCurrentID(id: i32): void;
+
+    public SetCurrentIdx(index: u32): void;
+
+    public GetCurrentIdx(): u32;
+
+    public SetCurrentValue(): void;
   }
 
   /**
@@ -449,7 +457,7 @@ declare module "xray16" {
 
     public GetRange_min(): f32;
 
-    public SetProgressPos(value: f32): void;
+    public SetProgressPos(position: f32): void;
 
     public GetProgressPos(): f32;
   }
@@ -469,6 +477,10 @@ declare module "xray16" {
     public Show(show: boolean): void;
 
     public Show(int1: i32, int2: i32): void;
+
+    public GetSelectedItem(): CUIListBoxItem;
+
+    public InitPropertiesBox(position: vector2, size: vector2): void;
   }
 
   /**
@@ -551,6 +563,8 @@ declare module "xray16" {
   export class CUIStatic extends CUIWindow {
     public GetColor(): u32;
 
+    public SetColor(color: u32): void;
+
     public TextControl(): CUILines;
 
     public GetTextureRect(): Frect;
@@ -564,6 +578,10 @@ declare module "xray16" {
     public InitTexture(texture: string): void;
 
     public SetTextColor(r: i32, g: i32, b: i32, a: i32): void;
+
+    public SetTextureColor(color: u32): void;
+
+    public GetTextureColor(): u32;
 
     public SetHeading(number: f32): void;
 
@@ -586,8 +604,6 @@ declare module "xray16" {
     public GetTextX(): f32;
 
     public SetTextureOffset(x: f32, y: f32): void;
-
-    public SetColor(color: u32): void;
 
     public SetElipsis(a: i32, b: i32): void;
 
@@ -829,6 +845,10 @@ declare module "xray16" {
     public GetActiveSection(): string;
 
     public GetTabControl(): CUITabControl;
+
+    public SetActiveDialog(dialog: CUIWindow | null): void;
+
+    public GetActiveDialog(): CUIWindow | null;
   }
 
   /**
@@ -850,6 +870,10 @@ declare module "xray16" {
     ): void;
 
     public refresh_current_cell_item(): void;
+
+    public ToSlot(object: game_object, force_place: boolean, slot_id: u16): boolean;
+
+    public ToBelt(object: game_object, use_cursor_position: boolean): boolean;
   }
 
   /**

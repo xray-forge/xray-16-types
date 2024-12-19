@@ -81,17 +81,30 @@ declare module "xray16" {
 
     public FireDirDiff(): f32;
 
+    /**
+     * @returns amount of fuel in vehicle instance
+     */
     public GetfFuel(): f32;
 
+    /**
+     * @returns fuel consumption rate of vehicle instance
+     */
     public GetfFuelConsumption(): f32;
 
+    /**
+     * @returns fuel tank size (max possible amount of fuel at time)
+     */
     public GetfFuelTank(): f32;
 
+    /**
+     * @returns vehicle health value
+     */
     public GetfHealth(): f32;
 
+    /**
+     * @returns whether vehicle has mounted weapon
+     */
     public HasWeapon(): boolean;
-
-    public IsActiveEngine(): boolean;
 
     public IsObjectVisible(game_object: game_object): boolean;
 
@@ -107,11 +120,44 @@ declare module "xray16" {
 
     public SetfHealth(health: f32): void;
 
+    /**
+     * @returns whether vehicle engine is active at the moment
+     */
+    public IsActiveEngine(): boolean;
+
+    /**
+     * Start vehicle engine.
+     */
     public StartEngine(): void;
 
-    public StopDamageParticles(): void;
-
+    /**
+     * Stop vehicle engine.
+     */
     public StopEngine(): void;
+
+    /**
+     * Set vehicle hand break in active state.
+     */
+    public HandBreak(): void;
+
+    /**
+     * Deactivate vehicle hand break.
+     */
+    public ReleaseHandBreak(): void;
+
+    /**
+     * @returns current vehicle RPM value (speed)
+     */
+    public GetRPM(): f32;
+
+    /**
+     * Set current vehicle RPM value (speed).
+     *
+     * @param rpm - RPM value to apply
+     */
+    public SetRPM(rpm: f32): void;
+
+    public StopDamageParticles(): void;
 
     public engaged(): boolean;
 

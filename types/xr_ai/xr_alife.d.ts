@@ -90,11 +90,21 @@ declare module "xray16" {
 
     public create<T extends cse_alife_object = cse_alife_object>(object_id: u16): T;
     public create<T extends cse_alife_object = cse_alife_object>(
-      item_section: string,
+      section: string,
       position: vector,
       level_vertex_id: u32,
       game_vertex_id: u32,
       parent_object_id?: u16
+    ): T;
+    // Alundaio: Allows to call alife():register(se_obj) manually afterward,editing
+    // Alundaio: so that packet can be done safely when spawning object with a parent.
+    public create<T extends cse_alife_object = cse_alife_object>(
+      section: string,
+      position: vector,
+      level_vertex_id: u32,
+      game_vertex_id: u32,
+      parent_object_id: u16,
+      reg: boolean
     ): T;
   }
 
