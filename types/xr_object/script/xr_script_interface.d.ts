@@ -118,7 +118,6 @@ declare module "xray16" {
     public static readonly on_attach_vehicle: 54;
     public static readonly on_detach_vehicle: 55;
     public static readonly on_use_vehicle: 56;
-
   }
 
   /**
@@ -250,13 +249,13 @@ declare module "xray16" {
       type: TXR_callbacks["hit"],
       cb?:
         | ((
-        this: void,
-        object: game_object,
-        damage: number,
-        direction: vector,
-        who: game_object,
-        bone_id: number
-      ) => void)
+            this: void,
+            object: game_object,
+            damage: number,
+            direction: vector,
+            who: game_object,
+            bone_id: number
+          ) => void)
         | null,
       object?: Maybe<T>
     ): void;
@@ -268,13 +267,13 @@ declare module "xray16" {
       type: TXR_callbacks["sound"],
       cb?:
         | ((
-        this: void,
-        object: game_object,
-        source_id: number,
-        sound_type: TXR_snd_type,
-        position: vector,
-        sound_power: number
-      ) => void)
+            this: void,
+            object: game_object,
+            source_id: number,
+            sound_type: TXR_snd_type,
+            position: vector,
+            sound_power: number
+          ) => void)
         | null,
       object?: Maybe<T>
     ): void;

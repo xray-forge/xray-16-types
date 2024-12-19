@@ -76,9 +76,9 @@ declare module "xray16" {
    * @group xr_object_server
    */
   export interface IXR_cse_alife_inventory_item {
-     has_upgrade(section: string): boolean;
+    has_upgrade(section: string): boolean;
 
-     add_upgrade(section: string): boolean;
+    add_upgrade(section: string): boolean;
   }
 
   /**

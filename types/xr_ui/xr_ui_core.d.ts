@@ -73,7 +73,6 @@ declare module "xray16" {
     public InitHint(selector: string, parent: CUIWindow | null): UIHint;
 
     public InitWindow(selector: string, index: i32, parent: CUIWindow | null): void;
-
   }
 
   /**

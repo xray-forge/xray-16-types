@@ -1,4 +1,3 @@
-
 declare module "xray16" {
   /**
    * @source C++ class physics_element

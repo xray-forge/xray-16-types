@@ -1353,38 +1353,38 @@ declare module "xray16" {
   }
 
   /*
-  * vector<MemorySpace::CNotYetVisibleObject,xalloc<MemorySpace::CNotYetVisibleObject> > not_yet_visible_objects();
-  * vector<MemorySpace::CSoundObject,xalloc<MemorySpace::CSoundObject>> memory_sound_objects();
-  * enum DetailPathManager::EDetailPathType detail_path_type();
-  * enum ETaskState get_task_state(char const*);
-  * enum MonsterSpace::EBodyState body_state();
-  * enum MonsterSpace::EBodyState target_body_state();
-  * enum MonsterSpace::EMentalState mental_state();
-  * enum MonsterSpace::EMentalState target_mental_state();
-  * enum MonsterSpace::EMovementType movement_type();
-  * enum MovementManager::EPathType path_type();
-  * remove_danger();
-  * remove_memory_sound_object();
-  * remove_memory_visible_object();
-  * remove_memory_hit_object();
-  * void iterate_feel_touch(function<void>);
-  * }
-  *
-  * //.def("is_medkit", &CScriptGameObject::IsMedkit)
-  * //.def("is_eatable_item", &CScriptGameObject::IsEatableItem)
-  * //.def("is_antirad", &CScriptGameObject::IsAntirad)
-  * //.def("is_game_object", &CScriptGameObject::IsGameObject)
-  * //.def("is_car", &CScriptGameObject::IsCar)
-  * //.def("is_helicopter", &CScriptGameObject::IsHeli)
-  * //.def("is_holder", &CScriptGameObject::IsHolderCustom)
-  * //.def("is_explosive", &CScriptGameObject::IsExplosive)
-  * //.def("is_script_zone", &CScriptGameObject::IsScriptZone)
-  * //.def("is_projector", &CScriptGameObject::IsProjector)
-  * //.def("is_food_item", &CScriptGameObject::IsFoodItem)
-  * //.def("is_missile", &CScriptGameObject::IsMissile)
-  * //.def("is_physics_shell_holder", &CScriptGameObject::IsPhysicsShellHolder)
-  * //.def("is_grenade", &CScriptGameObject::IsGrenade)
-  * //.def("is_bottle_item", &CScriptGameObject::IsBottleItem)
-  * //.def("is_torch", &CScriptGameObject::IsTorch)
-  */
+   * vector<MemorySpace::CNotYetVisibleObject,xalloc<MemorySpace::CNotYetVisibleObject> > not_yet_visible_objects();
+   * vector<MemorySpace::CSoundObject,xalloc<MemorySpace::CSoundObject>> memory_sound_objects();
+   * enum DetailPathManager::EDetailPathType detail_path_type();
+   * enum ETaskState get_task_state(char const*);
+   * enum MonsterSpace::EBodyState body_state();
+   * enum MonsterSpace::EBodyState target_body_state();
+   * enum MonsterSpace::EMentalState mental_state();
+   * enum MonsterSpace::EMentalState target_mental_state();
+   * enum MonsterSpace::EMovementType movement_type();
+   * enum MovementManager::EPathType path_type();
+   * remove_danger();
+   * remove_memory_sound_object();
+   * remove_memory_visible_object();
+   * remove_memory_hit_object();
+   * void iterate_feel_touch(function<void>);
+   * }
+   *
+   * //.def("is_medkit", &CScriptGameObject::IsMedkit)
+   * //.def("is_eatable_item", &CScriptGameObject::IsEatableItem)
+   * //.def("is_antirad", &CScriptGameObject::IsAntirad)
+   * //.def("is_game_object", &CScriptGameObject::IsGameObject)
+   * //.def("is_car", &CScriptGameObject::IsCar)
+   * //.def("is_helicopter", &CScriptGameObject::IsHeli)
+   * //.def("is_holder", &CScriptGameObject::IsHolderCustom)
+   * //.def("is_explosive", &CScriptGameObject::IsExplosive)
+   * //.def("is_script_zone", &CScriptGameObject::IsScriptZone)
+   * //.def("is_projector", &CScriptGameObject::IsProjector)
+   * //.def("is_food_item", &CScriptGameObject::IsFoodItem)
+   * //.def("is_missile", &CScriptGameObject::IsMissile)
+   * //.def("is_physics_shell_holder", &CScriptGameObject::IsPhysicsShellHolder)
+   * //.def("is_grenade", &CScriptGameObject::IsGrenade)
+   * //.def("is_bottle_item", &CScriptGameObject::IsBottleItem)
+   * //.def("is_torch", &CScriptGameObject::IsTorch)
+   */
 }

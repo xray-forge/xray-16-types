@@ -1,5 +1,4 @@
 declare module "xray16" {
-
   /**
    * Enumeration with possible game types:
    * - eGameIDNoGame = u32(0),
