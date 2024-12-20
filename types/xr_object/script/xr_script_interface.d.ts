@@ -145,9 +145,23 @@ declare module "xray16" {
      */
     public set_callback(type: TXR_callback, cb: null): void;
 
-    // 0 todo: trade start
+    /**
+     * 0 todo;
+     */
+    public set_callback<T extends AnyObject>(
+      type: TXR_callbacks["trade_start"],
+      cb?: ((this: void) => void) | null,
+      object?: Maybe<T>
+    ): void;
 
-    // 1 todo: trade stop
+    /**
+     * 1 todo;
+     */
+    public set_callback<T extends AnyObject>(
+      type: TXR_callbacks["trade_stop"],
+      cb?: ((this: void) => void) | null,
+      object?: Maybe<T>
+    ): void;
 
     /**
      * 2 todo;
@@ -158,7 +172,14 @@ declare module "xray16" {
       object?: Maybe<T>
     ): void;
 
-    // 3 todo: trade_perform_operation
+    /**
+     * 3 todo;
+     */
+    public set_callback<T extends AnyObject>(
+      type: TXR_callbacks["trade_perform_operation"],
+      cb?: ((this: void, money_get: u32, money_put: u32) => void) | null,
+      object?: Maybe<T>
+    ): void;
 
     /**
      * 4 todo;
@@ -172,7 +193,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 4 todo;
+     * 5 todo;
      *
      * Works with script_zone objects.
      */
@@ -182,9 +203,23 @@ declare module "xray16" {
       object?: Maybe<T>
     ): void;
 
-    // 6 todo: level_border_exit
+    /**
+     * 6 todo;
+     */
+    public set_callback<T extends AnyObject>(
+      type: TXR_callbacks["level_border_exit"],
+      cb?: ((this: void, xobject: game_object) => void) | null,
+      object?: Maybe<T>
+    ): void;
 
-    // 7 todo: level_border_enter
+    /**
+     * 7 todo;
+     */
+    public set_callback<T extends AnyObject>(
+      type: TXR_callbacks["level_border_enter"],
+      cb?: ((this: void, xobject: game_object) => void) | null,
+      object?: Maybe<T>
+    ): void;
 
     /**
      * 8 todo;
@@ -204,7 +239,7 @@ declare module "xray16" {
       object?: Maybe<T>
     ): void;
 
-    // 10 todo: inventory_pda
+    // 10 todo: inventory_pda -> implement in game engine
 
     /**
      * 11 todo:
@@ -215,7 +250,7 @@ declare module "xray16" {
       object?: Maybe<T>
     ): void;
 
-    // 12 todo: article_info
+    // 12 todo: article_info -> implement in game engine
 
     /**
      * 13 todo;
@@ -226,7 +261,14 @@ declare module "xray16" {
       object?: Maybe<T>
     ): void;
 
-    // 14 todo: map_location_added
+    /**
+     * 14 todo;
+     */
+    public set_callback<T extends AnyObject>(
+      type: TXR_callbacks["map_location_added"],
+      cb?: ((this: void, spot_type: string, id: u16) => void) | null,
+      object?: Maybe<T>
+    ): void;
 
     /**
      * 15 Use some object.
@@ -278,7 +320,14 @@ declare module "xray16" {
       object?: Maybe<T>
     ): void;
 
-    // 18 todo: action_movement
+    /**
+     * 18 todo;
+     */
+    public set_callback<T extends AnyObject>(
+      type: TXR_callbacks["action_movement"],
+      cb?: ((this: void, object: game_object, movement_type: u32 /* EMovementType */, unknown: -1) => void) | null,
+      object?: Maybe<T>
+    ): void;
 
     // 19 todo: action_watch
 
@@ -292,7 +341,7 @@ declare module "xray16" {
 
     // 24 todo: action_object
 
-    // 25 todo: actor_sleep
+    // 25 todo: actor_sleep -> implement in game engine
 
     /**
      * 26 todo;
@@ -339,11 +388,32 @@ declare module "xray16" {
       object?: object | null
     ): void;
 
-    // 31 todo: trader_global_anim_request
+    /**
+     * 31 todo;
+     */
+    public set_callback<T extends AnyObject>(
+      type: TXR_callbacks["trader_global_anim_request"],
+      cb?: ((this: void) => void) | null,
+      object?: Maybe<T>
+    ): void;
 
-    // 32 todo: trader_head_anim_request
+    /**
+     * 32 todo;
+     */
+    public set_callback<T extends AnyObject>(
+      type: TXR_callbacks["trader_head_anim_request"],
+      cb?: ((this: void) => void) | null,
+      object?: Maybe<T>
+    ): void;
 
-    // 33 todo: trader_sound_end
+    /**
+     * 33 todo;
+     */
+    public set_callback<T extends AnyObject>(
+      type: TXR_callbacks["trader_sound_end"],
+      cb?: ((this: void) => void) | null,
+      object?: Maybe<T>
+    ): void;
 
     /**
      * 34 todo;
@@ -354,43 +424,150 @@ declare module "xray16" {
       object?: Maybe<T>
     ): void;
 
-    // 35 todo: weapon_no_ammo
+    /**
+     * 35 Callback executed when weapon has no ammo to fire.
+     */
+    public set_callback<T extends AnyObject>(
+      type: TXR_callbacks["weapon_no_ammo"],
+      cb?: ((this: void, object: game_object, suitable_ammo_total: i32) => void) | null,
+      object?: Maybe<T>
+    ): void;
 
-    // 36 todo: key_press
+    /**
+     * 36 Callback executed on hud animation stop.
+     * Called from CHudItem class internals.
+     */
+    public set_callback<T extends AnyObject>(
+      type: TXR_callbacks["hud_animation_end"],
+      cb?:
+        | ((
+            this: void,
+            object: game_object,
+            hud_section: string,
+            current_motion: string,
+            state: u32,
+            animation_slot: u32
+          ) => void)
+        | null,
+      object?: Maybe<T>
+    ): void;
 
-    // 37 todo: key_release
+    /**
+     * 37 todo;
+     */
+    public set_callback<T extends AnyObject>(
+      type: TXR_callbacks["key_press"],
+      cb?: ((this: void, key: i32) => void) | null,
+      object?: Maybe<T>
+    ): void;
 
-    // 38 todo: key_hold
+    /**
+     * 38 todo;
+     */
+    public set_callback<T extends AnyObject>(
+      type: TXR_callbacks["key_release"],
+      cb?: ((this: void, key: i32) => void) | null,
+      object?: Maybe<T>
+    ): void;
 
-    // 39 todo: mouse_move
+    /**
+     * 39 todo;
+     */
+    public set_callback<T extends AnyObject>(
+      type: TXR_callbacks["key_hold"],
+      cb?: ((this: void, key: i32) => void) | null,
+      object?: Maybe<T>
+    ): void;
 
-    // 40 todo: mouse_wheel
+    // 40 todo: mouse_move
 
-    // 41 todo: controller_press
+    // 41 todo: mouse_wheel
 
-    // 42 todo: controller_release
+    // 42 todo: controller_press
 
-    // 43 todo: controller_hold
+    // 43 todo: controller_release
 
-    // 44 todo: item_to_belt
+    // 44 todo: controller_hold
 
-    // 45 todo: item_to_slot
+    // 45 todo: controller_attitude_change
 
-    // 46 todo: item_to_ruck
+    /**
+     * 46 todo: item_to_belt
+     */
+    public set_callback<T extends AnyObject>(
+      type: TXR_callbacks["item_to_belt"],
+      cb?: ((this: void, object: game_object) => void) | null,
+      object?: Maybe<T>
+    ): void;
 
-    // 47 todo: actor_before_death
+    /**
+     * 47 todo: item_to_slot
+     */
+    public set_callback<T extends AnyObject>(
+      type: TXR_callbacks["item_to_slot"],
+      cb?: ((this: void, object: game_object) => void) | null,
+      object?: Maybe<T>
+    ): void;
 
-    // 48 todo: on_attach_vehicle
+    /**
+     * 48 todo: item_to_ruck
+     */
+    public set_callback<T extends AnyObject>(
+      type: TXR_callbacks["item_to_ruck"],
+      cb?: ((this: void, object: game_object) => void) | null,
+      object?: Maybe<T>
+    ): void;
 
-    // 49 todo: on_detach_vehicle
+    /**
+     * 49 Callback executed when weapon is zoomed in.
+     */
+    public set_callback<T extends AnyObject>(
+      type: TXR_callbacks["weapon_zoom_in"],
+      cb?: ((this: void, owner: game_object, weapon: game_object) => void) | null,
+      object?: Maybe<T>
+    ): void;
 
-    // 50 todo: on_use_vehicle
+    /**
+     * 50 Callback executed when weapon is zoomed out.
+     */
+    public set_callback<T extends AnyObject>(
+      type: TXR_callbacks["weapon_zoom_out"],
+      cb?: ((this: void, owner: game_object, weapon: game_object) => void) | null,
+      object?: Maybe<T>
+    ): void;
 
-    // 51 todo: weapon_zoom_in
+    /**
+     * 51 Callback executed when magazine ammo is elapsed and empty.
+     */
+    public set_callback<T extends AnyObject>(
+      type: TXR_callbacks["weapon_jammed"],
+      cb?: ((this: void, owner: game_object, weapon: game_object) => void) | null,
+      object?: Maybe<T>
+    ): void;
 
-    // 52 todo: weapon_zoom_out
+    /**
+     * 52 Callback executed when magazine ammo is elapsed and empty.
+     */
+    public set_callback<T extends AnyObject>(
+      type: TXR_callbacks["weapon_magazine_empty"],
+      cb?: ((this: void, object: game_object, suitable_ammo_total: i32) => void) | null,
+      object?: Maybe<T>
+    ): void;
 
-    // 53 todo: weapon_jammed
+    /**
+     * 53 todo: actor_before_death
+     */
+    public set_callback<T extends AnyObject>(
+      type: TXR_callbacks["actor_before_death"],
+      cb?: ((this: void, killer_id: u16) => void) | null,
+      object?: Maybe<T>
+    ): void;
+
+    // 54 todo: on_attach_vehicle
+
+    // 55 todo: on_detach_vehicle
+
+    // 56 todo: on_use_vehicle
 
     public clear_callbacks(): void;
 
