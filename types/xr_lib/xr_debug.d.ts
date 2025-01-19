@@ -1,28 +1,5 @@
 declare module "xray16" {
   /**
-   * @source C++ class profile_timer
-   * @customConstructor profile_timer
-   * @group xr_debug
-   */
-  export class profile_timer extends EngineBinding {
-    public constructor();
-    public constructor(timer: profile_timer);
-
-    public stop(): void;
-
-    public start(): void;
-
-    public time(): f32;
-
-    /**
-     * Overridden string cast is implemented for profiling timer.
-     *
-     * @returns serialized profile time.
-     */
-    public toString(): string;
-  }
-
-  /**
    * @source C++ class CConsole
    * @customConstructor CConsole
    * @group xr_debug

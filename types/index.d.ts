@@ -20,6 +20,7 @@ import "./xr_lib/xr_luabind";
 import "./xr_lib/xr_map";
 import "./xr_lib/xr_math";
 import "./xr_lib/xr_multiplayer";
+import "./xr_lib/xr_profile";
 import "./xr_lib/xr_properties";
 import "./xr_lib/xr_relation";
 import "./xr_lib/xr_render";
