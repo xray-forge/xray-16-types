@@ -69,7 +69,23 @@ Following ones are available:
 - from_cast_utils - additional utils that should be removed in runtime
 - global_declarations_transform - transforms xray16 imports and removes them from runtime
 - inject_filename - adds $filename global variable to access current file name
-- strip_lua_logger - removes lua logger from runtime
+- strip_lua_logger - removes lua logger from runtime (if path param is provided or ENV variable is set)
+- inject_tracy_zones - removes lua logger from runtime (if path param is provided or ENV variable is set)
+
+Path params:
+
+- `--no-lua-logs`
+- `--inject-tracy-zones`
+
+Env variables:
+
+- `XR_NO_LUA_LOGS `
+- `XR_INJECT_TRACY_ZONES `
+
+export const IS_LUA_LOGGER_DISABLED: boolean = process.argv.includes("--no-lua-logs")
+|| process.env.NO_LUA_LOGS === "true";
+export const IS_TRACY_ZONES_INJECTION_ENABLED: boolean = process.argv.includes("--inject-tracy-zones")
+|| process.env.INJECT_TRACY_ZONES === "true";
 
 Plugins can be included in tsconfig file as following:
 
@@ -82,7 +98,8 @@ Plugins can be included in tsconfig file as following:
       { "name": "xray16/plugins/built_at_info" },
       { "name": "xray16/plugins/strip_lua_logger" },
       { "name": "xray16/plugins/inject_filename" },
-      { "name": "xray16/plugins/from_cast_utils" }
+      { "name": "xray16/plugins/from_cast_utils" },
+      { "name": "xray16/plugins/inject_tracy_zones" }
     ]
   }
 }
