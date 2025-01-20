@@ -226,7 +226,7 @@ export function transformWithInjectedZones<T extends FunctionDeclaration | Metho
   );
 
   // Zone start declaration.
-  statements.unshift(createTraceZoneBeginNExpression(`${parentName ? `${parentName}.` : ""}${name}@lua`));
+  statements.unshift(createTraceZoneBeginNExpression(`${parentName ? `${parentName}::` : ""}${name}@lua`));
 
   // Zone end declaration without explicit return.
   if (!hasReturnStatement) {
