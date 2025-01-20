@@ -4,6 +4,7 @@
     "./plugins"
   ],
   "compilerOptions": {
+    "declaration": true,
     "module": "commonjs",
     "outDir": "../plugins"
   }

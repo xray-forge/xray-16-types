@@ -11,9 +11,9 @@ import {
 } from "typescript";
 import { Plugin } from "typescript-to-lua";
 
-import { IS_TRACY_ZONES_INJECTION_ENABLED } from "./utils/environment";
 import { transformArrowFunctionWithInjectedZones, transformWithInjectedZones } from "./utils/tracy";
 import { getIdentifierText } from "./utils/ast";
+import { isTracyZonesInjectionEnabled } from "./utils/environment";
 
 /**
  * Plugin that injects FILE_NAME in compile-time.
@@ -21,12 +21,10 @@ import { getIdentifierText } from "./utils/ast";
 const plugin: Plugin = {
   visitors: {
     [SyntaxKind.FunctionDeclaration]: (node, context) => {
-      return context.superTransformStatements(
-        IS_TRACY_ZONES_INJECTION_ENABLED ? transformWithInjectedZones(node) : node
-      );
+      return context.superTransformStatements(isTracyZonesInjectionEnabled() ? transformWithInjectedZones(node) : node);
     },
     [SyntaxKind.ClassDeclaration]: (node, context) => {
-      if (IS_TRACY_ZONES_INJECTION_ENABLED) {
+      if (isTracyZonesInjectionEnabled()) {
         const name: string = node.name ? node.name.getText() : null;
 
         return context.superTransformStatements(
@@ -50,7 +48,7 @@ const plugin: Plugin = {
       return context.superTransformStatements(node);
     },
     [SyntaxKind.ExpressionStatement]: (statement, context) => {
-      if (IS_TRACY_ZONES_INJECTION_ENABLED) {
+      if (isTracyZonesInjectionEnabled()) {
         const expression: Expression = statement.expression;
 
         if (

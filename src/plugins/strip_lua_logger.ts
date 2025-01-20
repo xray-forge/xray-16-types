@@ -10,8 +10,7 @@ import {
   VariableDeclarationList,
 } from "typescript";
 import { Plugin } from "typescript-to-lua";
-
-import { IS_LUA_LOGGER_DISABLED } from "./utils/environment";
+import { isLuaLoggerEnabled } from "./utils/environment";
 
 const LUA_LOGGER_STRIP_TARGET: string = "LuaLogger";
 
@@ -21,7 +20,7 @@ const LUA_LOGGER_STRIP_TARGET: string = "LuaLogger";
 const plugin: Plugin = {
   visitors: {
     [SyntaxKind.VariableStatement]: (statement, context) => {
-      if (IS_LUA_LOGGER_DISABLED) {
+      if (!isLuaLoggerEnabled()) {
         let elementsCount: number = 0;
         const list = statement.declarationList as VariableDeclarationList;
         const nodes: Array<VariableDeclaration> = [];
@@ -51,7 +50,7 @@ const plugin: Plugin = {
       return context.superTransformStatements(statement);
     },
     [SyntaxKind.ExpressionStatement]: (statement, context) => {
-      if (IS_LUA_LOGGER_DISABLED && statement.expression?.kind === SyntaxKind.CallExpression) {
+      if (!isLuaLoggerEnabled() && statement.expression?.kind === SyntaxKind.CallExpression) {
         const expression: CallExpression = statement.expression as CallExpression;
         const propertyAccess: PropertyAccessExpression = expression.expression as PropertyAccessExpression;
 
