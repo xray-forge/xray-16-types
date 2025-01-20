@@ -204,7 +204,7 @@ export function transformNestedStatementsToInjectEndZones(statement?: Statement)
   return statement;
 }
 
-export function transformWithInjectedZones<T extends FunctionDeclaration | MethodDeclaration | ConstructorDeclaration>(
+export function transformWithInjectedZones<T extends FunctionDeclaration | MethodDeclaration>(
   node: T,
   parentName?: string
 ): T {
@@ -226,7 +226,11 @@ export function transformWithInjectedZones<T extends FunctionDeclaration | Metho
   );
 
   // Zone start declaration.
-  statements.unshift(createTraceZoneBeginNExpression(`${parentName ? `${parentName}::` : ""}${name}@lua`));
+  statements.unshift(
+    createTraceZoneBeginNExpression(
+      `lua::${isMethodDeclaration(node) ? "method" : "function"}::${parentName ? `${parentName}::` : ""}${name}`
+    )
+  );
 
   // Zone end declaration without explicit return.
   if (!hasReturnStatement) {
@@ -243,13 +247,6 @@ export function transformWithInjectedZones<T extends FunctionDeclaration | Metho
       node.typeParameters,
       node.parameters,
       node.type,
-      factory.updateBlock(node.body, statements)
-    ) as T;
-  } else if (isConstructorDeclaration(node)) {
-    return factory.updateConstructorDeclaration(
-      node,
-      node.modifiers,
-      node.parameters,
       factory.updateBlock(node.body, statements)
     ) as T;
   } else {
@@ -283,7 +280,7 @@ export function transformArrowFunctionWithInjectedZones<T extends ArrowFunction>
   );
 
   // Zone start declaration.
-  statements.unshift(createTraceZoneBeginNExpression(`${name}@lua`));
+  statements.unshift(createTraceZoneBeginNExpression(`lua::function::${name}`));
 
   // Zone end declaration without explicit return.
   if (!hasReturnStatement) {

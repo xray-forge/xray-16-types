@@ -36,14 +36,14 @@ const plugin: Plugin = {
         }
 
         if (filename.startsWith("index.")) {
-          filename = `${path.basename(path.dirname(node.fileName))}::${filename}`;
+          filename = `${path.basename(path.dirname(node.fileName))}@${filename}`;
         }
 
         return transformSourceFileNode(
           factory.updateSourceFile(
             node,
             [
-              createTraceZoneBeginNExpression(`file::${filename}@lua`),
+              createTraceZoneBeginNExpression(`lua::file::${filename}`),
               ...node.statements,
               createTraceZoneEndExpression(),
             ],
