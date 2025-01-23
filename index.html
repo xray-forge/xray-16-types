@@ -23,18 +23,12 @@ Separate transformer is needed to build luabind classes instead of table-based c
 <li>Run game engine with <code>-dump_bindings</code> flag</li>
 <li>Check userdata folder <em>(where game saves are stored)</em> <code>scriptbindings_*.txt</code> files</li>
 </ul>
-<a id="🧲--plugins" class="tsd-anchor"></a><h2 class="tsd-anchor-link">🧲  Plugins<a href="#🧲--plugins" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Package includes plugins for typescript-to-lua for easier work with xray16 typings. <br/>
-Following ones are available:</p>
-<ul>
-<li>transform_luabind_class - transforms LuaBind decorated classes in a specific way</li>
-<li>built_at_info - adds build information in resulting files</li>
-<li>from_cast_utils - additional utils that should be removed in runtime</li>
-<li>global_declarations_transform - transforms xray16 imports and removes them from runtime</li>
-<li>inject_filename - adds $filename global variable to access current file name</li>
-<li>strip_lua_logger - removes lua logger from runtime (if path param is provided or ENV variable is set)</li>
-<li>inject_tracy_zones - removes lua logger from runtime (if path param is provided or ENV variable is set)</li>
-</ul>
-<p>Arguments for JSTL:</p>
+<a id="🧲--plugins" class="tsd-anchor"></a><h2 class="tsd-anchor-link">🧲  Plugins<a href="#🧲--plugins" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Package includes plugins for typescript-to-lua for easier work with xray16 typings.<br>
+Plugins can be included in <a href="https://typescripttolua.github.io/docs/configuration">tstl tsconfig</a> file as following section:</p>
+<pre><code class="json"><span class="hl-0">{</span><br/><span class="hl-0">  </span><span class="hl-1">&quot;tstl&quot;</span><span class="hl-0">: {</span><br/><span class="hl-0">    </span><span class="hl-1">&quot;luaPlugins&quot;</span><span class="hl-0">: [</span><br/><span class="hl-0">      { </span><span class="hl-1">&quot;name&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;xray16/plugins/transform_luabind_class/plugin&quot;</span><span class="hl-0"> },</span><br/><span class="hl-0">      { </span><span class="hl-1">&quot;name&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;xray16/plugins/global_declarations_transform&quot;</span><span class="hl-0"> },</span><br/><span class="hl-0">      { </span><span class="hl-1">&quot;name&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;xray16/plugins/built_at_info&quot;</span><span class="hl-0"> },</span><br/><span class="hl-0">      { </span><span class="hl-1">&quot;name&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;xray16/plugins/strip_lua_logger&quot;</span><span class="hl-0"> },</span><br/><span class="hl-0">      { </span><span class="hl-1">&quot;name&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;xray16/plugins/inject_filename&quot;</span><span class="hl-0"> },</span><br/><span class="hl-0">      { </span><span class="hl-1">&quot;name&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;xray16/plugins/from_cast_utils&quot;</span><span class="hl-0"> },</span><br/><span class="hl-0">      { </span><span class="hl-1">&quot;name&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;xray16/plugins/inject_tracy_zones&quot;</span><span class="hl-0"> }</span><br/><span class="hl-0">    ]</span><br/><span class="hl-0">  }</span><br/><span class="hl-0">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Arguments for TSTL:</p>
 <ul>
 <li><code>--no-lua-logs</code></li>
 <li><code>--inject-tracy-zones</code></li>
@@ -44,10 +38,6 @@ Following ones are available:</p>
 <li><code>XR_NO_LUA_LOGS</code></li>
 <li><code>XR_INJECT_TRACY_ZONES </code></li>
 </ul>
-<p>Plugins can be included in tsconfig file as following:</p>
-<pre><code class="json"><span class="hl-0">{</span><br/><span class="hl-0">  </span><span class="hl-1">&quot;tstl&quot;</span><span class="hl-0">: {</span><br/><span class="hl-0">    </span><span class="hl-1">&quot;luaPlugins&quot;</span><span class="hl-0">: [</span><br/><span class="hl-0">      { </span><span class="hl-1">&quot;name&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;xray16/plugins/transform_luabind_class/plugin&quot;</span><span class="hl-0"> },</span><br/><span class="hl-0">      { </span><span class="hl-1">&quot;name&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;xray16/plugins/global_declarations_transform&quot;</span><span class="hl-0"> },</span><br/><span class="hl-0">      { </span><span class="hl-1">&quot;name&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;xray16/plugins/built_at_info&quot;</span><span class="hl-0"> },</span><br/><span class="hl-0">      { </span><span class="hl-1">&quot;name&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;xray16/plugins/strip_lua_logger&quot;</span><span class="hl-0"> },</span><br/><span class="hl-0">      { </span><span class="hl-1">&quot;name&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;xray16/plugins/inject_filename&quot;</span><span class="hl-0"> },</span><br/><span class="hl-0">      { </span><span class="hl-1">&quot;name&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;xray16/plugins/from_cast_utils&quot;</span><span class="hl-0"> },</span><br/><span class="hl-0">      { </span><span class="hl-1">&quot;name&quot;</span><span class="hl-0">: </span><span class="hl-2">&quot;xray16/plugins/inject_tracy_zones&quot;</span><span class="hl-0"> }</span><br/><span class="hl-0">    ]</span><br/><span class="hl-0">  }</span><br/><span class="hl-0">}</span>
-</code><button type="button">Copy</button></pre>
-
 <a id="transform_luabind_class" class="tsd-anchor"></a><h3 class="tsd-anchor-link">transform_luabind_class<a href="#transform_luabind_class" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><p>Custom plugin overriding transformation of classes marked with <code>@LuaClass</code> decorator.<br>
 Instead of using prototypes and metatables use luabind API to declare such classes.\</p>
 <a id="built_at_info" class="tsd-anchor"></a><h3 class="tsd-anchor-link">built_at_info<a href="#built_at_info" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><p>Plugin injecting time and generic metadata on top of built lua scripts.</p>
