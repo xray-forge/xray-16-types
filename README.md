@@ -47,28 +47,8 @@ Separate transformer is needed to build luabind classes instead of table-based c
 
 ## 🧲  Plugins
 
-Package includes plugins for typescript-to-lua for easier work with xray16 typings. <br/>
-Following ones are available:
-
-- transform_luabind_class - transforms LuaBind decorated classes in a specific way
-- built_at_info - adds build information in resulting files
-- from_cast_utils - additional utils that should be removed in runtime
-- global_declarations_transform - transforms xray16 imports and removes them from runtime
-- inject_filename - adds $filename global variable to access current file name
-- strip_lua_logger - removes lua logger from runtime (if path param is provided or ENV variable is set)
-- inject_tracy_zones - removes lua logger from runtime (if path param is provided or ENV variable is set)
-
-Arguments for JSTL:
-
-- `--no-lua-logs`
-- `--inject-tracy-zones`
-
-Env variables for custom CLI scripts:
-
-- `XR_NO_LUA_LOGS`
-- `XR_INJECT_TRACY_ZONES `
-
-Plugins can be included in tsconfig file as following:
+Package includes plugins for typescript-to-lua for easier work with xray16 typings.\
+Plugins can be included in [tstl tsconfig](https://typescripttolua.github.io/docs/configuration) file as following section:
 
 ```json
 {
@@ -85,6 +65,16 @@ Plugins can be included in tsconfig file as following:
   }
 }
 ```
+
+Arguments for TSTL:
+
+- `--no-lua-logs`
+- `--inject-tracy-zones`
+
+Env variables for custom CLI scripts:
+
+- `XR_NO_LUA_LOGS`
+- `XR_INJECT_TRACY_ZONES `
 
 ### transform_luabind_class
 
