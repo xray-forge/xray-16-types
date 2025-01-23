@@ -10,7 +10,7 @@ For usage with [TypeScriptToLua](https://typescripttolua.github.io/docs/getting-
 
 <p>
 Module contains xray engine globals typedefs for typescript. <br/>
-By default x-ray export many bindings that can be used from lua scripts, but without game API documentation.
+By default x-ray export bindings that can be accessed from lua scripts, but without any API documentation.
 
 To check more details / correct typing you always can reference X-Ray source code.
 
@@ -23,14 +23,6 @@ Types documentation can be checked [here](https://xray-forge.github.io/xray-16-t
 ## 🧱 Usage
 
 Types are used with [xrf template](https://github.com/xray-forge/stalker-xrf-engine) and can be referenced as an example.
-
-## 🎮 Updating types
-
-For easier navigation over codebase and typing following rules are applied:
-
-- Type declaration should have \@source docblock with matching c++ counterpart signature
-- Variable and class namings follow c++ conventions for easier binding and matching engine codebase
-- XRay types should be prefixed with IXR or TXR if they do not have runtime representation
 
 ## 📦Extending C++ classes and overriding virtual methods
 
@@ -53,13 +45,7 @@ Separate transformer is needed to build luabind classes instead of table-based c
 - Run game engine with `-dump_bindings` flag
 - Check userdata folder _(where game saves are stored)_ `scriptbindings_*.txt` files
 
-## 🧲 References
-
-- X-Ray C++ source code
-- LuaBind sources and docs
-- LuaJit sources and docs
-
-## 🧱 Plugins
+## 🧲  Plugins
 
 Package includes plugins for typescript-to-lua for easier work with xray16 typings. <br/>
 Following ones are available:
@@ -72,20 +58,15 @@ Following ones are available:
 - strip_lua_logger - removes lua logger from runtime (if path param is provided or ENV variable is set)
 - inject_tracy_zones - removes lua logger from runtime (if path param is provided or ENV variable is set)
 
-Path params:
+Arguments for JSTL:
 
 - `--no-lua-logs`
 - `--inject-tracy-zones`
 
-Env variables:
+Env variables for custom CLI scripts:
 
-- `XR_NO_LUA_LOGS `
+- `XR_NO_LUA_LOGS`
 - `XR_INJECT_TRACY_ZONES `
-
-export const IS_LUA_LOGGER_DISABLED: boolean = process.argv.includes("--no-lua-logs")
-|| process.env.NO_LUA_LOGS === "true";
-export const IS_TRACY_ZONES_INJECTION_ENABLED: boolean = process.argv.includes("--inject-tracy-zones")
-|| process.env.INJECT_TRACY_ZONES === "true";
 
 Plugins can be included in tsconfig file as following:
 
@@ -104,3 +85,38 @@ Plugins can be included in tsconfig file as following:
   }
 }
 ```
+
+### transform_luabind_class
+
+Custom plugin overriding transformation of classes marked with `@LuaClass` decorator.\
+Instead of using prototypes and metatables use luabind API to declare such classes.\
+
+### built_at_info
+
+Plugin injecting time and generic metadata on top of built lua scripts.
+
+### global_declarations_transform
+
+Plugin stripping all the runtime imports from `xray16` package.
+Default `tstl` behaviour does not work well with engine imports and I tried to avoid implicit globals.
+
+### strip_lua_logger
+
+Plugin to strip all `LuaLogger` calls from runtime if env variable is set or path param is provided.\
+Logger can consume a lot of processing time that does not benefit player.
+
+### inject_filename
+
+Plugin adding `$filename` global variable replaced with actual file name on build time.\
+Lua does not provide convenient API do get filename in runtime and static step is much simpler.
+
+### from_cast_utils
+
+Plugin to simplify casting from `LuaTable` to typescript array/map objects.\
+All the calls are completely gets stripped and removed from runtime.
+
+### from_cast_utils
+
+Plugin designed to work specifically with [tracy profiler](https://github.com/wolfpld/tracy).\
+Once it is enabled with env variable or path parameter, tracy zone marking calls are injected for every method.\
+This way you will be able to build profiling bundle to understand bottlenecks and what takes CPU time.
