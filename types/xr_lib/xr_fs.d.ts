@@ -5,6 +5,10 @@ declare module "xray16" {
    * @source C++ class FS_file_list
    * @customConstructor FS_file_list
    * @group xr_fs
+   *
+   * @remarks
+   * This wraps a native list allocated by the filesystem. Call `Free` when you are done and do not use the list after
+   * freeing it.
    */
   export class FS_file_list {
     /**
@@ -14,6 +18,9 @@ declare module "xray16" {
 
     /**
      * Get file item by index.
+     *
+     * @remarks
+     * The binding does not clamp the index. Use `Size` before indexing.
      *
      * @param index - Zero-based item index.
      * @returns File item.
@@ -34,10 +41,16 @@ declare module "xray16" {
    * @source C++ class FS_file_list_ex
    * @customConstructor FS_file_list_ex
    * @group xr_fs
+   *
+   * @remarks
+   * Extended lists copy file entries into script-owned storage and force a rescan of the queried path when created.
    */
   export class FS_file_list_ex {
     /**
      * Sort the list with an `FS_sort_by_*` mode.
+     *
+     * @remarks
+     * Unknown sort modes are ignored.
      *
      * @param mode - Sort mode.
      */
@@ -45,6 +58,9 @@ declare module "xray16" {
 
     /**
      * Get file item by index.
+     *
+     * @remarks
+     * The binding does not clamp the index. Use `Size` before indexing.
      *
      * @param index - Zero-based item index.
      * @returns File item.
@@ -145,6 +161,10 @@ declare module "xray16" {
    * @source C++ class FS
    * @customConstructor FS
    * @group xr_fs
+   *
+   * @remarks
+   * Mutating methods operate on real files or engine path aliases. Prefer `exist`, `path_exist`, and `update_path`
+   * before destructive operations.
    */
   export class FS {
     /**
@@ -235,6 +255,9 @@ declare module "xray16" {
 
     /**
      * Open a sortable filtered file list.
+     *
+     * @remarks
+     * Forces the path to be rescanned before collecting matching entries.
      *
      * @param path - Path or path alias.
      * @param flags - Listing flags.
@@ -348,6 +371,9 @@ declare module "xray16" {
     /**
      * Resolve path alias and suffix into a real path.
      *
+     * @remarks
+     * Non-Windows builds normalize path separators before returning the string.
+     *
      * @param alias - Filesystem path alias.
      * @param add - Relative path to append.
      * @returns Resolved path.
@@ -356,6 +382,9 @@ declare module "xray16" {
 
     /**
      * Rescan a path alias.
+     *
+     * @remarks
+     * Marks the alias as needing a rescan. The next filesystem check refreshes cached entries.
      *
      * @param path - Path alias.
      */

@@ -1,14 +1,17 @@
 declare module "xray16" {
-  /**
-   * LTX/INI file reader and writer.
-   *
-   * Use it to read config sections and fields from game data, or to create small script-owned config files.
-   * Engine configs support section inheritance and `#include` statements.
-   *
-   * @source C++ class ini_file
-   * @customConstructor ini_file
-   * @group xr_ini
-   */
+   /**
+    * LTX/INI file reader and writer.
+    *
+    * Use it to read config sections and fields from game data, or to create small script-owned config files.
+    * Engine configs support section inheritance and `#include` statements.
+    *
+    * @source C++ class ini_file
+    * @customConstructor ini_file
+    * @group xr_ini
+    * @remarks
+    * Most typed read methods use the engine's strict config readers. Check `section_exist` and `line_exist` first when
+    * missing data is valid for your script.
+    */
   export class ini_file {
     /**
      * Create an empty ini file.
@@ -16,9 +19,12 @@ declare module "xray16" {
     public constructor();
 
     /**
-     * Open an ini file from a game path.
+     * Open an ini file from the game config path.
      *
-     * @param path - File name or path relative to game data.
+     * @remarks
+     * This constructor resolves `path` below `$game_config$`.
+     *
+     * @param path - File name or path relative to `$game_config$`.
      */
     public constructor(path: string);
 
@@ -31,6 +37,9 @@ declare module "xray16" {
     public constructor(initial: string, path: string);
 
     /**
+     * @remarks
+     * Missing sections are an engine assertion path. The recoverable branch returns `0`.
+     *
      * @param section - Target section to check lines count.
      * @returns Count of lines for provided section.
      */
@@ -69,6 +78,8 @@ declare module "xray16" {
     /**
      * Read a floating-point value.
      *
+     * @throws If the section or field does not exist.
+     *
      * @param section - Section name.
      * @param field - Field name.
      * @returns Parsed number.
@@ -87,6 +98,8 @@ declare module "xray16" {
     /**
      * Read a signed 32-bit integer.
      *
+     * @throws If the section or field does not exist.
+     *
      * @param section - Section name.
      * @param field - Field name.
      * @returns Parsed integer.
@@ -95,6 +108,11 @@ declare module "xray16" {
 
     /**
      * Read text line from ini config file.
+     *
+     * @remarks
+     * Returns `false` for an out-of-range line index. A missing section is a hard engine error.
+     *
+     * @throws If the section does not exist.
      *
      * @param section - Section name.
      * @param line_number - Zero-based line index inside the section.
@@ -122,6 +140,8 @@ declare module "xray16" {
     /**
      * Read a 3D vector.
      *
+     * @throws If the section or field does not exist.
+     *
      * @param section - Section name.
      * @param field - Field name.
      * @returns Parsed vector.
@@ -130,6 +150,8 @@ declare module "xray16" {
 
     /**
      * Read an unsigned 32-bit integer.
+     *
+     * @throws If the section or field does not exist.
      *
      * @param section - Section name.
      * @param field - Field name.
@@ -140,6 +162,9 @@ declare module "xray16" {
     /**
      * Read a quoted string value.
      *
+     * @remarks
+     * Uses the same engine reader as `r_string_wb`; quoted values may keep spaces.
+     *
      * @param section - Section name.
      * @param field - Field name.
      * @returns Parsed string.
@@ -147,6 +172,9 @@ declare module "xray16" {
     public r_string_wq(section: string, field: string): string;
 
     /**
+     * @remarks
+     * Reads a string with blanks preserved by the engine parser.
+     *
      * @param section - Ini file section.
      * @param field - Ini section field.
      * @returns If quoted, parsed string data inside quotes including spaces, else is same data as with r_string.
@@ -154,6 +182,8 @@ declare module "xray16" {
     public r_string_wb(section: string, field: string): string;
 
     /**
+     * @throws If the section or field does not exist.
+     *
      * @param section - Ini file section.
      * @param field - Ini section field.
      * @returns Raw string from ltx file without spaces in it.
@@ -355,6 +385,8 @@ declare module "xray16" {
     /**
      * Save this ini file to a path.
      *
+     * @throws If `path` is missing.
+     *
      * @param path - Destination path.
      * @returns Whether saving succeeded.
      */
@@ -362,6 +394,10 @@ declare module "xray16" {
 
     /**
      * Adjust saving on file closing/destructor calls.
+     *
+     * @remarks
+     * Intended for script-created or script-owned ini files. Be careful using it on engine-owned singletons returned
+     * by `game_ini` or `system_ini`.
      *
      * @param should_save - Whether ini file should be saved when destructor is called.
      */
@@ -381,6 +417,9 @@ declare module "xray16" {
    *
    * @group xr_ini
    *
+   * @remarks
+   * Parses the string through an in-memory reader using `$game_config$` as the base include path.
+   *
    * @param content - String value to be read as ini file.
    * @returns New ini file instance based on provided content.
    */
@@ -391,6 +430,9 @@ declare module "xray16" {
    *
    * @group xr_ini
    *
+   * @remarks
+   * Returns the engine-owned `pGameIni` singleton.
+   *
    * @returns Current game ini file.
    */
   export function game_ini(this: void): ini_file;
@@ -400,6 +442,9 @@ declare module "xray16" {
    *
    * @group xr_ini
    *
+   * @remarks
+   * Returns the engine-owned `pSettings` singleton.
+   *
    * @returns Current system ini file.
    */
   export function system_ini(this: void): ini_file;
@@ -408,6 +453,10 @@ declare module "xray16" {
    * Reload and return the system ini.
    *
    * @group xr_ini
+   *
+   * @remarks
+   * Destroys the current `pSettings` instance and reloads `system.ltx` from `$game_config$`. Avoid keeping old
+   * `system_ini()` references across this call.
    *
    * @returns Reloaded system ini file.
    */

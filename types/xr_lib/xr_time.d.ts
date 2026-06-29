@@ -1,13 +1,15 @@
 declare module "xray16" {
-  /**
-   * Mutable game calendar/time value.
-   *
-   * Use `game.get_game_time()` for the current in-game time and `time_global()` for real elapsed milliseconds.
-   *
-   * @source C++ class CTime
-   * @customConstructor CTime
-   * @group xr_time
-   */
+   /**
+    * Mutable game calendar/time value.
+    *
+    * Use `game.get_game_time()` for the current in-game time and `time_global()` for real elapsed milliseconds.
+    *
+    * @source C++ class CTime
+    * @customConstructor CTime
+    * @group xr_time
+    * @remarks
+    * Methods such as `add`, `sub`, `set`, and `setHMS` mutate the current instance.
+    */
   export class CTime extends EngineBinding {
     /**
      * Date formatting mode: day.
@@ -131,6 +133,9 @@ declare module "xray16" {
     /**
      * Subtract another time value from this one.
      *
+     * @remarks
+     * The result is clamped at zero when `time` is greater than the current value.
+     *
      * @param time - Time span to subtract.
      */
     public sub(time: CTime): void;
@@ -149,6 +154,9 @@ declare module "xray16" {
    *
    * @group xr_time
    *
+   * @remarks
+   * Reads `Device.dwTimeGlobal`, the frame-updated engine clock.
+   *
    * @example 0, 1000, 60000
    *
    * @returns Milliseconds from game executable start.
@@ -159,6 +167,9 @@ declare module "xray16" {
    * Get asynchronous engine time in milliseconds since executable start.
    *
    * @group xr_time
+   *
+   * @remarks
+   * Reads the asynchronous multimedia timer, so it can advance outside the frame-updated `time_global` value.
    *
    * @returns Milliseconds from game executable start.
    */

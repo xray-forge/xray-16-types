@@ -136,6 +136,9 @@ declare module "xray16" {
     /**
      * Create a new game time value.
      *
+     * @remarks
+     * This is the same constructor exported as `CTime`.
+     *
      * @returns Empty `CTime` instance.
      */
     CTime: (this: void) => CTime;
@@ -151,6 +154,9 @@ declare module "xray16" {
     /**
      * Get current in-game time as seconds.
      *
+     * @remarks
+     * Returns the low 32 bits of the current game time counter.
+     *
      * @returns Game time counter.
      */
     time(this: void): u32;
@@ -163,6 +169,9 @@ declare module "xray16" {
     /**
      * Get current in-game calendar time.
      *
+     * @remarks
+     * Uses ALife game time when ALife is available, otherwise falls back to the current level game time.
+     *
      * @returns Current game time value.
      */
     get_game_time(this: void): CTime;
@@ -174,6 +183,10 @@ declare module "xray16" {
 
     /**
      * Move the actor to another level by level name.
+     *
+     * @remarks
+     * If the level name is not present in the game graph, the engine logs a script error and leaves the actor in the
+     * current level.
      *
      * @param level_name - Target level name from the game graph.
      */
@@ -201,6 +214,10 @@ declare module "xray16" {
     /**
      * Start an in-game tutorial sequence.
      *
+     * @remarks
+     * Does nothing while the load screen is active. Starting a second tutorial stores the previous one as the fallback
+     * input receiver.
+     *
      * @param tutorial_id - Tutorial identifier.
      */
     start_tutorial(this: void, tutorial_id: string): void;
@@ -214,6 +231,9 @@ declare module "xray16" {
 
     /**
      * Get the active tutorial identifier.
+     *
+     * @remarks
+     * Call only after `has_active_tutorial()` returns `true`; the binding dereferences the active tutorial directly.
      *
      * @returns Active tutorial name.
      */
@@ -274,6 +294,9 @@ declare module "xray16" {
    *
    * @group xr_game
    *
+   * @remarks
+   * Updates the global start position consumed by ALife level-transition code.
+   *
    * @param position - Target start position.
    */
   export function set_start_position(this: void, position: vector): void;
@@ -282,6 +305,9 @@ declare module "xray16" {
    * Set the actor start game graph vertex.
    *
    * @group xr_game
+   *
+   * @remarks
+   * Updates the global start game vertex consumed by ALife level-transition code.
    *
    * @param game_vertex_id - Target game graph vertex.
    */
@@ -292,6 +318,9 @@ declare module "xray16" {
    *
    * @group xr_game
    *
+   * @remarks
+   * On non-Windows builds this always returns `true`.
+   *
    * @returns Whether available address space is sufficient.
    */
   export function is_enough_address_space_available(this: void): boolean;
@@ -300,6 +329,8 @@ declare module "xray16" {
    * Ask the engine to verify that its watched thread is still running.
    *
    * @group xr_game
+   *
+   * @throws If called outside the active Lua thread.
    */
   export function verify_if_thread_is_running(this: void): void;
 

@@ -84,12 +84,20 @@ declare module "xray16" {
     /**
      * Create a sound from `$game_sounds$/<sound_path>.ogg`.
      *
+     * @remarks
+     * Missing sound files are logged during construction. Playback methods will throw later if the sound handle was
+     * not created.
+     *
      * @param sound_path - Sound resource path without extension.
      */
     public constructor(sound_path: string);
 
     /**
      * Create a typed sound from `$game_sounds$/<sound_path>.ogg`.
+     *
+     * @remarks
+     * Missing sound files are logged during construction. Playback methods will throw later if the sound handle was
+     * not created.
      *
      * @param sound_path - Sound resource path without extension.
      * @param type - Sound category used by AI sound memory.
@@ -121,6 +129,8 @@ declare module "xray16" {
     /**
      * Move the sound emitter.
      *
+     * @throws If the sound handle was not created.
+     *
      * @param position - New world position.
      */
     public set_position(position: vector): void;
@@ -135,12 +145,16 @@ declare module "xray16" {
     /**
      * Play the sound attached to an object, or globally when `object` is null.
      *
+     * @throws If the sound handle was not created.
+     *
      * @param object - Object used as sound owner.
      */
     public play(object: game_object | null): void;
 
     /**
      * Play the sound after a delay.
+     *
+     * @throws If the sound handle was not created.
      *
      * @param object - Object used as sound owner.
      * @param delay - Delay in seconds.
@@ -149,6 +163,8 @@ declare module "xray16" {
 
     /**
      * Play the sound with engine sound flags.
+     *
+     * @throws If the sound handle was not created.
      *
      * @param object - Object used as sound owner.
      * @param delay - Delay in seconds.
@@ -159,6 +175,8 @@ declare module "xray16" {
     /**
      * Play the sound at a fixed world position.
      *
+     * @throws If the sound handle was not created.
+     *
      * @param object - Optional object used as sound owner.
      * @param position - World position for playback.
      */
@@ -166,6 +184,8 @@ declare module "xray16" {
 
     /**
      * Play the sound at a fixed world position after a delay.
+     *
+     * @throws If the sound handle was not created.
      *
      * @param object - Optional object used as sound owner.
      * @param position - World position for playback.
@@ -175,6 +195,8 @@ declare module "xray16" {
 
     /**
      * Play the sound at a fixed world position with engine sound flags.
+     *
+     * @throws If the sound handle was not created.
      *
      * @param object - Optional object used as sound owner.
      * @param position - World position for playback.
@@ -186,6 +208,8 @@ declare module "xray16" {
     /**
      * Play without tracking feedback.
      *
+     * @throws If the sound handle was not created.
+     *
      * @param object - Optional object used as sound owner.
      * @param flags - Playback flags.
      * @param delay - Delay in seconds.
@@ -196,16 +220,22 @@ declare module "xray16" {
 
     /**
      * Stop playback immediately.
+     *
+     * @throws If the sound handle was not created.
      */
     public stop(): void;
 
     /**
      * Stop playback through the engine deferred-stop path.
+     *
+     * @throws If the sound handle was not created.
      */
     public stop_deffered(): void;
 
     /**
      * Stop playback through the engine deferred-stop path.
+     *
+     * @throws If the sound handle was not created.
      */
     public stop_deferred(): void;
   }

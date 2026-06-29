@@ -11,6 +11,10 @@ declare module "xray16" {
     /**
      * Register a conditional level callback.
      *
+     * @remarks
+     * The physics commander polls this callback pair. Remove it with the same condition and action callbacks when the
+     * owner no longer needs it.
+     *
      * @param condition - Callback polled by the engine.
      * @param action - Callback called when the condition is satisfied.
      */
@@ -18,6 +22,9 @@ declare module "xray16" {
 
     /**
      * Register a conditional level callback owned by an object.
+     *
+     * @remarks
+     * The owner is used only for callback lookup and bulk removal. Keep the object alive while the callback can run.
      *
      * @param object - Owner object used for later removal.
      * @param condition - Callback polled by the engine.
@@ -33,6 +40,9 @@ declare module "xray16" {
     /**
      * Register named object methods as a conditional level callback.
      *
+     * @remarks
+     * This overload registers a unique callback pair for the object and method names.
+     *
      * @param object - Owner object used for callback lookup and removal.
      * @param condition - Method name used as condition callback.
      * @param action - Method name called when the condition is satisfied.
@@ -42,21 +52,29 @@ declare module "xray16" {
     /**
      * Start a camera effector.
      *
-     * @param effect - Camera effector animation file.
-     * @param id - Effector id used for replacement and removal.
-     * @param is_cyclic - Whether the effector loops.
-     * @param callback - Lua callback name called when the effector finishes.
-     */
-    add_cam_effector(this: void, effect: string, id: i32, is_cyclic: boolean, callback: string): void;
-
-    /**
-     * Start a camera effector with custom field of view.
+     * @remarks
+     * Requires an actor. The binding adds the effector to `Actor().Cameras()`.
      *
      * @param effect - Camera effector animation file.
      * @param id - Effector id used for replacement and removal.
      * @param is_cyclic - Whether the effector loops.
      * @param callback - Lua callback name called when the effector finishes.
-     * @param camera_fov - Field of view for the effector.
+     * @returns Effector animation length.
+     */
+    add_cam_effector(this: void, effect: string, id: i32, is_cyclic: boolean, callback: string): f32;
+
+    /**
+     * Start a camera effector with custom field of view.
+     *
+     * @remarks
+     * Requires an actor. The binding adds the effector to `Actor().Cameras()`.
+     *
+     * @param effect - Camera effector animation file.
+     * @param id - Effector id used for replacement and removal.
+     * @param is_cyclic - Whether the effector loops.
+     * @param callback - Lua callback name called when the effector finishes.
+     * @param camera_fov - Optional field of view for the effector.
+     * @returns Effector animation length.
      */
     add_cam_effector2(
       this: void,
@@ -64,11 +82,14 @@ declare module "xray16" {
       id: i32,
       is_cyclic: boolean,
       callback: string,
-      camera_fov: f32
-    ): void;
+      camera_fov?: f32
+    ): f32;
 
     /**
      * Start a named complex effector.
+     *
+     * @remarks
+     * Requires an actor. The effector is attached to the current actor object.
      *
      * @param section - Effector section name.
      * @param id - Effector id used for replacement and removal.
@@ -85,6 +106,9 @@ declare module "xray16" {
     /**
      * Start a post-process effector.
      *
+     * @remarks
+     * Requires an actor. The effector is attached to the actor camera manager.
+     *
      * @param file_name - Post-process effector file.
      * @param id - Effector id used for replacement and removal.
      * @param is_cyclic - Whether the effector loops.
@@ -94,6 +118,9 @@ declare module "xray16" {
     /**
      * Move game time forward.
      *
+     * @remarks
+     * Works only on a single-player server with ALife available. Otherwise the binding returns without changing time.
+     *
      * @param days - Days to add.
      * @param hours - Hours to add.
      * @param minutes - Minutes to add.
@@ -102,6 +129,9 @@ declare module "xray16" {
 
     /**
      * Validate a game object pointer in the engine.
+     *
+     * @remarks
+     * Exported only in debug builds.
      *
      * @param object - Object to check.
      */
@@ -117,12 +147,18 @@ declare module "xray16" {
     /**
      * Get actor object used by debug helpers.
      *
+     * @remarks
+     * Exported only in debug builds.
+     *
      * @returns Actor game object.
      */
     debug_actor(this: void): game_object;
 
     /**
      * Find an object by debug name.
+     *
+     * @remarks
+     * Exported only in debug builds.
      *
      * @param name - Object name.
      * @returns Matching game object.
@@ -131,6 +167,9 @@ declare module "xray16" {
 
     /**
      * Disable player input.
+     *
+     * @remarks
+     * Does nothing while the actor exists and permanent god mode is enabled.
      */
     disable_input(this: void): void;
 
@@ -155,6 +194,9 @@ declare module "xray16" {
 
     /**
      * Get active camera id.
+     *
+     * @remarks
+     * Returns `255` when the current view entity is not an actor.
      *
      * @returns Camera id.
      */
@@ -190,6 +232,9 @@ declare module "xray16" {
 
     /**
      * Get targeted model element under the crosshair.
+     *
+     * @remarks
+     * Returns `0` when the current ray query has no model element.
      *
      * @returns Target element id.
      */
@@ -246,11 +291,17 @@ declare module "xray16" {
 
     /**
      * Hide HUD indicators.
+     *
+     * @remarks
+     * Also enables the runtime god-mode flag used while HUD indicators are hidden.
      */
     hide_indicators(this: void): void;
 
     /**
      * Hide HUD indicators if the HUD is available.
+     *
+     * @remarks
+     * Also enables the runtime god-mode flag used while HUD indicators are hidden.
      */
     hide_indicators_safe(this: void): void;
 
@@ -280,21 +331,29 @@ declare module "xray16" {
     /**
      * Iterate sounds from a sound collection.
      *
+     * @remarks
+     * `section` may contain a comma-separated list of base names. The callback receives each existing sound name found
+     * in `$game_sounds$`, including numbered variants from `0` up to `max_count - 1`.
+     *
      * @param section - Sound collection section.
-     * @param type - Sound type filter.
-     * @param cb - Callback called for each sound.
+     * @param max_count - Numbered suffixes to probe for each base name.
+     * @param cb - Callback called with each sound name.
      */
-    iterate_sounds(this: void, section: string, type: u32, cb: (this: void) => void): void;
+    iterate_sounds(this: void, section: string, max_count: u32, cb: (this: void, name: string) => void): void;
 
     /**
      * Iterate sounds from a sound collection with an owner object.
      *
+     * @remarks
+     * `section` may contain a comma-separated list of base names. The callback receives each existing sound name found
+     * in `$game_sounds$`, including numbered variants from `0` up to `max_count - 1`.
+     *
      * @param section - Sound collection section.
-     * @param type - Sound type filter.
+     * @param max_count - Numbered suffixes to probe for each base name.
      * @param object - Owner object.
-     * @param cb - Callback called for each sound.
+     * @param cb - Callback called with each sound name.
      */
-    iterate_sounds(this: void, section: string, type: u32, object: object, cb: (this: void) => void): void;
+    iterate_sounds(this: void, section: string, max_count: u32, object: object, cb: (this: void, name: string) => void): void;
 
     /**
      * Sample low cover from a level vertex in a direction.
@@ -332,6 +391,9 @@ declare module "xray16" {
 
     /**
      * Change hint text for an object map spot.
+     *
+     * @remarks
+     * Does nothing when the object does not have a matching map spot.
      *
      * @param object_id - Target object id.
      * @param spot_type - Spot type from map spot config.
@@ -410,6 +472,9 @@ declare module "xray16" {
     /**
      * Remove a conditional level callback.
      *
+     * @remarks
+     * The callbacks must match the original registered pair.
+     *
      * @param condition - Condition callback originally registered.
      * @param action - Action callback originally registered.
      */
@@ -417,6 +482,9 @@ declare module "xray16" {
 
     /**
      * Remove an object-owned conditional level callback.
+     *
+     * @remarks
+     * The owner and callbacks must match the original registered pair.
      *
      * @param object - Owner object.
      * @param condition - Condition callback originally registered.
@@ -431,6 +499,9 @@ declare module "xray16" {
 
     /**
      * Remove named object methods registered as a level callback.
+     *
+     * @remarks
+     * The owner and method names must match the original registered pair.
      *
      * @param object - Owner object.
      * @param condition - Condition method name.
@@ -448,12 +519,18 @@ declare module "xray16" {
     /**
      * Stop a camera effector.
      *
+     * @remarks
+     * Requires an actor. The binding removes the effector from `Actor().Cameras()`.
+     *
      * @param id - Effector id.
      */
     remove_cam_effector(this: void, id: i32): void;
 
     /**
      * Stop a complex effector.
+     *
+     * @remarks
+     * Requires an actor. The binding removes the effector from the current actor object.
      *
      * @param id - Effector id.
      */
@@ -468,6 +545,9 @@ declare module "xray16" {
 
     /**
      * Stop a post-process effector.
+     *
+     * @remarks
+     * Requires an actor. Does nothing when no post-process effector exists for the id.
      *
      * @param id - Effector id.
      */
@@ -494,6 +574,9 @@ declare module "xray16" {
     /**
      * Set active camera id.
      *
+     * @remarks
+     * Does nothing when the current view entity is not an actor or when the id is outside the actor camera range.
+     *
      * @param id - Camera id.
      */
     set_active_cam(this: void, id: u8): void;
@@ -501,12 +584,20 @@ declare module "xray16" {
     /**
      * Set active single-player difficulty.
      *
+     * @remarks
+     * Updates the global difficulty and notifies the active single-player game state.
+     *
+     * @throws If the active game state is not single-player.
+     *
      * @param difficulty - Difficulty id.
      */
     set_game_difficulty(this: void, difficulty: unknown /* Enum ESingleGameDifficulty */): void;
 
     /**
      * Set a post-process effector factor.
+     *
+     * @remarks
+     * Requires an actor. Does nothing when no post-process effector exists for the id.
      *
      * @param id - Effector id.
      * @param factor - Target factor.
@@ -517,6 +608,9 @@ declare module "xray16" {
     /**
      * Set sound volume.
      *
+     * @remarks
+     * The engine clamps the value to the `0..1` range.
+     *
      * @param volume - Sound volume.
      */
     set_snd_volume(this: void, volume: f32): void;
@@ -524,12 +618,18 @@ declare module "xray16" {
     /**
      * Set game time speed multiplier.
      *
+     * @remarks
+     * Works only on the server and outside editor mode. Otherwise the binding returns without changing the time factor.
+     *
      * @param factor - Time factor.
      */
     set_time_factor(this: void, factor: f32): void;
 
     /**
      * Change active game weather.
+     *
+     * @remarks
+     * Does nothing in editor mode.
      *
      * @param weather_name - Name of weather config to apply.
      * @param is_forced - Whether weather change should be forced.
@@ -539,6 +639,9 @@ declare module "xray16" {
     /**
      * Start a weather effect by name.
      *
+     * @remarks
+     * Returns `false` in editor mode.
+     *
      * @param weather_fx_name - Weather effect config name.
      * @returns Whether the effect started.
      */
@@ -546,11 +649,17 @@ declare module "xray16" {
 
     /**
      * Show HUD indicators.
+     *
+     * @remarks
+     * Clears the runtime god-mode flag set by `hide_indicators()` and `hide_indicators_safe()`.
      */
     show_indicators(this: void): void;
 
     /**
      * Show or hide actor weapon.
+     *
+     * @remarks
+     * Does nothing while the actor exists and permanent god mode is enabled.
      *
      * @param is_visible - Whether weapon should be visible.
      */
@@ -559,11 +668,15 @@ declare module "xray16" {
     /**
      * Spawn an item on the level.
      *
+     * @remarks
+     * Uses the level spawn path, which is suitable for sections that are unsafe to create through `alife():create()`,
+     * such as bolts, phantoms, and ammo.
+     *
      * @param section - Item section name.
      * @param position - Spawn position.
      * @param level_vertex_id - Target level vertex.
      * @param parent_id - Parent object id, or `0xffff` for none.
-     * @param use_ai_locations - Whether to use AI locations.
+     * @param return_item - Engine spawn flag passed through to `Level().spawn_item`.
      */
     spawn_item(
       this: void,
@@ -571,7 +684,7 @@ declare module "xray16" {
       position: vector,
       level_vertex_id: u32,
       parent_id: u16,
-      use_ai_locations: boolean
+      return_item: boolean
     ): void;
 
     /**
@@ -584,13 +697,19 @@ declare module "xray16" {
     /**
      * Start or stop a menu dialog.
      *
+     * @remarks
+     * Hides the dialog when it is already shown. Otherwise shows it and applies `should_hide_indicators`.
+     *
      * @param dialog - Dialog window.
-     * @param is_active - Whether the dialog is active.
+     * @param should_hide_indicators - Whether showing the dialog should hide HUD indicators.
      */
-    start_stop_menu(this: void, dialog: CUIDialogWnd, is_active: boolean): void;
+    start_stop_menu(this: void, dialog: CUIDialogWnd, should_hide_indicators: boolean): void;
 
     /**
      * Start a weather effect from a specific time.
+     *
+     * @remarks
+     * Returns `false` in editor mode.
      *
      * @param weather_fx_name - Weather effect config name.
      * @param time - Start time.
@@ -606,13 +725,19 @@ declare module "xray16" {
     /**
      * Get nearest level vertex for a position.
      *
+     * @remarks
+     * The binding preserves original Lua behavior for invalid vertices and returns `4294967296` instead of `u32(-1)`.
+     *
      * @param position - World position.
      * @returns Level vertex id.
      */
-    vertex_id(this: void, position: vector): u32;
+    vertex_id(this: void, position: vector): u64;
 
     /**
      * Move from a level vertex in a direction.
+     *
+     * @remarks
+     * Returns the original vertex when the engine cannot find a valid vertex in the requested direction.
      *
      * @param vertex_id - Start level vertex id.
      * @param direction - Direction to move.
@@ -632,12 +757,15 @@ declare module "xray16" {
     /**
      * Cast a ray through the level collision world.
      *
+     * @remarks
+     * `result` is updated only when this returns `true`.
+     *
      * @param position - Ray origin.
      * @param direction - Ray direction.
      * @param range - Ray range.
      * @param target - Ray query target flags.
      * @param result - Ray query result placeholder.
-     * @param ignore_object - Object ignored by the query.
+     * @param ignore_object - Object ignored by the query, or `null`.
      * @returns Whether the ray hit anything.
      */
     ray_pick(
@@ -647,7 +775,7 @@ declare module "xray16" {
       range: f32,
       target: unknown,
       result: unknown,
-      ignore_object: game_object
+      ignore_object: game_object | null
     ): boolean;
   }
 
