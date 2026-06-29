@@ -1,14 +1,40 @@
 declare module "xray16" {
+  /**
+   * No Lua profiler is active.
+   *
+   * @source C++ enum CScriptProfilerType::None
+   * @group xr_profiler
+   */
   export const PROFILER_TYPE_NONE: 0;
+
+  /**
+   * Hook-based Lua profiler.
+   *
+   * @source C++ enum CScriptProfilerType::Hook
+   * @group xr_profiler
+   */
   export const PROFILER_TYPE_HOOK: 1;
+
+  /**
+   * LuaJIT sampling profiler.
+   *
+   * @source C++ enum CScriptProfilerType::Sampling
+   * @group xr_profiler
+   */
   export const PROFILER_TYPE_SAMPLING: 2;
 
+  /**
+   * Lua profiler mode accepted by `profiler.start`.
+   *
+   * @source C++ enum CScriptProfilerType
+   * @group xr_profiler
+   */
   export type TXR_ProfilerType = typeof PROFILER_TYPE_NONE | typeof PROFILER_TYPE_HOOK | typeof PROFILER_TYPE_SAMPLING;
 
   /**
    * @source C++ class profile_timer
    * @customConstructor profile_timer
-   * @group xr_profile
+   * @group xr_profiler
    */
   export class profile_timer extends EngineBinding {
     public constructor();
@@ -30,7 +56,7 @@ declare module "xray16" {
 
   /**
    * @source namespace profiler
-   * @group xr_profile
+   * @group xr_profiler
    */
   export interface IXR_profiler {
     /**
@@ -103,13 +129,16 @@ declare module "xray16" {
   }
 
   /**
-   * @group xr_profile
+   * Lua script profiler namespace.
+   *
+   * @source namespace profiler
+   * @group xr_profiler
    */
   export const profiler: IXR_profiler;
 
   /**
    * @source namespace profiler
-   * @group xr_profile
+   * @group xr_profiler
    */
   export interface IXR_tracy {
     /**
@@ -154,7 +183,10 @@ declare module "xray16" {
   }
 
   /**
-   * @group xr_profile
+   * Tracy profiling namespace.
+   *
+   * @source namespace tracy
+   * @group xr_profiler
    */
   export const tracy: IXR_tracy;
 }
