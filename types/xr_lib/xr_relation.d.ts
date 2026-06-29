@@ -1,22 +1,72 @@
 declare module "xray16" {
   /**
+   * Faction state shown by faction-war UI scripts.
+   *
    * @source C++ class FactionState
    * @customConstructor FactionState
    * @group xr_relation
    */
   export class FactionState {
+    /**
+     * Current goodwill from this faction to the actor.
+     */
     public actor_goodwill: i32;
+
+    /**
+     * Faction bonus level or id.
+     */
     public bonus: i32;
+
+    /**
+     * Faction community id.
+     */
     public faction_id: string;
+
+    /**
+     * Small faction icon texture.
+     */
     public icon: string;
+
+    /**
+     * Large faction icon texture.
+     */
     public icon_big: string;
+
+    /**
+     * Current faction map location.
+     */
     public location: string;
+
+    /**
+     * Number of faction members.
+     */
     public member_count: i32;
+
+    /**
+     * Localized faction name or string table id.
+     */
     public name: string;
+
+    /**
+     * Faction combat power.
+     */
     public power: f32;
+
+    /**
+     * Faction resource amount.
+     */
     public resource: f32;
+
+    /**
+     * Current faction target.
+     */
     public target: string;
+
+    /**
+     * Description of the current faction target.
+     */
     public target_desc: string;
+
     public war_state1: string;
     public war_state2: string;
     public war_state3: string;
@@ -38,12 +88,27 @@ declare module "xray16" {
   export interface IXR_relation_registry {
     /**
      * Change relation from community to object by `delta_goodwill`.
+     *
+     * @param from_community - Source community id.
+     * @param to_object_id - Target object id.
+     * @param delta_goodwill - Goodwill delta to apply.
      */
     change_community_goodwill(this: void, from_community: string, to_object_id: i32, delta_goodwill: i32): void;
 
+    /**
+     * Get goodwill from a community to an object.
+     *
+     * @param from_community - Source community id.
+     * @param to_object_id - Target object id.
+     * @returns Stored community goodwill.
+     */
     community_goodwill(this: void, from_community: string, to_object_id: i32): i32;
 
     /**
+     * Get relation between two communities.
+     *
+     * @param from_community - Source community id.
+     * @param to_community - Target community id.
      * @returns Relation points between communities, usually between `-5000` and `5000`.
      */
     community_relation(this: void, from_community: string, to_community: string): i32;
@@ -58,12 +123,28 @@ declare module "xray16" {
      */
     get_general_goodwill_between(this: void, from_object_id: u16, to_object_id: u16): i32;
 
+    /**
+     * Set goodwill from a community to an object.
+     *
+     * @param from_community - Source community id.
+     * @param to_object_id - Target object id.
+     * @param goodwill - New goodwill value.
+     */
     set_community_goodwill(this: void, from_community: string, to_object_id: i32, goodwill: i32): void;
 
+    /**
+     * Set relation between two communities.
+     *
+     * @param from_community - Source community id.
+     * @param to_community - Target community id.
+     * @param goodwill - New community relation value.
+     */
     set_community_relation(this: void, from_community: string, to_community: string, goodwill: i32): void;
   }
 
   /**
+   * Global relation registry helpers.
+   *
    * @group xr_relation
    */
   export const relation_registry: IXR_relation_registry;

@@ -32,18 +32,35 @@ declare module "xray16" {
   export type TXR_ProfilerType = typeof PROFILER_TYPE_NONE | typeof PROFILER_TYPE_HOOK | typeof PROFILER_TYPE_SAMPLING;
 
   /**
+   * Lightweight script profile timer.
+   *
    * @source C++ class profile_timer
    * @customConstructor profile_timer
    * @group xr_profiler
    */
   export class profile_timer extends EngineBinding {
     public constructor();
+
+    /**
+     * Copy an existing timer.
+     *
+     * @param timer - Timer to copy.
+     */
     public constructor(timer: profile_timer);
 
+    /**
+     * Stop measuring elapsed time.
+     */
     public stop(): void;
 
+    /**
+     * Start or restart measuring elapsed time.
+     */
     public start(): void;
 
+    /**
+     * @returns Elapsed time measured by the timer.
+     */
     public time(): f32;
 
     /**
@@ -153,8 +170,14 @@ declare module "xray16" {
      */
     ZoneBeginN(this: void, name: string): void;
 
+    /**
+     * Begin a Tracy profiling zone with source location data.
+     */
     ZoneBeginS(this: void): void;
 
+    /**
+     * Begin a named Tracy profiling zone with source location data.
+     */
     ZoneBeginNS(this: void): void;
 
     /**

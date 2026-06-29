@@ -1,5 +1,7 @@
 declare module "xray16" {
   /**
+   * Hit packet that can be sent to game objects.
+   *
    * @source C++ class hit
    * @customConstructor hit
    * @group xr_hit
@@ -17,15 +19,45 @@ declare module "xray16" {
     public static readonly telepatic = 4;
     public static readonly wound = 6;
 
+    /**
+     * Hit direction.
+     */
     public direction: vector;
+
+    /**
+     * Object that caused the hit.
+     */
     public draftsman: game_object | null;
+
+    /**
+     * Physics impulse applied with the hit.
+     */
     public impulse: f32;
+
+    /**
+     * Hit damage power.
+     */
     public power: f32;
+
+    /**
+     * Hit damage type.
+     */
     public type: TXR_hit_type;
 
     public constructor();
+
+    /**
+     * Copy an existing hit packet.
+     *
+     * @param hit - Source hit.
+     */
     public constructor(hit: hit);
 
+    /**
+     * Target a model bone by name.
+     *
+     * @param bone - Bone name used by the receiver model.
+     */
     public bone(bone: string): void;
   }
 
