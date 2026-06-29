@@ -244,10 +244,14 @@ declare module "xray16" {
      */
     get_wfx_time(this: void): f32;
 
-    /** Hide HUD indicators. */
+    /**
+     * Hide HUD indicators.
+     */
     hide_indicators(this: void): void;
 
-    /** Hide HUD indicators if the HUD is available. */
+    /**
+     * Hide HUD indicators if the HUD is available.
+     */
     hide_indicators_safe(this: void): void;
 
     /**
@@ -540,7 +544,9 @@ declare module "xray16" {
      */
     set_weather_fx(this: void, weather_fx_name: string): boolean;
 
-    /** Show HUD indicators. */
+    /**
+     * Show HUD indicators.
+     */
     show_indicators(this: void): void;
 
     /**
@@ -592,7 +598,9 @@ declare module "xray16" {
      */
     start_weather_fx_from_time(this: void, weather_fx_name: string, time: f32): boolean;
 
-    /** Stop the active weather effect. */
+    /**
+     * Stop the active weather effect.
+     */
     stop_weather_fx(this: void): void;
 
     /**

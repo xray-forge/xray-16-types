@@ -39,6 +39,9 @@ declare module "xray16" {
    * @group xr_profiler
    */
   export class profile_timer extends EngineBinding {
+    /**
+     * Create a stopped profile timer.
+     */
     public constructor();
 
     /**

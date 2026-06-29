@@ -7,6 +7,9 @@ declare module "xray16" {
    * @group xr_artefact
    */
   export class CArtefact extends CGameObject {
+    /**
+     * Create an artefact object wrapper.
+     */
     public constructor();
 
     /**

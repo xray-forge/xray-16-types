@@ -7,7 +7,9 @@ declare module "xray16" {
    * @group xr_save
    */
   export class ClientID extends EngineBinding {
-    /** Create an empty client id. */
+    /**
+     * Create an empty client id.
+     */
     public constructor();
 
     /**
@@ -36,7 +38,9 @@ declare module "xray16" {
    * @group xr_save
    */
   export class net_packet {
-    /** Create an empty packet. */
+    /**
+     * Create an empty packet.
+     */
     public constructor();
 
     /**

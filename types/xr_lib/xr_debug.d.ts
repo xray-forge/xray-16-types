@@ -7,6 +7,9 @@ declare module "xray16" {
    * @group xr_debug
    */
   export class CConsole extends EngineBinding {
+    /**
+     * Engine-owned console singleton.
+     */
     private constructor();
 
     /**
@@ -30,10 +33,14 @@ declare module "xray16" {
      */
     public execute_script(script: string): void;
 
-    /** Show the console window. */
+    /**
+     * Show the console window.
+     */
     public show(): void;
 
-    /** Hide the console window. */
+    /**
+     * Hide the console window.
+     */
     public hide(): void;
 
     /**

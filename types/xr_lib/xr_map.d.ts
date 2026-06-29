@@ -7,6 +7,9 @@ declare module "xray16" {
    * @group xr_map
    */
   export class CMapManager {
+    /**
+     * Create a map manager wrapper.
+     */
     public constructor();
 
     /**
@@ -37,6 +40,9 @@ declare module "xray16" {
    * @group xr_map
    */
   export class CMapLocation {
+    /**
+     * Create a map location wrapper.
+     */
     public constructor();
 
     /**

@@ -44,6 +44,9 @@ declare module "xray16" {
      */
     public type: TXR_hit_type;
 
+    /**
+     * Create an empty hit packet.
+     */
     public constructor();
 
     /**

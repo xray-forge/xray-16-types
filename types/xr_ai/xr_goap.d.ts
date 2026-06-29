@@ -150,6 +150,9 @@ declare module "xray16" {
     public static readonly sound_tolls: 17;
     public static readonly sound_wounded: 18;
 
+    /**
+     * Create an ids constants wrapper.
+     */
     public constructor();
   }
 

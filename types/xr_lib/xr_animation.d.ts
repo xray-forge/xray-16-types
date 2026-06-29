@@ -17,7 +17,17 @@ declare module "xray16" {
      */
     public h: f32;
 
+    /**
+     * Create zeroed duality settings.
+     */
     public constructor();
+
+    /**
+     * Create duality settings with both offsets.
+     *
+     * @param v - Vertical duality amount.
+     * @param h - Horizontal duality amount.
+     */
     public constructor(v: f32, h: f32);
 
     /**
@@ -47,7 +57,18 @@ declare module "xray16" {
     /** Noise intensity. */
     public intensity: f32;
 
+    /**
+     * Create zeroed noise settings.
+     */
     public constructor();
+
+    /**
+     * Create noise settings with all values.
+     *
+     * @param fps - Noise frame rate.
+     * @param grain - Noise grain size.
+     * @param intensity - Noise intensity.
+     */
     public constructor(fps: f32, grain: f32, intensity: f32);
 
     /**
@@ -137,6 +158,9 @@ declare module "xray16" {
      */
     public noise: noise;
 
+    /**
+     * Create default post-process parameters.
+     */
     public constructor();
 
     /**

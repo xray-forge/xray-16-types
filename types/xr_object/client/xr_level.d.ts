@@ -7,6 +7,9 @@ declare module "xray16" {
    * @group xr_level
    */
   export class CZoneCampfire extends CGameObject {
+    /**
+     * Create a campfire object wrapper.
+     */
     public constructor();
 
     /**
@@ -91,6 +94,9 @@ declare module "xray16" {
    * @group xr_level
    */
   export class hanging_lamp extends CGameObject {
+    /**
+     * Create a hanging lamp object wrapper.
+     */
     public constructor();
 
     /**
@@ -119,6 +125,9 @@ declare module "xray16" {
     public static eWpnFire: 4;
     public static eWpnToDefaultDir: 6;
 
+    /**
+     * Create a car object wrapper.
+     */
     public constructor();
 
     /**
@@ -395,6 +404,9 @@ declare module "xray16" {
     public m_use_mgun_on_attack: boolean;
     public m_use_rocket_on_attack: boolean;
 
+    /**
+     * Create a helicopter object wrapper.
+     */
     public constructor();
 
     /**

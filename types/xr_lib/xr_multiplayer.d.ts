@@ -7,6 +7,9 @@ declare module "xray16" {
    * @group xr_multiplayer
    */
   export class demo_info {
+    /**
+     * Engine-created demo metadata.
+     */
     protected constructor();
 
     /**
@@ -130,6 +133,9 @@ declare module "xray16" {
      */
     public without_pass: boolean;
 
+    /**
+     * Create default server browser filters.
+     */
     public constructor();
   }
 
@@ -160,6 +166,9 @@ declare module "xray16" {
    * @group xr_multiplayer
    */
   export class account_manager {
+    /**
+     * Engine-owned account manager singleton.
+     */
     private constructor();
 
     /**
@@ -278,6 +287,9 @@ declare module "xray16" {
    * @group xr_multiplayer
    */
   export class login_manager {
+    /**
+     * Engine-owned login manager singleton.
+     */
     private constructor();
 
     /**
@@ -624,6 +636,9 @@ declare module "xray16" {
     public static readonly bst_kinife_kills_in_row: 1;
     public static readonly bst_score_types_count: 7;
 
+    /**
+     * Engine-created profile store.
+     */
     protected constructor();
 
     /**
@@ -700,6 +715,9 @@ declare module "xray16" {
     public static GAME_EVENT_SKIN_MENU_CLOSED: 25;
     public static GAME_EVENT_TEAM_MENU_CLOSED: 24;
 
+    /**
+     * Engine-owned multiplayer event constants.
+     */
     protected constructor();
   }
 
@@ -731,6 +749,9 @@ declare module "xray16" {
      */
     public type: number; /* EGameIDs */
 
+    /**
+     * Create an empty multiplayer game state.
+     */
     public constructor();
 
     /**

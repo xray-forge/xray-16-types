@@ -110,6 +110,11 @@ declare module "xray16" {
    * @group xr_creature
    */
   export class CAI_Bloodsucker extends CGameObject {
+    /**
+     * Override the bloodsucker visibility state.
+     *
+     * @param value - Visibility state id used by the monster implementation.
+     */
     public force_visibility_state(value: i32): void;
   }
 

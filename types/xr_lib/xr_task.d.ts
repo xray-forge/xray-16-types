@@ -15,6 +15,9 @@ declare module "xray16" {
     public static readonly storyline: 0;
     public static readonly task_dummy: 65535;
 
+    /**
+     * Engine-owned task constants.
+     */
     private constructor();
   }
 
@@ -222,6 +225,9 @@ declare module "xray16" {
    * @group xr_task
    */
   export class CGameTask extends SGameTaskObjective {
+    /**
+     * Create an empty game task.
+     */
     public constructor();
 
     /**

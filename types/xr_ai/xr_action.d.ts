@@ -166,6 +166,8 @@ declare module "xray16" {
   export type TXR_entity_action = move | look | anim | sound | particle | XR_object | cond | act;
 
   /**
+   * Object interaction action.
+   *
    * @source C++ class object
    * @customConstructor object
    * @group xr_action
@@ -193,16 +195,63 @@ declare module "xray16" {
     public static readonly turn_on: 19;
     public static readonly use: 18;
 
-    public constructor(value: string);
-    public constructor(value: string, type: number); /* MonsterSpace::EObjectAction */
-    public constructor(game_object: game_object);
+    /**
+     * Create an empty object action.
+     */
+    public constructor();
+
+    /**
+     * Create an action for a game object.
+     *
+     * @param game_object - Target object.
+     * @param action - Object action id.
+     */
+    public constructor(game_object: game_object, action: TXR_object_action);
+
+    /**
+     * Create a timed action for a game object.
+     *
+     * @param game_object - Target object.
+     * @param action - Object action id.
+     * @param time - Action time limit.
+     */
+    public constructor(game_object: game_object, action: TXR_object_action, time: u32);
+
+    /**
+     * Create an object action without a target.
+     *
+     * @param action - Object action id.
+     */
+    public constructor(action: TXR_object_action);
+
+    /**
+     * Create an action for an object by name.
+     *
+     * @param object_name - Target object name.
+     * @param action - Object action id.
+     */
+    public constructor(object_name: string, action: TXR_object_action);
 
     /**
      * Set the object action mode.
      *
-     * @param space - Object action mode.
+     * @param action - Object action id.
      */
-    public action(space: unknown /** Enum MonsterSpace::EObjectAction. */): void;
+    public action(action: TXR_object_action): void;
+
+    /**
+     * Set target object by name.
+     *
+     * @param object_name - Target object name.
+     */
+    public object(object_name: string): void;
+
+    /**
+     * Set target object.
+     *
+     * @param game_object - Target object.
+     */
+    public object(game_object: game_object): void;
 
     /**
      * Check whether the object action is complete.
@@ -225,6 +274,8 @@ declare module "xray16" {
   export const object: typeof XR_object;
 
   /**
+   * Movement action for stalkers, monsters, and vehicles.
+   *
    * @source C++ class move
    * @customConstructor move
    * @group xr_action
@@ -274,49 +325,257 @@ declare module "xray16" {
     public static readonly walk_bkwd: 1;
     public static readonly walk_with_leader: 6;
 
+    /**
+     * Create an empty movement action.
+     */
     public constructor();
-    public constructor(action: unknown);
-    public constructor(action: unknown, value: number);
-    public constructor(bodyState: number, movementType: TXR_move, pathType: unknown, game_object: game_object);
+
+    /**
+     * Create a vehicle input action.
+     *
+     * @param action - Input key id.
+     */
+    public constructor(action: number);
+
+    /**
+     * Create a timed vehicle input action.
+     *
+     * @param action - Input key id.
+     * @param value - Action duration or value.
+     */
+    public constructor(action: number, value: number);
+
+    /**
+     * Move toward an object with explicit body, movement, and path modes.
+     *
+     * @param bodyState - Body state id.
+     * @param movementType - Movement type id.
+     * @param pathType - Detail path type id.
+     * @param game_object - Target object.
+     */
+    public constructor(bodyState: number, movementType: TXR_move, pathType: number, game_object: game_object);
+
+    /**
+     * Move toward an object with a speed value.
+     *
+     * @param bodyState - Body state id.
+     * @param movementType - Movement type id.
+     * @param pathType - Detail path type id.
+     * @param game_object - Target object.
+     * @param value - Speed or distance value.
+     */
     public constructor(
       bodyState: number,
       movementType: TXR_move,
-      pathType: unknown,
+      pathType: number,
       game_object: game_object,
       value: f32
     );
-    public constructor(bodyState: number, movementType: TXR_move, pathType: unknown, patrol: patrol);
-    public constructor(bodyState: number, movementType: TXR_move, pathType: unknown, patrol: patrol, value: f32);
-    public constructor(bodyState: number, movementType: TXR_move, pathType: unknown, vector: vector);
-    public constructor(bodyState: number, movementType: TXR_move, pathType: unknown, vector: vector, value: f32);
-    public constructor(vector: vector, value: number);
-    public constructor(moveAction: TXR_move, vector: vector);
-    public constructor(moveAction: TXR_move, patrol: patrol);
-    public constructor(moveAction: TXR_move, game_object: game_object);
-    public constructor(moveAction: TXR_move, vector: vector, value: number);
-    public constructor(moveAction: TXR_move, value: number, vector: vector);
-    public constructor(moveAction: TXR_move, value: number, vector: vector, value2: number);
-    public constructor(moveAction: TXR_move, patrol: patrol, value: number);
-    public constructor(moveAction: TXR_move, game_object: game_object, value: f32);
-    public constructor(moveAction: TXR_move, vector: vector, value: f32, speedParam: number);
-    public constructor(moveAction: TXR_move, patrol: patrol, value: f32, speedParam: number);
-    public constructor(moveAction: TXR_move, game_object: game_object, value: number, speedParam: unknown);
 
+    /**
+     * Move along a patrol path.
+     *
+     * @param bodyState - Body state id.
+     * @param movementType - Movement type id.
+     * @param pathType - Detail path type id.
+     * @param patrol - Patrol path parameters.
+     */
+    public constructor(bodyState: number, movementType: TXR_move, pathType: number, patrol: patrol);
+
+    /**
+     * Move along a patrol path with a speed value.
+     *
+     * @param bodyState - Body state id.
+     * @param movementType - Movement type id.
+     * @param pathType - Detail path type id.
+     * @param patrol - Patrol path parameters.
+     * @param value - Speed or distance value.
+     */
+    public constructor(bodyState: number, movementType: TXR_move, pathType: number, patrol: patrol, value: f32);
+
+    /**
+     * Move toward a position.
+     *
+     * @param bodyState - Body state id.
+     * @param movementType - Movement type id.
+     * @param pathType - Detail path type id.
+     * @param vector - Target position.
+     */
+    public constructor(bodyState: number, movementType: TXR_move, pathType: number, vector: vector);
+
+    /**
+     * Move toward a position with a speed value.
+     *
+     * @param bodyState - Body state id.
+     * @param movementType - Movement type id.
+     * @param pathType - Detail path type id.
+     * @param vector - Target position.
+     * @param value - Speed or distance value.
+     */
+    public constructor(bodyState: number, movementType: TXR_move, pathType: number, vector: vector, value: f32);
+
+    /**
+     * Move toward a position with distance.
+     *
+     * @param vector - Target position.
+     * @param value - Distance value.
+     */
+    public constructor(vector: vector, value: number);
+
+    /**
+     * Create a monster movement action toward a position.
+     *
+     * @param moveAction - Monster movement action id.
+     * @param vector - Target position.
+     */
+    public constructor(moveAction: TXR_move, vector: vector);
+
+    /**
+     * Create a monster movement action along a patrol path.
+     *
+     * @param moveAction - Monster movement action id.
+     * @param patrol - Patrol path parameters.
+     */
+    public constructor(moveAction: TXR_move, patrol: patrol);
+
+    /**
+     * Create a monster movement action toward an object.
+     *
+     * @param moveAction - Monster movement action id.
+     * @param game_object - Target object.
+     */
+    public constructor(moveAction: TXR_move, game_object: game_object);
+
+    /**
+     * Create a monster movement action toward a position with distance.
+     *
+     * @param moveAction - Monster movement action id.
+     * @param vector - Target position.
+     * @param value - Distance value.
+     */
+    public constructor(moveAction: TXR_move, vector: vector, value: number);
+
+    /**
+     * Create a monster movement action toward a position from a node id.
+     *
+     * @param moveAction - Monster movement action id.
+     * @param value - Node or point id.
+     * @param vector - Target position.
+     */
+    public constructor(moveAction: TXR_move, value: number, vector: vector);
+
+    /**
+     * Create a monster movement action toward a position from a node id with distance.
+     *
+     * @param moveAction - Monster movement action id.
+     * @param value - Node or point id.
+     * @param vector - Target position.
+     * @param value2 - Distance value.
+     */
+    public constructor(moveAction: TXR_move, value: number, vector: vector, value2: number);
+
+    /**
+     * Create a monster movement action along a patrol path with distance.
+     *
+     * @param moveAction - Monster movement action id.
+     * @param patrol - Patrol path parameters.
+     * @param value - Distance value.
+     */
+    public constructor(moveAction: TXR_move, patrol: patrol, value: number);
+
+    /**
+     * Create a monster movement action toward an object with distance.
+     *
+     * @param moveAction - Monster movement action id.
+     * @param game_object - Target object.
+     * @param value - Distance value.
+     */
+    public constructor(moveAction: TXR_move, game_object: game_object, value: f32);
+
+    /**
+     * Create a monster movement action toward a position with speed mode.
+     *
+     * @param moveAction - Monster movement action id.
+     * @param vector - Target position.
+     * @param value - Distance value.
+     * @param speedParam - Speed parameter id.
+     */
+    public constructor(moveAction: TXR_move, vector: vector, value: f32, speedParam: number);
+
+    /**
+     * Create a monster movement action along a patrol path with speed mode.
+     *
+     * @param moveAction - Monster movement action id.
+     * @param patrol - Patrol path parameters.
+     * @param value - Distance value.
+     * @param speedParam - Speed parameter id.
+     */
+    public constructor(moveAction: TXR_move, patrol: patrol, value: f32, speedParam: number);
+
+    /**
+     * Create a monster movement action toward an object with speed mode.
+     *
+     * @param moveAction - Monster movement action id.
+     * @param game_object - Target object.
+     * @param value - Distance value.
+     * @param speedParam - Speed parameter id.
+     */
+    public constructor(moveAction: TXR_move, game_object: game_object, value: number, speedParam: number);
+
+    /**
+     * @returns Whether the movement action is complete.
+     */
     public completed(): boolean;
 
-    public path(EDetailPathType: number): void;
+    /**
+     * Set detail path type.
+     *
+     * @param pathType - Detail path type id.
+     */
+    public path(pathType: number): void;
 
-    public move(EMovementType: number): void;
+    /**
+     * Set movement type.
+     *
+     * @param movementType - Movement type id.
+     */
+    public move(movementType: number): void;
 
+    /**
+     * Set target position.
+     *
+     * @param vector - Target position.
+     */
     public position(vector: vector): void;
 
-    public input(EInputKeys: number): void;
+    /**
+     * Set input key action.
+     *
+     * @param inputKey - Input key id.
+     */
+    public input(inputKey: number): void;
 
-    public patrol(patrolPath: unknown, shared_str: string): void;
+    /**
+     * Set patrol path.
+     *
+     * @param patrolPath - Patrol path object.
+     * @param path_name - Patrol path name.
+     */
+    public patrol(patrolPath: unknown, path_name: string): void;
 
+    /**
+     * Set target object.
+     *
+     * @param game_object - Target object.
+     */
     public object(game_object: game_object): void;
 
-    public body(EBodyState: number): void;
+    /**
+     * Set body state.
+     *
+     * @param bodyState - Body state id.
+     */
+    public body(bodyState: number): void;
   }
 
   /**
@@ -325,6 +584,8 @@ declare module "xray16" {
   export type TXR_move = EnumeratedStaticsValues<typeof move>;
 
   /**
+   * Patrol path parameters used by movement actions.
+   *
    * @source C++ class patrol
    * @customConstructor patrol
    * @group xr_action
@@ -342,6 +603,15 @@ declare module "xray16" {
     public static readonly next: 4;
     public static readonly dummy: -1;
 
+    /**
+     * Create patrol path parameters.
+     *
+     * @param name - Patrol path name.
+     * @param startType - Patrol start type.
+     * @param routeType - Patrol route type.
+     * @param bool - Whether random point selection is enabled.
+     * @param int - Custom start point index.
+     */
     public constructor(
       name?: string,
       startType?: TXR_patrol_type,
@@ -350,16 +620,91 @@ declare module "xray16" {
       int?: u32
     );
 
+    /**
+     * @returns Number of points in the patrol path.
+     */
     public count(): u32;
+
+    /**
+     * Check a patrol point flag by numeric index.
+     *
+     * @param value1 - Patrol point index.
+     * @param value2 - Flag index.
+     * @returns Whether the flag is set.
+     */
     public flag(value1: u32, value2: u8): boolean;
+
+    /**
+     * Check a patrol point flag by name.
+     *
+     * @param value1 - Patrol point index.
+     * @param value2 - Flag name.
+     * @returns Whether the flag is set.
+     */
     public flag(value1: u32, value2: string): boolean;
+
+    /**
+     * Get all flags for a patrol point.
+     *
+     * @param point_index - Patrol point index.
+     * @returns Point flags.
+     */
     public flags(point_index: u32): flags32;
+
+    /**
+     * Get game graph vertex id for a patrol point.
+     *
+     * @param value - Patrol point index.
+     * @returns Game graph vertex id.
+     */
     public game_vertex_id(value: u32): u16;
+
+    /**
+     * Find nearest patrol point to a position.
+     *
+     * @param vector - Position to test.
+     * @returns Patrol point index.
+     */
     public get_nearest(vector: vector): u32;
+
+    /**
+     * Find patrol point index by name.
+     *
+     * @param value - Patrol point name.
+     * @returns Patrol point index.
+     */
     public index(value: string): u32;
+
+    /**
+     * Get level vertex id for a patrol point.
+     *
+     * @param value - Patrol point index.
+     * @returns Level vertex id.
+     */
     public level_vertex_id(value: u32): u32;
+
+    /**
+     * Get patrol point name.
+     *
+     * @param point_index - Patrol point index.
+     * @returns Point name.
+     */
     public name(point_index: u32): string;
+
+    /**
+     * Get patrol point position.
+     *
+     * @param index - Patrol point index.
+     * @returns Point position.
+     */
     public point(index: u32): vector;
+
+    /**
+     * Check whether a patrol point is terminal.
+     *
+     * @param point_index - Patrol point index.
+     * @returns Whether the point ends the route.
+     */
     public terminal(point_index: u32): boolean;
   }
 
@@ -369,6 +714,8 @@ declare module "xray16" {
   export type TXR_patrol_type = EnumeratedStaticsValues<typeof patrol>;
 
   /**
+   * Sight target snapshot.
+   *
    * @source C++ class CSightParams
    * @customConstructor XR_CSightParams
    * @group xr_action
@@ -392,6 +739,9 @@ declare module "xray16" {
     public readonly m_sight_type: TXR_SightType;
     public readonly m_vector: vector;
 
+    /**
+     * Create default sight parameters.
+     */
     public constructor();
   }
 
@@ -401,6 +751,8 @@ declare module "xray16" {
   export type TXR_SightType = EnumeratedStaticsValues<typeof CSightParams>;
 
   /**
+   * Look action for setting where an object should watch.
+   *
    * @source C++ class look
    * @customConstructor look
    * @group xr_action
@@ -414,18 +766,92 @@ declare module "xray16" {
     public static readonly point: 3;
     public static readonly search: 6;
 
+    /**
+     * Create an empty look action.
+     */
     public constructor();
+
+    /**
+     * Create a look action by sight type.
+     *
+     * @param sight_type - Sight type id.
+     */
     public constructor(sight_type: TXR_SightType);
+
+    /**
+     * Look at a position or direction.
+     *
+     * @param sight_type - Sight type id.
+     * @param vector - Target vector.
+     */
     public constructor(sight_type: TXR_SightType, vector: vector);
+
+    /**
+     * Look at an object.
+     *
+     * @param sight_type - Sight type id.
+     * @param game_object - Target object.
+     */
     public constructor(sight_type: TXR_SightType, game_object: game_object);
+
+    /**
+     * Look at an object bone.
+     *
+     * @param sight_type - Sight type id.
+     * @param game_object - Target object.
+     * @param value - Bone name.
+     */
     public constructor(sight_type: TXR_SightType, game_object: game_object, value: string);
+
+    /**
+     * Create a searchlight-style look action from a vector.
+     *
+     * @param vector - Target vector.
+     * @param value1 - First angle.
+     * @param value2 - Second angle.
+     */
     public constructor(vector: vector, value1: f32, value2: f32);
+
+    /**
+     * Create a searchlight-style look action from an object.
+     *
+     * @param game_object - Target object.
+     * @param value1 - First angle.
+     * @param value2 - Second angle.
+     */
     public constructor(game_object: game_object, value1: f32, value2: f32);
 
+    /**
+     * @returns Whether the look action is complete.
+     */
     public completed(): boolean;
+
+    /**
+     * Set sight type.
+     *
+     * @param sight_type - Sight type id.
+     */
     public type(sight_type: TXR_SightType): void;
+
+    /**
+     * Set watched object.
+     *
+     * @param game_object - Target object.
+     */
     public object(game_object: game_object): void;
-    public bone(bode_id: string): void;
+
+    /**
+     * Set watched bone.
+     *
+     * @param bone_id - Bone name.
+     */
+    public bone(bone_id: string): void;
+
+    /**
+     * Set watched direction.
+     *
+     * @param vector - Direction vector.
+     */
     public direct(vector: Readonly<vector>): void;
   }
 
@@ -435,6 +861,8 @@ declare module "xray16" {
   export type TXR_look = EnumeratedStaticsValues<typeof look>;
 
   /**
+   * Animation action.
+   *
    * @source C++ class anim
    * @customConstructor anim
    * @group xr_action
@@ -457,14 +885,58 @@ declare module "xray16" {
     public static readonly look_around: 8;
     public static readonly turn: 9;
 
+    /**
+     * Create an empty animation action.
+     */
     public constructor();
+
+    /**
+     * Play an animation by name.
+     *
+     * @param value - Animation name.
+     */
     public constructor(value: string);
+
+    /**
+     * Play an animation by name.
+     *
+     * @param value1 - Animation name.
+     * @param value2 - Whether the animation should loop.
+     */
     public constructor(value1: string, value2: boolean);
+
+    /**
+     * Set monster mental state.
+     *
+     * @param state - Mental state id.
+     */
     public constructor(state: number); /* Enum MonsterSpace::EMentalState */
+
+    /**
+     * Set monster animation action and extra value.
+     *
+     * @param state - Monster animation action id.
+     * @param value - Extra action value.
+     */
     public constructor(state: number /* Enum MonsterSpace::EMentalState */, value: i32);
 
+    /**
+     * @returns Whether the animation action is complete.
+     */
     public completed(): boolean;
+
+    /**
+     * Set mental state.
+     *
+     * @param state - Mental state id.
+     */
     public type(state: number /* Enum MonsterSpace::EMentalState */): void;
+
+    /**
+     * Set animation name.
+     *
+     * @param value - Animation name.
+     */
     public anim(value: string): void;
   }
 
@@ -479,6 +951,8 @@ declare module "xray16" {
   export type TXR_animation = EnumeratedStaticsValues<typeof anim>;
 
   /**
+   * Sound action for scripted AI behavior.
+   *
    * @source C++ class sound
    * @customConstructor sound
    * @group xr_action
@@ -494,36 +968,202 @@ declare module "xray16" {
     public static readonly take_damage: 5;
     public static readonly threaten: 9;
 
+    /**
+     * Create an empty sound action.
+     */
     public constructor();
+
+    /**
+     * Play a sound by prefix and name.
+     *
+     * @param value1 - Sound prefix or collection.
+     * @param value2 - Sound name.
+     */
     public constructor(value1: string, value2: string);
+
+    /**
+     * Play a sound at a position.
+     *
+     * @param value1 - Sound prefix or collection.
+     * @param value2 - Sound name.
+     * @param vector - Position.
+     */
     public constructor(value1: string, value2: string, vector: vector);
+
+    /**
+     * Play a sound at a position with angles.
+     *
+     * @param value1 - Sound prefix or collection.
+     * @param value2 - Sound name.
+     * @param vector - Position.
+     * @param vector2 - Angles.
+     */
     public constructor(value1: string, value2: string, vector: vector, vector2: vector);
+
+    /**
+     * Play a sound at a position with angles and loop flag.
+     *
+     * @param value1 - Sound prefix or collection.
+     * @param value2 - Sound name.
+     * @param vector - Position.
+     * @param vector2 - Angles.
+     * @param value3 - Whether playback should loop.
+     */
     public constructor(value1: string, value2: string, vector: vector, vector2: vector, value3: boolean);
+
+    /**
+     * Play a sound by name at a position.
+     *
+     * @param value1 - Sound name.
+     * @param vector - Position.
+     */
     public constructor(value1: string, vector: vector);
+
+    /**
+     * Play a sound by name at a position with angles.
+     *
+     * @param value1 - Sound name.
+     * @param vector - Position.
+     * @param vector2 - Angles.
+     */
     public constructor(value1: string, vector: vector, vector2: vector);
+
+    /**
+     * Play a sound by name at a position with angles and loop flag.
+     *
+     * @param value1 - Sound name.
+     * @param vector - Position.
+     * @param vector2 - Angles.
+     * @param value3 - Whether playback should loop.
+     */
     public constructor(value1: string, vector: vector, vector2: vector, value3: boolean);
+
+    /**
+     * Play a `sound_object` with a bone at a position.
+     *
+     * @param sound_object - Sound object.
+     * @param value1 - Bone name.
+     * @param vector - Position.
+     */
     public constructor(sound_object: sound_object, value1: string, vector: vector);
+
+    /**
+     * Play a `sound_object` with a bone, position, and angles.
+     *
+     * @param sound_object - Sound object.
+     * @param value1 - Bone name.
+     * @param vector - Position.
+     * @param vector2 - Angles.
+     */
     public constructor(sound_object: sound_object, value1: string, vector: vector, vector2: vector);
+
+    /**
+     * Play a `sound_object` with a bone, position, angles, and loop flag.
+     *
+     * @param sound_object - Sound object.
+     * @param value1 - Bone name.
+     * @param vector - Position.
+     * @param vector2 - Angles.
+     * @param value - Whether playback should loop.
+     */
     public constructor(sound_object: sound_object, value1: string, vector: vector, vector2: vector, value: boolean);
+
+    /**
+     * Play a `sound_object` at a position.
+     *
+     * @param sound_object - Sound object.
+     * @param vector1 - Position.
+     */
     public constructor(sound_object: sound_object, vector1: vector);
+
+    /**
+     * Play a `sound_object` at a position with angles.
+     *
+     * @param sound_object - Sound object.
+     * @param vector1 - Position.
+     * @param vector2 - Angles.
+     */
     public constructor(sound_object: sound_object, vector1: vector, vector2: vector);
+
+    /**
+     * Play a `sound_object` at a position with angles and loop flag.
+     *
+     * @param sound_object - Sound object.
+     * @param vector1 - Position.
+     * @param vector2 - Angles.
+     * @param value - Whether playback should loop.
+     */
     public constructor(sound_object: sound_object, vector1: vector, vector2: vector, value: boolean);
-    public constructor(type: unknown); /* MonsterSound::EType */
-    public constructor(type: unknown /* Enum MonsterSound::EType*/, value: number);
+
+    /**
+     * Play a monster sound by type.
+     *
+     * @param type - Monster sound type id.
+     */
+    public constructor(type: TXR_sound_type); /* MonsterSound::EType */
+
+    /**
+     * Play a monster sound by type with extra value.
+     *
+     * @param type - Monster sound type id.
+     * @param value - Extra sound value.
+     */
+    public constructor(type: TXR_sound_type /* Enum MonsterSound::EType*/, value: number);
+
+    /**
+     * Play a trader sound with a head animation.
+     *
+     * @param value1 - Sound prefix or collection.
+     * @param value2 - Sound name.
+     * @param type - Monster head animation type.
+     */
     public constructor(value1: string, value2: string, type: unknown); /* Enum MonsterSpace::EMonsterHeadAnimType */
 
+    /**
+     * Set sound by name.
+     *
+     * @param value - Sound name.
+     */
     public set_sound(value: string): void;
 
+    /**
+     * Set sound object.
+     *
+     * @param sound_object - Sound object.
+     */
     public set_sound(sound_object: sound_object): void;
 
+    /**
+     * Set sound position.
+     *
+     * @param vector - Position.
+     */
     public set_position(vector: vector): void;
 
+    /**
+     * Set sound bone.
+     *
+     * @param value - Bone name.
+     */
     public set_bone(value: string): void;
 
+    /**
+     * Set sound angles.
+     *
+     * @param vector - Angles.
+     */
     public set_angles(vector: vector): void;
 
-    public set_sound_type(type: unknown /* ESoundTypes */): void;
+    /**
+     * Set sound type.
+     *
+     * @param type - Sound type id.
+     */
+    public set_sound_type(type: number /* ESoundTypes */): void;
 
+    /**
+     * @returns Whether sound playback is complete.
+     */
     public completed(): boolean;
   }
 
@@ -538,6 +1178,8 @@ declare module "xray16" {
   export type TXR_sound_type = EnumeratedStaticsValues<typeof sound>;
 
   /**
+   * Completion condition for a composed entity action.
+   *
    * @source C++ class cond
    * @customConstructor cond
    * @group xr_action
@@ -551,8 +1193,24 @@ declare module "xray16" {
     public static readonly time_end: 64;
     public static readonly act_end: 128;
 
+    /**
+     * Create an empty completion condition.
+     */
     public constructor();
+
+    /**
+     * Create a completion condition from flags.
+     *
+     * @param value - Condition flags.
+     */
     public constructor(value: u32);
+
+    /**
+     * Create a completion condition from flags and a time limit.
+     *
+     * @param value1 - Condition flags.
+     * @param value2 - Time limit.
+     */
     public constructor(value1: u32, value2: f64);
   }
 
@@ -562,6 +1220,8 @@ declare module "xray16" {
   export type TXR_cond = EnumeratedStaticsValues<typeof cond>;
 
   /**
+   * Global monster action.
+   *
    * @source C++ class act
    * @customConstructor act
    * @group xr_action
@@ -572,28 +1232,75 @@ declare module "xray16" {
     public static readonly panic: 3;
     public static readonly rest: 0;
 
+    /**
+     * Create an empty global monster action.
+     */
     public constructor();
-    public constructor(EScriptMonsterGlobalAction: number);
-    public constructor(EScriptMonsterGlobalAction: number, game_object: game_object);
+
+    /**
+     * Create a global monster action.
+     *
+     * @param action - Global monster action id.
+     */
+    public constructor(action: number);
+
+    /**
+     * Create a global monster action with a target object.
+     *
+     * @param action - Global monster action id.
+     * @param game_object - Target object.
+     */
+    public constructor(action: number, game_object: game_object);
   }
 
   /**
+   * Particle action transform parameters.
+   *
    * @source C++ class particle_params
    * @customConstructor particle_params
    * @group xr_action
    */
   export class particle_params {
+    /**
+     * Create empty particle parameters.
+     */
     public constructor();
+
+    /**
+     * Create particle parameters from vectors.
+     *
+     * @param first - Position vector.
+     * @param second - Angle vector.
+     * @param third - Velocity vector.
+     */
     public constructor(first?: vector, second?: vector, third?: vector);
   }
 
   /**
+   * Particle playback action.
+   *
    * @source C++ class particle
    * @customConstructor particle
    * @group xr_action
    */
   export class particle extends EngineBinding {
+    /**
+     * Create a particle action.
+     *
+     * @param particle_to_run - Particle effect name.
+     * @param particle_params - Optional transform parameters.
+     * @param auto_remove - Whether the particle should be removed after playback.
+     */
     public constructor(particle_to_run: string, particle_params?: particle_params, auto_remove?: boolean);
+
+    /**
+     * Create a particle action attached to a bone.
+     *
+     * @param particle_to_run - Particle effect name.
+     * @param bone_name - Bone name.
+     * @param particle_params - Transform parameters.
+     * @param auto_remove - Whether the particle should be removed after playback.
+     */
     public constructor(
       particle_to_run: string,
       bone_name: string,
@@ -601,16 +1308,45 @@ declare module "xray16" {
       auto_remove: boolean
     );
 
+    /**
+     * @returns Whether particle playback is complete.
+     */
     public completed(): boolean;
 
+    /**
+     * Set particle angles.
+     *
+     * @param vector - Angles.
+     */
     public set_angles(vector: vector): void;
 
+    /**
+     * Set attached bone.
+     *
+     * @param bone_id - Bone name.
+     */
     public set_bone(bone_id: string): void;
 
+    /**
+     * Set particle effect and auto-remove flag.
+     *
+     * @param value1 - Particle effect name.
+     * @param value2 - Whether the particle should be removed after playback.
+     */
     public set_particle(value1: string, value2: boolean): void;
 
+    /**
+     * Set particle position.
+     *
+     * @param vector - Position.
+     */
     public set_position(vector: vector): void;
 
+    /**
+     * Set particle velocity.
+     *
+     * @param vector - Velocity.
+     */
     public set_velocity(vector: vector): void;
   }
 }
