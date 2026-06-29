@@ -5,6 +5,10 @@ declare module "xray16" {
    * @source C++ class MonsterSpace
    * @customConstructor MonsterSpace
    * @group xr_action
+   *
+   * @remarks
+   * These constants are grouped by the original engine namespace, not by TypeScript use site. Some values are used by
+   * stalker movement controllers, some by monsters, and head animation values are used by trader sound actions.
    */
   export class MonsterSpace {
     /**
@@ -45,6 +49,11 @@ declare module "xray16" {
    * @source C++ class entity_action
    * @customConstructor entity_action
    * @group xr_action
+   *
+   * @remarks
+   * This is a container for sub-actions. The engine applies only the parts set with `set_action()`, and completion
+   * checks read the matching sub-action state. It is meaningful only when passed to a scripted entity controller, such
+   * as `game_object.command()`.
    */
   export class entity_action extends EngineBinding {
     /**
@@ -110,6 +119,9 @@ declare module "xray16" {
 
     /**
      * Set a monster global action.
+     *
+     * @remarks
+     * Intended for custom monsters. Stalkers and ordinary inventory objects do not execute monster global actions.
      *
      * @param act - Monster action.
      */
@@ -190,6 +202,10 @@ declare module "xray16" {
    * @source C++ class object
    * @customConstructor object
    * @group xr_action
+   *
+   * @remarks
+   * Object actions are consumed by the object handler of an AI entity. Weapon-oriented actions such as `fire1`,
+   * `reload`, or `strap` require the controlled object to have a compatible active item.
    */
   export class XR_object extends EngineBinding {
     /**
@@ -361,6 +377,10 @@ declare module "xray16" {
    * @source C++ class move
    * @customConstructor move
    * @group xr_action
+   *
+   * @remarks
+   * The overload family is split between generic movement goals, vehicle input flags, and monster-only movement
+   * actions. Use the constructor group that matches the object receiving the resulting `entity_action`.
    */
   export class move extends EngineBinding {
     // Todo: All enums are in one static, probably should declare few parent interfaces / classes with enums
@@ -499,12 +519,18 @@ declare module "xray16" {
     /**
      * Create a vehicle input action.
      *
+     * @remarks
+     * Uses `move` input-key flags such as `fwd`, `back`, `left`, `right`, `handbrake`, `on`, and `off`.
+     *
      * @param action - Input key id.
      */
     public constructor(action: number);
 
     /**
      * Create a timed vehicle input action.
+     *
+     * @remarks
+     * Uses `move` input-key flags. The time value limits how long the input action remains active.
      *
      * @param action - Input key id.
      * @param value - Action duration or value.
@@ -591,6 +617,9 @@ declare module "xray16" {
     /**
      * Create a monster movement action toward a position.
      *
+     * @remarks
+     * Monster-only overload using `MonsterSpace::EScriptMonsterMoveAction` values exposed on `move`.
+     *
      * @param moveAction - Monster movement action id.
      * @param vector - Target position.
      */
@@ -598,6 +627,9 @@ declare module "xray16" {
 
     /**
      * Create a monster movement action along a patrol path.
+     *
+     * @remarks
+     * Monster-only overload using `MonsterSpace::EScriptMonsterMoveAction` values exposed on `move`.
      *
      * @param moveAction - Monster movement action id.
      * @param patrol - Patrol path parameters.
@@ -607,6 +639,9 @@ declare module "xray16" {
     /**
      * Create a monster movement action toward an object.
      *
+     * @remarks
+     * Monster-only overload using `MonsterSpace::EScriptMonsterMoveAction` values exposed on `move`.
+     *
      * @param moveAction - Monster movement action id.
      * @param game_object - Target object.
      */
@@ -614,6 +649,9 @@ declare module "xray16" {
 
     /**
      * Create a monster movement action toward a position with distance.
+     *
+     * @remarks
+     * Monster-only overload. The distance is the stop distance from the target.
      *
      * @param moveAction - Monster movement action id.
      * @param vector - Target position.
@@ -624,6 +662,9 @@ declare module "xray16" {
     /**
      * Create a monster movement action toward a position from a node id.
      *
+     * @remarks
+     * Monster-only overload. The node id lets the engine build the movement goal from a known level graph point.
+     *
      * @param moveAction - Monster movement action id.
      * @param value - Node or point id.
      * @param vector - Target position.
@@ -632,6 +673,9 @@ declare module "xray16" {
 
     /**
      * Create a monster movement action toward a position from a node id with distance.
+     *
+     * @remarks
+     * Monster-only overload. The final value is the stop distance from the target.
      *
      * @param moveAction - Monster movement action id.
      * @param value - Node or point id.
@@ -643,6 +687,9 @@ declare module "xray16" {
     /**
      * Create a monster movement action along a patrol path with distance.
      *
+     * @remarks
+     * Monster-only overload. The distance is the stop distance from the patrol target.
+     *
      * @param moveAction - Monster movement action id.
      * @param patrol - Patrol path parameters.
      * @param value - Distance value.
@@ -652,6 +699,9 @@ declare module "xray16" {
     /**
      * Create a monster movement action toward an object with distance.
      *
+     * @remarks
+     * Monster-only overload. The distance is the stop distance from the target object.
+     *
      * @param moveAction - Monster movement action id.
      * @param game_object - Target object.
      * @param value - Distance value.
@@ -660,6 +710,9 @@ declare module "xray16" {
 
     /**
      * Create a monster movement action toward a position with speed mode.
+     *
+     * @remarks
+     * Monster-only overload. `speedParam` is a `MonsterSpace::EScriptMonsterSpeedParam` value.
      *
      * @param moveAction - Monster movement action id.
      * @param vector - Target position.
@@ -671,6 +724,9 @@ declare module "xray16" {
     /**
      * Create a monster movement action along a patrol path with speed mode.
      *
+     * @remarks
+     * Monster-only overload. `speedParam` is a `MonsterSpace::EScriptMonsterSpeedParam` value.
+     *
      * @param moveAction - Monster movement action id.
      * @param patrol - Patrol path parameters.
      * @param value - Distance value.
@@ -680,6 +736,9 @@ declare module "xray16" {
 
     /**
      * Create a monster movement action toward an object with speed mode.
+     *
+     * @remarks
+     * Monster-only overload. `speedParam` is a `MonsterSpace::EScriptMonsterSpeedParam` value.
      *
      * @param moveAction - Monster movement action id.
      * @param game_object - Target object.
@@ -991,6 +1050,10 @@ declare module "xray16" {
    * @source C++ class look
    * @customConstructor look
    * @group xr_action
+   *
+   * @remarks
+   * Look actions are consumed by AI sight managers and searchlight-like objects. Bone-target overloads require the
+   * target object to have the named bone in its visual.
    */
   export class look extends EngineBinding {
     /**
@@ -1122,6 +1185,10 @@ declare module "xray16" {
    * @source C++ class anim
    * @customConstructor anim
    * @group xr_action
+   *
+   * @remarks
+   * String animation overloads play a named script animation. Numeric one-argument overloads set an AI mental state.
+   * Numeric two-argument overloads are monster animation actions.
    */
   export class anim extends EngineBinding {
     // Mental state:
@@ -1201,7 +1268,7 @@ declare module "xray16" {
     public constructor(value1: string, value2: boolean);
 
     /**
-     * Set monster mental state.
+     * Set AI mental state.
      *
      * @param state - Mental state id.
      */
@@ -1210,10 +1277,13 @@ declare module "xray16" {
     /**
      * Set monster animation action and extra value.
      *
+     * @remarks
+     * Monster-only overload using `MonsterSpace::EScriptMonsterAnimAction` values exposed on `anim`.
+     *
      * @param state - Monster animation action id.
      * @param value - Extra action value.
      */
-    public constructor(state: number /* Enum MonsterSpace::EMentalState */, value: i32);
+    public constructor(state: number /* Enum MonsterSpace::EScriptMonsterAnimAction */, value: i32);
 
     /**
      * @returns Whether the animation action is complete.
@@ -1251,6 +1321,10 @@ declare module "xray16" {
    * @source C++ class sound
    * @customConstructor sound
    * @group xr_action
+   *
+   * @remarks
+   * String and `sound_object` overloads play regular script sounds. Numeric overloads use monster sound categories.
+   * The head-animation overload is intended for trader-style talking animations.
    */
   export class sound extends EngineBinding {
     /**
@@ -1420,12 +1494,18 @@ declare module "xray16" {
     /**
      * Play a monster sound by type.
      *
+     * @remarks
+     * Monster-only overload using `MonsterSound::EType` values exposed on `sound`.
+     *
      * @param type - Monster sound type id.
      */
     public constructor(type: TXR_sound_type); /* MonsterSound::EType */
 
     /**
      * Play a monster sound by type with extra value.
+     *
+     * @remarks
+     * Monster-only overload. The value is the engine delay passed to the monster sound action.
      *
      * @param type - Monster sound type id.
      * @param value - Extra sound value.
@@ -1434,6 +1514,9 @@ declare module "xray16" {
 
     /**
      * Play a trader sound with a head animation.
+     *
+     * @remarks
+     * Trader-specific overload. The head animation is one of `MonsterSpace.head_anim_*`.
      *
      * @param value1 - Sound prefix or collection.
      * @param value2 - Sound name.
@@ -1505,6 +1588,10 @@ declare module "xray16" {
    * @source C++ class cond
    * @customConstructor cond
    * @group xr_action
+   *
+   * @remarks
+   * Conditions choose which sub-action completions should finish the composed `entity_action`. Combine flags when the
+   * action should wait for several parts.
    */
   export class cond extends EngineBinding {
     /**
@@ -1568,6 +1655,10 @@ declare module "xray16" {
    * @source C++ class act
    * @customConstructor act
    * @group xr_action
+   *
+   * @remarks
+   * Monster global actions are consumed by custom monster controllers. They are not a generic command system for
+   * stalkers, items, or vehicles.
    */
   export class act {
     /**
@@ -1637,6 +1728,10 @@ declare module "xray16" {
    * @source C++ class particle
    * @customConstructor particle
    * @group xr_action
+   *
+   * @remarks
+   * Bone-attached particles require the controlled object visual to contain the requested bone. Position-only
+   * particles use world coordinates.
    */
   export class particle extends EngineBinding {
     /**

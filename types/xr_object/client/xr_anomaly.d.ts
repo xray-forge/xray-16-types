@@ -5,6 +5,9 @@ declare module "xray16" {
    * @source C++ class CMosquitoBald : CGameObject
    * @customConstructor CMosquitoBald
    * @group xr_anomaly
+   *
+   * @remarks
+   * Concrete anomaly wrapper. Generic anomaly helpers are usually available through `CCustomZone`/`game_object`.
    */
   export class CMosquitoBald extends CGameObject {}
 
@@ -14,6 +17,9 @@ declare module "xray16" {
    * @source C++ class CTorch : CGameObject
    * @customConstructor CTorch
    * @group xr_anomaly
+   *
+   * @remarks
+   * Torch-specific night-vision helpers on `game_object` require this runtime object.
    */
   export class CTorch extends CGameObject {}
 

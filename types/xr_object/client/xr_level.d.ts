@@ -5,6 +5,9 @@ declare module "xray16" {
    * @source C++ class CZoneCampfire : CGameObject
    * @customConstructor CZoneCampfire
    * @group xr_level
+   *
+   * @remarks
+   * Campfire controls require this runtime object. They are not available on generic anomaly zones.
    */
   export class CZoneCampfire extends CGameObject {
     /**
@@ -34,6 +37,10 @@ declare module "xray16" {
    * @source C++ class CPhysicObject : CGameObject
    * @customConstructor CPhysicObject
    * @group xr_level
+   *
+   * @remarks
+   * Wrapper for animated physics props, especially door-like objects. Door and bone-sound helpers require this runtime
+   * class.
    */
   export class CPhysicObject extends CGameObject {
     /**
@@ -92,6 +99,9 @@ declare module "xray16" {
    * @source C++ class hanging_lamp : CGameObject
    * @customConstructor hanging_lamp
    * @group xr_level
+   *
+   * @remarks
+   * Lamp controls require this runtime object. They do not apply to arbitrary lights or torches.
    */
   export class hanging_lamp extends CGameObject {
     /**
@@ -116,6 +126,10 @@ declare module "xray16" {
    * @source C++ class CCar : CGameObject, holder
    * @customConstructor CCar
    * @group xr_level
+   *
+   * @remarks
+   * Vehicle and mounted-weapon holder APIs require a car object. Use `game_object.get_car()` or holder casts before
+   * calling these methods from shared object code.
    */
   export class CCar extends CGameObject implements holder {
     /**
@@ -393,6 +407,10 @@ declare module "xray16" {
    * @source C++ class CHelicopter : CGameObject
    * @customConstructor CHelicopter
    * @group xr_level
+   *
+   * @remarks
+   * Helicopter controls require a helicopter object. Movement, enemy, lighting, and fire-trail setters are direct
+   * native control hooks and do not validate scenario logic.
    */
   export class CHelicopter extends CGameObject {
     /**

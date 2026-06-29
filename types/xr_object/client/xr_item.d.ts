@@ -5,6 +5,9 @@ declare module "xray16" {
    * @source C++ class explosive
    * @customConstructor explosive
    * @group xr_item
+   *
+   * @remarks
+   * Returned for objects that expose the native explosive component. Do not use it as a generic item wrapper.
    */
   export class explosive extends EngineBinding {
     /**
@@ -14,6 +17,9 @@ declare module "xray16" {
 
     /**
      * Trigger the explosive immediately.
+     *
+     * @remarks
+     * Requires the owning object to still be alive in the engine object registry.
      */
     public explode(): void;
   }
@@ -42,6 +48,9 @@ declare module "xray16" {
    * @source C++ class CInventoryBox : CGameObject
    * @customConstructor CInventoryBox
    * @group xr_item
+   *
+   * @remarks
+   * Inventory box helpers on `game_object` require this runtime class, not any inventory owner.
    */
   export class CInventoryBox extends CGameObject {}
 
@@ -105,6 +114,9 @@ declare module "xray16" {
    * @source C++ class CWeaponAmmo : CGameObject
    * @customConstructor CWeaponAmmo
    * @group xr_item
+   *
+   * @remarks
+   * Ammo-count helpers on `game_object` require this runtime class.
    */
   export class CWeaponAmmo extends CGameObject {}
 
@@ -114,10 +126,17 @@ declare module "xray16" {
    * @source C++ class CWeapon : public CHudItemObject, public CShootingObject
    * @customConstructor CWeaponAmmo
    * @group xr_item
+   *
+   * @remarks
+   * Weapon helpers on `game_object` require this family or a subclass. Addons, ammo, outfits, and consumables are not
+   * weapons even when they are inventory items.
    */
   export class CWeapon extends CInventoryItem {
     /**
      * Check whether the weapon can currently fire a lethal shot.
+     *
+     * @remarks
+     * Takes current weapon state into account, including ammo and readiness.
      *
      * @returns Whether the weapon can kill.
      */

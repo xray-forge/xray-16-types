@@ -5,6 +5,10 @@ declare module "xray16" {
    * @source C++ class CEntityAlive : public CEntity
    * @customConstructor CEntityAlive
    * @group xr_creature
+   *
+   * @remarks
+   * Base wrapper for alive objects. Use `game_object.is_entity_alive()` or a narrower predicate before calling
+   * alive-object methods from the shared `game_object` surface.
    */
   export class CEntityAlive extends CGameObject {}
 
@@ -14,6 +18,9 @@ declare module "xray16" {
    * @source C++ class CActor : CGameObject
    * @customConstructor CActor
    * @group xr_creature
+   *
+   * @remarks
+   * Actor-only APIs on `game_object` require the current object to be the player actor, not just any alive entity.
    */
   export class CActor extends CGameObject {}
 
@@ -23,6 +30,10 @@ declare module "xray16" {
    * @source C++ class CCustomMonster : CGameObject
    * @customConstructor CCustomMonster
    * @group xr_creature
+   *
+   * @remarks
+   * Base wrapper for custom monsters. Monster sound, range, memory, home, and enemy-transfer helpers require this
+   * family or one of its subclasses.
    */
   export class CCustomMonster extends CGameObject {}
 
@@ -32,6 +43,10 @@ declare module "xray16" {
    * @source C++ class CInventoryOwner : CGameObject
    * @customConstructor CInventoryOwner
    * @group xr_creature
+   *
+   * @remarks
+   * Inventory-owner APIs cover NPCs, traders, corpses, boxes, and the actor depending on runtime class. Check the
+   * object kind before assuming dialog, trade, belt, or inventory-box behavior exists.
    */
   export class CInventoryOwner extends CGameObject {}
 
@@ -41,6 +56,10 @@ declare module "xray16" {
    * @source C++ class CInventoryItem : CGameObject
    * @customConstructor CInventoryItem
    * @group xr_creature
+   *
+   * @remarks
+   * Base wrapper for inventory items. Item condition, cost, upgrades, and slot behavior depend on the concrete item
+   * class.
    */
   export class CInventoryItem extends CGameObject {}
 
@@ -140,6 +159,9 @@ declare module "xray16" {
    * @source C++ class CAI_Bloodsucker : CGameObject
    * @customConstructor CAI_Bloodsucker
    * @group xr_creature
+   *
+   * @remarks
+   * Bloodsucker-specific visibility helpers are not valid for other custom monsters.
    */
   export class CAI_Bloodsucker extends CGameObject {
     /**
@@ -192,6 +214,9 @@ declare module "xray16" {
    * @source C++ class CAI_Stalker : CGameObject
    * @customConstructor CAI_Stalker
    * @group xr_creature
+   *
+   * @remarks
+   * Stalker movement, smart-cover, planner, weapon-selection, and dialog helpers require this runtime family.
    */
   export class CAI_Stalker extends CGameObject {}
 
@@ -201,6 +226,9 @@ declare module "xray16" {
    * @source C++ class CAI_Trader : CGameObject
    * @customConstructor CAI_Trader
    * @group xr_creature
+   *
+   * @remarks
+   * Trader wrappers are inventory owners with trader-specific animation and sound hooks.
    */
   export class CAI_Trader extends CGameObject {}
 

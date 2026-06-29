@@ -7,7 +7,8 @@ declare module "xray16" {
    * @group xr_physic
    *
    * @remarks
-   * Scripts normally receive elements from a `physics_shell`; they are live engine objects, not standalone values.
+   * Scripts normally receive elements from a `physics_shell`; they are live engine objects, not standalone values. Keep
+   * them only while the owning shell and object are alive.
    */
   export class physics_element {
     /**
@@ -219,7 +220,7 @@ declare module "xray16" {
    *
    * @remarks
    * Joint handles come from a `physics_shell`. Axis methods expect an axis supported by this joint; check
-   * `get_axes_number()` before using indexed axis methods.
+   * `get_axes_number()` before using indexed axis methods. Keep them only while the owning shell and object are alive.
    */
   export class physics_joint {
     /**
@@ -427,7 +428,8 @@ declare module "xray16" {
      * Get an element by model bone id.
      *
      * @remarks
-     * Returns the element attached to the bone, if the shell has one for that id.
+     * Returns the element attached to the bone, if the shell has one for that id. Invalid ids can trip native
+     * assertions in debug builds.
      *
      * @param id - Bone id.
      * @returns Matching physics element.
@@ -438,7 +440,7 @@ declare module "xray16" {
      * Get an element by model bone name.
      *
      * @remarks
-     * The bone name must exist in the shell's kinematics.
+     * The bone name must exist in the shell's kinematics. Invalid names can trip native assertions in debug builds.
      *
      * @param bone_name - Bone name.
      * @returns Matching physics element.
@@ -465,7 +467,8 @@ declare module "xray16" {
      * Get a joint by model bone id.
      *
      * @remarks
-     * Returns the joint attached to the bone, if the shell has one for that id.
+     * Returns the joint attached to the bone, if the shell has one for that id. Invalid ids can trip native assertions
+     * in debug builds.
      *
      * @param id - Bone id.
      * @returns Matching physics joint.
@@ -476,7 +479,7 @@ declare module "xray16" {
      * Get a joint by model bone name.
      *
      * @remarks
-     * The bone name must exist in the shell's kinematics.
+     * The bone name must exist in the shell's kinematics. Invalid names can trip native assertions in debug builds.
      *
      * @param name - Bone name.
      * @returns Matching physics joint.
@@ -580,6 +583,10 @@ declare module "xray16" {
    *   IObjectPhysicsCollision, IPhysicsShellHolder
    * @customConstructor CPhysicsShellHolder
    * @group xr_physic
+   *
+   * @remarks
+   * This is a native owner of physics shell state. Scripts usually reach it through `game_object.cast_PhysicsShellHolder()`
+   * or `game_object.get_physics_shell()`.
    */
   export class CPhysicsShellHolder extends EngineBinding {
     /**
@@ -623,14 +630,14 @@ declare module "xray16" {
     /**
      * Set holder object enter state.
      *
-     * @param is_enabled - Whether holder object can be entered.
+     * @param is_enabled - Whether entering the holder is locked.
      */
     public SetEnterLocked(is_enabled: boolean): void;
 
     /**
      * Set holder object exit state.
      *
-     * @param is_enabled - Whether holder object can be exited.
+     * @param is_enabled - Whether exiting the holder is locked.
      */
     public SetExitLocked(is_enabled: boolean): void;
   }

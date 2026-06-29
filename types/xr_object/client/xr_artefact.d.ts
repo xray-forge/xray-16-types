@@ -5,6 +5,9 @@ declare module "xray16" {
    * @source C++ class CArtefact : CGameObject
    * @customConstructor CArtefact
    * @group xr_artefact
+   *
+   * @remarks
+   * Scripts usually reach this wrapper through `game_object.cast_Artefact()` after checking `is_artefact()`.
    */
   export class CArtefact extends CGameObject {
     /**
@@ -14,6 +17,9 @@ declare module "xray16" {
 
     /**
      * Move the artefact along a patrol path.
+     *
+     * @remarks
+     * Requires a patrol path with the given name. The point index must refer to an existing path point.
      *
      * @param path_name - Patrol path name.
      * @param point_index - Starting path point index.
@@ -28,6 +34,9 @@ declare module "xray16" {
 
     /**
      * Show or hide the artefact.
+     *
+     * @remarks
+     * This changes the artefact's client visibility; it does not spawn or destroy the object.
      *
      * @param is_visible - New visibility state.
      */

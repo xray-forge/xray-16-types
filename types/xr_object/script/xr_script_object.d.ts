@@ -6,6 +6,11 @@ declare module "xray16" {
    * @source C++ class game_object
    * @customConstructor game_object
    * @group xr_script_object
+   *
+   * @remarks
+   * This class is a shared Lua wrapper for many runtime object classes. A method being visible here does not mean it is
+   * valid for every object. Check `is_actor()`, `is_stalker()`, `is_monster()`, `is_inventory_owner()`, `is_weapon()`,
+   * or the matching `cast_*()` helper before calling methods that belong to a specific object family.
    */
   export class game_object extends game_object_callbacks_implementation_base {
     /**
@@ -139,6 +144,9 @@ declare module "xray16" {
 
     /**
      * Creature morale value.
+     *
+     * @remarks
+     * Assignment applies a delta through `CScriptGameObject::SetMorale`, not an absolute value.
      */
     public morale: f32;
 
@@ -152,6 +160,9 @@ declare module "xray16" {
 
     /**
      * Psy health value.
+     *
+     * @remarks
+     * Assignment applies a delta through `CScriptGameObject::SetPsyHealth`, not an absolute value.
      */
     public psy_health: f32;
 
@@ -283,6 +294,9 @@ declare module "xray16" {
     /**
      * Check whether the object contacts an active zone.
      *
+     * @remarks
+     * Intended for alive objects that track zone contacts. Zone ids are runtime object ids, not story ids.
+     *
      * @param zone_id - Zone object id.
      * @returns Whether contact is active.
      */
@@ -290,6 +304,10 @@ declare module "xray16" {
 
     /**
      * Add movement restrictions.
+     *
+     * @remarks
+     * Requires an object with AI path restriction support. Inventory-only objects and static props do not have
+     * meaningful in/out restriction lists.
      *
      * @param out_restriction - Restrictor name used as outside boundary.
      * @param in_restriction - Restrictor name used as inside boundary.
@@ -299,12 +317,19 @@ declare module "xray16" {
     /**
      * Get current animation slot.
      *
+     * @remarks
+     * Meaningful for animated alive objects. For objects without animation controller state, the engine can return a
+     * default value.
+     *
      * @returns Animation slot id.
      */
     public animation_slot(): i32;
 
     /**
      * Get base outside restrictions.
+     *
+     * @remarks
+     * Requires an object with AI path restriction support.
      *
      * @returns Restriction list.
      */
@@ -1326,6 +1351,9 @@ declare module "xray16" {
     /**
      * Change team, squad, and group ids.
      *
+     * @remarks
+     * Intended for alive AI objects. It changes runtime relation grouping, not smart-terrain squad membership.
+     *
      * @param team_id - Team id.
      * @param squad_id - Squad id.
      * @param group_id - Group id.
@@ -1360,12 +1388,18 @@ declare module "xray16" {
     /**
      * Get item condition.
      *
+     * @remarks
+     * Requires an inventory item or another object with condition/durability data.
+     *
      * @returns Condition value.
      */
     public condition(): f32;
 
     /**
      * Get object cost.
+     *
+     * @remarks
+     * Requires an inventory item or tradeable object. Non-item objects can report an engine default.
      *
      * @returns Cost.
      */
@@ -1415,6 +1449,9 @@ declare module "xray16" {
 
     /**
      * Get object facing direction.
+     *
+     * @remarks
+     * Returns the current engine transform direction. For AI-facing goals, prefer sight or movement APIs.
      *
      * @returns Direction vector.
      */
@@ -1504,6 +1541,10 @@ declare module "xray16" {
 
     /**
      * Trigger object explosion.
+     *
+     * @remarks
+     * Requires an explosive object or object with an explosive component. The id is passed to native explosion logic and
+     * is not validated by TypeScript.
      *
      * @param id - Explosion id or initiator id.
      */
@@ -1707,6 +1748,9 @@ declare module "xray16" {
     public in_loophole_fov(cover_name: string, loophole_name: string, position: vector): boolean;
 
     /**
+     * @remarks
+     * Requires an object with AI path restriction support.
+     *
      * @returns Active input restriction names.
      */
     public in_restrictions(): string;
@@ -1723,6 +1767,9 @@ declare module "xray16" {
     /**
      * Available only in debug mode.
      * Sets information for game object for debug.
+     *
+     * @remarks
+     * Intended for engine/debug overlays. Release builds may ignore it or compile out the visible effect.
      */
     public info_add(text: string): void;
 
@@ -1778,6 +1825,9 @@ declare module "xray16" {
 
     /**
      * Kill a target object.
+     *
+     * @remarks
+     * Requires this object to be an alive entity. The argument is recorded as the target affected by the kill call.
      *
      * @param object - Target object.
      */
@@ -1949,11 +1999,18 @@ declare module "xray16" {
 
     /**
      * Clear the monster home restriction.
+     *
+     * @remarks
+     * Requires a custom monster with home movement state. It does not remove smart-terrain ownership.
      */
     public remove_home(): void;
 
     /**
      * Remove movement restrictions from this object.
+     *
+     * @remarks
+     * Requires an object with AI path restriction support. Names must match restrictions previously added or configured
+     * for the object.
      *
      * @param out_restrictions - Out restriction names.
      * @param in_restrictions - In restriction names.
@@ -2160,12 +2217,18 @@ declare module "xray16" {
     /**
      * Set destination game graph vertex.
      *
+     * @remarks
+     * Requires an AI object with movement path state. The vertex id must be valid in the game graph.
+     *
      * @param value - Game vertex id.
      */
     public set_dest_game_vertex_id(value: u16): void;
 
     /**
      * Set destination level vertex.
+     *
+     * @remarks
+     * Requires an AI object with movement path state. The vertex id must be valid in the current level graph.
      *
      * @param vertex_id - Target level vertex id.
      */
@@ -2195,6 +2258,10 @@ declare module "xray16" {
 
     /**
      * Set movement target selection type.
+     *
+     * @remarks
+     * Requires an AI object using movement path selection. Invalid enum values can trip native assertions or leave the
+     * path builder in an unusable state.
      *
      * @param type - Selection type id.
      */
@@ -2247,12 +2314,18 @@ declare module "xray16" {
     public set_trader_sound(animation: string, sound: string): void;
 
     /**
+     * @remarks
+     * Requires a stalker or another AI object with a sight manager.
+     *
      * @returns Current sight parameters.
      */
     public sight_params(): CSightParams;
 
     /**
      * Enable or disable enemy transfer skipping.
+     *
+     * @remarks
+     * Requires a custom monster. It controls whether the monster shares enemy information through monster feel logic.
      *
      * @param value - Whether enemy transfer should be skipped.
      */
@@ -2305,6 +2378,9 @@ declare module "xray16" {
 
     /**
      * Stop particles attached to a bone.
+     *
+     * @remarks
+     * Requires the effect to have been started on this object and the bone to exist on its visual.
      *
      * @param name - Particle effect name.
      * @param bone - Bone name.
@@ -3588,6 +3664,10 @@ declare module "xray16" {
     /**
      * Start particles attached to a bone.
      *
+     * @remarks
+     * Requires the bone to exist on this object's visual. Use `stop_particles()` with the same effect and bone when the
+     * script owns the effect lifetime.
+     *
      * @param name - Particle effect name.
      * @param bone - Bone name.
      */
@@ -4033,6 +4113,9 @@ declare module "xray16" {
 
     /**
      * Switch monster into berserk state.
+     *
+     * @remarks
+     * Requires a custom monster. It is not a generic combat command for stalkers or the actor.
      */
     public berserk(): void;
 

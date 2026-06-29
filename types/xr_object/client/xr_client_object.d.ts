@@ -5,6 +5,9 @@ declare module "xray16" {
    * @source C++ class DLL_Pure
    * @customConstructor DLL_Pure
    * @group xr_core
+   *
+   * @remarks
+   * Base for engine-owned client objects. Scripts normally receive derived objects from xray callbacks or casts.
    */
   export class DLL_Pure extends EngineBinding {
     /**
@@ -18,10 +21,16 @@ declare module "xray16" {
    *
    * @source C++ class IRender_Visual
    * @group xr_client_object
+   *
+   * @remarks
+   * Visual handles are owned by the object. Treat returned cast interfaces as borrowed engine references.
    */
   export interface IXR_IRender_Visual {
     /**
      * Cast the visual to animated kinematics when supported.
+     *
+     * @remarks
+     * Runtime can return `null` when the visual is not animated even though older declarations expose a non-null type.
      *
      * @returns Animated kinematics interface.
      */
@@ -34,6 +43,10 @@ declare module "xray16" {
    * @source C++ class CGameObject : DLL_Pure, ISheduled, ICollidable, IRenderable
    * @customConstructor CGameObject
    * @group xr_client_object
+   *
+   * @remarks
+   * Client-side object state is engine-owned. Use this wrapper for low-level engine callbacks; gameplay scripts usually
+   * work with `game_object` instead.
    */
   export class CGameObject extends DLL_Pure {
     /**
@@ -48,6 +61,9 @@ declare module "xray16" {
 
     /**
      * Construct engine-side object state.
+     *
+     * @remarks
+     * Lifecycle hook used by the engine. Calling it from gameplay scripts can reinitialize native state unexpectedly.
      *
      * @returns Constructed base object.
      */
@@ -75,6 +91,9 @@ declare module "xray16" {
     /**
      * Spawn the client object from its server object.
      *
+     * @remarks
+     * Lifecycle hook used during network spawn. Return `false` to reject spawn in custom subclasses.
+     *
      * @param cse_abstract - Server object used for spawn data.
      * @returns Whether spawn succeeded.
      */
@@ -95,6 +114,10 @@ declare module "xray16" {
    * @source C++ class object_binder
    * @customConstructor object_binder
    * @group xr_client_object
+   *
+   * @remarks
+   * Script binders are callbacks attached to a `game_object`. The engine calls lifecycle methods; scripts usually
+   * override them in subclasses instead of invoking them directly.
    */
   export class object_binder<T = game_object> extends EngineBinding {
     /**
