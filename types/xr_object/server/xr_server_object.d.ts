@@ -72,13 +72,28 @@ declare module "xray16" {
   export interface IXR_cpure_server_object extends IXR_ipure_server_object {}
 
   /**
+   * Server-side inventory item mixin.
+   *
    * @source C++ class cse_alife_inventory_item
    * @group xr_object_server
    */
   export interface IXR_cse_alife_inventory_item {
+    /**
+     * Check whether the item already has an upgrade section.
+     *
+     * @param section - Upgrade section id.
+     * @returns Whether the upgrade is installed.
+     */
     has_upgrade(section: string): boolean;
 
-    add_upgrade(section: string): boolean;
+    /**
+     * Add an upgrade section to the item.
+     *
+     * @remarks Adding the same upgrade twice is a fatal engine error.
+     *
+     * @param section - Upgrade section id.
+     */
+    add_upgrade(section: string): void;
   }
 
   /**
@@ -93,7 +108,18 @@ declare module "xray16" {
    * @group xr_object_server
    */
   export class CSE_AbstractVisual extends cse_abstract implements IXR_cse_visual {
+    /**
+     * Get the startup animation configured for the visual object.
+     *
+     * @returns Startup animation name.
+     */
     public getStartupAnimation(): string;
+
+    /**
+     * Initialize the server object and return its base abstract entity.
+     *
+     * @returns Initialized abstract entity.
+     */
     public init(): cse_abstract;
   }
 
@@ -103,14 +129,57 @@ declare module "xray16" {
    * @group xr_object_server
    */
   export class cse_alife_trader_abstract extends cse_alife_dynamic_object_visual {
+    /**
+     * @returns Trader reputation value.
+     */
     public reputation(): i32;
+
+    /**
+     * @returns Trader rank.
+     */
     public rank(): i32;
+
+    /**
+     * Set trader rank.
+     *
+     * @param rank - New rank value.
+     */
     public set_rank(rank: i32): void;
+
+    /**
+     * @returns Trader community name.
+     */
     public community(): string;
+
+    /**
+     * @returns Character profile section name.
+     */
     public profile_name(): string;
+
+    /**
+     * @returns Localized character name.
+     */
     public character_name(): string;
+
+    /**
+     * Resolve and return the character icon name.
+     *
+     * @returns Icon name.
+     */
     public character_icon(): string;
+
+    /**
+     * Set character profile section name.
+     *
+     * @param name - Profile section name.
+     */
     public set_profile_name(name: string): void;
+
+    /**
+     * Set localized character name.
+     *
+     * @param name - Character name.
+     */
     public set_character_name(name: string): void;
   }
 
@@ -129,24 +198,68 @@ declare module "xray16" {
     public position: vector;
     public angle: vector;
 
+    /**
+     * Create a server object for an object section.
+     *
+     * @param section - Spawn section name.
+     */
     public constructor(section: string);
 
+    /**
+     * @returns Runtime object name.
+     */
     public name<T extends string = string>(): T;
 
+    /**
+     * @returns Engine class id.
+     */
     public clsid(): TXR_class_id;
 
+    /**
+     * @returns Spawn ini attached to this object, if any.
+     */
     public spawn_ini(): ini_file | null;
 
+    /**
+     * @returns Spawn section name.
+     */
     public section_name<T extends string = string>(): T;
 
+    /**
+     * Read an update packet into this object.
+     *
+     * @param packet - Source network packet.
+     */
     public UPDATE_Read(packet: net_packet): void;
 
+    /**
+     * Read a state packet into this object.
+     *
+     * @param packet - Source network packet.
+     * @param size - Serialized state size.
+     */
     public STATE_Read(packet: net_packet, size: number): void;
 
+    /**
+     * Write an update packet from this object.
+     *
+     * @param packet - Target network packet.
+     */
     public UPDATE_Write(packet: net_packet): void;
 
+    /**
+     * Write a state packet from this object.
+     *
+     * @param packet - Target network packet.
+     */
     public STATE_Write(packet: net_packet): void;
 
+    /**
+     * Fill editor property rows for this object.
+     *
+     * @param pref - Property prefix.
+     * @param items - Property collection to populate.
+     */
     public FillProps(pref: string, items: LuaTable<number, unknown>): void;
   }
 
@@ -170,34 +283,93 @@ declare module "xray16" {
      */
     public readonly online: boolean;
 
+    /**
+     * Create an ALife object for a spawn section.
+     *
+     * @param section - Spawn section name.
+     */
     public constructor(section: string);
 
+    /**
+     * @returns Whether the object uses AI location graph data.
+     */
     public used_ai_locations(): boolean;
 
+    /**
+     * Enable or disable AI location graph use.
+     *
+     * @param value - Whether AI locations should be used.
+     */
     public use_ai_locations(value: boolean): void;
 
+    /**
+     * @returns Whether this object should be saved.
+     */
     public can_save(): boolean;
 
+    /**
+     * @returns Whether this object may switch online.
+     */
     public can_switch_online(): boolean;
 
+    /**
+     * Allow or block switching online.
+     *
+     * @param value - Whether online switching is allowed.
+     */
     public can_switch_online(value: boolean): void;
 
+    /**
+     * Initialize the ALife object and return its abstract base.
+     *
+     * @returns Initialized abstract entity.
+     */
     public init(): cse_abstract;
 
+    /**
+     * @returns Whether the object is interactive.
+     */
     public interactive(): boolean;
 
-    public visible_for_map(): void;
+    /**
+     * @returns Whether the object is visible on the map.
+     */
+    public visible_for_map(): boolean;
 
+    /**
+     * Set whether the object is visible on the map.
+     *
+     * @param value - Whether the object should be shown on the map.
+     */
     public visible_for_map(value: boolean): void;
 
+    /**
+     * @returns Whether this object may switch offline.
+     */
     public can_switch_offline(): boolean;
 
+    /**
+     * Allow or block switching offline.
+     *
+     * @param value - Whether offline switching is allowed.
+     */
     public can_switch_offline(value: boolean): void;
 
+    /**
+     * @returns Whether the object should move while offline.
+     */
     public move_offline(): boolean;
 
+    /**
+     * Set whether the object should move while offline.
+     *
+     * @param value - Whether offline movement is enabled.
+     */
     public move_offline(value?: boolean): void;
 
+    /**
+     * Run the server-side ALife update for this object.
+     */
     public update(): void;
   }
 
@@ -207,18 +379,39 @@ declare module "xray16" {
    * @group xr_object_server
    */
   export class cse_alife_dynamic_object extends cse_alife_object {
+    /**
+     * Move the object to offline ALife simulation.
+     */
     public switch_offline(): void;
 
+    /**
+     * Bring the object online and create its client-side representation.
+     */
     public switch_online(): void;
 
+    /**
+     * @returns Whether saved data should be kept even when regular cleanup would remove it.
+     */
     public keep_saved_data_anyway(): boolean;
 
+    /**
+     * Called after the object is registered in the ALife registry.
+     */
     public on_register(): void;
 
+    /**
+     * Called before the object is registered in the ALife registry.
+     */
     public on_before_register(): void;
 
+    /**
+     * Called when the object has been spawned.
+     */
     public on_spawn(): void;
 
+    /**
+     * Called when the object is removed from the ALife registry.
+     */
     public on_unregister(): void;
   }
 
@@ -235,6 +428,11 @@ declare module "xray16" {
    * @group xr_object_server
    */
   export class cse_alife_dynamic_object_visual extends cse_alife_dynamic_object implements IXR_cse_visual {
+    /**
+     * Set object yaw.
+     *
+     * @param yaw - Yaw angle.
+     */
     public set_yaw(yaw: number): void;
   }
 
@@ -274,47 +472,113 @@ declare module "xray16" {
     public group_id: u16;
     public m_smart_terrain_id: u16;
 
+    /**
+     * @returns Current creature health.
+     */
     public health(): f32;
 
+    /**
+     * @returns Whether the creature is alive.
+     */
     public alive(): boolean;
 
+    /**
+     * @returns Game team id.
+     */
     public g_team(): u8;
 
+    /**
+     * @returns Game group id.
+     */
     public g_group(): u8;
 
+    /**
+     * @returns Game squad id.
+     */
     public g_squad(): u8;
 
+    /**
+     * @returns Torso rotation state.
+     */
     public o_torso(): rotation;
 
+    /**
+     * Notify the server object that this creature died.
+     *
+     * @param killer - Server object that killed this creature.
+     */
     public on_death(killer: cse_alife_object): void;
 
+    /**
+     * @returns Assigned smart terrain id, or `65535` when none is assigned.
+     */
     public smart_terrain_id(): u16;
 
+    /**
+     * Kill the server-side creature.
+     */
     public kill(): void;
 
+    /**
+     * Set goodwill from this creature toward another object.
+     *
+     * @param goodwill - New goodwill value.
+     * @param npc_id - Target object id.
+     */
     public force_set_goodwill(goodwill: number, npc_id: number): void;
 
+    /**
+     * Clear the assigned smart terrain.
+     */
     public clear_smart_terrain(): void;
 
-    public travel_speed(): unknown;
+    /**
+     * @returns Travel speed used for graph movement.
+     */
+    public travel_speed(): f32;
 
+    /**
+     * Set travel speed used for graph movement.
+     *
+     * @param value - New travel speed.
+     */
     public travel_speed(value: number): void;
 
-    public smart_terrain_task_deactivate(): unknown;
+    /**
+     * Mark the current smart terrain task as not reached.
+     */
+    public smart_terrain_task_deactivate(): void;
 
     /**
      * Works for `CSE_ALifeMonsterAbstract`, marks smart terrain as reached and switches logic to terrain task.
      */
     public smart_terrain_task_activate(): void;
 
-    public current_level_travel_speed(): unknown;
+    /**
+     * @returns Travel speed used inside the current level.
+     */
+    public current_level_travel_speed(): f32;
 
-    public current_level_travel_speed(value: number): unknown;
+    /**
+     * Set travel speed used inside the current level.
+     *
+     * @param value - New travel speed.
+     */
+    public current_level_travel_speed(value: number): void;
 
+    /**
+     * @returns ALife brain that drives offline monster behavior.
+     */
     public brain(): CAILifeMonsterBrain;
 
+    /**
+     * @returns Whether the creature has a detector.
+     */
     public has_detector(): boolean;
 
+    /**
+     * @returns Creature rank.
+     */
     public rank(): i32;
 
     /**
@@ -331,10 +595,21 @@ declare module "xray16" {
    * @group xr_object_server
    */
   export class cse_alife_human_abstract extends cse_alife_monster_abstract {
+    /**
+     * @returns Character profile section name.
+     */
     public profile_name(): string;
 
+    /**
+     * Set human rank.
+     *
+     * @param rank - New rank value.
+     */
     public set_rank(rank: i32): void;
 
+    /**
+     * @returns Human reputation value.
+     */
     public reputation(): i32;
   }
 
@@ -346,11 +621,27 @@ declare module "xray16" {
    * @group xr_object_server
    */
   export class cse_alife_item extends cse_alife_dynamic_object_visual implements IXR_cse_alife_inventory_item {
+    /**
+     * @returns Whether the ALife item is useful to AI.
+     */
     public bfUseful(): boolean;
 
+    /**
+     * Check whether the item already has an upgrade section.
+     *
+     * @param section - Upgrade section id.
+     * @returns Whether the upgrade is installed.
+     */
     public has_upgrade(section: string): boolean;
 
-    public add_upgrade(section: string): boolean;
+    /**
+     * Add an upgrade section to the item.
+     *
+     * @remarks Adding the same upgrade twice is a fatal engine error.
+     *
+     * @param section - Upgrade section id.
+     */
+    public add_upgrade(section: string): void;
   }
 
   /**
@@ -361,12 +652,28 @@ declare module "xray16" {
    * @group xr_object_server
    */
   export class cse_alife_item_weapon extends cse_alife_item {
-    public clone_addons(cse_alife_item_weapon: cse_alife_item_weapon): void;
+    /**
+     * Copy addon flags from another weapon server object.
+     *
+     * @param weapon - Weapon to copy addon state from.
+     */
+    public clone_addons(weapon: cse_alife_item_weapon): void;
 
+    /**
+     * Set ammo currently loaded in the weapon.
+     *
+     * @param count - Loaded ammo count.
+     */
     public set_ammo_elapsed(count: u16): void;
 
+    /**
+     * @returns Ammo currently loaded in the weapon.
+     */
     public get_ammo_elapsed(): u16;
 
+    /**
+     * @returns Weapon magazine size from the weapon section.
+     */
     public get_ammo_magsize(): u16;
   }
 
@@ -424,6 +731,9 @@ declare module "xray16" {
    * @group xr_object_server
    */
   export class cse_alife_level_changer extends cse_alife_space_restrictor {
+    /**
+     * @returns Destination level name configured for the level changer.
+     */
     public get_dest_level_name(): string;
   }
 
@@ -611,10 +921,21 @@ declare module "xray16" {
   {
     public readonly object: T;
 
+    /**
+     * Add an object to this online/offline group.
+     *
+     * @param id - Server object id.
+     */
     public register_member(id: u16): void;
 
+    /**
+     * Remove all location type filters from the group.
+     */
     public clear_location_types(): void;
 
+    /**
+     * @returns Current smart terrain task, when one is assigned.
+     */
     public get_current_task(): CALifeSmartTerrainTask;
 
     /**
@@ -622,14 +943,37 @@ declare module "xray16" {
      */
     public commander_id(): u16;
 
+    /**
+     * Remove an object from this online/offline group.
+     *
+     * @param id - Server object id.
+     */
     public unregister_member(id: u16): void;
 
+    /**
+     * Iterate over group members.
+     *
+     * @returns Lua iterator of squad member records.
+     */
     public squad_members(): LuaIterable<IXR_squad_member<T>>; // Struct std::less<unsigned short> 3rd param
 
+    /**
+     * Force the group's graph position from a world position.
+     *
+     * @param vector - Target world position.
+     */
     public force_change_position(vector: vector): void;
 
+    /**
+     * Add a location type accepted by the group.
+     *
+     * @param location - Location type name.
+     */
     public add_location_type(location: string): void;
 
+    /**
+     * @returns Number of NPCs in the group.
+     */
     public npc_count(): i32;
   }
 
@@ -653,19 +997,55 @@ declare module "xray16" {
    * @group xr_object_server
    */
   export class cse_alife_smart_zone extends cse_alife_space_restrictor implements IXR_cse_alife_schedulable {
-    public detect_probability(): void;
+    /**
+     * @returns Probability used by the zone for detecting objects.
+     */
+    public detect_probability(): f32;
 
-    public smart_touch(cse_alife_monster_abstract: cse_alife_creature_abstract): void;
+    /**
+     * Notify the smart zone that a monster touched it.
+     *
+     * @param monster - Monster server object.
+     */
+    public smart_touch(monster: cse_alife_monster_abstract): void;
 
-    public unregister_npc(cse_alife_monster_abstract: cse_alife_creature_abstract): void;
+    /**
+     * Remove a monster from the smart zone.
+     *
+     * @param monster - Monster server object.
+     */
+    public unregister_npc(monster: cse_alife_monster_abstract): void;
 
-    public register_npc(cse_alife_monster_abstract: cse_alife_creature_abstract): void;
+    /**
+     * Register a monster in the smart zone.
+     *
+     * @param monster - Monster server object.
+     */
+    public register_npc(monster: cse_alife_monster_abstract): void;
 
-    public suitable(cse_alife_monster_abstract: cse_alife_creature_abstract): void;
+    /**
+     * Rate how suitable this smart zone is for a monster.
+     *
+     * @param monster - Monster server object.
+     * @returns Suitability score.
+     */
+    public suitable(monster: cse_alife_monster_abstract): f32;
 
-    public task(cse_alife_monster_abstract: cse_alife_creature_abstract): CALifeSmartTerrainTask | null;
+    /**
+     * Get the smart terrain task assigned to a monster.
+     *
+     * @param monster - Monster server object.
+     * @returns Smart terrain task, or `null` when none is assigned.
+     */
+    public task(monster: cse_alife_monster_abstract): CALifeSmartTerrainTask | null;
 
-    public enabled(cse_alife_monster_abstract: cse_alife_creature_abstract): void;
+    /**
+     * Check whether this smart zone is enabled for a monster.
+     *
+     * @param monster - Monster server object.
+     * @returns Whether the zone can be used.
+     */
+    public enabled(monster: cse_alife_monster_abstract): boolean;
   }
 
   /**

@@ -1,5 +1,7 @@
 declare module "xray16" {
   /**
+   * Base memory record with timing information.
+   *
    * @source C++ class memory_object
    * @customConstructor memory_object
    * @group xr_memory
@@ -12,20 +14,27 @@ declare module "xray16" {
   }
 
   /**
+   * Memory record that points to a living entity.
+   *
    * @source C++ class entity_memory_object : memory_object
    * @customConstructor entity_memory_object
    * @group xr_memory
    */
   export class entity_memory_object extends memory_object {
-    public readonly object_info: object;
-    public readonly self_info: object;
+    public readonly object_info: object_params;
+    public readonly self_info: object_params;
 
     protected constructor();
 
+    /**
+     * @returns Remembered game object.
+     */
     public object(): game_object;
   }
 
   /**
+   * Position and level-vertex snapshot for a remembered object.
+   *
    * @source C++ class object_params
    * @customConstructor object_params
    * @group xr_memory
@@ -38,6 +47,8 @@ declare module "xray16" {
   }
 
   /**
+   * Memory record for a hit received by an entity.
+   *
    * @source C++ class hit_memory_object : entity_memory_object
    * @customConstructor hit_memory_object
    * @group xr_memory
@@ -51,19 +62,27 @@ declare module "xray16" {
   }
 
   /**
+   * Memory record that points to a game object.
+   *
    * @source C++ class game_memory_object : memory_object
    * @customConstructor game_memory_object
    * @group xr_memory
    */
   export class game_memory_object extends memory_object {
-    public object_info: unknown; /* MemorySpace::CObjectParams<class CGameObject>& */
-    public self_info: unknown; /* MemorySpace::CObjectParams<class CGameObject>& */
+    public readonly object_info: object_params;
+    public readonly self_info: object_params;
+
+    /**
+     * @returns Remembered game object.
+     */
     public object(): game_object;
 
     protected constructor();
   }
 
   /**
+   * Visual memory candidate that has not become fully visible yet.
+   *
    * @source C++ class not_yet_visible_object
    * @customConstructor not_yet_visible_object
    * @group xr_memory
@@ -72,10 +91,16 @@ declare module "xray16" {
     protected constructor();
 
     public value: f32;
+
+    /**
+     * @returns Candidate game object.
+     */
     public object(): game_object;
   }
 
   /**
+   * Memory record for a visible object.
+   *
    * @source C++ class visible_memory_object
    * @customConstructor visible_memory_object
    * @group xr_memory
@@ -85,6 +110,8 @@ declare module "xray16" {
   }
 
   /**
+   * Combined visible, sound, and hit memory flags for one object.
+   *
    * @source C++ class memory_info : visible_memory_object
    * @customConstructor visible_memory_object
    * @group xr_memory
@@ -98,6 +125,8 @@ declare module "xray16" {
   }
 
   /**
+   * Memory record for a heard object or sound event.
+   *
    * @source C++ class sound_memory_object : game_memory_object
    * @customConstructor sound_memory_object
    * @group xr_memory
@@ -107,10 +136,15 @@ declare module "xray16" {
 
     protected constructor();
 
+    /**
+     * @returns Sound type id.
+     */
     public type(): i32;
   }
 
   /**
+   * AI danger event remembered by an object.
+   *
    * @source C++ class danger_object
    * @customConstructor danger_object
    * @group xr_memory
@@ -128,12 +162,35 @@ declare module "xray16" {
     public static sound: 1;
     public static visual: 0;
 
+    /**
+     * @returns Danger type.
+     */
     public type(): TXR_danger_object;
+
+    /**
+     * @returns Game time when the danger was registered.
+     */
     public time(): u32;
+
+    /**
+     * @returns Danger position.
+     */
     public position(): vector;
-    public object(): game_object;
+
+    /**
+     * @returns Source object, or `null` when the source is not a game object.
+     */
+    public object(): game_object | null;
+
+    /**
+     * @returns How the danger was perceived.
+     */
     public perceive_type(): number; /* CDangerObject::EDangerPerceiveType */
-    public dependent_object(): game_object;
+
+    /**
+     * @returns Dependent object, or `null` when there is none.
+     */
+    public dependent_object(): game_object | null;
   }
 
   /**

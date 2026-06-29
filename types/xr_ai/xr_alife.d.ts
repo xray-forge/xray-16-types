@@ -327,50 +327,135 @@ declare module "xray16" {
   }
 
   /**
+   * Offline ALife brain for monster server objects.
+   *
    * @source C++ class CALifeMonsterBrain
    * @customConstructor CALifeMonsterBrain
    * @group xr_alife
    */
   export class CAILifeMonsterBrain {
-    public constructor(object: unknown);
+    /**
+     * Create a brain for a monster server object.
+     *
+     * @param object - Monster server object.
+     */
+    public constructor(object: cse_alife_monster_abstract);
 
+    /**
+     * Select the next ALife task.
+     *
+     * @param forced - Whether task selection should ignore regular throttling.
+     */
     public select_task(forced?: boolean): void;
 
+    /**
+     * Process the currently selected ALife task.
+     */
     public process_task(): void;
 
+    /**
+     * Reset the brain to default no-path behavior.
+     */
     public default_behaviour(): void;
 
+    /**
+     * @returns Whether this brain may choose ALife tasks.
+     */
     public can_choose_alife_tasks(): boolean;
 
+    /**
+     * Enable or disable ALife task selection.
+     *
+     * @param value - New task-selection state.
+     */
     public can_choose_alife_tasks(value: boolean): void;
 
+    /**
+     * Write brain state to a network packet.
+     *
+     * @param packet - Target network packet.
+     */
     public on_state_write(packet: net_packet): void;
 
+    /**
+     * Read brain state from a network packet.
+     *
+     * @param packet - Source network packet.
+     */
     public on_state_read(packet: net_packet): void;
 
+    /**
+     * Called when the owning monster is registered.
+     */
     public on_register(): void;
 
+    /**
+     * Called when the owning monster is unregistered.
+     */
     public on_unregister(): void;
 
+    /**
+     * Called when the owning monster changes graph location.
+     */
     public on_location_change(): void;
 
+    /**
+     * Called when the owning monster switches online.
+     */
     public on_switch_online(): void;
 
+    /**
+     * Called when the owning monster switches offline.
+     */
     public on_switch_offline(): void;
 
+    /**
+     * Update offline planning.
+     *
+     * @param forced - Whether the update should ignore regular throttling.
+     */
     public update(forced?: boolean): void;
 
+    /**
+     * Script-facing update hook.
+     */
     public update_script(): void;
 
+    /**
+     * Try to perform an offline attack.
+     *
+     * @returns Whether an attack was performed.
+     */
     public perform_attack(): boolean;
 
-    public action_type(tpALifeSchedulable: unknown, index: number, mutual_detection: boolean): unknown;
+    /**
+     * Get the meet action type for another ALife object.
+     *
+     * @param object - Other ALife schedulable object.
+     * @param index - Relation index.
+     * @param mutual_detection - Whether both objects detected each other.
+     * @returns Meet action type id.
+     */
+    public action_type(
+      object: IXR_cse_alife_schedulable,
+      index: number,
+      mutual_detection: boolean,
+    ): number;
 
-    public object(): unknown;
+    /**
+     * @returns Owning monster server object.
+     */
+    public object(): cse_alife_monster_abstract;
 
-    public movement(): unknown;
+    /**
+     * @returns Offline movement manager.
+     */
+    public movement(): CALifeMonsterMovementManager;
 
-    public smart_terrain(): unknown;
+    /**
+     * @returns Smart terrain assigned to the owner.
+     */
+    public smart_terrain(): cse_alife_smart_zone;
   }
 
   /**
