@@ -37,6 +37,10 @@ declare module "xray16" {
    * @source C++ class profile_timer
    * @customConstructor profile_timer
    * @group xr_profiler
+   *
+   * @remarks
+   * The timer accumulates elapsed microseconds between matching `start()` and `stop()` calls. Nested starts are counted
+   * and only the outermost stop adds elapsed time.
    */
   export class profile_timer extends EngineBinding {
     /**
@@ -53,16 +57,23 @@ declare module "xray16" {
 
     /**
      * Stop measuring elapsed time.
+     *
+     * @remarks
+     * Calling `stop()` on a timer that was not started is ignored.
      */
     public stop(): void;
 
     /**
      * Start or restart measuring elapsed time.
+     *
+     * @remarks
+     * Calling `start()` while the timer is already running increases the recursion mark instead of restarting the
+     * underlying clock.
      */
     public start(): void;
 
     /**
-     * @returns Elapsed time measured by the timer.
+     * @returns Elapsed time in microseconds.
      */
     public time(): f32;
 
@@ -75,8 +86,13 @@ declare module "xray16" {
   }
 
   /**
+   * Lua script profiler namespace.
+   *
    * @source namespace profiler
    * @group xr_profiler
+   *
+   * @remarks
+   * Requires an engine script profiler instance. Starting an already active profiler is ignored by the engine.
    */
   export interface IXR_profiler {
     /**
@@ -91,11 +107,17 @@ declare module "xray16" {
 
     /**
      * Start lua scripts profiler in default mode.
+     *
+     * @remarks
+     * The default mode is hook profiling.
      */
     start(this: void): void;
 
     /**
      * Start lua scripts profiler of provided type.
+     *
+     * @remarks
+     * Passing `PROFILER_TYPE_NONE` does not start profiling and only logs a message.
      *
      * @param profiler_type - Type of profiler to start (note: see global exports of type constants).
      */
@@ -104,16 +126,26 @@ declare module "xray16" {
     /**
      * Start profiler in hook mode.
      * Profiling performance based on lua call start/end events.
+     *
+     * @remarks
+     * Hook mode attaches a Lua hook. If another hook is already installed, start may fail and only log the failure.
      */
     start_hook_mode(this: void): void;
 
     /**
      * Start profiler in sampling mode with default sampling interval.
+     *
+     * @remarks
+     * Sampling mode uses LuaJIT profiling. It cannot start when LuaJIT profiling is unavailable, for example with
+     * `-nojit`.
      */
     start_sampling_mode(this: void): void;
 
     /**
      * Start profiler in sampling mode with provided sampling interval value.
+     *
+     * @remarks
+     * The engine clamps the interval to its supported range.
      *
      * @param sampling_interval - Interval to collect samples with luaJIT sampling profiler.
      */
@@ -121,11 +153,17 @@ declare module "xray16" {
 
     /**
      * Stop currently active profiler.
+     *
+     * @remarks
+     * Stopping clears collected profiling data. Calling it while inactive only logs a message.
      */
     stop(this: void): void;
 
     /**
      * Reset measurements data of profiler.
+     *
+     * @remarks
+     * Reset keeps the current profiling mode active and clears collected samples.
      */
     reset(this: void): void;
 
@@ -144,6 +182,10 @@ declare module "xray16" {
 
     /**
      * Save report of profiler measurements in corresponding log/perf file.
+     *
+     * @remarks
+     * Hook reports are saved under `$logs$` as `*_hook_profile.log`. Sampling reports are saved as
+     * `*_sampling_profile.perf`.
      */
     save_report(this: void): void;
   }

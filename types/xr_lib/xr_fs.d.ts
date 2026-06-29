@@ -154,6 +154,33 @@ declare module "xray16" {
   }
 
   /**
+   * Result of an `FS.exist` query that checks virtual and/or external files.
+   *
+   * @source C++ class FileStatus
+   * @customConstructor FileStatus
+   * @group xr_fs
+   *
+   * @remarks
+   * The object can be used as a boolean in Lua. `External` means the file was found outside registered virtual archives.
+   */
+  export class FileStatus {
+    /**
+     * Whether the file exists.
+     */
+    public readonly Exists: boolean;
+
+    /**
+     * Whether the match came from the external filesystem.
+     */
+    public readonly External: boolean;
+
+    /**
+     * Engine-created file status.
+     */
+    private constructor();
+  }
+
+  /**
    * Engine filesystem facade.
    *
    * Path aliases such as `$game_config$` and `$logs$` are resolved by this object.
@@ -216,6 +243,21 @@ declare module "xray16" {
      * Sort by size ascending.
      */
     public static FS_sort_by_size_up: 2;
+
+    /**
+     * Search virtual registered files only.
+     */
+    public static FSType_Virtual: 1;
+
+    /**
+     * Search external files only.
+     */
+    public static FSType_External: 2;
+
+    /**
+     * Search virtual and external files.
+     */
+    public static FSType_Any: 3;
 
     /**
      * Delete a directory below a path alias.
@@ -325,15 +367,21 @@ declare module "xray16" {
     /**
      * Check whether a file exists below a path alias.
      *
+     * @remarks
+     * This overload checks virtual and/or external files and returns a status object.
+     *
      * @param alias - Filesystem path alias.
      * @param filename - File name.
      * @param fs_type - Filesystem source to search.
-     * @returns File descriptor pointer or `null`.
+     * @returns File status.
      */
-    public exist(alias: string, filename: string, fs_type: TXR_fs_type): i32 | null;
+    public exist(alias: string, filename: string, fs_type: TXR_fs_type): FileStatus;
 
     /**
      * Check whether a file exists below a path alias.
+     *
+     * @remarks
+     * This overload resolves `alias` and `filename`, then returns a registered file descriptor when found.
      *
      * @param alias - Filesystem path alias.
      * @param filename - File name.
@@ -344,10 +392,25 @@ declare module "xray16" {
     /**
      * Check whether a file exists.
      *
+     * @remarks
+     * This overload returns a registered file descriptor when found.
+     *
      * @param path - File path.
      * @returns File descriptor pointer or `null`.
      */
     public exist(path: string): i32 | null;
+
+    /**
+     * Check whether a file exists.
+     *
+     * @remarks
+     * This overload checks virtual and/or external files and returns a status object.
+     *
+     * @param path - File path.
+     * @param fs_type - Filesystem source to search.
+     * @returns File status.
+     */
+    public exist(path: string, fs_type: TXR_fs_type): FileStatus;
 
     /**
      * Add a path alias.
@@ -452,7 +515,7 @@ declare module "xray16" {
    *
    * @group xr_fs
    */
-  export type TXR_fs_type = EnumeratedStaticsValues<typeof FS>;
+  export type TXR_fs_type = typeof FS.FSType_Virtual | typeof FS.FSType_External | typeof FS.FSType_Any;
 
   /**
    * Get the global filesystem facade.
