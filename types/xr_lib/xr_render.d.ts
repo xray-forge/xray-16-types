@@ -5,6 +5,9 @@ declare module "xray16" {
    * @source C++ class render_device
    * @customConstructor render_device
    * @group xr_render
+   *
+   * @remarks
+   * Values are snapshots of the global engine `Device` for the current frame.
    */
   export class render_device {
     /**
@@ -59,11 +62,17 @@ declare module "xray16" {
 
     /**
      * Last frame time delta in milliseconds.
+     *
+     * @remarks
+     * This value is `0` while the game timer is paused.
      */
     public readonly time_delta: u32;
 
     /**
      * Last frame time delta in seconds.
+     *
+     * @remarks
+     * This value is `0` while the game timer is paused.
      */
     public readonly f_time_delta: f32;
 
@@ -74,6 +83,9 @@ declare module "xray16" {
 
     /**
      * Get current game timestamp.
+     *
+     * @remarks
+     * Reads the frame-updated `Device.dwTimeGlobal` value.
      *
      * @example `29319`, `46297`
      *
@@ -91,6 +103,9 @@ declare module "xray16" {
     /**
      * Change game pause state.
      *
+     * @remarks
+     * Pauses the game timer but not sound emitters. Dedicated servers and benchmark mode ignore pause requests.
+     *
      * @param paused - Whether the game should be paused.
      */
     public pause(paused: boolean): void;
@@ -100,6 +115,9 @@ declare module "xray16" {
    * Get the global render device.
    *
    * @group xr_render
+   *
+   * @remarks
+   * Returns the engine-owned `Device` singleton.
    *
    * @returns Render device.
    */
@@ -119,6 +137,9 @@ declare module "xray16" {
    *
    * @group xr_render
    *
+   * @remarks
+   * In this binding the hardware test always returns `true`.
+   *
    * @returns Whether R2 hardware test passes.
    */
   export function xrRender_test_r2_hw(this: void): boolean;
@@ -136,6 +157,9 @@ declare module "xray16" {
    * Check whether renderer setting can be changed at runtime.
    *
    * @group xr_global_declaration
+   *
+   * @remarks
+   * Returns `false` after the renderer command is locked by command-line or config processing.
    *
    * @returns Whether renderer setting can be changed.
    */

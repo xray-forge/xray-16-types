@@ -5,6 +5,9 @@ declare module "xray16" {
    * @source C++ class FactionState
    * @customConstructor FactionState
    * @group xr_relation
+   *
+   * @remarks
+   * This is a mutable data object filled by faction-war UI scripts. War state slots are fixed to five entries.
    */
   export class FactionState {
     /**
@@ -87,10 +90,16 @@ declare module "xray16" {
   /**
    * @source namespace relation_registry
    * @group xr_relation
+   *
+   * @remarks
+   * Community ids are resolved through the engine community registry. Invalid names follow the native registry rules.
    */
   export interface IXR_relation_registry {
     /**
      * Change relation from community to object by `delta_goodwill`.
+     *
+     * @remarks
+     * Applies the delta to the current goodwill, then clamps the result to `community_goodwill_limits`.
      *
      * @param from_community - Source community id.
      * @param to_object_id - Target object id.
@@ -101,6 +110,9 @@ declare module "xray16" {
     /**
      * Get goodwill from a community to an object.
      *
+     * @remarks
+     * Returns neutral goodwill when no explicit community-to-object value is stored.
+     *
      * @param from_community - Source community id.
      * @param to_object_id - Target object id.
      * @returns Stored community goodwill.
@@ -109,6 +121,9 @@ declare module "xray16" {
 
     /**
      * Get relation between two communities.
+     *
+     * @remarks
+     * Reads the global community relation matrix, not per-object goodwill.
      *
      * @param from_community - Source community id.
      * @param to_community - Target community id.
@@ -120,6 +135,9 @@ declare module "xray16" {
      * Get relation from object to actor.
      * Return formula looks like `personal_goodwill + community_to_obj_goodwill + community_to_community_goodwill`.
      *
+     * @remarks
+     * Both object ids must resolve to ALife trader objects. Non-trader objects log a script error and return `0`.
+     *
      * @param from_object_id - Object from.
      * @param to_object_id - Object to.
      * @returns General goodwill from object to another object based on personal and community goodwill.
@@ -129,6 +147,9 @@ declare module "xray16" {
     /**
      * Set goodwill from a community to an object.
      *
+     * @remarks
+     * The engine clamps the stored value to `community_goodwill_limits`.
+     *
      * @param from_community - Source community id.
      * @param to_object_id - Target object id.
      * @param goodwill - New goodwill value.
@@ -137,6 +158,9 @@ declare module "xray16" {
 
     /**
      * Set relation between two communities.
+     *
+     * @remarks
+     * Updates the global community relation matrix.
      *
      * @param from_community - Source community id.
      * @param to_community - Target community id.

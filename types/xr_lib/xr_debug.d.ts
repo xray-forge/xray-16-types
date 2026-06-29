@@ -5,6 +5,9 @@ declare module "xray16" {
    * @source C++ class CConsole
    * @customConstructor CConsole
    * @group xr_debug
+   *
+   * @remarks
+   * Use `get_console()` to access the engine-owned console. Scripts do not create console instances.
    */
   export class CConsole extends EngineBinding {
     /**
@@ -15,6 +18,9 @@ declare module "xray16" {
     /**
      * Execute console command immediately.
      *
+     * @remarks
+     * Executes without adding the command to console history.
+     *
      * @param command - Console command.
      */
     public execute(command: string): void;
@@ -22,14 +28,20 @@ declare module "xray16" {
     /**
      * Queue console command for deferred execution.
      *
+     * @remarks
+     * Schedules a `KERNEL:console` event, so the command runs later on the engine event queue.
+     *
      * @param command - Console command.
      */
     public execute_deferred(command: string): void;
 
     /**
-     * Execute script text as a console script.
+     * Execute a config file through the console.
      *
-     * @param script - Script text.
+     * @remarks
+     * The binding prepends `cfg_load` to the provided path.
+     *
+     * @param script - Config file path.
      */
     public execute_script(script: string): void;
 
@@ -46,6 +58,9 @@ declare module "xray16" {
     /**
      * Read console variable as boolean.
      *
+     * @remarks
+     * Returns `false` when the command is missing or is not a boolean-compatible mask/integer command.
+     *
      * @param key - Console variable name.
      * @returns Boolean value.
      */
@@ -53,6 +68,9 @@ declare module "xray16" {
 
     /**
      * Read console variable as float.
+     *
+     * @remarks
+     * Returns `0` when the command is missing or is not a float command.
      *
      * @param key - Console variable name.
      * @returns Float value.
@@ -62,6 +80,9 @@ declare module "xray16" {
     /**
      * Read console variable as integer.
      *
+     * @remarks
+     * Mask commands are returned as `0` or `1`. Missing or incompatible commands return `0`.
+     *
      * @param key - Console variable name.
      * @returns Integer value.
      */
@@ -70,25 +91,33 @@ declare module "xray16" {
     /**
      * Read console variable as string.
      *
+     * @remarks
+     * Returns `null` when the command does not exist.
+     *
      * @param key - Console variable name.
      * @returns String value.
      */
-    public get_string(key: string): string;
+    public get_string(key: string): string | null;
 
     /**
      * Read console variable token text.
      *
+     * @remarks
+     * Uses the same engine path as `get_string`, so missing commands return `null`.
+     *
      * @param key - Console variable name.
      * @returns Token text.
      */
-    public get_token(key: string): string;
+    public get_token(key: string): string | null;
   }
 
   /**
    * Log a message through the script log channel.
    *
    * @group xr_debug
-   * @remarks In non-master builds the message is sent to `CScriptEngine::script_log`.
+   *
+   * @remarks
+   * In non-master builds the message is sent to `CScriptEngine::script_log`.
    *
    * @param text - Message to print.
    */
@@ -98,7 +127,9 @@ declare module "xray16" {
    * Log an error message and print the current script stack.
    *
    * @group xr_debug
-   * @remarks The C++ binding asserts after logging the message.
+   *
+   * @remarks
+   * The C++ binding asserts after logging the message.
    *
    * @param text - Error message.
    */
@@ -122,6 +153,9 @@ declare module "xray16" {
    * Get console object reference.
    *
    * @group xr_debug
+   *
+   * @remarks
+   * Returns the global engine console pointer.
    *
    * @returns Console object reference.
    */
