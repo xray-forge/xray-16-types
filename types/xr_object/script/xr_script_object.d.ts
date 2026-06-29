@@ -43,7 +43,7 @@ declare module "xray16" {
      * Actor satiety value.
      *
      * @remarks
-     * Assignment applies a delta in engine runtime.
+     * Assignment applies a delta through `CScriptGameObject::ChangeSatiety`, not an absolute value.
      */
     public satiety: f32;
 
@@ -52,7 +52,7 @@ declare module "xray16" {
      * 0 - no bleeding.
      *
      * @remarks
-     * Assignment applies a delta in engine runtime.
+     * Assignment applies a delta through `CScriptGameObject::SetBleeding`, not an absolute value.
      */
     public bleeding: f32;
 
@@ -60,45 +60,86 @@ declare module "xray16" {
      * Object health value from 0 to 1.
      *
      * @remarks
-     * Assignment applies a delta in engine runtime.
+     * Assignment applies a delta through `CScriptGameObject::SetHealth`, not an absolute value.
+     * Use `set_health_ex` when the script must set exact health.
      */
     public health: f32;
 
+    /**
+     * Creature morale value.
+     */
     public morale: f32;
 
     /**
      * Actor stamina/power value.
      *
      * @remarks
-     * Assignment applies a delta in engine runtime.
+     * Assignment applies a delta through `CScriptGameObject::SetPower`, not an absolute value.
      */
     public power: f32;
 
+    /**
+     * Psy health value.
+     */
     public psy_health: f32;
 
     /**
      * Actor radiation value.
      *
      * @remarks
-     * Assignment applies a delta in engine runtime.
+     * Assignment applies a delta through `CScriptGameObject::SetRadiation`, not an absolute value.
      */
     public radiation: f32;
 
     protected constructor();
 
     /**
-     * Get engine client object ID.
+     * Get engine object id.
+     *
+     * @returns Runtime object id.
      */
     public id(): u16;
 
+    /**
+     * Get story id assigned to this object.
+     *
+     * @returns Story id, or engine default when no story id is assigned.
+     */
     public story_id(): u32;
 
+    /**
+     * Get inventory object by index or name.
+     *
+     * @param value - Inventory index or item name.
+     * @returns Matching item, or `null` when it does not exist.
+     */
     public object(value: i32 | string): game_object | null;
 
+    /**
+     * Get engine class id.
+     *
+     * @returns Class id constant.
+     */
     public clsid(): TXR_class_id;
 
+    /**
+     * Queue animation by name.
+     *
+     * @param animation - Animation name.
+     * @param hand_usage - Whether the animation uses hands.
+     * @param use_movement_controller - Whether movement controller should drive the animation.
+     */
     public add_animation(animation: string, hand_usage: boolean, use_movement_controller: boolean): void;
 
+    /**
+     * Queue animation with local transform data.
+     *
+     * @param animation - Animation name.
+     * @param hand_usage - Whether the animation uses hands.
+     * @param position - Animation position.
+     * @param rotation - Animation rotation.
+     * @param local_animation - Whether transform is local to the object.
+     */
     public add_animation(
       animation: string,
       hand_usage: boolean,
@@ -107,12 +148,32 @@ declare module "xray16" {
       local_animation: boolean
     ): void;
 
+    /**
+     * Get current entity action.
+     *
+     * @returns Current action, or `null` when no action is active.
+     */
     public action(): entity_action | null;
 
+    /**
+     * Get queued action count.
+     *
+     * @returns Number of queued actions.
+     */
     public action_count(): u32;
 
+    /**
+     * Get active detector item.
+     *
+     * @returns Active detector, or `null`.
+     */
     public active_detector(): game_object | null;
 
+    /**
+     * Get active inventory item.
+     *
+     * @returns Active item, or `null`.
+     */
     public active_item(): game_object | null;
 
     /**
@@ -120,36 +181,115 @@ declare module "xray16" {
      */
     public active_slot<T extends u32>(): T;
 
-    public active_zone_contact(value: u16): boolean;
+    /**
+     * Check whether the object contacts an active zone.
+     *
+     * @param zone_id - Zone object id.
+     * @returns Whether contact is active.
+     */
+    public active_zone_contact(zone_id: u16): boolean;
 
+    /**
+     * Add movement restrictions.
+     *
+     * @param out_restriction - Restrictor name used as outside boundary.
+     * @param in_restriction - Restrictor name used as inside boundary.
+     */
     public add_restrictions(out_restriction: string, in_restriction: string): void;
 
+    /**
+     * Get current animation slot.
+     *
+     * @returns Animation slot id.
+     */
     public animation_slot(): i32;
 
+    /**
+     * Get base outside restrictions.
+     *
+     * @returns Restriction list.
+     */
     public base_out_restrictions(): string;
 
+    /**
+     * Get best known item for this object.
+     *
+     * @returns Best item, or `null`.
+     */
     public best_item(): game_object | null;
 
+    /**
+     * Get best available weapon for this object.
+     *
+     * @returns Best weapon, or `null`.
+     */
     public best_weapon(): game_object | null;
 
+    /**
+     * Attach a Lua binder to this object.
+     *
+     * @param binder - Binder instance adopted by the engine.
+     */
     public bind_object(binder: object_binder): void;
 
+    /**
+     * Get attached Lua binder.
+     *
+     * @returns Bound object binder.
+     */
     public binded_object(): object_binder;
 
+    /**
+     * Toggle burer gravity attack override.
+     *
+     * @param value - Whether forced gravity attack is enabled.
+     */
     public burer_set_force_gravi_attack(value: boolean): void;
 
-    public buy_supplies(value1: ini_file, value2: string): void;
+    /**
+     * Buy supplies described by a config section.
+     *
+     * @param ini - Trade config.
+     * @param section - Supply section.
+     */
+    public buy_supplies(ini: ini_file, section: string): void;
 
+    /**
+     * Check whether this object can select a weapon.
+     *
+     * @returns Whether weapon selection is enabled.
+     */
     public can_select_weapon(): boolean;
 
-    public can_select_weapon(value: boolean): void;
+    /**
+     * Enable or disable weapon selection.
+     *
+     * @param is_enabled - Whether weapon selection is enabled.
+     */
+    public can_select_weapon(is_enabled: boolean): void;
 
+    /**
+     * Check whether this object can throw grenades.
+     *
+     * @returns Whether grenade throwing is enabled.
+     */
     public can_throw_grenades(): boolean;
 
-    public can_throw_grenades(value: boolean): void;
+    /**
+     * Enable or disable grenade throwing.
+     *
+     * @param is_enabled - Whether grenade throwing is enabled.
+     */
+    public can_throw_grenades(is_enabled: boolean): void;
 
+    /**
+     * Remove queued animations.
+     */
     public clear_animations(): void;
 
+    /**
+     * Clear override animation.
+     */
     public clear_override_animation(): void;
 
     /**
@@ -161,13 +301,31 @@ declare module "xray16" {
      */
     public debug_planner(planner: action_planner): void;
 
-    public disable_info_portion(value: string): boolean;
+    /**
+     * Remove an info portion from this object.
+     *
+     * @param info_portion - Info portion id.
+     * @returns Whether the info portion was removed.
+     */
+    public disable_info_portion(info_portion: string): boolean;
 
+    /**
+     * Disable actor dialog with this object.
+     */
     public disable_talk(): void;
 
+    /**
+     * Disable trade with this object.
+     */
     public disable_trade(): void;
 
-    public dont_has_info(value: string): boolean;
+    /**
+     * Check that this object does not have an info portion.
+     *
+     * @param info_portion - Info portion id.
+     * @returns Whether the info portion is absent.
+     */
+    public dont_has_info(info_portion: string): boolean;
 
     /**
      * Drop item from inventory.
@@ -176,22 +334,69 @@ declare module "xray16" {
      */
     public drop_item(item: game_object): void;
 
-    public enable_night_vision(value: boolean): void;
+    /**
+     * Enable or disable night vision on actor equipment.
+     *
+     * @param is_enabled - Whether night vision is enabled.
+     */
+    public enable_night_vision(is_enabled: boolean): void;
 
-    public external_sound_start(value: string): void;
+    /**
+     * Start an external object sound.
+     *
+     * @param sound - Sound name.
+     */
+    public external_sound_start(sound: string): void;
 
-    public get_bone_id(value: string): u16;
+    /**
+     * Get model bone id by name.
+     *
+     * @param bone - Bone name.
+     * @returns Bone id.
+     */
+    public get_bone_id(bone: string): u16;
 
+    /**
+     * Get current movement direction.
+     *
+     * @returns Direction vector.
+     */
     public get_current_direction(): vector;
 
-    public get_current_outfit_protection(value: i32): f32;
+    /**
+     * Get protection value from the currently equipped outfit.
+     *
+     * @param hit_type - Hit type id.
+     * @returns Protection value.
+     */
+    public get_current_outfit_protection(hit_type: i32): f32;
 
+    /**
+     * Get destination smart cover.
+     *
+     * @returns Cover point.
+     */
     public get_dest_smart_cover(): cover_point;
 
+    /**
+     * Get destination smart cover name.
+     *
+     * @returns Cover name, or `null`.
+     */
     public get_dest_smart_cover_name(): string | null;
 
+    /**
+     * Get latest monster hit information.
+     *
+     * @returns Monster hit info.
+     */
     public get_monster_hit_info(): MonsterHitInfo;
 
+    /**
+     * Get physics object wrapper.
+     *
+     * @returns Physics object.
+     */
     public get_physics_object(): CPhysicObject;
 
     /**
@@ -199,101 +404,320 @@ declare module "xray16" {
      */
     public get_script(): boolean;
 
+    /**
+     * Get current smart cover description.
+     *
+     * @returns Smart cover description.
+     */
     public get_smart_cover_description(): string;
 
-    public give_talk_message(value1: string, value2: string, value3: string): void;
+    /**
+     * Show a talk message.
+     *
+     * @param title - Message title.
+     * @param text - Message text.
+     * @param icon - Message icon.
+     */
+    public give_talk_message(title: string, text: string, icon: string): void;
 
+    /**
+     * Get maximum idle time.
+     *
+     * @returns Idle time in milliseconds.
+     */
     public idle_max_time(): f32;
 
+    /**
+     * Set maximum idle time.
+     *
+     * @param time - Idle time in milliseconds.
+     */
     public idle_max_time(time: f32): void;
 
-    public in_current_loophole_fov(vector: vector): boolean;
+    /**
+     * Check whether a position is inside the current loophole field of view.
+     *
+     * @param position - Position to test.
+     * @returns Whether position is inside field of view.
+     */
+    public in_current_loophole_fov(position: vector): boolean;
 
+    /**
+     * Iterate inventory items.
+     *
+     * @param cb - Callback called for each item.
+     */
     public inventory_for_each(cb: (this: void) => void): void;
 
+    /**
+     * Check whether a door is blocked by an NPC.
+     *
+     * @returns Whether a door is blocked.
+     */
     public is_door_blocked_by_npc(): boolean;
 
+    /**
+     * Check whether actor dialog is enabled.
+     *
+     * @returns Whether talking is enabled.
+     */
     public is_talk_enabled(): boolean;
 
+    /**
+     * Check whether a weapon is being strapped.
+     *
+     * @param weapon - Weapon to check.
+     * @returns Whether weapon is being strapped.
+     */
     public is_weapon_going_to_be_strapped(weapon: game_object | null): boolean;
 
+    /**
+     * Iterate items inside an inventory box.
+     *
+     * @param cb - Callback called for each box item.
+     * @param object - Inventory box object.
+     */
     public iterate_inventory_box(
       cb: (this: void, box: game_object, item: game_object) => void,
       object: game_object
     ): void;
 
+    /**
+     * Get maximum lookout time.
+     *
+     * @returns Lookout time in milliseconds.
+     */
     public lookout_max_time(): f32;
 
+    /**
+     * Set maximum lookout time.
+     *
+     * @param value - Lookout time in milliseconds.
+     */
     public lookout_max_time(value: f32): void;
 
+    /**
+     * Get maximum distance at which monsters can be ignored.
+     *
+     * @returns Distance.
+     */
     public max_ignore_monster_distance(): f32;
 
+    /**
+     * Set maximum distance at which monsters can be ignored.
+     *
+     * @param value - Distance.
+     */
     public max_ignore_monster_distance(value: f32): void;
 
     public memory_hit_objects(): unknown; // :vector<MemorySpace::CHitObject, xalloc<struct MemorySpace::CHitObject>
 
+    /**
+     * Get time since this object remembered another object.
+     *
+     * @param another - Object to query.
+     * @returns Memory time.
+     */
     public memory_time(another: game_object): u32;
 
+    /**
+     * Get visible objects from memory.
+     *
+     * @returns Iterable visible memory objects.
+     */
     public memory_visible_objects(): LuaIterable<visible_memory_object>;
 
     public mental_state<T extends number>(): T; // Todo: unknown enum
 
     public not_yet_visible_objects(): unknown;
 
+    /**
+     * Get inventory object count.
+     *
+     * @returns Inventory item count.
+     */
     public object_count(): u32;
 
+    /**
+     * Check whether current path is complete.
+     *
+     * @returns Whether path was completed.
+     */
     public path_completed(): boolean;
 
-    public relation(game_object: game_object): TXR_relation;
+    /**
+     * Get relation to another object.
+     *
+     * @param object - Target object.
+     * @returns Relation id.
+     */
+    public relation(object: game_object): TXR_relation;
 
+    /**
+     * Release forced standing sleep animation.
+     */
     public release_stand_sleep_animation(): void;
 
+    /**
+     * Clear queued entity actions.
+     */
     public reset_action_queue(): void;
 
+    /**
+     * Restore default sound threshold.
+     */
     public restore_sound_threshold(): void;
 
+    /**
+     * Set carried object weight.
+     *
+     * @param weight - New weight.
+     */
     public set_weight(weight: f32): void;
 
-    public set_actor_direction(value: f32): void;
+    /**
+     * Set actor yaw direction.
+     *
+     * @param direction - Direction angle.
+     */
+    public set_actor_direction(direction: f32): void;
 
-    public set_ammo_elapsed(value: i32): void;
+    /**
+     * Set ammo count in current magazine.
+     *
+     * @param count - Ammo count.
+     */
+    public set_ammo_elapsed(count: i32): void;
 
-    public set_community_goodwill(first: string, second: i32): void;
+    /**
+     * Set goodwill toward a community.
+     *
+     * @param community - Community id.
+     * @param goodwill - Goodwill value.
+     */
+    public set_community_goodwill(community: string, goodwill: i32): void;
 
-    public set_const_force(vector: vector, value: f32, time_interval: u32): void;
+    /**
+     * Apply constant force for a time interval.
+     *
+     * @param direction - Force direction.
+     * @param power - Force power.
+     * @param time_interval - Duration in milliseconds.
+     */
+    public set_const_force(direction: vector, power: f32, time_interval: u32): void;
 
+    /**
+     * Clear destination smart cover.
+     */
     public set_dest_smart_cover(): void;
 
-    public set_dest_smart_cover(value: string): void;
+    /**
+     * Set destination smart cover by name.
+     *
+     * @param smart_cover - Smart cover name.
+     */
+    public set_dest_smart_cover(smart_cover: string): void;
 
+    /**
+     * Set current enemy object.
+     *
+     * @param object - Enemy object.
+     */
     public set_enemy(object: game_object): void;
 
+    /**
+     * Set field of view.
+     *
+     * @param fov - Field of view angle.
+     */
     public set_fov(fov: f32): void;
 
-    public set_item(action_id: number, game_object: game_object | null, value1?: u32, value2?: u32): void;
+    /**
+     * Set item used by an action.
+     *
+     * @param action_id - Action id.
+     * @param object - Item object, or `null`.
+     * @param min_queue_size - Optional minimum queue size.
+     * @param max_queue_size - Optional maximum queue size.
+     */
+    public set_item(action_id: number, object: game_object | null, min_queue_size?: u32, max_queue_size?: u32): void;
 
+    /**
+     * Set mental animation state.
+     *
+     * @param state - Target mental state.
+     */
     public set_mental_state(state: TXR_animation): void;
 
+    /**
+     * Force an override animation.
+     *
+     * @param animation - Animation name.
+     */
     public set_override_animation(animation: string): void;
 
+    /**
+     * Set path planning type.
+     *
+     * @param type - Path type.
+     */
     public set_path_type(type: TXR_game_object_path): void;
 
+    /**
+     * Set previous patrol point index.
+     *
+     * @param point - Point index.
+     */
     public set_previous_point(point: i32): void;
 
+    /**
+     * Clear smart cover target.
+     */
     public set_smart_cover_target(): void;
 
+    /**
+     * Set smart cover target object.
+     *
+     * @param game_object - Target object.
+     */
     public set_smart_cover_target(game_object: game_object): void;
 
+    /**
+     * Set smart cover target position.
+     *
+     * @param vector - Target position.
+     */
     public set_smart_cover_target(vector: vector): void;
 
-    public set_smart_cover_target_default(value: boolean): void;
+    /**
+     * Enable or disable default smart cover target.
+     *
+     * @param is_enabled - Whether default target is enabled.
+     */
+    public set_smart_cover_target_default(is_enabled: boolean): void;
 
+    /**
+     * Use smart cover fire target.
+     */
     public set_smart_cover_target_fire(): void;
 
+    /**
+     * Use smart cover lookout target.
+     */
     public set_smart_cover_target_lookout(): void;
 
+    /**
+     * Set start patrol point index.
+     *
+     * @param point - Point index.
+     */
     public set_start_point(point: i32): void;
 
+    /**
+     * Get voice sound prefix.
+     *
+     * @returns Voice sound prefix.
+     */
     public sound_voice_prefix(): string;
 
     /**
@@ -325,42 +749,137 @@ declare module "xray16" {
 
     public who_hit_section_name(): string;
 
+    /**
+     * Activate an inventory slot.
+     *
+     * @param index - Slot id.
+     */
     public activate_slot(index: u32): void;
 
-    public actor_look_at_point(vector: vector): void;
+    /**
+     * Force actor look direction toward a point.
+     *
+     * @param position - Point to look at.
+     */
+    public actor_look_at_point(position: vector): void;
 
+    /**
+     * Get aimed bone id.
+     *
+     * @returns Bone name.
+     */
     public aim_bone_id(): string;
 
-    public aim_bone_id(value: string): void;
+    /**
+     * Set aimed bone id.
+     *
+     * @param bone - Bone name.
+     */
+    public aim_bone_id(bone: string): void;
 
-    public aim_time(game_object: game_object): u32;
+    /**
+     * Get aim time for a target.
+     *
+     * @param object - Target object.
+     * @returns Aim time.
+     */
+    public aim_time(object: game_object): u32;
 
-    public aim_time(game_object: game_object, value: u32): void;
+    /**
+     * Set aim time for a target.
+     *
+     * @param object - Target object.
+     * @param time - Aim time.
+     */
+    public aim_time(object: game_object, time: u32): void;
 
-    public allow_sprint(value: boolean): void;
+    /**
+     * Enable or disable actor sprint.
+     *
+     * @param is_allowed - Whether sprint is allowed.
+     */
+    public allow_sprint(is_allowed: boolean): void;
 
+    /**
+     * Get animation count.
+     *
+     * @returns Animation count.
+     */
     public animation_count(): i32;
 
+    /**
+     * Get most relevant danger object.
+     *
+     * @returns Danger object, or `null`.
+     */
     public best_danger(): danger_object | null;
 
     public body_state(): void;
 
-    public bone_position(value: string): vector;
+    /**
+     * Get model bone world position.
+     *
+     * @param bone - Bone name.
+     * @returns Bone position.
+     */
+    public bone_position(bone: string): vector;
 
-    public buy_item_condition_factor(value: f32): void;
+    /**
+     * Set item condition factor used by buying logic.
+     *
+     * @param factor - Condition factor.
+     */
+    public buy_item_condition_factor(factor: f32): void;
 
+    /**
+     * Change team, squad, and group ids.
+     *
+     * @param team_id - Team id.
+     * @param squad_id - Squad id.
+     * @param group_id - Group id.
+     */
     public change_team(team_id: u8, squad_id: u8, group_id: u8): void;
 
+    /**
+     * Get character icon id.
+     *
+     * @returns Icon id.
+     */
     public character_icon<T extends string = string>(): T;
 
+    /**
+     * Get localized character name.
+     *
+     * @returns Character display name.
+     */
     public character_name<T extends string = string>(): T;
 
+    /**
+     * Get character rank value.
+     *
+     * @returns Rank value.
+     */
     public character_rank(): i32;
 
+    /**
+     * Get item condition.
+     *
+     * @returns Condition value.
+     */
     public condition(): f32;
 
+    /**
+     * Get object cost.
+     *
+     * @returns Cost.
+     */
     public cost(): u32;
 
+    /**
+     * Check whether NPC is critically wounded.
+     *
+     * @returns Whether object is critically wounded.
+     */
     public critically_wounded(): boolean;
 
     public deadbody_closed(value: boolean): void;
@@ -369,6 +888,11 @@ declare module "xray16" {
 
     public death_sound_enabled(value: boolean): void;
 
+    /**
+     * Get object facing direction.
+     *
+     * @returns Direction vector.
+     */
     public direction(): vector;
 
     public disable_anomaly(): void;
@@ -379,9 +903,20 @@ declare module "xray16" {
 
     public disable_inv_upgrade(): void;
 
-    public drop_item_and_teleport(game_object: game_object, vector: vector): void;
+    /**
+     * Drop an item and teleport it to a position.
+     *
+     * @param item - Item to drop.
+     * @param position - Target position.
+     */
+    public drop_item_and_teleport(item: game_object, position: vector): void;
 
-    public eat(game_object: game_object): void;
+    /**
+     * Consume an inventory item.
+     *
+     * @param item - Item to eat or use.
+     */
+    public eat(item: game_object): void;
 
     public enable_inv_upgrade(): void;
 
@@ -392,9 +927,20 @@ declare module "xray16" {
      */
     public enable_level_changer(is_enabled: boolean): void;
 
-    public enable_memory_object(game_object: game_object, value: boolean): void;
+    /**
+     * Enable or disable memory tracking for an object.
+     *
+     * @param object - Object to update.
+     * @param is_enabled - Whether memory object is enabled.
+     */
+    public enable_memory_object(object: game_object, is_enabled: boolean): void;
 
-    public explode(value: u32): void;
+    /**
+     * Trigger object explosion.
+     *
+     * @param id - Explosion id or initiator id.
+     */
+    public explode(id: u32): void;
 
     public extrapolate_length(): f32;
 
@@ -404,8 +950,18 @@ declare module "xray16" {
 
     public fov(): f32;
 
+    /**
+     * Get total suitable ammo count.
+     *
+     * @returns Ammo count.
+     */
     public get_ammo_total(): u32;
 
+    /**
+     * Get active ammo type.
+     *
+     * @returns Ammo type id.
+     */
     public get_ammo_type(): u8;
 
     public get_artefact(): CArtefact;
@@ -431,7 +987,13 @@ declare module "xray16" {
 
     public get_visual_name<T extends string = string>(): T;
 
-    public has_info(value: string): boolean;
+    /**
+     * Check whether this object has an info portion.
+     *
+     * @param info_portion - Info portion id.
+     * @returns Whether the info portion is present.
+     */
+    public has_info(info_portion: string): boolean;
 
     public hide_weapon(): void;
 
@@ -439,7 +1001,15 @@ declare module "xray16" {
 
     public idle_min_time(value: f32): void;
 
-    public in_loophole_fov(value1: string, valu2: string, value3: vector): boolean;
+    /**
+     * Check whether a position is inside a named loophole field of view.
+     *
+     * @param cover_name - Smart cover name.
+     * @param loophole_name - Loophole name.
+     * @param position - Position to test.
+     * @returns Whether position is inside field of view.
+     */
+    public in_loophole_fov(cover_name: string, loophole_name: string, position: vector): boolean;
 
     public in_restrictions(): string;
 
@@ -463,7 +1033,12 @@ declare module "xray16" {
 
     public is_there_items_to_pickup(): boolean;
 
-    public kill(game_object: game_object): void;
+    /**
+     * Kill a target object.
+     *
+     * @param object - Target object.
+     */
+    public kill(object: game_object): void;
 
     public location_on_path(value: f32, vector: vector): u32;
 
@@ -473,7 +1048,12 @@ declare module "xray16" {
 
     public lookout_min_time(time: f32): void;
 
-    public make_item_active(game_object: game_object): void;
+    /**
+     * Make an inventory item active.
+     *
+     * @param item - Item to activate.
+     */
+    public make_item_active(item: game_object): void;
 
     public marked_dropped(game_object: game_object): boolean;
 
@@ -527,11 +1107,28 @@ declare module "xray16" {
 
     public set_capture_anim(game_object: game_object, value1: string, vector: vector, value2: f32): void;
 
-    public set_character_community(value1: string, value2: u32, value3: i32): void;
+    /**
+     * Set character community.
+     *
+     * @param community - Community id.
+     * @param rank - Rank value used by relation logic.
+     * @param goodwill - Goodwill value.
+     */
+    public set_character_community(community: string, rank: u32, goodwill: i32): void;
 
-    public set_character_rank(value: i32): void;
+    /**
+     * Set character rank.
+     *
+     * @param rank - Rank value.
+     */
+    public set_character_rank(rank: i32): void;
 
-    public set_character_reputation(value: i32): void;
+    /**
+     * Set character reputation.
+     *
+     * @param reputation - Reputation value.
+     */
+    public set_character_reputation(reputation: i32): void;
 
     public set_collision_off(value: boolean): void;
 
@@ -539,15 +1136,28 @@ declare module "xray16" {
 
     public set_dest_game_vertex_id(value: u16): void;
 
+    /**
+     * Set destination level vertex.
+     *
+     * @param vertex_id - Target level vertex id.
+     */
     public set_dest_level_vertex_id(vertex_id: u32): void;
 
-    public set_detail_path_type(EDetailPathType: unknown /** Enum DetailPathManager::EDetailPathType */): void;
+    public set_detail_path_type(EDetailPathType: unknown /* Enum DetailPathManager::EDetailPathType */): void;
 
     public set_invisible(is_invisible: boolean): void;
 
-    public set_movement_selection_type(type: unknown /** Enum ESelectionType */): void;
+    public set_movement_selection_type(type: unknown /* Enum ESelectionType */): void;
 
-    public set_patrol_path(value1: string, EPatrolStartType: number, EPatrolRouteType: number, value2: boolean): void;
+    /**
+     * Set movement patrol path.
+     *
+     * @param path_name - Patrol path name.
+     * @param start_type - Patrol start type.
+     * @param route_type - Patrol route type.
+     * @param random - Whether path point selection is random.
+     */
+    public set_patrol_path(path_name: string, start_type: number, route_type: number, random: boolean): void;
 
     public set_smart_cover_target_idle(): void;
 
@@ -605,7 +1215,13 @@ declare module "xray16" {
 
     public set_visual_memory_enabled(enabled: boolean): void;
 
-    public show_condition(ini_file: unknown, value: string): void;
+    /**
+     * Set trade show condition.
+     *
+     * @param ini_file - Trade config.
+     * @param section - Condition section.
+     */
+    public show_condition(ini_file: unknown, section: string): void;
 
     public sound_prefix(): string;
 
@@ -615,16 +1231,39 @@ declare module "xray16" {
 
     public wounded(wounded: boolean): void;
 
-    public add_sound(value1: string, value2: u32, type: unknown, value3: u32, value4: u32, value5: u32): u32;
+    /**
+     * Register an NPC sound.
+     *
+     * @param prefix - Sound prefix.
+     * @param priority - Sound priority.
+     * @param type - Sound type.
+     * @param mask - Sound mask.
+     * @param internal_type - Internal sound type.
+     * @param max_count - Maximum active sounds.
+     * @returns Registered sound id.
+     */
+    public add_sound(prefix: string, priority: u32, type: unknown, mask: u32, internal_type: u32, max_count: u32): u32;
 
+    /**
+     * Register an NPC sound with a bone name.
+     *
+     * @param prefix - Sound prefix.
+     * @param priority - Sound priority.
+     * @param type - Sound type.
+     * @param mask - Sound mask.
+     * @param internal_type - Internal sound type.
+     * @param max_count - Maximum active sounds.
+     * @param bone - Bone name.
+     * @returns Registered sound id.
+     */
     public add_sound(
-      value1: string,
-      value2: u32,
+      prefix: string,
+      priority: u32,
       type: unknown,
-      value3: u32,
-      value4: u32,
-      value5: u32,
-      value6: string
+      mask: u32,
+      internal_type: u32,
+      max_count: u32,
+      bone: string
     ): u32;
 
     public active_sound_count(): i32;
@@ -647,14 +1286,41 @@ declare module "xray16" {
 
     public buy_condition(value1: f32, value2: f32): void;
 
-    public change_character_reputation(value: i32): void;
+    /**
+     * Add a delta to character reputation.
+     *
+     * @param delta - Reputation delta.
+     */
+    public change_character_reputation(delta: i32): void;
 
+    /**
+     * Add a delta to goodwill toward another object.
+     *
+     * @param delta_goodwill - Goodwill delta.
+     * @param to_object - Target object.
+     */
     public change_goodwill(delta_goodwill: i32, to_object: game_object): void;
 
-    public change_character_rank(value: i32): void;
+    /**
+     * Add a delta to character rank.
+     *
+     * @param delta - Rank delta.
+     */
+    public change_character_rank(delta: i32): void;
 
+    /**
+     * Get character reputation.
+     *
+     * @returns Reputation value.
+     */
     public character_reputation(): i32;
 
+    /**
+     * Get goodwill toward a community.
+     *
+     * @param from_community - Community id.
+     * @returns Goodwill value.
+     */
     public community_goodwill(from_community: string): i32;
 
     public deadbody_can_take(value: boolean): void;
@@ -683,6 +1349,12 @@ declare module "xray16" {
 
     public fake_death_fall_down(): boolean;
 
+    /**
+     * Set goodwill toward another object without applying a delta.
+     *
+     * @param goodwill - Goodwill value.
+     * @param to_object - Target object.
+     */
     public force_set_goodwill(goodwill: i32, to_object: game_object): void;
 
     /**
@@ -717,13 +1389,37 @@ declare module "xray16" {
 
     public get_start_dialog(): void;
 
+    /**
+     * Get task by id.
+     *
+     * @param task_id - Task id.
+     * @param only_in_process - Whether to return only active tasks.
+     * @returns Task object, or `null`.
+     */
     public get_task(task_id: string, only_in_process: boolean): CGameTask | null;
 
-    public get_task_state(value: string): unknown;
+    /**
+     * Get task state by id.
+     *
+     * @param task_id - Task id.
+     * @returns Task state id.
+     */
+    public get_task_state(task_id: string): unknown;
 
-    public give_info_portion(value: string): boolean;
+    /**
+     * Add an info portion to this object.
+     *
+     * @param info_portion - Info portion id.
+     * @returns Whether the info portion was added.
+     */
+    public give_info_portion(info_portion: string): boolean;
 
-    public give_money(value: i32): void;
+    /**
+     * Add money to this object.
+     *
+     * @param amount - Money amount.
+     */
+    public give_money(amount: i32): void;
 
     /**
      * Show talk dialog message with icon.
@@ -738,10 +1434,10 @@ declare module "xray16" {
     /**
      * Give game task for an object, usually it is actor object.
      *
-     * @param task
-     * @param time_to_complete
-     * @param check_existing
-     * @param timer_ttl
+     * @param task - Task object to give.
+     * @param time_to_complete - Time allowed to complete the task.
+     * @param check_existing - Whether an existing task should be reused.
+     * @param timer_ttl - Timer lifetime.
      */
     public give_task(task: CGameTask, time_to_complete: u32, check_existing: boolean, timer_ttl: u32): void;
 
@@ -795,8 +1491,20 @@ declare module "xray16" {
 
     public is_trade_enabled(): boolean;
 
+    /**
+     * Get item in inventory slot.
+     *
+     * @param slot - Slot id.
+     * @returns Item in slot, or `null`.
+     */
     public item_in_slot(slot: u32): game_object | null;
 
+    /**
+     * Get item on belt by slot.
+     *
+     * @param slot - Belt slot id.
+     * @returns Item on belt, or `null`.
+     */
     public item_on_belt(slot: u32): game_object | null;
 
     public jump(vector: vector, value: f32): void;
@@ -847,7 +1555,13 @@ declare module "xray16" {
 
     public set_dest_loophole(value: string): void;
 
-    public set_goodwill(value: i32, game_object: game_object): void;
+    /**
+     * Set goodwill toward another object.
+     *
+     * @param goodwill - Goodwill value.
+     * @param object - Target object.
+     */
+    public set_goodwill(goodwill: i32, object: game_object): void;
 
     public set_home(
       name: string | null,
@@ -876,7 +1590,13 @@ declare module "xray16" {
 
     public set_queue_size(value: u32): void;
 
-    public set_relation(ERelationType: number, game_object: game_object): void;
+    /**
+     * Set relation to another object.
+     *
+     * @param relation - Relation id.
+     * @param object - Target object.
+     */
+    public set_relation(relation: number, object: game_object): void;
 
     public set_smart_cover_target_fire_no_lookout(): unknown;
 
@@ -963,9 +1683,21 @@ declare module "xray16" {
 
     public target_movement_type(): number; /* EMovementType */
 
+    /**
+     * Transfer an item to another inventory owner.
+     *
+     * @param item - Item to transfer.
+     * @param to - Recipient object.
+     */
     public transfer_item(item: game_object, to: game_object): void;
 
-    public transfer_money(value: i32, from: game_object): void;
+    /**
+     * Transfer money from another object to this object.
+     *
+     * @param amount - Money amount.
+     * @param from - Source object.
+     */
+    public transfer_money(amount: i32, from: game_object): void;
 
     public unregister_in_combat(): void;
 
@@ -1007,26 +1739,67 @@ declare module "xray16" {
     public accessible(position: vector): boolean;
 
     /**
-     * @param vertexId - Target vertex ID to check.
+     * @param vertex_id - Target vertex ID to check.
      * @returns If target vertex is accessible by the object.
      */
-    public accessible(vertexId: u32): boolean;
+    public accessible(vertex_id: u32): boolean;
 
     public accuracy(): f32;
 
     public attachable_item_load_attach(value: string): void;
 
-    public best_cover(vector1: vector, vector2: vector, value3: f32, value4: f32, value5: f32): cover_point;
+    /**
+     * Find the best cover from one position against another.
+     *
+     * @param position - Search origin.
+     * @param enemy_position - Threat position.
+     * @param min_distance - Minimum distance.
+     * @param max_distance - Maximum distance.
+     * @param deviation - Allowed direction deviation.
+     * @returns Cover point.
+     */
+    public best_cover(
+      position: vector,
+      enemy_position: vector,
+      min_distance: f32,
+      max_distance: f32,
+      deviation: f32
+    ): cover_point;
 
+    /**
+     * Get best known enemy.
+     *
+     * @returns Enemy object, or `null`.
+     */
     public best_enemy(): game_object | null;
 
+    /**
+     * Get object center position.
+     *
+     * @returns Center position.
+     */
     public center(): vector;
 
+    /**
+     * Check whether dead body inventory is closed.
+     *
+     * @returns Whether looting is closed.
+     */
     public deadbody_closed_status(): boolean;
 
+    /**
+     * Get object death time.
+     *
+     * @returns Death time.
+     */
     public death_time(): u32;
 
-    public enable_torch(value: boolean): void;
+    /**
+     * Enable or disable torch.
+     *
+     * @param is_enabled - Whether torch is enabled.
+     */
+    public enable_torch(is_enabled: boolean): void;
 
     public force_stand_sleep_animation(value: u32): void;
 
@@ -1046,17 +1819,33 @@ declare module "xray16" {
 
     public suitable_smart_cover(game_object: game_object): boolean;
 
+    /**
+     * Register a combat sound.
+     *
+     * @param prefix - Sound prefix.
+     * @param priority - Sound priority.
+     * @param type - Sound type.
+     * @param mask - Sound mask.
+     * @param internal_type - Internal sound type.
+     * @param max_count - Maximum active sounds.
+     * @param bone - Bone name.
+     * @returns Registered sound id.
+     */
     public add_combat_sound(
-      value1: string,
-      value2: number,
-      type: i32 /** Enum ESoundTypes */,
-      value3: u32,
-      value4: u32,
-      value5: u32,
-      value6: string
+      prefix: string,
+      priority: number,
+      type: i32 /* Enum ESoundTypes */,
+      mask: u32,
+      internal_type: u32,
+      max_count: u32,
+      bone: string
     ): u32;
 
+    /**
+     * Switch monster into berserk state.
+     */
     public berserk(): void;
+
     /**
      * Add action for game object entity.
      * Depending on priority pushes it to back or front of actions list.
@@ -1067,12 +1856,26 @@ declare module "xray16" {
 
     public command(entity_action: entity_action, is_high_priority: boolean): void;
 
+    /**
+     * Apply a hit descriptor to this object.
+     *
+     * @param hit - Hit descriptor.
+     */
     public hit(hit: hit): void;
 
+    /**
+     * Mark patrol path cache as outdated.
+     */
     public inactualize_patrol_path(): void;
 
+    /**
+     * Mark level path cache as outdated.
+     */
     public inactualize_level_path(): void;
 
+    /**
+     * Mark game path cache as outdated.
+     */
     public inactualize_game_path(): void;
 
     /**
@@ -1095,11 +1898,19 @@ declare module "xray16" {
     public set_condition(condition: f32): void;
 
     /**
-     * @returns [vertex_id, vector] tuple of accessible position id and vector.
+     * @param vertex_position - Position to test from.
+     * @param target_position - Desired target position.
+     * @returns Level vertex id and accessible position.
      */
-    public accessible_nearest(vertex_position: vector, vector2: vector): LuaMultiReturn<[u32, vector]>;
+    public accessible_nearest(vertex_position: vector, target_position: vector): LuaMultiReturn<[u32, vector]>;
 
-    public action_by_index(value: u32): entity_action | null;
+    /**
+     * Get queued action by index.
+     *
+     * @param index - Action index.
+     * @returns Action object, or `null`.
+     */
+    public action_by_index(index: u32): entity_action | null;
 
     /**
      * @returns Whether game object is alive.
@@ -1108,6 +1919,11 @@ declare module "xray16" {
 
     public base_in_restrictions(): string;
 
+    /**
+     * Check whether scripts can capture this object.
+     *
+     * @returns Whether script capture is allowed.
+     */
     public can_script_capture(): boolean;
 
     /**
@@ -1119,32 +1935,79 @@ declare module "xray16" {
 
     public find_best_cover(vector: vector): cover_point;
 
+    /**
+     * Get current game graph vertex id.
+     *
+     * @returns Game vertex id.
+     */
     public game_vertex_id(): u32;
 
     public get_helicopter(): CHelicopter;
 
     public get_sound_info(): SoundInfo;
 
+    /**
+     * Get object group id.
+     *
+     * @returns Group id.
+     */
     public group(): i32;
 
     public inv_box_closed_status(): boolean;
 
+    /**
+     * Get current level vertex id.
+     *
+     * @returns Level vertex id.
+     */
     public level_vertex_id(): u32;
 
-    public memory_position(game_object: game_object): vector;
+    /**
+     * Get remembered position of another object.
+     *
+     * @param object - Remembered object.
+     * @returns Last remembered position.
+     */
+    public memory_position(object: game_object): vector;
 
+    /**
+     * Check whether current movement target is reached.
+     *
+     * @returns Whether movement target is reached.
+     */
     public movement_target_reached(): boolean;
 
+    /**
+     * Get runtime object name.
+     *
+     * @returns Object name.
+     */
     public name(): string;
 
+    /**
+     * Get parent object.
+     *
+     * @returns Parent object.
+     */
     public parent(): game_object;
 
+    /**
+     * Get current world position.
+     *
+     * @returns Position vector.
+     */
     public position(): vector;
 
     public register_in_combat(): void;
 
     public safe_cover(vector: vector, value1: f32, value2: f32): cover_point;
 
+    /**
+     * Enable or disable script control.
+     *
+     * @param script_control - Whether script control is enabled.
+     * @param script_name - Script control name.
+     */
     public script(script_control: boolean, script_name: string): void;
 
     public set_desired_direction(): void;
@@ -1153,7 +2016,7 @@ declare module "xray16" {
 
     public set_manual_invisibility(value: boolean): void;
 
-    public set_movement_type(EMovementType: number /** MonsterSpace::EMovementType */): void;
+    public set_movement_type(EMovementType: number /* MonsterSpace::EMovementType */): void;
 
     public set_npc_position(vector: vector): void;
 
@@ -1173,44 +2036,148 @@ declare module "xray16" {
 
     public ammo_box_size(): u16;
 
+    /**
+     * Cast this object to a stalker wrapper.
+     *
+     * @returns Stalker wrapper.
+     */
     public cast_Stalker(): CAI_Stalker;
 
+    /**
+     * Cast this object to an artefact wrapper.
+     *
+     * @returns Artefact wrapper.
+     */
     public cast_Artefact(): CArtefact;
 
+    /**
+     * Cast this object to a car wrapper.
+     *
+     * @returns Car wrapper.
+     */
     public cast_Car(): CCar;
 
+    /**
+     * Cast this object to a base game object wrapper.
+     *
+     * @returns Game object wrapper.
+     */
     public cast_GameObject(): CGameObject;
 
+    /**
+     * Cast this object to a helicopter wrapper.
+     *
+     * @returns Helicopter wrapper.
+     */
     public cast_Heli(): CHelicopter;
 
+    /**
+     * Cast this object to a space restrictor wrapper.
+     *
+     * @returns Space restrictor wrapper.
+     */
     public cast_SpaceRestrictor(): CSpaceRestrictor;
 
+    /**
+     * Cast this object to a holder wrapper.
+     *
+     * @returns Holder wrapper.
+     */
     public cast_HolderCustom(): holder;
 
+    /**
+     * Cast this object to a weapon wrapper.
+     *
+     * @returns Weapon wrapper.
+     */
     public cast_Weapon(): CWeapon;
 
+    /**
+     * Cast this object to an ammo wrapper.
+     *
+     * @returns Ammo wrapper.
+     */
     public cast_Ammo(): CWeaponAmmo;
 
+    /**
+     * Cast this object to a magazined weapon wrapper.
+     *
+     * @returns Magazined weapon wrapper.
+     */
     public cast_WeaponMagazined(): CWeaponMagazined;
 
+    /**
+     * Cast this object to a script zone wrapper.
+     *
+     * @returns Script zone wrapper.
+     */
     public cast_ScriptZone(): ce_script_zone;
 
+    /**
+     * Cast this object to a custom zone wrapper.
+     *
+     * @returns Custom zone wrapper.
+     */
     public cast_CustomZone(): CCustomZone;
 
+    /**
+     * Cast this object to an alive entity wrapper.
+     *
+     * @returns Alive entity wrapper.
+     */
     public cast_EntityAlive(): CEntityAlive;
 
+    /**
+     * Cast this object to an explosive wrapper.
+     *
+     * @returns Explosive wrapper.
+     */
     public cast_Explosive(): explosive;
 
+    /**
+     * Cast this object to a physics shell holder wrapper.
+     *
+     * @returns Physics shell holder wrapper.
+     */
     public cast_PhysicsShellHolder(): CPhysicsShellHolder;
 
+    /**
+     * Get time when an info portion was received.
+     *
+     * @param info - Info portion id.
+     * @returns Game time.
+     */
     public get_info_time(info: string): CTime;
 
+    /**
+     * Check whether a bone is visible.
+     *
+     * @param bone - Bone name.
+     * @returns Whether bone is visible.
+     */
     public bone_visible(bone: string): boolean;
 
+    /**
+     * Check whether weapon supports an ammo type.
+     *
+     * @param type - Ammo section.
+     * @returns Whether ammo type is supported.
+     */
     public has_ammo_type(type: string): boolean;
 
+    /**
+     * Check whether an item is on belt.
+     *
+     * @param object - Item object.
+     * @returns Whether item is on belt.
+     */
     public is_on_belt(object: game_object): boolean;
 
+    /**
+     * Use an object.
+     *
+     * @param object - Object to use.
+     */
     public use(object: game_object): void;
 
     /**
@@ -1220,8 +2187,18 @@ declare module "xray16" {
      */
     public set_remaining_uses(remaining: u8): void;
 
+    /**
+     * Get maximum item uses.
+     *
+     * @returns Maximum uses.
+     */
     public get_max_uses(): u8;
 
+    /**
+     * Get remaining item uses.
+     *
+     * @returns Remaining uses.
+     */
     public get_remaining_uses(): u8;
 
     public set_restrictor_type(type: u8): void;
@@ -1279,7 +2256,6 @@ declare module "xray16" {
      *
      * @remarks
      * This binding exists because the normal health property setter routes through conditions().ChangeHealth.
-     * See xray-16/src/xrGame/script_game_object4.cpp.
      */
     public set_health_ex(value: f32): void;
 
@@ -1339,7 +2315,13 @@ declare module "xray16" {
 
     public detach_vehicle(): void;
 
-    public force_set_position(position: vector, bool: boolean): void;
+    /**
+     * Move object to a position immediately.
+     *
+     * @param position - Target position.
+     * @param update_ai_location - Whether AI location should be updated.
+     */
+    public force_set_position(position: vector, update_ai_location: boolean): void;
 
     public get_ammo_count_for_type(type: u8): i32;
 

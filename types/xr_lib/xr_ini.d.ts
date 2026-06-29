@@ -1,33 +1,32 @@
 declare module "xray16" {
   /**
-   * Implementation of streaming ini file container.
-   * Allows reading / writing field in file by section/field.
+   * LTX/INI file reader and writer.
    *
-   * Supports custom extension with section overriding and custom `#include` statements.
+   * Use it to read config sections and fields from game data, or to create small script-owned config files.
+   * Engine configs support section inheritance and `#include` statements.
    *
    * @source C++ class ini_file
    * @customConstructor ini_file
    * @group xr_ini
    */
   export class ini_file {
-    public constructor();
     /**
-     * Create ini file representation based on file name.
-     * Full path is limited to 520 chars.
+     * Create an empty ini file.
+     */
+    public constructor();
+
+    /**
+     * Open an ini file from a game path.
      *
-     * @param path - File name and relative path to gamedata configs folder.
+     * @param path - File name or path relative to game data.
      */
     public constructor(path: string);
+
     /**
-     * Create ini file representation based on file name.
-     * Full path is limited to 520 chars.
+     * Open an ini file from a filesystem alias and relative path.
      *
-     * @param initial - Base to count relative path from, `$game_data/**
-     * Create ini file representation based on file name.
-     * Full path is limited to 520 chars.
-     *
-     * @param initial -  is an example.
-     * @param path - File name and relative path from initial entrypoint.
+     * @param initial - Filesystem alias, for example `$game_config$`.
+     * @param path - File name or path relative to the alias.
      */
     public constructor(initial: string, path: string);
 
@@ -38,7 +37,7 @@ declare module "xray16" {
     public line_count(section: string): u32;
 
     /**
-     * @returns Sections count for ini file.
+     * @returns Number of sections in this file.
      */
     public section_count(): u32;
 
@@ -50,34 +49,101 @@ declare module "xray16" {
      */
     public remove_line(section: string, field: string): void;
 
+    /**
+     * Read a boolean value.
+     *
+     * @param section - Section name.
+     * @param field - Field name.
+     * @returns Parsed boolean value.
+     */
     public r_bool(section: string, field: string): boolean;
 
+    /**
+     * Check whether a section exists.
+     *
+     * @param section - Section name.
+     * @returns Whether the section exists.
+     */
     public section_exist(section: string | null): boolean;
 
+    /**
+     * Read a floating-point value.
+     *
+     * @param section - Section name.
+     * @param field - Field name.
+     * @returns Parsed number.
+     */
     public r_float(section: string, field: string): f32;
 
+    /**
+     * Read a class identifier value.
+     *
+     * @param section - Section name.
+     * @param field - Field name.
+     * @returns Parsed class identifier.
+     */
     public r_clsid(section: string, field: string): i32;
 
+    /**
+     * Read a signed 32-bit integer.
+     *
+     * @param section - Section name.
+     * @param field - Field name.
+     * @returns Parsed integer.
+     */
     public r_s32(section: string, field: string): i32;
 
     /**
      * Read text line from ini config file.
      *
-     * @returns Tuple with three elements, where first is success status, second is key, third is value.
+     * @param section - Section name.
+     * @param line_number - Zero-based line index inside the section.
+     * @param key - Placeholder for Lua out parameter.
+     * @param value - Placeholder for Lua out parameter.
+     * @returns Success flag, key, and value.
      */
     public r_line<T extends string = string, P extends string = string>(
       section: string,
       line_number: i32,
-      c: string,
-      d: string
+      key: string,
+      value: string
     ): LuaMultiReturn<[boolean, T, P]>;
 
+    /**
+     * Read a token value using a token list.
+     *
+     * @param section - Section name.
+     * @param field - Field name.
+     * @param list - Token list used for lookup.
+     * @returns Token id.
+     */
     public r_token(section: string, field: string, list: token_list): i32;
 
+    /**
+     * Read a 3D vector.
+     *
+     * @param section - Section name.
+     * @param field - Field name.
+     * @returns Parsed vector.
+     */
     public r_vector(section: string, field: string): vector;
 
+    /**
+     * Read an unsigned 32-bit integer.
+     *
+     * @param section - Section name.
+     * @param field - Field name.
+     * @returns Parsed integer.
+     */
     public r_u32(section: string, field: string): u32;
 
+    /**
+     * Read a quoted string value.
+     *
+     * @param section - Section name.
+     * @param field - Field name.
+     * @returns Parsed string.
+     */
     public r_string_wq(section: string, field: string): string;
 
     /**
@@ -103,37 +169,165 @@ declare module "xray16" {
      */
     public line_exist(section: string | null, field: string): boolean;
 
+    /**
+     * Write a 2D vector value.
+     *
+     * @param section - Section name.
+     * @param field - Field name.
+     * @param vector - Value to write.
+     * @param comment - Optional line comment.
+     */
     public w_fvector2(section: string, field: string, vector: vector2, comment?: string): void;
 
+    /**
+     * Write a 3D vector value.
+     *
+     * @param section - Section name.
+     * @param field - Field name.
+     * @param vector - Value to write.
+     * @param comment - Optional line comment.
+     */
     public w_fvector3(section: string, field: string, vector: vector, comment?: string): void;
 
+    /**
+     * Write a 4D vector value.
+     *
+     * @param section - Section name.
+     * @param field - Field name.
+     * @param vector - Value to write.
+     * @param comment - Optional line comment.
+     */
     public w_fvector4(section: string, field: string, vector: never, comment?: string): void; // Struct _vector4<float>
 
+    /**
+     * Write a floating-point color value.
+     *
+     * @param section - Section name.
+     * @param field - Field name.
+     * @param color - Value to write.
+     * @param comment - Optional line comment.
+     */
     public w_fcolor(section: string, field: string, color: fcolor, comment?: string): void;
 
+    /**
+     * Write a packed color value.
+     *
+     * @param section - Section name.
+     * @param field - Field name.
+     * @param color - Value to write.
+     * @param comment - Optional line comment.
+     */
     public w_color(section: string, field: string, color: u32, comment?: string): void;
 
-    public w_bool(section: string, field: string, bool: boolean, comment?: string): void;
+    /**
+     * Write a boolean value.
+     *
+     * @param section - Section name.
+     * @param field - Field name.
+     * @param value - Value to write.
+     * @param comment - Optional line comment.
+     */
+    public w_bool(section: string, field: string, value: boolean, comment?: string): void;
 
-    public w_s8(section: string, field: string, uchar: u8, comment?: string): void;
+    /**
+     * Write a signed 8-bit integer.
+     *
+     * @param section - Section name.
+     * @param field - Field name.
+     * @param value - Value to write.
+     * @param comment - Optional line comment.
+     */
+    public w_s8(section: string, field: string, value: u8, comment?: string): void;
 
-    public w_u8(section: string, field: string, uchar: u8, comment?: string): void;
+    /**
+     * Write an unsigned 8-bit integer.
+     *
+     * @param section - Section name.
+     * @param field - Field name.
+     * @param value - Value to write.
+     * @param comment - Optional line comment.
+     */
+    public w_u8(section: string, field: string, value: u8, comment?: string): void;
 
-    public w_s16(section: string, field: string, sshort: i16, comment?: string): void;
+    /**
+     * Write a signed 16-bit integer.
+     *
+     * @param section - Section name.
+     * @param field - Field name.
+     * @param value - Value to write.
+     * @param comment - Optional line comment.
+     */
+    public w_s16(section: string, field: string, value: i16, comment?: string): void;
 
-    public w_u16(section: string, field: string, ushort: u16, comment?: string): void;
+    /**
+     * Write an unsigned 16-bit integer.
+     *
+     * @param section - Section name.
+     * @param field - Field name.
+     * @param value - Value to write.
+     * @param comment - Optional line comment.
+     */
+    public w_u16(section: string, field: string, value: u16, comment?: string): void;
 
-    public w_s32(section: string, field: string, sint: i32, comment?: string): void;
+    /**
+     * Write a signed 32-bit integer.
+     *
+     * @param section - Section name.
+     * @param field - Field name.
+     * @param value - Value to write.
+     * @param comment - Optional line comment.
+     */
+    public w_s32(section: string, field: string, value: i32, comment?: string): void;
 
-    public w_u32(section: string, field: string, uint: u32, comment?: string): void;
+    /**
+     * Write an unsigned 32-bit integer.
+     *
+     * @param section - Section name.
+     * @param field - Field name.
+     * @param value - Value to write.
+     * @param comment - Optional line comment.
+     */
+    public w_u32(section: string, field: string, value: u32, comment?: string): void;
 
-    public w_s64(section: string, field: string, sint: i64, comment?: string): void;
+    /**
+     * Write a signed 64-bit integer.
+     *
+     * @param section - Section name.
+     * @param field - Field name.
+     * @param value - Value to write.
+     * @param comment - Optional line comment.
+     */
+    public w_s64(section: string, field: string, value: i64, comment?: string): void;
 
-    public w_u64(section: string, field: string, uint: u64, comment?: string): void;
+    /**
+     * Write an unsigned 64-bit integer.
+     *
+     * @param section - Section name.
+     * @param field - Field name.
+     * @param value - Value to write.
+     * @param comment - Optional line comment.
+     */
+    public w_u64(section: string, field: string, value: u64, comment?: string): void;
 
-    public w_float(section: string, field: string, float: f32, comment?: string): void;
+    /**
+     * Write a floating-point number.
+     *
+     * @param section - Section name.
+     * @param field - Field name.
+     * @param value - Value to write.
+     * @param comment - Optional line comment.
+     */
+    public w_float(section: string, field: string, value: f32, comment?: string): void;
 
-    public w_string(section: string, field: string, string: string, comment?: string): void;
+    /**
+     * Write a string value.
+     *
+     * @param section - Section name.
+     * @param field - Field name.
+     * @param value - Value to write.
+     * @param comment - Optional line comment.
+     */
+    public w_string(section: string, field: string, value: string, comment?: string): void;
 
     /**
      * Get file name and path of ini file.
@@ -144,10 +338,26 @@ declare module "xray16" {
      */
     public fname(): string;
 
+    /**
+     * Switch the file into readonly or writable mode.
+     *
+     * @param is_readonly - Whether writes should be disabled.
+     */
     public set_readonly(is_readonly: boolean): void;
 
+    /**
+     * Enable or disable section override name handling.
+     *
+     * @param override - Whether override names should be used.
+     */
     public set_override_names(override: boolean): void;
 
+    /**
+     * Save this ini file to a path.
+     *
+     * @param path - Destination path.
+     * @returns Whether saving succeeded.
+     */
     public save_as(path: string): boolean;
 
     /**
@@ -177,17 +387,29 @@ declare module "xray16" {
   export function create_ini_file(this: void, content: string): ini_file;
 
   /**
+   * Get the loaded game ini.
+   *
    * @group xr_ini
+   *
+   * @returns Current game ini file.
    */
   export function game_ini(this: void): ini_file;
 
   /**
+   * Get the loaded system ini.
+   *
    * @group xr_ini
+   *
+   * @returns Current system ini file.
    */
   export function system_ini(this: void): ini_file;
 
   /**
+   * Reload and return the system ini.
+   *
    * @group xr_ini
+   *
+   * @returns Reloaded system ini file.
    */
   export function reload_system_ini(this: void): ini_file;
 }

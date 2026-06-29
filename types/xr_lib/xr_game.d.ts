@@ -1,5 +1,7 @@
 declare module "xray16" {
   /**
+   * Bitmask values returned by `level.game_id()`.
+   *
    * Enumeration with possible game types:
    * - eGameIDNoGame = u32(0),
    * - eGameIDSingle = u32(1) << 0,
@@ -16,6 +18,8 @@ declare module "xray16" {
   export type TXR_EGameID = 0 | 1 | 2 | 8 | 16 | 32 | 64;
 
   /**
+   * Game type constants used by menu and multiplayer scripts.
+   *
    * @source C++ class GAME_TYPE
    * @customConstructor GAME_TYPE
    * @group xr_game
@@ -46,6 +50,8 @@ declare module "xray16" {
   type TXR_GAME_TYPE = EnumeratedStaticsValues<typeof GAME_TYPE>;
 
   /**
+   * Single-player difficulty constants.
+   *
    * @source C++ class game_difficulty
    * @customConstructor game_difficulty
    * @group xr_game
@@ -68,38 +74,107 @@ declare module "xray16" {
   export type TXR_game_difficulty = EnumeratedStaticsValues<typeof game_difficulty>;
 
   /**
+   * Global helpers exposed by the engine `game` namespace.
+   *
    * @source namespace game
    * @group xr_game
    */
   export interface IXR_game {
+    /**
+     * Create a new game time value.
+     *
+     * @returns Empty `CTime` instance.
+     */
     CTime: (this: void) => CTime;
 
+    /**
+     * Resolve a string table key for the current language.
+     *
+     * @param translation_key - String table key to translate.
+     * @returns Localized text or the fallback string from the string table.
+     */
     translate_string(this: void, translation_key: string): string;
 
+    /**
+     * Get current in-game time as seconds.
+     *
+     * @returns Game time counter.
+     */
     time(this: void): u32;
 
+    /**
+     * Reload string table data for the active language.
+     */
     reload_language(this: void): void;
 
+    /**
+     * Get current in-game calendar time.
+     *
+     * @returns Current game time value.
+     */
     get_game_time(this: void): CTime;
 
+    /**
+     * Write the current native stack trace to the engine log.
+     */
     log_stack_trace(this: void): void;
 
+    /**
+     * Move the actor to another level by level name.
+     *
+     * @param level_name - Target level name from the game graph.
+     */
     jump_to_level(this: void, level_name: string): void;
 
-    jump_to_level(this: void, position: vector, lvi: u32, gvi: u16): void;
+    /**
+     * Move the actor to another level graph point.
+     *
+     * @param position - Target position.
+     * @param level_vertex_id - Target level vertex.
+     * @param game_vertex_id - Target game graph vertex.
+     */
+    jump_to_level(this: void, position: vector, level_vertex_id: u32, game_vertex_id: u16): void;
 
-    jump_to_level(this: void, position: vector, lvi: u32, gvi: u16, direction: vector): void;
+    /**
+     * Move the actor to another level graph point and face a direction.
+     *
+     * @param position - Target position.
+     * @param level_vertex_id - Target level vertex.
+     * @param game_vertex_id - Target game graph vertex.
+     * @param direction - Actor direction after the jump.
+     */
+    jump_to_level(this: void, position: vector, level_vertex_id: u32, game_vertex_id: u16, direction: vector): void;
 
+    /**
+     * Start an in-game tutorial sequence.
+     *
+     * @param tutorial_id - Tutorial identifier.
+     */
     start_tutorial(this: void, tutorial_id: string): void;
 
+    /**
+     * Check whether a tutorial is currently active.
+     *
+     * @returns Whether any tutorial is active.
+     */
     has_active_tutorial(this: void): boolean;
 
+    /**
+     * Get the active tutorial identifier.
+     *
+     * @returns Active tutorial name.
+     */
     active_tutorial_name(this: void): string;
 
+    /**
+     * Stop the active tutorial sequence.
+     */
     stop_tutorial(this: void): void;
   }
 
   /**
+   * Global engine `game` namespace.
+   *
    * @group xr_game
    */
   export const game: IXR_game;
@@ -118,47 +193,69 @@ declare module "xray16" {
    * Whether auto-save on important checkpoints option is turned on.
    *
    * @group xr_game
+   *
+   * @returns Whether important saves are enabled.
    */
   export function IsImportantSave(this: void): boolean;
 
   /**
+   * Check whether the active game mode is single-player.
+   *
    * @group xr_game
+   *
+   * @returns Whether the current game type is single-player.
    */
   export function IsGameTypeSingle(this: void): boolean;
 
   /**
+   * Check whether the in-game editor is active.
+   *
    * @group xr_game
    *
-   * @returns Is dev editor tool enabled currently used.
+   * @returns Whether the editor is currently enabled.
    */
   export function editor(this: void): boolean;
 
   /**
+   * Set the actor start position used by level transition logic.
+   *
    * @group xr_game
    *
-   * @param position
+   * @param position - Target start position.
    */
   export function set_start_position(this: void, position: vector): void;
 
   /**
+   * Set the actor start game graph vertex.
+   *
    * @group xr_game
    *
-   * @param gvid
+   * @param game_vertex_id - Target game graph vertex.
    */
-  export function set_start_game_vertex_id(this: void, gvid: i32): void;
+  export function set_start_game_vertex_id(this: void, game_vertex_id: i32): void;
 
   /**
+   * Check whether the process has enough address space for the current game.
+   *
    * @group xr_game
+   *
+   * @returns Whether available address space is sufficient.
    */
   export function is_enough_address_space_available(this: void): boolean;
 
   /**
+   * Ask the engine to verify that its watched thread is still running.
+   *
    * @group xr_game
    */
   export function verify_if_thread_is_running(this: void): void;
 
   /**
+   * Get server object serialization version used by scripts.
+   *
    * @group xr_game
+   *
+   * @returns Script server object version.
    */
   export function script_server_object_version(this: void): u16;
 }
