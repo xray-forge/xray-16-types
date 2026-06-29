@@ -39,20 +39,49 @@ declare module "xray16" {
     public static readonly object: 5;
     public static readonly action_type_count: 6;
 
+    /**
+     * Actor satiety value.
+     *
+     * @remarks
+     * Assignment applies a delta in engine runtime.
+     */
     public satiety: f32;
+
     /**
      * Intensity of actor bleeding.
      * 0 - no bleeding.
+     *
+     * @remarks
+     * Assignment applies a delta in engine runtime.
      */
     public bleeding: f32;
+
     /**
-     * Object health value
-     * From 0 to 1.
+     * Object health value from 0 to 1.
+     *
+     * @remarks
+     * Assignment applies a delta in engine runtime.
      */
     public health: f32;
+
     public morale: f32;
+
+    /**
+     * Actor stamina/power value.
+     *
+     * @remarks
+     * Assignment applies a delta in engine runtime.
+     */
     public power: f32;
+
     public psy_health: f32;
+
+    /**
+     * Actor radiation value.
+     *
+     * @remarks
+     * Assignment applies a delta in engine runtime.
+     */
     public radiation: f32;
 
     protected constructor();
@@ -1245,6 +1274,13 @@ declare module "xray16" {
 
     public set_character_icon(icon: string): void;
 
+    /**
+     * Directly set entity health instead of applying a health property delta.
+     *
+     * @remarks
+     * This binding exists because the normal health property setter routes through conditions().ChangeHealth.
+     * See xray-16/src/xrGame/script_game_object4.cpp.
+     */
     public set_health_ex(value: f32): void;
 
     public set_main_weapon_type(type: u32): void;
