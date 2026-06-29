@@ -1,4 +1,4 @@
-name: build-and-test
+name: Build and Test
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Install Node.js
@@ -29,14 +29,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Type check
+      - name: Run type check
         run: npm run typecheck
 
-      - name: Lint
+      - name: Run ESLint
         run: npm run lint
 
-      - name: Build plugins
+      - name: Build tstl plugins
         run: npm run build:plugins
 
-      - name: Build documentation
+      - name: Build API documentation
         run: npm run typedoc
