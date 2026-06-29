@@ -1222,12 +1222,30 @@ declare module "xray16" {
      */
     public kill(object: game_object): void;
 
-    public location_on_path(value: f32, vector: vector): u32;
+    /**
+     * Sample a future position on the current movement path.
+     *
+     * @param distance - Distance along the path.
+     * @param position - Output position.
+     * @returns Level vertex id for the sampled position.
+     */
+    public location_on_path(distance: f32, position: vector): u32;
 
+    /**
+     * Lock this door for NPC navigation.
+     */
     public lock_door_for_npc(): void;
 
+    /**
+     * @returns Minimum time spent looking out from smart cover.
+     */
     public lookout_min_time(): f32;
 
+    /**
+     * Set minimum time spent looking out from smart cover.
+     *
+     * @param time - Lookout time in seconds.
+     */
     public lookout_min_time(time: f32): void;
 
     /**
@@ -1237,57 +1255,191 @@ declare module "xray16" {
      */
     public make_item_active(item: game_object): void;
 
-    public marked_dropped(game_object: game_object): boolean;
+    /**
+     * Check whether an item was marked as dropped by this object.
+     *
+     * @param object - Item object.
+     * @returns Whether the item is marked as dropped.
+     */
+    public marked_dropped(object: game_object): boolean;
 
+    /**
+     * Get sound memory records.
+     *
+     * @returns Engine sound-memory collection.
+     */
     public memory_sound_objects(): unknown;
 
+    /**
+     * @returns Money owned by this inventory owner.
+     */
     public money(): u32;
 
+    /**
+     * @returns Motivation action planner for this object.
+     */
     public motivation_action_manager(): action_planner;
 
+    /**
+     * @returns Current movement type id.
+     */
     public movement_type(): number; // Todo: unknown enum
 
+    /**
+     * @returns Current patrol path name, or `null` when no patrol path is active.
+     */
     public patrol(): string | null;
 
+    /**
+     * Mark the current patrol path as needing recalculation.
+     */
     public patrol_path_make_inactual(): void;
 
-    public play_cycle(value1: string, value2: boolean): void;
+    /**
+     * Play a model animation cycle.
+     *
+     * @param animation - Animation name.
+     * @param mix_in - Whether to blend with current animation.
+     */
+    public play_cycle(animation: string, mix_in: boolean): void;
 
-    public play_cycle(value: string): void;
+    /**
+     * Play a model animation cycle with default blending.
+     *
+     * @param animation - Animation name.
+     */
+    public play_cycle(animation: string): void;
 
-    public play_sound(value1: u32, value2?: u32, value3?: u32, value4?: u32, value5?: u32, value6?: u32): void;
+    /**
+     * Play an NPC sound by internal sound type.
+     *
+     * @param sound_type - Internal sound type.
+     * @param max_start_time - Optional maximum start delay.
+     * @param min_start_time - Optional minimum start delay.
+     * @param max_stop_time - Optional maximum stop time.
+     * @param min_stop_time - Optional minimum stop time.
+     * @param id - Optional sound id.
+     */
+    public play_sound(
+      sound_type: u32,
+      max_start_time?: u32,
+      min_start_time?: u32,
+      max_stop_time?: u32,
+      min_stop_time?: u32,
+      id?: u32
+    ): void;
 
+    /**
+     * Register this door as usable by NPC navigation.
+     */
     public register_door_for_npc(): void;
 
+    /**
+     * Clear the monster home restriction.
+     */
     public remove_home(): void;
 
-    public remove_restrictions(value1: string, value2: string): void;
+    /**
+     * Remove movement restrictions from this object.
+     *
+     * @param out_restrictions - Out restriction names.
+     * @param in_restrictions - In restriction names.
+     */
+    public remove_restrictions(out_restrictions: string, in_restrictions: string): void;
 
-    public remove_sound(value: u32): void;
+    /**
+     * Stop and remove an NPC sound by internal sound type.
+     *
+     * @param sound_type - Internal sound type.
+     */
+    public remove_sound(sound_type: u32): void;
 
+    /**
+     * Restore the default start dialog for this object.
+     */
     public restore_default_start_dialog(): void;
 
+    /**
+     * Restore default monster-ignore distance.
+     */
     public restore_max_ignore_monster_distance(): void;
 
+    /**
+     * @returns Config section name of this object.
+     */
     public section<T extends string = string>(): T;
 
-    public see(game_object: game_object): boolean;
+    /**
+     * Check whether this object can see another object.
+     *
+     * @param object - Object to test.
+     * @returns Whether the object is visible.
+     */
+    public see(object: game_object): boolean;
 
+    /**
+     * Check whether this object can see a named point or object.
+     *
+     * @param value - Name to test.
+     * @returns Whether the target is visible.
+     */
     public see(value: string): boolean;
 
+    /**
+     * Load sell condition factors from an ini section.
+     *
+     * @param ini_file - Source ini file.
+     * @param section - Section name.
+     */
     public sell_condition(ini_file: ini_file, section: string): void;
 
-    public sell_condition(value1: f32, value2: f32): void;
+    /**
+     * Set sell condition factors directly.
+     *
+     * @param friend_factor - Condition factor for friendly buyers.
+     * @param enemy_factor - Condition factor for hostile buyers.
+     */
+    public sell_condition(friend_factor: f32, enemy_factor: f32): void;
 
-    public set__force(vector: vector, value1: number, value2: number): void;
+    /**
+     * Apply a physics force to this object.
+     *
+     * @param force - Force vector.
+     * @param magnitude - Force magnitude.
+     * @param impulse - Impulse factor.
+     */
+    public set__force(force: vector, magnitude: number, impulse: number): void;
 
+    /**
+     * Set actor relation flags for this object.
+     *
+     * @param value - Relation flags.
+     */
     public set_actor_relation_flags(value: flags32): void;
 
+    /**
+     * Enable or disable bloodsucker alien control.
+     *
+     * @param is_enabled - Whether alien control is active.
+     */
     public set_alien_control(is_enabled: boolean): void;
 
+    /**
+     * Set target body state for stalker movement.
+     *
+     * @param state - Body state.
+     */
     public set_body_state(state: TXR_MonsterBodyState): void;
 
-    public set_capture_anim(game_object: game_object, value1: string, vector: vector, value2: f32): void;
+    /**
+     * Configure bloodsucker capture animation jump.
+     *
+     * @param object - Target object.
+     * @param animation - Capture animation name.
+     * @param position - Jump position.
+     * @param factor - Jump force factor.
+     */
+    public set_capture_anim(object: game_object, animation: string, position: vector, factor: f32): void;
 
     /**
      * Set character community.
@@ -1312,10 +1464,23 @@ declare module "xray16" {
      */
     public set_character_reputation(reputation: i32): void;
 
+    /**
+     * Enable or disable bloodsucker collision override.
+     *
+     * @param value - Whether collision is disabled.
+     */
     public set_collision_off(value: boolean): void;
 
+    /**
+     * Restore the default panic threshold.
+     */
     public set_default_panic_threshold(): void;
 
+    /**
+     * Set destination game graph vertex.
+     *
+     * @param value - Game vertex id.
+     */
     public set_dest_game_vertex_id(value: u16): void;
 
     /**
@@ -1325,10 +1490,25 @@ declare module "xray16" {
      */
     public set_dest_level_vertex_id(vertex_id: u32): void;
 
+    /**
+     * Set detail path type used by movement.
+     *
+     * @param EDetailPathType - Detail path type id.
+     */
     public set_detail_path_type(EDetailPathType: unknown /* Enum DetailPathManager::EDetailPathType */): void;
 
+    /**
+     * Force bloodsucker invisibility state.
+     *
+     * @param is_invisible - Whether the object should be invisible.
+     */
     public set_invisible(is_invisible: boolean): void;
 
+    /**
+     * Set movement target selection type.
+     *
+     * @param type - Selection type id.
+     */
     public set_movement_selection_type(type: unknown /* Enum ESelectionType */): void;
 
     /**
@@ -1341,60 +1521,190 @@ declare module "xray16" {
      */
     public set_patrol_path(path_name: string, start_type: number, route_type: number, random: boolean): void;
 
+    /**
+     * Make smart-cover target selection prefer idle positions.
+     */
     public set_smart_cover_target_idle(): void;
 
+    /**
+     * Set sympathy value used by relation logic.
+     *
+     * @param value - Sympathy value.
+     */
     public set_sympathy(value: f32): void;
 
-    public set_trader_sound(value1: string, value2: string): void;
+    /**
+     * Set trader sound for an animation state.
+     *
+     * @param animation - Trader animation name.
+     * @param sound - Sound name.
+     */
+    public set_trader_sound(animation: string, sound: string): void;
 
+    /**
+     * @returns Current sight parameters.
+     */
     public sight_params(): CSightParams;
 
+    /**
+     * Enable or disable enemy transfer skipping.
+     *
+     * @param value - Whether enemy transfer should be skipped.
+     */
     public skip_transfer_enemy(value: boolean): void;
 
+    /**
+     * @returns Whether sniper update rate is enabled.
+     */
     public sniper_update_rate(): boolean;
 
+    /**
+     * Enable or disable sniper update rate.
+     *
+     * @param value - Whether sniper update rate is enabled.
+     */
     public sniper_update_rate(value: boolean): void;
 
+    /**
+     * @returns Spawn ini attached to this object, or `null`.
+     */
     public spawn_ini(): ini_file | null;
 
+    /**
+     * @returns Whether special danger movement is enabled.
+     */
     public special_danger_move(): boolean;
 
+    /**
+     * Enable or disable special danger movement.
+     *
+     * @param value - Whether special danger movement is enabled.
+     */
     public special_danger_move(value: boolean): void;
 
+    /**
+     * Stop particles attached to a bone.
+     *
+     * @param name - Particle effect name.
+     * @param bone - Bone name.
+     */
     public stop_particles(name: string, bone: string): void;
 
+    /**
+     * Open trade dialog with this object.
+     */
     public switch_to_trade(): void;
 
+    /**
+     * @returns Sympathy value used by relation logic.
+     */
     public sympathy(): f32;
 
+    /**
+     * @returns Whether this NPC may take items.
+     */
     public take_items_enabled(): boolean;
 
+    /**
+     * Enable or disable item taking for this NPC.
+     *
+     * @param value - Whether item taking is enabled.
+     */
     public take_items_enabled(value: boolean): void;
 
+    /**
+     * @returns Whether actor torch is enabled.
+     */
     public torch_enabled(): boolean;
 
+    /**
+     * Unload the active weapon magazine into inventory.
+     */
     public unload_magazine(): void;
 
+    /**
+     * Unlock this door for NPC navigation.
+     */
     public unlock_door_for_npc(): void;
 
+    /**
+     * @returns Visibility threshold used by this object.
+     */
     public visibility_threshold(): f32;
 
+    /**
+     * @returns Whether the active weapon has an attached grenade launcher.
+     */
     public weapon_is_grenadelauncher(): boolean;
 
+    /**
+     * Set the NPC sight mode from a sight type and movement-facing options.
+     *
+     * @param type - Sight mode.
+     * @param torso_look - Whether the torso should turn toward the sight target.
+     * @param path - Whether to use the current path direction.
+     */
     public set_sight(type: TXR_SightType, torso_look: boolean, path: boolean): void;
 
-    public set_sight(type: TXR_SightType, vector: vector | null, lookOverDelay: u32): void;
+    /**
+     * Set the NPC sight mode toward a point, with a look-over delay.
+     *
+     * @param type - Sight mode.
+     * @param target - Point to look at, or `null` to clear the explicit point.
+     * @param look_over_delay - Delay before looking over.
+     */
+    public set_sight(type: TXR_SightType, target: vector | null, look_over_delay: u32): void;
 
-    public set_sight(type: TXR_SightType, vector: vector, torso_look: boolean, fire_object: boolean): void;
+    /**
+     * Set the NPC sight mode toward a point and optionally fire at it.
+     *
+     * @param type - Sight mode.
+     * @param target - Point to look at.
+     * @param torso_look - Whether the torso should turn toward the target.
+     * @param fire_object - Whether the object should fire while aiming.
+     */
+    public set_sight(type: TXR_SightType, target: vector, torso_look: boolean, fire_object: boolean): void;
 
-    public set_sight(type: TXR_SightType, vector: vector, torso_look: boolean): void;
+    /**
+     * Set the NPC sight mode toward a point.
+     *
+     * @param type - Sight mode.
+     * @param target - Point to look at.
+     * @param torso_look - Whether the torso should turn toward the target.
+     */
+    public set_sight(type: TXR_SightType, target: vector, torso_look: boolean): void;
 
-    public set_sight(type: TXR_SightType, vector: vector): void;
+    /**
+     * Set the NPC sight mode toward a point.
+     *
+     * @param type - Sight mode.
+     * @param target - Point to look at.
+     */
+    public set_sight(type: TXR_SightType, target: vector): void;
 
-    public set_sight(game_object: game_object, torso_look?: boolean, fire_object?: boolean, no_pitch?: boolean): void;
+    /**
+     * Set the NPC sight target to another object.
+     *
+     * @param object - Object to look at.
+     * @param torso_look - Whether the torso should turn toward the target.
+     * @param fire_object - Whether the object should fire while aiming.
+     * @param no_pitch - Whether to ignore pitch while aiming.
+     */
+    public set_sight(object: game_object, torso_look?: boolean, fire_object?: boolean, no_pitch?: boolean): void;
 
-    public set_task_state(state: TXR_TaskState, value: string): void;
+    /**
+     * Set the state of a task by id.
+     *
+     * @param state - New task state.
+     * @param task_id - Task id.
+     */
+    public set_task_state(state: TXR_TaskState, task_id: string): void;
 
+    /**
+     * Enable or disable visual memory for this object.
+     *
+     * @param enabled - Whether visual memory is enabled.
+     */
     public set_visual_memory_enabled(enabled: boolean): void;
 
     /**
@@ -1405,13 +1715,29 @@ declare module "xray16" {
      */
     public show_condition(ini_file: unknown, section: string): void;
 
+    /**
+     * @returns Current sound voice prefix used by the object sound player.
+     */
     public sound_prefix(): string;
 
-    public sound_prefix(value: string): void;
+    /**
+     * Set the sound voice prefix used by the object sound player.
+     *
+     * @param prefix - Sound voice prefix.
+     */
+    public sound_prefix(prefix: string): void;
 
+    /**
+     * @returns Whether this stalker is marked as wounded.
+     */
     public wounded(): boolean;
 
-    public wounded(wounded: boolean): void;
+    /**
+     * Mark this stalker as wounded or recovered.
+     *
+     * @param value - Whether the stalker is wounded.
+     */
+    public wounded(value: boolean): void;
 
     /**
      * Register an NPC sound.
@@ -1448,25 +1774,68 @@ declare module "xray16" {
       bone: string
     ): u32;
 
+    /**
+     * @returns Number of active sounds registered on this object.
+     */
     public active_sound_count(): i32;
 
-    public active_sound_count(value: boolean): void;
+    /**
+     * Get number of active sounds registered on this object.
+     *
+     * @param only_playing - Whether to count only sounds currently playing.
+     * @returns Number of active sounds.
+     */
+    public active_sound_count(only_playing: boolean): i32;
 
+    /**
+     * Allow or block breaking the current actor talk dialog.
+     *
+     * @param value - Whether the dialog may be interrupted.
+     */
     public allow_break_talk_dialog(value: boolean): void;
 
+    /**
+     * @returns Distance used when applying smart-cover loophole direction.
+     */
     public apply_loophole_direction_distance(): f32;
 
-    public apply_loophole_direction_distance(value: f32): void;
+    /**
+     * Set the distance used when applying smart-cover loophole direction.
+     *
+     * @param distance - Loophole direction distance.
+     */
+    public apply_loophole_direction_distance(distance: f32): void;
 
+    /**
+     * @returns Whether this attachable item is enabled.
+     */
     public attachable_item_enabled(): boolean;
 
+    /**
+     * @returns Whether this burer is forced to use a gravity attack.
+     */
     public burer_get_force_gravi_attack(): boolean;
 
-    public burer_get_force_anti_aim(): boolean;
+    /**
+     * @returns Whether this monster is forced to use anti-aim behavior.
+     */
+    public get_force_anti_aim(): boolean;
 
+    /**
+     * Set trade buy conditions from an ini section.
+     *
+     * @param ini_file - Trade config.
+     * @param section - Condition section.
+     */
     public buy_condition(ini_file: ini_file, section: string): void;
 
-    public buy_condition(value1: f32, value2: f32): void;
+    /**
+     * Set default trade buy factors.
+     *
+     * @param friend_factor - Factor used for friendly relations.
+     * @param enemy_factor - Factor used for hostile relations.
+     */
+    public buy_condition(friend_factor: f32, enemy_factor: f32): void;
 
     /**
      * Add a delta to character reputation.
@@ -1505,14 +1874,33 @@ declare module "xray16" {
      */
     public community_goodwill(from_community: string): i32;
 
+    /**
+     * Allow or block taking items from this dead body.
+     *
+     * @param value - Whether taking items is allowed.
+     */
     public deadbody_can_take(value: boolean): void;
 
+    /**
+     * @returns Whether items can be taken from this dead body.
+     */
     public deadbody_can_take_status(): boolean;
 
+    /**
+     * @returns Current detail path type used by the object's movement manager.
+     */
     public detail_path_type(): unknown;
 
+    /**
+     * Enable or disable weapon show, hide and reload sounds for this inventory owner.
+     *
+     * @param value - Whether those sounds should play.
+     */
     public disable_show_hide_sounds(value: boolean): void;
 
+    /**
+     * Enable this anomaly zone.
+     */
     public enable_anomaly(): void;
 
     /**
@@ -1523,12 +1911,26 @@ declare module "xray16" {
      */
     public enable_attachable_item(is_enabled: boolean): void;
 
+    /**
+     * Enable actor talk interaction with this inventory owner.
+     */
     public enable_talk(): void;
 
+    /**
+     * Enable actor trade interaction with this inventory owner.
+     */
     public enable_trade(): void;
 
+    /**
+     * Enable or disable visual memory for this monster.
+     *
+     * @param value - Whether vision is enabled.
+     */
     public enable_vision(value: boolean): void;
 
+    /**
+     * @returns Whether this zombie should fall down in fake-death state.
+     */
     public fake_death_fall_down(): boolean;
 
     /**
@@ -1553,22 +1955,49 @@ declare module "xray16" {
      */
     public general_goodwill(target: game_object): i32;
 
+    /**
+     * @returns Actor relation flags stored for this character.
+     */
     public get_actor_relation_flags(): flags32;
 
+    /**
+     * @returns Ammo count currently loaded in this weapon magazine.
+     */
     public get_ammo_in_magazine(): u32;
 
+    /**
+     * @returns This object as a car.
+     */
     public get_car(): CCar;
 
+    /**
+     * @returns Corpse selected by this monster, or `null`.
+     */
     public get_corpse(): game_object | null;
 
-    public get_current_holder(): holder;
+    /**
+     * @returns Current holder used by the actor, or `null`.
+     */
+    public get_current_holder(): holder | null;
 
+    /**
+     * @returns Current enemy object, or `null`.
+     */
     public get_enemy(): game_object | null;
 
+    /**
+     * @returns Current enemy strength estimate.
+     */
     public get_enemy_strength(): i32;
 
+    /**
+     * @returns Physics shell for this object, or `null`.
+     */
     public get_physics_shell(): physics_shell | null;
 
+    /**
+     * Get current start dialog id.
+     */
     public get_start_dialog(): void;
 
     /**
@@ -1632,17 +2061,42 @@ declare module "xray16" {
      */
     public goodwill(target: game_object): i32;
 
+    /**
+     * @returns Current delay between group grenade throws.
+     */
     public group_throw_time_interval(): u32;
 
-    public group_throw_time_interval(value: u32): void;
+    /**
+     * Set delay between group grenade throws.
+     *
+     * @param interval - Throw interval.
+     */
+    public group_throw_time_interval(interval: u32): void;
 
+    /**
+     * @returns Current head orientation for this creature.
+     */
     public head_orientation(): vector;
 
+    /**
+     * @returns Monster ignore threshold used by this stalker's enemy memory.
+     */
     public ignore_monster_threshold(): f32;
 
-    public ignore_monster_threshold(value: f32): void;
+    /**
+     * Set monster ignore threshold used by this stalker's enemy memory.
+     *
+     * @param threshold - Ignore threshold, clamped by the engine.
+     */
+    public ignore_monster_threshold(threshold: f32): void;
 
-    public in_current_loophole_range(vector: vector): boolean;
+    /**
+     * Check whether a point is in range of the current smart-cover loophole.
+     *
+     * @param position - Point to test.
+     * @returns Whether the point is in current loophole range.
+     */
+    public in_current_loophole_range(position: vector): boolean;
 
     /**
      * Reset debugging information about object.
@@ -1650,20 +2104,56 @@ declare module "xray16" {
      */
     public info_clear(): void;
 
+    /**
+     * Check whether a position is inside this space restrictor.
+     *
+     * @param position - Position to test.
+     * @returns Whether the position is inside.
+     */
     public inside(position: vector): boolean;
 
+    /**
+     * Check whether a position is inside this space restrictor.
+     *
+     * @param position - Position to test.
+     * @param epsilon - Extra tolerance.
+     * @returns Whether the position is inside.
+     */
     public inside(position: vector, epsilon: f32): boolean;
 
+    /**
+     * @returns Whether items can be taken from this inventory box.
+     */
     public inv_box_can_take_status(): boolean;
 
-    public inv_box_closed(value1: boolean, value2: string): boolean;
+    /**
+     * Close or open this inventory box.
+     *
+     * @param is_closed - Whether the box is closed.
+     * @param reason - Script reason stored for the close state.
+     * @returns Whether the close state was applied.
+     */
+    public inv_box_closed(is_closed: boolean, reason: string): boolean;
 
+    /**
+     * @param task - Task object to check.
+     * @returns Whether this task is active.
+     */
     public is_active_task(task: CGameTask): boolean;
 
+    /**
+     * @returns Whether this door is locked for NPC navigation.
+     */
     public is_door_locked_for_npc(): boolean;
 
+    /**
+     * @returns Whether this inventory box has no items.
+     */
     public is_inv_box_empty(): boolean;
 
+    /**
+     * @returns Whether inventory upgrade interaction is enabled.
+     */
     public is_inv_upgrade_enabled(): boolean;
 
     /**
@@ -1671,6 +2161,9 @@ declare module "xray16" {
      */
     public is_talking(): boolean;
 
+    /**
+     * @returns Whether trade interaction is enabled.
+     */
     public is_trade_enabled(): boolean;
 
     /**
@@ -1689,53 +2182,145 @@ declare module "xray16" {
      */
     public item_on_belt(slot: u32): game_object | null;
 
-    public jump(vector: vector, value: f32): void;
+    /**
+     * Force this monster to jump toward a point.
+     *
+     * @param target - Jump target.
+     * @param factor - Jump tuning factor used by the monster controller.
+     */
+    public jump(target: vector, factor: f32): void;
 
-    public make_object_visible_somewhen(game_object: game_object): void;
+    /**
+     * Make another object temporarily visible to this object's memory.
+     *
+     * @param object - Object to reveal.
+     */
+    public make_object_visible_somewhen(object: game_object): void;
 
-    public mark_item_dropped(game_object: game_object): void;
+    /**
+     * Mark an inventory item as dropped.
+     *
+     * @param object - Item object.
+     */
+    public mark_item_dropped(object: game_object): void;
 
+    /**
+     * @returns Physics mass of this object.
+     */
     public mass(): f32;
 
+    /**
+     * @returns Maximum health for this entity.
+     */
     public max_health(): f32;
 
+    /**
+     * @returns Whether night vision is enabled on this torch item.
+     */
     public night_vision_enabled(): boolean;
 
+    /**
+     * Notify this door that it has closed.
+     */
     public on_door_is_closed(): void;
 
+    /**
+     * Notify this door that it has opened.
+     */
     public on_door_is_open(): void;
 
+    /**
+     * @returns Current outgoing restriction list.
+     */
     public out_restrictions(): string;
 
+    /**
+     * @returns Current movement path type.
+     */
     public path_type(): unknown;
 
+    /**
+     * @returns Whether this poltergeist ignores the actor.
+     */
     public poltergeist_get_actor_ignore(): boolean;
 
+    /**
+     * @returns Specific character profile name.
+     */
     public profile_name(): string;
 
+    /**
+     * @returns Current vision or weapon range for this object.
+     */
     public range(): f32;
 
+    /**
+     * @returns Character rank.
+     */
     public rank(): i32;
 
+    /**
+     * Clear all space restrictions from this object.
+     */
     public remove_all_restrictions(): void;
 
+    /**
+     * Restore default monster ignore threshold.
+     */
     public restore_ignore_monster_threshold(): void;
 
+    /**
+     * Let the actor draw weapons again after a forced hide.
+     */
     public restore_weapon(): void;
 
-    public run_talk_dialog(game_object: game_object, value: boolean): void;
+    /**
+     * Start actor talk dialog with another inventory owner.
+     *
+     * @param object - Dialog partner.
+     * @param disable_break - Whether the dialog cannot be interrupted.
+     */
+    public run_talk_dialog(object: game_object, disable_break: boolean): void;
 
+    /**
+     * Mark a task as active.
+     *
+     * @param task - Task to activate.
+     */
     public set_active_task(task: CGameTask): void;
 
-    public set_actor_position(vector: vector): void;
+    /**
+     * Move the actor to a position.
+     *
+     * @param position - New actor position.
+     */
+    public set_actor_position(position: vector): void;
 
-    public set_anomaly_power(value: f32): void;
+    /**
+     * Set anomaly power.
+     *
+     * @param power - New anomaly power.
+     */
+    public set_anomaly_power(power: f32): void;
 
-    public set_custom_panic_threshold(value: f32): void;
+    /**
+     * Set custom panic threshold for this base monster.
+     *
+     * @param threshold - Panic threshold.
+     */
+    public set_custom_panic_threshold(threshold: f32): void;
 
+    /**
+     * Clear desired smart-cover loophole.
+     */
     public set_dest_loophole(): void;
 
-    public set_dest_loophole(value: string): void;
+    /**
+     * Set desired smart-cover loophole by id.
+     *
+     * @param loophole_id - Loophole id.
+     */
+    public set_dest_loophole(loophole_id: string): void;
 
     /**
      * Set goodwill toward another object.
@@ -1745,19 +2330,37 @@ declare module "xray16" {
      */
     public set_goodwill(goodwill: i32, object: game_object): void;
 
+    /**
+     * Set monster home by patrol path name.
+     *
+     * @param name - Patrol path name, or `null` to clear home.
+     * @param min_radius - Minimum home radius.
+     * @param max_radius - Maximum home radius.
+     * @param is_aggressive - Whether home is aggressive.
+     * @param mid_radius - Middle home radius.
+     */
     public set_home(
       name: string | null,
       min_radius: f32,
       max_radius?: f32,
-      is_agressive?: boolean,
+      is_aggressive?: boolean,
       mid_radius?: f32
     ): void;
 
+    /**
+     * Set monster home by level vertex id.
+     *
+     * @param lvid - Level vertex id, or `null` to clear home.
+     * @param min_radius - Minimum home radius.
+     * @param max_radius - Maximum home radius.
+     * @param is_aggressive - Whether home is aggressive.
+     * @param mid_radius - Middle home radius.
+     */
     public set_home(
       lvid: u32 | null,
       min_radius: f32,
       max_radius?: f32,
-      is_agressive?: boolean,
+      is_aggressive?: boolean,
       mid_radius?: f32
     ): void;
 
@@ -1768,9 +2371,19 @@ declare module "xray16" {
      */
     public set_level_changer_invitation(hint: string): void;
 
+    /**
+     * Set whether this usable object may be used by non-script logic.
+     *
+     * @param is_usable - Whether non-script usage is allowed.
+     */
     public set_nonscript_usable(is_usable: boolean): void;
 
-    public set_queue_size(value: u32): void;
+    /**
+     * Set weapon fire queue size.
+     *
+     * @param size - Queue size.
+     */
+    public set_queue_size(size: u32): void;
 
     /**
      * Set relation to another object.
@@ -1780,11 +2393,24 @@ declare module "xray16" {
      */
     public set_relation(relation: number, object: game_object): void;
 
-    public set_smart_cover_target_fire_no_lookout(): unknown;
+    /**
+     * Make the smart-cover target mode fire without lookout.
+     */
+    public set_smart_cover_target_fire_no_lookout(): void;
 
-    public set_sound_mask(value: u32): void;
+    /**
+     * Set active sound mask for this monster.
+     *
+     * @param mask - Sound mask.
+     */
+    public set_sound_mask(mask: u32): void;
 
-    public set_start_dialog(value: string): void;
+    /**
+     * Set start dialog id for this phrase dialog manager.
+     *
+     * @param dialog_id - Dialog id.
+     */
+    public set_start_dialog(dialog_id: string): void;
 
     /**
      * Set tip text when actor is near and hovering aim over target.
@@ -1794,20 +2420,53 @@ declare module "xray16" {
      */
     public set_tip_text(text: string): void;
 
+    /**
+     * Restore default usable-object tip text.
+     */
     public set_tip_text_default(): void;
 
-    public set_trader_global_anim(value: string): void;
+    /**
+     * Set trader global animation.
+     *
+     * @param animation - Animation name.
+     */
+    public set_trader_global_anim(animation: string): void;
 
-    public set_vis_state(value: f32): void;
+    /**
+     * Set bloodsucker visibility state as a raw engine value.
+     *
+     * @param state - Visibility state.
+     */
+    public set_vis_state(state: f32): void;
 
+    /**
+     * @returns Whether stalker sniper fire mode is enabled.
+     */
     public sniper_fire_mode(): boolean;
 
+    /**
+     * Enable or disable stalker sniper fire mode.
+     *
+     * @param value - Whether sniper fire mode is enabled.
+     */
     public sniper_fire_mode(value: boolean): void;
 
-    public start_particles(value1: string, value2: string): void;
+    /**
+     * Start particles attached to a bone.
+     *
+     * @param name - Particle effect name.
+     * @param bone - Bone name.
+     */
+    public start_particles(name: string, bone: string): void;
 
+    /**
+     * Stop the current actor talk dialog.
+     */
     public stop_talk(): void;
 
+    /**
+     * Switch the opened talk menu to upgrade mode.
+     */
     public switch_to_upgrade(): void;
 
     // For weapons / outfits:
@@ -1861,8 +2520,14 @@ declare module "xray16" {
      */
     public iterate_installed_upgrades(callback: (upgrade_section: string, object: game_object) => void): void;
 
+    /**
+     * @returns Target body state requested by the movement manager.
+     */
     public target_body_state(): TXR_move;
 
+    /**
+     * @returns Target movement type requested by the movement manager.
+     */
     public target_movement_type(): number; /* EMovementType */
 
     /**
@@ -1881,18 +2546,44 @@ declare module "xray16" {
      */
     public transfer_money(amount: i32, from: game_object): void;
 
+    /**
+     * Remove this stalker from its squad combat registry.
+     */
     public unregister_in_combat(): void;
 
-    public vertex_in_direction(value1: u32, vector: vector, value2: f32): u32;
+    /**
+     * Find the farthest accessible level vertex in a direction.
+     *
+     * @param level_vertex_id - Starting level vertex id.
+     * @param direction - Direction to search in.
+     * @param max_distance - Maximum search distance.
+     * @returns Found level vertex id, or the start vertex if none is valid.
+     */
+    public vertex_in_direction(level_vertex_id: u32, direction: vector, max_distance: f32): u32;
 
+    /**
+     * @returns Whether visual memory is enabled for this monster.
+     */
     public vision_enabled(): boolean;
 
+    /**
+     * @returns Grenade launcher attachment status for the active weapon.
+     */
     public weapon_grenadelauncher_status(): i32;
 
+    /**
+     * @returns Whether the active weapon has an attached silencer.
+     */
     public weapon_is_silencer(): boolean;
 
+    /**
+     * @returns Scope attachment status for the active weapon.
+     */
     public weapon_scope_status(): i32;
 
+    /**
+     * @returns Inventory weight for this object.
+     */
     public weight(): f32;
 
     /**
@@ -1926,9 +2617,17 @@ declare module "xray16" {
      */
     public accessible(vertex_id: u32): boolean;
 
+    /**
+     * @returns Weapon accuracy for this inventory owner.
+     */
     public accuracy(): f32;
 
-    public attachable_item_load_attach(value: string): void;
+    /**
+     * Reload attach position for this attachable item from a section.
+     *
+     * @param section - Config section with attach data.
+     */
+    public attachable_item_load_attach(section: string): void;
 
     /**
      * Find the best cover from one position against another.
@@ -1983,23 +2682,68 @@ declare module "xray16" {
      */
     public enable_torch(is_enabled: boolean): void;
 
-    public force_stand_sleep_animation(value: u32): void;
+    /**
+     * Force a bloodsucker stand/sleep animation variant.
+     *
+     * @param index - Animation index.
+     */
+    public force_stand_sleep_animation(index: u32): void;
 
+    /**
+     * @returns Current bloodsucker visibility state.
+     */
     public get_visibility_state(): i32;
 
-    public in_loophole_range(value1: string, value2: string, vector: vector): boolean;
+    /**
+     * Check whether a point is in range of a smart-cover loophole.
+     *
+     * @param cover_id - Smart-cover id.
+     * @param loophole_id - Loophole id.
+     * @param position - Point to test.
+     * @returns Whether the point is in loophole range.
+     */
+    public in_loophole_range(cover_id: string, loophole_id: string, position: vector): boolean;
 
+    /**
+     * Set whether this poltergeist ignores the actor.
+     *
+     * @param value - Whether actor should be ignored.
+     */
     public poltergeist_set_actor_ignore(value: boolean): void;
 
+    /**
+     * Clear desired movement position for this stalker.
+     */
     public set_desired_position(): void;
 
-    public set_desired_position(vector: vector): void;
+    /**
+     * Set desired movement position for this stalker.
+     *
+     * @param position - Desired position.
+     */
+    public set_desired_position(position: vector): void;
 
+    /**
+     * Force or release anti-aim behavior for this base monster.
+     *
+     * @param value - Whether anti-aim is forced.
+     */
     public set_force_anti_aim(value: boolean): void;
 
-    public set_range(value: f32): void;
+    /**
+     * Set monster vision range.
+     *
+     * @param range - New range.
+     */
+    public set_range(range: f32): void;
 
-    public suitable_smart_cover(game_object: game_object): boolean;
+    /**
+     * Check whether a smart-cover object is suitable for this stalker.
+     *
+     * @param object - Smart-cover object.
+     * @returns Whether the cover is suitable.
+     */
+    public suitable_smart_cover(object: game_object): boolean;
 
     /**
      * Register a combat sound.
@@ -2073,10 +2817,23 @@ declare module "xray16" {
       object: game_object
     ): void;
 
+    /**
+     * @returns Whether movement is enabled for this inventory owner.
+     */
     public movement_enabled(): boolean;
 
+    /**
+     * Enable or disable movement for this inventory owner.
+     *
+     * @param value - Whether movement is enabled.
+     */
     public movement_enabled(value: boolean): void;
 
+    /**
+     * Set item condition.
+     *
+     * @param condition - New condition value.
+     */
     public set_condition(condition: f32): void;
 
     /**
@@ -2099,6 +2856,9 @@ declare module "xray16" {
      */
     public alive(): boolean;
 
+    /**
+     * @returns Base incoming restriction list.
+     */
     public base_in_restrictions(): string;
 
     /**
@@ -2113,9 +2873,18 @@ declare module "xray16" {
      */
     public character_community<T extends string = string>(): T;
 
+    /**
+     * Stop the current external trader sound.
+     */
     public external_sound_stop(): void;
 
-    public find_best_cover(vector: vector): cover_point;
+    /**
+     * Find the best cover from a threat position.
+     *
+     * @param position - Threat position.
+     * @returns Cover point.
+     */
+    public find_best_cover(position: vector): cover_point;
 
     /**
      * Get current game graph vertex id.
@@ -2124,8 +2893,14 @@ declare module "xray16" {
      */
     public game_vertex_id(): u32;
 
+    /**
+     * @returns This object as a helicopter.
+     */
     public get_helicopter(): CHelicopter;
 
+    /**
+     * @returns Last known monster sound info.
+     */
     public get_sound_info(): SoundInfo;
 
     /**
@@ -2135,6 +2910,9 @@ declare module "xray16" {
      */
     public group(): i32;
 
+    /**
+     * @returns Whether this inventory box is closed.
+     */
     public inv_box_closed_status(): boolean;
 
     /**
@@ -2180,9 +2958,20 @@ declare module "xray16" {
      */
     public position(): vector;
 
+    /**
+     * Register this stalker in its squad combat registry.
+     */
     public register_in_combat(): void;
 
-    public safe_cover(vector: vector, value1: f32, value2: f32): cover_point;
+    /**
+     * Find a safe cover near a position.
+     *
+     * @param position - Search position.
+     * @param radius - Search radius.
+     * @param min_distance - Minimum distance from position.
+     * @returns Cover point.
+     */
+    public safe_cover(position: vector, radius: f32, min_distance: f32): cover_point;
 
     /**
      * Enable or disable script control.
@@ -2192,30 +2981,85 @@ declare module "xray16" {
      */
     public script(script_control: boolean, script_name: string): void;
 
+    /**
+     * Clear desired movement direction for this stalker.
+     */
     public set_desired_direction(): void;
 
-    public set_desired_direction(vector: vector): void;
+    /**
+     * Set desired movement direction for this stalker.
+     *
+     * @param direction - Desired direction.
+     */
+    public set_desired_direction(direction: vector): void;
 
+    /**
+     * Enable or disable manual bloodsucker invisibility control.
+     *
+     * @param value - Whether manual invisibility control is enabled.
+     */
     public set_manual_invisibility(value: boolean): void;
 
-    public set_movement_type(EMovementType: number /* MonsterSpace::EMovementType */): void;
+    /**
+     * Set target movement type for this stalker.
+     *
+     * @param movement_type - Movement type.
+     */
+    public set_movement_type(movement_type: number /* MonsterSpace::EMovementType */): void;
 
-    public set_npc_position(vector: vector): void;
+    /**
+     * Move an NPC to a position.
+     *
+     * @param position - New NPC position.
+     */
+    public set_npc_position(position: vector): void;
 
-    public set_sound_threshold(value: f32): void;
+    /**
+     * Set sound memory threshold for this monster.
+     *
+     * @param threshold - Sound threshold.
+     */
+    public set_sound_threshold(threshold: f32): void;
 
-    public set_trader_head_anim(value: string): void;
+    /**
+     * Set trader head animation.
+     *
+     * @param animation - Animation name.
+     */
+    public set_trader_head_anim(animation: string): void;
 
+    /**
+     * Set visual name for this object.
+     *
+     * @param name - Visual name.
+     */
     public set_visual_name(name: string): void;
 
+    /**
+     * @returns Target mental state requested by the movement manager.
+     */
     public target_mental_state(): TXR_animation;
 
+    /**
+     * Unregister this door from NPC door management.
+     */
     public unregister_door_for_npc(): void;
 
+    /**
+     * @returns Ammo count in this ammo box.
+     */
     public ammo_get_count(): u16;
 
+    /**
+     * Set ammo count for this ammo box.
+     *
+     * @param count - Ammo count.
+     */
     public ammo_set_count(count: u16): void;
 
+    /**
+     * @returns Configured ammo box size.
+     */
     public ammo_box_size(): u16;
 
     /**
@@ -2383,54 +3227,177 @@ declare module "xray16" {
      */
     public get_remaining_uses(): u8;
 
+    /**
+     * Set custom zone restrictor type.
+     *
+     * @param type - Restrictor type.
+     */
     public set_restrictor_type(type: u8): void;
 
+    /**
+     * @returns Custom zone restrictor type.
+     */
     public get_restrictor_type(): u8;
 
+    /**
+     * Set spatial registration type for this object.
+     *
+     * @param type - Spatial type mask.
+     */
     public set_spatial_type(type: u8): void;
 
+    /**
+     * Set weapon type id.
+     *
+     * @param type - Weapon type id.
+     */
     public set_weapon_type(type: u8): void;
 
+    /**
+     * @returns Current weapon substate.
+     */
     public get_weapon_substate(): u8;
 
+    /**
+     * Start trade with another object.
+     *
+     * @param object - Trade partner.
+     */
     public start_trade(object: game_object): void;
 
+    /**
+     * Start upgrade interaction with another object.
+     *
+     * @param object - Upgrade partner.
+     */
     public start_upgrade(object: game_object): void;
 
+    /**
+     * Switch HUD item state.
+     *
+     * @param state - New HUD item state.
+     */
     public switch_state(state: u32): void;
 
+    /**
+     * Set enemy target for this phantom.
+     *
+     * @param object - Enemy object.
+     */
     public phantom_set_enemy(object: game_object): void;
 
+    /**
+     * Set actor jump speed.
+     *
+     * @param speed - Jump speed.
+     */
     public set_actor_jump_speed(speed: f32): void;
 
+    /**
+     * Set actor maximum walk weight.
+     *
+     * @param weight - Maximum walk weight.
+     */
     public set_actor_max_walk_weight(weight: f32): void;
 
+    /**
+     * Set actor maximum carry weight.
+     *
+     * @param weight - Maximum carry weight.
+     */
     public set_actor_max_weight(weight: f32): void;
 
+    /**
+     * Set actor run speed coefficient.
+     *
+     * @param coef - Run coefficient.
+     */
     public set_actor_run_coef(coef: f32): void;
 
+    /**
+     * Set actor backward run speed coefficient.
+     *
+     * @param coef - Backward run coefficient.
+     */
     public set_actor_runback_coef(coef: f32): void;
 
+    /**
+     * Set actor sprint speed coefficient.
+     *
+     * @param coef - Sprint coefficient.
+     */
     public set_actor_sprint_koef(coef: f32): void;
 
+    /**
+     * Set additional maximum walk weight.
+     *
+     * @param weight - Additional walk weight.
+     */
     public set_additional_max_walk_weight(weight: f32): void;
 
+    /**
+     * Set additional maximum carry weight.
+     *
+     * @param weight - Additional carry weight.
+     */
     public set_additional_max_weight(weight: f32): void;
 
+    /**
+     * Set active ammo type for this weapon.
+     *
+     * @param type - Ammo type index.
+     */
     public set_ammo_type(type: u8): void;
 
+    /**
+     * Set artefact bleeding restore rate.
+     *
+     * @param rate - Restore rate.
+     */
     public set_artefact_bleeding(rate: f32): void;
 
+    /**
+     * Set artefact health restore rate.
+     *
+     * @param rate - Restore rate.
+     */
     public set_artefact_health(rate: f32): void;
 
+    /**
+     * Set artefact power restore rate.
+     *
+     * @param rate - Restore rate.
+     */
     public set_artefact_power(rate: f32): void;
 
+    /**
+     * Set artefact radiation restore rate.
+     *
+     * @param rate - Restore rate.
+     */
     public set_artefact_radiation(rate: f32): void;
 
+    /**
+     * Set artefact satiety restore rate.
+     *
+     * @param rate - Restore rate.
+     */
     public set_artefact_satiety(rate: f32): void;
 
-    public set_bone_visible(name: string, a: boolean, b: boolean): void;
+    /**
+     * Set bone visibility on this object visual.
+     *
+     * @param name - Bone name.
+     * @param visible - Whether the bone is visible.
+     * @param recursive - Whether child bones are affected.
+     */
+    public set_bone_visible(name: string, visible: boolean, recursive: boolean): void;
 
+    /**
+     * Set character icon texture id.
+     *
+     * @param icon - Icon id.
+     */
     public set_character_icon(icon: string): void;
 
     /**
@@ -2441,61 +3408,157 @@ declare module "xray16" {
      */
     public set_health_ex(value: f32): void;
 
+    /**
+     * Set main weapon type id.
+     *
+     * @param type - Main weapon type id.
+     */
     public set_main_weapon_type(type: u32): void;
 
+    /**
+     * @returns Actor jump speed.
+     */
     public get_actor_jump_speed(): f32;
 
+    /**
+     * @returns Actor maximum walk weight.
+     */
     public get_actor_max_walk_weight(): f32;
 
+    /**
+     * @returns Actor maximum carry weight.
+     */
     public get_actor_max_weight(): f32;
 
+    /**
+     * @returns Actor run speed coefficient.
+     */
     public get_actor_run_coef(): f32;
 
+    /**
+     * @returns Actor backward run speed coefficient.
+     */
     public get_actor_runback_coef(): f32;
 
+    /**
+     * @returns Actor sprint speed coefficient.
+     */
     public get_actor_sprint_koef(): f32;
 
+    /**
+     * @returns Additional maximum walk weight.
+     */
     public get_additional_max_walk_weight(): f32;
 
+    /**
+     * @returns Additional maximum carry weight.
+     */
     public get_additional_max_weight(): f32;
 
+    /**
+     * @returns Current anomaly power.
+     */
     public get_anomaly_power(): f32;
 
+    /**
+     * @returns Artefact bleeding restore rate.
+     */
     public get_artefact_bleeding(): f32;
 
+    /**
+     * @returns Artefact health restore rate.
+     */
     public get_artefact_health(): f32;
 
+    /**
+     * @returns Artefact power restore rate.
+     */
     public get_artefact_power(): f32;
 
+    /**
+     * @returns Artefact radiation restore rate.
+     */
     public get_artefact_radiation(): f32;
 
+    /**
+     * @returns Artefact satiety restore rate.
+     */
     public get_artefact_satiety(): f32;
 
+    /**
+     * @returns Object luminocity.
+     */
     public get_luminocity(): f32;
 
+    /**
+     * @returns Hemispheric luminocity for this object.
+     */
     public get_luminocity_hemi(): f32;
 
+    /**
+     * @returns Total inventory weight for this inventory owner.
+     */
     public get_total_weight(): f32;
 
-    public get_attached_vehicle(): game_object;
+    /**
+     * @returns Vehicle currently attached to the actor, or `null`.
+     */
+    public get_attached_vehicle(): game_object | null;
 
+    /**
+     * @returns Number of items on the belt.
+     */
     public belt_count(): u32;
 
+    /**
+     * @returns Main weapon type id.
+     */
     public get_main_weapon_type(): u32;
 
+    /**
+     * @returns Spatial registration type mask.
+     */
     public get_spatial_type(): u32;
 
+    /**
+     * @returns Current HUD item state.
+     */
     public get_state(): u32;
 
+    /**
+     * @returns Weapon type id.
+     */
     public get_weapon_type(): u32;
 
-    public play_hud_motion(chat: string, bool: boolean, int: u32): u32;
+    /**
+     * Play a HUD animation if it exists.
+     *
+     * @param motion - HUD motion name.
+     * @param mix_in - Whether to blend with the current animation.
+     * @param state - State to use for playback.
+     * @returns Playback motion id, or `0` when no matching motion exists.
+     */
+    public play_hud_motion(motion: string, mix_in: boolean, state: u32): u32;
 
-    public attach_vehicle(vehicle: game_object): void;
+    /**
+     * Attach actor to a vehicle or holder.
+     *
+     * @param vehicle - Vehicle object.
+     * @param force - Whether attach should be forced.
+     */
+    public attach_vehicle(vehicle: game_object, force: boolean): void;
 
+    /**
+     * Clear queued game news for this inventory owner.
+     */
     public clear_game_news(): void;
 
-    public detach_vehicle(): void;
+    /**
+     * Detach actor from the current vehicle or holder.
+     *
+     * @param force - Whether detach should be forced.
+     */
+    public detach_vehicle(force: boolean): void;
 
     /**
      * Move object to a position immediately.
@@ -2505,50 +3568,122 @@ declare module "xray16" {
      */
     public force_set_position(position: vector, update_ai_location: boolean): void;
 
+    /**
+     * Get inventory ammo count for a weapon ammo type.
+     *
+     * @param type - Ammo type index.
+     * @returns Matching ammo count.
+     */
     public get_ammo_count_for_type(type: u8): i32;
 
+    /**
+     * @returns Whether this weapon is in grenade launcher fire mode.
+     */
     public weapon_in_grenade_mode(): boolean;
 
+    /**
+     * @returns Whether this object is an alive entity.
+     */
     public is_entity_alive(): boolean;
 
+    /**
+     * @returns Whether this object is an inventory item.
+     */
     public is_inventory_item(): boolean;
 
+    /**
+     * @returns Whether this object is an inventory owner.
+     */
     public is_inventory_owner(): boolean;
 
+    /**
+     * @returns Whether this object is the actor.
+     */
     public is_actor(): boolean;
 
+    /**
+     * @returns Whether this object is a custom monster.
+     */
     public is_custom_monster(): boolean;
 
+    /**
+     * @returns Whether this object is a weapon.
+     */
     public is_weapon(): boolean;
 
+    /**
+     * @returns Whether this object is an outfit.
+     */
     public is_outfit(): boolean;
 
+    /**
+     * @returns Whether this object is a scope addon.
+     */
     public is_scope(): boolean;
 
+    /**
+     * @returns Whether this object is a silencer addon.
+     */
     public is_silencer(): boolean;
 
+    /**
+     * @returns Whether this object is a grenade launcher addon.
+     */
     public is_grenade_launcher(): boolean;
 
+    /**
+     * @returns Whether this object is a magazined weapon.
+     */
     public is_weapon_magazined(): boolean;
 
+    /**
+     * @returns Whether this object is a space restrictor.
+     */
     public is_space_restrictor(): boolean;
 
+    /**
+     * @returns Whether this object is a stalker.
+     */
     public is_stalker(): boolean;
 
+    /**
+     * @returns Whether this object is an anomaly zone.
+     */
     public is_anomaly(): boolean;
 
+    /**
+     * @returns Whether this object is a monster.
+     */
     public is_monster(): boolean;
 
+    /**
+     * @returns Whether this object is an artefact.
+     */
     public is_artefact(): boolean;
 
+    /**
+     * @returns Whether this object is ammo.
+     */
     public is_ammo(): boolean;
 
+    /**
+     * @returns Whether this object is a trader.
+     */
     public is_trader(): boolean;
 
+    /**
+     * @returns Whether this object is a HUD item.
+     */
     public is_hud_item(): boolean;
 
+    /**
+     * @returns Whether this object is a weapon with grenade launcher support.
+     */
     public is_weapon_gl(): boolean;
 
+    /**
+     * @returns Whether this object is an inventory box.
+     */
     public is_inventory_box(): boolean;
   }
 
