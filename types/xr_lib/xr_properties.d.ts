@@ -17,6 +17,9 @@ declare module "xray16" {
      */
     public name: string;
 
+    /**
+     * Engine-created token.
+     */
     private constructor();
   }
 

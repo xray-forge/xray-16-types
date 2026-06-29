@@ -32,6 +32,9 @@ declare module "xray16" {
      */
     public volume: f32;
 
+    /**
+     * Engine-created playback parameters.
+     */
     private constructor();
   }
 
@@ -267,6 +270,9 @@ declare module "xray16" {
     public static world_object_collide: 134218240;
     public static world_object_explode: 134217984;
 
+    /**
+     * Engine-owned sound category constants.
+     */
     private constructor();
   }
 
@@ -308,6 +314,9 @@ declare module "xray16" {
      */
     public who: game_object;
 
+    /**
+     * Engine-created perceived sound info.
+     */
     private constructor();
   }
 }

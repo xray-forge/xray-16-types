@@ -33,6 +33,9 @@ declare module "xray16" {
    * @group xr_zone
    */
   export class ce_script_zone extends DLL_Pure {
+    /**
+     * Engine-created script zone server entity.
+     */
     protected constructor();
   }
 
@@ -42,6 +45,9 @@ declare module "xray16" {
    * @group xr_zone
    */
   export class ce_smart_zone extends DLL_Pure {
+    /**
+     * Engine-created smart zone server entity.
+     */
     protected constructor();
   }
 }

@@ -311,6 +311,9 @@ declare module "xray16" {
    * @group xr_physic
    */
   export class physics_shell {
+    /**
+     * Engine-created physics shell.
+     */
     private constructor();
 
     /**
@@ -466,6 +469,9 @@ declare module "xray16" {
    * @group xr_physic
    */
   export class CPhysicsShellHolder extends EngineBinding {
+    /**
+     * Engine-created physics shell holder.
+     */
     protected constructor();
   }
 

@@ -5,6 +5,9 @@ declare module "xray16" {
    * @group xr_enemy_evaluation
    */
   export class cef_storage extends EngineBinding {
+    /**
+     * Engine-owned evaluation function storage.
+     */
     private constructor();
 
     /**

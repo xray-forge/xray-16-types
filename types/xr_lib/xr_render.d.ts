@@ -7,6 +7,9 @@ declare module "xray16" {
    * @group xr_render
    */
   export class render_device {
+    /**
+     * Engine-owned render device state.
+     */
     private constructor();
 
     /**

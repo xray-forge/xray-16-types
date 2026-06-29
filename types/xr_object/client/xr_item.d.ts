@@ -7,6 +7,9 @@ declare module "xray16" {
    * @group xr_item
    */
   export class explosive extends EngineBinding {
+    /**
+     * Engine-created explosive component.
+     */
     protected constructor();
 
     /**

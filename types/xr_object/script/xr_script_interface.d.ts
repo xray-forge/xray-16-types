@@ -5,6 +5,9 @@ declare module "xray16" {
    * @group xr_script_interface
    */
   export class cover_point {
+    /**
+     * Engine-created cover point descriptor.
+     */
     private constructor();
 
     /**
@@ -35,6 +38,9 @@ declare module "xray16" {
    * @group xr_script_interface
    */
   export class MonsterHitInfo extends EngineBinding {
+    /**
+     * Engine-created monster hit descriptor.
+     */
     private constructor();
 
     /**
@@ -302,6 +308,10 @@ declare module "xray16" {
       cb?: ((this: void, object: game_object) => void) | null,
       object?: Maybe<T>
     ): void;
+
+    /**
+     * 15 Use some object with explicit user object.
+     */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["use_object"],
       cb?: ((this: void, object: game_object, who: game_object) => void) | null,

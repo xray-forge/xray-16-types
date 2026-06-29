@@ -5,6 +5,9 @@ declare module "xray16" {
    * @group xr_ui_asset
    */
   export class UIStyleManager {
+    /**
+     * Engine-owned UI style manager.
+     */
     private constructor();
 
     /**
@@ -77,6 +80,9 @@ declare module "xray16" {
     public static readonly alLeft: 0;
     public static readonly alRight: 1;
 
+    /**
+     * Engine-owned font constants.
+     */
     private constructor();
   }
 

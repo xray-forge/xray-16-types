@@ -690,6 +690,9 @@ declare module "xray16" {
    * @group xr_object_server
    */
   export class cse_spectator extends cse_abstract {
+    /**
+     * Initialize spectator server state.
+     */
     public init(): void;
   }
 
@@ -699,6 +702,9 @@ declare module "xray16" {
    * @group xr_object_server
    */
   export class cse_temporary extends cse_abstract {
+    /**
+     * Initialize temporary projectile server state.
+     */
     public init(): void;
   }
 
@@ -876,6 +882,9 @@ declare module "xray16" {
    * @group xr_object_server
    */
   export class cse_alife_object_climable extends cse_abstract implements IXR_cse_shape {
+    /**
+     * Initialize climable object server state.
+     */
     public init(): void;
   }
 
@@ -1068,22 +1077,57 @@ declare module "xray16" {
    * @group xr_object_server
    */
   export class cse_alife_trader extends cse_alife_dynamic_object_visual implements cse_alife_trader_abstract {
+    /**
+     * @returns Trader reputation value.
+     */
     public reputation(): i32;
 
+    /**
+     * @returns Trader rank.
+     */
     public rank(): i32;
 
+    /**
+     * Set trader rank.
+     *
+     * @param rank - New rank value.
+     */
     public set_rank(rank: i32): void;
 
+    /**
+     * @returns Trader community name.
+     */
     public community(): string;
 
+    /**
+     * @returns Character profile section name.
+     */
     public profile_name(): string;
 
+    /**
+     * @returns Localized character name.
+     */
     public character_name(): string;
 
+    /**
+     * Resolve and return the character icon name.
+     *
+     * @returns Icon name.
+     */
     public character_icon(): string;
 
+    /**
+     * Set character profile section name.
+     *
+     * @param name - Profile section name.
+     */
     public set_profile_name(name: string): void;
 
+    /**
+     * Set localized character name.
+     *
+     * @param name - Character name.
+     */
     public set_character_name(name: string): void;
   }
 
@@ -1093,10 +1137,23 @@ declare module "xray16" {
    * @group xr_object_server
    */
   export class cse_smart_cover extends cse_alife_dynamic_object {
+    /**
+     * @returns Smart-cover description table id.
+     */
     public description<T extends string = string>(): T | null;
 
+    /**
+     * Replace the table of available loopholes.
+     *
+     * @param object - Lua table with loophole ids.
+     */
     public set_available_loopholes(object: unknown): void;
 
+    /**
+     * Enable or disable editor validation for the loopholes table.
+     *
+     * @param value - Whether loopholes should be checked.
+     */
     public set_loopholes_table_checker(value: boolean): void;
   }
 
@@ -1116,20 +1173,52 @@ declare module "xray16" {
     extends cse_alife_creature_abstract
     implements IXR_cse_ph_skeleton, cse_alife_trader_abstract
   {
+    /**
+     * @returns Actor reputation value.
+     */
     public reputation(): i32;
 
+    /**
+     * @returns Actor rank.
+     */
     public rank(): i32;
 
+    /**
+     * Set actor rank.
+     *
+     * @param rank - New rank value.
+     */
     public set_rank(rank: i32): void;
 
+    /**
+     * @returns Actor character profile section name.
+     */
     public profile_name(): string;
 
+    /**
+     * @returns Localized actor character name.
+     */
     public character_name(): string;
 
+    /**
+     * Resolve and return the actor character icon name.
+     *
+     * @returns Icon name.
+     */
     public character_icon(): string;
 
+    /**
+     * Set actor character profile section name.
+     *
+     * @param name - Profile section name.
+     */
     public set_profile_name(name: string): void;
 
+    /**
+     * Set localized actor character name.
+     *
+     * @param name - Character name.
+     */
     public set_character_name(name: string): void;
   }
 
@@ -1153,6 +1242,9 @@ declare module "xray16" {
    * @group xr_object_server
    */
   export class cse_alife_graph_point extends cse_abstract {
+    /**
+     * Initialize graph point server state.
+     */
     public init(): void;
   }
 

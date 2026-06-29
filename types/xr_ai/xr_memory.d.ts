@@ -10,6 +10,9 @@ declare module "xray16" {
     public readonly last_level_time: u32;
     public readonly level_time: u32;
 
+    /**
+     * Engine-created memory record.
+     */
     protected constructor();
   }
 
@@ -24,6 +27,9 @@ declare module "xray16" {
     public readonly object_info: object_params;
     public readonly self_info: object_params;
 
+    /**
+     * Engine-created entity memory record.
+     */
     protected constructor();
 
     /**
@@ -43,6 +49,9 @@ declare module "xray16" {
     public level_vertex: u32;
     public position: vector;
 
+    /**
+     * Engine-created object memory snapshot.
+     */
     private constructor();
   }
 
@@ -58,6 +67,9 @@ declare module "xray16" {
     public readonly bone_index: u16;
     public readonly direction: vector;
 
+    /**
+     * Engine-created hit memory record.
+     */
     protected constructor();
   }
 
@@ -77,6 +89,9 @@ declare module "xray16" {
      */
     public object(): game_object;
 
+    /**
+     * Engine-created game object memory record.
+     */
     protected constructor();
   }
 
@@ -88,6 +103,9 @@ declare module "xray16" {
    * @group xr_memory
    */
   export class not_yet_visible_object extends EngineBinding {
+    /**
+     * Engine-created pending visibility record.
+     */
     protected constructor();
 
     public value: f32;
@@ -106,6 +124,9 @@ declare module "xray16" {
    * @group xr_memory
    */
   export class visible_memory_object extends game_memory_object {
+    /**
+     * Engine-created visible object record.
+     */
     protected constructor();
   }
 
@@ -121,6 +142,9 @@ declare module "xray16" {
     public readonly sound_info: boolean;
     public readonly visual_info: boolean;
 
+    /**
+     * Engine-created combined memory record.
+     */
     protected constructor();
   }
 
@@ -134,6 +158,9 @@ declare module "xray16" {
   export class sound_memory_object extends game_memory_object {
     public readonly power: f32;
 
+    /**
+     * Engine-created sound memory record.
+     */
     protected constructor();
 
     /**

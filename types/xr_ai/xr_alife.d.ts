@@ -710,6 +710,9 @@ declare module "xray16" {
   export class spawn_story_ids {
     public static readonly INVALID_SPAWN_STORY_ID: -1;
 
+    /**
+     * Engine-owned spawn story id constants.
+     */
     private constructor();
   }
 
@@ -1005,6 +1008,9 @@ declare module "xray16" {
    * @group xr_alife
    */
   export class object_factory {
+    /**
+     * Engine-owned object factory.
+     */
     protected constructor();
 
     /**

@@ -7,6 +7,9 @@ declare module "xray16" {
    * @group xr_core
    */
   export class DLL_Pure extends EngineBinding {
+    /**
+     * Engine-created base object.
+     */
     protected constructor();
   }
 

@@ -78,6 +78,9 @@ declare module "xray16" {
     public war_state_hint4: string;
     public war_state_hint5: string;
 
+    /**
+     * Engine-created faction state.
+     */
     protected constructor();
   }
 

@@ -214,22 +214,62 @@ declare module "xray16" {
     public static readonly ece_unique_nick_expired: 2;
     public static readonly ece_unique_nick_not_registred: 1;
 
+    /**
+     * Set the player name used for server browser queries.
+     *
+     * @param name - Player name.
+     */
     public SetPlayerName(name: string): void;
 
+    /**
+     * Apply server browser filters.
+     *
+     * @param filters - Filter settings.
+     */
     public SetFilters(filters: SServerFilters): void;
 
+    /**
+     * Refresh the server list.
+     *
+     * @param value - Whether to force a refresh.
+     */
     public RefreshList(value: boolean): void;
 
-    public SetSortFunc(a: string, b: boolean): void;
+    /**
+     * Set server list sorting.
+     *
+     * @param sort_column - Column or field name to sort by.
+     * @param ascending - Whether sorting is ascending.
+     */
+    public SetSortFunc(sort_column: string, ascending: boolean): void;
 
+    /**
+     * Switch between internet and LAN server sources.
+     *
+     * @param value - Whether network radio mode is enabled.
+     */
     public NetRadioChanged(value: boolean): void;
 
+    /**
+     * Show details for the selected server.
+     */
     public ShowServerInfo(): void;
 
+    /**
+     * Refresh the quick server list view.
+     */
     public RefreshQuick(): void;
 
+    /**
+     * Connect to the selected server.
+     */
     public ConnectToSelected(): void;
 
+    /**
+     * Set callback for connection errors.
+     *
+     * @param cb - Error callback.
+     */
     public SetConnectionErrCb(cb: connect_error_cb): void;
   }
 
@@ -414,6 +454,9 @@ declare module "xray16" {
    * @group xr_ui_interface
    */
   export class CUICustomSpin extends CUIWindow {
+    /**
+     * @returns Current spin text.
+     */
     public GetText(): string;
   }
 
@@ -588,6 +631,11 @@ declare module "xray16" {
    * @group xr_ui_interface
    */
   export class CUIEditBox extends CUICustomEdit {
+    /**
+     * Initialize the edit box texture.
+     *
+     * @param texture_id - Texture atlas entry name.
+     */
     public InitTexture(texture_id: string): void;
   }
 
@@ -597,6 +645,11 @@ declare module "xray16" {
    * @group xr_ui_interface
    */
   export class CUIEditBoxEx extends CUICustomEdit {
+    /**
+     * Initialize the extended edit box texture.
+     *
+     * @param texture_id - Texture atlas entry name.
+     */
     public InitTexture(texture_id: string): void;
   }
 
@@ -606,6 +659,11 @@ declare module "xray16" {
    * @group xr_ui_interface
    */
   export class CUIFrameLineWnd extends CUIWindow {
+    /**
+     * Set frame line color.
+     *
+     * @param color - ARGB color.
+     */
     public SetColor(color: u32): void;
   }
 
@@ -615,6 +673,11 @@ declare module "xray16" {
    * @group xr_ui_interface
    */
   export class CUIFrameWindow extends CUIWindow {
+    /**
+     * Set frame color.
+     *
+     * @param color - ARGB color.
+     */
     public SetColor(color: u32): void;
   }
 
@@ -769,7 +832,19 @@ declare module "xray16" {
      */
     public constructor(height: f32);
 
+    /**
+     * Copy an existing list box item.
+     *
+     * @param target - Source item.
+     */
     public constructor(target: CUIListBoxItem);
+
+    /**
+     * Copy an existing list box item and override its height.
+     *
+     * @param target - Source item.
+     * @param height - Item height.
+     */
     public constructor(target: CUIListBoxItem, height: f32);
 
     /**
@@ -819,10 +894,27 @@ declare module "xray16" {
     public static readonly epi_new_game: 1;
     public static readonly epi_new_network_game: 2;
 
+    /**
+     * Show a main-menu page.
+     *
+     * @param page_id - Page id.
+     */
     public ShowPage(page_id: TXR_MMShniaga_page): void;
 
+    /**
+     * Configure a main-menu page from XML.
+     *
+     * @param page_id - Page id.
+     * @param xml - XML file name.
+     * @param selector - XML selector.
+     */
     public SetPage(page_id: TXR_MMShniaga_page, xml: string, selector: string): void;
 
+    /**
+     * Show or hide the menu magnifier.
+     *
+     * @param visible - Whether magnifier should be visible.
+     */
     public SetVisibleMagnifier(visible: boolean): void;
   }
 
@@ -837,7 +929,13 @@ declare module "xray16" {
    * @group xr_ui_interface
    */
   export class CUIMapInfo extends CUIWindow {
-    public InitMap(a: string, b: string): void;
+    /**
+     * Load map metadata for display.
+     *
+     * @param map_name - Map name.
+     * @param map_version - Map version.
+     */
+    public InitMap(map_name: string, map_version: string): void;
   }
 
   /**
@@ -846,30 +944,82 @@ declare module "xray16" {
    * @group xr_ui_interface
    */
   export class CUIMapList extends CUIWindow {
+    /**
+     * Clear map entries.
+     */
     public ClearList(): void;
 
+    /**
+     * Build a command-line value for the selected map settings.
+     *
+     * @param value - Base command-line value.
+     * @returns Command-line value.
+     */
     public GetCommandLine<T extends string = string>(value: string): T;
 
+    /**
+     * @returns Current multiplayer game type.
+     */
     public GetCurGameType(): TXR_GAME_TYPE;
 
+    /**
+     * @returns Whether the map list has no entries.
+     */
     public IsEmpty(): boolean;
 
+    /**
+     * Load available maps.
+     */
     public LoadMapList(): void;
 
+    /**
+     * Refresh list state after game mode changes.
+     */
     public OnModeChange(): void;
 
+    /**
+     * Save current map list settings.
+     */
     public SaveMapList(): void;
 
+    /**
+     * Set the map info panel updated by this list.
+     *
+     * @param info - Map info control.
+     */
     public SetMapInfo(info: CUIMapInfo): void;
 
+    /**
+     * Set the map preview image control.
+     *
+     * @param picture - Static image control.
+     */
     public SetMapPic(picture: CUIStatic): void;
 
+    /**
+     * Set game mode selector control.
+     *
+     * @param modeSelector - Mode selector.
+     */
     public SetModeSelector(modeSelector: CUISpinText): void;
 
+    /**
+     * Set server launch parameters.
+     *
+     * @param params - Server parameter string.
+     */
     public SetServerParams(params: string): void;
 
+    /**
+     * Set weather selector control.
+     *
+     * @param selector - Weather selector.
+     */
     public SetWeatherSelector(selector: CUIComboBox): void;
 
+    /**
+     * Start a dedicated server with selected settings.
+     */
     public StartDedicatedServer(): void;
   }
 
@@ -879,10 +1029,22 @@ declare module "xray16" {
    * @group xr_ui_interface
    */
   export class CUIMessageBox extends CUIStatic {
+    /**
+     * Initialize message box layout.
+     *
+     * @param value - Message box template name.
+     * @returns Whether initialization succeeded.
+     */
     public InitMessageBox(value: string): boolean;
 
+    /**
+     * @returns Password entered in the message box.
+     */
     public GetPassword(): string;
 
+    /**
+     * @returns Host entered in the message box.
+     */
     public GetHost(): string;
   }
 
@@ -892,12 +1054,28 @@ declare module "xray16" {
    * @group xr_ui_interface
    */
   export class CUIMessageBoxEx extends CUIDialogWnd {
+    /**
+     * Initialize message box dialog layout.
+     *
+     * @param selector - Message box template selector.
+     */
     public InitMessageBox(selector: string): void;
 
+    /**
+     * Set message text.
+     *
+     * @param text - Text to show.
+     */
     public SetText(text: string): void;
 
+    /**
+     * @returns Password entered in the dialog.
+     */
     public GetPassword(): string;
 
+    /**
+     * @returns Host entered in the dialog.
+     */
     public GetHost(): string;
   }
 
@@ -936,18 +1114,61 @@ declare module "xray16" {
    * @group xr_ui_interface
    */
   export class CUIPropertiesBox extends CUIFrameWindow {
+    /**
+     * Add a selectable property item.
+     *
+     * @param id - Item id.
+     */
     public AddItem(id: string): void;
+
+    /**
+     * Resize the box to fit its items.
+     */
     public AutoUpdateSize(): void;
+
+    /**
+     * Remove an item by index.
+     *
+     * @param index - Item index.
+     */
     public RemoveItem(index: u32): void;
+
+    /**
+     * Remove all property items.
+     */
     public RemoveAll(): void;
+
+    /**
+     * Hide the properties box.
+     */
     public Hide(): void;
 
+    /**
+     * Show or hide the properties box.
+     *
+     * @param show - Whether the box should be visible.
+     */
     public Show(show: boolean): void;
 
+    /**
+     * Show the properties box near a screen point.
+     *
+     * @param int1 - X position.
+     * @param int2 - Y position.
+     */
     public Show(int1: i32, int2: i32): void;
 
+    /**
+     * @returns Currently selected property item.
+     */
     public GetSelectedItem(): CUIListBoxItem;
 
+    /**
+     * Initialize properties box geometry.
+     *
+     * @param position - Box position.
+     * @param size - Box size.
+     */
     public InitPropertiesBox(position: vector2, size: vector2): void;
   }
 
@@ -957,14 +1178,29 @@ declare module "xray16" {
    * @group xr_ui_interface
    */
   export class CUIVersionList {
+    /**
+     * Create a version list control.
+     */
     public constructor();
 
+    /**
+     * @returns Number of available versions.
+     */
     public GetItemsCount(): u64;
 
+    /**
+     * Switch game data to the selected version.
+     */
     public SwitchToSelectedVersion(): void;
 
+    /**
+     * @returns Description of the selected version.
+     */
     public GetCurrentVersionDescr(): string;
 
+    /**
+     * @returns Name of the selected version.
+     */
     public GetCurrentVersionName(): string;
   }
 
@@ -1561,6 +1797,9 @@ declare module "xray16" {
   export class StaticDrawableWrapper {
     public m_endTime: f32;
 
+    /**
+     * Engine-created wrapper for a drawable static.
+     */
     private constructor();
 
     /**
@@ -1906,6 +2145,9 @@ declare module "xray16" {
     public static readonly iQuickSlot: 8;
     public static readonly iTrashSlot: 9;
 
+    /**
+     * Engine-owned drag-drop list constants.
+     */
     private constructor();
   }
 

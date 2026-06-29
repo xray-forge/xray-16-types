@@ -5,6 +5,9 @@ declare module "xray16" {
    * @group xr_graph
    */
   export class GameGraph__CVertex extends EngineBinding {
+    /**
+     * Engine-created game-graph vertex descriptor.
+     */
     protected constructor();
 
     /**

@@ -91,6 +91,9 @@ declare module "xray16" {
      */
     public radiation: f32;
 
+    /**
+     * Engine-created script object wrapper.
+     */
     protected constructor();
 
     /**
@@ -510,6 +513,11 @@ declare module "xray16" {
      */
     public max_ignore_monster_distance(value: f32): void;
 
+    /**
+     * Get objects that recently hit this object.
+     *
+     * @returns Engine hit-memory collection.
+     */
     public memory_hit_objects(): unknown; // :vector<MemorySpace::CHitObject, xalloc<struct MemorySpace::CHitObject>
 
     /**
@@ -527,8 +535,18 @@ declare module "xray16" {
      */
     public memory_visible_objects(): LuaIterable<visible_memory_object>;
 
+    /**
+     * Get current stalker mental state.
+     *
+     * @returns Mental state id.
+     */
     public mental_state<T extends number>(): T; // Todo: unknown enum
 
+    /**
+     * Get objects that are being detected but are not visible yet.
+     *
+     * @returns Engine not-yet-visible collection.
+     */
     public not_yet_visible_objects(): unknown;
 
     /**
@@ -725,28 +743,70 @@ declare module "xray16" {
      */
     public squad(): i32;
 
+    /**
+     * Open talk dialog with this object.
+     */
     public switch_to_talk(): void;
 
+    /**
+     * @returns Object team id.
+     */
     public team(): i32;
 
+    /**
+     * @returns Whether smart-cover selection is restricted to smart covers only.
+     */
     public use_smart_covers_only(): boolean;
 
+    /**
+     * Restrict or allow regular cover selection.
+     *
+     * @param value - Whether only smart covers may be selected.
+     */
     public use_smart_covers_only(value: boolean): void;
 
+    /**
+     * Attach a weapon addon from an inventory object.
+     *
+     * @param object - Addon object.
+     */
     public weapon_addon_attach(object: game_object): void;
 
+    /**
+     * Detach a weapon addon by section name.
+     *
+     * @param addon - Addon section name.
+     */
     public weapon_addon_detach(addon: string): void;
 
+    /**
+     * @returns Whether the active weapon has a scope attached.
+     */
     public weapon_is_scope(): boolean;
 
+    /**
+     * @returns Active weapon silencer status.
+     */
     public weapon_silencer_status(): i32;
 
+    /**
+     * @returns Whether the active weapon is strapped.
+     */
     public weapon_strapped(): boolean;
 
+    /**
+     * @returns Whether the active weapon is unstrapped.
+     */
     public weapon_unstrapped(): boolean;
 
+    /**
+     * @returns Name of the object that last hit this object.
+     */
     public who_hit_name(): string;
 
+    /**
+     * @returns Section name of the object that last hit this object.
+     */
     public who_hit_section_name(): string;
 
     /**
@@ -814,7 +874,10 @@ declare module "xray16" {
      */
     public best_danger(): danger_object | null;
 
-    public body_state(): void;
+    /**
+     * @returns Current stalker body state.
+     */
+    public body_state(): TXR_MonsterBodyState;
 
     /**
      * Get model bone world position.
@@ -882,10 +945,23 @@ declare module "xray16" {
      */
     public critically_wounded(): boolean;
 
+    /**
+     * Mark this dead body inventory as opened or closed.
+     *
+     * @param value - Whether the dead body is closed.
+     */
     public deadbody_closed(value: boolean): void;
 
+    /**
+     * @returns Whether death sounds are enabled.
+     */
     public death_sound_enabled(): boolean;
 
+    /**
+     * Enable or disable death sounds.
+     *
+     * @param value - Whether death sounds are enabled.
+     */
     public death_sound_enabled(value: boolean): void;
 
     /**
@@ -895,12 +971,26 @@ declare module "xray16" {
      */
     public direction(): vector;
 
+    /**
+     * Disable this anomaly object.
+     */
     public disable_anomaly(): void;
 
+    /**
+     * @returns Whether hit marks are disabled.
+     */
     public disable_hit_marks(): boolean;
 
+    /**
+     * Enable or disable hit mark suppression.
+     *
+     * @param value - Whether hit marks should be disabled.
+     */
     public disable_hit_marks(value: boolean): void;
 
+    /**
+     * Disable inventory upgrades for this object.
+     */
     public disable_inv_upgrade(): void;
 
     /**
@@ -918,6 +1008,9 @@ declare module "xray16" {
      */
     public eat(item: game_object): void;
 
+    /**
+     * Enable inventory upgrades for this object.
+     */
     public enable_inv_upgrade(): void;
 
     /**
@@ -942,12 +1035,26 @@ declare module "xray16" {
      */
     public explode(id: u32): void;
 
+    /**
+     * @returns Movement path extrapolation length.
+     */
     public extrapolate_length(): f32;
 
+    /**
+     * Set movement path extrapolation length.
+     *
+     * @param value - Extrapolation length.
+     */
     public extrapolate_length(value: f32): void;
 
+    /**
+     * Force a fake-dead monster to stand up.
+     */
     public fake_death_stand_up(): void;
 
+    /**
+     * @returns Current object field of view.
+     */
     public fov(): f32;
 
     /**
@@ -964,20 +1071,52 @@ declare module "xray16" {
      */
     public get_ammo_type(): u8;
 
+    /**
+     * Cast this object to an artefact.
+     *
+     * @returns Artefact object.
+     */
     public get_artefact(): CArtefact;
 
+    /**
+     * Cast this object to a campfire.
+     *
+     * @returns Campfire object.
+     */
     public get_campfire(): CZoneCampfire;
 
+    /**
+     * @returns Currently equipped outfit, or `null` when none is equipped.
+     */
     public get_current_outfit(): game_object | null;
 
+    /**
+     * @returns Current patrol path point index.
+     */
     public get_current_point_index(): u32;
 
+    /**
+     * @returns Whether monster anti-aim is forced.
+     */
     public get_force_anti_aim(): boolean;
 
+    /**
+     * Cast this object to a hanging lamp.
+     *
+     * @returns Hanging lamp object.
+     */
     public get_hanging_lamp(): hanging_lamp;
 
+    /**
+     * Cast this object to a holder.
+     *
+     * @returns Holder object.
+     */
     public get_holder_class(): holder;
 
+    /**
+     * @returns Current movement speed vector.
+     */
     public get_movement_speed(): vector;
 
     /**
@@ -985,6 +1124,9 @@ declare module "xray16" {
      */
     public get_script_name(): string;
 
+    /**
+     * @returns Visual name assigned to this object.
+     */
     public get_visual_name<T extends string = string>(): T;
 
     /**
@@ -995,10 +1137,21 @@ declare module "xray16" {
      */
     public has_info(info_portion: string): boolean;
 
+    /**
+     * Hide the actor weapon model.
+     */
     public hide_weapon(): void;
 
+    /**
+     * @returns Minimum idle time for smart-cover animation.
+     */
     public idle_min_time(): f32;
 
+    /**
+     * Set minimum idle time for smart-cover animation.
+     *
+     * @param value - Idle time in seconds.
+     */
     public idle_min_time(value: f32): void;
 
     /**
@@ -1011,8 +1164,14 @@ declare module "xray16" {
      */
     public in_loophole_fov(cover_name: string, loophole_name: string, position: vector): boolean;
 
+    /**
+     * @returns Active input restriction names.
+     */
     public in_restrictions(): string;
 
+    /**
+     * @returns Whether this stalker is currently in a smart cover.
+     */
     public in_smart_cover(): boolean;
 
     /**
@@ -1021,16 +1180,39 @@ declare module "xray16" {
      */
     public info_add(text: string): void;
 
+    /**
+     * Set whether items can be taken from this inventory box.
+     *
+     * @param value - Whether taking items is allowed.
+     * @returns New take permission state.
+     */
     public inv_box_can_take(value: boolean): boolean;
 
+    /**
+     * @returns Whether this monster ignores damage.
+     */
     public invulnerable(): boolean;
 
+    /**
+     * Enable or disable monster damage immunity.
+     *
+     * @param value - Whether the monster should be invulnerable.
+     */
     public invulnerable(value: boolean): void;
 
+    /**
+     * @returns Whether the object is currently turning its body.
+     */
     public is_body_turning(): boolean;
 
+    /**
+     * @returns Whether this level changer is enabled.
+     */
     public is_level_changer_enabled(): boolean;
 
+    /**
+     * @returns Whether nearby items are available for pickup.
+     */
     public is_there_items_to_pickup(): boolean;
 
     /**

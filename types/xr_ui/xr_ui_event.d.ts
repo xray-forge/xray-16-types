@@ -309,6 +309,9 @@ declare module "xray16" {
     public static readonly MOUSE_4: 516;
     public static readonly MOUSE_5: 517;
 
+    /**
+     * Engine-owned input key constants.
+     */
     protected constructor();
   }
 

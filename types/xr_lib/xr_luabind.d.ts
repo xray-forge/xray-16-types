@@ -62,6 +62,9 @@ declare module "xray16" {
      */
     public readonly name: string;
 
+    /**
+     * Engine-created LuaBind metadata.
+     */
     private constructor();
   }
 
