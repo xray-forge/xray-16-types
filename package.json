@@ -2,7 +2,7 @@
   "name": "xray16",
   "version": "1.4.0",
   "author": "Neloreck",
-  "repository": "https://github.com/stalker-xrts/xray-16-types",
+  "repository": "https://github.com/xray-forge/xray-16-types",
   "private": false,
   "main": "types/index.d.ts",
   "types": "types/index.d.ts",

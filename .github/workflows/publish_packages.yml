@@ -44,6 +44,9 @@ jobs:
           cache: "npm"
           registry-url: https://registry.npmjs.org
 
+      - name: Update npm for trusted publishing
+        run: npm install --global npm@latest
+
       - name: Install dependencies
         run: npm ci
 
@@ -57,9 +60,7 @@ jobs:
         run: npm run build:plugins
 
       - name: Publish package to npm
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish --provenance
+        run: npm publish
 
       - name: Resolve published version
         id: version
