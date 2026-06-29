@@ -376,6 +376,8 @@ declare module "xray16" {
    * Transforms dik key enumeration code to key binding code.
    *
    * @group xr_ui_event
+   *
+   * @param keycode
    */
   export function dik_to_bind(this: void, keycode: i32): i32;
 }

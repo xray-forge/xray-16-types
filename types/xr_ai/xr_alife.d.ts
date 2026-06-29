@@ -32,14 +32,14 @@ declare module "xray16" {
      * Method to get level name based on level ID.
      * Easy way to get level is to get it by game vertex ID graph or iterate over all levels in graphs.
      *
-     * @param level_id - ID of the level
-     * @returns level name based on level ID provided
+     * @param level_id - ID of the level.
+     * @returns Level name based on level ID provided.
      */
     public level_name<T extends string = string>(level_id: i32): T;
 
     public release(cse_abstract: cse_alife_object | null, flag: boolean): void;
 
-    public remove_all_restrictions(value: u16, type: i32 /* enum RestrictionSpace::ERestrictorTypes */): void;
+    public remove_all_restrictions(value: u16, type: i32 /* Enum RestrictionSpace::ERestrictorTypes */): void;
 
     public remove_in_restriction(monster: cse_alife_monster_abstract, value: u16): void;
 
@@ -58,21 +58,21 @@ declare module "xray16" {
     public story_object(value: u32): cse_alife_object | null;
 
     /**
-     * @returns alife server-client switch distance
+     * @returns Alife server-client switch distance.
      */
     public switch_distance(): f32;
 
     /**
      * Set alife server-client switch distance.
      *
-     * @param distance - distance to set
+     * @param distance - Distance to set.
      */
     public switch_distance(distance: f32): void;
 
     /**
      * Set count of object updated in alife per one tick.
      *
-     * @param count - count of objects to update per tick
+     * @param count - Count of objects to update per tick.
      */
     public set_objects_per_update(count: u16): void;
 
@@ -249,7 +249,7 @@ declare module "xray16" {
 
     public completed(): boolean;
 
-    public route_type(type: u32 /* const enum PatrolPathManager::EPatrolRouteType */): u32;
+    public route_type(type: u32 /* Const enum PatrolPathManager::EPatrolRouteType */): u32;
 
     public route_type(): u32;
 
@@ -257,7 +257,7 @@ declare module "xray16" {
 
     public use_randomness(): boolean;
 
-    public start_type(type: u32 /* const enum PatrolPathManager::EPatrolStartType */): u32;
+    public start_type(type: u32 /* Const enum PatrolPathManager::EPatrolStartType */): u32;
 
     public start_type(): u32;
 

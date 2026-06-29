@@ -1,5 +1,5 @@
 import { isIdentifier, SyntaxKind } from "typescript";
-import { Plugin } from "typescript-to-lua";
+import { type Plugin } from "typescript-to-lua";
 
 import { createErrorDiagnosticFactory } from "./utils/diagnostics";
 

@@ -319,7 +319,7 @@ declare module "xray16" {
   }
 
   /**
-   * todo:
+   * Todo:
    *
    *    class_<game_PlayerState, no_bases, default_holder, WrapType>("game_PlayerState")
    *         .def(constructor<>())
@@ -335,7 +335,7 @@ declare module "xray16" {
    *         .def_readwrite("lasthitweapon", &BaseType::lasthitweapon)
    *         .def_readwrite("skin", &BaseType::skin)
    *         .def_readwrite("RespawnTime", &BaseType::RespawnTime)
-   *         .def_readwrite("money_delta", &BaseType::money_delta)
+   *         .def_readwrite("money_delta", &BaseType::money_delta).
    *
    *         .def_readwrite("pItemList", &BaseType::pItemList)
    *         .def_readwrite("LastBuyAcount", &BaseType::LastBuyAcount)
@@ -346,6 +346,6 @@ declare module "xray16" {
    *         .def("setName", &BaseType::setName)
    *         .def("clear", &BaseType::clear, &WrapType::clear_static)
    *         .def("net_Export", &BaseType::net_Export, &WrapType::net_Export_static)
-   *         .def("net_Import", &BaseType::net_Import, &WrapType::net_Import_static)
+   *         .def("net_Import", &BaseType::net_Import, &WrapType::net_Import_static).
    */
 }

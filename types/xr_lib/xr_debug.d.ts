@@ -32,15 +32,18 @@ declare module "xray16" {
    * Log formatted message in game console and log file.
    * Resulting message looks like "[LUA]  %s", where message is provided text parameter.
    *
-   * Note: text length is limited and supplying too long value will crash the game. todo: check exact limit.
+   * Note: text length is limited and supplying too long value will crash the game. Todo: check exact limit..
    *
    * @group xr_debug
-   * @param text - string to print
+   *
+   * @param text - String to print.
    */
   export function log(this: void, text: string): void;
 
   /**
    * @group xr_debug
+   *
+   * @param text
    */
   export function error_log(this: void, text: string): void;
 
@@ -59,7 +62,8 @@ declare module "xray16" {
    * Allows flushing logs / executing commands / getting global engine variables.
    *
    * @group xr_debug
-   * @returns console object reference
+   *
+   * @returns Console object reference.
    */
   export function get_console(this: void): CConsole;
 
@@ -72,6 +76,8 @@ declare module "xray16" {
    * Prefetch provided script before executing next lines.
    *
    * @group xr_global_declaration
+   *
+   * @param path
    */
   export function prefetch(this: void, path: string): void;
 }

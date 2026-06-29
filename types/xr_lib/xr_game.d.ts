@@ -8,7 +8,7 @@ declare module "xray16" {
    * - eGameIDArtefactHunt = u32(1) << 3,
    * - eGameIDCaptureTheArtefact = u32(1) << 4,
    * - eGameIDDominationZone = u32(1) << 5,
-   * - eGameIDTeamDominationZone = u32(1) << 6,
+   * - eGameIDTeamDominationZone = u32(1) << 6,.
    *
    * @source C++ enum EGameIDs
    * @group xr_game
@@ -36,8 +36,8 @@ declare module "xray16" {
     public static readonly GAME_TEAMDEATHMATCH: 6;
     public static readonly GAME_ARTEFACTHUNT: 7;
     public static readonly GAME_CAPTURETHEARTEFACT: 8;
-    // identifiers in range [100...254] are registered for script game type
-    public static readonly GAME_DUMMY: 255; // temporary g
+    // Identifiers in range [100...254] are registered for script game type
+    public static readonly GAME_DUMMY: 255; // Temporary g
   }
 
   /**
@@ -109,7 +109,8 @@ declare module "xray16" {
    * Dynamic music starts playing different kind of ambient sounds in actor combat.
    *
    * @group xr_game
-   * @returns is dynamic music allowed in game settings.
+   *
+   * @returns Is dynamic music allowed in game settings.
    */
   export function IsDynamicMusic(this: void): boolean;
 
@@ -127,17 +128,22 @@ declare module "xray16" {
 
   /**
    * @group xr_game
-   * @returns is dev editor tool enabled currently used.
+   *
+   * @returns Is dev editor tool enabled currently used.
    */
   export function editor(this: void): boolean;
 
   /**
    * @group xr_game
+   *
+   * @param position
    */
   export function set_start_position(this: void, position: vector): void;
 
   /**
    * @group xr_game
+   *
+   * @param gvid
    */
   export function set_start_game_vertex_id(this: void, gvid: i32): void;
 

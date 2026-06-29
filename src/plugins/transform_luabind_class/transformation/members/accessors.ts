@@ -1,5 +1,5 @@
-import { AccessorDeclaration } from "typescript";
-import { AllAccessorDeclarations, LuaLibFeature, TransformationContext } from "typescript-to-lua";
+import { type AccessorDeclaration } from "typescript";
+import { type AllAccessorDeclarations, LuaLibFeature, type TransformationContext } from "typescript-to-lua";
 import * as lua from "typescript-to-lua";
 import { createSelfIdentifier } from "typescript-to-lua/dist/transformation/utils/lua-ast";
 import { transformLuaLibFunction } from "typescript-to-lua/dist/transformation/utils/lualib";
@@ -46,7 +46,7 @@ export function transformAccessorDeclarations(
 
   const target = lua.cloneIdentifier(className);
   const feature = LuaLibFeature.ObjectDefineProperty;
-  const parameters: lua.Expression[] = [target, propertyName, descriptor];
+  const parameters: Array<lua.Expression> = [target, propertyName, descriptor];
 
   const call = transformLuaLibFunction(context, feature, undefined, ...parameters);
 

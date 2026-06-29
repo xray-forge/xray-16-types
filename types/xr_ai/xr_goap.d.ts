@@ -164,18 +164,18 @@ declare module "xray16" {
     /**
      * Default constructor to describe a pair of identifier and value.
      *
-     * @param id - identifier of unique world property
-     * @param enabled - value of property state
+     * @param id - Identifier of unique world property.
+     * @param enabled - Value of property state.
      */
     public constructor(id: u32, enabled: boolean);
 
     /**
-     * @returns value of current world property
+     * @returns Value of current world property.
      */
     public value(): boolean;
 
     /**
-     * @returns condition identifier of current world property
+     * @returns Condition identifier of current world property.
      */
     public condition(): u32;
   }
@@ -183,7 +183,7 @@ declare module "xray16" {
   /**
    * World state describing whole world state in action planning.
    *
-   * Overrides operators: `<`, `==`
+   * Overrides operators: `<`, `==`.
    *
    * @source C++ class world_state
    * @customConstructor world_state
@@ -198,14 +198,14 @@ declare module "xray16" {
     /**
      * Copy constructor.
      *
-     * @param another_state - target world state to copy
+     * @param another_state - Target world state to copy.
      */
     public constructor(another_state: world_state);
 
     /**
      * Set property for world state.
      *
-     * @param property - target property to add in world state
+     * @param property - Target property to add in world state.
      */
     public add_property(property: world_property): void;
 
@@ -217,23 +217,23 @@ declare module "xray16" {
     /**
      * Check if provided state is subset of current one.
      *
-     * @param state - target state to check
-     * @returns whether current world state includes provided state
+     * @param state - Target state to check.
+     * @returns Whether current world state includes provided state.
      */
     public includes(state: world_state): boolean;
 
     /**
      * Get world property by id.
      *
-     * @param id - numeric if of the required property
-     * @returns property id/state based on provided id
+     * @param id - Numeric if of the required property.
+     * @returns Property id/state based on provided id.
      */
     public property(id: u32): world_property;
 
     /**
      * Remove world property from current world state.
      *
-     * @param id - identifier of the property to remove
+     * @param id - Identifier of the property to remove.
      */
     public remove_property(id: u32): void;
   }
@@ -250,18 +250,18 @@ declare module "xray16" {
     /**
      * Get property evaluator value by `id`.
      *
-     * @throws if property is not declared in storage
+     * @throws If property is not declared in storage.
      *
-     * @param id - unique identifier of the world property
-     * @returns current value for provided `id`
+     * @param id - Unique identifier of the world property.
+     * @returns Current value for provided `id`.
      */
     public property(id: u32): boolean;
 
     /**
      * Set property value in the storage.
      *
-     * @param id - unique identifier of the world property
-     * @param value - value for provided `id`
+     * @param id - Unique identifier of the world property.
+     * @param value - Value for provided `id`.
      */
     public set_property(id: u32, value: boolean): void;
   }
@@ -291,21 +291,21 @@ declare module "xray16" {
     public constructor();
 
     /**
-     * @param object - target game object to work with, `null` is OK since correct object will be injected on setup
+     * @param object - Target game object to work with, `null` is OK since correct object will be injected on setup.
      */
     public constructor(object: game_object | null);
 
     /**
-     * @param object - target game object to work with, `null` is OK since correct object will be injected on setup
-     * @param name - name of the evaluator, used for debug purposes mainly
+     * @param object - Target game object to work with, `null` is OK since correct object will be injected on setup.
+     * @param name - Name of the evaluator, used for debug purposes mainly.
      */
     public constructor(object: game_object | null, name: string);
 
     /**
      * Handle setup of the evaluator and binding to a specific object.
      *
-     * @param object - target client object to work with
-     * @param storage - action instance storage with preconditions and state
+     * @param object - Target client object to work with.
+     * @param storage - Action instance storage with preconditions and state.
      */
     public setup(object: game_object, storage: property_storage): void;
 
@@ -326,7 +326,7 @@ declare module "xray16" {
    */
   export class property_evaluator_const extends property_evaluator {
     /**
-     * @param value - constant value for evaluation
+     * @param value - Constant value for evaluation.
      */
     public constructor(value: boolean);
   }
@@ -355,21 +355,21 @@ declare module "xray16" {
     public constructor();
 
     /**
-     * @param object - target game object to work with, `null` is OK since correct object will be injected on setup
+     * @param object - Target game object to work with, `null` is OK since correct object will be injected on setup.
      */
     public constructor(object?: game_object | null);
 
     /**
-     * @param object - target game object to work with, `null` is OK since correct object will be injected on setup
-     * @param name - name of the action, used for debug purposes mainly
+     * @param object - Target game object to work with, `null` is OK since correct object will be injected on setup.
+     * @param name - Name of the action, used for debug purposes mainly.
      */
     public constructor(object: game_object | null, name: string);
 
     /**
      * Handle setup of the action and binding to a specific object.
      *
-     * @param object - target client object to work with
-     * @param storage - action instance storage with preconditions and state
+     * @param object - Target client object to work with.
+     * @param storage - Action instance storage with preconditions and state.
      */
     public setup(object: game_object, storage: property_storage): void;
 
@@ -394,7 +394,7 @@ declare module "xray16" {
     /**
      * Set weight of current action execution.
      *
-     * @param weight - weight value to express how prioritized action is
+     * @param weight - Weight value to express how prioritized action is.
      */
     public set_weight(weight: u16): void;
 
@@ -402,15 +402,15 @@ declare module "xray16" {
      * Add action effect.
      * Describes what target world state is expected to be if action is completed.
      *
-     * @param property - world state property describing a pair of evaluator ID and value
+     * @param property - World state property describing a pair of evaluator ID and value.
      */
     public add_effect(property: world_property): void;
 
     /**
      * Remove action effect.
-     * Action will be not considered as property changing for `id` anymore
+     * Action will be not considered as property changing for `id` anymore.
      *
-     * @param id - world state property id
+     * @param id - World state property id.
      */
     public remove_effect(id: u32): void;
 
@@ -418,7 +418,7 @@ declare module "xray16" {
      * Add action execution precondition.
      * When building logics graph, action will be considered blocked by some preconditions.
      *
-     * @param property - world state property describing a pair of evaluator ID and value
+     * @param property - World state property describing a pair of evaluator ID and value.
      */
     public add_precondition(property: world_property): void;
 
@@ -426,7 +426,7 @@ declare module "xray16" {
      * Remove precondition for action.
      * When building logics graph, action will not be considered blocked by evaluator `id` states.
      *
-     * @param id - world state property id
+     * @param id - World state property id.
      */
     public remove_precondition(id: u32): void;
 
@@ -437,7 +437,7 @@ declare module "xray16" {
      *
      * Note: Available only in mixed / debug engine builds, not for direct usage from lua.
      *
-     * @param prefix - string prefix to display current action state in logs
+     * @param prefix - String prefix to display current action state in logs.
      */
     public show(prefix?: string): void;
   }
@@ -464,19 +464,19 @@ declare module "xray16" {
     public constructor();
 
     /**
-     * @returns whether object action planner is already initialized
+     * @returns Whether object action planner is already initialized.
      */
     public initialized(): boolean;
 
     /**
-     * @returns whether state of current planner is actual
+     * @returns Whether state of current planner is actual.
      */
     public actual(): boolean;
 
     /**
      * Setup planner for game object.
      *
-     * @param object - client game object to setup planner for
+     * @param object - Client game object to setup planner for.
      */
     public setup(object: game_object): void;
 
@@ -493,36 +493,36 @@ declare module "xray16" {
     /**
      * Add generic action by `id` for planner execution.
      *
-     * @param id - unique identifier of new action
-     * @param action - action implementation containing preconditions, logics, effects and other meta infos
+     * @param id - Unique identifier of new action.
+     * @param action - Action implementation containing preconditions, logics, effects and other meta infos.
      */
     public add_action(id: u32, action: action_base): void;
 
     /**
      * Remove action by unique `id`.
      *
-     * @param id - unique identifier of the action to remove
+     * @param id - Unique identifier of the action to remove.
      */
     public remove_action(id: u32): void;
 
     /**
      * Get action instance by unique `id`.
      *
-     * @param id - unique identifier of the action to get
+     * @param id - Unique identifier of the action to get.
      */
     public action(id: u32): action_base;
 
     /**
      * Get currently active action being executed.
      *
-     * @returns current action instance reference
+     * @returns Current action instance reference.
      */
     public current_action(): action_base;
 
     /**
      * Get currently active action identifier.
      *
-     * @returns unique identifier of current action
+     * @returns Unique identifier of current action.
      */
     public current_action_id(): u32;
 
@@ -530,29 +530,29 @@ declare module "xray16" {
      * Set target world state to try to reach with all the graph logics.
      * All graphs will be built from current state to goal world state with the shortest possible path.
      *
-     * @param state - target world state to reach with planner
+     * @param state - Target world state to reach with planner.
      */
     public set_goal_world_state(state: world_state): void;
 
     /**
      * Add evaluator instance for current action planner.
      *
-     * @param id - unique identifier of the evaluator
-     * @param evaluator - instance of evaluator linked to the `id`
+     * @param id - Unique identifier of the evaluator.
+     * @param evaluator - Instance of evaluator linked to the `id`.
      */
     public add_evaluator(id: u32, evaluator: property_evaluator): void;
 
     /**
      * Return evaluator instance for current action planner.
      *
-     * @param id - unique identifier of the evaluator for removal
+     * @param id - Unique identifier of the evaluator for removal.
      */
     public remove_evaluator(id: u32): void;
 
     /**
      * Get evaluator instance by `id`.
      *
-     * @param id - unique identifier of the evaluator to get
+     * @param id - Unique identifier of the evaluator to get.
      */
     public evaluator(id: u32): property_evaluator;
 
@@ -563,7 +563,7 @@ declare module "xray16" {
      *
      * Note: Available only in mixed / debug engine builds, not for direct usage from lua.
      *
-     * @param prefix - string prefix to display current action state in logs
+     * @param prefix - String prefix to display current action state in logs.
      */
     public show(prefix: string): void;
   }
@@ -572,7 +572,7 @@ declare module "xray16" {
    * GOAP action class implementing both action base and action planner.
    * Captures execution as action and plans its internal logic with separate logics graph.
    *
-   * Examples: combat planner, anomaly planner, items looting planner, alife planner, state planner
+   * Examples: combat planner, anomaly planner, items looting planner, alife planner, state planner.
    *
    * @source C++ class planner_action : action_planner,action_base
    * @customConstructor planner_action
@@ -585,13 +585,13 @@ declare module "xray16" {
     public constructor();
 
     /**
-     * @param object - target game object to work with, `null` is OK since correct object will be injected on setup
+     * @param object - Target game object to work with, `null` is OK since correct object will be injected on setup.
      */
     public constructor(object?: game_object | null);
 
     /**
-     * @param object - target game object to work with, `null` is OK since correct object will be injected on setup
-     * @param name - name of the action, used for debug purposes mainly
+     * @param object - Target game object to work with, `null` is OK since correct object will be injected on setup.
+     * @param name - Name of the action, used for debug purposes mainly.
      */
     public constructor(object: game_object | null, name: string);
 
@@ -617,15 +617,15 @@ declare module "xray16" {
      * Add action effect.
      * Describes what target world state is expected to be if action is completed.
      *
-     * @param property - world state property describing a pair of evaluator ID and value
+     * @param property - World state property describing a pair of evaluator ID and value.
      */
     public add_effect(property: world_property): unknown;
 
     /**
      * Remove action effect.
-     * Action will be not considered as property changing for `id` anymore
+     * Action will be not considered as property changing for `id` anymore.
      *
-     * @param id - world state property id
+     * @param id - World state property id.
      */
     public remove_effect(id: u32): void;
 
@@ -633,7 +633,7 @@ declare module "xray16" {
      * Add action execution precondition.
      * When building logics graph, action will be considered blocked by some preconditions.
      *
-     * @param property - world state property describing a pair of evaluator ID and value
+     * @param property - World state property describing a pair of evaluator ID and value.
      */
     public add_precondition(property: world_property): void;
 
@@ -641,28 +641,29 @@ declare module "xray16" {
      * Remove precondition for action.
      * When building logics graph, action will not be considered blocked by evaluator `id` states.
      *
-     * @param id - world state property id
+     * @param id - World state property id.
      */
     public remove_precondition(id: u32): void;
 
     /**
      * Set weight of planner action switch.
      *
-     * @param weight - weight value to express how prioritized action is
+     * @param weight - Weight value to express how prioritized action is.
      */
     public set_weight(weight: u32): void;
 
     /**
      * Comparator to check weight of switching one state to another.
      *
-     * @param first - first state
-     * @param second - second state
+     * @param first - First state.
+     * @param second - Second state.
      */
     public weight(first: world_state, second: world_state): u16;
   }
 
   /**
    * @group xr_global_declaration
+   * @param base_action
    */
   export function cast_planner(this: void, base_action: action_base): action_planner;
 }

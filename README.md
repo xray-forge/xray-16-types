@@ -45,7 +45,7 @@ Separate transformer is needed to build luabind classes instead of table-based c
 - Run game engine with `-dump_bindings` flag
 - Check userdata folder _(where game saves are stored)_ `scriptbindings_*.txt` files
 
-## 🧲  Plugins
+## 🧲 Plugins
 
 Package includes plugins for typescript-to-lua for easier work with xray16 typings.\
 Plugins can be included in [tstl tsconfig](https://typescripttolua.github.io/docs/configuration) file as following section:

@@ -35,7 +35,7 @@ declare module "xray16" {
    * - unset = -1,
    * - no_visibility = 0,
    * - partial_visibility = 1,
-   * - full_visibility = 2
+   * - full_visibility = 2.
    *
    * @source C++ enum visibility_t
    * @group xr_script_interface
@@ -103,7 +103,7 @@ declare module "xray16" {
     public static readonly controller_press: 42;
     public static readonly controller_release: 43;
     public static readonly controller_hold: 44;
-    // public static readonly controller_attitude_change: 45;
+    // Public static readonly controller_attitude_change: 45;
 
     public static readonly item_to_belt: 46;
     public static readonly item_to_slot: 47;
@@ -132,7 +132,7 @@ declare module "xray16" {
 
   /**
    * Custom extension.
-   * For reference: src/xrGame/script_game_object_script.cpp
+   * For reference: src/xrGame/script_game_object_script.cpp.
    *
    * @group xr_script_interface
    */
@@ -140,13 +140,13 @@ declare module "xray16" {
     /**
      * Remove callback.
      *
-     * @param type - type of callback
-     * @param cb - null to reset
+     * @param type - Type of callback.
+     * @param cb - Null to reset.
      */
     public set_callback(type: TXR_callback, cb: null): void;
 
     /**
-     * 0 todo;
+     * 0 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["trade_start"],
@@ -155,7 +155,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 1 todo;
+     * 1 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["trade_stop"],
@@ -164,7 +164,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 2 todo;
+     * 2 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["trade_sell_buy_item"],
@@ -173,7 +173,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 3 todo;
+     * 3 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["trade_perform_operation"],
@@ -204,7 +204,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 6 todo;
+     * 6 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["level_border_exit"],
@@ -213,7 +213,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 7 todo;
+     * 7 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["level_border_enter"],
@@ -222,7 +222,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 8 todo;
+     * 8 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["death"],
@@ -231,7 +231,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 9 todo;
+     * 9 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["patrol_path_in_point"],
@@ -253,7 +253,7 @@ declare module "xray16" {
     // 12 todo: article_info -> implement in game engine
 
     /**
-     * 13 todo;
+     * 13 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["task_state"],
@@ -262,7 +262,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 14 todo;
+     * 14 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["map_location_added"],
@@ -303,7 +303,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 17 todo;
+     * 17 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["sound"],
@@ -321,7 +321,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 18 todo;
+     * 18 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["action_movement"],
@@ -344,7 +344,7 @@ declare module "xray16" {
     // 25 todo: actor_sleep -> implement in game engine
 
     /**
-     * 26 todo;
+     * 26 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["helicopter_on_point"],
@@ -353,7 +353,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 27 todo;
+     * 27 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["helicopter_on_hit"],
@@ -362,7 +362,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 28 todo;
+     * 28 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["on_item_take"],
@@ -371,7 +371,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 29 todo;
+     * 29 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["on_item_drop"],
@@ -380,7 +380,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 30 todo;
+     * 30 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["script_animation"],
@@ -389,7 +389,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 31 todo;
+     * 31 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["trader_global_anim_request"],
@@ -398,7 +398,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 32 todo;
+     * 32 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["trader_head_anim_request"],
@@ -407,7 +407,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 33 todo;
+     * 33 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["trader_sound_end"],
@@ -416,7 +416,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 34 todo;
+     * 34 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["take_item_from_box"],
@@ -453,7 +453,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 37 todo;
+     * 37 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["key_press"],
@@ -462,7 +462,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 38 todo;
+     * 38 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["key_release"],
@@ -471,7 +471,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 39 todo;
+     * 39 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["key_hold"],
@@ -492,7 +492,7 @@ declare module "xray16" {
     // 45 todo: controller_attitude_change
 
     /**
-     * 46 todo: item_to_belt
+     * 46 todo: item_to_belt.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["item_to_belt"],
@@ -501,7 +501,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 47 todo: item_to_slot
+     * 47 todo: item_to_slot.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["item_to_slot"],
@@ -510,7 +510,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 48 todo: item_to_ruck
+     * 48 todo: item_to_ruck.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["item_to_ruck"],
@@ -555,7 +555,7 @@ declare module "xray16" {
     ): void;
 
     /**
-     * 53 todo: actor_before_death
+     * 53 todo: actor_before_death.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["actor_before_death"],

@@ -83,11 +83,17 @@ declare module "xray16" {
 
   /**
    * @group xr_ui_asset
+   *
+   * @param char
+   * @param char2
+   * @param tex_info
    */
   export function GetTextureInfo(this: void, char: string, char2: string, tex_info: TEX_INFO): boolean;
 
   /**
    * @group xr_ui_asset
+   *
+   * @param char
    */
   export function GetTextureName(this: void, char: string): string;
 

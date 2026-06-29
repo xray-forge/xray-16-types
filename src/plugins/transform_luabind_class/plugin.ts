@@ -1,12 +1,12 @@
-import { CallExpression, NewExpression, SuperExpression, SyntaxKind } from "typescript";
-import { Plugin } from "typescript-to-lua";
+import { type CallExpression, type NewExpression, type SuperExpression, SyntaxKind } from "typescript";
+import { type Plugin } from "typescript-to-lua";
 
 import {
   isLuabindClassSuperCall,
   isLuabindClassSuperMethodCall,
   isLuabindClassType,
   isLuabindDecoratedClass,
-  ITransformationContext,
+  type ITransformationContext,
   transformClassSuperMethodExpression,
   transformLuabindClassDeclaration,
   transformLuabindConstructorSuperCall,

@@ -98,10 +98,10 @@ declare module "xray16" {
     public static readonly use: 18;
 
     public constructor(value: string);
-    public constructor(value: string, type: number /* MonsterSpace::EObjectAction */);
+    public constructor(value: string, type: number); /* MonsterSpace::EObjectAction */
     public constructor(game_object: game_object);
 
-    public action(space: unknown /** enum MonsterSpace::EObjectAction */): void;
+    public action(space: unknown /** Enum MonsterSpace::EObjectAction */): void;
 
     public completed(): boolean;
   }
@@ -124,7 +124,7 @@ declare module "xray16" {
    * @group xr_action
    */
   export class move extends EngineBinding {
-    // todo: All enums are in one static, probably should declare few parent interfaces / classes with enums
+    // Todo: All enums are in one static, probably should declare few parent interfaces / classes with enums
     public static readonly crouch: 0;
 
     public static readonly back: 4;
@@ -226,7 +226,7 @@ declare module "xray16" {
   export class patrol extends EngineBinding {
     // EPatrolRouteType:
     public static readonly stop: 0;
-    // public static readonly stop: 1;
+    // Public static readonly stop: 1;
 
     // EPatrolStartType:
     public static readonly start: 0;
@@ -354,11 +354,11 @@ declare module "xray16" {
     public constructor();
     public constructor(value: string);
     public constructor(value1: string, value2: boolean);
-    public constructor(state: number /* enum MonsterSpace::EMentalState */);
-    public constructor(state: number /* enum MonsterSpace::EMentalState */, value: i32);
+    public constructor(state: number); /* Enum MonsterSpace::EMentalState */
+    public constructor(state: number /* Enum MonsterSpace::EMentalState */, value: i32);
 
     public completed(): boolean;
-    public type(state: number /* enum MonsterSpace::EMentalState */): void;
+    public type(state: number /* Enum MonsterSpace::EMentalState */): void;
     public anim(value: string): void;
   }
 
@@ -402,9 +402,9 @@ declare module "xray16" {
     public constructor(sound_object: sound_object, vector1: vector);
     public constructor(sound_object: sound_object, vector1: vector, vector2: vector);
     public constructor(sound_object: sound_object, vector1: vector, vector2: vector, value: boolean);
-    public constructor(type: unknown /* MonsterSound::EType */);
-    public constructor(type: unknown /* enum MonsterSound::EType*/, value: number);
-    public constructor(value1: string, value2: string, type: unknown /* enum MonsterSpace::EMonsterHeadAnimType */);
+    public constructor(type: unknown); /* MonsterSound::EType */
+    public constructor(type: unknown /* Enum MonsterSound::EType*/, value: number);
+    public constructor(value1: string, value2: string, type: unknown); /* Enum MonsterSpace::EMonsterHeadAnimType */
 
     public set_sound(value: string): void;
 

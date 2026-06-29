@@ -262,7 +262,7 @@ declare module "xray16" {
      * Team (community) of the object.
      * Defined in game_relations.ltx -> [game_relations] -> [communities].
      *
-     * Example: 8 is monster, 9 is stalker, 0 is actor, 4 is freedom
+     * Example: 8 is monster, 9 is stalker, 0 is actor, 4 is freedom.
      */
     public team: u8;
 
@@ -318,7 +318,7 @@ declare module "xray16" {
     public rank(): i32;
 
     /**
-     * @returns object community like `monolith`, `stalker` or `zombied`
+     * @returns Object community like `monolith`, `stalker` or `zombied`.
      */
     public community<T extends string = string>(): T;
   }
@@ -607,7 +607,8 @@ declare module "xray16" {
    */
   export class cse_alife_online_offline_group<T extends cse_alife_creature_abstract = cse_alife_creature_abstract>
     extends cse_alife_dynamic_object
-    implements IXR_cse_alife_schedulable {
+    implements IXR_cse_alife_schedulable
+  {
     public readonly object: T;
 
     public register_member(id: u16): void;
@@ -623,7 +624,7 @@ declare module "xray16" {
 
     public unregister_member(id: u16): void;
 
-    public squad_members(): LuaIterable<IXR_squad_member<T>>; // struct std::less<unsigned short> 3rd param
+    public squad_members(): LuaIterable<IXR_squad_member<T>>; // Struct std::less<unsigned short> 3rd param
 
     public force_change_position(vector: vector): void;
 
@@ -733,7 +734,8 @@ declare module "xray16" {
    */
   export class cse_alife_creature_actor
     extends cse_alife_creature_abstract
-    implements IXR_cse_ph_skeleton, cse_alife_trader_abstract {
+    implements IXR_cse_ph_skeleton, cse_alife_trader_abstract
+  {
     public reputation(): i32;
 
     public rank(): i32;

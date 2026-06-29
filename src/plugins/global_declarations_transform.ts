@@ -1,5 +1,5 @@
 import { SyntaxKind } from "typescript";
-import { Plugin } from "typescript-to-lua";
+import { type Plugin } from "typescript-to-lua";
 
 const XRF_GLOBALS: Array<string> = ["xray16"];
 

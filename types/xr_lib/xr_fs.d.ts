@@ -102,7 +102,7 @@ declare module "xray16" {
 
     public exist(path: string): i32 | null;
 
-    public append_path(alias: string, root: string, path: string, recursive: boolean): unknown /* FS_Path */;
+    public append_path(alias: string, root: string, path: string, recursive: boolean): unknown; /* FS_Path */
 
     public path_exist(path: string): boolean;
 
@@ -123,9 +123,9 @@ declare module "xray16" {
 
     public w_close(writer: unknown /* IWriter */): void;
 
-    public w_open(path: string, filename: string): unknown /* IWriter */;
+    public w_open(path: string, filename: string): unknown; /* IWriter */
 
-    public w_open(path: string): unknown /* IWriter */;
+    public w_open(path: string): unknown; /* IWriter */
   }
 
   /**
@@ -142,7 +142,8 @@ declare module "xray16" {
    * Get operating system active username.
    *
    * @group xr_fs
-   * @returns username string
+   *
+   * @returns Username string.
    */
   export function user_name(this: void): string;
 }

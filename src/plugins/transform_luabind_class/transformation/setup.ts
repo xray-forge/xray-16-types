@@ -1,6 +1,6 @@
-import { ClassLikeDeclarationBase, isIdentifier, isVariableDeclaration } from "typescript";
+import { type ClassLikeDeclarationBase, isIdentifier, isVariableDeclaration } from "typescript";
 import * as tstl from "typescript-to-lua";
-import { TransformationContext } from "typescript-to-lua";
+import { type TransformationContext } from "typescript-to-lua";
 import {
   createDefaultExportStringLiteral,
   createExportedIdentifier,
@@ -17,6 +17,11 @@ import { getExtendedNode } from "./utils";
 
 /**
  * Create full class setup statement with name/super calls/methods/declaration/fields etc.
+ *
+ * @param context
+ * @param statement
+ * @param className
+ * @param localClassName
  */
 export function createClassSetup(
   context: TransformationContext,
@@ -24,9 +29,9 @@ export function createClassSetup(
   className: tstl.Identifier,
   localClassName: tstl.Identifier
 ) {
-  const result: tstl.Statement[] = [];
+  const result: Array<tstl.Statement> = [];
 
-  // class("name")(base)
+  // Class("name")(base)
   const classInitializer = createLuabindClassStatement(statement, context, localClassName);
 
   result.push(tstl.createExpressionStatement(classInitializer));
@@ -45,13 +50,13 @@ export function createClassSetup(
   }
 
   if (defaultExportLeftHandSide) {
-    // local localClassName = ____exports.default
+    // Local localClassName = ____exports.default
     result.push(tstl.createVariableDeclarationStatement(localClassName, defaultExportLeftHandSide));
   } else {
     const exportScope = getIdentifierExportScope(context, className);
 
     if (exportScope) {
-      // local localClassName = ____exports.className
+      // Local localClassName = ____exports.className
       result.push(
         tstl.createVariableDeclarationStatement(
           localClassName,
@@ -61,7 +66,7 @@ export function createClassSetup(
     }
   }
 
-  // localClassName.__name = className
+  // LocalClassName.__name = className
   result.push(
     tstl.createAssignmentStatement(
       tstl.createTableIndexExpression(
@@ -97,6 +102,10 @@ export function getReflectionClassName(
 
 /**
  * Creates class("Name")(base) expression for luabind classes.
+ *
+ * @param declaration
+ * @param context
+ * @param className
  */
 function createLuabindClassStatement(
   declaration: ClassLikeDeclarationBase,
@@ -120,6 +129,10 @@ function createLuabindClassStatement(
 
 /**
  * Creates name expression for luabind classes.
+ *
+ * @param declaration
+ * @param context
+ * @param className
  */
 function createLuabindClassGlobalClassRef(
   declaration: ClassLikeDeclarationBase,

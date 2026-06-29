@@ -49,8 +49,10 @@ declare module "xray16" {
    * Returns time in milliseconds.
    *
    * @group xr_time
-   * @returns 'ms' from game executable start.
+   *
    * @example 0, 1000, 60000
+   *
+   * @returns 'ms' from game executable start.
    */
   export function time_global(this: void): u32;
 

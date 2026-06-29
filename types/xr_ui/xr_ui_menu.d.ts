@@ -98,7 +98,7 @@ declare module "xray16" {
    */
   export interface IXR_main_menu {
     /**
-     * @returns main game menu c++ controller singleton
+     * @returns Main game menu c++ controller singleton.
      */
     get_main_menu(this: void): CMainMenu;
   }
@@ -112,17 +112,17 @@ declare module "xray16" {
     get_actor_menu(this: void): CUIActorMenu;
 
     /**
-     * enum EMenuMode
+     * Enum EMenuMode
      * {
      *     mmUndefined,
      *     mmInventory,
      *     mmTrade,
      *     mmUpgrade,
      *     mmDeadBodySearch,
-     * };
+     * }.
      */
     get_menu_mode(this: void): number;
-    // get_maingame(this: void): unknown; // CUIMainIngameWnd - not registered, throws exception
+    // Get_maingame(this: void): unknown; // CUIMainIngameWnd - not registered, throws exception
   }
 
   /**

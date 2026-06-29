@@ -86,27 +86,27 @@ declare module "xray16" {
     public FireDirDiff(): f32;
 
     /**
-     * @returns amount of fuel in vehicle instance
+     * @returns Amount of fuel in vehicle instance.
      */
     public GetfFuel(): f32;
 
     /**
-     * @returns fuel consumption rate of vehicle instance
+     * @returns Fuel consumption rate of vehicle instance.
      */
     public GetfFuelConsumption(): f32;
 
     /**
-     * @returns fuel tank size (max possible amount of fuel at time)
+     * @returns Fuel tank size (max possible amount of fuel at time).
      */
     public GetfFuelTank(): f32;
 
     /**
-     * @returns vehicle health value
+     * @returns Vehicle health value.
      */
     public GetfHealth(): f32;
 
     /**
-     * @returns whether vehicle has mounted weapon
+     * @returns Whether vehicle has mounted weapon.
      */
     public HasWeapon(): boolean;
 
@@ -125,7 +125,7 @@ declare module "xray16" {
     public SetfHealth(health: f32): void;
 
     /**
-     * @returns whether vehicle engine is active at the moment
+     * @returns Whether vehicle engine is active at the moment.
      */
     public IsActiveEngine(): boolean;
 
@@ -150,14 +150,14 @@ declare module "xray16" {
     public ReleaseHandBreak(): void;
 
     /**
-     * @returns current vehicle RPM value (speed)
+     * @returns Current vehicle RPM value (speed).
      */
     public GetRPM(): f32;
 
     /**
      * Set current vehicle RPM value (speed).
      *
-     * @param rpm - RPM value to apply
+     * @param rpm - RPM value to apply.
      */
     public SetRPM(rpm: f32): void;
 
@@ -228,9 +228,9 @@ declare module "xray16" {
 
     public GetfHealth(): f32;
 
-    public GetMovementState(): i32; /* enum ? */
+    public GetMovementState(): i32; /* Enum ? */
 
-    public GetBodyState(): i32; /* enum ? */
+    public GetBodyState(): i32; /* Enum ? */
 
     public GetCurrVelocityVec(): vector;
 
@@ -238,7 +238,7 @@ declare module "xray16" {
 
     public GetDistanceToDestPosition(): f32;
 
-    public GetHuntState(): i32; /* enum ? */
+    public GetHuntState(): i32; /* Enum ? */
 
     public SetSpeedInDestPoint(value: f32): unknown;
 

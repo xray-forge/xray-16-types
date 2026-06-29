@@ -124,7 +124,7 @@ declare module "xray16" {
     public mad(vector: Readonly<vector>, val: f32): vector;
 
     /**
-     * @returns 3d vector magnitude value `sqrt(x*x + y*y + z*z)`
+     * @returns 3d vector magnitude value `sqrt(x*x + y*y + z*z)`.
      */
     public magnitude(): f32;
 

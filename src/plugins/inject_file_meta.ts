@@ -1,7 +1,7 @@
 import * as path from "path";
 
 import { SyntaxKind } from "typescript";
-import { createStringLiteral, Plugin } from "typescript-to-lua";
+import { createStringLiteral, type Plugin } from "typescript-to-lua";
 
 const FILENAME_IDENTIFIER: string = "$filename";
 const DIRNAME_IDENTIFIER: string = "$dirname";

@@ -1,15 +1,16 @@
 import {
-  CallExpression,
+  type CallExpression,
   factory,
-  Identifier,
-  PropertyAccessExpression,
+  type Identifier,
+  type PropertyAccessExpression,
   SyntaxKind,
-  Type,
-  TypeChecker,
-  VariableDeclaration,
-  VariableDeclarationList,
+  type Type,
+  type TypeChecker,
+  type VariableDeclaration,
+  type VariableDeclarationList,
 } from "typescript";
-import { Plugin } from "typescript-to-lua";
+import { type Plugin } from "typescript-to-lua";
+
 import { isLuaLoggerEnabled } from "./utils/environment";
 
 const LUA_LOGGER_STRIP_TARGET: string = "LuaLogger";
@@ -30,7 +31,7 @@ const plugin: Plugin = {
           const typeSymbol: Type = checker.getTypeAtLocation(it);
 
           if (typeSymbol.symbol?.name === LUA_LOGGER_STRIP_TARGET) {
-            // nothing
+            // Nothing
           } else {
             nodes.push(it);
           }

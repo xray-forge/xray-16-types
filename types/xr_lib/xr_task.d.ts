@@ -21,7 +21,7 @@ declare module "xray16" {
   export type TXR_TaskStateName = EnumeratedStaticsKeys<typeof task>;
 
   /**
-   * ETaskState
+   * ETaskState.
    *
    * @group xr_task
    */
@@ -74,12 +74,12 @@ declare module "xray16" {
     public set_map_hint(hint: string): void;
 
     /**
-     * @returns target map location of task object
+     * @returns Target map location of task object.
      */
     public get_map_location(): string;
 
     /**
-     * @returns target map object ID of task object
+     * @returns Target map object ID of task object.
      */
     public get_map_object_id(): u16;
 

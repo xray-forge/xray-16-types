@@ -1,5 +1,3 @@
-import { vector2 } from "xray16";
-
 declare module "xray16" {
   /**
    * @source C++ class CUIWindow

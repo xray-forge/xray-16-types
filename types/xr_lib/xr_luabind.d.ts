@@ -30,7 +30,8 @@ declare module "xray16" {
    * but allows extension of engine exported classes and virtual methods.
    *
    * @group xr_luabind
-   * @returns class decorator to mark class as luabind implementation
+   *
+   * @returns Class decorator to mark class as luabind implementation.
    */
   export function LuabindClass(): ClassDecorator;
 
@@ -49,11 +50,15 @@ declare module "xray16" {
 
   /**
    * @group xr_luabind
+   *
+   * @param lua_state
    */
-  export function class_names(this: void, lua_state: unknown /* lua_State*/): LuaTable<number, string>;
+  export function class_names(this: void, lua_state: unknown /* Lua_State*/): LuaTable<number, string>;
 
   /**
    * @group xr_luabind
+   *
+   * @param target
    */
   export function class_info(this: void, target: unknown): class_info_data;
 }

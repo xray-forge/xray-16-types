@@ -1,5 +1,5 @@
-import { AccessorDeclaration, getDecorators, MethodDeclaration, PropertyDeclaration } from "typescript";
-import { TransformationContext } from "typescript-to-lua";
+import { type AccessorDeclaration, getDecorators, type MethodDeclaration, type PropertyDeclaration } from "typescript";
+import { type TransformationContext } from "typescript-to-lua";
 import * as lua from "typescript-to-lua";
 import { transformFunctionToExpression } from "typescript-to-lua/dist/transformation/visitors/function";
 import { transformPropertyName } from "typescript-to-lua/dist/transformation/visitors/literal";
@@ -52,6 +52,9 @@ export function transformMethodDeclaration(
 
 /**
  * Verify that method statement is not using decorators for methods/parameters.
+ *
+ * @param context
+ * @param node
  */
 export function verifyMethodDecoratingExpression(context: TransformationContext, node: MethodDeclaration): void {
   node.parameters.flatMap((parameter, index) => {

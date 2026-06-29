@@ -116,7 +116,7 @@ declare module "xray16" {
     public active_item(): game_object | null;
 
     /**
-     * @returns active item slot of game object
+     * @returns Active item slot of game object.
      */
     public active_slot<T extends u32>(): T;
 
@@ -157,7 +157,7 @@ declare module "xray16" {
      * As result, when console command `ai_dbg_stalker on` is toggled, GOAP state of planner is displayed.
      * Requires `mixed` build engine.
      *
-     * @param planner - action planner to show in stalker stats when debugging is enabled
+     * @param planner - Action planner to show in stalker stats when debugging is enabled.
      */
     public debug_planner(planner: action_planner): void;
 
@@ -172,7 +172,7 @@ declare module "xray16" {
     /**
      * Drop item from inventory.
      *
-     * @param item - game object to drop
+     * @param item - Game object to drop.
      */
     public drop_item(item: game_object): void;
 
@@ -195,7 +195,7 @@ declare module "xray16" {
     public get_physics_object(): CPhysicObject;
 
     /**
-     * @returns whether object is controlled by lua script
+     * @returns Whether object is controlled by lua script.
      */
     public get_script(): boolean;
 
@@ -236,7 +236,7 @@ declare module "xray16" {
 
     public memory_visible_objects(): LuaIterable<visible_memory_object>;
 
-    public mental_state<T extends number>(): T; // todo: unknown enum
+    public mental_state<T extends number>(): T; // Todo: unknown enum
 
     public not_yet_visible_objects(): unknown;
 
@@ -297,7 +297,7 @@ declare module "xray16" {
     public sound_voice_prefix(): string;
 
     /**
-     * @returns game object squad id
+     * @returns Game object squad id.
      */
     public squad(): i32;
 
@@ -388,7 +388,7 @@ declare module "xray16" {
     /**
      * Switch client level changed enabled state.
      *
-     * @param is_enabled - whether level changer should be enabled
+     * @param is_enabled - Whether level changer should be enabled.
      */
     public enable_level_changer(is_enabled: boolean): void;
 
@@ -425,7 +425,7 @@ declare module "xray16" {
     public get_movement_speed(): vector;
 
     /**
-     * @returns name of lua script controlling monster object
+     * @returns Name of lua script controlling monster object.
      */
     public get_script_name(): string;
 
@@ -483,7 +483,7 @@ declare module "xray16" {
 
     public motivation_action_manager(): action_planner;
 
-    public movement_type(): number; // todo: unknown enum
+    public movement_type(): number; // Todo: unknown enum
 
     public patrol(): string | null;
 
@@ -541,11 +541,11 @@ declare module "xray16" {
 
     public set_dest_level_vertex_id(vertex_id: u32): void;
 
-    public set_detail_path_type(EDetailPathType: unknown /** enum DetailPathManager::EDetailPathType */): void;
+    public set_detail_path_type(EDetailPathType: unknown /** Enum DetailPathManager::EDetailPathType */): void;
 
     public set_invisible(is_invisible: boolean): void;
 
-    public set_movement_selection_type(type: unknown /** enum ESelectionType */): void;
+    public set_movement_selection_type(type: unknown /** Enum ESelectionType */): void;
 
     public set_patrol_path(value1: string, EPatrolStartType: number, EPatrolRouteType: number, value2: boolean): void;
 
@@ -671,7 +671,7 @@ declare module "xray16" {
      * Method for inventory items to set them enabled / disabled for stalkers.
      * As result, medkit or detector can be activated by stalker.
      *
-     * @param is_enabled - whether item should be enabled for usage by owning object
+     * @param is_enabled - Whether item should be enabled for usage by owning object.
      */
     public enable_attachable_item(is_enabled: boolean): void;
 
@@ -692,10 +692,10 @@ declare module "xray16" {
 
     /**
      * Return formula: `personal_goodwill + reputation_goodwill + rank_goodwill +
-     *  community_goodwill + community_to_community`
+     *  community_goodwill + community_to_community`.
      *
-     * @param target - target client object
-     * @returns goodwill level from object to target
+     * @param target - Target client object.
+     * @returns Goodwill level from object to target.
      */
     public general_goodwill(target: game_object): i32;
 
@@ -728,10 +728,10 @@ declare module "xray16" {
     /**
      * Show talk dialog message with icon.
      *
-     * @param title - title of the message
-     * @param text - text of the message
-     * @param icon_texture_name - icon to display in message image
-     * @param selector - path in form XML to message template
+     * @param title - Title of the message.
+     * @param text - Text of the message.
+     * @param icon_texture_name - Icon to display in message image.
+     * @param selector - Path in form XML to message template.
      */
     public give_talk_message2(title: string, text: string, icon_texture_name: string, selector: string): void;
 
@@ -749,8 +749,8 @@ declare module "xray16" {
      * Returns level of goodwill stored for an object.
      * No strict formulas, just get actual value.
      *
-     * @param target - target client object
-     * @returns goodwill level to target object
+     * @param target - Target client object.
+     * @returns Goodwill level to target object.
      */
     public goodwill(target: game_object): i32;
 
@@ -789,7 +789,7 @@ declare module "xray16" {
     public is_inv_upgrade_enabled(): boolean;
 
     /**
-     * @returns whether object is currently talking with actor and talk dialog is active
+     * @returns Whether object is currently talking with actor and talk dialog is active.
      */
     public is_talking(): boolean;
 
@@ -868,7 +868,7 @@ declare module "xray16" {
     /**
      * Set level changer invitation hint text.
      *
-     * @param hint - text to show when trying to change level
+     * @param hint - Text to show when trying to change level.
      */
     public set_level_changer_invitation(hint: string): void;
 
@@ -888,7 +888,7 @@ declare module "xray16" {
      * Set tip text when actor is near and hovering aim over target.
      * As example, `talk`, `loot` and other kind of labels is possible when using this method.
      *
-     * @param text - text to set as tip
+     * @param text - Text to set as tip.
      */
     public set_tip_text(text: string): void;
 
@@ -911,51 +911,51 @@ declare module "xray16" {
     // For weapons / outfits:
 
     /**
-     * @param upgrade_section - section of upgrade to check
-     * @returns whether upgrade can be added
+     * @param upgrade_section - Section of upgrade to check.
+     * @returns Whether upgrade can be added.
      */
     public can_add_upgrade(upgrade_section: string): boolean;
 
     /**
-     * @param upgrade_section - section of upgrade to check
-     * @returns whether upgrade can be installed
+     * @param upgrade_section - Section of upgrade to check.
+     * @returns Whether upgrade can be installed.
      */
     public can_install_upgrade(upgrade_section: string): boolean;
 
     /**
-     * @param upgrade_section - section of upgrade to check
-     * @returns whether upgrade is installed
+     * @param upgrade_section - Section of upgrade to check.
+     * @returns Whether upgrade is installed.
      */
     public has_upgrade(upgrade_section: string): boolean;
 
     /**
-     * @param upgrade_group_section - section of upgrade group to check
-     * @returns whether upgrade group is installed
+     * @param upgrade_group_section - Section of upgrade group to check.
+     * @returns Whether upgrade group is installed.
      */
     public has_upgrade_group(upgrade_group_section: string): boolean;
 
     /**
-     * @param upgrade_section - section of upgrade to check parent group
-     * @returns whether upgrade parent group is installed
+     * @param upgrade_section - Section of upgrade to check parent group.
+     * @returns Whether upgrade parent group is installed.
      */
     public has_upgrade_group_by_upgrade_id(upgrade_section: string): boolean;
 
     /**
-     * @param upgrade_section - section of upgrade to add
-     * @returns whether upgrade is installed successfully or not
+     * @param upgrade_section - Section of upgrade to add.
+     * @returns Whether upgrade is installed successfully or not.
      */
     public add_upgrade(upgrade_section: string): boolean;
 
     /**
-     * @param upgrade_section - section of upgrade to install
-     * @returns whether upgrade is installed successfully or not
+     * @param upgrade_section - Section of upgrade to install.
+     * @returns Whether upgrade is installed successfully or not.
      */
     public install_upgrade(upgrade_section: string): boolean;
 
     /**
      * Iterate over all item upgrades.
      *
-     * @param callback - callback to call on each iteration to check installed upgrades
+     * @param callback - Callback to call on each iteration to check installed upgrades.
      */
     public iterate_installed_upgrades(callback: (upgrade_section: string, object: game_object) => void): void;
 
@@ -984,12 +984,12 @@ declare module "xray16" {
     /**
      * Display in-game UI notification.
      *
-     * @param title - notification title
-     * @param text - notification text
-     * @param icon_texture - notification icon texture
-     * @param delay - delay before show notification
-     * @param show_time - time to show notification before hiding it
-     * @param type - type of the notification (eNews = 0, eTalk = 1)
+     * @param title - Notification title.
+     * @param text - Notification text.
+     * @param icon_texture - Notification icon texture.
+     * @param delay - Delay before show notification.
+     * @param show_time - Time to show notification before hiding it.
+     * @param type - Type of the notification (eNews = 0, eTalk = 1).
      */
     public give_game_news(
       title: string,
@@ -1001,14 +1001,14 @@ declare module "xray16" {
     ): void;
 
     /**
-     * @param position - target position to check
-     * @returns if target position is accessible by the object
+     * @param position - Target position to check.
+     * @returns If target position is accessible by the object.
      */
     public accessible(position: vector): boolean;
 
     /**
-     * @param vertexId - target vertex ID to check
-     * @returns if target vertex is accessible by the object
+     * @param vertexId - Target vertex ID to check.
+     * @returns If target vertex is accessible by the object.
      */
     public accessible(vertexId: u32): boolean;
 
@@ -1049,7 +1049,7 @@ declare module "xray16" {
     public add_combat_sound(
       value1: string,
       value2: number,
-      type: i32 /** enum ESoundTypes */,
+      type: i32 /** Enum ESoundTypes */,
       value3: u32,
       value4: u32,
       value5: u32,
@@ -1061,8 +1061,8 @@ declare module "xray16" {
      * Add action for game object entity.
      * Depending on priority pushes it to back or front of actions list.
      *
-     * @param entity_action - action to perform
-     * @param is_high_priority - whether it is high priority action
+     * @param entity_action - Action to perform.
+     * @param is_high_priority - Whether it is high priority action.
      */
 
     public command(entity_action: entity_action, is_high_priority: boolean): void;
@@ -1080,8 +1080,8 @@ declare module "xray16" {
      * Runs supplied callback for each item in inventory of the object.
      * If callback returns `true`, the cycle breaks.
      *
-     * @param cb - callback to run for each item
-     * @param object - target object to run callback for (actually unused by the engine)
+     * @param cb - Callback to run for each item.
+     * @param object - Target object to run callback for (actually unused by the engine).
      */
     public iterate_inventory(
       cb: (this: void, owner: game_object, item: game_object) => void | boolean,
@@ -1095,14 +1095,14 @@ declare module "xray16" {
     public set_condition(condition: f32): void;
 
     /**
-     * @returns [vertex_id, vector] tuple of accessible position id and vector
+     * @returns [vertex_id, vector] tuple of accessible position id and vector.
      */
     public accessible_nearest(vertex_position: vector, vector2: vector): LuaMultiReturn<[u32, vector]>;
 
     public action_by_index(value: u32): entity_action | null;
 
     /**
-     * @returns whether game object is alive
+     * @returns Whether game object is alive.
      */
     public alive(): boolean;
 
@@ -1111,7 +1111,7 @@ declare module "xray16" {
     public can_script_capture(): boolean;
 
     /**
-     * @returns object community like `monolith`, `stalker` or `zombied`
+     * @returns Object community like `monolith`, `stalker` or `zombied`.
      */
     public character_community<T extends string = string>(): T;
 
@@ -1216,7 +1216,7 @@ declare module "xray16" {
     /**
      * Set remaining item uses count.
      *
-     * @param remaining - count of remaining uses for item before destroy
+     * @param remaining - Count of remaining uses for item before destroy.
      */
     public set_remaining_uses(remaining: u8): void;
 
@@ -1389,7 +1389,7 @@ declare module "xray16" {
   }
 
   /*
-   * vector<MemorySpace::CNotYetVisibleObject,xalloc<MemorySpace::CNotYetVisibleObject> > not_yet_visible_objects();
+   * Vector<MemorySpace::CNotYetVisibleObject,xalloc<MemorySpace::CNotYetVisibleObject> > not_yet_visible_objects();
    * vector<MemorySpace::CSoundObject,xalloc<MemorySpace::CSoundObject>> memory_sound_objects();
    * enum DetailPathManager::EDetailPathType detail_path_type();
    * enum ETaskState get_task_state(char const*);

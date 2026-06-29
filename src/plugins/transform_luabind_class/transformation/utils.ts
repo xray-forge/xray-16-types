@@ -1,20 +1,22 @@
 import {
-  ClassLikeDeclaration,
-  ClassLikeDeclarationBase,
-  Expression,
-  ExpressionWithTypeArguments,
+  type ClassLikeDeclaration,
+  type ClassLikeDeclarationBase,
+  type Expression,
+  type ExpressionWithTypeArguments,
   getDecorators,
-  HasModifiers,
-  HeritageClause,
+  type HasModifiers,
+  type HeritageClause,
   SyntaxKind,
-  Type,
+  type Type,
 } from "typescript";
-import { TransformationContext } from "typescript-to-lua";
+import { type TransformationContext } from "typescript-to-lua";
 
 import { LUABIND_DECORATOR, LUABIND_SYMBOL } from "./constants";
 
 /**
  * Whether method / field is static.
+ *
+ * @param node
  */
 export function isStaticNode(node: HasModifiers): boolean {
   return node.modifiers?.some((m) => m.kind === SyntaxKind.StaticKeyword) === true;
@@ -22,6 +24,8 @@ export function isStaticNode(node: HasModifiers): boolean {
 
 /**
  * Get class extends node.
+ *
+ * @param node
  */
 export function getExtendsClause(node: ClassLikeDeclarationBase): HeritageClause | undefined {
   return node.heritageClauses?.find((clause) => clause.token === SyntaxKind.ExtendsKeyword);
@@ -29,6 +33,8 @@ export function getExtendsClause(node: ClassLikeDeclarationBase): HeritageClause
 
 /**
  * Get class extended node.
+ *
+ * @param node
  */
 export function getExtendedNode(node: ClassLikeDeclarationBase): ExpressionWithTypeArguments | undefined {
   const extendsClause = getExtendsClause(node);
@@ -40,6 +46,9 @@ export function getExtendedNode(node: ClassLikeDeclarationBase): ExpressionWithT
 
 /**
  * Get class extended node.
+ *
+ * @param context
+ * @param node
  */
 export function getExtendedType(context: TransformationContext, node: ClassLikeDeclarationBase): Type | undefined {
   const extendedNode = getExtendedNode(node);
@@ -49,6 +58,8 @@ export function getExtendedType(context: TransformationContext, node: ClassLikeD
 
 /**
  * Check if class is decorated with provided decorator name.
+ *
+ * @param declaration
  */
 export function isLuabindDecoratedClass(declaration: ClassLikeDeclaration): boolean {
   const decorators = getDecorators(declaration);
@@ -62,6 +73,9 @@ export function isLuabindDecoratedClass(declaration: ClassLikeDeclaration): bool
 
 /**
  * Mark provided class as Luabind target.
+ *
+ * @param declaration
+ * @param context
  */
 export function markTypeAsLuabind(declaration: ClassLikeDeclaration, context: TransformationContext): void {
   const typeAtLocation = context.checker.getTypeAtLocation(declaration);
@@ -72,6 +86,9 @@ export function markTypeAsLuabind(declaration: ClassLikeDeclaration, context: Tr
 
 /**
  * Check if provided class is specified as LuaBind.
+ *
+ * @param declaration
+ * @param context
  */
 export function isLuabindClassType(
   declaration: Expression | ClassLikeDeclaration,

@@ -23,7 +23,7 @@ declare module "xray16" {
     /**
      * Overridden string cast is implemented for profiling timer.
      *
-     * @returns serialized profile time.
+     * @returns Serialized profile time.
      */
     public toString(): string;
   }
@@ -34,12 +34,12 @@ declare module "xray16" {
    */
   export interface IXR_profiler {
     /**
-     * @returns whether lua scripts profiler is active
+     * @returns Whether lua scripts profiler is active.
      */
     is_active(this: void): boolean;
 
     /**
-     * @returns currently active profiler type
+     * @returns Currently active profiler type.
      */
     get_type(this: void): typeof PROFILER_TYPE_NONE | typeof PROFILER_TYPE_HOOK | typeof PROFILER_TYPE_SAMPLING;
 
@@ -51,7 +51,7 @@ declare module "xray16" {
     /**
      * Start lua scripts profiler of provided type.
      *
-     * @param profiler_type - type of profiler to start (note: see global exports of type constants)
+     * @param profiler_type - Type of profiler to start (note: see global exports of type constants).
      */
     start(this: void, profiler_type: TXR_ProfilerType): void;
 
@@ -69,7 +69,7 @@ declare module "xray16" {
     /**
      * Start profiler in sampling mode with provided sampling interval value.
      *
-     * @param sampling_interval - interval to collect samples with luaJIT sampling profiler
+     * @param sampling_interval - Interval to collect samples with luaJIT sampling profiler.
      */
     start_sampling_mode(this: void, sampling_interval: u32): void;
 
@@ -92,7 +92,7 @@ declare module "xray16" {
     /**
      * Log report of profiler measurements in game console/log file.
      *
-     * @param entries_limit - limit of top profiling entries to print
+     * @param entries_limit - Limit of top profiling entries to print.
      */
     log_report(this: void, entries_limit: u32): void;
 
@@ -120,7 +120,7 @@ declare module "xray16" {
     /**
      * Begin tracy profiling zone with defined name.
      *
-     * @param name - name to display in tracy logs for current zone
+     * @param name - Name to display in tracy logs for current zone.
      */
     ZoneBeginN(this: void, name: string): void;
 
@@ -136,14 +136,14 @@ declare module "xray16" {
     /**
      * Set zone text.
      *
-     * @param text - text description of the zone
+     * @param text - Text description of the zone.
      */
     ZoneText(this: void, text: string): void;
 
     /**
      * Set zone name on per-call basis.
      *
-     * @param name - name of zone
+     * @param name - Name of zone.
      */
     ZoneName(this: void, name: string): void;
 

@@ -18,6 +18,8 @@ declare global {
    * Just wrapper that is stripped compile time, but simplifies unit testing with TS.
    *
    * @group xrf_plugin
+   *
+   * @param array
    */
   function $fromArray<T>(array: Array<T>): LuaTable<number, T>;
 
@@ -26,6 +28,8 @@ declare global {
    * Just wrapper that is stripped compile time, but simplifies unit testing with TS.
    *
    * @group xrf_plugin
+   *
+   * @param array
    */
   function $fromLuaArray<T>(array: LuaTable<number, T>): Array<T>;
 
@@ -34,6 +38,8 @@ declare global {
    * Just wrapper that is stripped compile time, but simplifies unit testing with TS.
    *
    * @group xrf_plugin
+   *
+   * @param object
    */
   function $fromObject<K extends string | number, T>(object: Record<K, T>): LuaTable<K, T>;
   function $fromObject<D>(object: D): LuaTable<keyof D, D[keyof D]>;
@@ -43,6 +49,8 @@ declare global {
    * Just wrapper that is stripped compile time, but simplifies unit testing with TS.
    *
    * @group xrf_plugin
+   *
+   * @param object
    */
   function $fromLuaTable<K extends string | number, T>(object: LuaTable<K, T>): Record<K, T>;
   function $fromLuaTable<D>(object: LuaTable<keyof D, D[keyof D]>): D;

@@ -15,34 +15,38 @@ declare module "xray16" {
      * Create ini file representation based on file name.
      * Full path is limited to 520 chars.
      *
-     * @param path - file name and relative path to gamedata configs folder
+     * @param path - File name and relative path to gamedata configs folder.
      */
     public constructor(path: string);
     /**
      * Create ini file representation based on file name.
      * Full path is limited to 520 chars.
      *
-     * @param initial - base to count relative path from, `$game_data$` is an example
-     * @param path - file name and relative path from initial entrypoint
+     * @param initial - Base to count relative path from, `$game_data/**
+     * Create ini file representation based on file name.
+     * Full path is limited to 520 chars.
+     *
+     * @param initial -  is an example.
+     * @param path - File name and relative path from initial entrypoint.
      */
     public constructor(initial: string, path: string);
 
     /**
-     * @param section - target section to check lines count
-     * @returns count of lines for provided section
+     * @param section - Target section to check lines count.
+     * @returns Count of lines for provided section.
      */
     public line_count(section: string): u32;
 
     /**
-     * @returns sections count for ini file
+     * @returns Sections count for ini file.
      */
     public section_count(): u32;
 
     /**
      * Remove ini file section field.
      *
-     * @param section - target section to modify
-     * @param field - target section field to remove
+     * @param section - Target section to modify.
+     * @param field - Target section field to remove.
      */
     public remove_line(section: string, field: string): void;
 
@@ -59,7 +63,7 @@ declare module "xray16" {
     /**
      * Read text line from ini config file.
      *
-     * @returns tuple with three elements, where first is success status, second is key, third is value.
+     * @returns Tuple with three elements, where first is success status, second is key, third is value.
      */
     public r_line<T extends string = string, P extends string = string>(
       section: string,
@@ -77,25 +81,25 @@ declare module "xray16" {
     public r_string_wq(section: string, field: string): string;
 
     /**
-     * @param section - ini file section
-     * @param field - ini section field
-     * @returns if quoted, parsed string data inside quotes including spaces, else is same data as with r_string
+     * @param section - Ini file section.
+     * @param field - Ini section field.
+     * @returns If quoted, parsed string data inside quotes including spaces, else is same data as with r_string.
      */
     public r_string_wb(section: string, field: string): string;
 
     /**
-     * @param section - ini file section
-     * @param field - ini section field
-     * @returns raw string from ltx file without spaces in it
+     * @param section - Ini file section.
+     * @param field - Ini section field.
+     * @returns Raw string from ltx file without spaces in it.
      */
     public r_string(section: string, field: string): string;
 
     /**
      * Check if line exists in the file by section and field.
      *
-     * @param section - target section to check
-     * @param field - section field to check
-     * @returns whether line exists
+     * @param section - Target section to check.
+     * @param field - Section field to check.
+     * @returns Whether line exists.
      */
     public line_exist(section: string | null, field: string): boolean;
 
@@ -103,7 +107,7 @@ declare module "xray16" {
 
     public w_fvector3(section: string, field: string, vector: vector, comment?: string): void;
 
-    public w_fvector4(section: string, field: string, vector: never, comment?: string): void; // struct _vector4<float>
+    public w_fvector4(section: string, field: string, vector: never, comment?: string): void; // Struct _vector4<float>
 
     public w_fcolor(section: string, field: string, color: fcolor, comment?: string): void;
 
@@ -136,7 +140,7 @@ declare module "xray16" {
      *
      * @example `f:\applications\steam\steamapps\common\stalker call of pripyat\gamedata\configs\misc\task_manager.ltx`
      *
-     * @returns full path to ini file
+     * @returns Full path to ini file.
      */
     public fname(): string;
 
@@ -149,7 +153,7 @@ declare module "xray16" {
     /**
      * Adjust saving on file closing/destructor calls.
      *
-     * @param should_save - whether ini file should be saved when destructor is called
+     * @param should_save - Whether ini file should be saved when destructor is called.
      */
     public save_at_end(should_save: boolean): void;
 
@@ -157,7 +161,7 @@ declare module "xray16" {
      * Iterate over ini file sections.
      * Calls provided callback for each ini section in file.
      *
-     * @param cb - callback to call on each ini file section, where name is section name
+     * @param cb - Callback to call on each ini file section, where name is section name.
      */
     public section_for_each(cb: (this: void, name: string) => void): void;
   }
@@ -166,8 +170,9 @@ declare module "xray16" {
    * Create ini file instance based on provided string content.
    *
    * @group xr_ini
-   * @param content - string value to be read as ini file
-   * @returns new ini file instance based on provided content
+   *
+   * @param content - String value to be read as ini file.
+   * @returns New ini file instance based on provided content.
    */
   export function create_ini_file(this: void, content: string): ini_file;
 

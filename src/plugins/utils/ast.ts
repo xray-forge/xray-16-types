@@ -1,4 +1,4 @@
-import { Identifier, StringLiteral } from "typescript";
+import { type Identifier, type StringLiteral } from "typescript";
 
 export function getIdentifierText(node: Identifier | StringLiteral): string {
   const text: string = node.getText();

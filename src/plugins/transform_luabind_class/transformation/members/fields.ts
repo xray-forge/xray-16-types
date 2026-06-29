@@ -1,5 +1,5 @@
-import { AccessorDeclaration, canHaveDecorators, getDecorators, PropertyDeclaration } from "typescript";
-import { TransformationContext } from "typescript-to-lua";
+import { type AccessorDeclaration, canHaveDecorators, getDecorators, type PropertyDeclaration } from "typescript";
+import { type TransformationContext } from "typescript-to-lua";
 import * as tstl from "typescript-to-lua";
 import { createSelfIdentifier } from "typescript-to-lua/dist/transformation/utils/lua-ast";
 import { transformInPrecedingStatementScope } from "typescript-to-lua/dist/transformation/utils/preceding-statements";
@@ -9,6 +9,9 @@ import { unsupportedPropertyDecorator } from "../errors";
 
 /**
  * Verify whether decorators provided for luabind class.
+ *
+ * @param context
+ * @param node
  */
 export function verifyPropertyDecoratingExpression(
   context: TransformationContext,
@@ -38,10 +41,10 @@ export function transformClassInstanceFields(
 
       const value = f.initializer ? context.transformExpression(f.initializer) : undefined;
 
-      // self[fieldName]
+      // Self[fieldName]
       const selfIndex = tstl.createTableIndexExpression(createSelfIdentifier(), fieldName);
 
-      // self[fieldName] = value
+      // Self[fieldName] = value
       const assignClassField = tstl.createAssignmentStatement(selfIndex, value, f);
 
       return assignClassField;

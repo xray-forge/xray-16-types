@@ -30,12 +30,12 @@ declare module "xray16" {
     public volume: f32;
 
     /**
-     * @param sound_path - file path
+     * @param sound_path - File path.
      */
     public constructor(sound_path: string);
     /**
-     * @param sound_path - file path
-     * @param type - default 'no_sound' (0)
+     * @param sound_path - File path.
+     * @param type - Default 'no_sound' (0).
      */
     public constructor(sound_path: string, type: TXR_snd_type);
 

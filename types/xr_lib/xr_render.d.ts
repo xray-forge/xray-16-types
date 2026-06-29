@@ -24,19 +24,20 @@ declare module "xray16" {
      * Get current game timestamp.
      *
      * @example `29319`,`46297`
-     * @returns milliseconds from game start
+     *
+     * @returns Milliseconds from game start.
      */
     public time_global(): u32;
 
     /**
-     * @returns whether game is paused
+     * @returns Whether game is paused.
      */
     public is_paused(): boolean;
 
     /**
      * Change game pause state.
      *
-     * @param paused - whether game should be paused
+     * @param paused - Whether game should be paused.
      */
     public pause(paused: boolean): void;
   }
@@ -63,7 +64,8 @@ declare module "xray16" {
 
   /**
    * @group xr_global_declaration
-   * @returns whether renderer setting can be changed
+   *
+   * @returns Whether renderer setting can be changed.
    */
   export function renderer_allow_override(this: void): boolean;
 }

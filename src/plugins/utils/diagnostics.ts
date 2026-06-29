@@ -1,12 +1,15 @@
-import { DiagnosticCategory, getOriginalNode, Node } from "typescript";
+import { DiagnosticCategory, getOriginalNode, type Node } from "typescript";
 import { createSerialDiagnosticFactory } from "typescript-to-lua/dist/utils";
 
-type MessageProvider<TArgs extends any[]> = string | ((...args: TArgs) => string);
+type MessageProvider<TArgs extends Array<any>> = string | ((...args: TArgs) => string);
 
 /**
  * Create diagnostics factory to push errors when transpile lua to typescript.
+ *
+ * @param category
+ * @param message
  */
-export function createDiagnosticFactory<TArgs extends any[]>(
+export function createDiagnosticFactory<TArgs extends Array<any>>(
   category: DiagnosticCategory,
   message: MessageProvider<TArgs>
 ) {
@@ -19,6 +22,6 @@ export function createDiagnosticFactory<TArgs extends any[]>(
   }));
 }
 
-export function createErrorDiagnosticFactory<TArgs extends any[]>(message: MessageProvider<TArgs>) {
+export function createErrorDiagnosticFactory<TArgs extends Array<any>>(message: MessageProvider<TArgs>) {
   return createDiagnosticFactory(DiagnosticCategory.Error, message);
 }

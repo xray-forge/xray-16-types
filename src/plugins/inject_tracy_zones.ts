@@ -1,6 +1,7 @@
 import * as path from "path";
+
 import {
-  Expression,
+  type Expression,
   factory,
   isArrowFunction,
   isCallExpression,
@@ -10,17 +11,18 @@ import {
   isStringLiteral,
   SyntaxKind,
 } from "typescript";
-import { Plugin } from "typescript-to-lua";
+import { type Plugin } from "typescript-to-lua";
+import { transformSourceFileNode } from "typescript-to-lua/dist/transformation/visitors/sourceFile";
 
+import { getIdentifierText } from "./utils/ast";
+import { isTracyZonesInjectionEnabled } from "./utils/environment";
 import {
   createTraceZoneBeginNExpression,
   createTraceZoneEndExpression,
   transformArrowFunctionWithInjectedZones,
   transformWithInjectedZones,
 } from "./utils/tracy";
-import { getIdentifierText } from "./utils/ast";
-import { isTracyZonesInjectionEnabled } from "./utils/environment";
-import { transformSourceFileNode } from "typescript-to-lua/dist/transformation/visitors/sourceFile";
+
 
 /**
  * Plugin that injects FILE_NAME in compile-time.

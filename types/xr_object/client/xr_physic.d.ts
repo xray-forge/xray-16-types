@@ -163,7 +163,7 @@ declare module "xray16" {
 
     public gravity(): f32;
 
-    public add_call(/* class CPHCondition*, class CPHAction */): void;
+    public add_call(/* Class CPHCondition*, class CPHAction */): void;
   }
 
   /**
@@ -200,14 +200,14 @@ declare module "xray16" {
     /**
      * Set holder object enter state.
      *
-     * @param is_enabled - whether holder object can be entered
+     * @param is_enabled - Whether holder object can be entered.
      */
     public SetEnterLocked(is_enabled: boolean): void;
 
     /**
      * Set holder object exist state.
      *
-     * @param is_enabled - whether holder object can be exited
+     * @param is_enabled - Whether holder object can be exited.
      */
     public SetExitLocked(is_enabled: boolean): void;
   }

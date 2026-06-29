@@ -35,6 +35,11 @@ declare module "xray16" {
 
   /**
    * @group xr_color
+   *
+   * @param a
+   * @param r
+   * @param g
+   * @param b
    */
   export function GetARGB(this: void, a: u16, r: u16, g: u16, b: u16): i32;
 }

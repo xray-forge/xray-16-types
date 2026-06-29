@@ -1,8 +1,8 @@
 import {
   canHaveDecorators,
-  ClassLikeDeclaration,
-  ConstructorDeclaration,
-  ExpressionWithTypeArguments,
+  type ClassLikeDeclaration,
+  type ConstructorDeclaration,
+  type ExpressionWithTypeArguments,
   factory,
   getDecorators,
   isAccessor,
@@ -11,7 +11,7 @@ import {
   isPropertyDeclaration, isSetAccessor,
 } from "typescript";
 import * as tstl from "typescript-to-lua";
-import { AllAccessorDeclarations, LuaTarget, TransformationContext } from "typescript-to-lua";
+import { type AllAccessorDeclarations, LuaTarget, type TransformationContext } from "typescript-to-lua";
 import {
   createDefaultExportExpression,
   createExportedIdentifier,
@@ -77,7 +77,7 @@ export function transformClassLikeDeclaration(
   classDeclaration: ClassLikeDeclaration,
   context: ITransformationContext,
   nameOverride?: tstl.Identifier
-): { statements: tstl.Statement[]; name: tstl.Identifier } {
+): { statements: Array<tstl.Statement>; name: tstl.Identifier } {
   let className: tstl.Identifier;
 
   if (nameOverride !== undefined) {
@@ -102,7 +102,7 @@ export function transformClassLikeDeclaration(
   // Divide properties into static and non-static
   const instanceFields = properties.filter((prop) => !isStaticNode(prop));
 
-  const result: tstl.Statement[] = [];
+  const result: Array<tstl.Statement> = [];
 
   let localClassName: tstl.Identifier;
 
@@ -197,7 +197,7 @@ export function transformClassLikeDeclaration(
     }
   }
 
-  const decorationStatements: tstl.Statement[] = [];
+  const decorationStatements: Array<tstl.Statement> = [];
 
   for (const member of classDeclaration.members) {
     if (isAccessor(member)) {

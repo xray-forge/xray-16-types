@@ -23,9 +23,9 @@ declare module "xray16" {
     /**
      * Move time forward based on provided parameters.
      *
-     * @param days - days to move forward
-     * @param hours - hours to move forward
-     * @param minutes - minutes to move forward
+     * @param days - Days to move forward.
+     * @param hours - Hours to move forward.
+     * @param minutes - Minutes to move forward.
      */
     change_game_time(this: void, days: u32, hours: u32, minutes: u32): void;
 
@@ -44,7 +44,7 @@ declare module "xray16" {
     environment(this: void): unknown /* XR_CEnvironment */;
 
     /**
-     * @returns current game state ID.
+     * @returns Current game state ID.
      */
     game_id(this: void): TXR_EGameID;
 
@@ -73,12 +73,12 @@ declare module "xray16" {
     get_time_factor(this: void): f32;
 
     /**
-     * @returns current hours time number
+     * @returns Current hours time number.
      */
     get_time_hours(this: void): u32;
 
     /**
-     * @returns current minutes time number
+     * @returns Current minutes time number.
      */
     get_time_minutes(this: void): u32;
 
@@ -113,9 +113,9 @@ declare module "xray16" {
     /**
      * Checks if object has map spot registered with provided selector.
      *
-     * @param object_id - game object id to check map spot
-     * @param spot_type - map spot type (icon type to display for the object)
-     * @returns whether object map spot with provided selector is registered
+     * @param object_id - Game object id to check map spot.
+     * @param spot_type - Map spot type (icon type to display for the object).
+     * @returns Whether object map spot with provided selector is registered.
      */
     map_has_object_spot(this: void, object_id: u16, spot_type: string): u16;
 
@@ -124,8 +124,8 @@ declare module "xray16" {
      * Checks if map spot is registered and then removes it in such case.
      * There is no sense in checking object spot before calling removal since action will be duplicated.
      *
-     * @param object_id - game object id to check map spot
-     * @param spot_type - map spot type (icon type to display for the object)
+     * @param object_id - Game object id to check map spot.
+     * @param spot_type - Map spot type (icon type to display for the object).
      */
     map_remove_object_spot(this: void, object_id: u16, spot_type: string): void;
 
@@ -140,12 +140,12 @@ declare module "xray16" {
     prefetch_sound(this: void, str: string): void;
 
     /**
-     * @returns whether game level is loaded
+     * @returns Whether game level is loaded.
      */
     present(this: void): boolean;
 
     /**
-     * @returns intensity of rain, 0 if no rain active
+     * @returns Intensity of rain, 0 if no rain active.
      */
     rain_factor(this: void): f32;
 
@@ -169,7 +169,7 @@ declare module "xray16" {
 
     set_active_cam(this: void, id: u8): void;
 
-    set_game_difficulty(this: void, difficulty: unknown /* enum ESingleGameDifficulty */): void;
+    set_game_difficulty(this: void, difficulty: unknown /* Enum ESingleGameDifficulty */): void;
 
     set_pp_effector_factor(this: void, id: i32, f: f32, f_sp?: f32): void;
 
@@ -180,8 +180,8 @@ declare module "xray16" {
     /**
      * Change active game weather.
      *
-     * @param weather_name - name of weather config to apply (gamedata\configs\environment\weathers)
-     * @param is_forced - whether weather change should be forced
+     * @param weather_name - Name of weather config to apply (gamedata\configs\environment\weathers).
+     * @param is_forced - Whether weather change should be forced.
      */
     set_weather(this: void, weather_name: string, is_forced: boolean): void;
 

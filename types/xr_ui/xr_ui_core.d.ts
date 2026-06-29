@@ -77,11 +77,18 @@ declare module "xray16" {
 
   /**
    * @group xr_ui_core
+   *
+   * @param window
+   * @param rect
+   * @param a
+   * @param b
    */
   export function FitInRect(this: void, window: CUIWindow, rect: Frect, a: number, b: number): boolean;
 
   /**
    * @group xr_ui_core
+   *
+   * @param str
    */
   export function GetTextureRect(this: void, str: string): Frect;
 
@@ -92,6 +99,8 @@ declare module "xray16" {
 
   /**
    * @group xr_ui_core
+   *
+   * @param vector
    */
   export function SetCursorPosition(this: void, vector: vector2): void;
 }

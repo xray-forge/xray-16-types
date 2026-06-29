@@ -1,16 +1,19 @@
-import { CallExpression, Expression, factory, isIdentifier, SuperExpression, SyntaxKind } from "typescript";
+import { type CallExpression, type Expression, factory, isIdentifier, type SuperExpression, SyntaxKind } from "typescript";
 import * as tstl from "typescript-to-lua";
 import { isSymbolExported } from "typescript-to-lua/dist/transformation/utils/export";
 import { getCalledExpression, transformArguments } from "typescript-to-lua/dist/transformation/visitors/call";
 import { transformIdentifier } from "typescript-to-lua/dist/transformation/visitors/identifier";
 
-import { ITransformationContext } from "./class_declaration";
+import { type ITransformationContext } from "./class_declaration";
 import { LUABIND_CONSTRUCTOR_METHOD } from "./constants";
 import { isLuabindClassType } from "./utils";
 
 /**
  * Transform generic methods super calls.
  * Example: super.parentMethod(first, second).
+ *
+ * @param expression
+ * @param context
  */
 export function transformClassSuperMethodExpression(expression: Expression, context: ITransformationContext) {
   const superInfos = context.classSuperInfos;
@@ -44,6 +47,9 @@ export function transformClassSuperMethodExpression(expression: Expression, cont
 
 /**
  * Check if super() call is in luabind class target.
+ *
+ * @param expression
+ * @param context
  */
 export function isLuabindClassSuperCall(
   expression: CallExpression | SuperExpression,
@@ -64,6 +70,9 @@ export function isLuabindClassSuperCall(
 
 /**
  * Check if super.method() call is in luabind class target.
+ *
+ * @param expression
+ * @param context
  */
 export function isLuabindClassSuperMethodCall(
   expression: CallExpression | SuperExpression,
@@ -78,6 +87,9 @@ export function isLuabindClassSuperMethodCall(
 
 /**
  * Transform super() call in luabind classes to base_class.__init(self, param).
+ *
+ * @param expression
+ * @param context
  */
 export function transformLuabindConstructorSuperCall(expression: CallExpression, context: ITransformationContext) {
   const signature = context.checker.getResolvedSignature(expression);

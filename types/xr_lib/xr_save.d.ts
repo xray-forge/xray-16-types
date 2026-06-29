@@ -205,7 +205,7 @@ declare module "xray16" {
     public constructor(name: string);
 
     /**
-     * @returns active level name from current save file
+     * @returns Active level name from current save file.
      */
     public level_name(): string;
 
@@ -218,6 +218,8 @@ declare module "xray16" {
 
   /**
    * @group xr_save
+   *
+   * @param filename
    */
   export function valid_saved_game(this: void, filename: string): boolean;
 }

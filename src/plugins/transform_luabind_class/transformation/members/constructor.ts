@@ -1,13 +1,13 @@
 import {
-  ClassLikeDeclaration,
-  ConstructorDeclaration,
+  type ClassLikeDeclaration,
+  type ConstructorDeclaration,
   isCallExpression,
   isExpressionStatement,
   isIdentifier,
-  PropertyDeclaration,
+  type PropertyDeclaration,
   SyntaxKind,
 } from "typescript";
-import { TransformationContext } from "typescript-to-lua";
+import { type TransformationContext } from "typescript-to-lua";
 import * as lua from "typescript-to-lua";
 import { createSelfIdentifier } from "typescript-to-lua/dist/transformation/utils/lua-ast";
 import { ScopeType } from "typescript-to-lua/dist/transformation/utils/scope";
@@ -84,7 +84,7 @@ export function transformConstructorDeclaration(
   // Add in instance field declarations
   for (const declaration of constructorFieldsDeclarations) {
     if (isIdentifier(declaration.name)) {
-      // self.declarationName = declarationName
+      // Self.declarationName = declarationName
       const assignment = lua.createAssignmentStatement(
         lua.createTableIndexExpression(createSelfIdentifier(), lua.createStringLiteral(declaration.name.text)),
         transformIdentifier(context, declaration.name)
@@ -92,7 +92,7 @@ export function transformConstructorDeclaration(
 
       bodyWithFieldInitializers.push(assignment);
     }
-    // else { TypeScript error: A parameter property may not be declared using a binding pattern }
+    // Else { TypeScript error: A parameter property may not be declared using a binding pattern }
   }
 
   bodyWithFieldInitializers.push(...classInstanceFields);
