@@ -132,8 +132,8 @@ declare module "xray16" {
      * Object health value from 0 to 1.
      *
      * @remarks
-     * Assignment applies a delta through `CScriptGameObject::SetHealth`, not an absolute value.
-     * Use `set_health_ex` when the script must set exact health.
+     * Assignment applies a delta through `CScriptGameObject::SetHealth`, not an absolute value. Use
+     * `set_health_ex` when the script must set exact health.
      */
     public health: f32;
 
@@ -200,6 +200,10 @@ declare module "xray16" {
     /**
      * Queue animation by name.
      *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param animation - Animation name.
      * @param hand_usage - Whether the animation uses hands.
      * @param use_movement_controller - Whether movement controller should drive the animation.
@@ -208,6 +212,10 @@ declare module "xray16" {
 
     /**
      * Queue animation with local transform data.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param animation - Animation name.
      * @param hand_usage - Whether the animation uses hands.
@@ -226,12 +234,20 @@ declare module "xray16" {
     /**
      * Get current entity action.
      *
+     * @remarks
+     * Requires this object to be a scripted entity. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Current action, or `null` when no action is active.
      */
     public action(): entity_action | null;
 
     /**
      * Get queued action count.
+     *
+     * @remarks
+     * Requires this object to be a scripted entity. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @returns Number of queued actions.
      */
@@ -240,12 +256,20 @@ declare module "xray16" {
     /**
      * Get active detector item.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @returns Active detector, or `null`.
      */
     public active_detector(): game_object | null;
 
     /**
      * Get active inventory item.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @returns Active item, or `null`.
      */
@@ -289,12 +313,20 @@ declare module "xray16" {
     /**
      * Get best known item for this object.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @returns Best item, or `null`.
      */
     public best_item(): game_object | null;
 
     /**
      * Get best available weapon for this object.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @returns Best weapon, or `null`.
      */
@@ -317,12 +349,20 @@ declare module "xray16" {
     /**
      * Toggle burer gravity attack override.
      *
+     * @remarks
+     * Requires this object to be a burer. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @param value - Whether forced gravity attack is enabled.
      */
     public burer_set_force_gravi_attack(value: boolean): void;
 
     /**
      * Buy supplies described by a config section.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param ini - Trade config.
      * @param section - Supply section.
@@ -332,12 +372,20 @@ declare module "xray16" {
     /**
      * Check whether this object can select a weapon.
      *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Whether weapon selection is enabled.
      */
     public can_select_weapon(): boolean;
 
     /**
      * Enable or disable weapon selection.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param is_enabled - Whether weapon selection is enabled.
      */
@@ -346,6 +394,10 @@ declare module "xray16" {
     /**
      * Check whether this object can throw grenades.
      *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Whether grenade throwing is enabled.
      */
     public can_throw_grenades(): boolean;
@@ -353,12 +405,20 @@ declare module "xray16" {
     /**
      * Enable or disable grenade throwing.
      *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param is_enabled - Whether grenade throwing is enabled.
      */
     public can_throw_grenades(is_enabled: boolean): void;
 
     /**
      * Remove queued animations.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      */
     public clear_animations(): void;
 
@@ -379,6 +439,10 @@ declare module "xray16" {
     /**
      * Remove an info portion from this object.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param info_portion - Info portion id.
      * @returns Whether the info portion was removed.
      */
@@ -386,16 +450,28 @@ declare module "xray16" {
 
     /**
      * Disable actor dialog with this object.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      */
     public disable_talk(): void;
 
     /**
      * Disable trade with this object.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      */
     public disable_trade(): void;
 
     /**
      * Check that this object does not have an info portion.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param info_portion - Info portion id.
      * @returns Whether the info portion is absent.
@@ -405,12 +481,20 @@ declare module "xray16" {
     /**
      * Drop item from inventory.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param item - Game object to drop.
      */
     public drop_item(item: game_object): void;
 
     /**
      * Enable or disable night vision on actor equipment.
+     *
+     * @remarks
+     * Requires this object to be a torch item. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param is_enabled - Whether night vision is enabled.
      */
@@ -419,12 +503,20 @@ declare module "xray16" {
     /**
      * Start an external object sound.
      *
+     * @remarks
+     * Requires this object to be a trader-capable inventory owner. Other object types log a script
+     * error and return a default value or do nothing.
+     *
      * @param sound - Sound name.
      */
     public external_sound_start(sound: string): void;
 
     /**
      * Get model bone id by name.
+     *
+     * @remarks
+     * Requires this object to have a renderable visual. Objects without a visual can log an engine
+     * error or return a default value.
      *
      * @param bone - Bone name.
      * @returns Bone id.
@@ -434,12 +526,20 @@ declare module "xray16" {
     /**
      * Get current movement direction.
      *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Direction vector.
      */
     public get_current_direction(): vector;
 
     /**
      * Get protection value from the currently equipped outfit.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param hit_type - Hit type id.
      * @returns Protection value.
@@ -449,12 +549,20 @@ declare module "xray16" {
     /**
      * Get destination smart cover.
      *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
+     *
      * @returns Cover point.
      */
     public get_dest_smart_cover(): cover_point;
 
     /**
      * Get destination smart cover name.
+     *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
      *
      * @returns Cover name, or `null`.
      */
@@ -463,6 +571,10 @@ declare module "xray16" {
     /**
      * Get latest monster hit information.
      *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
+     *
      * @returns Monster hit info.
      */
     public get_monster_hit_info(): MonsterHitInfo;
@@ -470,11 +582,19 @@ declare module "xray16" {
     /**
      * Get physics object wrapper.
      *
+     * @remarks
+     * Requires this object to own a physics shell or physics holder. Other object types return `null`
+     * or do nothing.
+     *
      * @returns Physics object.
      */
     public get_physics_object(): CPhysicObject;
 
     /**
+     * @remarks
+     * Requires this object to be a scripted entity. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Whether object is controlled by lua script.
      */
     public get_script(): boolean;
@@ -482,12 +602,20 @@ declare module "xray16" {
     /**
      * Get current smart cover description.
      *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Smart cover description.
      */
     public get_smart_cover_description(): string;
 
     /**
      * Show a talk message.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param title - Message title.
      * @param text - Message text.
@@ -498,6 +626,10 @@ declare module "xray16" {
     /**
      * Get maximum idle time.
      *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
+     *
      * @returns Idle time in milliseconds.
      */
     public idle_max_time(): f32;
@@ -505,12 +637,20 @@ declare module "xray16" {
     /**
      * Set maximum idle time.
      *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
+     *
      * @param time - Idle time in milliseconds.
      */
     public idle_max_time(time: f32): void;
 
     /**
      * Check whether a position is inside the current loophole field of view.
+     *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
      *
      * @param position - Position to test.
      * @returns Whether position is inside field of view.
@@ -520,12 +660,20 @@ declare module "xray16" {
     /**
      * Iterate inventory items.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param cb - Callback called for each item.
      */
     public inventory_for_each(cb: (this: void) => void): void;
 
     /**
      * Check whether a door is blocked by an NPC.
+     *
+     * @remarks
+     * Requires this object to be a door object managed by NPC door logic. Other object types do
+     * nothing or report an engine script error.
      *
      * @returns Whether a door is blocked.
      */
@@ -534,12 +682,20 @@ declare module "xray16" {
     /**
      * Check whether actor dialog is enabled.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @returns Whether talking is enabled.
      */
     public is_talk_enabled(): boolean;
 
     /**
      * Check whether a weapon is being strapped.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param weapon - Weapon to check.
      * @returns Whether weapon is being strapped.
@@ -548,6 +704,10 @@ declare module "xray16" {
 
     /**
      * Iterate items inside an inventory box.
+     *
+     * @remarks
+     * Requires this object to be an inventory box. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param cb - Callback called for each box item.
      * @param object - Inventory box object.
@@ -560,12 +720,20 @@ declare module "xray16" {
     /**
      * Get maximum lookout time.
      *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
+     *
      * @returns Lookout time in milliseconds.
      */
     public lookout_max_time(): f32;
 
     /**
      * Set maximum lookout time.
+     *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
      *
      * @param value - Lookout time in milliseconds.
      */
@@ -574,12 +742,20 @@ declare module "xray16" {
     /**
      * Get maximum distance at which monsters can be ignored.
      *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Distance.
      */
     public max_ignore_monster_distance(): f32;
 
     /**
      * Set maximum distance at which monsters can be ignored.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param value - Distance.
      */
@@ -588,12 +764,20 @@ declare module "xray16" {
     /**
      * Get objects that recently hit this object.
      *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
+     *
      * @returns Engine hit-memory collection.
      */
     public memory_hit_objects(): unknown; // :vector<MemorySpace::CHitObject, xalloc<struct MemorySpace::CHitObject>
 
     /**
      * Get time since this object remembered another object.
+     *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
      *
      * @param another - Object to query.
      * @returns Memory time.
@@ -602,6 +786,10 @@ declare module "xray16" {
 
     /**
      * Get visible objects from memory.
+     *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
      *
      * @returns Iterable visible memory objects.
      */
@@ -616,6 +804,10 @@ declare module "xray16" {
 
     /**
      * Get objects that are being detected but are not visible yet.
+     *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
      *
      * @returns Engine not-yet-visible collection.
      */
@@ -645,16 +837,28 @@ declare module "xray16" {
 
     /**
      * Release forced standing sleep animation.
+     *
+     * @remarks
+     * Requires this object to be a bloodsucker. Other object types log a script error and return a
+     * default value or do nothing.
      */
     public release_stand_sleep_animation(): void;
 
     /**
      * Clear queued entity actions.
+     *
+     * @remarks
+     * Requires this object to be a scripted entity. Other object types log a script error and return a
+     * default value or do nothing.
      */
     public reset_action_queue(): void;
 
     /**
      * Restore default sound threshold.
+     *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
      */
     public restore_sound_threshold(): void;
 
@@ -668,6 +872,9 @@ declare module "xray16" {
     /**
      * Set actor yaw direction.
      *
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
+     *
      * @param direction - Direction angle.
      */
     public set_actor_direction(direction: f32): void;
@@ -675,12 +882,20 @@ declare module "xray16" {
     /**
      * Set ammo count in current magazine.
      *
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @param count - Ammo count.
      */
     public set_ammo_elapsed(count: i32): void;
 
     /**
      * Set goodwill toward a community.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param community - Community id.
      * @param goodwill - Goodwill value.
@@ -690,6 +905,10 @@ declare module "xray16" {
     /**
      * Apply constant force for a time interval.
      *
+     * @remarks
+     * Requires this object to own a physics shell or physics holder. Other object types return `null`
+     * or do nothing.
+     *
      * @param direction - Force direction.
      * @param power - Force power.
      * @param time_interval - Duration in milliseconds.
@@ -698,11 +917,19 @@ declare module "xray16" {
 
     /**
      * Clear destination smart cover.
+     *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
      */
     public set_dest_smart_cover(): void;
 
     /**
      * Set destination smart cover by name.
+     *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
      *
      * @param smart_cover - Smart cover name.
      */
@@ -711,12 +938,20 @@ declare module "xray16" {
     /**
      * Set current enemy object.
      *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param object - Enemy object.
      */
     public set_enemy(object: game_object): void;
 
     /**
      * Set field of view.
+     *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
      *
      * @param fov - Field of view angle.
      */
@@ -735,6 +970,10 @@ declare module "xray16" {
     /**
      * Set mental animation state.
      *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param state - Target mental state.
      */
     public set_mental_state(state: TXR_animation): void;
@@ -749,6 +988,10 @@ declare module "xray16" {
     /**
      * Set path planning type.
      *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param type - Path type.
      */
     public set_path_type(type: TXR_game_object_path): void;
@@ -756,17 +999,29 @@ declare module "xray16" {
     /**
      * Set previous patrol point index.
      *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param point - Point index.
      */
     public set_previous_point(point: i32): void;
 
     /**
      * Clear smart cover target.
+     *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
      */
     public set_smart_cover_target(): void;
 
     /**
      * Set smart cover target object.
+     *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
      *
      * @param game_object - Target object.
      */
@@ -775,6 +1030,10 @@ declare module "xray16" {
     /**
      * Set smart cover target position.
      *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
+     *
      * @param vector - Target position.
      */
     public set_smart_cover_target(vector: vector): void;
@@ -782,22 +1041,38 @@ declare module "xray16" {
     /**
      * Enable or disable default smart cover target.
      *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
+     *
      * @param is_enabled - Whether default target is enabled.
      */
     public set_smart_cover_target_default(is_enabled: boolean): void;
 
     /**
      * Use smart cover fire target.
+     *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
      */
     public set_smart_cover_target_fire(): void;
 
     /**
      * Use smart cover lookout target.
+     *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
      */
     public set_smart_cover_target_lookout(): void;
 
     /**
      * Set start patrol point index.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param point - Point index.
      */
@@ -805,6 +1080,10 @@ declare module "xray16" {
 
     /**
      * Get voice sound prefix.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @returns Voice sound prefix.
      */
@@ -817,6 +1096,10 @@ declare module "xray16" {
 
     /**
      * Open talk dialog with this object.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      */
     public switch_to_talk(): void;
 
@@ -826,12 +1109,20 @@ declare module "xray16" {
     public team(): i32;
 
     /**
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Whether smart-cover selection is restricted to smart covers only.
      */
     public use_smart_covers_only(): boolean;
 
     /**
      * Restrict or allow regular cover selection.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param value - Whether only smart covers may be selected.
      */
@@ -840,6 +1131,10 @@ declare module "xray16" {
     /**
      * Attach a weapon addon from an inventory object.
      *
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @param object - Addon object.
      */
     public weapon_addon_attach(object: game_object): void;
@@ -847,26 +1142,46 @@ declare module "xray16" {
     /**
      * Detach a weapon addon by section name.
      *
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @param addon - Addon section name.
      */
     public weapon_addon_detach(addon: string): void;
 
     /**
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @returns Whether the active weapon has a scope attached.
      */
     public weapon_is_scope(): boolean;
 
     /**
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @returns Active weapon silencer status.
      */
     public weapon_silencer_status(): i32;
 
     /**
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @returns Whether the active weapon is strapped.
      */
     public weapon_strapped(): boolean;
 
     /**
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @returns Whether the active weapon is unstrapped.
      */
     public weapon_unstrapped(): boolean;
@@ -891,12 +1206,19 @@ declare module "xray16" {
     /**
      * Force actor look direction toward a point.
      *
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
+     *
      * @param position - Point to look at.
      */
     public actor_look_at_point(position: vector): void;
 
     /**
      * Get aimed bone id.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @returns Bone name.
      */
@@ -905,12 +1227,20 @@ declare module "xray16" {
     /**
      * Set aimed bone id.
      *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param bone - Bone name.
      */
     public aim_bone_id(bone: string): void;
 
     /**
      * Get aim time for a target.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param object - Target object.
      * @returns Aim time.
@@ -920,6 +1250,10 @@ declare module "xray16" {
     /**
      * Set aim time for a target.
      *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param object - Target object.
      * @param time - Aim time.
      */
@@ -928,12 +1262,19 @@ declare module "xray16" {
     /**
      * Enable or disable actor sprint.
      *
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
+     *
      * @param is_allowed - Whether sprint is allowed.
      */
     public allow_sprint(is_allowed: boolean): void;
 
     /**
      * Get animation count.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @returns Animation count.
      */
@@ -942,17 +1283,29 @@ declare module "xray16" {
     /**
      * Get most relevant danger object.
      *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
+     *
      * @returns Danger object, or `null`.
      */
     public best_danger(): danger_object | null;
 
     /**
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Current stalker body state.
      */
     public body_state(): TXR_MonsterBodyState;
 
     /**
      * Get model bone world position.
+     *
+     * @remarks
+     * Requires this object to have a renderable visual. Objects without a visual can log an engine
+     * error or return a default value.
      *
      * @param bone - Bone name.
      * @returns Bone position.
@@ -961,6 +1314,10 @@ declare module "xray16" {
 
     /**
      * Set item condition factor used by buying logic.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param factor - Condition factor.
      */
@@ -992,6 +1349,10 @@ declare module "xray16" {
     /**
      * Get character rank value.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @returns Rank value.
      */
     public character_rank(): i32;
@@ -1013,6 +1374,10 @@ declare module "xray16" {
     /**
      * Check whether NPC is critically wounded.
      *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Whether object is critically wounded.
      */
     public critically_wounded(): boolean;
@@ -1020,17 +1385,29 @@ declare module "xray16" {
     /**
      * Mark this dead body inventory as opened or closed.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param value - Whether the dead body is closed.
      */
     public deadbody_closed(value: boolean): void;
 
     /**
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Whether death sounds are enabled.
      */
     public death_sound_enabled(): boolean;
 
     /**
      * Enable or disable death sounds.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param value - Whether death sounds are enabled.
      */
@@ -1045,16 +1422,26 @@ declare module "xray16" {
 
     /**
      * Disable this anomaly object.
+     *
+     * @remarks
+     * Requires this object to be a custom zone. Other object types log a script error and return a
+     * default value or do nothing.
      */
     public disable_anomaly(): void;
 
     /**
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
+     *
      * @returns Whether hit marks are disabled.
      */
     public disable_hit_marks(): boolean;
 
     /**
      * Enable or disable hit mark suppression.
+     *
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
      *
      * @param value - Whether hit marks should be disabled.
      */
@@ -1068,6 +1455,10 @@ declare module "xray16" {
     /**
      * Drop an item and teleport it to a position.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param item - Item to drop.
      * @param position - Target position.
      */
@@ -1075,6 +1466,10 @@ declare module "xray16" {
 
     /**
      * Consume an inventory item.
+     *
+     * @remarks
+     * Requires this object to be an eatable inventory item. Other object types log a script error and
+     * return a default value or do nothing.
      *
      * @param item - Item to eat or use.
      */
@@ -1088,12 +1483,19 @@ declare module "xray16" {
     /**
      * Switch client level changed enabled state.
      *
+     * @remarks
+     * Requires this object to be a level changer. Other object types do nothing.
+     *
      * @param is_enabled - Whether level changer should be enabled.
      */
     public enable_level_changer(is_enabled: boolean): void;
 
     /**
      * Enable or disable memory tracking for an object.
+     *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
      *
      * @param object - Object to update.
      * @param is_enabled - Whether memory object is enabled.
@@ -1121,16 +1523,28 @@ declare module "xray16" {
 
     /**
      * Force a fake-dead monster to stand up.
+     *
+     * @remarks
+     * Requires this object to be a zombie. Other object types log a script error and return a default
+     * value or do nothing.
      */
     public fake_death_stand_up(): void;
 
     /**
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
+     *
      * @returns Current object field of view.
      */
     public fov(): f32;
 
     /**
      * Get total suitable ammo count.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @returns Ammo count.
      */
@@ -1139,12 +1553,20 @@ declare module "xray16" {
     /**
      * Get active ammo type.
      *
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @returns Ammo type id.
      */
     public get_ammo_type(): u8;
 
     /**
      * Cast this object to an artefact.
+     *
+     * @remarks
+     * Requires this object to be an artefact. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @returns Artefact object.
      */
@@ -1153,27 +1575,45 @@ declare module "xray16" {
     /**
      * Cast this object to a campfire.
      *
+     * @remarks
+     * Requires this object to be a campfire zone. Other object types log a script error.
+     *
      * @returns Campfire object.
      */
     public get_campfire(): CZoneCampfire;
 
     /**
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @returns Currently equipped outfit, or `null` when none is equipped.
      */
     public get_current_outfit(): game_object | null;
 
     /**
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Current patrol path point index.
      */
     public get_current_point_index(): u32;
 
     /**
+     * @remarks
+     * Requires this object to be a base monster. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Whether monster anti-aim is forced.
      */
     public get_force_anti_aim(): boolean;
 
     /**
      * Cast this object to a hanging lamp.
+     *
+     * @remarks
+     * Requires this object to be a hanging lamp. Other object types log a script error.
      *
      * @returns Hanging lamp object.
      */
@@ -1182,16 +1622,27 @@ declare module "xray16" {
     /**
      * Cast this object to a holder.
      *
+     * @remarks
+     * Requires this object to be a holder object. Other object types log a script error or return
+     * `null`.
+     *
      * @returns Holder object.
      */
     public get_holder_class(): holder;
 
     /**
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
+     *
      * @returns Current movement speed vector.
      */
     public get_movement_speed(): vector;
 
     /**
+     * @remarks
+     * Requires this object to be a scripted entity. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Name of lua script controlling monster object.
      */
     public get_script_name(): string;
@@ -1204,6 +1655,10 @@ declare module "xray16" {
     /**
      * Check whether this object has an info portion.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param info_portion - Info portion id.
      * @returns Whether the info portion is present.
      */
@@ -1211,10 +1666,17 @@ declare module "xray16" {
 
     /**
      * Hide the actor weapon model.
+     *
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
      */
     public hide_weapon(): void;
 
     /**
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
+     *
      * @returns Minimum idle time for smart-cover animation.
      */
     public idle_min_time(): f32;
@@ -1222,12 +1684,20 @@ declare module "xray16" {
     /**
      * Set minimum idle time for smart-cover animation.
      *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
+     *
      * @param value - Idle time in seconds.
      */
     public idle_min_time(value: f32): void;
 
     /**
      * Check whether a position is inside a named loophole field of view.
+     *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
      *
      * @param cover_name - Smart cover name.
      * @param loophole_name - Loophole name.
@@ -1242,6 +1712,10 @@ declare module "xray16" {
     public in_restrictions(): string;
 
     /**
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
+     *
      * @returns Whether this stalker is currently in a smart cover.
      */
     public in_smart_cover(): boolean;
@@ -1254,6 +1728,10 @@ declare module "xray16" {
 
     /**
      * Set whether items can be taken from this inventory box.
+     *
+     * @remarks
+     * Requires this object to be an inventory box. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param value - Whether taking items is allowed.
      * @returns New take permission state.
@@ -1273,16 +1751,27 @@ declare module "xray16" {
     public invulnerable(value: boolean): void;
 
     /**
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Whether the object is currently turning its body.
      */
     public is_body_turning(): boolean;
 
     /**
+     * @remarks
+     * Requires this object to be a level changer. Other object types do nothing.
+     *
      * @returns Whether this level changer is enabled.
      */
     public is_level_changer_enabled(): boolean;
 
     /**
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Whether nearby items are available for pickup.
      */
     public is_there_items_to_pickup(): boolean;
@@ -1297,6 +1786,10 @@ declare module "xray16" {
     /**
      * Sample a future position on the current movement path.
      *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param distance - Distance along the path.
      * @param position - Output position.
      * @returns Level vertex id for the sampled position.
@@ -1305,10 +1798,18 @@ declare module "xray16" {
 
     /**
      * Lock this door for NPC navigation.
+     *
+     * @remarks
+     * Requires this object to be a door object managed by NPC door logic. Other object types do
+     * nothing or report an engine script error.
      */
     public lock_door_for_npc(): void;
 
     /**
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
+     *
      * @returns Minimum time spent looking out from smart cover.
      */
     public lookout_min_time(): f32;
@@ -1316,12 +1817,20 @@ declare module "xray16" {
     /**
      * Set minimum time spent looking out from smart cover.
      *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
+     *
      * @param time - Lookout time in seconds.
      */
     public lookout_min_time(time: f32): void;
 
     /**
      * Make an inventory item active.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param item - Item to activate.
      */
@@ -1338,32 +1847,56 @@ declare module "xray16" {
     /**
      * Get sound memory records.
      *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
+     *
      * @returns Engine sound-memory collection.
      */
     public memory_sound_objects(): unknown;
 
     /**
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @returns Money owned by this inventory owner.
      */
     public money(): u32;
 
     /**
+     * @remarks
+     * Requires this object to be a scripted entity. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Motivation action planner for this object.
      */
     public motivation_action_manager(): action_planner;
 
     /**
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Current movement type id.
      */
     public movement_type(): number; // Todo: unknown enum
 
     /**
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Current patrol path name, or `null` when no patrol path is active.
      */
     public patrol(): string | null;
 
     /**
      * Mark the current patrol path as needing recalculation.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      */
     public patrol_path_make_inactual(): void;
 
@@ -1385,6 +1918,10 @@ declare module "xray16" {
     /**
      * Play an NPC sound by internal sound type.
      *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
+     *
      * @param sound_type - Internal sound type.
      * @param max_start_time - Optional maximum start delay.
      * @param min_start_time - Optional minimum start delay.
@@ -1403,6 +1940,10 @@ declare module "xray16" {
 
     /**
      * Register this door as usable by NPC navigation.
+     *
+     * @remarks
+     * Requires this object to be a door object managed by NPC door logic. Other object types do
+     * nothing or report an engine script error.
      */
     public register_door_for_npc(): void;
 
@@ -1422,17 +1963,29 @@ declare module "xray16" {
     /**
      * Stop and remove an NPC sound by internal sound type.
      *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
+     *
      * @param sound_type - Internal sound type.
      */
     public remove_sound(sound_type: u32): void;
 
     /**
      * Restore the default start dialog for this object.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      */
     public restore_default_start_dialog(): void;
 
     /**
      * Restore default monster-ignore distance.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      */
     public restore_max_ignore_monster_distance(): void;
 
@@ -1444,6 +1997,10 @@ declare module "xray16" {
     /**
      * Check whether this object can see another object.
      *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
+     *
      * @param object - Object to test.
      * @returns Whether the object is visible.
      */
@@ -1451,6 +2008,10 @@ declare module "xray16" {
 
     /**
      * Check whether this object can see a named point or object.
+     *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
      *
      * @param value - Name to test.
      * @returns Whether the target is visible.
@@ -1460,6 +2021,10 @@ declare module "xray16" {
     /**
      * Load sell condition factors from an ini section.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param ini_file - Source ini file.
      * @param section - Section name.
      */
@@ -1468,6 +2033,10 @@ declare module "xray16" {
     /**
      * Set sell condition factors directly.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param friend_factor - Condition factor for friendly buyers.
      * @param enemy_factor - Condition factor for hostile buyers.
      */
@@ -1475,6 +2044,10 @@ declare module "xray16" {
 
     /**
      * Apply a physics force to this object.
+     *
+     * @remarks
+     * Requires this object to own a physics shell or physics holder. Other object types return `null`
+     * or do nothing.
      *
      * @param force - Force vector.
      * @param magnitude - Force magnitude.
@@ -1485,12 +2058,20 @@ declare module "xray16" {
     /**
      * Set actor relation flags for this object.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param value - Relation flags.
      */
     public set_actor_relation_flags(value: flags32): void;
 
     /**
      * Enable or disable bloodsucker alien control.
+     *
+     * @remarks
+     * Requires this object to be a bloodsucker. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param is_enabled - Whether alien control is active.
      */
@@ -1499,12 +2080,20 @@ declare module "xray16" {
     /**
      * Set target body state for stalker movement.
      *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param state - Body state.
      */
     public set_body_state(state: TXR_MonsterBodyState): void;
 
     /**
      * Configure bloodsucker capture animation jump.
+     *
+     * @remarks
+     * Requires this object to be a bloodsucker. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param object - Target object.
      * @param animation - Capture animation name.
@@ -1516,6 +2105,10 @@ declare module "xray16" {
     /**
      * Set character community.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param community - Community id.
      * @param rank - Rank value used by relation logic.
      * @param goodwill - Goodwill value.
@@ -1525,12 +2118,20 @@ declare module "xray16" {
     /**
      * Set character rank.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param rank - Rank value.
      */
     public set_character_rank(rank: i32): void;
 
     /**
      * Set character reputation.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param reputation - Reputation value.
      */
@@ -1539,12 +2140,20 @@ declare module "xray16" {
     /**
      * Enable or disable bloodsucker collision override.
      *
+     * @remarks
+     * Requires this object to be a bloodsucker. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param value - Whether collision is disabled.
      */
     public set_collision_off(value: boolean): void;
 
     /**
      * Restore the default panic threshold.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      */
     public set_default_panic_threshold(): void;
 
@@ -1565,12 +2174,20 @@ declare module "xray16" {
     /**
      * Set detail path type used by movement.
      *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param EDetailPathType - Detail path type id.
      */
     public set_detail_path_type(EDetailPathType: unknown /* Enum DetailPathManager::EDetailPathType */): void;
 
     /**
      * Force bloodsucker invisibility state.
+     *
+     * @remarks
+     * Requires this object to be a bloodsucker. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param is_invisible - Whether the object should be invisible.
      */
@@ -1586,6 +2203,10 @@ declare module "xray16" {
     /**
      * Set movement patrol path.
      *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param path_name - Patrol path name.
      * @param start_type - Patrol start type.
      * @param route_type - Patrol route type.
@@ -1595,11 +2216,19 @@ declare module "xray16" {
 
     /**
      * Make smart-cover target selection prefer idle positions.
+     *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
      */
     public set_smart_cover_target_idle(): void;
 
     /**
      * Set sympathy value used by relation logic.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param value - Sympathy value.
      */
@@ -1607,6 +2236,10 @@ declare module "xray16" {
 
     /**
      * Set trader sound for an animation state.
+     *
+     * @remarks
+     * Requires this object to be a trader-capable inventory owner. Other object types log a script
+     * error and return a default value or do nothing.
      *
      * @param animation - Trader animation name.
      * @param sound - Sound name.
@@ -1626,12 +2259,20 @@ declare module "xray16" {
     public skip_transfer_enemy(value: boolean): void;
 
     /**
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Whether sniper update rate is enabled.
      */
     public sniper_update_rate(): boolean;
 
     /**
      * Enable or disable sniper update rate.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param value - Whether sniper update rate is enabled.
      */
@@ -1643,12 +2284,20 @@ declare module "xray16" {
     public spawn_ini(): ini_file | null;
 
     /**
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Whether special danger movement is enabled.
      */
     public special_danger_move(): boolean;
 
     /**
      * Enable or disable special danger movement.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param value - Whether special danger movement is enabled.
      */
@@ -1664,15 +2313,26 @@ declare module "xray16" {
 
     /**
      * Open trade dialog with this object.
+     *
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
      */
     public switch_to_trade(): void;
 
     /**
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @returns Sympathy value used by relation logic.
      */
     public sympathy(): f32;
 
     /**
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Whether this NPC may take items.
      */
     public take_items_enabled(): boolean;
@@ -1680,31 +2340,55 @@ declare module "xray16" {
     /**
      * Enable or disable item taking for this NPC.
      *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param value - Whether item taking is enabled.
      */
     public take_items_enabled(value: boolean): void;
 
     /**
+     * @remarks
+     * Requires this object to be a torch item. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Whether actor torch is enabled.
      */
     public torch_enabled(): boolean;
 
     /**
      * Unload the active weapon magazine into inventory.
+     *
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
      */
     public unload_magazine(): void;
 
     /**
      * Unlock this door for NPC navigation.
+     *
+     * @remarks
+     * Requires this object to be a door object managed by NPC door logic. Other object types do
+     * nothing or report an engine script error.
      */
     public unlock_door_for_npc(): void;
 
     /**
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
+     *
      * @returns Visibility threshold used by this object.
      */
     public visibility_threshold(): f32;
 
     /**
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @returns Whether the active weapon has an attached grenade launcher.
      */
     public weapon_is_grenadelauncher(): boolean;
@@ -1767,6 +2451,10 @@ declare module "xray16" {
     /**
      * Set the state of a task by id.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param state - New task state.
      * @param task_id - Task id.
      */
@@ -1775,6 +2463,10 @@ declare module "xray16" {
     /**
      * Enable or disable visual memory for this object.
      *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
+     *
      * @param enabled - Whether visual memory is enabled.
      */
     public set_visual_memory_enabled(enabled: boolean): void;
@@ -1782,12 +2474,20 @@ declare module "xray16" {
     /**
      * Set trade show condition.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param ini_file - Trade config.
      * @param section - Condition section.
      */
     public show_condition(ini_file: unknown, section: string): void;
 
     /**
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
+     *
      * @returns Current sound voice prefix used by the object sound player.
      */
     public sound_prefix(): string;
@@ -1795,11 +2495,19 @@ declare module "xray16" {
     /**
      * Set the sound voice prefix used by the object sound player.
      *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
+     *
      * @param prefix - Sound voice prefix.
      */
     public sound_prefix(prefix: string): void;
 
     /**
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Whether this stalker is marked as wounded.
      */
     public wounded(): boolean;
@@ -1807,12 +2515,20 @@ declare module "xray16" {
     /**
      * Mark this stalker as wounded or recovered.
      *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param value - Whether the stalker is wounded.
      */
     public wounded(value: boolean): void;
 
     /**
      * Register an NPC sound.
+     *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
      *
      * @param prefix - Sound prefix.
      * @param priority - Sound priority.
@@ -1826,6 +2542,10 @@ declare module "xray16" {
 
     /**
      * Register an NPC sound with a bone name.
+     *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
      *
      * @param prefix - Sound prefix.
      * @param priority - Sound priority.
@@ -1847,12 +2567,20 @@ declare module "xray16" {
     ): u32;
 
     /**
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
+     *
      * @returns Number of active sounds registered on this object.
      */
     public active_sound_count(): i32;
 
     /**
      * Get number of active sounds registered on this object.
+     *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
      *
      * @param only_playing - Whether to count only sounds currently playing.
      * @returns Number of active sounds.
@@ -1862,11 +2590,19 @@ declare module "xray16" {
     /**
      * Allow or block breaking the current actor talk dialog.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param value - Whether the dialog may be interrupted.
      */
     public allow_break_talk_dialog(value: boolean): void;
 
     /**
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
+     *
      * @returns Distance used when applying smart-cover loophole direction.
      */
     public apply_loophole_direction_distance(): f32;
@@ -1874,27 +2610,47 @@ declare module "xray16" {
     /**
      * Set the distance used when applying smart-cover loophole direction.
      *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
+     *
      * @param distance - Loophole direction distance.
      */
     public apply_loophole_direction_distance(distance: f32): void;
 
     /**
+     * @remarks
+     * Requires this object to be an attachable item. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @returns Whether this attachable item is enabled.
      */
     public attachable_item_enabled(): boolean;
 
     /**
+     * @remarks
+     * Requires this object to be a burer. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @returns Whether this burer is forced to use a gravity attack.
      */
     public burer_get_force_gravi_attack(): boolean;
 
     /**
+     * @remarks
+     * Requires this object to be a base monster. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Whether this monster is forced to use anti-aim behavior.
      */
     public get_force_anti_aim(): boolean;
 
     /**
      * Set trade buy conditions from an ini section.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param ini_file - Trade config.
      * @param section - Condition section.
@@ -1904,6 +2660,10 @@ declare module "xray16" {
     /**
      * Set default trade buy factors.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param friend_factor - Factor used for friendly relations.
      * @param enemy_factor - Factor used for hostile relations.
      */
@@ -1912,12 +2672,20 @@ declare module "xray16" {
     /**
      * Add a delta to character reputation.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param delta - Reputation delta.
      */
     public change_character_reputation(delta: i32): void;
 
     /**
      * Add a delta to goodwill toward another object.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param delta_goodwill - Goodwill delta.
      * @param to_object - Target object.
@@ -1927,6 +2695,10 @@ declare module "xray16" {
     /**
      * Add a delta to character rank.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param delta - Rank delta.
      */
     public change_character_rank(delta: i32): void;
@@ -1934,12 +2706,20 @@ declare module "xray16" {
     /**
      * Get character reputation.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @returns Reputation value.
      */
     public character_reputation(): i32;
 
     /**
      * Get goodwill toward a community.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param from_community - Community id.
      * @returns Goodwill value.
@@ -1949,11 +2729,19 @@ declare module "xray16" {
     /**
      * Allow or block taking items from this dead body.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param value - Whether taking items is allowed.
      */
     public deadbody_can_take(value: boolean): void;
 
     /**
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @returns Whether items can be taken from this dead body.
      */
     public deadbody_can_take_status(): boolean;
@@ -1966,12 +2754,20 @@ declare module "xray16" {
     /**
      * Enable or disable weapon show, hide and reload sounds for this inventory owner.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param value - Whether those sounds should play.
      */
     public disable_show_hide_sounds(value: boolean): void;
 
     /**
      * Enable this anomaly zone.
+     *
+     * @remarks
+     * Requires this object to be a custom zone. Other object types log a script error and return a
+     * default value or do nothing.
      */
     public enable_anomaly(): void;
 
@@ -1979,34 +2775,58 @@ declare module "xray16" {
      * Method for inventory items to set them enabled / disabled for stalkers.
      * As result, medkit or detector can be activated by stalker.
      *
+     * @remarks
+     * Requires this object to be an attachable item. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param is_enabled - Whether item should be enabled for usage by owning object.
      */
     public enable_attachable_item(is_enabled: boolean): void;
 
     /**
      * Enable actor talk interaction with this inventory owner.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      */
     public enable_talk(): void;
 
     /**
      * Enable actor trade interaction with this inventory owner.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      */
     public enable_trade(): void;
 
     /**
      * Enable or disable visual memory for this monster.
      *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
+     *
      * @param value - Whether vision is enabled.
      */
     public enable_vision(value: boolean): void;
 
     /**
+     * @remarks
+     * Requires this object to be a zombie. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @returns Whether this zombie should fall down in fake-death state.
      */
     public fake_death_fall_down(): boolean;
 
     /**
      * Set goodwill toward another object without applying a delta.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param goodwill - Goodwill value.
      * @param to_object - Target object.
@@ -2015,6 +2835,10 @@ declare module "xray16" {
 
     /**
      * For bloodsuckers specifically set current visibility state.
+     *
+     * @remarks
+     * Requires this object to be a bloodsucker. Other object types log a script error and return a
+     * default value or do nothing.
      */
     public force_visibility_state(state: TXR_bloodsucker_visibility_state): void;
 
@@ -2022,27 +2846,46 @@ declare module "xray16" {
      * Return formula: `personal_goodwill + reputation_goodwill + rank_goodwill +
      *  community_goodwill + community_to_community`.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param target - Target client object.
      * @returns Goodwill level from object to target.
      */
     public general_goodwill(target: game_object): i32;
 
     /**
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @returns Actor relation flags stored for this character.
      */
     public get_actor_relation_flags(): flags32;
 
     /**
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @returns Ammo count currently loaded in this weapon magazine.
      */
     public get_ammo_in_magazine(): u32;
 
     /**
+     * @remarks
+     * Requires this object to be a car. Other object types log a script error.
+     *
      * @returns This object as a car.
      */
     public get_car(): CCar;
 
     /**
+     * @remarks
+     * Requires this object to be a monster with corpse-search logic. Other object types log a script
+     * error and return `null`.
+     *
      * @returns Corpse selected by this monster, or `null`.
      */
     public get_corpse(): game_object | null;
@@ -2053,27 +2896,47 @@ declare module "xray16" {
     public get_current_holder(): holder | null;
 
     /**
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
+     *
      * @returns Current enemy object, or `null`.
      */
     public get_enemy(): game_object | null;
 
     /**
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
+     *
      * @returns Current enemy strength estimate.
      */
     public get_enemy_strength(): i32;
 
     /**
+     * @remarks
+     * Requires this object to own a physics shell or physics holder. Other object types return `null`
+     * or do nothing.
+     *
      * @returns Physics shell for this object, or `null`.
      */
     public get_physics_shell(): physics_shell | null;
 
     /**
      * Get current start dialog id.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      */
     public get_start_dialog(): void;
 
     /**
      * Get task by id.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param task_id - Task id.
      * @param only_in_process - Whether to return only active tasks.
@@ -2084,6 +2947,10 @@ declare module "xray16" {
     /**
      * Get task state by id.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param task_id - Task id.
      * @returns Task state id.
      */
@@ -2091,6 +2958,10 @@ declare module "xray16" {
 
     /**
      * Add an info portion to this object.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param info_portion - Info portion id.
      * @returns Whether the info portion was added.
@@ -2100,12 +2971,20 @@ declare module "xray16" {
     /**
      * Add money to this object.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param amount - Money amount.
      */
     public give_money(amount: i32): void;
 
     /**
      * Show talk dialog message with icon.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param title - Title of the message.
      * @param text - Text of the message.
@@ -2116,6 +2995,10 @@ declare module "xray16" {
 
     /**
      * Give game task for an object, usually it is actor object.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param task - Task object to give.
      * @param time_to_complete - Time allowed to complete the task.
@@ -2128,12 +3011,20 @@ declare module "xray16" {
      * Returns level of goodwill stored for an object.
      * No strict formulas, just get actual value.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param target - Target client object.
      * @returns Goodwill level to target object.
      */
     public goodwill(target: game_object): i32;
 
     /**
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Current delay between group grenade throws.
      */
     public group_throw_time_interval(): u32;
@@ -2141,16 +3032,28 @@ declare module "xray16" {
     /**
      * Set delay between group grenade throws.
      *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param interval - Throw interval.
      */
     public group_throw_time_interval(interval: u32): void;
 
     /**
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Current head orientation for this creature.
      */
     public head_orientation(): vector;
 
     /**
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Monster ignore threshold used by this stalker's enemy memory.
      */
     public ignore_monster_threshold(): f32;
@@ -2158,12 +3061,20 @@ declare module "xray16" {
     /**
      * Set monster ignore threshold used by this stalker's enemy memory.
      *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param threshold - Ignore threshold, clamped by the engine.
      */
     public ignore_monster_threshold(threshold: f32): void;
 
     /**
      * Check whether a point is in range of the current smart-cover loophole.
+     *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
      *
      * @param position - Point to test.
      * @returns Whether the point is in current loophole range.
@@ -2194,12 +3105,20 @@ declare module "xray16" {
     public inside(position: vector, epsilon: f32): boolean;
 
     /**
+     * @remarks
+     * Requires this object to be an inventory box. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Whether items can be taken from this inventory box.
      */
     public inv_box_can_take_status(): boolean;
 
     /**
      * Close or open this inventory box.
+     *
+     * @remarks
+     * Requires this object to be an inventory box. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param is_closed - Whether the box is closed.
      * @param reason - Script reason stored for the close state.
@@ -2208,17 +3127,29 @@ declare module "xray16" {
     public inv_box_closed(is_closed: boolean, reason: string): boolean;
 
     /**
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param task - Task object to check.
      * @returns Whether this task is active.
      */
     public is_active_task(task: CGameTask): boolean;
 
     /**
+     * @remarks
+     * Requires this object to be a door object managed by NPC door logic. Other object types do
+     * nothing or report an engine script error.
+     *
      * @returns Whether this door is locked for NPC navigation.
      */
     public is_door_locked_for_npc(): boolean;
 
     /**
+     * @remarks
+     * Requires this object to be an inventory box. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Whether this inventory box has no items.
      */
     public is_inv_box_empty(): boolean;
@@ -2229,17 +3160,29 @@ declare module "xray16" {
     public is_inv_upgrade_enabled(): boolean;
 
     /**
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @returns Whether object is currently talking with actor and talk dialog is active.
      */
     public is_talking(): boolean;
 
     /**
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @returns Whether trade interaction is enabled.
      */
     public is_trade_enabled(): boolean;
 
     /**
      * Get item in inventory slot.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param slot - Slot id.
      * @returns Item in slot, or `null`.
@@ -2249,6 +3192,10 @@ declare module "xray16" {
     /**
      * Get item on belt by slot.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param slot - Belt slot id.
      * @returns Item on belt, or `null`.
      */
@@ -2257,6 +3204,10 @@ declare module "xray16" {
     /**
      * Force this monster to jump toward a point.
      *
+     * @remarks
+     * Requires this object to be a bloodsucker. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param target - Jump target.
      * @param factor - Jump tuning factor used by the monster controller.
      */
@@ -2264,6 +3215,10 @@ declare module "xray16" {
 
     /**
      * Make another object temporarily visible to this object's memory.
+     *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
      *
      * @param object - Object to reveal.
      */
@@ -2287,17 +3242,29 @@ declare module "xray16" {
     public max_health(): f32;
 
     /**
+     * @remarks
+     * Requires this object to be a torch item. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Whether night vision is enabled on this torch item.
      */
     public night_vision_enabled(): boolean;
 
     /**
      * Notify this door that it has closed.
+     *
+     * @remarks
+     * Requires this object to be a door object managed by NPC door logic. Other object types do
+     * nothing or report an engine script error.
      */
     public on_door_is_closed(): void;
 
     /**
      * Notify this door that it has opened.
+     *
+     * @remarks
+     * Requires this object to be a door object managed by NPC door logic. Other object types do
+     * nothing or report an engine script error.
      */
     public on_door_is_open(): void;
 
@@ -2312,21 +3279,37 @@ declare module "xray16" {
     public path_type(): unknown;
 
     /**
+     * @remarks
+     * Requires this object to be a poltergeist. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Whether this poltergeist ignores the actor.
      */
     public poltergeist_get_actor_ignore(): boolean;
 
     /**
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @returns Specific character profile name.
      */
     public profile_name(): string;
 
     /**
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
+     *
      * @returns Current vision or weapon range for this object.
      */
     public range(): f32;
 
     /**
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @returns Character rank.
      */
     public rank(): i32;
@@ -2338,16 +3321,29 @@ declare module "xray16" {
 
     /**
      * Restore default monster ignore threshold.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      */
     public restore_ignore_monster_threshold(): void;
 
     /**
      * Let the actor draw weapons again after a forced hide.
+     *
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
      */
     public restore_weapon(): void;
 
     /**
      * Start actor talk dialog with another inventory owner.
+     *
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
+     *
+     * @throws
+     * The engine asserts if the dialog partner is not an inventory owner.
      *
      * @param object - Dialog partner.
      * @param disable_break - Whether the dialog cannot be interrupted.
@@ -2357,12 +3353,19 @@ declare module "xray16" {
     /**
      * Mark a task as active.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param task - Task to activate.
      */
     public set_active_task(task: CGameTask): void;
 
     /**
      * Move the actor to a position.
+     *
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
      *
      * @param position - New actor position.
      */
@@ -2371,6 +3374,10 @@ declare module "xray16" {
     /**
      * Set anomaly power.
      *
+     * @remarks
+     * Requires this object to be a custom zone. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param power - New anomaly power.
      */
     public set_anomaly_power(power: f32): void;
@@ -2378,17 +3385,29 @@ declare module "xray16" {
     /**
      * Set custom panic threshold for this base monster.
      *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param threshold - Panic threshold.
      */
     public set_custom_panic_threshold(threshold: f32): void;
 
     /**
      * Clear desired smart-cover loophole.
+     *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
      */
     public set_dest_loophole(): void;
 
     /**
      * Set desired smart-cover loophole by id.
+     *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
      *
      * @param loophole_id - Loophole id.
      */
@@ -2396,6 +3415,10 @@ declare module "xray16" {
 
     /**
      * Set goodwill toward another object.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param goodwill - Goodwill value.
      * @param object - Target object.
@@ -2439,6 +3462,9 @@ declare module "xray16" {
     /**
      * Set level changer invitation hint text.
      *
+     * @remarks
+     * Requires this object to be a level changer. Other object types do nothing.
+     *
      * @param hint - Text to show when trying to change level.
      */
     public set_level_changer_invitation(hint: string): void;
@@ -2453,12 +3479,20 @@ declare module "xray16" {
     /**
      * Set weapon fire queue size.
      *
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @param size - Queue size.
      */
     public set_queue_size(size: u32): void;
 
     /**
      * Set relation to another object.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param relation - Relation id.
      * @param object - Target object.
@@ -2467,11 +3501,19 @@ declare module "xray16" {
 
     /**
      * Make the smart-cover target mode fire without lookout.
+     *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
      */
     public set_smart_cover_target_fire_no_lookout(): void;
 
     /**
      * Set active sound mask for this monster.
+     *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
      *
      * @param mask - Sound mask.
      */
@@ -2479,6 +3521,10 @@ declare module "xray16" {
 
     /**
      * Set start dialog id for this phrase dialog manager.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param dialog_id - Dialog id.
      */
@@ -2500,6 +3546,10 @@ declare module "xray16" {
     /**
      * Set trader global animation.
      *
+     * @remarks
+     * Requires this object to be a trader-capable inventory owner. Other object types log a script
+     * error and return a default value or do nothing.
+     *
      * @param animation - Animation name.
      */
     public set_trader_global_anim(animation: string): void;
@@ -2507,17 +3557,29 @@ declare module "xray16" {
     /**
      * Set bloodsucker visibility state as a raw engine value.
      *
+     * @remarks
+     * Requires this object to be a bloodsucker. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param state - Visibility state.
      */
     public set_vis_state(state: f32): void;
 
     /**
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Whether stalker sniper fire mode is enabled.
      */
     public sniper_fire_mode(): boolean;
 
     /**
      * Enable or disable stalker sniper fire mode.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param value - Whether sniper fire mode is enabled.
      */
@@ -2533,11 +3595,18 @@ declare module "xray16" {
 
     /**
      * Stop the current actor talk dialog.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      */
     public stop_talk(): void;
 
     /**
      * Switch the opened talk menu to upgrade mode.
+     *
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
      */
     public switch_to_upgrade(): void;
 
@@ -2593,17 +3662,29 @@ declare module "xray16" {
     public iterate_installed_upgrades(callback: (upgrade_section: string, object: game_object) => void): void;
 
     /**
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Target body state requested by the movement manager.
      */
     public target_body_state(): TXR_move;
 
     /**
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Target movement type requested by the movement manager.
      */
     public target_movement_type(): number; /* EMovementType */
 
     /**
      * Transfer an item to another inventory owner.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param item - Item to transfer.
      * @param to - Recipient object.
@@ -2613,6 +3694,10 @@ declare module "xray16" {
     /**
      * Transfer money from another object to this object.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param amount - Money amount.
      * @param from - Source object.
      */
@@ -2620,11 +3705,19 @@ declare module "xray16" {
 
     /**
      * Remove this stalker from its squad combat registry.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      */
     public unregister_in_combat(): void;
 
     /**
      * Find the farthest accessible level vertex in a direction.
+     *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
      *
      * @param level_vertex_id - Starting level vertex id.
      * @param direction - Direction to search in.
@@ -2634,32 +3727,56 @@ declare module "xray16" {
     public vertex_in_direction(level_vertex_id: u32, direction: vector, max_distance: f32): u32;
 
     /**
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
+     *
      * @returns Whether visual memory is enabled for this monster.
      */
     public vision_enabled(): boolean;
 
     /**
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @returns Grenade launcher attachment status for the active weapon.
      */
     public weapon_grenadelauncher_status(): i32;
 
     /**
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @returns Whether the active weapon has an attached silencer.
      */
     public weapon_is_silencer(): boolean;
 
     /**
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @returns Scope attachment status for the active weapon.
      */
     public weapon_scope_status(): i32;
 
     /**
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @returns Inventory weight for this object.
      */
     public weight(): f32;
 
     /**
      * Display in-game UI notification.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param title - Notification title.
      * @param text - Notification text.
@@ -2678,18 +3795,30 @@ declare module "xray16" {
     ): void;
 
     /**
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
+     *
      * @param position - Target position to check.
      * @returns If target position is accessible by the object.
      */
     public accessible(position: vector): boolean;
 
     /**
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
+     *
      * @param vertex_id - Target vertex ID to check.
      * @returns If target vertex is accessible by the object.
      */
     public accessible(vertex_id: u32): boolean;
 
     /**
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @returns Weapon accuracy for this inventory owner.
      */
     public accuracy(): f32;
@@ -2697,12 +3826,20 @@ declare module "xray16" {
     /**
      * Reload attach position for this attachable item from a section.
      *
+     * @remarks
+     * Requires this object to be an attachable item. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param section - Config section with attach data.
      */
     public attachable_item_load_attach(section: string): void;
 
     /**
      * Find the best cover from one position against another.
+     *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
      *
      * @param position - Search origin.
      * @param enemy_position - Threat position.
@@ -2722,6 +3859,10 @@ declare module "xray16" {
     /**
      * Get best known enemy.
      *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
+     *
      * @returns Enemy object, or `null`.
      */
     public best_enemy(): game_object | null;
@@ -2735,6 +3876,10 @@ declare module "xray16" {
 
     /**
      * Check whether dead body inventory is closed.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @returns Whether looting is closed.
      */
@@ -2750,6 +3895,10 @@ declare module "xray16" {
     /**
      * Enable or disable torch.
      *
+     * @remarks
+     * Requires this object to be a torch item. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param is_enabled - Whether torch is enabled.
      */
     public enable_torch(is_enabled: boolean): void;
@@ -2757,17 +3906,29 @@ declare module "xray16" {
     /**
      * Force a bloodsucker stand/sleep animation variant.
      *
+     * @remarks
+     * Requires this object to be a bloodsucker. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param index - Animation index.
      */
     public force_stand_sleep_animation(index: u32): void;
 
     /**
+     * @remarks
+     * Requires this object to be a bloodsucker. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Current bloodsucker visibility state.
      */
     public get_visibility_state(): i32;
 
     /**
      * Check whether a point is in range of a smart-cover loophole.
+     *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
      *
      * @param cover_id - Smart-cover id.
      * @param loophole_id - Loophole id.
@@ -2779,17 +3940,32 @@ declare module "xray16" {
     /**
      * Set whether this poltergeist ignores the actor.
      *
+     * @remarks
+     * Requires this object to be a poltergeist. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param value - Whether actor should be ignored.
      */
     public poltergeist_set_actor_ignore(value: boolean): void;
 
     /**
      * Clear desired movement position for this stalker.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      */
     public set_desired_position(): void;
 
     /**
      * Set desired movement position for this stalker.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
+     * @throws
+     * The engine asserts if the provided position is not accessible for this stalker.
      *
      * @param position - Desired position.
      */
@@ -2798,12 +3974,20 @@ declare module "xray16" {
     /**
      * Force or release anti-aim behavior for this base monster.
      *
+     * @remarks
+     * Requires this object to be a base monster. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param value - Whether anti-aim is forced.
      */
     public set_force_anti_aim(value: boolean): void;
 
     /**
      * Set monster vision range.
+     *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
      *
      * @param range - New range.
      */
@@ -2812,6 +3996,10 @@ declare module "xray16" {
     /**
      * Check whether a smart-cover object is suitable for this stalker.
      *
+     * @remarks
+     * Requires this object to be a stalker using smart-cover movement. Other object types log a script
+     * error and return a default value or do nothing.
+     *
      * @param object - Smart-cover object.
      * @returns Whether the cover is suitable.
      */
@@ -2819,6 +4007,10 @@ declare module "xray16" {
 
     /**
      * Register a combat sound.
+     *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
      *
      * @param prefix - Sound prefix.
      * @param priority - Sound priority.
@@ -2848,6 +4040,10 @@ declare module "xray16" {
      * Add action for game object entity.
      * Depending on priority pushes it to back or front of actions list.
      *
+     * @remarks
+     * Requires this object to be a scripted entity. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param entity_action - Action to perform.
      * @param is_high_priority - Whether it is high priority action.
      */
@@ -2863,6 +4059,10 @@ declare module "xray16" {
 
     /**
      * Mark patrol path cache as outdated.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      */
     public inactualize_patrol_path(): void;
 
@@ -2881,6 +4081,10 @@ declare module "xray16" {
      * Runs supplied callback for each item in inventory of the object.
      * If callback returns `true`, the cycle breaks.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param cb - Callback to run for each item.
      * @param object - Target object to run callback for (actually unused by the engine).
      */
@@ -2890,12 +4094,20 @@ declare module "xray16" {
     ): void;
 
     /**
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @returns Whether movement is enabled for this inventory owner.
      */
     public movement_enabled(): boolean;
 
     /**
      * Enable or disable movement for this inventory owner.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param value - Whether movement is enabled.
      */
@@ -2909,6 +4121,10 @@ declare module "xray16" {
     public set_condition(condition: f32): void;
 
     /**
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
+     *
      * @param vertex_position - Position to test from.
      * @param target_position - Desired target position.
      * @returns Level vertex id and accessible position.
@@ -2917,6 +4133,10 @@ declare module "xray16" {
 
     /**
      * Get queued action by index.
+     *
+     * @remarks
+     * Requires this object to be a scripted entity. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param index - Action index.
      * @returns Action object, or `null`.
@@ -2936,6 +4156,10 @@ declare module "xray16" {
     /**
      * Check whether scripts can capture this object.
      *
+     * @remarks
+     * Requires this object to be a scripted entity. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Whether script capture is allowed.
      */
     public can_script_capture(): boolean;
@@ -2947,11 +4171,19 @@ declare module "xray16" {
 
     /**
      * Stop the current external trader sound.
+     *
+     * @remarks
+     * Requires this object to be a trader-capable inventory owner. Other object types log a script
+     * error and return a default value or do nothing.
      */
     public external_sound_stop(): void;
 
     /**
      * Find the best cover from a threat position.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param position - Threat position.
      * @returns Cover point.
@@ -2966,11 +4198,18 @@ declare module "xray16" {
     public game_vertex_id(): u32;
 
     /**
+     * @remarks
+     * Requires this object to be a helicopter. Other object types log a script error.
+     *
      * @returns This object as a helicopter.
      */
     public get_helicopter(): CHelicopter;
 
     /**
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
+     *
      * @returns Last known monster sound info.
      */
     public get_sound_info(): SoundInfo;
@@ -2983,6 +4222,10 @@ declare module "xray16" {
     public group(): i32;
 
     /**
+     * @remarks
+     * Requires this object to be an inventory box. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Whether this inventory box is closed.
      */
     public inv_box_closed_status(): boolean;
@@ -2996,6 +4239,10 @@ declare module "xray16" {
 
     /**
      * Get remembered position of another object.
+     *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
      *
      * @param object - Remembered object.
      * @returns Last remembered position.
@@ -3032,11 +4279,19 @@ declare module "xray16" {
 
     /**
      * Register this stalker in its squad combat registry.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      */
     public register_in_combat(): void;
 
     /**
      * Find a safe cover near a position.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param position - Search position.
      * @param radius - Search radius.
@@ -3048,6 +4303,10 @@ declare module "xray16" {
     /**
      * Enable or disable script control.
      *
+     * @remarks
+     * Requires this object to be a scripted entity. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param script_control - Whether script control is enabled.
      * @param script_name - Script control name.
      */
@@ -3055,11 +4314,19 @@ declare module "xray16" {
 
     /**
      * Clear desired movement direction for this stalker.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      */
     public set_desired_direction(): void;
 
     /**
      * Set desired movement direction for this stalker.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param direction - Desired direction.
      */
@@ -3068,12 +4335,20 @@ declare module "xray16" {
     /**
      * Enable or disable manual bloodsucker invisibility control.
      *
+     * @remarks
+     * Requires this object to be a bloodsucker. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param value - Whether manual invisibility control is enabled.
      */
     public set_manual_invisibility(value: boolean): void;
 
     /**
      * Set target movement type for this stalker.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param movement_type - Movement type.
      */
@@ -3082,12 +4357,20 @@ declare module "xray16" {
     /**
      * Move an NPC to a position.
      *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param position - New NPC position.
      */
     public set_npc_position(position: vector): void;
 
     /**
      * Set sound memory threshold for this monster.
+     *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
+     * objects log a script error and return a default value or do nothing.
      *
      * @param threshold - Sound threshold.
      */
@@ -3096,6 +4379,10 @@ declare module "xray16" {
     /**
      * Set trader head animation.
      *
+     * @remarks
+     * Requires this object to be a trader-capable inventory owner. Other object types log a script
+     * error and return a default value or do nothing.
+     *
      * @param animation - Animation name.
      */
     public set_trader_head_anim(animation: string): void;
@@ -3103,21 +4390,37 @@ declare module "xray16" {
     /**
      * Set visual name for this object.
      *
+     * @remarks
+     * Requires this object to have a renderable visual. Objects without a visual can log an engine
+     * error or return a default value.
+     *
      * @param name - Visual name.
      */
     public set_visual_name(name: string): void;
 
     /**
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Target mental state requested by the movement manager.
      */
     public target_mental_state(): TXR_animation;
 
     /**
      * Unregister this door from NPC door management.
+     *
+     * @remarks
+     * Requires this object to be a door object managed by NPC door logic. Other object types do
+     * nothing or report an engine script error.
      */
     public unregister_door_for_npc(): void;
 
     /**
+     * @remarks
+     * Requires this object to be an ammo box item. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Ammo count in this ammo box.
      */
     public ammo_get_count(): u16;
@@ -3125,17 +4428,29 @@ declare module "xray16" {
     /**
      * Set ammo count for this ammo box.
      *
+     * @remarks
+     * Requires this object to be an ammo box item. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param count - Ammo count.
      */
     public ammo_set_count(count: u16): void;
 
     /**
+     * @remarks
+     * Requires this object to be an ammo box item. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Configured ammo box size.
      */
     public ammo_box_size(): u16;
 
     /**
      * Cast this object to a stalker wrapper.
+     *
+     * @remarks
+     * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
+     * cast result may be `null` at runtime.
      *
      * @returns Stalker wrapper.
      */
@@ -3144,12 +4459,19 @@ declare module "xray16" {
     /**
      * Cast this object to an artefact wrapper.
      *
+     * @remarks
+     * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
+     * cast result may be `null` at runtime.
+     *
      * @returns Artefact wrapper.
      */
     public cast_Artefact(): CArtefact;
 
     /**
      * Cast this object to a car wrapper.
+     *
+     * @remarks
+     * Requires this object to be a car. Other object types log a script error.
      *
      * @returns Car wrapper.
      */
@@ -3158,12 +4480,19 @@ declare module "xray16" {
     /**
      * Cast this object to a base game object wrapper.
      *
+     * @remarks
+     * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
+     * cast result may be `null` at runtime.
+     *
      * @returns Game object wrapper.
      */
     public cast_GameObject(): CGameObject;
 
     /**
      * Cast this object to a helicopter wrapper.
+     *
+     * @remarks
+     * Requires this object to be a helicopter. Other object types log a script error.
      *
      * @returns Helicopter wrapper.
      */
@@ -3172,12 +4501,20 @@ declare module "xray16" {
     /**
      * Cast this object to a space restrictor wrapper.
      *
+     * @remarks
+     * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
+     * cast result may be `null` at runtime.
+     *
      * @returns Space restrictor wrapper.
      */
     public cast_SpaceRestrictor(): CSpaceRestrictor;
 
     /**
      * Cast this object to a holder wrapper.
+     *
+     * @remarks
+     * Requires this object to be a holder object. Other object types log a script error or return
+     * `null`.
      *
      * @returns Holder wrapper.
      */
@@ -3186,12 +4523,20 @@ declare module "xray16" {
     /**
      * Cast this object to a weapon wrapper.
      *
+     * @remarks
+     * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
+     * cast result may be `null` at runtime.
+     *
      * @returns Weapon wrapper.
      */
     public cast_Weapon(): CWeapon;
 
     /**
      * Cast this object to an ammo wrapper.
+     *
+     * @remarks
+     * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
+     * cast result may be `null` at runtime.
      *
      * @returns Ammo wrapper.
      */
@@ -3200,12 +4545,20 @@ declare module "xray16" {
     /**
      * Cast this object to a magazined weapon wrapper.
      *
+     * @remarks
+     * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
+     * cast result may be `null` at runtime.
+     *
      * @returns Magazined weapon wrapper.
      */
     public cast_WeaponMagazined(): CWeaponMagazined;
 
     /**
      * Cast this object to a script zone wrapper.
+     *
+     * @remarks
+     * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
+     * cast result may be `null` at runtime.
      *
      * @returns Script zone wrapper.
      */
@@ -3214,12 +4567,20 @@ declare module "xray16" {
     /**
      * Cast this object to a custom zone wrapper.
      *
+     * @remarks
+     * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
+     * cast result may be `null` at runtime.
+     *
      * @returns Custom zone wrapper.
      */
     public cast_CustomZone(): CCustomZone;
 
     /**
      * Cast this object to an alive entity wrapper.
+     *
+     * @remarks
+     * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
+     * cast result may be `null` at runtime.
      *
      * @returns Alive entity wrapper.
      */
@@ -3228,6 +4589,10 @@ declare module "xray16" {
     /**
      * Cast this object to an explosive wrapper.
      *
+     * @remarks
+     * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
+     * cast result may be `null` at runtime.
+     *
      * @returns Explosive wrapper.
      */
     public cast_Explosive(): explosive;
@@ -3235,12 +4600,20 @@ declare module "xray16" {
     /**
      * Cast this object to a physics shell holder wrapper.
      *
+     * @remarks
+     * Requires this object to own a physics shell or physics holder. Other object types return `null`
+     * or do nothing.
+     *
      * @returns Physics shell holder wrapper.
      */
     public cast_PhysicsShellHolder(): CPhysicsShellHolder;
 
     /**
      * Get time when an info portion was received.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      *
      * @param info - Info portion id.
      * @returns Game time.
@@ -3250,6 +4623,10 @@ declare module "xray16" {
     /**
      * Check whether a bone is visible.
      *
+     * @remarks
+     * Requires this object to have a renderable visual. Objects without a visual can log an engine
+     * error or return a default value.
+     *
      * @param bone - Bone name.
      * @returns Whether bone is visible.
      */
@@ -3257,6 +4634,10 @@ declare module "xray16" {
 
     /**
      * Check whether weapon supports an ammo type.
+     *
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
      *
      * @param type - Ammo section.
      * @returns Whether ammo type is supported.
@@ -3266,6 +4647,10 @@ declare module "xray16" {
     /**
      * Check whether an item is on belt.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param object - Item object.
      * @returns Whether item is on belt.
      */
@@ -3274,12 +4659,20 @@ declare module "xray16" {
     /**
      * Use an object.
      *
+     * @remarks
+     * Requires this object to support the requested use interaction. Unsupported object pairs do
+     * nothing or report an engine script error.
+     *
      * @param object - Object to use.
      */
     public use(object: game_object): void;
 
     /**
      * Set remaining item uses count.
+     *
+     * @remarks
+     * Requires this object to be an eatable inventory item. Other object types log a script error and
+     * return a default value or do nothing.
      *
      * @param remaining - Count of remaining uses for item before destroy.
      */
@@ -3288,12 +4681,20 @@ declare module "xray16" {
     /**
      * Get maximum item uses.
      *
+     * @remarks
+     * Requires this object to be an eatable inventory item. Other object types log a script error and
+     * return a default value or do nothing.
+     *
      * @returns Maximum uses.
      */
     public get_max_uses(): u8;
 
     /**
      * Get remaining item uses.
+     *
+     * @remarks
+     * Requires this object to be an eatable inventory item. Other object types log a script error and
+     * return a default value or do nothing.
      *
      * @returns Remaining uses.
      */
@@ -3302,17 +4703,29 @@ declare module "xray16" {
     /**
      * Set custom zone restrictor type.
      *
+     * @remarks
+     * Requires this object to be a custom zone. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param type - Restrictor type.
      */
     public set_restrictor_type(type: u8): void;
 
     /**
+     * @remarks
+     * Requires this object to be a custom zone. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Custom zone restrictor type.
      */
     public get_restrictor_type(): u8;
 
     /**
      * Set spatial registration type for this object.
+     *
+     * @remarks
+     * Requires this object to be registered in spatial object logic. Other object types can log an
+     * engine error or return a default value.
      *
      * @param type - Spatial type mask.
      */
@@ -3321,17 +4734,29 @@ declare module "xray16" {
     /**
      * Set weapon type id.
      *
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @param type - Weapon type id.
      */
     public set_weapon_type(type: u8): void;
 
     /**
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @returns Current weapon substate.
      */
     public get_weapon_substate(): u8;
 
     /**
      * Start trade with another object.
+     *
+     * @remarks
+     * Requires this object to be the actor and the argument to be an inventory owner. Invalid object
+     * types do nothing or log an engine script error.
      *
      * @param object - Trade partner.
      */
@@ -3340,12 +4765,20 @@ declare module "xray16" {
     /**
      * Start upgrade interaction with another object.
      *
+     * @remarks
+     * Requires this object to be the actor and the argument to be an inventory owner. Invalid object
+     * types do nothing or log an engine script error.
+     *
      * @param object - Upgrade partner.
      */
     public start_upgrade(object: game_object): void;
 
     /**
      * Switch HUD item state.
+     *
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
      *
      * @param state - New HUD item state.
      */
@@ -3354,12 +4787,18 @@ declare module "xray16" {
     /**
      * Set enemy target for this phantom.
      *
+     * @remarks
+     * Requires this object to be a phantom. Other object types log a script error or do nothing.
+     *
      * @param object - Enemy object.
      */
     public phantom_set_enemy(object: game_object): void;
 
     /**
      * Set actor jump speed.
+     *
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
      *
      * @param speed - Jump speed.
      */
@@ -3368,12 +4807,18 @@ declare module "xray16" {
     /**
      * Set actor maximum walk weight.
      *
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
+     *
      * @param weight - Maximum walk weight.
      */
     public set_actor_max_walk_weight(weight: f32): void;
 
     /**
      * Set actor maximum carry weight.
+     *
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
      *
      * @param weight - Maximum carry weight.
      */
@@ -3382,12 +4827,18 @@ declare module "xray16" {
     /**
      * Set actor run speed coefficient.
      *
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
+     *
      * @param coef - Run coefficient.
      */
     public set_actor_run_coef(coef: f32): void;
 
     /**
      * Set actor backward run speed coefficient.
+     *
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
      *
      * @param coef - Backward run coefficient.
      */
@@ -3396,12 +4847,18 @@ declare module "xray16" {
     /**
      * Set actor sprint speed coefficient.
      *
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
+     *
      * @param coef - Sprint coefficient.
      */
     public set_actor_sprint_koef(coef: f32): void;
 
     /**
      * Set additional maximum walk weight.
+     *
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
      *
      * @param weight - Additional walk weight.
      */
@@ -3410,12 +4867,19 @@ declare module "xray16" {
     /**
      * Set additional maximum carry weight.
      *
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
+     *
      * @param weight - Additional carry weight.
      */
     public set_additional_max_weight(weight: f32): void;
 
     /**
      * Set active ammo type for this weapon.
+     *
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
      *
      * @param type - Ammo type index.
      */
@@ -3424,12 +4888,20 @@ declare module "xray16" {
     /**
      * Set artefact bleeding restore rate.
      *
+     * @remarks
+     * Requires this object to be an artefact. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param rate - Restore rate.
      */
     public set_artefact_bleeding(rate: f32): void;
 
     /**
      * Set artefact health restore rate.
+     *
+     * @remarks
+     * Requires this object to be an artefact. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param rate - Restore rate.
      */
@@ -3438,12 +4910,20 @@ declare module "xray16" {
     /**
      * Set artefact power restore rate.
      *
+     * @remarks
+     * Requires this object to be an artefact. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param rate - Restore rate.
      */
     public set_artefact_power(rate: f32): void;
 
     /**
      * Set artefact radiation restore rate.
+     *
+     * @remarks
+     * Requires this object to be an artefact. Other object types log a script error and return a
+     * default value or do nothing.
      *
      * @param rate - Restore rate.
      */
@@ -3452,12 +4932,20 @@ declare module "xray16" {
     /**
      * Set artefact satiety restore rate.
      *
+     * @remarks
+     * Requires this object to be an artefact. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @param rate - Restore rate.
      */
     public set_artefact_satiety(rate: f32): void;
 
     /**
      * Set bone visibility on this object visual.
+     *
+     * @remarks
+     * Requires this object to have a renderable visual. Objects without a visual can log an engine
+     * error or return a default value.
      *
      * @param name - Bone name.
      * @param visible - Whether the bone is visible.
@@ -3468,6 +4956,10 @@ declare module "xray16" {
     /**
      * Set character icon texture id.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param icon - Icon id.
      */
     public set_character_icon(icon: string): void;
@@ -3476,134 +4968,226 @@ declare module "xray16" {
      * Directly set entity health instead of applying a health property delta.
      *
      * @remarks
-     * This binding exists because the normal health property setter routes through conditions().ChangeHealth.
+     * This binding exists because the normal health property setter routes through
+     * conditions().ChangeHealth.
      */
     public set_health_ex(value: f32): void;
 
     /**
      * Set main weapon type id.
      *
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @param type - Main weapon type id.
      */
     public set_main_weapon_type(type: u32): void;
 
     /**
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
+     *
      * @returns Actor jump speed.
      */
     public get_actor_jump_speed(): f32;
 
     /**
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
+     *
      * @returns Actor maximum walk weight.
      */
     public get_actor_max_walk_weight(): f32;
 
     /**
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
+     *
      * @returns Actor maximum carry weight.
      */
     public get_actor_max_weight(): f32;
 
     /**
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
+     *
      * @returns Actor run speed coefficient.
      */
     public get_actor_run_coef(): f32;
 
     /**
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
+     *
      * @returns Actor backward run speed coefficient.
      */
     public get_actor_runback_coef(): f32;
 
     /**
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
+     *
      * @returns Actor sprint speed coefficient.
      */
     public get_actor_sprint_koef(): f32;
 
     /**
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
+     *
      * @returns Additional maximum walk weight.
      */
     public get_additional_max_walk_weight(): f32;
 
     /**
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
+     *
      * @returns Additional maximum carry weight.
      */
     public get_additional_max_weight(): f32;
 
     /**
+     * @remarks
+     * Requires this object to be a custom zone. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Current anomaly power.
      */
     public get_anomaly_power(): f32;
 
     /**
+     * @remarks
+     * Requires this object to be an artefact. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Artefact bleeding restore rate.
      */
     public get_artefact_bleeding(): f32;
 
     /**
+     * @remarks
+     * Requires this object to be an artefact. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Artefact health restore rate.
      */
     public get_artefact_health(): f32;
 
     /**
+     * @remarks
+     * Requires this object to be an artefact. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Artefact power restore rate.
      */
     public get_artefact_power(): f32;
 
     /**
+     * @remarks
+     * Requires this object to be an artefact. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Artefact radiation restore rate.
      */
     public get_artefact_radiation(): f32;
 
     /**
+     * @remarks
+     * Requires this object to be an artefact. Other object types log a script error and return a
+     * default value or do nothing.
+     *
      * @returns Artefact satiety restore rate.
      */
     public get_artefact_satiety(): f32;
 
     /**
+     * @remarks
+     * Requires this object to have a renderable visual. Objects without a visual can log an engine
+     * error or return a default value.
+     *
      * @returns Object luminocity.
      */
     public get_luminocity(): f32;
 
     /**
+     * @remarks
+     * Requires this object to have a renderable visual. Objects without a visual can log an engine
+     * error or return a default value.
+     *
      * @returns Hemispheric luminocity for this object.
      */
     public get_luminocity_hemi(): f32;
 
     /**
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @returns Total inventory weight for this inventory owner.
      */
     public get_total_weight(): f32;
 
     /**
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
+     *
      * @returns Vehicle currently attached to the actor, or `null`.
      */
     public get_attached_vehicle(): game_object | null;
 
     /**
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @returns Number of items on the belt.
      */
     public belt_count(): u32;
 
     /**
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @returns Main weapon type id.
      */
     public get_main_weapon_type(): u32;
 
     /**
+     * @remarks
+     * Requires this object to be registered in spatial object logic. Other object types can log an
+     * engine error or return a default value.
+     *
      * @returns Spatial registration type mask.
      */
     public get_spatial_type(): u32;
 
     /**
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @returns Current HUD item state.
      */
     public get_state(): u32;
 
     /**
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @returns Weapon type id.
      */
     public get_weapon_type(): u32;
 
     /**
      * Play a HUD animation if it exists.
+     *
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
      *
      * @param motion - HUD motion name.
      * @param mix_in - Whether to blend with the current animation.
@@ -3615,6 +5199,9 @@ declare module "xray16" {
     /**
      * Attach actor to a vehicle or holder.
      *
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
+     *
      * @param vehicle - Vehicle object.
      * @param force - Whether attach should be forced.
      */
@@ -3622,11 +5209,18 @@ declare module "xray16" {
 
     /**
      * Clear queued game news for this inventory owner.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
      */
     public clear_game_news(): void;
 
     /**
      * Detach actor from the current vehicle or holder.
+     *
+     * @remarks
+     * Requires this object to be the actor. Other object types log a script error or do nothing.
      *
      * @param force - Whether detach should be forced.
      */
@@ -3643,12 +5237,20 @@ declare module "xray16" {
     /**
      * Get inventory ammo count for a weapon ammo type.
      *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
+     * a default value or do nothing.
+     *
      * @param type - Ammo type index.
      * @returns Matching ammo count.
      */
     public get_ammo_count_for_type(type: u8): i32;
 
     /**
+     * @remarks
+     * Requires this object to be a weapon. Other object types log a script error and return a default
+     * value or do nothing.
+     *
      * @returns Whether this weapon is in grenade launcher fire mode.
      */
     public weapon_in_grenade_mode(): boolean;
