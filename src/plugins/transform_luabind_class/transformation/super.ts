@@ -12,8 +12,9 @@ import { isLuabindClassType } from "./utils";
  * Transform generic methods super calls.
  * Example: super.parentMethod(first, second).
  *
- * @param expression
- * @param context
+ * @param expression - Super expression to transform.
+ * @param context - Active transformation context.
+ * @returns Lua expression referencing the base class.
  */
 export function transformClassSuperMethodExpression(expression: Expression, context: ITransformationContext) {
   const superInfos = context.classSuperInfos;
@@ -48,8 +49,9 @@ export function transformClassSuperMethodExpression(expression: Expression, cont
 /**
  * Check if super() call is in luabind class target.
  *
- * @param expression
- * @param context
+ * @param expression - Call or super expression to check.
+ * @param context - Active transformation context.
+ * @returns True when the call targets a luabind class.
  */
 export function isLuabindClassSuperCall(
   expression: CallExpression | SuperExpression,
@@ -71,8 +73,9 @@ export function isLuabindClassSuperCall(
 /**
  * Check if super.method() call is in luabind class target.
  *
- * @param expression
- * @param context
+ * @param expression - Call or super expression to check.
+ * @param context - Active transformation context.
+ * @returns True when the call targets a luabind class.
  */
 export function isLuabindClassSuperMethodCall(
   expression: CallExpression | SuperExpression,
@@ -86,10 +89,11 @@ export function isLuabindClassSuperMethodCall(
 }
 
 /**
- * Transform super() call in luabind classes to base_class.__init(self, param).
+ * Transform a super() call into luabind classes to base_class.__init(self, param).
  *
- * @param expression
- * @param context
+ * @param expression - Super constructor call to transform.
+ * @param context - Active transformation context.
+ * @returns Lua call to the base class constructor.
  */
 export function transformLuabindConstructorSuperCall(expression: CallExpression, context: ITransformationContext) {
   const signature = context.checker.getResolvedSignature(expression);

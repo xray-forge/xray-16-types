@@ -16,12 +16,13 @@ import { LUABIND_NAME_FIELD } from "./constants";
 import { getExtendedNode } from "./utils";
 
 /**
- * Create full class setup statement with name/super calls/methods/declaration/fields etc.
+ * Build the full set of statements that define a luabind class.
  *
- * @param context
- * @param statement
- * @param className
- * @param localClassName
+ * @param context - Active transformation context.
+ * @param statement - Class declaration being transformed.
+ * @param className - Exported class identifier.
+ * @param localClassName - Local class identifier.
+ * @returns Lua statements that set up the class.
  */
 export function createClassSetup(
   context: TransformationContext,
@@ -103,9 +104,10 @@ export function getReflectionClassName(
 /**
  * Creates class("Name")(base) expression for luabind classes.
  *
- * @param declaration
- * @param context
- * @param className
+ * @param declaration - Class declaration being transformed.
+ * @param context - Active transformation context.
+ * @param className - Exported class identifier.
+ * @returns Lua expression that creates the class.
  */
 function createLuabindClassStatement(
   declaration: ClassLikeDeclarationBase,
@@ -128,11 +130,12 @@ function createLuabindClassStatement(
 }
 
 /**
- * Creates name expression for luabind classes.
+ * Create the global reference expression for a luabind class.
  *
- * @param declaration
- * @param context
- * @param className
+ * @param declaration - Class declaration being transformed.
+ * @param context - Active transformation context.
+ * @param className - Exported class identifier.
+ * @returns Identifier used to reference the class.
  */
 function createLuabindClassGlobalClassRef(
   declaration: ClassLikeDeclarationBase,

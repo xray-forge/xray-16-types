@@ -4,10 +4,11 @@ import { createSerialDiagnosticFactory } from "typescript-to-lua/dist/utils";
 type MessageProvider<TArgs extends Array<any>> = string | ((...args: TArgs) => string);
 
 /**
- * Create diagnostics factory to push errors when transpile lua to typescript.
+ * Create a factory that builds diagnostics for transformation errors.
  *
- * @param category
- * @param message
+ * @param category - Severity assigned to produced diagnostics.
+ * @param message - Static message or a function that builds it.
+ * @returns Factory that creates a diagnostic for a given node.
  */
 export function createDiagnosticFactory<TArgs extends Array<any>>(
   category: DiagnosticCategory,

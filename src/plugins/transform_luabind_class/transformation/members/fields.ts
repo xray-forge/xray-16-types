@@ -10,8 +10,8 @@ import { unsupportedPropertyDecorator } from "../errors";
 /**
  * Verify whether decorators provided for luabind class.
  *
- * @param context
- * @param node
+ * @param context - Active transformation context.
+ * @param node - Class property or accessor to inspect.
  */
 export function verifyPropertyDecoratingExpression(
   context: TransformationContext,

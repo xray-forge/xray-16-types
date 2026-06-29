@@ -51,10 +51,10 @@ export function transformMethodDeclaration(
 }
 
 /**
- * Verify that method statement is not using decorators for methods/parameters.
+ * Verify that a method does not use method or parameter decorators.
  *
- * @param context
- * @param node
+ * @param context - Active transformation context.
+ * @param node - Class method to inspect.
  */
 export function verifyMethodDecoratingExpression(context: TransformationContext, node: MethodDeclaration): void {
   node.parameters.flatMap((parameter, index) => {

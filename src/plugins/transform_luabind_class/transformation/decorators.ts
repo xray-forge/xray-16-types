@@ -7,8 +7,8 @@ import { unsupportedClassDecorator } from "./errors";
 /**
  * Transform decorator call expressions for luabind class.
  *
- * @param context
- * @param decorator
+ * @param context - Active transformation context.
+ * @param decorator - Class decorator to validate.
  */
 export function checkLuabindClassDecoratorExpression(context: TransformationContext, decorator: Decorator): void {
   const expression = decorator.expression;

@@ -5,10 +5,11 @@ import { transformArguments } from "typescript-to-lua/dist/transformation/visito
 import { type ITransformationContext } from "./index";
 
 /**
- * Transform new call for luabind class as ClassConstructor() instead of TS_NEW from tstl.
+ * Transform a new expression into a luabind constructor call.
  *
- * @param expression
- * @param context
+ * @param expression - New expression to transform.
+ * @param context - Active transformation context.
+ * @returns Lua call expression for the class constructor.
  */
 export function transformNewCallExpression(expression: NewExpression, context: ITransformationContext) {
   return tstl.createCallExpression(
