@@ -394,7 +394,14 @@ declare module "xray16" {
    * @group xr_multiplayer
    */
   export class award_pair_t {
+    /**
+     * Award id and value for the pair key.
+     */
     public readonly first: award_data;
+
+    /**
+     * Award id and value for the pair payload.
+     */
     public readonly second: award_data;
   }
 
@@ -406,7 +413,14 @@ declare module "xray16" {
    * @group xr_multiplayer
    */
   export class best_scores_pair_t {
+    /**
+     * Best-score id and value for the pair key.
+     */
     public first: award_data;
+
+    /**
+     * Best-score id and value for the pair payload.
+     */
     public second: award_data;
   }
 

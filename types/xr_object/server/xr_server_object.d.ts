@@ -195,11 +195,29 @@ declare module "xray16" {
    * @group xr_object_server
    */
   export class cse_abstract extends EngineBinding implements IXR_cpure_server_object {
+    /**
+     * Server object id.
+     */
     public readonly id: u16;
+
+    /**
+     * Parent server object id, or `65535` when there is no parent.
+     */
     public readonly parent_id: u16;
+
+    /**
+     * Script data version stored with this object.
+     */
     public readonly script_version: u16;
 
+    /**
+     * Server-side world position.
+     */
     public position: vector;
+
+    /**
+     * Server-side orientation angles.
+     */
     public angle: vector;
 
     /**
@@ -275,7 +293,14 @@ declare module "xray16" {
    * @group xr_object_server
    */
   export class cse_alife_object extends cse_abstract {
+    /**
+     * Game graph vertex used by ALife simulation.
+     */
     public readonly m_game_vertex_id: u16;
+
+    /**
+     * Level graph vertex used by ALife simulation.
+     */
     public readonly m_level_vertex_id: u32;
     /**
      * Always numeric value.
@@ -476,12 +501,19 @@ declare module "xray16" {
      */
     public team: u8;
 
+    /**
+     * Game group id.
+     */
     public group: u8;
 
     /**
      * Object squad id, maximal u16 (65535) if no squad assigned.
      */
     public group_id: u16;
+
+    /**
+     * Assigned smart terrain id, or `65535` when none is assigned.
+     */
     public m_smart_terrain_id: u16;
 
     /**
@@ -1000,6 +1032,9 @@ declare module "xray16" {
     extends cse_alife_dynamic_object
     implements IXR_cse_alife_schedulable
   {
+    /**
+     * Current member object exposed during squad member iteration.
+     */
     public readonly object: T;
 
     /**

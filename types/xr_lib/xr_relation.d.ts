@@ -70,15 +70,54 @@ declare module "xray16" {
      */
     public target_desc: string;
 
+    /**
+     * First faction war state line.
+     */
     public war_state1: string;
+
+    /**
+     * Second faction war state line.
+     */
     public war_state2: string;
+
+    /**
+     * Third faction war state line.
+     */
     public war_state3: string;
+
+    /**
+     * Fourth faction war state line.
+     */
     public war_state4: string;
+
+    /**
+     * Fifth faction war state line.
+     */
     public war_state5: string;
+
+    /**
+     * Hint for the first faction war state line.
+     */
     public war_state_hint1: string;
+
+    /**
+     * Hint for the second faction war state line.
+     */
     public war_state_hint2: string;
+
+    /**
+     * Hint for the third faction war state line.
+     */
     public war_state_hint3: string;
+
+    /**
+     * Hint for the fourth faction war state line.
+     */
     public war_state_hint4: string;
+
+    /**
+     * Hint for the fifth faction war state line.
+     */
     public war_state_hint5: string;
 
     /**

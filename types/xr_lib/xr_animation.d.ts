@@ -48,13 +48,19 @@ declare module "xray16" {
    * @group xr_animation
    */
   export class noise {
-    /** Noise frame rate. */
+    /**
+     * Noise frame rate.
+     */
     public fps: f32;
 
-    /** Noise grain size. */
+    /**
+     * Noise grain size.
+     */
     public grain: f32;
 
-    /** Noise intensity. */
+    /**
+     * Noise intensity.
+     */
     public intensity: f32;
 
     /**

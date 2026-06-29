@@ -448,17 +448,64 @@ declare module "xray16" {
      */
     public static readonly eMovToPoint: 1;
 
+    /**
+     * Whether the helicopter explosion has already been triggered.
+     */
     public readonly m_exploded: boolean;
+
+    /**
+     * Whether helicopter lights are currently started.
+     */
     public readonly m_light_started: boolean;
+
+    /**
+     * Whether flame effects are currently started.
+     */
     public readonly m_flame_started: boolean;
+
+    /**
+     * Whether the helicopter is marked dead.
+     */
     public readonly m_dead: boolean;
+
+    /**
+     * Maximum machine-gun attack distance.
+     */
     public m_max_mgun_dist: f32;
+
+    /**
+     * Maximum rocket attack distance.
+     */
     public m_max_rocket_dist: f32;
+
+    /**
+     * Minimum machine-gun attack distance.
+     */
     public m_min_mgun_dist: f32;
+
+    /**
+     * Minimum rocket attack distance.
+     */
     public m_min_rocket_dist: f32;
+
+    /**
+     * Whether rocket firing is synchronized with the helicopter attack logic.
+     */
     public m_syncronize_rocket: boolean;
+
+    /**
+     * Delay between rocket attacks.
+     */
     public m_time_between_rocket_attack: u32;
+
+    /**
+     * Whether machine-gun attacks are enabled.
+     */
     public m_use_mgun_on_attack: boolean;
+
+    /**
+     * Whether rocket attacks are enabled.
+     */
     public m_use_rocket_on_attack: boolean;
 
     /**

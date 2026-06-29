@@ -959,8 +959,19 @@ declare module "xray16" {
      */
     public static readonly eSightTypeAnimationDirection: 11;
 
+    /**
+     * Object target for object-based sight modes.
+     */
     public readonly m_object: game_object;
+
+    /**
+     * Active sight mode.
+     */
     public readonly m_sight_type: TXR_SightType;
+
+    /**
+     * Position or direction target for vector-based sight modes.
+     */
     public readonly m_vector: vector;
 
     /**

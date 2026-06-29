@@ -97,6 +97,9 @@ declare module "xray16" {
    * @group xr_client_object
    */
   export class object_binder<T = game_object> extends EngineBinding {
+    /**
+     * Script game object controlled by this binder.
+     */
     public readonly object: T;
 
     /**

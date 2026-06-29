@@ -5,6 +5,9 @@ declare module "xray16" {
    * @source C++ class CUIWindow
    * @customConstructor CUIWindow
    * @group xr_ui_interface
+   *
+   * @remarks
+   * Coordinates use engine UI space. Child windows attached through the script binding are adopted by their parent.
    */
   export class CUIWindow extends EngineBinding {
     /**
@@ -104,6 +107,9 @@ declare module "xray16" {
     /**
      * Set whether the parent owns this child window.
      *
+     * @remarks
+     * Use this for script-created windows that are attached to a parent and should be cleaned up with the UI tree.
+     *
      * @param auto_delete - Whether the engine should delete the child automatically.
      */
     public SetAutoDelete(auto_delete: boolean): void;
@@ -176,12 +182,18 @@ declare module "xray16" {
     /**
      * Attach a child window.
      *
+     * @remarks
+     * The Lua binding adopts `child`; after attachment, treat the parent as owning its lifetime.
+     *
      * @param child - Child window.
      */
     public AttachChild(child: CUIWindow): void;
 
     /**
      * Detach a child window.
+     *
+     * @remarks
+     * Detaching removes the parent relation. It does not reinitialize the window or attach it elsewhere.
      *
      * @param child - Child window.
      */
@@ -211,6 +223,9 @@ declare module "xray16" {
    * @source C++ class CServerList : CUIWindow
    * @customConstructor CServerList
    * @group xr_ui_interface
+   *
+   * @remarks
+   * Used by main-menu multiplayer screens. Calls assume the server browser UI is initialized.
    */
   export class CServerList extends CUIWindow {
     /**
@@ -333,6 +348,9 @@ declare module "xray16" {
    * @source C++ class CUIComboBox : CUIWindow
    * @customConstructor CUIComboBox
    * @group xr_ui_interface
+   *
+   * @remarks
+   * Item ids and list indices are different. Use ids for stable values and indices for visual order.
    */
   export class CUIComboBox extends CUIWindow {
     /**
@@ -437,6 +455,9 @@ declare module "xray16" {
    * @source C++ class CUICustomEdit : CUIWindow
    * @customConstructor CUICustomEdit
    * @group xr_ui_interface
+   *
+   * @remarks
+   * Focus capture controls where keyboard input is routed between edit controls.
    */
   export class CUICustomEdit extends CUIWindow {
     /**
@@ -486,8 +507,10 @@ declare module "xray16" {
    * @source C++ class CUIDialogWnd : CUIWindow
    * @customConstructor CUIDialogWnd
    * @group xr_ui_interface
+   *
+   * @remarks
+   * Dialogs receive rendering and input only after they are connected to a `CDialogHolder`.
    */
-
   export class CUIDialogWnd extends CUIWindow {
     /**
      * Hide the dialog.
@@ -520,6 +543,9 @@ declare module "xray16" {
    * @source C++ class CUIScriptWnd : CUIDialogWnd,DLL_Pure
    * @customConstructor CUIScriptWnd
    * @group xr_ui_interface
+   *
+   * @remarks
+   * Register child controls before adding callbacks or using typed lookup helpers.
    */
   export class CUIScriptWnd extends CUIDialogWnd {
     /**
@@ -780,6 +806,9 @@ declare module "xray16" {
    * @source C++ class CUIListBox : CUIScrollView
    * @customConstructor CUIListBox
    * @group xr_ui_interface
+   *
+   * @remarks
+   * Items added through the script binding are owned by the list. Selection getters can return no item.
    */
   export class CUIListBox<T extends CUIListBoxItem = CUIListBoxItem> extends CUIScrollView {
     /**
@@ -820,6 +849,9 @@ declare module "xray16" {
 
     /**
      * Add an existing item and transfer it to the list.
+     *
+     * @remarks
+     * The Lua binding adopts `item`; keep future lifetime management with the list.
      *
      * @param item - Item to add.
      */
@@ -1582,6 +1614,9 @@ declare module "xray16" {
    * @source C++ class CUITabControl : CUIWindow
    * @customConstructor CUITabControl
    * @group xr_ui_interface
+   *
+   * @remarks
+   * String ids are tab ids from XML or script. Numeric indices follow the current visual order.
    */
   export class CUITabControl extends CUIWindow {
     /**
@@ -1623,6 +1658,9 @@ declare module "xray16" {
 
     /**
      * Add an existing tab button and transfer it to the control.
+     *
+     * @remarks
+     * The tab control owns the button after it is added.
      *
      * @param item - Tab button.
      */
@@ -1844,10 +1882,16 @@ declare module "xray16" {
    * @source C++ class CDialogHolder
    * @customConstructor CDialogHolder
    * @group xr_ui_interface
+   *
+   * @remarks
+   * Manages the dialog render list and input receiver stack. It does not create or own dialog windows.
    */
   export class CDialogHolder {
     /**
      * Remove a dialog from rendering.
+     *
+     * @remarks
+     * The holder hides and disables the window, then removes it from the active render list on update.
      *
      * @param window - Dialog window.
      */
@@ -1856,36 +1900,44 @@ declare module "xray16" {
     /**
      * Add a dialog to rendering.
      *
+     * @remarks
+     * The holder shows the window and skips duplicate active entries.
+     *
      * @param window - Dialog window.
      */
     public AddDialogToRender(window: CUIWindow): void;
 
     /**
-     * @returns Current top input receiver.
+     * @returns Current top input receiver, or `null` when no dialog owns input.
      */
-    public TopInputReceiver(): CUIDialogWnd;
+    public TopInputReceiver(): CUIDialogWnd | null;
 
     /**
      * Set the main input receiver.
      *
-     * @param window - Dialog window.
+     * @remarks
+     * Passing `find_remove` removes the matching receiver from the stack. Passing `null` pops the current receiver.
+     *
+     * @param window - Dialog window, or `null` to pop the current receiver.
      * @param find_remove - Whether to remove the previous receiver if found.
-     * @returns Whether the receiver was set.
      */
-    public SetMainInputReceiver(window: CUIDialogWnd, find_remove: boolean): boolean;
+    public SetMainInputReceiver(window: CUIDialogWnd | null, find_remove: boolean): void;
 
     /**
-     * @returns Current main input receiver.
+     * @returns Current main input receiver, or `null` when no dialog owns input.
      */
-    public MainInputReceiver(): CUIDialogWnd;
+    public MainInputReceiver(): CUIDialogWnd | null;
 
     /**
      * Start or stop an in-game menu.
      *
+     * @remarks
+     * This toggles the dialog through the holder, including cursor and HUD indicator handling.
+     *
      * @param window - Menu window.
      * @param value - Whether the menu should be active.
      */
-    public start_stop_menu(window: CUIWindow, value: boolean): void;
+    public start_stop_menu(window: CUIDialogWnd, value: boolean): void;
   }
 
   /**
@@ -1894,8 +1946,14 @@ declare module "xray16" {
    * @source C++ class StaticDrawableWrapper
    * @customConstructor StaticDrawableWrapper
    * @group xr_ui_interface
+   *
+   * @remarks
+   * Created by `CUIGameCustom.AddCustomStatic`. A negative `m_endTime` means the static does not expire by time.
    */
   export class StaticDrawableWrapper {
+    /**
+     * Absolute engine time when this static expires, or a negative value for no time limit.
+     */
     public m_endTime: f32;
 
     /**
@@ -1927,6 +1985,9 @@ declare module "xray16" {
 
     /**
      * Destroy the wrapper.
+     *
+     * @remarks
+     * Destroys the wrapped static window. Prefer `CUIGameCustom.RemoveCustomStatic` for HUD-owned statics.
      */
     public destroy(): void;
 
@@ -1942,6 +2003,9 @@ declare module "xray16" {
    * @source C++ class CUIListWnd : CUIWindow
    * @customConstructor CUIListWnd
    * @group xr_ui_interface
+   *
+   * @remarks
+   * Items added through the script binding are adopted by the list window.
    */
   export class CUIListWnd extends CUIWindow {
     /**
@@ -2046,6 +2110,9 @@ declare module "xray16" {
     /**
      * Add an item and transfer it to the list.
      *
+     * @remarks
+     * The Lua binding adopts `item`; the list owns it after a successful add.
+     *
      * @param item - Item to add.
      * @returns Whether the item was added.
      */
@@ -2139,6 +2206,9 @@ declare module "xray16" {
    * @source C++ class CUIPdaWnd : CUIDialogWnd
    * @customConstructor CUIPdaWnd
    * @group xr_ui_interface
+   *
+   * @remarks
+   * The global PDA menu is owned by the current game UI. Use it only while a level HUD exists.
    */
   export class CUIPdaWnd extends CUIDialogWnd {
     /**
@@ -2182,6 +2252,9 @@ declare module "xray16" {
    * @source C++ class CUIActorMenu : CUIDialogWnd
    * @customConstructor CUIActorMenu
    * @group xr_ui_interface
+   *
+   * @remarks
+   * The global actor menu is owned by the current game UI. Inventory moves require an active actor inventory context.
    */
   export class CUIActorMenu extends CUIDialogWnd {
     /**
@@ -2224,6 +2297,9 @@ declare module "xray16" {
     /**
      * Move an object to an actor slot.
      *
+     * @remarks
+     * `object` must be an inventory item that belongs to the actor menu context.
+     *
      * @param object - Item object.
      * @param force_place - Whether to force placement.
      * @param slot_id - Slot id.
@@ -2233,6 +2309,9 @@ declare module "xray16" {
 
     /**
      * Move an object to the actor belt.
+     *
+     * @remarks
+     * `object` must be an inventory item that belongs to the actor menu context.
      *
      * @param object - Item object.
      * @param use_cursor_position - Whether to use the cursor position.
@@ -2247,6 +2326,9 @@ declare module "xray16" {
    * @source C++ enum EDDListType
    * @customConstructor EDDListType
    * @group xr_ui_interface
+   *
+   * @remarks
+   * These constants identify actor-menu drag-drop lists, not generic UI lists.
    */
   export class EDDListType {
     /**

@@ -7,7 +7,14 @@ declare module "xray16" {
    * @group xr_memory
    */
   export class memory_object extends EngineBinding {
+    /**
+     * Previous level time recorded for this memory entry.
+     */
     public readonly last_level_time: u32;
+
+    /**
+     * Level time when this memory entry was last updated.
+     */
     public readonly level_time: u32;
 
     /**
@@ -24,7 +31,14 @@ declare module "xray16" {
    * @group xr_memory
    */
   export class entity_memory_object extends memory_object {
+    /**
+     * Snapshot of the remembered entity.
+     */
     public readonly object_info: object_params;
+
+    /**
+     * Snapshot of the object that owns this memory.
+     */
     public readonly self_info: object_params;
 
     /**
@@ -46,7 +60,14 @@ declare module "xray16" {
    * @group xr_memory
    */
   export class object_params {
+    /**
+     * Level graph vertex recorded for the object.
+     */
     public level_vertex: u32;
+
+    /**
+     * World position recorded for the object.
+     */
     public position: vector;
 
     /**
@@ -63,8 +84,19 @@ declare module "xray16" {
    * @group xr_memory
    */
   export class hit_memory_object extends entity_memory_object {
+    /**
+     * Hit power remembered by AI.
+     */
     public readonly amount: f32;
+
+    /**
+     * Bone that received the hit.
+     */
     public readonly bone_index: u16;
+
+    /**
+     * Hit direction.
+     */
     public readonly direction: vector;
 
     /**
@@ -81,7 +113,14 @@ declare module "xray16" {
    * @group xr_memory
    */
   export class game_memory_object extends memory_object {
+    /**
+     * Snapshot of the remembered object.
+     */
     public readonly object_info: object_params;
+
+    /**
+     * Snapshot of the object that owns this memory.
+     */
     public readonly self_info: object_params;
 
     /**
@@ -108,6 +147,9 @@ declare module "xray16" {
      */
     protected constructor();
 
+    /**
+     * Visibility score accumulated for this candidate.
+     */
     public value: f32;
 
     /**
@@ -138,8 +180,19 @@ declare module "xray16" {
    * @group xr_memory
    */
   export class memory_info extends visible_memory_object {
+    /**
+     * Whether hit memory is available for this object.
+     */
     public readonly hit_info: boolean;
+
+    /**
+     * Whether sound memory is available for this object.
+     */
     public readonly sound_info: boolean;
+
+    /**
+     * Whether visual memory is available for this object.
+     */
     public readonly visual_info: boolean;
 
     /**
@@ -156,6 +209,9 @@ declare module "xray16" {
    * @group xr_memory
    */
   export class sound_memory_object extends game_memory_object {
+    /**
+     * Remembered sound power.
+     */
     public readonly power: f32;
 
     /**
