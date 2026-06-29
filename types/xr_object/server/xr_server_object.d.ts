@@ -76,6 +76,9 @@ declare module "xray16" {
    *
    * @source C++ class cse_alife_inventory_item
    * @group xr_object_server
+   *
+   * @remarks
+   * Upgrade ids are stored on the server object and serialized with it.
    */
   export interface IXR_cse_alife_inventory_item {
     /**
@@ -89,7 +92,8 @@ declare module "xray16" {
     /**
      * Add an upgrade section to the item.
      *
-     * @remarks Adding the same upgrade twice is a fatal engine error.
+     * @remarks
+     * Adding the same upgrade twice is a fatal engine error.
      *
      * @param section - Upgrade section id.
      */
@@ -193,6 +197,9 @@ declare module "xray16" {
    * @source C++ class cse_abstract : cpure_server_object
    * @customConstructor cse_abstract
    * @group xr_object_server
+   *
+   * @remarks
+   * Server objects are ALife/network objects, not live client `game_object` wrappers.
    */
   export class cse_abstract extends EngineBinding implements IXR_cpure_server_object {
     /**
@@ -250,12 +257,18 @@ declare module "xray16" {
     /**
      * Read an update packet into this object.
      *
+     * @remarks
+     * Use only with packets written for the same server object class and update format.
+     *
      * @param packet - Source network packet.
      */
     public UPDATE_Read(packet: net_packet): void;
 
     /**
      * Read a state packet into this object.
+     *
+     * @remarks
+     * Use only with packets written for the same server object class and state format.
      *
      * @param packet - Source network packet.
      * @param size - Serialized state size.
@@ -291,6 +304,10 @@ declare module "xray16" {
    * @source C++ class cse_alife_object : cse_abstract
    * @customConstructor cse_alife_object
    * @group xr_object_server
+   *
+   * @remarks
+   * Base ALife object registered in the simulator graph. Switching flags describe whether the simulator may move it
+   * between offline and online state.
    */
   export class cse_alife_object extends cse_abstract {
     /**
@@ -344,6 +361,9 @@ declare module "xray16" {
     /**
      * Allow or block switching online.
      *
+     * @remarks
+     * Sets the object's switch-online flag; it does not switch the object immediately.
+     *
      * @param value - Whether online switching is allowed.
      */
     public can_switch_online(value: boolean): void;
@@ -380,6 +400,9 @@ declare module "xray16" {
     /**
      * Allow or block switching offline.
      *
+     * @remarks
+     * Sets the object's switch-offline flag; it does not switch the object immediately.
+     *
      * @param value - Whether offline switching is allowed.
      */
     public can_switch_offline(value: boolean): void;
@@ -408,15 +431,24 @@ declare module "xray16" {
    * @source C++ class cse_alife_dynamic_object : cse_alife_object
    * @customConstructor cse_alife_dynamic_object
    * @group xr_object_server
+   *
+   * @remarks
+   * Dynamic ALife object that can have a client representation while online.
    */
   export class cse_alife_dynamic_object extends cse_alife_object {
     /**
      * Move the object to offline ALife simulation.
+     *
+     * @remarks
+     * Call only when the object is currently online and the object type supports switching offline.
      */
     public switch_offline(): void;
 
     /**
      * Bring the object online and create its client-side representation.
+     *
+     * @remarks
+     * Call only when the object is currently offline and the object type supports switching online.
      */
     public switch_online(): void;
 
@@ -486,6 +518,10 @@ declare module "xray16" {
    * @source C++ class cse_alife_creature_abstract : cse_alife_dynamic_object_visual
    * @customConstructor cse_alife_creature_abstract
    * @group xr_object_server
+   *
+   * @remarks
+   * Base server object for actor, stalker, and monster creatures. Creature-specific helpers require a creature ALife
+   * object, not an arbitrary server object.
    */
   export class cse_alife_creature_abstract extends cse_alife_dynamic_object_visual {
     /**
@@ -549,6 +585,9 @@ declare module "xray16" {
     /**
      * Notify the server object that this creature died.
      *
+     * @remarks
+     * Marks server-side health as dead and records death time. It is not a general damage method.
+     *
      * @param killer - Server object that killed this creature.
      */
     public on_death(killer: cse_alife_object): void;
@@ -560,11 +599,17 @@ declare module "xray16" {
 
     /**
      * Kill the server-side creature.
+     *
+     * @remarks
+     * Intended for creature server objects managed by ALife.
      */
     public kill(): void;
 
     /**
      * Set goodwill from this creature toward another object.
+     *
+     * @remarks
+     * `npc_id` must resolve to an ALife object that can store personal goodwill.
      *
      * @param goodwill - New goodwill value.
      * @param npc_id - Target object id.
@@ -595,6 +640,9 @@ declare module "xray16" {
 
     /**
      * Works for `CSE_ALifeMonsterAbstract`, marks smart terrain as reached and switches logic to terrain task.
+     *
+     * @remarks
+     * Only meaningful for monsters assigned to a smart terrain task.
      */
     public smart_terrain_task_activate(): void;
 
@@ -611,6 +659,8 @@ declare module "xray16" {
     public current_level_travel_speed(value: number): void;
 
     /**
+     * @throws If this creature type has no ALife monster brain.
+     *
      * @returns ALife brain that drives offline monster behavior.
      */
     public brain(): CAILifeMonsterBrain;
@@ -681,7 +731,8 @@ declare module "xray16" {
     /**
      * Add an upgrade section to the item.
      *
-     * @remarks Adding the same upgrade twice is a fatal engine error.
+     * @remarks
+     * Adding the same upgrade twice is a fatal engine error.
      *
      * @param section - Upgrade section id.
      */
@@ -698,6 +749,9 @@ declare module "xray16" {
   export class cse_alife_item_weapon extends cse_alife_item {
     /**
      * Copy addon flags from another weapon server object.
+     *
+     * @remarks
+     * Copies addon state only. Ammo, condition, and installed upgrades are handled by other fields or helpers.
      *
      * @param weapon - Weapon to copy addon state from.
      */
@@ -1027,6 +1081,10 @@ declare module "xray16" {
    * @source C++ class cse_alife_online_offline_group : cse_alife_dynamic_object,cse_alife_schedulable
    * @customConstructor cse_alife_online_offline_group
    * @group xr_object_server
+   *
+   * @remarks
+   * Squad-like ALife group that owns live monster members. Registering or unregistering members also updates ALife
+   * graph and scheduling state.
    */
   export class cse_alife_online_offline_group<T extends cse_alife_creature_abstract = cse_alife_creature_abstract>
     extends cse_alife_dynamic_object
@@ -1051,16 +1109,23 @@ declare module "xray16" {
 
     /**
      * Remove all location type filters from the group.
+     *
+     * @remarks
+     * Clears the terrain masks on the group and on every current member.
      */
     public clear_location_types(): void;
 
     /**
+     * @throws The base online/offline group implementation does not provide a task.
+     *
      * @returns Current smart terrain task, when one is assigned.
      */
     public get_current_task(): CALifeSmartTerrainTask;
 
     /**
      * Get current squad command ID.
+     *
+     * @returns First member id, or `65535` when the group is empty.
      */
     public commander_id(): u16;
 
@@ -1083,12 +1148,18 @@ declare module "xray16" {
     /**
      * Force the group's graph position from a world position.
      *
+     * @remarks
+     * Recomputes level and game graph vertices from `vector`.
+     *
      * @param vector - Target world position.
      */
     public force_change_position(vector: vector): void;
 
     /**
      * Add a location type accepted by the group.
+     *
+     * @remarks
+     * Adds the terrain mask to the group and to every current member.
      *
      * @param location - Location type name.
      */
@@ -1124,6 +1195,10 @@ declare module "xray16" {
    * @source C++ class cse_alife_smart_zone : cse_alife_space_restrictor,cse_alife_schedulable
    * @customConstructor cse_alife_smart_zone
    * @group xr_object_server
+   *
+   * @remarks
+   * Server-side smart terrain/zone hook. Base implementations may be placeholders; gameplay scripts usually work with
+   * concrete smart-terrain logic.
    */
   export class cse_alife_smart_zone extends cse_alife_space_restrictor implements IXR_cse_alife_schedulable {
     /**
@@ -1133,6 +1208,9 @@ declare module "xray16" {
 
     /**
      * Notify the smart zone that a monster touched it.
+     *
+     * @remarks
+     * The base implementation is empty; concrete smart zones can override behavior.
      *
      * @param monster - Monster server object.
      */

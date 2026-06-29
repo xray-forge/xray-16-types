@@ -5,10 +5,15 @@ declare module "xray16" {
    * @source C++ class alife_simulator
    * @customConstructor alife_simulator
    * @group xr_alife
+   *
+   * @remarks
+   * This is the active single-player ALife simulator. Most methods expect ids that are already registered in ALife.
    */
   export class alife_simulator {
     /**
      * Get the ALife actor server object.
+     *
+     * @throws If no active ALife simulator exists.
      *
      * @returns Actor object registered in the ALife graph.
      */
@@ -17,6 +22,9 @@ declare module "xray16" {
     /**
      * Add an inside-space restriction to an offline monster.
      *
+     * @remarks
+     * `monster` must be a registered monster server object. `restrictorId` should point to a space restrictor.
+     *
      * @param monster - Monster server object to restrict.
      * @param restrictorId - Restrictor object id.
      */
@@ -24,6 +32,9 @@ declare module "xray16" {
 
     /**
      * Add an outside-space restriction to an offline monster.
+     *
+     * @remarks
+     * `monster` must be a registered monster server object. `restrictorId` should point to a space restrictor.
      *
      * @param monster - Monster server object to restrict.
      * @param restrictorId - Restrictor object id.
@@ -76,6 +87,9 @@ declare module "xray16" {
     /**
      * Iterate over registered ALife objects until the callback returns `true`.
      *
+     * @remarks
+     * Returning `true` from the callback stops iteration early.
+     *
      * @param cb - Callback called for every server object.
      */
     public iterate_objects(cb: (this: void, object: cse_alife_object) => boolean | void): void;
@@ -90,6 +104,8 @@ declare module "xray16" {
     /**
      * Method to get level name based on level ID.
      * Easy way to get level is to get it by game vertex ID graph or iterate over all levels in graphs.
+     *
+     * @throws If `level_id` is not present in the game graph header.
      *
      * @param level_id - ID of the level.
      * @returns Level name based on level ID provided.
@@ -112,6 +128,9 @@ declare module "xray16" {
     /**
      * Remove all restrictions of one type from an object.
      *
+     * @remarks
+     * `objectId` must resolve to an ALife object that has restriction storage.
+     *
      * @param objectId - Restricted object id.
      * @param type - Restriction type.
      */
@@ -119,6 +138,9 @@ declare module "xray16" {
 
     /**
      * Remove an inside-space restriction from an offline monster.
+     *
+     * @remarks
+     * `monster` must be a registered monster server object.
      *
      * @param monster - Monster server object to update.
      * @param restrictorId - Restrictor object id.
@@ -128,6 +150,9 @@ declare module "xray16" {
     /**
      * Remove an outside-space restriction from an offline monster.
      *
+     * @remarks
+     * `monster` must be a registered monster server object.
+     *
      * @param monster - Monster server object to update.
      * @param restrictorId - Restrictor object id.
      */
@@ -135,6 +160,9 @@ declare module "xray16" {
 
     /**
      * Enable or disable interaction for an ALife object.
+     *
+     * @remarks
+     * `objectId` must resolve to a registered ALife object.
      *
      * @param objectId - ALife object id.
      * @param enabled - New interaction state.
@@ -151,6 +179,9 @@ declare module "xray16" {
     /**
      * Allow or forbid switching an ALife object offline.
      *
+     * @remarks
+     * `objectId` must resolve to a registered ALife object.
+     *
      * @param objectId - ALife object id.
      * @param enabled - New offline switching state.
      */
@@ -158,6 +189,9 @@ declare module "xray16" {
 
     /**
      * Allow or forbid switching an ALife object online.
+     *
+     * @remarks
+     * `objectId` must resolve to a registered ALife object.
      *
      * @param objectId - ALife object id.
      * @param enabled - New online switching state.
@@ -212,6 +246,9 @@ declare module "xray16" {
     /**
      * Check whether an object id is usable.
      *
+     * @remarks
+     * This only checks the engine invalid id value. It does not prove that an object with this id is registered.
+     *
      * @param object_id - ALife object id.
      * @returns Whether the id is not the engine invalid id.
      */
@@ -222,6 +259,8 @@ declare module "xray16" {
      *
      * @remarks
      * Use only for monster server objects registered in ALife.
+     *
+     * @throws If `monster` is not a valid ALife monster object.
      *
      * @param monster - Monster server object.
      * @param graph_id - Optional game graph vertex id used as death location.
@@ -316,10 +355,16 @@ declare module "xray16" {
    * @source C++ class CALifeSmartTerrainTask
    * @customConstructor CALifeSmartTerrainTask
    * @group xr_alife
+   *
+   * @remarks
+   * Tasks are resolved against patrol paths and graph vertices immediately. Invalid paths or vertices assert in the
+   * engine.
    */
   export class CALifeSmartTerrainTask {
     /**
      * Create a task from a patrol path.
+     *
+     * @throws If the patrol path or requested patrol point does not exist.
      *
      * @param patrol_path_name - Patrol path name.
      * @param patrol_point_index - Optional patrol point index.
@@ -329,6 +374,8 @@ declare module "xray16" {
     /**
      * Create a task from graph vertices.
      *
+     * @throws If `game_vertex_id` is not valid in the game graph.
+     *
      * @param game_vertex_id - Target game graph vertex id.
      * @param level_vertex_id - Target level vertex id.
      */
@@ -337,12 +384,16 @@ declare module "xray16" {
     /**
      * Get the target level vertex.
      *
+     * @throws If the task points to an invalid graph vertex.
+     *
      * @returns Level vertex id.
      */
     public level_vertex_id(): u16;
 
     /**
      * Get the target game graph vertex.
+     *
+     * @throws If the task points to an invalid graph vertex.
      *
      * @returns Game graph vertex id.
      */
@@ -362,6 +413,9 @@ declare module "xray16" {
    * @source C++ class CALifeMonsterBrain
    * @customConstructor CALifeMonsterBrain
    * @group xr_alife
+   *
+   * @remarks
+   * Belongs to an offline monster server object. Do not use it with client-side `game_object` instances.
    */
   export class CAILifeMonsterBrain {
     /**
@@ -490,6 +544,9 @@ declare module "xray16" {
    * @source C++ class CALifeMonsterBrain
    * @customConstructor CALifeMonsterBrain
    * @group xr_alife
+   *
+   * @remarks
+   * Script-visible subset of the offline monster brain. `update()` is bound as a forced update.
    */
   export class CALifeMonsterBrain {
     /**
@@ -525,6 +582,9 @@ declare module "xray16" {
    * @source C++ class CALifeHumanBrain : CALifeMonsterBrain
    * @customConstructor CALifeHumanBrain
    * @group xr_alife
+   *
+   * @remarks
+   * Human ALife brain with the same script-visible surface as `CALifeMonsterBrain`.
    */
   export class CALifeHumanBrain extends CALifeMonsterBrain {}
 
@@ -534,6 +594,9 @@ declare module "xray16" {
    * @source C++ class CALifeMonsterDetailPathManager
    * @customConstructor CALifeMonsterDetailPathManager
    * @group xr_alife
+   *
+   * @remarks
+   * Owned by an offline monster brain. Targets are validated against the game graph and current level graph.
    */
   export class CALifeMonsterDetailPathManager {
     /**
@@ -546,6 +609,8 @@ declare module "xray16" {
     /**
      * Set a target by graph vertex, level vertex, and position.
      *
+     * @throws If the graph vertex is invalid or does not match the level vertex and position on the current level.
+     *
      * @param game_vertex_id - Target game graph vertex id.
      * @param level_vertex_id - Target level vertex id.
      * @param position - Target position.
@@ -555,12 +620,17 @@ declare module "xray16" {
     /**
      * Set a target by game graph vertex.
      *
+     * @throws If `game_vertex_id` is not valid.
+     *
      * @param game_vertex_id - Target game graph vertex id.
      */
     public target(game_vertex_id: number): void;
 
     /**
      * Set a target from a smart-terrain task.
+     *
+     * @remarks
+     * The task is resolved to graph vertex, level vertex, and position before assigning the target.
      *
      * @param task - Smart-terrain task.
      */
@@ -601,6 +671,9 @@ declare module "xray16" {
    * @source C++ class CALifeMonsterMovementManager
    * @customConstructor CALifeMonsterMovementManager
    * @group xr_alife
+   *
+   * @remarks
+   * Owned by an offline monster brain. The returned detail and patrol managers are engine-owned.
    */
   export class CALifeMonsterMovementManager {
     /**
@@ -645,10 +718,15 @@ declare module "xray16" {
    * @source C++ class CALifeMonsterPatrolPathManager
    * @customConstructor CALifeMonsterPatrolPathManager
    * @group xr_alife
+   *
+   * @remarks
+   * Patrol target getters require a patrol path and a selected current patrol vertex.
    */
   export class CALifeMonsterPatrolPathManager {
     /**
      * Set the patrol path by name.
+     *
+     * @throws If `path_name` is not a registered patrol path.
      *
      * @param path_name - Patrol path name.
      */
@@ -657,6 +735,8 @@ declare module "xray16" {
     /**
      * Get the current patrol target game vertex.
      *
+     * @throws If no patrol path is assigned or the current vertex is not selected.
+     *
      * @returns Target game graph vertex id.
      */
     public target_game_vertex_id(): u16;
@@ -664,12 +744,16 @@ declare module "xray16" {
     /**
      * Get the current patrol target level vertex.
      *
+     * @throws If no patrol path is assigned or the current vertex is not selected.
+     *
      * @returns Target level vertex id.
      */
     public target_level_vertex_id(): u16;
 
     /**
      * Get the current patrol target position.
+     *
+     * @throws If no patrol path is assigned or the current vertex is not selected.
      *
      * @returns Target position.
      */
@@ -726,6 +810,9 @@ declare module "xray16" {
 
     /**
      * Set the starting patrol point.
+     *
+     * @remarks
+     * Used when start type is the explicit point mode. The index must exist in the current patrol path.
      *
      * @param index - Patrol point index.
      */
@@ -1733,6 +1820,9 @@ declare module "xray16" {
    * @source C++ class global
    * @customConstructor object_factory
    * @group xr_alife
+   *
+   * @remarks
+   * Registers Lua script classes for engine class ids. Missing Lua class constructors are logged and skipped.
    */
   export class object_factory {
     /**
