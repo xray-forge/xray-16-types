@@ -5,6 +5,10 @@ declare module "xray16" {
    * @source C++ class UIStyleManager
    * @customConstructor UIStyleManager
    * @group xr_ui_asset
+   *
+   * @remarks
+   * Use `GetUIStyleManager()` to access the engine singleton. Style changes may require UI reload to affect existing
+   * windows.
    */
   export class UIStyleManager {
     /**
@@ -14,6 +18,9 @@ declare module "xray16" {
 
     /**
      * Iterate over available UI styles.
+     *
+     * @remarks
+     * The returned value is a Lua iterator over engine style tokens.
      *
      * @returns Style tokens.
      */
@@ -42,6 +49,9 @@ declare module "xray16" {
 
     /**
      * Switch to a UI style by name.
+     *
+     * @remarks
+     * Pass `reload_ui` when the current UI should be rebuilt after switching.
      *
      * @param name - Style name.
      * @param reload_ui - Whether to reload UI after switching.
@@ -78,6 +88,9 @@ declare module "xray16" {
    * @source C++ class CGameFont
    * @customConstructor CGameFont
    * @group xr_ui_asset
+   *
+   * @remarks
+   * Font instances are owned by the UI subsystem and returned by the `GetFont*` helpers.
    */
   export class CGameFont {
     /**
@@ -192,6 +205,9 @@ declare module "xray16" {
    *
    * @group xr_ui_asset
    *
+   * @remarks
+   * This overload uses the engine's fatal lookup path. Use an output-object overload when missing textures are expected.
+   *
    * @param name - Texture atlas entry name.
    * @returns Texture metadata.
    */
@@ -201,6 +217,9 @@ declare module "xray16" {
    * Get texture metadata, falling back to another texture name.
    *
    * @group xr_ui_asset
+   *
+   * @remarks
+   * This overload still uses the fatal lookup path if both names are missing.
    *
    * @param name - Texture atlas entry name.
    * @param default_name - Fallback texture name.
@@ -213,6 +232,9 @@ declare module "xray16" {
    *
    * @group xr_ui_asset
    *
+   * @remarks
+   * The passed `tex_info` object is overwritten when the texture is found.
+   *
    * @param name - Texture atlas entry name.
    * @param tex_info - Output texture metadata.
    * @returns Whether the texture was found.
@@ -223,6 +245,9 @@ declare module "xray16" {
    * Try to get texture metadata into an output object, with a fallback texture name.
    *
    * @group xr_ui_asset
+   *
+   * @remarks
+   * The passed `tex_info` object is overwritten when either texture is found.
    *
    * @param name - Texture atlas entry name.
    * @param default_name - Fallback texture name.
@@ -235,6 +260,9 @@ declare module "xray16" {
    * Get source texture file name for an atlas entry.
    *
    * @group xr_ui_asset
+   *
+   * @remarks
+   * Uses the same fatal lookup path as `GetTextureInfo(name)`.
    *
    * @param name - Texture atlas entry name.
    * @returns Texture file name.
@@ -290,6 +318,9 @@ declare module "xray16" {
    * Get the global UI style manager.
    *
    * @group xr_ui_asset
+   *
+   * @remarks
+   * Returns the engine-owned singleton.
    *
    * @returns UI style manager singleton.
    */

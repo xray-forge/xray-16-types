@@ -5,6 +5,10 @@ declare module "xray16" {
    * @source C++ class CScriptXmlInit
    * @customConstructor CScriptXmlInit
    * @group xr_ui_core
+   *
+   * @remarks
+   * Call `ParseFile()` before `Init*` helpers. Created controls are attached to `parent` when it is provided; scroll
+   * views receive them through `AddWindow()`, other windows through `AttachChild()`.
    */
   export class CScriptXmlInit {
     /**
@@ -15,6 +19,9 @@ declare module "xray16" {
     /**
      * Load a UI XML file from the configured UI paths.
      *
+     * @remarks
+     * Paths are resolved through the engine config/UI path stack, including the default UI path.
+     *
      * @param path - XML file path.
      */
     public ParseFile(path: string): void;
@@ -22,12 +29,18 @@ declare module "xray16" {
     /**
      * Load shared texture metadata from an XML file.
      *
+     * @remarks
+     * Missing files are ignored by the native loader.
+     *
      * @param path - XML file path.
      */
     public ParseShTexInfo(path: string): void;
 
     /**
      * Create and initialize a button from XML.
+     *
+     * @remarks
+     * The created button is marked for parent-owned deletion when attached.
      *
      * @param selector - XML node path.
      * @param parent - Optional parent window.
@@ -302,6 +315,9 @@ declare module "xray16" {
     /**
      * Initialize a window already created by script.
      *
+     * @remarks
+     * This does not create a child window. It applies XML properties to the passed window.
+     *
      * @param selector - XML node path.
      * @param index - XML node index.
      * @param parent - Window to initialize.
@@ -310,6 +326,9 @@ declare module "xray16" {
 
     /**
      * Initialize a group of auto-created static controls under an existing window.
+     *
+     * @remarks
+     * Reads static child definitions from the selected XML node and attaches them to `parent`.
      *
      * @param selector - XML node path.
      * @param parent - Parent window.
@@ -321,6 +340,9 @@ declare module "xray16" {
    * Move a window so it fits inside a rectangle.
    *
    * @group xr_ui_core
+   *
+   * @remarks
+   * The window may be moved; its size is not changed.
    *
    * @param window - Window to fit.
    * @param rect - Bounding rectangle.
@@ -341,6 +363,9 @@ declare module "xray16" {
    *
    * @group xr_ui_core
    *
+   * @remarks
+   * Uses the engine's fatal texture lookup path when the atlas entry is missing.
+   *
    * @param name - Texture atlas entry name.
    * @returns Texture rectangle.
    */
@@ -351,6 +376,9 @@ declare module "xray16" {
    *
    * @group xr_ui_core
    *
+   * @remarks
+   * Coordinates are in the engine UI coordinate space, not raw window pixels.
+   *
    * @returns Cursor position.
    */
   export function GetCursorPosition(this: void): vector2;
@@ -359,6 +387,9 @@ declare module "xray16" {
    * Set current UI cursor position.
    *
    * @group xr_ui_core
+   *
+   * @remarks
+   * The engine also moves the system cursor when the UI cursor is bound to it.
    *
    * @param position - Cursor position.
    */

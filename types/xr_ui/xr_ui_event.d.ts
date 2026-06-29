@@ -5,6 +5,9 @@ declare module "xray16" {
    * @source C++ class ui_events
    * @customConstructor ui_events
    * @group xr_ui_event
+   *
+   * @remarks
+   * These values are engine message ids passed to UI callbacks and script window dispatch handlers.
    */
   export class ui_events {
     /**
@@ -134,6 +137,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI event id.
+   *
    * @group xr_ui_event
    */
   type TXR_ui_event = EnumeratedStaticsValues<typeof ui_events>;
@@ -144,6 +149,9 @@ declare module "xray16" {
    * @source C++ class DIK_keys
    * @customConstructor DIK_keys
    * @group xr_ui_event
+   *
+   * @remarks
+   * The names keep the legacy DIK naming, but values come from the engine's SDL scancode, mouse, and gamepad mapping.
    */
   export class DIK_keys {
     /**
@@ -1190,11 +1198,15 @@ declare module "xray16" {
   }
 
   /**
+   * Static key name from `DIK_keys`.
+   *
    * @group xr_ui_event
    */
   type TXR_DIK_key_name = EnumeratedStaticsKeys<typeof DIK_keys>;
 
   /**
+   * DIK, mouse, or gamepad key code.
+   *
    * @group xr_ui_event
    */
   type TXR_DIK_key = EnumeratedStaticsValues<typeof DIK_keys>;
@@ -1205,6 +1217,10 @@ declare module "xray16" {
    * @source C++ class key_bindings
    * @customConstructor key_bindings
    * @group xr_ui_event
+   *
+   * @remarks
+   * Values are action ids, not key codes. Use `bind_to_dik()` and `dik_to_bind()` to translate between actions and
+   * concrete input keys.
    */
   export class key_bindings {
     /**
@@ -1382,6 +1398,9 @@ declare module "xray16" {
    *
    * @group xr_ui_event
    *
+   * @remarks
+   * Uses the default input context.
+   *
    * @param keycode - DIK or mouse/gamepad key code.
    * @returns Bound game action id.
    */
@@ -1391,6 +1410,9 @@ declare module "xray16" {
    * Transform a DIK key code to a game action in a specific input context.
    *
    * @group xr_ui_event
+   *
+   * @remarks
+   * Context values are exported by `key_bindings_context` in the engine binding.
    *
    * @param keycode - DIK or mouse/gamepad key code.
    * @param context - Input context id.
@@ -1403,6 +1425,9 @@ declare module "xray16" {
    *
    * @group xr_ui_event
    *
+   * @remarks
+   * Returns the first binding slot for the action.
+   *
    * @param action - Game action id.
    * @returns DIK or mouse/gamepad key code.
    */
@@ -1412,6 +1437,9 @@ declare module "xray16" {
    * Get a DIK key bound to a game action by binding slot.
    *
    * @group xr_ui_event
+   *
+   * @remarks
+   * `index` selects the action binding slot used by the engine input configuration.
    *
    * @param action - Game action id.
    * @param index - Binding slot index.
