@@ -42,6 +42,7 @@ declare module "xray16" {
    *
    * @remarks
    * Packet reads are positional. Use `r_tell`, `r_seek`, `r_elapsed`, and `r_eof` when reading mixed payloads.
+   * Native packets are capped at 16 KB and assert on read/write overruns.
    */
   export class net_packet {
     /**
@@ -53,7 +54,7 @@ declare module "xray16" {
      * Advance the read cursor.
      *
      * @remarks
-     * Does not read or validate skipped bytes.
+     * Does not read skipped bytes. Native code verifies that the new cursor stays inside the packet.
      *
      * @param size - Number of bytes to skip.
      */
@@ -62,12 +63,18 @@ declare module "xray16" {
     /**
      * Read a 16-bit compressed angle into a placeholder.
      *
+     * @remarks
+     * Angles use the same `0..2 * PI` range as {@link w_angle16}.
+     *
      * @param value - Output placeholder.
      */
     public r_angle16(value: f32): void;
 
     /**
      * Read an 8-bit compressed angle into a placeholder.
+     *
+     * @remarks
+     * Angles use the same `0..2 * PI` range as {@link w_angle8}.
      *
      * @param value - Output placeholder.
      */
@@ -140,6 +147,9 @@ declare module "xray16" {
     /**
      * Read a 16-bit quantized float.
      *
+     * @remarks
+     * Use the same `min` and `max` that were used when writing the value.
+     *
      * @param min - Minimum decoded value.
      * @param max - Maximum decoded value.
      * @param value - Placeholder value.
@@ -149,6 +159,9 @@ declare module "xray16" {
 
     /**
      * Read an 8-bit quantized float.
+     *
+     * @remarks
+     * Use the same `min` and `max` that were used when writing the value.
      *
      * @param min - Minimum decoded value.
      * @param max - Maximum decoded value.
@@ -236,7 +249,7 @@ declare module "xray16" {
      * Move read cursor to an absolute byte offset.
      *
      * @remarks
-     * The engine allows seeking to the packet end, which is useful before rereading from offset `0`.
+     * The engine allows seeking to the packet end. Offsets beyond the written byte count fail native verification.
      *
      * @param offset - Byte offset.
      */
@@ -244,6 +257,9 @@ declare module "xray16" {
 
     /**
      * Read zero-terminated string.
+     *
+     * @remarks
+     * Advances past the trailing zero byte.
      *
      * @returns String value.
      */
@@ -326,6 +342,9 @@ declare module "xray16" {
     /**
      * Write a 16-bit compressed angle.
      *
+     * @remarks
+     * The engine normalizes the angle and stores it as a 16-bit quantized value over `0..2 * PI`.
+     *
      * @param value - Angle in radians.
      */
     public w_angle16(value: f32): void;
@@ -333,12 +352,18 @@ declare module "xray16" {
     /**
      * Write an 8-bit compressed angle.
      *
+     * @remarks
+     * The engine normalizes the angle and stores it as an 8-bit quantized value over `0..2 * PI`.
+     *
      * @param value - Angle in radians.
      */
     public w_angle8(value: f32): void;
 
     /**
      * Start packet with message type.
+     *
+     * @remarks
+     * Clears existing packet contents before writing the message type.
      *
      * @param type - Message type.
      */
@@ -418,6 +443,9 @@ declare module "xray16" {
     /**
      * Write a 16-bit quantized float.
      *
+     * @remarks
+     * Native code verifies that `value` is inside `[min, max]`.
+     *
      * @param value - Value to write.
      * @param min - Minimum encoded value.
      * @param max - Maximum encoded value.
@@ -426,6 +454,9 @@ declare module "xray16" {
 
     /**
      * Write an 8-bit quantized float.
+     *
+     * @remarks
+     * Native code verifies that `value` is inside `[min, max]`.
      *
      * @param value - Value to write.
      * @param min - Minimum encoded value.
@@ -471,7 +502,10 @@ declare module "xray16" {
     /**
      * Write zero-terminated string.
      *
-     * @param value - String value. `null` writes an empty value in existing scripts.
+     * @remarks
+     * The binding writes the string bytes followed by `\0`.
+     *
+     * @param value - String value.
      */
     public w_stringZ(value: string | null): void;
 
@@ -526,11 +560,15 @@ declare module "xray16" {
    * @group xr_save
    *
    * @remarks
-   * Reader methods advance a cursor over existing binary data. They do not own or mutate the source buffer.
+   * Reader methods advance a cursor over existing binary data. They do not own or mutate the source buffer. Reader
+   * values usually come from engine-owned chunks; scripts do not create them directly.
    */
   export class reader {
     /**
      * Advance the read cursor.
+     *
+     * @remarks
+     * Native code verifies that the new cursor stays inside the reader buffer.
      *
      * @param size - Number of bytes to skip.
      */
@@ -559,6 +597,9 @@ declare module "xray16" {
 
     /**
      * Move read cursor to an absolute byte offset.
+     *
+     * @remarks
+     * Offsets beyond the reader buffer fail native verification.
      *
      * @param offset - Byte offset.
      */
@@ -608,6 +649,9 @@ declare module "xray16" {
 
     /**
      * Read zero-terminated string.
+     *
+     * @remarks
+     * Advances past the trailing zero byte.
      *
      * @returns String value.
      */
@@ -719,7 +763,8 @@ declare module "xray16" {
    * @group xr_save
    *
    * @remarks
-   * Looks for both current and legacy save extensions under `$game_saves$`.
+   * Looks for both current and legacy save extensions under `$game_saves$`. A missing file asserts; an existing file
+   * with an incompatible header returns fallback metadata instead.
    */
   export class CSavedGameWrapper extends EngineBinding {
     /**
@@ -735,7 +780,8 @@ declare module "xray16" {
      * Get active level name stored in the save.
      *
      * @remarks
-     * Returns an empty string when the save header is valid but level metadata cannot be resolved.
+     * Returns an empty string when level metadata cannot be resolved. Returns the translated error string when the
+     * game graph has no matching level id.
      *
      * @returns Level name, or an empty/error value when metadata cannot be resolved.
      */
@@ -745,7 +791,7 @@ declare module "xray16" {
      * Get active level id stored in the save.
      *
      * @remarks
-     * Returns `255` when the save header is valid but level metadata cannot be resolved.
+     * Returns `255` when level metadata cannot be resolved.
      *
      * @returns Level id.
      */
@@ -754,12 +800,18 @@ declare module "xray16" {
     /**
      * Get in-game time stored in the save.
      *
+     * @remarks
+     * Invalid save headers return the default ALife time instead of throwing.
+     *
      * @returns Game time.
      */
     public game_time(): CTime;
 
     /**
      * Get actor health stored in the save.
+     *
+     * @remarks
+     * Invalid save headers return `1`.
      *
      * @returns Actor health.
      */

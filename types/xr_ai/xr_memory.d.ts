@@ -5,6 +5,10 @@ declare module "xray16" {
    * @source C++ class memory_object
    * @customConstructor memory_object
    * @group xr_memory
+   *
+   * @remarks
+   * Memory records are snapshots owned by the AI memory managers. Treat them as short-lived views of current memory
+   * state.
    */
   export class memory_object extends EngineBinding {
     /**
@@ -29,6 +33,9 @@ declare module "xray16" {
    * @source C++ class entity_memory_object : memory_object
    * @customConstructor entity_memory_object
    * @group xr_memory
+   *
+   * @remarks
+   * Used for entity-alive memories such as hit records.
    */
   export class entity_memory_object extends memory_object {
     /**
@@ -47,6 +54,11 @@ declare module "xray16" {
     protected constructor();
 
     /**
+     * Get the remembered entity.
+     *
+     * @remarks
+     * The binding expects the native memory record to still point to a live object.
+     *
      * @returns Remembered game object.
      */
     public object(): game_object;
@@ -58,6 +70,9 @@ declare module "xray16" {
    * @source C++ class object_params
    * @customConstructor object_params
    * @group xr_memory
+   *
+   * @remarks
+   * Filled from the object's AI location and center position at the moment the memory record was updated.
    */
   export class object_params {
     /**
@@ -82,6 +97,10 @@ declare module "xray16" {
    * @source C++ class hit_memory_object : entity_memory_object
    * @customConstructor hit_memory_object
    * @group xr_memory
+   *
+   * @remarks
+   * Exposed through stalker/monster hit memory. The direction and amount describe the remembered hit, not the current
+   * object state.
    */
   export class hit_memory_object extends entity_memory_object {
     /**
@@ -111,6 +130,9 @@ declare module "xray16" {
    * @source C++ class game_memory_object : memory_object
    * @customConstructor game_memory_object
    * @group xr_memory
+   *
+   * @remarks
+   * Used for visual and sound memories of game objects.
    */
   export class game_memory_object extends memory_object {
     /**
@@ -124,6 +146,11 @@ declare module "xray16" {
     public readonly self_info: object_params;
 
     /**
+     * Get the remembered object.
+     *
+     * @remarks
+     * The binding expects the native memory record to still point to a live object.
+     *
      * @returns Remembered game object.
      */
     public object(): game_object;
@@ -140,6 +167,10 @@ declare module "xray16" {
    * @source C++ class not_yet_visible_object
    * @customConstructor not_yet_visible_object
    * @group xr_memory
+   *
+   * @remarks
+   * Created by the visual memory manager while an object is accumulating visibility but has not entered full visual
+   * memory.
    */
   export class not_yet_visible_object extends EngineBinding {
     /**
@@ -153,6 +184,11 @@ declare module "xray16" {
     public value: f32;
 
     /**
+     * Get the visibility candidate object.
+     *
+     * @remarks
+     * The binding expects the candidate to still point to a live object.
+     *
      * @returns Candidate game object.
      */
     public object(): game_object;
@@ -164,6 +200,9 @@ declare module "xray16" {
    * @source C++ class visible_memory_object
    * @customConstructor visible_memory_object
    * @group xr_memory
+   *
+   * @remarks
+   * Describes an object currently tracked by visual memory.
    */
   export class visible_memory_object extends game_memory_object {
     /**
@@ -178,6 +217,9 @@ declare module "xray16" {
    * @source C++ class memory_info : visible_memory_object
    * @customConstructor visible_memory_object
    * @group xr_memory
+   *
+   * @remarks
+   * Returned by memory lookups to tell which memory channels currently have data for the object.
    */
   export class memory_info extends visible_memory_object {
     /**
@@ -207,6 +249,9 @@ declare module "xray16" {
    * @source C++ class sound_memory_object : game_memory_object
    * @customConstructor sound_memory_object
    * @group xr_memory
+   *
+   * @remarks
+   * Sound memory stores the object that produced or is associated with the sound plus the perceived sound type.
    */
   export class sound_memory_object extends game_memory_object {
     /**
@@ -220,6 +265,8 @@ declare module "xray16" {
     protected constructor();
 
     /**
+     * Get the engine sound type id.
+     *
      * @returns Sound type id.
      */
     public type(): i32;
@@ -231,6 +278,10 @@ declare module "xray16" {
    * @source C++ class danger_object
    * @customConstructor danger_object
    * @group xr_memory
+   *
+   * @remarks
+   * Danger memory can represent visual, sound, or hit perception. Unlike other memory records, its source object can
+   * be absent.
    */
   export class danger_object {
     /**
@@ -294,6 +345,11 @@ declare module "xray16" {
     public position(): vector;
 
     /**
+     * Get the danger source object.
+     *
+     * @remarks
+     * Returns `null` when the danger was stored without a living entity source.
+     *
      * @returns Source object, or `null` when the source is not a game object.
      */
     public object(): game_object | null;
@@ -304,6 +360,11 @@ declare module "xray16" {
     public perceive_type(): number; /* CDangerObject::EDangerPerceiveType */
 
     /**
+     * Get the object attached to this danger event.
+     *
+     * @remarks
+     * Returns `null` when there is no dependent object, or when the dependent native object is not a game object.
+     *
      * @returns Dependent object, or `null` when there is none.
      */
     public dependent_object(): game_object | null;
