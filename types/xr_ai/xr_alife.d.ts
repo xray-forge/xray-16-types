@@ -5,27 +5,79 @@ declare module "xray16" {
    * @group xr_alife
    */
   export class alife_simulator {
+    /**
+     * Get the ALife actor server object.
+     *
+     * @returns Actor object registered in the ALife graph.
+     */
     public actor<T extends cse_alife_creature_actor>(): T;
 
-    public add_in_restriction(monster: cse_alife_monster_abstract, value: u16): void;
+    /**
+     * Add an inside-space restriction to an offline monster.
+     *
+     * @param monster - Monster server object to restrict.
+     * @param restrictorId - Restrictor object id.
+     */
+    public add_in_restriction(monster: cse_alife_monster_abstract, restrictorId: u16): void;
 
-    public add_out_restriction(monster: cse_alife_monster_abstract, value: u16): void;
+    /**
+     * Add an outside-space restriction to an offline monster.
+     *
+     * @param monster - Monster server object to restrict.
+     * @param restrictorId - Restrictor object id.
+     */
+    public add_out_restriction(monster: cse_alife_monster_abstract, restrictorId: u16): void;
 
+    /**
+     * Spawn ammo with a custom amount left in the box.
+     *
+     * @param section - Ammo section name.
+     * @param position - Spawn position.
+     * @param level_vertex_id - Level vertex id at the spawn position.
+     * @param game_vertex_id - Game graph vertex id at the spawn position.
+     * @param parent_object_id - Parent inventory or container id, or `65535` for no parent.
+     * @param count - Amount of ammo in the spawned box.
+     * @returns Spawned server object.
+     */
     public create_ammo(
       section: string,
-      vector: vector,
+      position: vector,
       level_vertex_id: u32,
       game_vertex_id: u16,
       parent_object_id: u16,
       count: i32
     ): cse_abstract;
 
+    /**
+     * Check that an object does not know an info portion.
+     *
+     * @param object_id - ALife object id.
+     * @param info_id - Info portion id.
+     * @returns Whether the object does not have the info portion.
+     */
     public dont_has_info(object_id: u16, info_id: string): boolean;
 
+    /**
+     * Check that an object knows an info portion.
+     *
+     * @param object_id - ALife object id.
+     * @param info_id - Info portion id.
+     * @returns Whether the object has the info portion.
+     */
     public has_info(object_id: u16, info_id: string): boolean;
 
+    /**
+     * Iterate over registered ALife objects until the callback returns `true`.
+     *
+     * @param cb - Callback called for every server object.
+     */
     public iterate_objects(cb: (this: void, object: cse_alife_object) => boolean | void): void;
 
+    /**
+     * Get the current level id from the active ALife graph.
+     *
+     * @returns Current level id.
+     */
     public level_id(): u32;
 
     /**
@@ -37,25 +89,84 @@ declare module "xray16" {
      */
     public level_name<T extends string = string>(level_id: i32): T;
 
-    public release(cse_abstract: cse_alife_object | null, flag: boolean): void;
+    /**
+     * Release an ALife object from the simulator.
+     *
+     * @param object - Object to remove.
+     * @param flag - Compatibility flag accepted by the engine binding.
+     */
+    public release(object: cse_alife_object | null, flag: boolean): void;
 
-    public remove_all_restrictions(value: u16, type: i32 /* Enum RestrictionSpace::ERestrictorTypes */): void;
+    /**
+     * Remove all restrictions of one type from an object.
+     *
+     * @param objectId - Restricted object id.
+     * @param type - Restriction type.
+     */
+    public remove_all_restrictions(objectId: u16, type: i32 /* Enum RestrictionSpace::ERestrictorTypes */): void;
 
-    public remove_in_restriction(monster: cse_alife_monster_abstract, value: u16): void;
+    /**
+     * Remove an inside-space restriction from an offline monster.
+     *
+     * @param monster - Monster server object to update.
+     * @param restrictorId - Restrictor object id.
+     */
+    public remove_in_restriction(monster: cse_alife_monster_abstract, restrictorId: u16): void;
 
-    public remove_out_restriction(monster: cse_alife_monster_abstract, value: u16): void;
+    /**
+     * Remove an outside-space restriction from an offline monster.
+     *
+     * @param monster - Monster server object to update.
+     * @param restrictorId - Restrictor object id.
+     */
+    public remove_out_restriction(monster: cse_alife_monster_abstract, restrictorId: u16): void;
 
-    public set_interactive(value1: u16, value2: boolean): void;
+    /**
+     * Enable or disable interaction for an ALife object.
+     *
+     * @param objectId - ALife object id.
+     * @param enabled - New interaction state.
+     */
+    public set_interactive(objectId: u16, enabled: boolean): void;
 
+    /**
+     * Set the online/offline switch distance.
+     *
+     * @param distance - Switch distance in meters.
+     */
     public set_switch_distance(distance: f32): void;
 
-    public set_switch_offline(value1: u16, value2: boolean): void;
+    /**
+     * Allow or forbid switching an ALife object offline.
+     *
+     * @param objectId - ALife object id.
+     * @param enabled - New offline switching state.
+     */
+    public set_switch_offline(objectId: u16, enabled: boolean): void;
 
-    public set_switch_online(value1: u16, value2: boolean): void;
+    /**
+     * Allow or forbid switching an ALife object online.
+     *
+     * @param objectId - ALife object id.
+     * @param enabled - New online switching state.
+     */
+    public set_switch_online(objectId: u16, enabled: boolean): void;
 
-    public spawn_id(value: u32): u16;
+    /**
+     * Resolve a spawn story id to a spawn graph id.
+     *
+     * @param spawnStoryId - Spawn story id.
+     * @returns Spawn graph id.
+     */
+    public spawn_id(spawnStoryId: u32): u16;
 
-    public story_object(value: u32): cse_alife_object | null;
+    /**
+     * Get a server object by story id.
+     *
+     * @param storyId - Story id.
+     * @returns Matching server object, or `null` when it is not registered.
+     */
+    public story_object(storyId: u32): cse_alife_object | null;
 
     /**
      * @returns Alife server-client switch distance.
@@ -76,19 +187,72 @@ declare module "xray16" {
      */
     public set_objects_per_update(count: u16): void;
 
-    public teleport_object(level_vertex_id: u16, game_vertex_id: u16, int: u32, vector: vector): void;
+    /**
+     * Move a server object to another graph and level vertex.
+     *
+     * @param object_id - Object id to teleport.
+     * @param game_vertex_id - Destination game graph vertex id.
+     * @param level_vertex_id - Destination level vertex id.
+     * @param position - Destination position.
+     */
+    public teleport_object(object_id: u16, game_vertex_id: u16, level_vertex_id: u32, position: vector): void;
 
-    public valid_object_id(value: u16): boolean;
+    /**
+     * Check whether an object id is usable.
+     *
+     * @param object_id - ALife object id.
+     * @returns Whether the id is not the engine invalid id.
+     */
+    public valid_object_id(object_id: u16): boolean;
 
+    /**
+     * Kill an offline monster.
+     *
+     * @param monster - Monster server object.
+     * @param graph_id - Optional game graph vertex id used as death location.
+     * @param schedulable - Optional killer or source object.
+     */
     public kill_entity(
       monster: cse_alife_monster_abstract,
       graph_id?: u16,
       schedulable?: cse_alife_monster_abstract
     ): void;
 
+    /**
+     * Get a server object by id.
+     *
+     * @param object_id - ALife object id.
+     * @param no_assert - Return `null` instead of asserting when the object is missing.
+     * @returns Matching server object, or `null`.
+     */
     public object<T extends cse_alife_object = cse_alife_object>(object_id: u16, no_assert?: boolean): T | null;
 
-    public create<T extends cse_alife_object = cse_alife_object>(object_id: u16): T;
+    /**
+     * Get a server object by its engine replacement name.
+     *
+     * @param name - Server object replacement name.
+     * @returns Matching server object, or `null`.
+     */
+    public object<T extends cse_alife_object = cse_alife_object>(name: string): T | null;
+
+    /**
+     * Create an object from a spawn graph id.
+     *
+     * @param spawn_id - Spawn graph id.
+     * @returns Created server object.
+     */
+    public create<T extends cse_alife_object = cse_alife_object>(spawn_id: u16): T;
+
+    /**
+     * Spawn a server object by section.
+     *
+     * @param section - Object section name.
+     * @param position - Spawn position.
+     * @param level_vertex_id - Level vertex id at the spawn position.
+     * @param game_vertex_id - Game graph vertex id at the spawn position.
+     * @param parent_object_id - Optional parent inventory or container id.
+     * @returns Created server object.
+     */
     public create<T extends cse_alife_object = cse_alife_object>(
       section: string,
       position: vector,
@@ -96,8 +260,18 @@ declare module "xray16" {
       game_vertex_id: u32,
       parent_object_id?: u16
     ): T;
-    // Alundaio: Allows to call alife():register(se_obj) manually afterward,editing
-    // Alundaio: so that packet can be done safely when spawning object with a parent.
+
+    /**
+     * Spawn a server object and optionally defer network registration.
+     *
+     * @param section - Object section name.
+     * @param position - Spawn position.
+     * @param level_vertex_id - Level vertex id at the spawn position.
+     * @param game_vertex_id - Game graph vertex id at the spawn position.
+     * @param parent_object_id - Parent inventory or container id.
+     * @param reg - Whether to register the object immediately.
+     * @returns Created server object.
+     */
     public create<T extends cse_alife_object = cse_alife_object>(
       section: string,
       position: vector,
@@ -114,13 +288,41 @@ declare module "xray16" {
    * @group xr_alife
    */
   export class CALifeSmartTerrainTask {
+    /**
+     * Create a task from a patrol path.
+     *
+     * @param patrol_path_name - Patrol path name.
+     * @param patrol_point_index - Optional patrol point index.
+     */
     public constructor(patrol_path_name: string, patrol_point_index?: u32);
+
+    /**
+     * Create a task from graph vertices.
+     *
+     * @param game_vertex_id - Target game graph vertex id.
+     * @param level_vertex_id - Target level vertex id.
+     */
     public constructor(game_vertex_id: u16, level_vertex_id: u32);
 
+    /**
+     * Get the target level vertex.
+     *
+     * @returns Level vertex id.
+     */
     public level_vertex_id(): u16;
 
+    /**
+     * Get the target game graph vertex.
+     *
+     * @returns Game graph vertex id.
+     */
     public game_vertex_id(): u16;
 
+    /**
+     * Get the target position.
+     *
+     * @returns Task position.
+     */
     public position(): vector;
   }
 
@@ -177,12 +379,30 @@ declare module "xray16" {
    * @group xr_alife
    */
   export class CALifeMonsterBrain {
+    /**
+     * Get the offline movement manager.
+     *
+     * @returns Monster movement manager.
+     */
     public movement(): CALifeMonsterMovementManager;
 
+    /**
+     * Update offline ALife planning for the monster.
+     */
     public update(): void;
 
+    /**
+     * Check whether this brain may choose ALife tasks.
+     *
+     * @returns Whether ALife task selection is enabled.
+     */
     public can_choose_alife_tasks(): boolean;
 
+    /**
+     * Enable or disable ALife task selection.
+     *
+     * @param can_choose - New task-selection state.
+     */
     public can_choose_alife_tasks(can_choose: boolean): void;
   }
 
@@ -199,20 +419,62 @@ declare module "xray16" {
    * @group xr_alife
    */
   export class CALifeMonsterDetailPathManager {
+    /**
+     * Check whether the detail path reached its target.
+     *
+     * @returns Whether detail movement is complete.
+     */
     public completed(): boolean;
 
-    public target(a: number, b: number, vector: vector): void;
+    /**
+     * Set a target by graph vertex, level vertex, and position.
+     *
+     * @param game_vertex_id - Target game graph vertex id.
+     * @param level_vertex_id - Target level vertex id.
+     * @param position - Target position.
+     */
+    public target(game_vertex_id: number, level_vertex_id: number, position: vector): void;
 
-    public target(task_id: number): void;
+    /**
+     * Set a target by game graph vertex.
+     *
+     * @param game_vertex_id - Target game graph vertex id.
+     */
+    public target(game_vertex_id: number): void;
 
+    /**
+     * Set a target from a smart-terrain task.
+     *
+     * @param task - Smart-terrain task.
+     */
     public target(task: CALifeSmartTerrainTask): void;
 
+    /**
+     * Check whether the last path build failed.
+     *
+     * @returns Whether detail movement failed.
+     */
     public failed(): boolean;
 
-    public speed(number: f32): f32;
+    /**
+     * Set detail movement speed.
+     *
+     * @param speed - New movement speed.
+     */
+    public speed(speed: f32): void;
 
+    /**
+     * Get detail movement speed.
+     *
+     * @returns Current movement speed.
+     */
     public speed(): f32;
 
+    /**
+     * Check whether the current detail path still matches the target.
+     *
+     * @returns Whether the path is actual.
+     */
     public actual(): boolean;
   }
 
@@ -222,14 +484,39 @@ declare module "xray16" {
    * @group xr_alife
    */
   export class CALifeMonsterMovementManager {
+    /**
+     * Check whether offline movement has completed.
+     *
+     * @returns Whether movement is complete.
+     */
     public completed(): boolean;
 
+    /**
+     * Get the patrol path manager.
+     *
+     * @returns Patrol path manager.
+     */
     public patrol(): CALifeMonsterPatrolPathManager;
 
+    /**
+     * Check whether the movement target is still actual.
+     *
+     * @returns Whether movement is actual.
+     */
     public actual(): boolean;
 
+    /**
+     * Get the active offline path type.
+     *
+     * @returns Movement path type.
+     */
     public path_type(): number; /* EPathType */
 
+    /**
+     * Get the detail path manager.
+     *
+     * @returns Detail path manager.
+     */
     public detail(): CALifeMonsterDetailPathManager;
   }
 
@@ -239,30 +526,95 @@ declare module "xray16" {
    * @group xr_alife
    */
   export class CALifeMonsterPatrolPathManager {
-    public path(string: string): void;
+    /**
+     * Set the patrol path by name.
+     *
+     * @param path_name - Patrol path name.
+     */
+    public path(path_name: string): void;
 
+    /**
+     * Get the current patrol target game vertex.
+     *
+     * @returns Target game graph vertex id.
+     */
     public target_game_vertex_id(): u16;
 
+    /**
+     * Get the current patrol target level vertex.
+     *
+     * @returns Target level vertex id.
+     */
     public target_level_vertex_id(): u16;
 
+    /**
+     * Get the current patrol target position.
+     *
+     * @returns Target position.
+     */
     public target_position(): vector;
 
+    /**
+     * Check whether patrol movement reached the target.
+     *
+     * @returns Whether patrol movement is complete.
+     */
     public completed(): boolean;
 
-    public route_type(type: u32 /* Const enum PatrolPathManager::EPatrolRouteType */): u32;
+    /**
+     * Set patrol route behavior.
+     *
+     * @param type - Patrol route type.
+     */
+    public route_type(type: u32 /* Const enum PatrolPathManager::EPatrolRouteType */): void;
 
+    /**
+     * Get patrol route behavior.
+     *
+     * @returns Patrol route type.
+     */
     public route_type(): u32;
 
-    public use_randomness(enabled: boolean): boolean;
+    /**
+     * Enable or disable random patrol point selection.
+     *
+     * @param enabled - New randomness state.
+     */
+    public use_randomness(enabled: boolean): void;
 
+    /**
+     * Check whether random patrol point selection is enabled.
+     *
+     * @returns Whether randomness is enabled.
+     */
     public use_randomness(): boolean;
 
-    public start_type(type: u32 /* Const enum PatrolPathManager::EPatrolStartType */): u32;
+    /**
+     * Set how the patrol path starts.
+     *
+     * @param type - Patrol start type.
+     */
+    public start_type(type: u32 /* Const enum PatrolPathManager::EPatrolStartType */): void;
 
+    /**
+     * Get how the patrol path starts.
+     *
+     * @returns Patrol start type.
+     */
     public start_type(): u32;
 
+    /**
+     * Set the starting patrol point.
+     *
+     * @param index - Patrol point index.
+     */
     public start_vertex_index(index: u32): void;
 
+    /**
+     * Check whether the patrol target is still actual.
+     *
+     * @returns Whether the patrol path is actual.
+     */
     public actual(): boolean;
   }
   /**
@@ -297,11 +649,32 @@ declare module "xray16" {
    * @group xr_alife
    */
   export class client_spawn_manager {
-    public remove(number1: u16, number2: u16): void;
+    /**
+     * Remove a delayed spawn callback.
+     *
+     * @param parent_id - Parent object id.
+     * @param object_id - Delayed object id.
+     */
+    public remove(parent_id: u16, object_id: u16): void;
 
-    public add(number1: u16, number2: u16, cb: (this: void) => void): void;
+    /**
+     * Register a callback for a delayed client spawn.
+     *
+     * @param parent_id - Parent object id.
+     * @param object_id - Object id waiting for spawn.
+     * @param cb - Callback called when the object is available.
+     */
+    public add(parent_id: u16, object_id: u16, cb: (this: void) => void): void;
 
-    public add(number1: u16, number2: u16, cb: (this: void) => void, object: XR_object): void;
+    /**
+     * Register a callback with user data for a delayed client spawn.
+     *
+     * @param parent_id - Parent object id.
+     * @param object_id - Object id waiting for spawn.
+     * @param cb - Callback called when the object is available.
+     * @param object - Extra Lua object passed through the callback registry.
+     */
+    public add(parent_id: u16, object_id: u16, cb: (this: void) => void, object: XR_object): void;
   }
 
   /**
@@ -549,6 +922,14 @@ declare module "xray16" {
   export class object_factory {
     protected constructor();
 
+    /**
+     * Register a script class pair for an engine class id.
+     *
+     * @param client_object_class - Lua client-side class name.
+     * @param server_object_class - Lua server-side class name.
+     * @param clsid - Engine class id name.
+     * @param script_clsid - Script class id exported by `clsid`.
+     */
     public register(
       client_object_class: string,
       server_object_class: string,
@@ -556,11 +937,22 @@ declare module "xray16" {
       script_clsid: TXR_class_key
     ): void;
 
+    /**
+     * Register a single script class for an engine class id.
+     *
+     * @param client_object_class - Lua class name.
+     * @param clsid - Engine class id name.
+     * @param script_clsid - Script class id exported by `clsid`.
+     */
     public register(client_object_class: string, clsid: string, script_clsid: TXR_class_key): void;
   }
 
   /**
+   * Get the active ALife simulator.
+   *
    * @group xr_alife
+   *
+   * @returns ALife simulator singleton.
    */
   export function alife(this: void): alife_simulator;
 }

@@ -312,6 +312,8 @@ declare module "xray16" {
     /**
      * Main evaluator lifecycle method.
      * Called every time to get world property up-to-date state.
+     *
+     * @returns Current evaluator value.
      */
     public evaluate(): boolean;
   }
@@ -509,6 +511,7 @@ declare module "xray16" {
      * Get action instance by unique `id`.
      *
      * @param id - Unique identifier of the action to get.
+     * @returns Registered action instance.
      */
     public action(id: u32): action_base;
 
@@ -543,7 +546,7 @@ declare module "xray16" {
     public add_evaluator(id: u32, evaluator: property_evaluator): void;
 
     /**
-     * Return evaluator instance for current action planner.
+     * Remove evaluator instance from current action planner.
      *
      * @param id - Unique identifier of the evaluator for removal.
      */
@@ -553,6 +556,7 @@ declare module "xray16" {
      * Get evaluator instance by `id`.
      *
      * @param id - Unique identifier of the evaluator to get.
+     * @returns Registered property evaluator.
      */
     public evaluator(id: u32): property_evaluator;
 
@@ -619,7 +623,7 @@ declare module "xray16" {
      *
      * @param property - World state property describing a pair of evaluator ID and value.
      */
-    public add_effect(property: world_property): unknown;
+    public add_effect(property: world_property): void;
 
     /**
      * Remove action effect.
@@ -657,13 +661,18 @@ declare module "xray16" {
      *
      * @param first - First state.
      * @param second - Second state.
+     * @returns Transition weight.
      */
     public weight(first: world_state, second: world_state): u16;
   }
 
   /**
+   * Cast a base action to an action planner when it is implemented as a planner action.
+   *
    * @group xr_global_declaration
-   * @param base_action
+   *
+   * @param base_action - Action to cast.
+   * @returns Planner interface for the action.
    */
   export function cast_planner(this: void, base_action: action_base): action_planner;
 }

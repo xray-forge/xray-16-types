@@ -28,46 +28,142 @@ declare module "xray16" {
    * @group xr_action
    */
   export class entity_action extends EngineBinding {
+    /**
+     * Create an empty entity action.
+     */
     public constructor();
+
+    /**
+     * Copy an existing entity action.
+     *
+     * @param action - Action to copy.
+     */
     public constructor(action: entity_action);
 
+    /**
+     * Set the movement part of this action.
+     *
+     * @param move - Movement action.
+     */
     public set_action(move: move): void;
 
+    /**
+     * Set the look part of this action.
+     *
+     * @param look - Look action.
+     */
     public set_action(look: look): void;
 
+    /**
+     * Set the animation part of this action.
+     *
+     * @param anim - Animation action.
+     */
     public set_action(anim: anim): void;
 
+    /**
+     * Set the sound part of this action.
+     *
+     * @param sound - Sound action.
+     */
     public set_action(sound: sound): void;
 
+    /**
+     * Set the particle part of this action.
+     *
+     * @param particle - Particle action.
+     */
     public set_action(particle: particle): void;
 
-    public set_action(objec: XR_object): void;
+    /**
+     * Set the object interaction part of this action.
+     *
+     * @param objectAction - Object action.
+     */
+    public set_action(objectAction: XR_object): void;
 
+    /**
+     * Set the completion condition for this action.
+     *
+     * @param cond - Completion condition.
+     */
     public set_action(cond: cond): void;
 
+    /**
+     * Set a monster global action.
+     *
+     * @param act - Monster action.
+     */
+    public set_action(act: act): void;
+
+    /**
+     * Check whether the movement part is complete.
+     *
+     * @returns Whether movement is complete.
+     */
     public move(): boolean;
 
+    /**
+     * Check whether the particle part is complete.
+     *
+     * @returns Whether particle playback is complete.
+     */
     public particle(): boolean;
 
+    /**
+     * Check whether the whole action is complete.
+     *
+     * @returns Whether all required parts are complete.
+     */
     public completed(): boolean;
 
+    /**
+     * Check whether the object interaction part is complete.
+     *
+     * @returns Whether object interaction is complete.
+     */
     public object(): boolean;
 
+    /**
+     * Check whether all action parts are complete.
+     *
+     * @returns Whether the action is complete.
+     */
     public all(): boolean;
 
+    /**
+     * Check whether the action time condition has elapsed.
+     *
+     * @returns Whether the time condition is complete.
+     */
     public time(): boolean;
 
+    /**
+     * Check whether the look part is complete.
+     *
+     * @returns Whether look handling is complete.
+     */
     public look(): boolean;
 
+    /**
+     * Check whether the sound part is complete.
+     *
+     * @returns Whether sound playback is complete.
+     */
     public sound(): boolean;
 
+    /**
+     * Check whether the animation part is complete.
+     *
+     * @returns Whether animation is complete.
+     */
     public anim(): boolean;
   }
 
   /**
    * @group xr_action
    */
-  export type TXR_entity_action = move | look | anim | sound | particle | XR_object | cond;
+  export type TXR_entity_action = move | look | anim | sound | particle | XR_object | cond | act;
 
   /**
    * @source C++ class object
@@ -101,8 +197,18 @@ declare module "xray16" {
     public constructor(value: string, type: number); /* MonsterSpace::EObjectAction */
     public constructor(game_object: game_object);
 
-    public action(space: unknown /** Enum MonsterSpace::EObjectAction */): void;
+    /**
+     * Set the object action mode.
+     *
+     * @param space - Object action mode.
+     */
+    public action(space: unknown /** Enum MonsterSpace::EObjectAction. */): void;
 
+    /**
+     * Check whether the object action is complete.
+     *
+     * @returns Whether the action is complete.
+     */
     public completed(): boolean;
   }
 
