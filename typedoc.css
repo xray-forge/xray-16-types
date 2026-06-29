@@ -1,0 +1,37 @@
+/* Visual identity shared with the wirestate docs: coral accent, Space Grotesk headings, IBM Plex Mono code. */
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap");
+
+:root {
+  --light-color-link: #cb4626;
+  --light-color-accent: #cb4626;
+  --light-color-active-menu-item: rgba(203, 70, 38, 0.14);
+
+  --dark-color-link: #ff8e6e;
+  --dark-color-accent: #ff8e6e;
+  --dark-color-active-menu-item: rgba(255, 142, 110, 0.18);
+}
+
+h1,
+h2,
+h3,
+h4,
+.tsd-page-title h1,
+.tsd-typography h1,
+.tsd-typography h2,
+.tsd-typography h3 {
+  font-family:
+    "Space Grotesk",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  letter-spacing: -0.02em;
+}
+
+pre,
+code,
+.tsd-signature,
+.tsd-signatures .tsd-signature {
+  font-family: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Monaco, Consolas, "Courier New", monospace;
+}

@@ -1,13 +1,22 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "entryPoints": [
-    "types/xr_object/script/xr_script_object.d.ts"
-  ],
+  "name": "X-Ray 16 Types",
+  "entryPoints": ["types/xr_object/script/xr_script_object.d.ts"],
   "out": "docs",
-  "sort": [
-    "alphabetical",
-    "static-first",
-    "visibility",
-    "enum-value-ascending"
-  ]
+  "customCss": "./typedoc.css",
+  "includeVersion": true,
+  "hideGenerator": true,
+  "excludeInternal": true,
+  "cleanOutputDir": true,
+  "searchInComments": true,
+  "navigation": {
+    "includeGroups": true,
+    "includeCategories": false,
+    "compactFolders": false
+  },
+  "navigationLinks": {
+    "GitHub": "https://github.com/stalker-xrts/xray-16-types",
+    "npm": "https://www.npmjs.com/package/xray16"
+  },
+  "sort": ["alphabetical", "static-first", "visibility", "enum-value-ascending"]
 }
