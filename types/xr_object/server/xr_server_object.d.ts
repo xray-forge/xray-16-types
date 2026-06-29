@@ -1005,6 +1005,11 @@ declare module "xray16" {
     /**
      * Add an object to this online/offline group.
      *
+     * @remarks
+     * The id must resolve to a live monster server object that is not already in this group.
+     *
+     * @throws If the member is already registered, is not a monster, or is not alive.
+     *
      * @param id - Server object id.
      */
     public register_member(id: u16): void;
@@ -1026,6 +1031,8 @@ declare module "xray16" {
 
     /**
      * Remove an object from this online/offline group.
+     *
+     * @throws If the id is not a member of this group.
      *
      * @param id - Server object id.
      */

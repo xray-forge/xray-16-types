@@ -33,13 +33,18 @@ declare module "xray16" {
     /**
      * Spawn ammo with a custom amount left in the box.
      *
+     * @remarks
+     * The section must spawn a server ammo object, and `count` must not exceed the ammo box size.
+     *
+     * @throws If the spawned section is not ammo, or if `count` is larger than the box size.
+     *
      * @param section - Ammo section name.
      * @param position - Spawn position.
      * @param level_vertex_id - Level vertex id at the spawn position.
      * @param game_vertex_id - Game graph vertex id at the spawn position.
      * @param parent_object_id - Parent inventory or container id, or `65535` for no parent.
      * @param count - Amount of ammo in the spawned box.
-     * @returns Spawned server object.
+     * @returns Spawned server object, or `null` when a non-empty parent id is invalid.
      */
     public create_ammo(
       section: string,
@@ -93,6 +98,11 @@ declare module "xray16" {
 
     /**
      * Release an ALife object from the simulator.
+     *
+     * @remarks
+     * Online objects are destroyed through a network event. Offline objects are removed from ALife immediately.
+     *
+     * @throws If `object` is `null` or is not an ALife object.
      *
      * @param object - Object to remove.
      * @param flag - Compatibility flag accepted by the engine binding.
@@ -210,6 +220,9 @@ declare module "xray16" {
     /**
      * Kill an offline monster.
      *
+     * @remarks
+     * Use only for monster server objects registered in ALife.
+     *
      * @param monster - Monster server object.
      * @param graph_id - Optional game graph vertex id used as death location.
      * @param schedulable - Optional killer or source object.
@@ -222,6 +235,10 @@ declare module "xray16" {
 
     /**
      * Get a server object by id.
+     *
+     * @remarks
+     * With the default id overload, an invalid id is logged and returns `null`. Pass `no_assert` to use the raw
+     * engine lookup mode.
      *
      * @param object_id - ALife object id.
      * @param no_assert - Return `null` instead of asserting when the object is missing.
@@ -240,6 +257,8 @@ declare module "xray16" {
     /**
      * Create an object from a spawn graph id.
      *
+     * @throws If `spawn_id` does not exist or does not resolve to a dynamic ALife object.
+     *
      * @param spawn_id - Spawn graph id.
      * @returns Created server object.
      */
@@ -248,12 +267,15 @@ declare module "xray16" {
     /**
      * Spawn a server object by section.
      *
+     * @remarks
+     * If a non-empty parent id is invalid, the engine logs the error and returns `null`.
+     *
      * @param section - Object section name.
      * @param position - Spawn position.
      * @param level_vertex_id - Level vertex id at the spawn position.
      * @param game_vertex_id - Game graph vertex id at the spawn position.
      * @param parent_object_id - Optional parent inventory or container id.
-     * @returns Created server object.
+     * @returns Created server object, or `null` when a non-empty parent id is invalid.
      */
     public create<T extends cse_alife_object = cse_alife_object>(
       section: string,
@@ -266,13 +288,17 @@ declare module "xray16" {
     /**
      * Spawn a server object and optionally defer network registration.
      *
+     * @remarks
+     * Passing `reg = false` returns the unregistered server object so scripts can edit its packet before registering
+     * it manually. If a non-empty parent id is invalid, the engine logs the error and returns `null`.
+     *
      * @param section - Object section name.
      * @param position - Spawn position.
      * @param level_vertex_id - Level vertex id at the spawn position.
      * @param game_vertex_id - Game graph vertex id at the spawn position.
      * @param parent_object_id - Parent inventory or container id.
      * @param reg - Whether to register the object immediately.
-     * @returns Created server object.
+     * @returns Created server object, or `null` when a non-empty parent id is invalid.
      */
     public create<T extends cse_alife_object = cse_alife_object>(
       section: string,
@@ -440,11 +466,7 @@ declare module "xray16" {
      * @param mutual_detection - Whether both objects detected each other.
      * @returns Meet action type id.
      */
-    public action_type(
-      object: IXR_cse_alife_schedulable,
-      index: number,
-      mutual_detection: boolean,
-    ): number;
+    public action_type(object: IXR_cse_alife_schedulable, index: number, mutual_detection: boolean): number;
 
     /**
      * @returns Owning monster server object.

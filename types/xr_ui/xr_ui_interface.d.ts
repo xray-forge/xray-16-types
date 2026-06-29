@@ -544,6 +544,10 @@ declare module "xray16" {
     /**
      * Register a named UI callback.
      *
+     * @remarks
+     * The callback is matched by control name and event. Register the target control first so its window name and
+     * message target are set on this script window.
+     *
      * @param name - Control name.
      * @param event - UI event id.
      * @param cb - Callback function.
@@ -563,6 +567,10 @@ declare module "xray16" {
     /**
      * Register a child window for lookup and callbacks.
      *
+     * @remarks
+     * Registration sets this script window as the child's message target. When `name` is provided, it also replaces
+     * the child's window name used by callback matching and typed lookup.
+     *
      * @param window - Child window.
      * @param name - Optional registration name.
      */
@@ -570,6 +578,10 @@ declare module "xray16" {
 
     /**
      * Load a UI section or XML resource.
+     *
+     * @remarks
+     * The base `CUIScriptWnd` binding accepts the value but always reports success. Real loading is usually done by
+     * XML helper code before controls are registered.
      *
      * @param value - Resource or section name.
      * @returns Whether the load succeeded.

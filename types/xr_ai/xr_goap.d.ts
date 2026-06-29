@@ -657,6 +657,9 @@ declare module "xray16" {
     /**
      * Handle setup of the evaluator and binding to a specific object.
      *
+     * @remarks
+     * Called by the planner when the evaluator is registered. Call it manually only for standalone evaluator tests.
+     *
      * @param object - Target client object to work with.
      * @param storage - Action instance storage with preconditions and state.
      */
@@ -723,6 +726,9 @@ declare module "xray16" {
     /**
      * Handle setup of the action and binding to a specific object.
      *
+     * @remarks
+     * Called by the planner when the action is registered. Call it manually only for standalone action tests.
+     *
      * @param object - Target client object to work with.
      * @param storage - Action instance storage with preconditions and state.
      */
@@ -731,18 +737,27 @@ declare module "xray16" {
     /**
      * Lifecycle method called once on action execution start.
      * Means that lifecycle of the action begun.
+     *
+     * @remarks
+     * Called by the owning planner. Direct calls are only useful when driving an action manually in tests or tools.
      */
     public initialize(): void;
 
     /**
      * Lifecycle method.
      * Execution tick of the action, called from object logics update cycle when current action is active.
+     *
+     * @remarks
+     * Called by the owning planner after `initialize`. Direct calls bypass planner state.
      */
     public execute(): void;
 
     /**
      * Lifecycle method called once on action execution stop.
      * Means that action is finished / preconditions are not met anymore.
+     *
+     * @remarks
+     * Called by the owning planner. Direct calls are only useful when driving an action manually in tests or tools.
      */
     public finalize(): void;
 
@@ -757,6 +772,9 @@ declare module "xray16" {
      * Add action effect.
      * Describes what target world state is expected to be if action is completed.
      *
+     * @remarks
+     * Do not mutate effects while the owner planner is updating; the engine asserts on graph changes during solving.
+     *
      * @param property - World state property describing a pair of evaluator ID and value.
      */
     public add_effect(property: world_property): void;
@@ -764,6 +782,9 @@ declare module "xray16" {
     /**
      * Remove action effect.
      * Action will be not considered as property changing for `id` anymore.
+     *
+     * @remarks
+     * Do not mutate effects while the owner planner is updating; the engine asserts on graph changes during solving.
      *
      * @param id - World state property id.
      */
@@ -773,6 +794,10 @@ declare module "xray16" {
      * Add action execution precondition.
      * When building logics graph, action will be considered blocked by some preconditions.
      *
+     * @remarks
+     * Do not mutate preconditions while the owner planner is updating; the engine asserts on graph changes during
+     * solving.
+     *
      * @param property - World state property describing a pair of evaluator ID and value.
      */
     public add_precondition(property: world_property): void;
@@ -780,6 +805,10 @@ declare module "xray16" {
     /**
      * Remove precondition for action.
      * When building logics graph, action will not be considered blocked by evaluator `id` states.
+     *
+     * @remarks
+     * Do not mutate preconditions while the owner planner is updating; the engine asserts on graph changes during
+     * solving.
      *
      * @param id - World state property id.
      */
@@ -833,6 +862,8 @@ declare module "xray16" {
     /**
      * Setup planner for game object.
      *
+     * @throws If `object` is missing.
+     *
      * @param object - Client game object to setup planner for.
      */
     public setup(object: game_object): void;
@@ -844,11 +875,17 @@ declare module "xray16" {
 
     /**
      * Lifecycle method to handle generic game loop updates.
+     *
+     * @throws If the planner cannot build a non-empty action sequence to the target world state.
      */
     public update(): void;
 
     /**
      * Add generic action by `id` for planner execution.
+     *
+     * @remarks
+     * Do not add actions from evaluator/action callbacks running inside `update`; the engine asserts on planner graph
+     * changes during solving.
      *
      * @param id - Unique identifier of new action.
      * @param action - Action implementation containing preconditions, logics, effects and other meta infos.
@@ -857,6 +894,10 @@ declare module "xray16" {
 
     /**
      * Remove action by unique `id`.
+     *
+     * @remarks
+     * Do not remove actions from evaluator/action callbacks running inside `update`; the engine asserts on planner
+     * graph changes during solving.
      *
      * @param id - Unique identifier of the action to remove.
      */
@@ -873,12 +914,17 @@ declare module "xray16" {
     /**
      * Get currently active action being executed.
      *
+     * @remarks
+     * Requires the planner to be initialized, usually after a successful `update`.
+     *
      * @returns Current action instance reference.
      */
     public current_action(): action_base;
 
     /**
      * Get currently active action identifier.
+     *
+     * @throws If the planner is not initialized yet.
      *
      * @returns Unique identifier of current action.
      */
@@ -895,6 +941,10 @@ declare module "xray16" {
     /**
      * Add evaluator instance for current action planner.
      *
+     * @remarks
+     * Do not add evaluators from evaluator/action callbacks running inside `update`; the engine asserts on planner
+     * graph changes during solving.
+     *
      * @param id - Unique identifier of the evaluator.
      * @param evaluator - Instance of evaluator linked to the `id`.
      */
@@ -902,6 +952,10 @@ declare module "xray16" {
 
     /**
      * Remove evaluator instance from current action planner.
+     *
+     * @remarks
+     * Do not remove evaluators from evaluator/action callbacks running inside `update`; the engine asserts on planner
+     * graph changes during solving.
      *
      * @param id - Unique identifier of the evaluator for removal.
      */
@@ -957,24 +1011,38 @@ declare module "xray16" {
     /**
      * Lifecycle method called once on action execution start.
      * Means that lifecycle of the action begun.
+     *
+     * @remarks
+     * Called by the owning outer planner. Direct calls are only useful when driving the planner action manually in
+     * tests or tools.
      */
     public initialize(): void;
 
     /**
      * Lifecycle method called once on action execution stop.
      * Means that action is finished / preconditions are not met anymore.
+     *
+     * @remarks
+     * Called by the owning outer planner. Direct calls are only useful when driving the planner action manually in
+     * tests or tools.
      */
     public finalize(): void;
 
     /**
      * Lifecycle method.
      * Execution tick of the action, called from object logics update cycle when current action is active.
+     *
+     * @remarks
+     * Called by the owning outer planner after `initialize`. Direct calls bypass planner state.
      */
     public execute(): void;
 
     /**
      * Add action effect.
      * Describes what target world state is expected to be if action is completed.
+     *
+     * @remarks
+     * Do not mutate effects while the owner planner is updating; the engine asserts on graph changes during solving.
      *
      * @param property - World state property describing a pair of evaluator ID and value.
      */
@@ -984,6 +1052,9 @@ declare module "xray16" {
      * Remove action effect.
      * Action will be not considered as property changing for `id` anymore.
      *
+     * @remarks
+     * Do not mutate effects while the owner planner is updating; the engine asserts on graph changes during solving.
+     *
      * @param id - World state property id.
      */
     public remove_effect(id: u32): void;
@@ -992,6 +1063,10 @@ declare module "xray16" {
      * Add action execution precondition.
      * When building logics graph, action will be considered blocked by some preconditions.
      *
+     * @remarks
+     * Do not mutate preconditions while the owner planner is updating; the engine asserts on graph changes during
+     * solving.
+     *
      * @param property - World state property describing a pair of evaluator ID and value.
      */
     public add_precondition(property: world_property): void;
@@ -999,6 +1074,10 @@ declare module "xray16" {
     /**
      * Remove precondition for action.
      * When building logics graph, action will not be considered blocked by evaluator `id` states.
+     *
+     * @remarks
+     * Do not mutate preconditions while the owner planner is updating; the engine asserts on graph changes during
+     * solving.
      *
      * @param id - World state property id.
      */
@@ -1026,8 +1105,12 @@ declare module "xray16" {
    *
    * @group xr_global_declaration
    *
+   * @remarks
+   * Returns the planner interface only for actions implemented by `planner_action`; other action instances are not
+   * planner-backed.
+   *
    * @param base_action - Action to cast.
-   * @returns Planner interface for the action.
+   * @returns Planner interface for the action, or `null` when the action is not planner-backed.
    */
   export function cast_planner(this: void, base_action: action_base): action_planner;
 }
