@@ -29,6 +29,9 @@ declare module "xray16" {
    * @source C++ class rtoken_list
    * @customConstructor rtoken_list
    * @group xr_properties
+   *
+   * @remarks
+   * Used by editor property rows that need a list of strings computed at runtime.
    */
   export class rtoken_list {
     /**
@@ -39,6 +42,9 @@ declare module "xray16" {
     /**
      * Remove token by zero-based index.
      *
+     * @remarks
+     * Out-of-range indexes are ignored.
+     *
      * @param index - Token index.
      */
     public remove(index: u32): void;
@@ -47,9 +53,9 @@ declare module "xray16" {
      * Get token text by zero-based index.
      *
      * @param index - Token index.
-     * @returns Token text.
+     * @returns Token text, or `null` from native code when index is out of range.
      */
-    public get(index: u32): string;
+    public get(index: u32): string | null;
 
     /**
      * Get number of tokens in the list.
@@ -77,6 +83,9 @@ declare module "xray16" {
    * @source C++ class token_list
    * @customConstructor token_list
    * @group xr_properties
+   *
+   * @remarks
+   * The native list keeps a trailing sentinel entry for editor APIs; script code only works with named entries.
    */
   export class token_list {
     /**
@@ -87,6 +96,9 @@ declare module "xray16" {
     /**
      * Remove token by text.
      *
+     * @remarks
+     * Missing tokens are logged and otherwise ignored.
+     *
      * @param token - Token text.
      */
     public remove(token: string): void;
@@ -94,13 +106,19 @@ declare module "xray16" {
     /**
      * Find numeric id for a token.
      *
+     * @remarks
+     * The token must exist. Native code verifies the lookup result.
+     *
      * @param token - Token text.
-     * @returns Token id, or engine-defined missing value.
+     * @returns Token id.
      */
     public id(token: string): i32;
 
     /**
      * Find token text by numeric id.
+     *
+     * @remarks
+     * The id must exist. Native code verifies the lookup result.
      *
      * @param id - Token id.
      * @returns Token text.
@@ -109,6 +127,9 @@ declare module "xray16" {
 
     /**
      * Add a token/id pair.
+     *
+     * @remarks
+     * Both token text and id must be unique in the list.
      *
      * @param token - Token text.
      * @param id - Numeric token id.
@@ -127,10 +148,17 @@ declare module "xray16" {
    * @source C++ class properties_list_helper
    * @customConstructor properties_list_helper
    * @group xr_properties
+   *
+   * @remarks
+   * This is an editor bridge. Most methods require a real editor property item list and a server object that owns
+   * the wrapped field; they are not useful in ordinary gameplay scripts.
    */
   export class properties_list_helper extends EngineBinding {
     /**
      * Create a 3-axis angle property.
+     *
+     * @remarks
+     * Bound object field must be an `Fvector`.
      *
      * @returns Engine property value handle.
      */
@@ -139,12 +167,18 @@ declare module "xray16" {
     /**
      * Create an angle property.
      *
+     * @remarks
+     * Bound object field must be a float.
+     *
      * @returns Engine property value handle.
      */
     public create_angle(): unknown;
 
     /**
      * Create a time property.
+     *
+     * @remarks
+     * Bound object field must be a float.
      *
      * @returns Engine property value handle.
      */
@@ -153,12 +187,18 @@ declare module "xray16" {
     /**
      * Create a color property.
      *
+     * @remarks
+     * Bound object field must be a 32-bit color value.
+     *
      * @returns Engine property value handle.
      */
     public create_color(): unknown;
 
     /**
      * Create a vector color property.
+     *
+     * @remarks
+     * Bound object field must be an `Fvector`.
      *
      * @returns Engine property value handle.
      */
@@ -167,12 +207,18 @@ declare module "xray16" {
     /**
      * Create a float color property.
      *
+     * @remarks
+     * Bound object field must be an `Fcolor`.
+     *
      * @returns Engine property value handle.
      */
     public create_fcolor(): unknown;
 
     /**
      * Create a runtime token list property.
+     *
+     * @remarks
+     * Requires an `rtoken_list`; keep it alive while the editor property uses it.
      *
      * @returns Engine property value handle.
      */
@@ -181,6 +227,9 @@ declare module "xray16" {
     /**
      * Create an 8-bit token property.
      *
+     * @remarks
+     * Requires a `token_list`; ids must fit into an unsigned 8-bit value.
+     *
      * @returns Engine property value handle.
      */
     public create_token8(): unknown;
@@ -188,12 +237,18 @@ declare module "xray16" {
     /**
      * Create a 16-bit token property.
      *
+     * @remarks
+     * Requires a `token_list`; ids must fit into an unsigned 16-bit value.
+     *
      * @returns Engine property value handle.
      */
     public create_token16(): unknown;
 
     /**
      * Create a 32-bit token property.
+     *
+     * @remarks
+     * Requires a `token_list`; ids are stored as unsigned 32-bit values.
      *
      * @returns Engine property value handle.
      */
@@ -229,6 +284,9 @@ declare module "xray16" {
 
     /**
      * Create a boolean property bound to an object field.
+     *
+     * @remarks
+     * The native helper wraps `value[id]` and attaches the wrapper to `object`, so `object` must be a server object.
      *
      * @param items - Property item list to append to.
      * @param path - Property path or caption.
@@ -364,7 +422,10 @@ declare module "xray16" {
    * @source C++ class properties_helper
    * @customConstructor properties_helper
    * @group xr_properties
-   * @remarks Only available when the editor property helper library is loaded.
+   *
+   * @remarks
+   * Only available when the editor property helper library is loaded. Outside that context the native accessor logs
+   * an error and returns no usable helper.
    */
   export class properties_helper extends properties_list_helper {}
 
@@ -374,6 +435,10 @@ declare module "xray16" {
    * @source C++ class prop_value
    * @customConstructor prop_value
    * @group xr_properties
+   *
+   * @remarks
+   * These helpers are downcasts to concrete editor property value types. Use only when the property was created as
+   * that matching kind.
    */
   export class prop_value {
     /**

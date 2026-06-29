@@ -5,6 +5,9 @@ declare module "xray16" {
    * @source C++ class duality
    * @customConstructor duality
    * @group xr_animation
+   *
+   * @remarks
+   * These values are accumulated when several post-process effectors are active.
    */
   export class duality {
     /**
@@ -25,19 +28,19 @@ declare module "xray16" {
     /**
      * Create duality settings with both offsets.
      *
-     * @param v - Vertical duality amount.
      * @param h - Horizontal duality amount.
+     * @param v - Vertical duality amount.
      */
-    public constructor(v: f32, h: f32);
+    public constructor(h: f32, v: f32);
 
     /**
      * Set both duality values.
      *
-     * @param v - Vertical duality amount.
      * @param h - Horizontal duality amount.
+     * @param v - Vertical duality amount.
      * @returns This object for chained setup.
      */
-    public set(v: f32, h: f32): duality;
+    public set(h: f32, v: f32): duality;
   }
 
   /**
@@ -46,6 +49,9 @@ declare module "xray16" {
    * @source C++ class noise
    * @customConstructor noise
    * @group xr_animation
+   *
+   * @remarks
+   * Combined effectors keep the maximum intensity, grain, and FPS values.
    */
   export class noise {
     /**
@@ -64,28 +70,31 @@ declare module "xray16" {
     public intensity: f32;
 
     /**
-     * Create zeroed noise settings.
+     * Create default noise settings.
+     *
+     * @remarks
+     * Defaults are intensity 0, grain 1, and 10 FPS.
      */
     public constructor();
 
     /**
      * Create noise settings with all values.
      *
-     * @param fps - Noise frame rate.
-     * @param grain - Noise grain size.
      * @param intensity - Noise intensity.
+     * @param grain - Noise grain size.
+     * @param fps - Noise frame rate.
      */
-    public constructor(fps: f32, grain: f32, intensity: f32);
+    public constructor(intensity: f32, grain: f32, fps: f32);
 
     /**
      * Set all noise values.
      *
-     * @param fps - Noise frame rate.
-     * @param grain - Noise grain size.
      * @param intensity - Noise intensity.
+     * @param grain - Noise grain size.
+     * @param fps - Noise frame rate.
      * @returns This object for chained setup.
      */
-    public set(fps: f32, grain: f32, intensity: f32): noise;
+    public set(intensity: f32, grain: f32, fps: f32): noise;
   }
 
   /**
@@ -94,9 +103,15 @@ declare module "xray16" {
    * @source C++ class effector
    * @customConstructor effector
    * @group xr_animation
+   *
+   * @remarks
+   * Subclass it from script and override {@link process}. The effector is tied to the actor camera stack.
    */
   export class effector extends EngineBinding {
     /**
+     * @remarks
+     * Use a stable custom type id. {@link finish} removes the active effector by this type.
+     *
      * @param type - Unique post-process effector type id.
      * @param time - Effector lifetime in seconds.
      */
@@ -104,11 +119,17 @@ declare module "xray16" {
 
     /**
      * Add the effector to the actor camera stack.
+     *
+     * @remarks
+     * Requires an active actor. This is intended for in-game actor post-processing, not menu/editor code.
      */
     public start(): void;
 
     /**
      * Update post-process parameters for the current frame.
+     *
+     * @remarks
+     * Override this in script. Mutate `params` for the current frame and return `false` to stop the effector.
      *
      * @param params - Mutable post-process parameters.
      * @returns Whether the effector should continue running.
@@ -117,6 +138,9 @@ declare module "xray16" {
 
     /**
      * Remove the effector from the actor camera stack.
+     *
+     * @remarks
+     * Removes by effector type, so sharing a type id with another active effector can remove the wrong effect.
      */
     public finish(): void;
   }
@@ -127,6 +151,9 @@ declare module "xray16" {
    * @source C++ class effector_params
    * @customConstructor effector_params
    * @group xr_animation
+   *
+   * @remarks
+   * Defaults match the neutral post-process state: no blur, gray, duality, or noise intensity.
    */
   export class effector_params extends EngineBinding {
     /**
@@ -172,6 +199,9 @@ declare module "xray16" {
     /**
      * Copy all post-process values from another params object.
      *
+     * @remarks
+     * Copies the current values. Later changes to `params` are not linked back to this object.
+     *
      * @param params - Source values.
      */
     public assign(params: effector_params): void;
@@ -183,6 +213,9 @@ declare module "xray16" {
    * @source C++ class color_animator
    * @customConstructor color_animator
    * @group xr_animation
+   *
+   * @remarks
+   * Animations are looked up in the loaded light-animation library (`lanims.xr`).
    */
   export class color_animator extends EngineBinding {
     /**
@@ -198,6 +231,9 @@ declare module "xray16" {
     /**
      * Load another color animation.
      *
+     * @remarks
+     * The native binding asserts when the animation name is missing or unknown.
+     *
      * @param name - Color animation name.
      */
     public load(name: string): void;
@@ -205,7 +241,10 @@ declare module "xray16" {
     /**
      * Sample the animation.
      *
-     * @param time - Animation time.
+     * @remarks
+     * Time wraps over the animation length.
+     *
+     * @param time - Animation time in seconds.
      * @returns Color at the requested time.
      */
     public calculate(time: f32): fcolor;
