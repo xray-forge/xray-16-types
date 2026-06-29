@@ -377,7 +377,40 @@ declare module "xray16" {
    *
    * @group xr_ui_event
    *
-   * @param keycode
+   * @param keycode - DIK or mouse/gamepad key code.
+   * @returns Bound game action id.
    */
   export function dik_to_bind(this: void, keycode: i32): i32;
+
+  /**
+   * Transform a DIK key code to a game action in a specific input context.
+   *
+   * @group xr_ui_event
+   *
+   * @param keycode - DIK or mouse/gamepad key code.
+   * @param context - Input context id.
+   * @returns Bound game action id.
+   */
+  export function dik_to_bind(this: void, keycode: i32, context: i32): i32;
+
+  /**
+   * Get the primary DIK key bound to a game action.
+   *
+   * @group xr_ui_event
+   *
+   * @param action - Game action id.
+   * @returns DIK or mouse/gamepad key code.
+   */
+  export function bind_to_dik(this: void, action: i32): i32;
+
+  /**
+   * Get a DIK key bound to a game action by binding slot.
+   *
+   * @group xr_ui_event
+   *
+   * @param action - Game action id.
+   * @param index - Binding slot index.
+   * @returns DIK or mouse/gamepad key code.
+   */
+  export function bind_to_dik(this: void, action: i32, index: i32): i32;
 }

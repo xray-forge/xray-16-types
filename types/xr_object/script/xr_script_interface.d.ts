@@ -7,10 +7,25 @@ declare module "xray16" {
   export class cover_point {
     private constructor();
 
+    /**
+     * Get the level vertex occupied by this cover.
+     *
+     * @returns Level vertex id.
+     */
     public level_vertex_id(): u32;
 
+    /**
+     * Check whether this cover point comes from a smart cover.
+     *
+     * @returns Whether it is a smart cover.
+     */
     public is_smart_cover(): boolean;
 
+    /**
+     * Get cover position.
+     *
+     * @returns Cover position.
+     */
     public position(): vector;
   }
 
@@ -22,10 +37,19 @@ declare module "xray16" {
   export class MonsterHitInfo extends EngineBinding {
     private constructor();
 
+    /**
+     * Hit direction.
+     */
     public direction: vector;
 
+    /**
+     * Hit time.
+     */
     public time: i32;
 
+    /**
+     * Object that caused the hit.
+     */
     public who: game_object;
   }
 
@@ -242,7 +266,7 @@ declare module "xray16" {
     // 10 todo: inventory_pda -> implement in game engine
 
     /**
-     * 11 todo:
+     * Callback executed when an NPC receives an info portion.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["inventory_info"],
@@ -569,16 +593,46 @@ declare module "xray16" {
 
     // 56 todo: on_use_vehicle
 
+    /**
+     * Clear all callbacks registered on this object.
+     */
     public clear_callbacks(): void;
 
+    /**
+     * Clear the custom enemy selector callback.
+     */
     public set_enemy_callback(cb: null): void;
 
+    /**
+     * Set a custom enemy selector callback.
+     *
+     * @param cb - Callback that receives this object and a candidate enemy.
+     * @param object - Lua context used as callback `this`.
+     */
     public set_enemy_callback<T>(cb: (this: T, object: game_object, enemy: game_object) => boolean, object: T): void;
 
+    /**
+     * Set a fast update callback for this object.
+     *
+     * @param cb - Callback called from the object's fast update path.
+     * @param context - Lua context used as callback `this`.
+     */
     public set_fastcall<T>(cb: (this: T) => boolean, context: T): void;
 
+    /**
+     * Set or clear the patrol extrapolation callback.
+     *
+     * @param cb - Callback called with current patrol point index.
+     * @param object - Optional Lua context.
+     */
     public set_patrol_extrapolate_callback(cb?: ((cur_pt: number) => boolean) | null, object?: object): void;
 
+    /**
+     * Set or clear smart-cover target selection callback.
+     *
+     * @param cb - Callback that receives this object when a smart-cover target is selected.
+     * @param object - Optional Lua context.
+     */
     public set_smart_cover_target_selector(cb?: ((object: game_object) => void) | null, object?: object | null): void;
   }
 }

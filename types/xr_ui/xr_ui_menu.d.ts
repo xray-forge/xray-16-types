@@ -5,24 +5,64 @@ declare module "xray16" {
    * @group xr_ui_menu
    */
   export class COptionsManager {
+    /**
+     * Create an options manager script proxy.
+     */
     public constructor();
 
+    /**
+     * Send a UI options message to every option item in a group.
+     *
+     * @param group - Options group name.
+     * @param message - Message name.
+     */
     public SendMessage2Group(group: string, message: string): void;
 
+    /**
+     * Restore options in a group from their backup values.
+     *
+     * @param group - Options group name.
+     */
     public UndoGroup(group: string): void;
 
+    /**
+     * Save current option values as the backup for a group.
+     *
+     * @param group - Options group name.
+     */
     public SaveBackupValues(group: string): void;
 
-    public IsGroupChanged(group: string): boolean;
-
+    /**
+     * Persist current option values for a group.
+     *
+     * @param group - Options group name.
+     */
     public SaveValues(group: string): void;
 
+    /**
+     * Apply current engine option values to controls in a group.
+     *
+     * @param group - Options group name.
+     */
     public SetCurrentValues(group: string): void;
 
+    /**
+     * Check whether accepted options require a system restart.
+     *
+     * @returns Whether a system restart is needed.
+     */
     public NeedSystemRestart(): boolean;
 
+    /**
+     * Check whether accepted options require a video restart.
+     *
+     * @returns Whether a video restart is needed.
+     */
     public NeedVidRestart(): boolean;
 
+    /**
+     * Run post-accept handling after options are saved.
+     */
     public OptionsPostAccept(): void;
   }
 
@@ -32,24 +72,73 @@ declare module "xray16" {
    * @group xr_ui_menu
    */
   export class CMainMenu {
+    /**
+     * Get the CD key stored by the game.
+     *
+     * @returns CD key string.
+     */
     public GetCDKey(): string;
 
+    /**
+     * Get the multiplayer account manager.
+     *
+     * @returns Account manager.
+     */
     public GetAccountMngr(): account_manager;
 
+    /**
+     * Read metadata for a recorded demo file.
+     *
+     * @param fileName - Demo file name.
+     * @returns Demo info, or `null` when it cannot be read.
+     */
     public GetDemoInfo(fileName: string): demo_info | null;
 
+    /**
+     * Get patch download progress.
+     *
+     * @returns Patch progress object.
+     */
     public GetPatchProgress(): Patch_Dawnload_Progress;
 
+    /**
+     * Get the multiplayer profile store.
+     *
+     * @returns Profile store.
+     */
     public GetProfileStore(): profile_store;
 
+    /**
+     * Get GameSpy protocol version string.
+     *
+     * @returns GameSpy version.
+     */
     public GetGSVer(): string;
 
+    /**
+     * Get the multiplayer login manager.
+     *
+     * @returns Login manager.
+     */
     public GetLoginMngr(): login_manager;
 
+    /**
+     * Get the current player name.
+     *
+     * @returns Player name.
+     */
     public GetPlayerName(): string;
 
+    /**
+     * Cancel the active multiplayer map download.
+     */
     public CancelDownload(): void;
 
+    /**
+     * Validate the stored CD key.
+     *
+     * @returns Whether the CD key is valid.
+     */
     public ValidateCDKey(): boolean;
   }
 
@@ -59,37 +148,115 @@ declare module "xray16" {
    * @group xr_ui_menu
    */
   export class CUIGameCustom {
-    public AddCustomStatic(id: string, b: boolean): StaticDrawableWrapper;
+    /**
+     * Add a custom HUD static by XML id.
+     *
+     * @param id - Static descriptor id.
+     * @param singleInstance - Whether an existing static with the same id should be reused.
+     * @returns Drawable wrapper for the static.
+     */
+    public AddCustomStatic(id: string, singleInstance: boolean): StaticDrawableWrapper;
 
-    public AddCustomStatic(id: string, b: boolean, n: f32): StaticDrawableWrapper;
+    /**
+     * Add a custom HUD static by XML id and lifetime.
+     *
+     * @param id - Static descriptor id.
+     * @param singleInstance - Whether an existing static with the same id should be reused.
+     * @param lifetime - Time before the static is removed.
+     * @returns Drawable wrapper for the static.
+     */
+    public AddCustomStatic(id: string, singleInstance: boolean, lifetime: f32): StaticDrawableWrapper;
 
+    /**
+     * Add a dialog window to the HUD render list.
+     *
+     * @param window - Dialog window.
+     */
     public AddDialogToRender(window: CUIWindow): void;
 
+    /**
+     * Get the inventory item currently under the actor menu cursor.
+     *
+     * @returns Game object for the item.
+     */
     public CurrentItemAtCell(): game_object;
 
-    public GetCustomStatic(value: string): StaticDrawableWrapper | null;
+    /**
+     * Get an active custom HUD static by id.
+     *
+     * @param id - Static descriptor id.
+     * @returns Drawable wrapper, or `null` when missing.
+     */
+    public GetCustomStatic(id: string): StaticDrawableWrapper | null;
 
+    /**
+     * Hide the actor inventory menu.
+     */
     public HideActorMenu(): void;
 
+    /**
+     * Show the actor inventory menu.
+     *
+     * @returns Whether the menu was shown.
+     */
     public ShowActorMenu(): boolean;
 
+    /**
+     * Hide the PDA menu.
+     */
     public HidePdaMenu(): void;
 
+    /**
+     * Remove a custom HUD static.
+     *
+     * @param id - Static descriptor id.
+     */
     public RemoveCustomStatic(id: string): void;
 
+    /**
+     * Remove a dialog window from the HUD render list.
+     *
+     * @param window - Dialog window.
+     */
     public RemoveDialogToRender(window: CUIWindow): void;
 
+    /**
+     * Refresh actor menu state.
+     */
     public UpdateActorMenu(): void;
 
+    /**
+     * Enable or disable fake HUD indicators.
+     *
+     * @param enabled - New fake-indicator state.
+     */
     public enable_fake_indicators(enabled: boolean): void;
 
+    /**
+     * Hide HUD messages.
+     */
     public hide_messages(): void;
 
+    /**
+     * Show HUD messages.
+     */
     public show_messages(): void;
 
-    public update_fake_indicators(u8: number, enabled: boolean): void;
+    /**
+     * Update fake indicator visibility.
+     *
+     * @param indicator - Indicator id.
+     * @param enabled - New indicator state.
+     */
+    public update_fake_indicators(indicator: number, enabled: boolean): void;
 
-    public update_fake_indicators(u8: number, value: f32): void;
+    /**
+     * Update fake indicator value.
+     *
+     * @param indicator - Indicator id.
+     * @param value - New indicator value.
+     */
+    public update_fake_indicators(indicator: number, value: f32): void;
   }
 
   /**
@@ -108,7 +275,18 @@ declare module "xray16" {
    * @group xr_ui_menu
    */
   export interface IXR_ActorMenu {
+    /**
+     * Get the current PDA menu window.
+     *
+     * @returns PDA menu window.
+     */
     get_pda_menu(this: void): CUIPdaWnd;
+
+    /**
+     * Get the current actor menu window.
+     *
+     * @returns Actor menu window.
+     */
     get_actor_menu(this: void): CUIActorMenu;
 
     /**
@@ -136,7 +314,11 @@ declare module "xray16" {
   export const main_menu: IXR_main_menu;
 
   /**
+   * Get the current game HUD UI.
+   *
    * @group xr_ui_menu
+   *
+   * @returns Current HUD UI controller.
    */
   export function get_hud(this: void): CUIGameCustom;
 }
