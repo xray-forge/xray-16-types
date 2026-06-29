@@ -5,6 +5,9 @@ declare module "xray16" {
    * @source C++ class ClientID
    * @customConstructor ClientID
    * @group xr_save
+   *
+   * @remarks
+   * `0xffffffff` is used by the engine as broadcast client id in network code.
    */
   export class ClientID extends EngineBinding {
     /**
@@ -36,6 +39,9 @@ declare module "xray16" {
    * @source C++ class net_packet
    * @customConstructor net_packet
    * @group xr_save
+   *
+   * @remarks
+   * Packet reads are positional. Use `r_tell`, `r_seek`, `r_elapsed`, and `r_eof` when reading mixed payloads.
    */
   export class net_packet {
     /**
@@ -45,6 +51,9 @@ declare module "xray16" {
 
     /**
      * Advance the read cursor.
+     *
+     * @remarks
+     * Does not read or validate skipped bytes.
      *
      * @param size - Number of bytes to skip.
      */
@@ -67,13 +76,19 @@ declare module "xray16" {
     /**
      * Read packet message header.
      *
+     * @remarks
+     * Resets the read cursor to the packet start before reading the message type.
+     *
      * @param type - Output placeholder for message type.
-     * @returns Packet payload size.
+     * @returns Packet receive time.
      */
     public r_begin(type: u16): u32;
 
     /**
      * Read boolean value.
+     *
+     * @remarks
+     * Booleans are serialized as one byte.
      *
      * @returns Boolean value.
      */
@@ -220,6 +235,9 @@ declare module "xray16" {
     /**
      * Move read cursor to an absolute byte offset.
      *
+     * @remarks
+     * The engine allows seeking to the packet end, which is useful before rereading from offset `0`.
+     *
      * @param offset - Byte offset.
      */
     public r_seek(offset: u32): void;
@@ -329,12 +347,18 @@ declare module "xray16" {
     /**
      * Write boolean value.
      *
+     * @remarks
+     * Booleans are serialized as one byte.
+     *
      * @param value - Boolean value.
      */
     public w_bool(value: boolean): void;
 
     /**
      * Close a 16-bit size-prefixed chunk.
+     *
+     * @remarks
+     * The chunk payload must fit into `65535` bytes.
      *
      * @param marker - Chunk marker returned by `w_chunk_open16`.
      */
@@ -343,6 +367,9 @@ declare module "xray16" {
     /**
      * Close an 8-bit size-prefixed chunk.
      *
+     * @remarks
+     * The chunk payload must fit into `255` bytes.
+     *
      * @param marker - Chunk marker returned by `w_chunk_open8`.
      */
     public w_chunk_close8(marker: u32): void;
@@ -350,12 +377,18 @@ declare module "xray16" {
     /**
      * Open a 16-bit size-prefixed chunk.
      *
+     * @remarks
+     * Writes a placeholder size at the current write cursor. Pass the returned marker to `w_chunk_close16`.
+     *
      * @param marker - Output placeholder for chunk marker.
      */
     public w_chunk_open16(marker: u32): void;
 
     /**
      * Open an 8-bit size-prefixed chunk.
+     *
+     * @remarks
+     * Writes a placeholder size at the current write cursor. Pass the returned marker to `w_chunk_close8`.
      *
      * @param marker - Output placeholder for chunk marker.
      */
@@ -491,6 +524,9 @@ declare module "xray16" {
    * @source C++ class reader
    * @customConstructor reader
    * @group xr_save
+   *
+   * @remarks
+   * Reader methods advance a cursor over existing binary data. They do not own or mutate the source buffer.
    */
   export class reader {
     /**
@@ -681,10 +717,15 @@ declare module "xray16" {
    * @source C++ class CSavedGameWrapper
    * @customConstructor CSavedGameWrapper
    * @group xr_save
+   *
+   * @remarks
+   * Looks for both current and legacy save extensions under `$game_saves$`.
    */
   export class CSavedGameWrapper extends EngineBinding {
     /**
      * Open save-game metadata by save name.
+     *
+     * @throws If the save file does not exist.
      *
      * @param name - Save name without extension.
      */
@@ -693,12 +734,18 @@ declare module "xray16" {
     /**
      * Get active level name stored in the save.
      *
+     * @remarks
+     * Returns an empty string when the save header is valid but level metadata cannot be resolved.
+     *
      * @returns Level name, or an empty/error value when metadata cannot be resolved.
      */
     public level_name(): string;
 
     /**
      * Get active level id stored in the save.
+     *
+     * @remarks
+     * Returns `255` when the save header is valid but level metadata cannot be resolved.
      *
      * @returns Level id.
      */
@@ -723,6 +770,9 @@ declare module "xray16" {
    * Check whether a save exists and has a compatible header.
    *
    * @group xr_save
+   *
+   * @remarks
+   * Accepts save names without extension and checks both current and legacy save extensions.
    *
    * @param filename - Save name without extension.
    * @returns Whether the save can be loaded by this engine.

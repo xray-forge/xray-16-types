@@ -5,6 +5,9 @@ declare module "xray16" {
    * @source C++ class task
    * @customConstructor task
    * @group xr_task
+   *
+   * @remarks
+   * State and type constants share one native export. Use the matching subset for each API.
    */
   export class task {
     /**
@@ -60,9 +63,15 @@ declare module "xray16" {
    * @source C++ class SGameTaskObjective
    * @customConstructor SGameTaskObjective
    * @group xr_task
+   *
+   * @remarks
+   * Objective `0` is the task root objective. Additional objectives start at `1`.
    */
   export class SGameTaskObjective {
     /**
+     * @remarks
+     * The objective stores a pointer to `task`; keep the parent task alive while using this objective.
+     *
      * @param task - Parent task.
      * @param id - Objective index.
      */
@@ -114,6 +123,9 @@ declare module "xray16" {
     /**
      * Add a script function called after objective completion.
      *
+     * @remarks
+     * Function names are resolved when the objective is committed into a task or loaded.
+     *
      * @param function_name - Script function name.
      */
     public add_on_complete_func(function_name: string): void;
@@ -149,12 +161,18 @@ declare module "xray16" {
     /**
      * Add a script predicate used to decide objective completion.
      *
+     * @remarks
+     * Function names are resolved when the objective is committed into a task or loaded.
+     *
      * @param function_name - Script function name.
      */
     public add_complete_func(function_name: string): void;
 
     /**
      * Add a script predicate used to decide objective failure.
+     *
+     * @remarks
+     * Function names are resolved when the objective is committed into a task or loaded.
      *
      * @param function_name - Script function name.
      */
@@ -204,6 +222,9 @@ declare module "xray16" {
     /**
      * Replace linked map location data and recreate the spot.
      *
+     * @remarks
+     * Removes the current linked spot, sets the objective back to `task.in_progress`, then creates a new map spot.
+     *
      * @param new_map_location - New map location type.
      * @param new_map_object_id - New target object id.
      */
@@ -212,12 +233,20 @@ declare module "xray16" {
     /**
      * Remove linked map locations.
      *
+     * @remarks
+     * When `notify` is `false`, the linked map location is removed from the level map manager. The objective then clears
+     * its stored location type and object id.
+     *
      * @param notify - Whether to notify task manager that the location was released.
      */
     public remove_map_locations(notify: boolean): void;
 
     /**
      * Create the linked map location if the objective has a spot type and object id.
+     *
+     * @remarks
+     * During load, the objective tries to reattach to an existing serializable spot owned by the task. During normal
+     * creation, it creates a new serializable spot and disables its pointer.
      *
      * @param on_load - Whether creation happens during save loading.
      */
@@ -244,6 +273,9 @@ declare module "xray16" {
    * @source C++ class CGameTask : SGameTaskObjective
    * @customConstructor CGameTask
    * @group xr_task
+   *
+   * @remarks
+   * A task is also its root objective. Methods inherited from `SGameTaskObjective` operate on that root objective.
    */
   export class CGameTask extends SGameTaskObjective {
     /**
@@ -253,6 +285,9 @@ declare module "xray16" {
 
     /**
      * Load task data from configs.
+     *
+     * @remarks
+     * Reads from `gameplay/game_tasks.xml`. Missing task ids are a native throw path.
      *
      * @param id - Task id.
      */
@@ -285,12 +320,18 @@ declare module "xray16" {
     /**
      * Add an objective to this task.
      *
+     * @remarks
+     * The native binding adopts the objective and copies its current data into the task objective list.
+     *
      * @param objective - Objective to adopt into the task.
      */
     public add_objective(objective: SGameTaskObjective): void;
 
     /**
      * Get objective by index.
+     *
+     * @remarks
+     * Index `0` returns the root objective. Other indices access native storage without a bounds check.
      *
      * @param objective_id - Objective index.
      * @returns Objective instance.

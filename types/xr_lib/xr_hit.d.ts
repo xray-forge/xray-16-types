@@ -5,6 +5,9 @@ declare module "xray16" {
    * @source C++ class hit
    * @customConstructor hit
    * @group xr_hit
+   *
+   * @remarks
+   * A new hit defaults to wound damage with power `100`, impulse `100`, direction `(1, 0, 0)`, and no draftsman.
    */
   export class hit {
     /**
@@ -31,6 +34,10 @@ declare module "xray16" {
      * Engine enum value for `hit.light_burn`.
      */
     public static readonly light_burn = 11;
+    /**
+     * Engine enum value for `hit.physic_strike`.
+     */
+    public static readonly physic_strike = 10;
     /**
      * Engine enum value for `hit.radiation`.
      */
@@ -59,6 +66,9 @@ declare module "xray16" {
 
     /**
      * Object that caused the hit.
+     *
+     * @remarks
+     * Leave `null` for world or scripted damage that should not be attributed to a game object.
      */
     public draftsman: game_object | null;
 
@@ -79,6 +89,9 @@ declare module "xray16" {
 
     /**
      * Create an empty hit packet.
+     *
+     * @remarks
+     * Uses the engine default values described on `hit`.
      */
     public constructor();
 
@@ -91,6 +104,9 @@ declare module "xray16" {
 
     /**
      * Target a model bone by name.
+     *
+     * @remarks
+     * Stores the bone name on the hit. The receiving object resolves it against its own model.
      *
      * @param bone - Bone name used by the receiver model.
      */
