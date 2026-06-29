@@ -33,65 +33,268 @@ declare module "xray16" {
      */
     public InitButton(selector: string, parent: CUIWindow | null): CUIButton;
 
+    /**
+     * Create and initialize a three-state button from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created button.
+     */
     public Init3tButton(selector: string, parent: CUIWindow | null): CUI3tButton;
 
+    /**
+     * Create and initialize an animated static from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created static control.
+     */
     public InitAnimStatic(selector: string, parent: CUIWindow | null): CUIStatic;
 
+    /**
+     * Create and initialize a CD key edit box from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created edit box.
+     */
     public InitCDkey(selector: string, parent: CUIWindow | null): CUIEditBox;
 
+    /**
+     * Create and initialize a check button from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created check button.
+     */
     public InitCheck(selector: string, parent: CUIWindow | null): CUICheckButton;
 
+    /**
+     * Create and initialize a combo box from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created combo box.
+     */
     public InitComboBox(selector: string, parent: CUIWindow | null): CUIComboBox;
 
+    /**
+     * Create and initialize an edit box from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created edit box.
+     */
     public InitEditBox(selector: string, parent: CUIWindow | null): CUIEditBox;
 
+    /**
+     * Create and initialize a frame window from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created frame window.
+     */
     public InitFrame(selector: string, parent: CUIWindow | null): CUIFrameWindow;
 
+    /**
+     * Create and initialize a frame line from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created frame line.
+     */
     public InitFrameLine(selector: string, parent: CUIWindow | null): CUIFrameLineWnd;
 
+    /**
+     * Create and initialize a key binding control from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created key binding window.
+     */
     public InitKeyBinding(selector: string, parent: CUIWindow | null): CUIWindow;
 
+    /**
+     * Create and initialize a label from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created label static.
+     */
     public InitLabel(selector: string, parent: CUIWindow | null): CUIStatic;
 
+    /**
+     * Create and initialize a list window from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created list window.
+     */
     public InitList(selector: string, parent: CUIWindow | null): CUIListWnd;
 
+    /**
+     * Create and initialize a list box from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created list box.
+     */
     public InitListBox<T extends CUIListBoxItem = CUIListBoxItem>(
       selector: string,
       parent: CUIWindow | null
     ): CUIListBox<T>;
 
+    /**
+     * Create and initialize a main-menu shniaga control from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created main-menu shniaga control.
+     */
     public InitMMShniaga(selector: string, parent: CUIWindow | null): CUIMMShniaga;
 
+    /**
+     * Create and initialize a multiplayer player-name edit box from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created edit box.
+     */
     public InitMPPlayerName(selector: string, parent: CUIWindow | null): CUIEditBox;
 
+    /**
+     * Create and initialize a map info control from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created map info control.
+     */
     public InitMapInfo(selector: string, parent: CUIWindow | null): CUIMapInfo;
 
+    /**
+     * Create and initialize a map list control from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created map list control.
+     */
     public InitMapList(selector: string, parent: CUIWindow | null): CUIMapList;
 
+    /**
+     * Create and initialize a progress bar from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created progress bar.
+     */
     public InitProgressBar(selector: string, parent: CUIWindow | null): CUIProgressBar;
 
+    /**
+     * Create and initialize a scroll view from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created scroll view.
+     */
     public InitScrollView(selector: string, parent: CUIWindow | null): CUIScrollView;
 
+    /**
+     * Create and initialize a server list from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created server list.
+     */
     public InitServerList(selector: string, parent: CUIWindow | null): CServerList;
 
+    /**
+     * Create and initialize a sleep static from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created sleep static.
+     */
     public InitSleepStatic(selector: string, parent: CUIWindow | null): CUISleepStatic;
 
+    /**
+     * Create and initialize a float spin control from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created spin control.
+     */
     public InitSpinFlt(selector: string, parent: CUIWindow | null): CUISpinFlt;
 
+    /**
+     * Create and initialize an integer spin control from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created spin control.
+     */
     public InitSpinNum(selector: string, parent: CUIWindow | null): CUISpinNum;
 
+    /**
+     * Create and initialize a text spin control from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created spin control.
+     */
     public InitSpinText(selector: string, parent: CUIWindow | null): CUISpinText;
 
+    /**
+     * Create and initialize a static control from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created static control.
+     */
     public InitStatic(selector: string, parent: CUIWindow | null): CUIStatic;
 
+    /**
+     * Create and initialize a tab control from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created tab control.
+     */
     public InitTab(selector: string, parent: CUIWindow | null): CUITabControl;
 
+    /**
+     * Create and initialize a text window from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created text window.
+     */
     public InitTextWnd(selector: string, parent: CUIWindow | null): CUITextWnd;
 
+    /**
+     * Create and initialize a track bar from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created track bar.
+     */
     public InitTrackBar(selector: string, parent: CUIWindow | null): CUITrackBar;
 
+    /**
+     * Create and initialize a version list from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created version list.
+     */
     public InitVerList(selector: string, parent: CUIWindow | null): CUIVersionList;
 
+    /**
+     * Create and initialize a hint window from XML.
+     *
+     * @param selector - XML node path.
+     * @param parent - Optional parent window.
+     * @returns Created hint window.
+     */
     public InitHint(selector: string, parent: CUIWindow | null): UIHint;
 
     /**
