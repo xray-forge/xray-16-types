@@ -1,5 +1,7 @@
 declare module "xray16" {
   /**
+   * Game graph vertex binding.
+   *
    * @source C++ class GameGraph__CVertex
    * @customConstructor GameGraph__CVertex
    * @group xr_graph
@@ -40,6 +42,8 @@ declare module "xray16" {
   }
 
   /**
+   * Game graph access binding.
+   *
    * @source C++ class CGameGraph
    * @customConstructor CGameGraph
    * @group xr_graph

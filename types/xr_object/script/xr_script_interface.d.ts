@@ -1,5 +1,7 @@
 declare module "xray16" {
   /**
+   * Cover point returned by cover search helpers.
+   *
    * @source C++ class cover_point
    * @customConstructor cover_point
    * @group xr_script_interface
@@ -33,6 +35,8 @@ declare module "xray16" {
   }
 
   /**
+   * Hit context passed to monster combat callbacks.
+   *
    * @source C++ class MonsterHitInfo
    * @customConstructor MonsterHitInfo
    * @group xr_script_interface
@@ -79,6 +83,8 @@ declare module "xray16" {
   export type TXR_game_object_path = 0 | 1 | 2 | 3 | number;
 
   /**
+   * Engine callback id registry.
+   *
    * @source C++ class callback
    * @customConstructor callback
    * @group xr_script_interface

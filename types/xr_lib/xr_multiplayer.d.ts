@@ -387,6 +387,8 @@ declare module "xray16" {
   }
 
   /**
+   * Multiplayer data binding for `award_pair_t`.
+   *
    * @source C++ class award_pair_t
    * @customConstructor award_pair_t
    * @group xr_multiplayer
@@ -397,6 +399,8 @@ declare module "xray16" {
   }
 
   /**
+   * Multiplayer data binding for `best_scores_pair_t`.
+   *
    * @source C++ class best_scores_pair_t
    * @customConstructor best_scores_pair_t
    * @group xr_multiplayer
@@ -407,6 +411,8 @@ declare module "xray16" {
   }
 
   /**
+   * Multiplayer callback binding for `account_profiles_cb`.
+   *
    * @source C++ class account_profiles_cb
    * @customConstructor account_profiles_cb
    * @group xr_multiplayer
@@ -433,6 +439,8 @@ declare module "xray16" {
   }
 
   /**
+   * Multiplayer callback binding for `login_operation_cb`.
+   *
    * @source C++ class login_operation_cb
    * @customConstructor login_operation_cb
    * @group xr_multiplayer
@@ -459,6 +467,8 @@ declare module "xray16" {
   }
 
   /**
+   * Multiplayer callback binding for `connect_error_cb`.
+   *
    * @source C++ class connect_error_cb
    * @customConstructor connect_error_cb
    * @group xr_multiplayer
@@ -485,6 +495,8 @@ declare module "xray16" {
   }
 
   /**
+   * Multiplayer callback binding for `account_operation_cb`.
+   *
    * @source C++ class account_operation_cb
    * @customConstructor account_operation_cb
    * @group xr_multiplayer
@@ -511,6 +523,8 @@ declare module "xray16" {
   }
 
   /**
+   * Multiplayer callback binding for `found_email_cb`.
+   *
    * @source C++ class found_email_cb
    * @customConstructor found_email_cb
    * @group xr_multiplayer
@@ -537,6 +551,8 @@ declare module "xray16" {
   }
 
   /**
+   * Multiplayer callback binding for `store_operation_cb`.
+   *
    * @source C++ class store_operation_cb
    * @customConstructor store_operation_cb
    * @group xr_multiplayer
@@ -563,6 +579,8 @@ declare module "xray16" {
   }
 
   /**
+   * Multiplayer callback binding for `suggest_nicks_cb`.
+   *
    * @source C++ class suggest_nicks_cb
    * @customConstructor suggest_nicks_cb
    * @group xr_multiplayer

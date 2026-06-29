@@ -1,5 +1,7 @@
 declare module "xray16" {
   /**
+   * UI event id constants.
+   *
    * @source C++ class ui_events
    * @customConstructor ui_events
    * @group xr_ui_event
@@ -137,6 +139,8 @@ declare module "xray16" {
   type TXR_ui_event = EnumeratedStaticsValues<typeof ui_events>;
 
   /**
+   * Keyboard scan-code constants.
+   *
    * @source C++ class DIK_keys
    * @customConstructor DIK_keys
    * @group xr_ui_event
@@ -1196,6 +1200,8 @@ declare module "xray16" {
   type TXR_DIK_key = EnumeratedStaticsValues<typeof DIK_keys>;
 
   /**
+   * Game action binding constants.
+   *
    * @source C++ class key_bindings
    * @customConstructor key_bindings
    * @group xr_ui_event

@@ -206,6 +206,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CServerList`.
+   *
    * @source C++ class CServerList : CUIWindow
    * @customConstructor CServerList
    * @group xr_ui_interface
@@ -280,6 +282,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUIButton`.
+   *
    * @source C++ class CUIButton : CUIStatic
    * @customConstructor CUIButton
    * @group xr_ui_interface
@@ -287,6 +291,8 @@ declare module "xray16" {
   export class CUIButton extends CUIStatic {}
 
   /**
+   * UI binding for `CUI3tButton`.
+   *
    * @source C++ class CUI3tButton : CUIButton
    * @customConstructor CUI3tButton
    * @group xr_ui_interface
@@ -294,6 +300,8 @@ declare module "xray16" {
   export class CUI3tButton extends CUIButton {}
 
   /**
+   * UI binding for `CUICheckButton`.
+   *
    * @source C++ class CUICheckButton : CUI3tButton
    * @customConstructor CUICheckButton
    * @group xr_ui_interface
@@ -320,6 +328,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUIComboBox`.
+   *
    * @source C++ class CUIComboBox : CUIWindow
    * @customConstructor CUIComboBox
    * @group xr_ui_interface
@@ -422,6 +432,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUICustomEdit`.
+   *
    * @source C++ class CUICustomEdit : CUIWindow
    * @customConstructor CUICustomEdit
    * @group xr_ui_interface
@@ -455,6 +467,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUICustomSpin`.
+   *
    * @source C++ class CUICustomSpin : CUIWindow
    * @customConstructor CUICustomSpin
    * @group xr_ui_interface
@@ -467,6 +481,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUIDialogWnd`.
+   *
    * @source C++ class CUIDialogWnd : CUIWindow
    * @customConstructor CUIDialogWnd
    * @group xr_ui_interface
@@ -499,6 +515,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUIScriptWnd`.
+   *
    * @source C++ class CUIScriptWnd : CUIDialogWnd,DLL_Pure
    * @customConstructor CUIScriptWnd
    * @group xr_ui_interface
@@ -632,6 +650,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUIEditBox`.
+   *
    * @source C++ class CUIEditBox : CUICustomEdit
    * @customConstructor CUIEditBox
    * @group xr_ui_interface
@@ -646,6 +666,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUIEditBoxEx`.
+   *
    * @source C++ class CUIEditBoxEx : CUICustomEdit
    * @customConstructor CUIEditBoxEx
    * @group xr_ui_interface
@@ -660,6 +682,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUIFrameLineWnd`.
+   *
    * @source C++ class CUIFrameLineWnd : CUIWindow
    * @customConstructor CUIFrameLineWnd
    * @group xr_ui_interface
@@ -674,6 +698,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUIFrameWindow`.
+   *
    * @source C++ class CUIFrameWindow : CUIWindow
    * @customConstructor CUIFrameWindow
    * @group xr_ui_interface
@@ -688,6 +714,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUILines`.
+   *
    * @source C++ class CUILines
    * @customConstructor CUILines
    * @group xr_ui_interface
@@ -735,6 +763,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUIListBox`.
+   *
    * @source C++ class CUIListBox : CUIScrollView
    * @customConstructor CUIListBox
    * @group xr_ui_interface
@@ -826,6 +856,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUIListBoxItem`.
+   *
    * @source C++ class CUIListBoxItem : CUIFrameLineWnd
    * @customConstructor CUIListBoxItem
    * @group xr_ui_interface
@@ -884,6 +916,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUIListBoxItemMsgChain`.
+   *
    * @source C++ class CUIListBoxItemMsgChain : CUIListBoxItem
    * @customConstructor CUIListBoxItemMsgChain
    * @group xr_ui_interface
@@ -891,6 +925,8 @@ declare module "xray16" {
   export class CUIListBoxItemMsgChain extends CUIListBoxItem {}
 
   /**
+   * UI binding for `CUIMMShniaga`.
+   *
    * @source C++ class CUIMMShniaga : CUIWindow
    * @customConstructor CUIMMShniaga
    * @group xr_ui_interface
@@ -939,6 +975,8 @@ declare module "xray16" {
   export type TXR_MMShniaga_page = EnumeratedStaticsValues<typeof CUIMMShniaga>;
 
   /**
+   * UI binding for `CUIMapInfo`.
+   *
    * @source C++ class CUIMapInfo : CUIWindow
    * @customConstructor CUIMapInfo
    * @group xr_ui_interface
@@ -954,6 +992,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUIMapList`.
+   *
    * @source C++ class CUIMapList : CUIWindow
    * @customConstructor CUIMapList
    * @group xr_ui_interface
@@ -1039,6 +1079,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUIMessageBox`.
+   *
    * @source C++ class CUIMessageBox : CUIStatic
    * @customConstructor CUIMessageBox
    * @group xr_ui_interface
@@ -1064,6 +1106,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUIMessageBoxEx`.
+   *
    * @source C++ class CUIMessageBoxEx : CUIDialogWnd
    * @customConstructor CUIMessageBoxEx
    * @group xr_ui_interface
@@ -1095,6 +1139,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUIProgressBar`.
+   *
    * @source C++ class CUIProgressBar : CUIWindow
    * @customConstructor CUIProgressBar
    * @group xr_ui_interface
@@ -1124,6 +1170,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUIPropertiesBox`.
+   *
    * @source C++ class CUIPropertiesBox : CUIFrameWindow
    * @customConstructor CUIPropertiesBox
    * @group xr_ui_interface
@@ -1188,6 +1236,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUIVersionList`.
+   *
    * @source C++ class CUIVersionList : CUIWindow
    * @customConstructor CUIVersionList
    * @group xr_ui_interface
@@ -1220,6 +1270,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUIScrollView`.
+   *
    * @source C++ class CUIScrollView : CUIWindow
    * @customConstructor CUIScrollView
    * @group xr_ui_interface
@@ -1286,6 +1338,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUISleepStatic`.
+   *
    * @source C++ class CUISleepStatic : CUIStatic
    * @customConstructor CUISleepStatic
    * @group xr_ui_interface
@@ -1293,6 +1347,8 @@ declare module "xray16" {
   export class CUISleepStatic extends CUIStatic {}
 
   /**
+   * UI binding for `CUISpinFlt`.
+   *
    * @source C++ class CUISpinFlt : CUICustomSpin
    * @customConstructor CUISpinFlt
    * @group xr_ui_interface
@@ -1300,6 +1356,8 @@ declare module "xray16" {
   export class CUISpinFlt extends CUICustomSpin {}
 
   /**
+   * UI binding for `CUISpinNum`.
+   *
    * @source C++ class CUISpinNum : CUICustomSpin
    * @customConstructor CUISpinNum
    * @group xr_ui_interface
@@ -1307,6 +1365,8 @@ declare module "xray16" {
   export class CUISpinNum extends CUICustomSpin {}
 
   /**
+   * UI binding for `CUISpinText`.
+   *
    * @source C++ class CUISpinText : CUICustomSpin
    * @customConstructor CUISpinText
    * @group xr_ui_interface
@@ -1314,6 +1374,8 @@ declare module "xray16" {
   export class CUISpinText extends CUICustomSpin {}
 
   /**
+   * UI binding for `CUIStatic`.
+   *
    * @source C++ class CUIStatic : CUIWindow
    * @customConstructor CUIStatic
    * @group xr_ui_interface
@@ -1494,6 +1556,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUITabButton`.
+   *
    * @source C++ class CUITabButton : CUIButton
    * @customConstructor CUITabButton
    * @group xr_ui_interface
@@ -1501,6 +1565,8 @@ declare module "xray16" {
   export class CUITabButton extends CUIButton {}
 
   /**
+   * UI binding for `CUITabControl`.
+   *
    * @source C++ class CUITabControl : CUIWindow
    * @customConstructor CUITabControl
    * @group xr_ui_interface
@@ -1608,6 +1674,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUITextWnd`.
+   *
    * @source C++ class CUITextWnd : CUIWindow
    * @customConstructor CUITextWnd
    * @group xr_ui_interface
@@ -1692,6 +1760,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUITrackBar`.
+   *
    * @source C++ class CUITrackBar : CUIWindow
    * @customConstructor CUITrackBar
    * @group xr_ui_interface
@@ -1757,6 +1827,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CDialogHolder`.
+   *
    * @source C++ class CDialogHolder
    * @customConstructor CDialogHolder
    * @group xr_ui_interface
@@ -1805,6 +1877,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `StaticDrawableWrapper`.
+   *
    * @source C++ class StaticDrawableWrapper
    * @customConstructor StaticDrawableWrapper
    * @group xr_ui_interface
@@ -1851,6 +1925,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUIListWnd`.
+   *
    * @source C++ class CUIListWnd : CUIWindow
    * @customConstructor CUIListWnd
    * @group xr_ui_interface
@@ -1995,6 +2071,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUIListItem`.
+   *
    * @source C++ class CUIListItem : CUIButton
    * @customConstructor CUIListItem
    * @group xr_ui_interface
@@ -2002,6 +2080,8 @@ declare module "xray16" {
   export class CUIListItem extends CUIButton {}
 
   /**
+   * UI binding for `CUIListItemEx`.
+   *
    * @source C++ class CUIListItemEx : CUIListItem
    * @customConstructor CUIListItemEx
    * @group xr_ui_interface
@@ -2016,6 +2096,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `UIHint`.
+   *
    * @source C++ class UIHint : CUIWindow
    * @customConstructor UIHint
    * @group xr_ui_interface
@@ -2040,6 +2122,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUIPdaWnd`.
+   *
    * @source C++ class CUIPdaWnd : CUIDialogWnd
    * @customConstructor CUIPdaWnd
    * @group xr_ui_interface
@@ -2081,6 +2165,8 @@ declare module "xray16" {
   }
 
   /**
+   * UI binding for `CUIActorMenu`.
+   *
    * @source C++ class CUIActorMenu : CUIDialogWnd
    * @customConstructor CUIActorMenu
    * @group xr_ui_interface
@@ -2144,6 +2230,8 @@ declare module "xray16" {
   }
 
   /**
+   * Actor menu drag-and-drop list type constants.
+   *
    * @source C++ enum EDDListType
    * @customConstructor EDDListType
    * @group xr_ui_interface

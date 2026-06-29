@@ -1,5 +1,7 @@
 declare module "xray16" {
   /**
+   * XML UI initialization helper.
+   *
    * @source C++ class CScriptXmlInit
    * @customConstructor CScriptXmlInit
    * @group xr_ui_core

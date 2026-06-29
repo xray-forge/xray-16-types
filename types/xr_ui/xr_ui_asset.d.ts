@@ -1,5 +1,7 @@
 declare module "xray16" {
   /**
+   * UI style manager binding.
+   *
    * @source C++ class UIStyleManager
    * @customConstructor UIStyleManager
    * @group xr_ui_asset
@@ -71,6 +73,8 @@ declare module "xray16" {
   }
 
   /**
+   * Game font binding used by UI widgets.
+   *
    * @source C++ class CGameFont
    * @customConstructor CGameFont
    * @group xr_ui_asset

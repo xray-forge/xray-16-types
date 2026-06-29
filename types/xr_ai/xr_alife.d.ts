@@ -1,5 +1,7 @@
 declare module "xray16" {
   /**
+   * Access point for ALife simulation objects and registries.
+   *
    * @source C++ class alife_simulator
    * @customConstructor alife_simulator
    * @group xr_alife
@@ -283,6 +285,8 @@ declare module "xray16" {
   }
 
   /**
+   * ALife smart-terrain task binding.
+   *
    * @source C++ class CALifeSmartTerrainTask
    * @customConstructor CALifeSmartTerrainTask
    * @group xr_alife
@@ -459,6 +463,8 @@ declare module "xray16" {
   }
 
   /**
+   * ALife monster brain binding.
+   *
    * @source C++ class CALifeMonsterBrain
    * @customConstructor CALifeMonsterBrain
    * @group xr_alife
@@ -492,6 +498,8 @@ declare module "xray16" {
   }
 
   /**
+   * ALife human brain binding.
+   *
    * @source C++ class CALifeHumanBrain : CALifeMonsterBrain
    * @customConstructor CALifeHumanBrain
    * @group xr_alife
@@ -499,6 +507,8 @@ declare module "xray16" {
   export class CALifeHumanBrain extends CALifeMonsterBrain {}
 
   /**
+   * ALife monster detail-path manager binding.
+   *
    * @source C++ class CALifeMonsterDetailPathManager
    * @customConstructor CALifeMonsterDetailPathManager
    * @group xr_alife
@@ -564,6 +574,8 @@ declare module "xray16" {
   }
 
   /**
+   * ALife monster movement manager binding.
+   *
    * @source C++ class CALifeMonsterMovementManager
    * @customConstructor CALifeMonsterMovementManager
    * @group xr_alife
@@ -606,6 +618,8 @@ declare module "xray16" {
   }
 
   /**
+   * ALife monster patrol-path manager binding.
+   *
    * @source C++ class CALifeMonsterPatrolPathManager
    * @customConstructor CALifeMonsterPatrolPathManager
    * @group xr_alife
@@ -703,6 +717,8 @@ declare module "xray16" {
     public actual(): boolean;
   }
   /**
+   * Story id constants used by spawned objects.
+   *
    * @source C++ class spawn_story_ids
    * @customConstructor spawn_story_ids
    * @group xr_alife
@@ -720,6 +736,8 @@ declare module "xray16" {
   }
 
   /**
+   * Story id constants used by scripts.
+   *
    * @source C++ class story_ids
    * @customConstructor story_ids
    * @group xr_alife
@@ -756,6 +774,8 @@ declare module "xray16" {
   }
 
   /**
+   * Client-side spawn manager binding.
+   *
    * @source C++ class client_spawn_manager
    * @customConstructor client_spawn_manager
    * @group xr_alife
@@ -790,6 +810,8 @@ declare module "xray16" {
   }
 
   /**
+   * Engine class id constants.
+   *
    * @source C++ class clsid
    * @customConstructor clsid
    * @group xr_alife
@@ -1684,6 +1706,8 @@ declare module "xray16" {
   type TXR_class_id = EnumeratedStaticsValues<typeof clsid>;
 
   /**
+   * Factory for ALife server object bindings.
+   *
    * @source C++ class global
    * @customConstructor object_factory
    * @group xr_alife

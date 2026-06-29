@@ -1,5 +1,7 @@
 declare module "xray16" {
   /**
+   * Enemy evaluation storage binding.
+   *
    * @source C++ class cef_storage
    * @customConstructor cef_storage
    * @group xr_enemy_evaluation

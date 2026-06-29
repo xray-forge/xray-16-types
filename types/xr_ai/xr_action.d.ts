@@ -1,5 +1,7 @@
 declare module "xray16" {
   /**
+   * Monster movement, animation, and sound constants.
+   *
    * @source C++ class MonsterSpace
    * @customConstructor MonsterSpace
    * @group xr_action
@@ -38,6 +40,8 @@ declare module "xray16" {
   export type TXR_MonsterBodyState = EnumeratedStaticsValues<typeof MonsterSpace>;
 
   /**
+   * Composite action passed to scripted entities.
+   *
    * @source C++ class entity_action
    * @customConstructor entity_action
    * @group xr_action

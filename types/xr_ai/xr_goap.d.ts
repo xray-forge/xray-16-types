@@ -1,5 +1,7 @@
 declare module "xray16" {
   /**
+   * GOAP property and action id constants for stalker AI.
+   *
    * @source C++ class stalker_ids
    * @customConstructor stalker_ids
    * @group xr_goap
@@ -796,6 +798,8 @@ declare module "xray16" {
   }
 
   /**
+   * Script action planner binding for GOAP evaluators and actions.
+   *
    * @source C++ class action_planner
    * @customConstructor action_planner
    * @group xr_goap

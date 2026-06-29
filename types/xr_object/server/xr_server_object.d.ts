@@ -103,6 +103,8 @@ declare module "xray16" {
   export interface IXR_cse_alife_object_breakable extends cse_alife_dynamic_object_visual {}
 
   /**
+   * Server object binding for `CSE_AbstractVisual`.
+   *
    * @source C++ class CSE_AbstractVisual : cse_visual, cse_abstract
    * @customConstructor CSE_AbstractVisual
    * @group xr_object_server
@@ -124,6 +126,8 @@ declare module "xray16" {
   }
 
   /**
+   * Server object binding for `cse_alife_trader_abstract`.
+   *
    * @source C++ class cse_alife_trader_abstract
    * @customConstructor cse_alife_trader_abstract
    * @group xr_object_server
@@ -374,6 +378,8 @@ declare module "xray16" {
   }
 
   /**
+   * Server object binding for `cse_alife_dynamic_object`.
+   *
    * @source C++ class cse_alife_dynamic_object : cse_alife_object
    * @customConstructor cse_alife_dynamic_object
    * @group xr_object_server
@@ -416,6 +422,8 @@ declare module "xray16" {
   }
 
   /**
+   * Server object binding for `cse_alife_space_restrictor`.
+   *
    * @source C++ class cse_alife_space_restrictor : cse_alife_dynamic_object,cse_shape
    * @customConstructor cse_alife_space_restrictor
    * @group xr_object_server
@@ -423,6 +431,8 @@ declare module "xray16" {
   export class cse_alife_space_restrictor extends cse_alife_dynamic_object implements IXR_cse_shape {}
 
   /**
+   * Server object binding for `cse_alife_dynamic_object_visual`.
+   *
    * @source C++ class cse_alife_dynamic_object_visual : cse_alife_dynamic_object,cse_visual
    * @customConstructor cse_alife_dynamic_object_visual
    * @group xr_object_server
@@ -437,6 +447,8 @@ declare module "xray16" {
   }
 
   /**
+   * Server object binding for `cse_custom_zone`.
+   *
    * @source C++ class cse_custom_zone : cse_alife_dynamic_object,cse_shape
    * @customConstructor cse_custom_zone
    * @group xr_object_server
@@ -678,6 +690,8 @@ declare module "xray16" {
   }
 
   /**
+   * Server object binding for `cse_zone_visual`.
+   *
    * @source C++ class cse_zone_visual : cse_anomalous_zone,cse_visual
    * @customConstructor cse_zone_visual
    * @group xr_object_server
@@ -685,6 +699,8 @@ declare module "xray16" {
   export class cse_zone_visual extends cse_anomalous_zone implements IXR_cse_visual {}
 
   /**
+   * Server object binding for `cse_spectator`.
+   *
    * @source C++ class cse_spectator : cse_abstract
    * @customConstructor cse_spectator
    * @group xr_object_server
@@ -697,6 +713,8 @@ declare module "xray16" {
   }
 
   /**
+   * Server object binding for `cse_temporary`.
+   *
    * @source C++ class cse_temporary : cse_abstract
    * @customConstructor cse_temporary
    * @group xr_object_server
@@ -709,6 +727,8 @@ declare module "xray16" {
   }
 
   /**
+   * Server object binding for `cse_alife_item_weapon_magazined`.
+   *
    * @source C++ class cse_alife_item_weapon_magazined : cse_alife_item_weapon
    * @customConstructor cse_alife_item_weapon_magazined
    * @group xr_object_server
@@ -725,6 +745,8 @@ declare module "xray16" {
   export class cse_alife_item_weapon_magazined_w_gl extends cse_alife_item_weapon {}
 
   /**
+   * Server object binding for `cse_alife_item_weapon_shotgun`.
+   *
    * @source C++ class cse_alife_item_weapon_shotgun : cse_alife_item_weapon
    * @customConstructor cse_alife_item_weapon_shotgun
    * @group xr_object_server
@@ -732,6 +754,8 @@ declare module "xray16" {
   export class cse_alife_item_weapon_shotgun extends cse_alife_item_weapon {}
 
   /**
+   * Server object binding for `cse_alife_level_changer`.
+   *
    * @source C++ class cse_alife_level_changer : cse_alife_space_restrictor
    * @customConstructor cse_alife_level_changer
    * @group xr_object_server
@@ -744,6 +768,8 @@ declare module "xray16" {
   }
 
   /**
+   * Server object binding for `cse_alife_monster_abstract`.
+   *
    * @source C++ class cse_alife_monster_abstract : cse_alife_creature_abstract,cse_alife_schedulable
    * @customConstructor cse_alife_monster_abstract
    * @group xr_object_server
@@ -751,6 +777,8 @@ declare module "xray16" {
   export class cse_alife_monster_abstract extends cse_alife_creature_abstract implements IXR_cse_alife_schedulable {}
 
   /**
+   * Server object binding for `cse_alife_monster_base`.
+   *
    * @source C++ class cse_alife_monster_base : cse_alife_monster_abstract,cse_ph_skeleton
    * @customConstructor cse_alife_monster_base
    * @group xr_object_server
@@ -758,6 +786,8 @@ declare module "xray16" {
   export class cse_alife_monster_base extends cse_alife_monster_abstract implements IXR_cse_ph_skeleton {}
 
   /**
+   * Server object binding for `cse_alife_monster_rat`.
+   *
    * @source C++ class cse_alife_monster_rat : cse_alife_monster_abstract,cse_alife_inventory_item
    * @customConstructor cse_alife_monster_rat
    * @group xr_object_server
@@ -765,6 +795,8 @@ declare module "xray16" {
   export class cse_alife_monster_rat extends cse_alife_monster_abstract {}
 
   /**
+   * Server object binding for `cse_alife_monster_zombie`.
+   *
    * @source C++ class cse_alife_monster_zombie : cse_alife_monster_abstract
    * @customConstructor cse_alife_monster_zombie
    * @group xr_object_server
@@ -772,6 +804,8 @@ declare module "xray16" {
   export class cse_alife_monster_zombie extends cse_alife_monster_abstract {}
 
   /**
+   * Server object binding for `cse_alife_mounted_weapon`.
+   *
    * @source C++ class cse_alife_mounted_weapon : cse_alife_dynamic_object_visual
    * @customConstructor cse_alife_mounted_weapon
    * @group xr_object_server
@@ -779,6 +813,8 @@ declare module "xray16" {
   export class cse_alife_mounted_weapon extends cse_alife_dynamic_object_visual {}
 
   /**
+   * Server object binding for `cse_alife_inventory_box`.
+   *
    * @source C++ class cse_alife_inventory_box : cse_alife_dynamic_object_visual
    * @customConstructor cse_alife_inventory_box
    * @group xr_object_server
@@ -786,6 +822,8 @@ declare module "xray16" {
   export class cse_alife_inventory_box extends cse_alife_dynamic_object_visual {}
 
   /**
+   * Server object binding for `cse_alife_item_ammo`.
+   *
    * @source C++ class cse_alife_item_ammo : cse_alife_item
    * @customConstructor cse_alife_item_ammo
    * @group xr_object_server
@@ -793,6 +831,8 @@ declare module "xray16" {
   export class cse_alife_item_ammo extends cse_alife_item {}
 
   /**
+   * Server object binding for `cse_alife_item_artefact`.
+   *
    * @source C++ class cse_alife_item_artefact : cse_alife_item
    * @customConstructor cse_alife_item_artefact
    * @group xr_object_server
@@ -800,6 +840,8 @@ declare module "xray16" {
   export class cse_alife_item_artefact extends cse_alife_item {}
 
   /**
+   * Server object binding for `cse_alife_item_bolt`.
+   *
    * @source C++ class cse_alife_item_bolt : cse_alife_item
    * @customConstructor cse_alife_item_bolt
    * @group xr_object_server
@@ -807,6 +849,8 @@ declare module "xray16" {
   export class cse_alife_item_bolt extends cse_alife_item {}
 
   /**
+   * Server object binding for `cse_alife_item_custom_outfit`.
+   *
    * @source C++ class cse_alife_item_custom_outfit : cse_alife_item
    * @customConstructor cse_alife_item_custom_outfit
    * @group xr_object_server
@@ -814,6 +858,8 @@ declare module "xray16" {
   export class cse_alife_item_custom_outfit extends cse_alife_item {}
 
   /**
+   * Server object binding for `cse_alife_item_helmet`.
+   *
    * @source C++ class cse_alife_item_helmet : cse_alife_item
    * @customConstructor cse_alife_item_helmet
    * @group xr_object_server
@@ -821,6 +867,8 @@ declare module "xray16" {
   export class cse_alife_item_helmet extends cse_alife_item {}
 
   /**
+   * Server object binding for `cse_alife_item_document`.
+   *
    * @source C++ class cse_alife_item_document : cse_alife_item
    * @customConstructor cse_alife_item_document
    * @group xr_object_server
@@ -828,6 +876,8 @@ declare module "xray16" {
   export class cse_alife_item_document extends cse_alife_item {}
 
   /**
+   * Server object binding for `cse_alife_item_explosive`.
+   *
    * @source C++ class cse_alife_item_explosive : cse_alife_item
    * @customConstructor cse_alife_item_explosive
    * @group xr_object_server
@@ -835,6 +885,8 @@ declare module "xray16" {
   export class cse_alife_item_explosive extends cse_alife_item {}
 
   /**
+   * Server object binding for `cse_alife_item_grenade`.
+   *
    * @source C++ class cse_alife_item_grenade : cse_alife_item
    * @customConstructor cse_alife_item_grenade
    * @group xr_object_server
@@ -842,6 +894,8 @@ declare module "xray16" {
   export class cse_alife_item_grenade extends cse_alife_item {}
 
   /**
+   * Server object binding for `cse_alife_item_pda`.
+   *
    * @source C++ class cse_alife_item_pda : cse_alife_item
    * @customConstructor cse_alife_item_pda
    * @group xr_object_server
@@ -849,6 +903,8 @@ declare module "xray16" {
   export class cse_alife_item_pda extends cse_alife_item {}
 
   /**
+   * Server object binding for `cse_alife_item_detector`.
+   *
    * @source C++ class cse_alife_item_detector : cse_alife_item
    * @customConstructor cse_alife_item_detector
    * @group xr_object_server
@@ -856,6 +912,8 @@ declare module "xray16" {
   export class cse_alife_item_detector extends cse_alife_item {}
 
   /**
+   * Server object binding for `cse_alife_item_torch`.
+   *
    * @source C++ class cse_alife_item_torch : cse_alife_item
    * @customConstructor cse_alife_item_torch
    * @group xr_object_server
@@ -863,6 +921,8 @@ declare module "xray16" {
   export class cse_alife_item_torch extends cse_alife_item {}
 
   /**
+   * Server object binding for `cse_alife_item_weapon_auto_shotgun`.
+   *
    * @source C++ class cse_alife_item_weapon_auto_shotgun : cse_alife_item_weapon
    * @customConstructor cse_alife_item_weapon_auto_shotgun
    * @group xr_object_server
@@ -870,6 +930,8 @@ declare module "xray16" {
   export class cse_alife_item_weapon_auto_shotgun extends cse_alife_item_weapon {}
 
   /**
+   * Server object binding for `cse_anomalous_zone`.
+   *
    * @source C++ class cse_anomalous_zone : cse_custom_zone
    * @customConstructor cse_anomalous_zone
    * @group xr_object_server
@@ -877,6 +939,8 @@ declare module "xray16" {
   export class cse_anomalous_zone extends cse_custom_zone {}
 
   /**
+   * Server object binding for `cse_alife_object_climable`.
+   *
    * @source C++ class cse_alife_object_climable : cse_shape,cse_abstract
    * @customConstructor cse_alife_object_climable
    * @group xr_object_server
@@ -889,6 +953,8 @@ declare module "xray16" {
   }
 
   /**
+   * Server object binding for `cse_alife_object_hanging_lamp`.
+   *
    * @source C++ class cse_alife_object_hanging_lamp : cse_alife_dynamic_object_visual,cse_ph_skeleton
    * @customConstructor cse_alife_object_hanging_lamp
    * @group xr_object_server
@@ -896,6 +962,8 @@ declare module "xray16" {
   export class cse_alife_object_hanging_lamp extends cse_alife_dynamic_object_visual implements IXR_cse_ph_skeleton {}
 
   /**
+   * Server object binding for `cse_alife_object_physic`.
+   *
    * @source C++ class cse_alife_object_physic : cse_alife_dynamic_object_visual,cse_ph_skeleton
    * @customConstructor cse_alife_object_physic
    * @group xr_object_server
@@ -903,6 +971,8 @@ declare module "xray16" {
   export class cse_alife_object_physic extends cse_alife_dynamic_object_visual implements IXR_cse_ph_skeleton {}
 
   /**
+   * Server object binding for `cse_alife_object_projector`.
+   *
    * @source C++ class cse_alife_object_projector : cse_alife_dynamic_object_visual
    * @customConstructor cse_alife_object_projector
    * @group xr_object_server
@@ -920,6 +990,8 @@ declare module "xray16" {
   }
 
   /**
+   * Server object binding for `cse_alife_online_offline_group`.
+   *
    * @source C++ class cse_alife_online_offline_group : cse_alife_dynamic_object,cse_alife_schedulable
    * @customConstructor cse_alife_online_offline_group
    * @group xr_object_server
@@ -987,6 +1059,8 @@ declare module "xray16" {
   }
 
   /**
+   * Server object binding for `cse_alife_ph_skeleton_object`.
+   *
    * @source C++ class cse_alife_ph_skeleton_object : cse_alife_dynamic_object_visual,cse_ph_skeleton
    * @customConstructor cse_alife_ph_skeleton_object
    * @group xr_object_server
@@ -994,6 +1068,8 @@ declare module "xray16" {
   export class cse_alife_ph_skeleton_object extends cse_alife_dynamic_object_visual implements IXR_cse_ph_skeleton {}
 
   /**
+   * Server object binding for `cse_alife_psydog_phantom`.
+   *
    * @source C++ class cse_alife_psydog_phantom : cse_alife_monster_base
    * @customConstructor cse_alife_psydog_phantom
    * @group xr_object_server
@@ -1001,6 +1077,8 @@ declare module "xray16" {
   export class cse_alife_psydog_phantom extends cse_alife_monster_abstract {}
 
   /**
+   * Server object binding for `cse_alife_smart_zone`.
+   *
    * @source C++ class cse_alife_smart_zone : cse_alife_space_restrictor,cse_alife_schedulable
    * @customConstructor cse_alife_smart_zone
    * @group xr_object_server
@@ -1058,6 +1136,8 @@ declare module "xray16" {
   }
 
   /**
+   * Server object binding for `cse_alife_team_base_zone`.
+   *
    * @source C++ class cse_alife_team_base_zone : cse_alife_space_restrictor
    * @customConstructor cse_alife_team_base_zone
    * @group xr_object_server
@@ -1065,6 +1145,8 @@ declare module "xray16" {
   export class cse_alife_team_base_zone extends cse_alife_space_restrictor {}
 
   /**
+   * Server object binding for `cse_torrid_zone`.
+   *
    * @source C++ class cse_torrid_zone : cse_custom_zone,cse_motion
    * @customConstructor cse_torrid_zone
    * @group xr_object_server
@@ -1072,6 +1154,8 @@ declare module "xray16" {
   export class cse_torrid_zone extends cse_custom_zone implements cse_abstract {}
 
   /**
+   * Server object binding for `cse_alife_trader`.
+   *
    * @source C++ class cse_alife_trader : cse_alife_dynamic_object_visual,cse_alife_trader_abstract
    * @customConstructor cse_alife_trader
    * @group xr_object_server
@@ -1132,6 +1216,8 @@ declare module "xray16" {
   }
 
   /**
+   * Server object binding for `cse_smart_cover`.
+   *
    * @source C++ class cse_smart_cover : cse_alife_dynamic_object
    * @customConstructor cse_smart_cover
    * @group xr_object_server
@@ -1158,6 +1244,8 @@ declare module "xray16" {
   }
 
   /**
+   * Server object binding for `cse_alife_car`.
+   *
    * @source C++ class cse_alife_car : cse_alife_dynamic_object_visual,cse_ph_skeleton
    * @customConstructor cse_alife_car
    * @group xr_object_server
@@ -1165,6 +1253,8 @@ declare module "xray16" {
   export class cse_alife_car extends cse_alife_dynamic_object_visual implements IXR_cse_ph_skeleton {}
 
   /**
+   * Server object binding for `cse_alife_creature_actor`.
+   *
    * @source C++ class cse_alife_creature_actor : cse_alife_creature_abstract,cse_alife_trader_abstract,cse_ph_skeleton
    * @customConstructor cse_alife_creature_actor
    * @group xr_object_server
@@ -1223,6 +1313,8 @@ declare module "xray16" {
   }
 
   /**
+   * Server object binding for `cse_alife_creature_crow`.
+   *
    * @source C++ class cse_alife_creature_crow : cse_alife_creature_abstract
    * @customConstructor cse_alife_creature_crow
    * @group xr_object_server
@@ -1230,6 +1322,8 @@ declare module "xray16" {
   export class cse_alife_creature_crow extends cse_alife_creature_abstract {}
 
   /**
+   * Server object binding for `cse_alife_creature_phantom`.
+   *
    * @source C++ class cse_alife_creature_phantom : cse_alife_creature_abstract
    * @customConstructor cse_alife_creature_phantom
    * @group xr_object_server
@@ -1237,6 +1331,8 @@ declare module "xray16" {
   export class cse_alife_creature_phantom extends cse_alife_creature_abstract {}
 
   /**
+   * Server object binding for `cse_alife_graph_point`.
+   *
    * @source C++ class cse_alife_graph_point : cse_abstract
    * @customConstructor cse_alife_graph_point
    * @group xr_object_server
@@ -1249,6 +1345,8 @@ declare module "xray16" {
   }
 
   /**
+   * Server object binding for `cse_alife_helicopter`.
+   *
    * @source C++ class cse_alife_helicopter : cse_alife_dynamic_object_visual,cse_motion,cse_ph_skeleton
    * @customConstructor cse_alife_helicopter
    * @group xr_object_server
@@ -1258,6 +1356,8 @@ declare module "xray16" {
     implements IXR_cse_motion, IXR_cse_ph_skeleton {}
 
   /**
+   * Server object binding for `cse_alife_human_stalker`.
+   *
    * @source C++ class cse_alife_human_stalker : cse_alife_human_abstract,cse_ph_skeleton
    * @customConstructor cse_alife_human_stalker
    * @group xr_object_server

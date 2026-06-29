@@ -1,5 +1,7 @@
 declare module "xray16" {
   /**
+   * Main-menu options manager binding.
+   *
    * @source C++ class COptionsManager
    * @customConstructor COptionsManager
    * @group xr_ui_menu
@@ -67,6 +69,8 @@ declare module "xray16" {
   }
 
   /**
+   * Main menu binding.
+   *
    * @source C++ class CMainMenu
    * @customConstructor CMainMenu
    * @group xr_ui_menu
@@ -143,6 +147,8 @@ declare module "xray16" {
   }
 
   /**
+   * In-game UI root binding.
+   *
    * @source C++ class CUIGameCustom
    * @customConstructor CUIGameCustom
    * @group xr_ui_menu

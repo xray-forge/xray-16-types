@@ -35,6 +35,8 @@ declare module "xray16" {
   }
 
   /**
+   * Client object binding for `CZudaArtefact` artefacts.
+   *
    * @source C++ class CZudaArtefact : CArtefact
    * @customConstructor CZudaArtefact
    * @group xr_artefact
@@ -42,6 +44,8 @@ declare module "xray16" {
   export class CZudaArtefact extends CArtefact {}
 
   /**
+   * Client object binding for `CThornArtefact` artefacts.
+   *
    * @source C++ class CThornArtefact : CArtefact
    * @customConstructor CThornArtefact
    * @group xr_artefact
@@ -49,6 +53,8 @@ declare module "xray16" {
   export class CThornArtefact extends CArtefact {}
 
   /**
+   * Client object binding for `CBastArtefact` artefacts.
+   *
    * @source C++ class CBastArtefact : CArtefact
    * @customConstructor CBastArtefact
    * @group xr_artefact
@@ -56,6 +62,8 @@ declare module "xray16" {
   export class CBastArtefact extends CArtefact {}
 
   /**
+   * Client object binding for `CBlackDrops` artefacts.
+   *
    * @source C++ class CBlackDrops : CArtefact
    * @customConstructor CBlackDrops
    * @group xr_artefact
@@ -63,6 +71,8 @@ declare module "xray16" {
   export class CBlackDrops extends CArtefact {}
 
   /**
+   * Client object binding for `CBlackGraviArtefact` artefacts.
+   *
    * @source C++ class CBlackGraviArtefact : CArtefact
    * @customConstructor CBlackGraviArtefact
    * @group xr_artefact
@@ -70,6 +80,8 @@ declare module "xray16" {
   export class CBlackGraviArtefact extends CArtefact {}
 
   /**
+   * Client object binding for `CDummyArtefact` artefacts.
+   *
    * @source C++ class CDummyArtefact : CArtefact
    * @customConstructor CDummyArtefact
    * @group xr_artefact
@@ -77,6 +89,8 @@ declare module "xray16" {
   export class CDummyArtefact extends CArtefact {}
 
   /**
+   * Client object binding for `CElectricBall` artefacts.
+   *
    * @source C++ class CElectricBall : CArtefact
    * @customConstructor CElectricBall
    * @group xr_artefact
@@ -84,6 +98,8 @@ declare module "xray16" {
   export class CElectricBall extends CArtefact {}
 
   /**
+   * Client object binding for `CFadedBall` artefacts.
+   *
    * @source C++ class CFadedBall : CArtefact
    * @customConstructor CFadedBall
    * @group xr_artefact
@@ -91,6 +107,8 @@ declare module "xray16" {
   export class CFadedBall extends CArtefact {}
 
   /**
+   * Client object binding for `CGalantineArtefact` artefacts.
+   *
    * @source C++ class CGalantineArtefact : CArtefact
    * @customConstructor CGalantineArtefact
    * @group xr_artefact
@@ -98,6 +116,8 @@ declare module "xray16" {
   export class CGalantineArtefact extends CArtefact {}
 
   /**
+   * Client object binding for `CGraviArtefact` artefacts.
+   *
    * @source C++ class CGraviArtefact : CArtefact
    * @customConstructor CGraviArtefact
    * @group xr_artefact
@@ -105,6 +125,8 @@ declare module "xray16" {
   export class CGraviArtefact extends CArtefact {}
 
   /**
+   * Client object binding for `CMercuryBall` artefacts.
+   *
    * @source C++ class CMercuryBall : CArtefact
    * @customConstructor CMercuryBall
    * @group xr_artefact
@@ -112,6 +134,8 @@ declare module "xray16" {
   export class CMercuryBall extends CArtefact {}
 
   /**
+   * Client object binding for `CRustyHairArtefact` artefacts.
+   *
    * @source C++ class CRustyHairArtefact : CArtefact
    * @customConstructor CRustyHairArtefact
    * @group xr_artefact
