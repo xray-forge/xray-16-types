@@ -1,5 +1,7 @@
 declare module "xray16" {
   /**
+   * Client-side artefact object.
+   *
    * @source C++ class CArtefact : CGameObject
    * @customConstructor CArtefact
    * @group xr_artefact
@@ -7,9 +9,26 @@ declare module "xray16" {
   export class CArtefact extends CGameObject {
     public constructor();
 
-    public FollowByPath(a: string, b: i32, c: vector): void;
+    /**
+     * Move the artefact along a patrol path.
+     *
+     * @param path_name - Patrol path name.
+     * @param point_index - Starting path point index.
+     * @param position - Initial position.
+     */
+    public FollowByPath(path_name: string, point_index: i32, position: vector): void;
+
+    /**
+     * @returns Artefact rank used by detectors and inventory UI.
+     */
     public GetAfRank(): u8;
-    public SwitchVisibility(to: boolean): void;
+
+    /**
+     * Show or hide the artefact.
+     *
+     * @param is_visible - New visibility state.
+     */
+    public SwitchVisibility(is_visible: boolean): void;
   }
 
   /**

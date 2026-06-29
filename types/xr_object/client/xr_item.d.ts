@@ -1,5 +1,7 @@
 declare module "xray16" {
   /**
+   * Explosive component shared by grenade and explosive item classes.
+   *
    * @source C++ class explosive
    * @customConstructor explosive
    * @group xr_item
@@ -7,6 +9,9 @@ declare module "xray16" {
   export class explosive extends EngineBinding {
     protected constructor();
 
+    /**
+     * Trigger the explosive immediately.
+     */
     public explode(): void;
   }
 
@@ -85,7 +90,14 @@ declare module "xray16" {
    * @customConstructor CWeaponAmmo
    * @group xr_item
    */
-  export class CWeapon extends CInventoryItem {}
+  export class CWeapon extends CInventoryItem {
+    /**
+     * Check whether the weapon can currently fire a lethal shot.
+     *
+     * @returns Whether the weapon can kill.
+     */
+    public can_kill(): boolean;
+  }
 
   /**
    * @source C++ class CWeaponMagazined : public CWeapon
