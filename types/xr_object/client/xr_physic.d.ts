@@ -5,6 +5,9 @@ declare module "xray16" {
    * @source C++ class physics_element
    * @customConstructor physics_element
    * @group xr_physic
+   *
+   * @remarks
+   * Scripts normally receive elements from a `physics_shell`; they are live engine objects, not standalone values.
    */
   export class physics_element {
     /**
@@ -24,6 +27,9 @@ declare module "xray16" {
     /**
      * Write current angular velocity into a vector.
      *
+     * @remarks
+     * The passed vector is overwritten.
+     *
      * @param velocity - Output vector.
      */
     public get_angular_vel(velocity: vector): void;
@@ -35,6 +41,9 @@ declare module "xray16" {
 
     /**
      * Write current linear velocity into a vector.
+     *
+     * @remarks
+     * The passed vector is overwritten.
      *
      * @param velocity - Output vector.
      */
@@ -77,6 +86,9 @@ declare module "xray16" {
    * @source C++ class particles_object
    * @customConstructor particles_object
    * @group xr_physic
+   *
+   * @remarks
+   * Path playback methods require a path loaded with `load_path()` first.
    */
   export class particles_object {
     /**
@@ -87,6 +99,9 @@ declare module "xray16" {
     /**
      * Pause or resume the loaded particle path.
      *
+     * @remarks
+     * Requires `load_path()` to have created the internal animator.
+     *
      * @param is_paused - Whether path playback is paused.
      */
     public pause_path(is_paused: boolean): void;
@@ -94,12 +109,18 @@ declare module "xray16" {
     /**
      * Play particles at a world position.
      *
+     * @remarks
+     * Updates the particle transform and starts non-looped playback.
+     *
      * @param position - World position.
      */
     public play_at_pos(position: vector): void;
 
     /**
      * Move particles and provide velocity for interpolation.
+     *
+     * @remarks
+     * Use this while an effect is already playing to keep its parent transform current.
      *
      * @param position - New world position.
      * @param velocity - Current movement velocity.
@@ -114,12 +135,18 @@ declare module "xray16" {
     /**
      * Load an object animator path for the particle system.
      *
+     * @remarks
+     * Reuses the current animator when the same path is already loaded.
+     *
      * @param path - Path name.
      */
     public load_path(path: string): void;
 
     /**
      * Start moving along the loaded path.
+     *
+     * @remarks
+     * Requires `load_path()` first.
      *
      * @param is_looped - Whether path playback loops.
      */
@@ -132,6 +159,9 @@ declare module "xray16" {
 
     /**
      * Stop path playback.
+     *
+     * @remarks
+     * Requires `load_path()` first.
      */
     public stop_path(): void;
 
@@ -158,6 +188,9 @@ declare module "xray16" {
     /**
      * Set particle forward direction.
      *
+     * @remarks
+     * Pass a meaningful direction vector; the engine builds the remaining basis vectors from it.
+     *
      * @param direction - New normalized direction.
      */
     public set_direction(direction: vector): void;
@@ -183,10 +216,17 @@ declare module "xray16" {
    * @source C++ class physics_joint
    * @customConstructor physics_joint
    * @group xr_physic
+   *
+   * @remarks
+   * Joint handles come from a `physics_shell`. Axis methods expect an axis supported by this joint; check
+   * `get_axes_number()` before using indexed axis methods.
    */
   export class physics_joint {
     /**
      * Write the joint anchor into a vector.
+     *
+     * @remarks
+     * The passed vector is overwritten. Slider joints do not have a defined anchor and trip a native assertion.
      *
      * @param anchor - Output anchor vector.
      */
@@ -200,6 +240,9 @@ declare module "xray16" {
     /**
      * Get current angle for an axis.
      *
+     * @remarks
+     * Use an axis index lower than `get_axes_number()`.
+     *
      * @param axis - Axis index.
      * @returns Axis angle.
      */
@@ -207,6 +250,9 @@ declare module "xray16" {
 
     /**
      * Write axis direction into a vector.
+     *
+     * @remarks
+     * The passed vector is overwritten. Ball joints have no axis direction to write.
      *
      * @param axis - Axis index.
      * @param direction - Output direction vector.
@@ -226,6 +272,9 @@ declare module "xray16" {
     /**
      * Get angle limits for an axis.
      *
+     * @remarks
+     * The first two parameters are Lua output placeholders; use the returned tuple in TypeScript.
+     *
      * @param min - Output lower limit placeholder.
      * @param max - Output upper limit placeholder.
      * @param axis - Axis index.
@@ -235,6 +284,10 @@ declare module "xray16" {
 
     /**
      * Get force and velocity limits for an axis.
+     *
+     * @remarks
+     * Native Lua writes through the first two parameters. In TypeScript, pass placeholders only for declaration
+     * compatibility.
      *
      * @param force - Output force placeholder.
      * @param velocity - Output velocity placeholder.
@@ -254,36 +307,57 @@ declare module "xray16" {
 
     /**
      * Set anchor in world space.
+     *
+     * @remarks
+     * The coordinates are interpreted in the shell's global frame.
      */
     public set_anchor_global(x: f32, y: f32, z: f32): void;
 
     /**
      * Set anchor relative to the first element.
+     *
+     * @remarks
+     * The coordinates are interpreted in the first element's local frame.
      */
     public set_anchor_vs_first_element(x: f32, y: f32, z: f32): void;
 
     /**
      * Set anchor relative to the second element.
+     *
+     * @remarks
+     * The coordinates are interpreted in the second element's local frame.
      */
     public set_anchor_vs_second_element(x: f32, y: f32, z: f32): void;
 
     /**
      * Set axis direction in world space.
+     *
+     * @remarks
+     * Use an axis index lower than `get_axes_number()`.
      */
     public set_axis_dir_global(x: f32, y: f32, z: f32, axis: i32): void;
 
     /**
      * Set axis direction relative to the first element.
+     *
+     * @remarks
+     * Use an axis index lower than `get_axes_number()`.
      */
     public set_axis_dir_vs_first_element(x: f32, y: f32, z: f32, axis: i32): void;
 
     /**
      * Set axis direction relative to the second element.
+     *
+     * @remarks
+     * Use an axis index lower than `get_axes_number()`.
      */
     public set_axis_dir_vs_second_element(x: f32, y: f32, z: f32, axis: i32): void;
 
     /**
      * Set spring and damping factors for an axis.
+     *
+     * @remarks
+     * Use an axis index lower than `get_axes_number()`.
      */
     public set_axis_spring_dumping_factors(spring: f32, damping: f32, axis: i32): void;
 
@@ -294,11 +368,17 @@ declare module "xray16" {
 
     /**
      * Set angle limits for an axis.
+     *
+     * @remarks
+     * Limits are angles in radians for rotational axes. Use an axis index lower than `get_axes_number()`.
      */
     public set_limits(min: f32, max: f32, axis: i32): void;
 
     /**
      * Set force and velocity limits for an axis.
+     *
+     * @remarks
+     * Use an axis index lower than `get_axes_number()`.
      */
     public set_max_force_and_velocity(force: f32, velocity: f32, axis: i32): void;
   }
@@ -309,6 +389,9 @@ declare module "xray16" {
    * @source C++ class physics_shell
    * @customConstructor physics_shell
    * @group xr_physic
+   *
+   * @remarks
+   * Shells are engine-owned. Store-order lookups require an index lower than the corresponding count method.
    */
   export class physics_shell {
     /**
@@ -333,12 +416,18 @@ declare module "xray16" {
     /**
      * Write current angular velocity into a vector.
      *
+     * @remarks
+     * The passed vector is overwritten with the root element's angular velocity.
+     *
      * @param velocity - Output vector.
      */
     public get_angular_vel(velocity: vector): void;
 
     /**
      * Get an element by model bone id.
+     *
+     * @remarks
+     * Returns the element attached to the bone, if the shell has one for that id.
      *
      * @param id - Bone id.
      * @returns Matching physics element.
@@ -348,6 +437,9 @@ declare module "xray16" {
     /**
      * Get an element by model bone name.
      *
+     * @remarks
+     * The bone name must exist in the shell's kinematics.
+     *
      * @param bone_name - Bone name.
      * @returns Matching physics element.
      */
@@ -355,6 +447,9 @@ declare module "xray16" {
 
     /**
      * Get an element by shell storage order.
+     *
+     * @remarks
+     * `order` must be lower than `get_elements_number()`; invalid values trip a native assertion.
      *
      * @param order - Element order.
      * @returns Matching physics element.
@@ -369,6 +464,9 @@ declare module "xray16" {
     /**
      * Get a joint by model bone id.
      *
+     * @remarks
+     * Returns the joint attached to the bone, if the shell has one for that id.
+     *
      * @param id - Bone id.
      * @returns Matching physics joint.
      */
@@ -377,6 +475,9 @@ declare module "xray16" {
     /**
      * Get a joint by model bone name.
      *
+     * @remarks
+     * The bone name must exist in the shell's kinematics.
+     *
      * @param name - Bone name.
      * @returns Matching physics joint.
      */
@@ -384,6 +485,9 @@ declare module "xray16" {
 
     /**
      * Get a joint by shell storage order.
+     *
+     * @remarks
+     * `order` must be lower than `get_joints_number()`; invalid values trip a native assertion.
      *
      * @param order - Joint order.
      * @returns Matching physics joint.
@@ -397,6 +501,9 @@ declare module "xray16" {
 
     /**
      * Write current linear velocity into a vector.
+     *
+     * @remarks
+     * The passed vector is overwritten with the root element's linear velocity.
      *
      * @param velocity - Output vector.
      */
@@ -424,6 +531,9 @@ declare module "xray16" {
    * @source C++ class physics_world
    * @customConstructor physics_world
    * @group xr_physic
+   *
+   * @remarks
+   * Obtain the live world through `level.physics_world()`. Gravity changes affect the whole level.
    */
   export class physics_world {
     /**
@@ -440,6 +550,9 @@ declare module "xray16" {
 
     /**
      * Add a physics condition/action callback pair.
+     *
+     * @remarks
+     * This binding expects native `CPHCondition` and `CPHAction` objects; ordinary scripts rarely call it directly.
      */
     public add_call(/* Class CPHCondition*, class CPHAction */): void;
   }
@@ -481,6 +594,9 @@ declare module "xray16" {
    * @source C++ class holder
    * @customConstructor holder
    * @group xr_physic
+   *
+   * @remarks
+   * Returned only for objects that implement holder controls, such as mounted weapons or vehicles.
    */
   export class holder {
     /**
@@ -512,7 +628,7 @@ declare module "xray16" {
     public SetEnterLocked(is_enabled: boolean): void;
 
     /**
-     * Set holder object exist state.
+     * Set holder object exit state.
      *
      * @param is_enabled - Whether holder object can be exited.
      */
