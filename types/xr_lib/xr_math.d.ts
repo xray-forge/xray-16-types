@@ -5,6 +5,9 @@ declare module "xray16" {
    * @source C++ class Frect
    * @customConstructor Frect
    * @group xr_math
+   *
+   * @remarks
+   * Used by UI bindings for window and texture rectangles. `set()` mutates this rectangle.
    */
   export class Frect extends EngineBinding {
     /**
@@ -60,6 +63,9 @@ declare module "xray16" {
    * @source C++ class Fbox
    * @customConstructor Fbox
    * @group xr_math
+   *
+   * @remarks
+   * Bounds are stored as mutable `min` and `max` vectors.
    */
   export class Fbox {
     /**
@@ -103,6 +109,9 @@ declare module "xray16" {
    * @source C++ class vector2
    * @customConstructor vector2
    * @group xr_math
+   *
+   * @remarks
+   * `set()` mutates the receiver and returns it for chaining.
    */
   export class vector2 {
     /**
@@ -146,6 +155,9 @@ declare module "xray16" {
    * @source C++ class XR_vector
    * @customConstructor vector
    * @group xr_math
+   *
+   * @remarks
+   * Use `set()` first when you need a known value; script-created native vectors expose their fields directly.
    */
   export class vector {
     /**
@@ -287,6 +299,9 @@ declare module "xray16" {
     /**
      * Divide every component by a scalar.
      *
+     * @remarks
+     * The binding performs raw division. Pass a non-zero divisor.
+     *
      * @param value - Scalar divisor.
      * @returns This vector.
      */
@@ -294,6 +309,9 @@ declare module "xray16" {
 
     /**
      * Set this vector to component-wise `left / right`.
+     *
+     * @remarks
+     * The binding performs raw component division. Divisor components must be non-zero.
      *
      * @param left - Left vector.
      * @param right - Right vector.
@@ -304,6 +322,9 @@ declare module "xray16" {
     /**
      * Divide this vector component-wise by another vector.
      *
+     * @remarks
+     * The binding performs raw component division. Divisor components must be non-zero.
+     *
      * @param vector - Divisor vector.
      * @returns This vector.
      */
@@ -311,6 +332,9 @@ declare module "xray16" {
 
     /**
      * Set this vector to `vector / value`.
+     *
+     * @remarks
+     * The binding performs raw division. Pass a non-zero divisor.
      *
      * @param vector - Source vector.
      * @param value - Scalar divisor.
@@ -329,12 +353,18 @@ declare module "xray16" {
     /**
      * Get heading angle for this direction vector.
      *
+     * @remarks
+     * Intended for direction vectors. For arbitrary points, the result is just the angle of that vector from origin.
+     *
      * @returns Heading angle in radians.
      */
     public getH(): f32;
 
     /**
      * Get pitch angle for this direction vector.
+     *
+     * @remarks
+     * Intended for direction vectors. For arbitrary points, the result is just the angle of that vector from origin.
      *
      * @returns Pitch angle in radians.
      */
@@ -490,12 +520,18 @@ declare module "xray16" {
     /**
      * Normalize this vector safely.
      *
+     * @remarks
+     * The script binding routes `normalize()` through the same safe native path as `normalize_safe()`.
+     *
      * @returns This vector.
      */
     public normalize(): vector;
 
     /**
      * Set this vector to normalized source vector safely.
+     *
+     * @remarks
+     * The script binding routes `normalize(vector)` through the same safe native path as `normalize_safe(vector)`.
      *
      * @param vector - Source vector.
      * @returns This vector.
@@ -555,6 +591,9 @@ declare module "xray16" {
 
     /**
      * Change vector length while keeping direction.
+     *
+     * @remarks
+     * Use on a vector that already has a meaningful direction.
      *
      * @param value - New length.
      * @returns This vector.
@@ -620,6 +659,9 @@ declare module "xray16" {
    * @source C++ class RPoint
    * @customConstructor RPoint
    * @group xr_math
+   *
+   * @remarks
+   * `P` stores position, `A` stores orientation data used by patrol graph points.
    */
   export class RPoint {
     /**
@@ -646,6 +688,10 @@ declare module "xray16" {
    * @source C++ class matrix
    * @customConstructor matrix
    * @group xr_math
+   *
+   * @remarks
+   * Script-exposed mutators return this matrix for chaining. Call `identity()` or `set()` before composing transforms
+   * when you need a known starting value.
    */
   export class matrix {
     /**
@@ -724,6 +770,9 @@ declare module "xray16" {
     /**
      * Set this matrix to `value / divisor`.
      *
+     * @remarks
+     * The binding performs raw scalar division. Pass a non-zero divisor.
+     *
      * @param value - Source matrix.
      * @param divisor - Scalar divisor.
      * @returns This matrix.
@@ -732,6 +781,9 @@ declare module "xray16" {
 
     /**
      * Divide this matrix by a scalar.
+     *
+     * @remarks
+     * The binding performs raw scalar division. Pass a non-zero divisor.
      *
      * @param divisor - Scalar divisor.
      * @returns This matrix.
@@ -767,6 +819,10 @@ declare module "xray16" {
 
     /**
      * Get heading, pitch, and bank from this matrix.
+     *
+     * @remarks
+     * Native Lua uses pointer-style output parameters for `heading`, `pitch`, and `bank`; the declaration keeps the
+     * legacy shape for compatibility.
      *
      * @param value - Placeholder kept for existing declaration compatibility.
      * @param heading - Heading output placeholder.

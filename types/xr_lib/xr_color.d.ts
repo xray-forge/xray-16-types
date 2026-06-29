@@ -7,6 +7,9 @@ declare module "xray16" {
    * @source C++ class fcolor
    * @customConstructor fcolor
    * @group xr_color
+   *
+   * @remarks
+   * Float components are normally used in the `0..1` range. `set()` mutates this color and returns it.
    */
   export class fcolor extends EngineBinding {
     /**
@@ -31,6 +34,9 @@ declare module "xray16" {
 
     /**
      * Create an empty color.
+     *
+     * @remarks
+     * Call `set()` before reading components when you need a known value.
      */
     public constructor();
 
@@ -56,6 +62,9 @@ declare module "xray16" {
     /**
      * Decode packed ARGB color into float components.
      *
+     * @remarks
+     * Channels are decoded from 8-bit ARGB into normalized float components.
+     *
      * @param value - Packed ARGB value.
      * @returns This color.
      */
@@ -68,6 +77,9 @@ declare module "xray16" {
    * @source C++ class color
    * @customConstructor color
    * @group xr_color
+   *
+   * @remarks
+   * This is the postprocess RGB color helper used by effector parameters. It has no alpha channel.
    */
   export class color {
     /**
@@ -87,6 +99,9 @@ declare module "xray16" {
 
     /**
      * Create a black color.
+     *
+     * @remarks
+     * Use the RGB constructor or `set()` when you need explicit component values.
      */
     public constructor();
 
@@ -113,6 +128,9 @@ declare module "xray16" {
    * Pack alpha, red, green, and blue channels into an engine color value.
    *
    * @group xr_color
+   *
+   * @remarks
+   * Channels are packed as 8-bit ARGB. Values outside `0..255` keep only their low 8 bits.
    *
    * @param a - Alpha channel.
    * @param r - Red channel.

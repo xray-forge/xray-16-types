@@ -5,10 +5,13 @@ declare module "xray16" {
    * @source C++ class flags8
    * @customConstructor flags8
    * @group xr_flags
+   *
+   * @remarks
+   * Use `zero()`, `one()`, or `assign()` when you need an explicit initial state.
    */
   export class flags8 {
     /**
-     * Create an empty mask.
+     * Create a flag mask.
      */
     public constructor();
 
@@ -85,15 +88,18 @@ declare module "xray16" {
     public invert(value: flags8): flags8;
 
     /**
-     * Replace this mask with inverted raw value.
+     * Toggle selected bits in this mask.
      *
-     * @param value - Raw mask value.
+     * @param value - Bits to toggle.
      * @returns This mask.
      */
     public invert(value: u8): flags8;
 
     /**
      * Check whether all selected bits are set in a source mask.
+     *
+     * @remarks
+     * This is stricter than `is_any()` and `test()`: every bit from `mask` must be present.
      *
      * @param value - Source mask.
      * @param mask - Bits to test.
@@ -104,6 +110,9 @@ declare module "xray16" {
     /**
      * Check whether all selected bits are set in this mask.
      *
+     * @remarks
+     * This is stricter than `is_any()` and `test()`: every bit from `mask` must be present.
+     *
      * @param mask - Bits to test.
      * @returns Whether all bits are set.
      */
@@ -111,6 +120,9 @@ declare module "xray16" {
 
     /**
      * Check whether any selected bit is set in a source mask.
+     *
+     * @remarks
+     * Use this for overlap checks. For an all-bits check, use `is()`.
      *
      * @param value - Source mask.
      * @param mask - Bits to test.
@@ -121,6 +133,9 @@ declare module "xray16" {
     /**
      * Check whether any selected bit is set in this mask.
      *
+     * @remarks
+     * Use this for overlap checks. For an all-bits check, use `is()`.
+     *
      * @param mask - Bits to test.
      * @returns Whether any bit is set.
      */
@@ -128,6 +143,9 @@ declare module "xray16" {
 
     /**
      * Set all bits.
+     *
+     * @remarks
+     * Sets all 8 bits to `1`.
      *
      * @returns This mask.
      */
@@ -160,10 +178,13 @@ declare module "xray16" {
     public set(mask: u8, enabled: boolean): flags8;
 
     /**
-     * Test whether selected bits are set.
+     * Test whether any selected bit is set.
+     *
+     * @remarks
+     * Equivalent to `is_any(mask)`.
      *
      * @param mask - Bits to test.
-     * @returns Whether selected bits are set.
+     * @returns Whether any selected bit is set.
      */
     public test(mask: u8): boolean;
 
@@ -181,10 +202,13 @@ declare module "xray16" {
    * @source C++ class flags16
    * @customConstructor flags16
    * @group xr_flags
+   *
+   * @remarks
+   * Use `zero()`, `one()`, or `assign()` when you need an explicit initial state.
    */
   export class flags16 {
     /**
-     * Create an empty mask.
+     * Create a flag mask.
      */
     public constructor();
 
@@ -261,15 +285,18 @@ declare module "xray16" {
     public invert(value: flags16): flags16;
 
     /**
-     * Replace this mask with inverted raw value.
+     * Toggle selected bits in this mask.
      *
-     * @param value - Raw mask value.
+     * @param value - Bits to toggle.
      * @returns This mask.
      */
     public invert(value: u16): flags16;
 
     /**
      * Check whether all selected bits are set in a source mask.
+     *
+     * @remarks
+     * This is stricter than `is_any()` and `test()`: every bit from `mask` must be present.
      *
      * @param value - Source mask.
      * @param mask - Bits to test.
@@ -280,6 +307,9 @@ declare module "xray16" {
     /**
      * Check whether all selected bits are set in this mask.
      *
+     * @remarks
+     * This is stricter than `is_any()` and `test()`: every bit from `mask` must be present.
+     *
      * @param mask - Bits to test.
      * @returns Whether all bits are set.
      */
@@ -287,6 +317,9 @@ declare module "xray16" {
 
     /**
      * Check whether any selected bit is set in a source mask.
+     *
+     * @remarks
+     * Use this for overlap checks. For an all-bits check, use `is()`.
      *
      * @param value - Source mask.
      * @param mask - Bits to test.
@@ -297,6 +330,9 @@ declare module "xray16" {
     /**
      * Check whether any selected bit is set in this mask.
      *
+     * @remarks
+     * Use this for overlap checks. For an all-bits check, use `is()`.
+     *
      * @param mask - Bits to test.
      * @returns Whether any bit is set.
      */
@@ -304,6 +340,9 @@ declare module "xray16" {
 
     /**
      * Set all bits.
+     *
+     * @remarks
+     * Sets all 16 bits to `1`.
      *
      * @returns This mask.
      */
@@ -336,10 +375,13 @@ declare module "xray16" {
     public set(mask: u16, enabled: boolean): flags16;
 
     /**
-     * Test whether selected bits are set.
+     * Test whether any selected bit is set.
+     *
+     * @remarks
+     * Equivalent to `is_any(mask)`.
      *
      * @param mask - Bits to test.
-     * @returns Whether selected bits are set.
+     * @returns Whether any selected bit is set.
      */
     public test(mask: u16): boolean;
 
@@ -357,10 +399,13 @@ declare module "xray16" {
    * @source C++ class flags32
    * @customConstructor flags32
    * @group xr_flags
+   *
+   * @remarks
+   * Use `zero()`, `one()`, or `assign()` when you need an explicit initial state.
    */
   export class flags32 {
     /**
-     * Create an empty mask.
+     * Create a flag mask.
      */
     public constructor();
 
@@ -437,15 +482,18 @@ declare module "xray16" {
     public invert(value: flags32): flags32;
 
     /**
-     * Replace this mask with inverted raw value.
+     * Toggle selected bits in this mask.
      *
-     * @param value - Raw mask value.
+     * @param value - Bits to toggle.
      * @returns This mask.
      */
     public invert(value: u32): flags32;
 
     /**
      * Check whether all selected bits are set in a source mask.
+     *
+     * @remarks
+     * This is stricter than `is_any()` and `test()`: every bit from `mask` must be present.
      *
      * @param value - Source mask.
      * @param mask - Bits to test.
@@ -456,6 +504,9 @@ declare module "xray16" {
     /**
      * Check whether all selected bits are set in this mask.
      *
+     * @remarks
+     * This is stricter than `is_any()` and `test()`: every bit from `mask` must be present.
+     *
      * @param mask - Bits to test.
      * @returns Whether all bits are set.
      */
@@ -463,6 +514,9 @@ declare module "xray16" {
 
     /**
      * Check whether any selected bit is set in a source mask.
+     *
+     * @remarks
+     * Use this for overlap checks. For an all-bits check, use `is()`.
      *
      * @param value - Source mask.
      * @param mask - Bits to test.
@@ -473,6 +527,9 @@ declare module "xray16" {
     /**
      * Check whether any selected bit is set in this mask.
      *
+     * @remarks
+     * Use this for overlap checks. For an all-bits check, use `is()`.
+     *
      * @param mask - Bits to test.
      * @returns Whether any bit is set.
      */
@@ -480,6 +537,9 @@ declare module "xray16" {
 
     /**
      * Set all bits.
+     *
+     * @remarks
+     * Sets all 32 bits to `1`.
      *
      * @returns This mask.
      */
@@ -512,10 +572,13 @@ declare module "xray16" {
     public set(mask: u32, enabled: boolean): flags32;
 
     /**
-     * Test whether selected bits are set.
+     * Test whether any selected bit is set.
+     *
+     * @remarks
+     * Equivalent to `is_any(mask)`.
      *
      * @param mask - Bits to test.
-     * @returns Whether selected bits are set.
+     * @returns Whether any selected bit is set.
      */
     public test(mask: u32): boolean;
 
