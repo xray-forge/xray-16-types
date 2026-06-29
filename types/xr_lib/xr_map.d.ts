@@ -7,8 +7,8 @@ declare module "xray16" {
    * @group xr_map
    *
    * @remarks
-   * Level scripts usually work with the level-owned map manager through map spot helpers instead of creating a new
-   * manager.
+   * Level scripts usually work with the level-owned map manager through map spot helpers instead of creating wrappers.
+   * Removed locations are queued for deferred destruction and should not be reused from script.
    */
   export class CMapManager {
     /**
@@ -21,7 +21,7 @@ declare module "xray16" {
      *
      * @remarks
      * In single-player this also releases linked game-task map locations. Native location objects are destroyed on the
-     * manager's deferred destroy queue.
+     * manager's deferred destroy queue, so any old `CMapLocation` references become unsafe to use.
      *
      * @param id - Game object id.
      */
@@ -32,7 +32,7 @@ declare module "xray16" {
      *
      * @remarks
      * In single-player this also releases linked game-task map locations. Native location objects are destroyed on the
-     * manager's deferred destroy queue.
+     * manager's deferred destroy queue, so do not call methods on `location` after removal.
      *
      * @param location - Location object to remove.
      */
@@ -56,6 +56,7 @@ declare module "xray16" {
    *
    * @remarks
    * Map locations are created by the engine or map manager. The native binding does not expose a script constructor.
+   * A location can also expire or be removed by object lifetime, TTL, or task cleanup.
    */
   export class CMapLocation {
     /**
@@ -123,6 +124,10 @@ declare module "xray16" {
     /**
      * Highlight or clear the spot highlight.
      *
+     * @remarks
+     * Requires a location type with a level-map spot. Types that only define minimap or complex-map visuals are not good
+     * candidates for this helper.
+     *
      * @param state - Whether highlighting is enabled.
      * @param color - Highlight color.
      */
@@ -178,7 +183,7 @@ declare module "xray16" {
 
     /**
      * @remarks
-     * Reads the level-map spot size. Use after the spot has been loaded by the map UI.
+     * Reads the level-map spot size. Use only for location types that define a level-map spot in `map_spots.xml`.
      *
      * @returns Spot size on the map.
      */

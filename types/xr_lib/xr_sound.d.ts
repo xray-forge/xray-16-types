@@ -44,6 +44,10 @@ declare module "xray16" {
    * @source C++ class sound_object
    * @customConstructor sound_object
    * @group xr_sound
+   *
+   * @remarks
+   * Most playback and parameter APIs require the sound resource to exist, unless the engine is running with sound
+   * disabled. Missing files are logged at construction and fail later when playback starts.
    */
   export class sound_object {
     /**
@@ -107,12 +111,18 @@ declare module "xray16" {
     /**
      * Get sound length in milliseconds.
      *
+     * @remarks
+     * Reads the engine sound handle. Do not use it as a file-existence check after construction logged a missing file.
+     *
      * @returns Sound duration.
      */
     public length(): u32;
 
     /**
      * Check whether the sound has active playback feedback.
+     *
+     * @remarks
+     * Sounds started with `play_no_feedback` are intentionally not tracked by feedback.
      *
      * @returns Whether the sound is currently playing.
      */
@@ -121,7 +131,9 @@ declare module "xray16" {
     /**
      * Get the current playback position.
      *
-     * @remarks Logs an engine script error and returns zero vector if the sound was not launched.
+     * @remarks
+     * Logs an engine script error and returns a zero vector if the sound was not launched.
+     *
      * @returns Current sound position.
      */
     public get_position(): vector;
@@ -137,6 +149,9 @@ declare module "xray16" {
 
     /**
      * Append a tail sound played after this sound ends.
+     *
+     * @remarks
+     * The tail path is passed to the engine sound handle as-is. Use a game sound resource path without extension.
      *
      * @param sound_path - Sound resource path without extension.
      */
@@ -208,6 +223,10 @@ declare module "xray16" {
     /**
      * Play without tracking feedback.
      *
+     * @remarks
+     * This starts playback without storing feedback on the `sound_object`, so `playing()` will not describe this
+     * playback instance.
+     *
      * @throws If the sound handle was not created.
      *
      * @param object - Optional object used as sound owner.
@@ -228,12 +247,18 @@ declare module "xray16" {
     /**
      * Stop playback through the engine deferred-stop path.
      *
+     * @remarks
+     * Legacy misspelled alias for `stop_deferred`.
+     *
      * @throws If the sound handle was not created.
      */
     public stop_deffered(): void;
 
     /**
      * Stop playback through the engine deferred-stop path.
+     *
+     * @remarks
+     * Preferred spelling. `stop_deffered` is kept for script compatibility.
      *
      * @throws If the sound handle was not created.
      */

@@ -69,6 +69,14 @@ declare module "xray16" {
    */
   export class SGameTaskObjective {
     /**
+     * Whether the default map location should be visible for this objective.
+     *
+     * @remarks
+     * This mirrors the native `def_ml_enabled` field used by loaded task objectives.
+     */
+    public def_ml_enabled: boolean;
+
+    /**
      * @remarks
      * The objective stores a pointer to `task`; keep the parent task alive while using this objective.
      *
@@ -76,6 +84,13 @@ declare module "xray16" {
      * @param id - Objective index.
      */
     public constructor(task: CGameTask, id: i32);
+
+    /**
+     * Get objective index inside the parent task.
+     *
+     * @returns Objective index.
+     */
+    public get_idx(): u16;
 
     /**
      * Set objective icon texture.
@@ -114,6 +129,20 @@ declare module "xray16" {
     public get_title(): string;
 
     /**
+     * Set encyclopedia article id unlocked with this objective.
+     *
+     * @param id - Encyclopedia article id.
+     */
+    public set_article_id(id: string): void;
+
+    /**
+     * Set encyclopedia article key for this objective.
+     *
+     * @param key - Article key.
+     */
+    public set_article_key(key: string): void;
+
+    /**
      * Set map spot type used by this objective.
      *
      * @param location - Map location type.
@@ -124,7 +153,8 @@ declare module "xray16" {
      * Add a script function called after objective completion.
      *
      * @remarks
-     * Function names are resolved when the objective is committed into a task or loaded.
+     * Function names are resolved when a script-created objective is added to a task. Missing functions are logged and
+     * then skipped by the engine.
      *
      * @param function_name - Script function name.
      */
@@ -147,6 +177,10 @@ declare module "xray16" {
     /**
      * Add a script function called after objective failure.
      *
+     * @remarks
+     * Function names are resolved when a script-created objective is added to a task. Missing functions are logged and
+     * then skipped by the engine.
+     *
      * @param function_name - Script function name.
      */
     public add_on_fail_func(function_name: string): void;
@@ -162,7 +196,8 @@ declare module "xray16" {
      * Add a script predicate used to decide objective completion.
      *
      * @remarks
-     * Function names are resolved when the objective is committed into a task or loaded.
+     * Function names are resolved when a script-created objective is added to a task. Missing functions are logged and
+     * then skipped by the engine.
      *
      * @param function_name - Script function name.
      */
@@ -172,7 +207,8 @@ declare module "xray16" {
      * Add a script predicate used to decide objective failure.
      *
      * @remarks
-     * Function names are resolved when the objective is committed into a task or loaded.
+     * Function names are resolved when a script-created objective is added to a task. Missing functions are logged and
+     * then skipped by the engine.
      *
      * @param function_name - Script function name.
      */
@@ -246,7 +282,8 @@ declare module "xray16" {
      *
      * @remarks
      * During load, the objective tries to reattach to an existing serializable spot owned by the task. During normal
-     * creation, it creates a new serializable spot and disables its pointer.
+     * creation, it creates a new serializable spot and disables its pointer. The objective must already have a map
+     * location type and a valid game object id.
      *
      * @param on_load - Whether creation happens during save loading.
      */
@@ -287,7 +324,9 @@ declare module "xray16" {
      * Load task data from configs.
      *
      * @remarks
-     * Reads from `gameplay/game_tasks.xml`. Missing task ids are a native throw path.
+     * Reads from `gameplay/game_tasks.xml`. Task XML function names are resolved immediately.
+     *
+     * @throws If the task id is missing from `game_tasks.xml` or a referenced task function cannot be resolved.
      *
      * @param id - Task id.
      */
@@ -321,7 +360,8 @@ declare module "xray16" {
      * Add an objective to this task.
      *
      * @remarks
-     * The native binding adopts the objective and copies its current data into the task objective list.
+     * The native binding adopts the objective and copies its current data into the task objective list. Mutating the
+     * original objective after this call does not update the stored copy.
      *
      * @param objective - Objective to adopt into the task.
      */
