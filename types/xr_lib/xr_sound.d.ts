@@ -223,51 +223,189 @@ declare module "xray16" {
    * @group xr_sound
    */
   export class snd_type {
+    /**
+     * Engine enum value for `snd_type.ambient`.
+     */
     public static ambient: 128;
+    /**
+     * Engine enum value for `snd_type.anomaly`.
+     */
     public static anomaly: 268435456;
+    /**
+     * Engine enum value for `snd_type.anomaly_idle`.
+     */
     public static anomaly_idle: 268437504;
+    /**
+     * Engine enum value for `snd_type.attack`.
+     */
     public static attack: 8192;
+    /**
+     * Engine enum value for `snd_type.bullet_hit`.
+     */
     public static bullet_hit: 524288;
+    /**
+     * Engine enum value for `snd_type.die`.
+     */
     public static die: 131072;
+    /**
+     * Engine enum value for `snd_type.drop`.
+     */
     public static drop: 33554432;
+    /**
+     * Engine enum value for `snd_type.eat`.
+     */
     public static eat: 4096;
+    /**
+     * Engine enum value for `snd_type.empty`.
+     */
     public static empty: 1048576;
+    /**
+     * Engine enum value for `snd_type.hide`.
+     */
     public static hide: 16777216;
+    /**
+     * Engine enum value for `snd_type.idle`.
+     */
     public static idle: 2048;
+    /**
+     * Engine enum value for `snd_type.injure`.
+     */
     public static injure: 65536;
+    /**
+     * Engine enum value for `snd_type.item`.
+     */
     public static item: 1073741824;
+    /**
+     * Engine enum value for `snd_type.item_drop`.
+     */
     public static item_drop: 1107296256;
+    /**
+     * Engine enum value for `snd_type.item_hide`.
+     */
     public static item_hide: 1090519040;
+    /**
+     * Engine enum value for `snd_type.item_pick_up`.
+     */
     public static item_pick_up: 1140850688;
+    /**
+     * Engine enum value for `snd_type.item_take`.
+     */
     public static item_take: 1082130432;
+    /**
+     * Engine enum value for `snd_type.item_use`.
+     */
     public static item_use: 1077936128;
+    /**
+     * Engine enum value for `snd_type.monster`.
+     */
     public static monster: 536870912;
+    /**
+     * Engine enum value for `snd_type.monster_attack`.
+     */
     public static monster_attack: 536879104;
+    /**
+     * Engine enum value for `snd_type.monster_die`.
+     */
     public static monster_die: 537001984;
+    /**
+     * Engine enum value for `snd_type.monster_eat`.
+     */
     public static monster_eat: 536875008;
+    /**
+     * Engine enum value for `snd_type.monster_injure`.
+     */
     public static monster_injure: 536936448;
+    /**
+     * Engine enum value for `snd_type.monster_step`.
+     */
     public static monster_step: 536903680;
+    /**
+     * Engine enum value for `snd_type.monster_talk`.
+     */
     public static monster_talk: 536887296;
+    /**
+     * Engine enum value for `snd_type.no_sound`.
+     */
     public static no_sound: 0;
+    /**
+     * Engine enum value for `snd_type.object_break`.
+     */
     public static object_break: 1024;
+    /**
+     * Engine enum value for `snd_type.object_collide`.
+     */
     public static object_collide: 512;
+    /**
+     * Engine enum value for `snd_type.object_explode`.
+     */
     public static object_explode: 256;
+    /**
+     * Engine enum value for `snd_type.pick_up`.
+     */
     public static pick_up: 67108864;
+    /**
+     * Engine enum value for `snd_type.reload`.
+     */
     public static reload: 262144;
+    /**
+     * Engine enum value for `snd_type.shoot`.
+     */
     public static shoot: 2097152;
+    /**
+     * Engine enum value for `snd_type.step`.
+     */
     public static step: 32768;
+    /**
+     * Engine enum value for `snd_type.take`.
+     */
     public static take: 8388608;
+    /**
+     * Engine enum value for `snd_type.talk`.
+     */
     public static talk: 16384;
+    /**
+     * Engine enum value for `snd_type.use`.
+     */
     public static use: 4194304;
+    /**
+     * Engine enum value for `snd_type.weapon`.
+     */
     public static weapon: -2147483648;
+    /**
+     * Engine enum value for `snd_type.weapon_bullet_hit`.
+     */
     public static weapon_bullet_hit: -2146959360;
+    /**
+     * Engine enum value for `snd_type.weapon_empty`.
+     */
     public static weapon_empty: -2146435072;
+    /**
+     * Engine enum value for `snd_type.weapon_reload`.
+     */
     public static weapon_reload: -2147221504;
+    /**
+     * Engine enum value for `snd_type.weapon_shoot`.
+     */
     public static weapon_shoot: -2145386496;
+    /**
+     * Engine enum value for `snd_type.world`.
+     */
     public static world: 134217728;
+    /**
+     * Engine enum value for `snd_type.world_ambient`.
+     */
     public static world_ambient: 134217856;
+    /**
+     * Engine enum value for `snd_type.world_object_break`.
+     */
     public static world_object_break: 134218752;
+    /**
+     * Engine enum value for `snd_type.world_object_collide`.
+     */
     public static world_object_collide: 134218240;
+    /**
+     * Engine enum value for `snd_type.world_object_explode`.
+     */
     public static world_object_explode: 134217984;
 
     /**

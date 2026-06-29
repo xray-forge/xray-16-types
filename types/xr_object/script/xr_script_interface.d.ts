@@ -88,65 +88,230 @@ declare module "xray16" {
      * Default x-ray 16 callbacks.
      */
     public static readonly trade_start: 0;
+    /**
+     * Engine enum value for `callback.trade_stop`.
+     */
     public static readonly trade_stop: 1;
+    /**
+     * Engine enum value for `callback.trade_sell_buy_item`.
+     */
     public static readonly trade_sell_buy_item: 2;
+    /**
+     * Engine enum value for `callback.trade_perform_operation`.
+     */
     public static readonly trade_perform_operation: 3;
+    /**
+     * Engine enum value for `callback.zone_enter`.
+     */
     public static readonly zone_enter: 4;
+    /**
+     * Engine enum value for `callback.zone_exit`.
+     */
     public static readonly zone_exit: 5;
+    /**
+     * Engine enum value for `callback.level_border_exit`.
+     */
     public static readonly level_border_exit: 6;
+    /**
+     * Engine enum value for `callback.level_border_enter`.
+     */
     public static readonly level_border_enter: 7;
+    /**
+     * Engine enum value for `callback.death`.
+     */
     public static readonly death: 8;
+    /**
+     * Engine enum value for `callback.patrol_path_in_point`.
+     */
     public static readonly patrol_path_in_point: 9;
+    /**
+     * Engine enum value for `callback.inventory_pda`.
+     */
     public static readonly inventory_pda: 10;
+    /**
+     * Engine enum value for `callback.inventory_info`.
+     */
     public static readonly inventory_info: 11;
+    /**
+     * Engine enum value for `callback.article_info`.
+     */
     public static readonly article_info: 12;
+    /**
+     * Engine enum value for `callback.task_state`.
+     */
     public static readonly task_state: 13;
+    /**
+     * Engine enum value for `callback.map_location_added`.
+     */
     public static readonly map_location_added: 14;
+    /**
+     * Engine enum value for `callback.use_object`.
+     */
     public static readonly use_object: 15;
+    /**
+     * Engine enum value for `callback.hit`.
+     */
     public static readonly hit: 16;
+    /**
+     * Engine enum value for `callback.sound`.
+     */
     public static readonly sound: 17;
+    /**
+     * Engine enum value for `callback.action_movement`.
+     */
     public static readonly action_movement: 18;
+    /**
+     * Engine enum value for `callback.action_watch`.
+     */
     public static readonly action_watch: 19;
+    /**
+     * Engine enum value for `callback.action_removed`.
+     */
     public static readonly action_removed: 20;
+    /**
+     * Engine enum value for `callback.action_animation`.
+     */
     public static readonly action_animation: 21;
+    /**
+     * Engine enum value for `callback.action_sound`.
+     */
     public static readonly action_sound: 22;
+    /**
+     * Engine enum value for `callback.action_particle`.
+     */
     public static readonly action_particle: 23;
+    /**
+     * Engine enum value for `callback.action_object`.
+     */
     public static readonly action_object: 24;
+    /**
+     * Engine enum value for `callback.actor_sleep`.
+     */
     public static readonly actor_sleep: 25;
+    /**
+     * Engine enum value for `callback.helicopter_on_point`.
+     */
     public static readonly helicopter_on_point: 26;
+    /**
+     * Engine enum value for `callback.helicopter_on_hit`.
+     */
     public static readonly helicopter_on_hit: 27;
+    /**
+     * Engine enum value for `callback.on_item_take`.
+     */
     public static readonly on_item_take: 28;
+    /**
+     * Engine enum value for `callback.on_item_drop`.
+     */
     public static readonly on_item_drop: 29;
+    /**
+     * Engine enum value for `callback.script_animation`.
+     */
     public static readonly script_animation: 30;
+    /**
+     * Engine enum value for `callback.trader_global_anim_request`.
+     */
     public static readonly trader_global_anim_request: 31;
+    /**
+     * Engine enum value for `callback.trader_head_anim_request`.
+     */
     public static readonly trader_head_anim_request: 32;
+    /**
+     * Engine enum value for `callback.trader_sound_end`.
+     */
     public static readonly trader_sound_end: 33;
+    /**
+     * Engine enum value for `callback.take_item_from_box`.
+     */
     public static readonly take_item_from_box: 34;
+    /**
+     * Engine enum value for `callback.weapon_no_ammo`.
+     */
     public static readonly weapon_no_ammo: 35;
+    /**
+     * Engine enum value for `callback.hud_animation_end`.
+     */
     public static readonly hud_animation_end: 36;
 
+    /**
+     * Engine enum value for `callback.key_press`.
+     */
     public static readonly key_press: 37;
+    /**
+     * Engine enum value for `callback.key_release`.
+     */
     public static readonly key_release: 38;
+    /**
+     * Engine enum value for `callback.key_hold`.
+     */
     public static readonly key_hold: 39;
+    /**
+     * Engine enum value for `callback.mouse_move`.
+     */
     public static readonly mouse_move: 40;
+    /**
+     * Engine enum value for `callback.mouse_wheel`.
+     */
     public static readonly mouse_wheel: 41;
+    /**
+     * Engine enum value for `callback.controller_press`.
+     */
     public static readonly controller_press: 42;
+    /**
+     * Engine enum value for `callback.controller_release`.
+     */
     public static readonly controller_release: 43;
+    /**
+     * Engine enum value for `callback.controller_hold`.
+     */
     public static readonly controller_hold: 44;
     // Public static readonly controller_attitude_change: 45;
 
+    /**
+     * Engine enum value for `callback.item_to_belt`.
+     */
     public static readonly item_to_belt: 46;
+    /**
+     * Engine enum value for `callback.item_to_slot`.
+     */
     public static readonly item_to_slot: 47;
+    /**
+     * Engine enum value for `callback.item_to_ruck`.
+     */
     public static readonly item_to_ruck: 48;
 
+    /**
+     * Engine enum value for `callback.weapon_zoom_in`.
+     */
     public static readonly weapon_zoom_in: 49;
+    /**
+     * Engine enum value for `callback.weapon_zoom_out`.
+     */
     public static readonly weapon_zoom_out: 50;
+    /**
+     * Engine enum value for `callback.weapon_jammed`.
+     */
     public static readonly weapon_jammed: 51;
+    /**
+     * Engine enum value for `callback.weapon_magazine_empty`.
+     */
     public static readonly weapon_magazine_empty: 52;
 
+    /**
+     * Engine enum value for `callback.actor_before_death`.
+     */
     public static readonly actor_before_death: 53;
+    /**
+     * Engine enum value for `callback.on_attach_vehicle`.
+     */
     public static readonly on_attach_vehicle: 54;
+    /**
+     * Engine enum value for `callback.on_detach_vehicle`.
+     */
     public static readonly on_detach_vehicle: 55;
+    /**
+     * Engine enum value for `callback.on_use_vehicle`.
+     */
     public static readonly on_use_vehicle: 56;
   }
 

@@ -5,105 +5,354 @@ declare module "xray16" {
    * @group xr_goap
    */
   export class stalker_ids {
+    /**
+     * Engine enum value for `stalker_ids.action_accomplish_task`.
+     */
     public static readonly action_accomplish_task: 7;
+    /**
+     * Engine enum value for `stalker_ids.action_aim_enemy`.
+     */
     public static readonly action_aim_enemy: 16;
+    /**
+     * Engine enum value for `stalker_ids.action_alife_planner`.
+     */
     public static readonly action_alife_planner: 88;
+    /**
+     * Engine enum value for `stalker_ids.action_anomaly_planner`.
+     */
     public static readonly action_anomaly_planner: 90;
+    /**
+     * Engine enum value for `stalker_ids.action_combat_planner`.
+     */
     public static readonly action_combat_planner: 89;
+    /**
+     * Engine enum value for `stalker_ids.action_communicate_with_customer`.
+     */
     public static readonly action_communicate_with_customer: 9;
+    /**
+     * Engine enum value for `stalker_ids.action_critically_wounded`.
+     */
     public static readonly action_critically_wounded: 36;
+    /**
+     * Engine enum value for `stalker_ids.action_danger_by_sound_planner`.
+     */
     public static readonly action_danger_by_sound_planner: 73;
+    /**
+     * Engine enum value for `stalker_ids.action_danger_grenade_look_around`.
+     */
     public static readonly action_danger_grenade_look_around: 85;
+    /**
+     * Engine enum value for `stalker_ids.action_danger_grenade_planner`.
+     */
     public static readonly action_danger_grenade_planner: 72;
+    /**
+     * Engine enum value for `stalker_ids.action_danger_grenade_search`.
+     */
     public static readonly action_danger_grenade_search: 86;
+    /**
+     * Engine enum value for `stalker_ids.action_danger_grenade_take_cover`.
+     */
     public static readonly action_danger_grenade_take_cover: 82;
+    /**
+     * Engine enum value for `stalker_ids.action_danger_grenade_take_cover_after_explosion`.
+     */
     public static readonly action_danger_grenade_take_cover_after_explosion: 84;
+    /**
+     * Engine enum value for `stalker_ids.action_danger_grenade_wait_for_explosion`.
+     */
     public static readonly action_danger_grenade_wait_for_explosion: 83;
+    /**
+     * Engine enum value for `stalker_ids.action_danger_in_direction_detour`.
+     */
     public static readonly action_danger_in_direction_detour: 80;
+    /**
+     * Engine enum value for `stalker_ids.action_danger_in_direction_hold_position`.
+     */
     public static readonly action_danger_in_direction_hold_position: 79;
+    /**
+     * Engine enum value for `stalker_ids.action_danger_in_direction_look_out`.
+     */
     public static readonly action_danger_in_direction_look_out: 78;
+    /**
+     * Engine enum value for `stalker_ids.action_danger_in_direction_planner`.
+     */
     public static readonly action_danger_in_direction_planner: 71;
+    /**
+     * Engine enum value for `stalker_ids.action_danger_in_direction_search`.
+     */
     public static readonly action_danger_in_direction_search: 81;
+    /**
+     * Engine enum value for `stalker_ids.action_danger_in_direction_take_cover`.
+     */
     public static readonly action_danger_in_direction_take_cover: 77;
+    /**
+     * Engine enum value for `stalker_ids.action_danger_planner`.
+     */
     public static readonly action_danger_planner: 91;
+    /**
+     * Engine enum value for `stalker_ids.action_danger_unknown_look_around`.
+     */
     public static readonly action_danger_unknown_look_around: 75;
+    /**
+     * Engine enum value for `stalker_ids.action_danger_unknown_planner`.
+     */
     public static readonly action_danger_unknown_planner: 70;
+    /**
+     * Engine enum value for `stalker_ids.action_danger_unknown_search`.
+     */
     public static readonly action_danger_unknown_search: 76;
+    /**
+     * Engine enum value for `stalker_ids.action_danger_unknown_take_cover`.
+     */
     public static readonly action_danger_unknown_take_cover: 74;
+    /**
+     * Engine enum value for `stalker_ids.action_dead`.
+     */
     public static readonly action_dead: 0;
+    /**
+     * Engine enum value for `stalker_ids.action_death_planner`.
+     */
     public static readonly action_death_planner: 87;
+    /**
+     * Engine enum value for `stalker_ids.action_detour_enemy`.
+     */
     public static readonly action_detour_enemy: 25;
+    /**
+     * Engine enum value for `stalker_ids.action_dying`.
+     */
     public static readonly action_dying: 1;
+    /**
+     * Engine enum value for `stalker_ids.action_find_ammo`.
+     */
     public static readonly action_find_ammo: 15;
+    /**
+     * Engine enum value for `stalker_ids.action_find_item_to_kill`.
+     */
     public static readonly action_find_item_to_kill: 13;
+    /**
+     * Engine enum value for `stalker_ids.action_gather_items`.
+     */
     public static readonly action_gather_items: 2;
+    /**
+     * Engine enum value for `stalker_ids.action_get_distance`.
+     */
     public static readonly action_get_distance: 24;
+    /**
+     * Engine enum value for `stalker_ids.action_get_item_to_kill`.
+     */
     public static readonly action_get_item_to_kill: 12;
+    /**
+     * Engine enum value for `stalker_ids.action_get_ready_to_kill`.
+     */
     public static readonly action_get_ready_to_kill: 17;
+    /**
+     * Engine enum value for `stalker_ids.action_hold_position`.
+     */
     public static readonly action_hold_position: 23;
+    /**
+     * Engine enum value for `stalker_ids.action_kill_enemy`.
+     */
     public static readonly action_kill_enemy: 19;
+    /**
+     * Engine enum value for `stalker_ids.action_kill_enemy_if_not_visible`.
+     */
     public static readonly action_kill_enemy_if_not_visible: 29;
+    /**
+     * Engine enum value for `stalker_ids.action_kill_if_enemy_critically_wounded`.
+     */
     public static readonly action_kill_if_enemy_critically_wounded: 37;
+    /**
+     * Engine enum value for `stalker_ids.action_kill_if_player_on_the_path`.
+     */
     public static readonly action_kill_if_player_on_the_path: 35;
+    /**
+     * Engine enum value for `stalker_ids.action_kill_wounded_enemy`.
+     */
     public static readonly action_kill_wounded_enemy: 33;
+    /**
+     * Engine enum value for `stalker_ids.action_look_out`.
+     */
     public static readonly action_look_out: 22;
+    /**
+     * Engine enum value for `stalker_ids.action_make_item_killing`.
+     */
     public static readonly action_make_item_killing: 14;
+    /**
+     * Engine enum value for `stalker_ids.action_no_alife`.
+     */
     public static readonly action_no_alife: 3;
+    /**
+     * Engine enum value for `stalker_ids.action_post_combat_wait`.
+     */
     public static readonly action_post_combat_wait: 34;
+    /**
+     * Engine enum value for `stalker_ids.action_prepare_wounded_enemy`.
+     */
     public static readonly action_prepare_wounded_enemy: 32;
+    /**
+     * Engine enum value for `stalker_ids.action_reach_customer_location`.
+     */
     public static readonly action_reach_customer_location: 8;
+    /**
+     * Engine enum value for `stalker_ids.action_reach_task_location`.
+     */
     public static readonly action_reach_task_location: 6;
+    /**
+     * Engine enum value for `stalker_ids.action_reach_wounded_enemy`.
+     */
     public static readonly action_reach_wounded_enemy: 30;
+    /**
+     * Engine enum value for `stalker_ids.action_retreat_from_enemy`.
+     */
     public static readonly action_retreat_from_enemy: 20;
+    /**
+     * Engine enum value for `stalker_ids.action_script`.
+     */
     public static readonly action_script: 92;
+    /**
+     * Engine enum value for `stalker_ids.action_search_enemy`.
+     */
     public static readonly action_search_enemy: 26;
+    /**
+     * Engine enum value for `stalker_ids.action_smart_terrain_task`.
+     */
     public static readonly action_smart_terrain_task: 4;
+    /**
+     * Engine enum value for `stalker_ids.action_solve_zone_puzzle`.
+     */
     public static readonly action_solve_zone_puzzle: 5;
+    /**
+     * Engine enum value for `stalker_ids.action_sudden_attack`.
+     */
     public static readonly action_sudden_attack: 28;
+    /**
+     * Engine enum value for `stalker_ids.action_take_cover`.
+     */
     public static readonly action_take_cover: 21;
+    /**
+     * Engine enum value for `stalker_ids.detect_anomaly`.
+     */
     public static readonly detect_anomaly: 11;
+    /**
+     * Engine enum value for `stalker_ids.get_out_of_anomaly`.
+     */
     public static readonly get_out_of_anomaly: 10;
 
+    /**
+     * Engine enum value for `stalker_ids.property_alife`.
+     */
     public static readonly property_alife: 3;
     /**
      * Whether object is alive.
      */
     public static readonly property_alive: 0;
+    /**
+     * Engine enum value for `stalker_ids.property_already_dead`.
+     */
     public static readonly property_already_dead: 2;
+    /**
+     * Engine enum value for `stalker_ids.property_anomaly`.
+     */
     public static readonly property_anomaly: 46;
+    /**
+     * Engine enum value for `stalker_ids.property_cover_actual`.
+     */
     public static readonly property_cover_actual: 42;
+    /**
+     * Engine enum value for `stalker_ids.property_cover_reached`.
+     */
     public static readonly property_cover_reached: 43;
+    /**
+     * Engine enum value for `stalker_ids.property_critically_wounded`.
+     */
     public static readonly property_critically_wounded: 29;
+    /**
+     * Engine enum value for `stalker_ids.property_danger`.
+     */
     public static readonly property_danger: 8;
+    /**
+     * Engine enum value for `stalker_ids.property_danger_by_sound`.
+     */
     public static readonly property_danger_by_sound: 41;
+    /**
+     * Engine enum value for `stalker_ids.property_danger_grenade`.
+     */
     public static readonly property_danger_grenade: 40;
+    /**
+     * Engine enum value for `stalker_ids.property_danger_in_direction`.
+     */
     public static readonly property_danger_in_direction: 39;
+    /**
+     * Engine enum value for `stalker_ids.property_danger_unknown`.
+     */
     public static readonly property_danger_unknown: 38;
+    /**
+     * Engine enum value for `stalker_ids.property_dead`.
+     */
     public static readonly property_dead: 1;
     /**
      * Whether object has any enemy.
      */
     public static readonly property_enemy: 7;
+    /**
+     * Engine enum value for `stalker_ids.property_enemy_critically_wounded`.
+     */
     public static readonly property_enemy_critically_wounded: 30;
+    /**
+     * Engine enum value for `stalker_ids.property_enemy_detoured`.
+     */
     public static readonly property_enemy_detoured: 21;
+    /**
+     * Engine enum value for `stalker_ids.property_found_ammo`.
+     */
     public static readonly property_found_ammo: 12;
+    /**
+     * Engine enum value for `stalker_ids.property_found_item_to_kill`.
+     */
     public static readonly property_found_item_to_kill: 10;
+    /**
+     * Engine enum value for `stalker_ids.property_grenade_exploded`.
+     */
     public static readonly property_grenade_exploded: 45;
+    /**
+     * Engine enum value for `stalker_ids.property_in_cover`.
+     */
     public static readonly property_in_cover: 18;
+    /**
+     * Engine enum value for `stalker_ids.property_inside_anomaly`.
+     */
     public static readonly property_inside_anomaly: 47;
+    /**
+     * Engine enum value for `stalker_ids.property_item_can_kill`.
+     */
     public static readonly property_item_can_kill: 11;
+    /**
+     * Engine enum value for `stalker_ids.property_item_to_kill`.
+     */
     public static readonly property_item_to_kill: 9;
     /**
      * Whether object has valuable items to be looted after death.
      */
     public static readonly property_items: 6;
+    /**
+     * Engine enum value for `stalker_ids.property_looked_around`.
+     */
     public static readonly property_looked_around: 44;
+    /**
+     * Engine enum value for `stalker_ids.property_looked_out`.
+     */
     public static readonly property_looked_out: 19;
     /**
      * Whether object should panic.
      */
     public static readonly property_panic: 17;
+    /**
+     * Engine enum value for `stalker_ids.property_position_holded`.
+     */
     public static readonly property_position_holded: 20;
+    /**
+     * Engine enum value for `stalker_ids.property_pure_enemy`.
+     */
     public static readonly property_pure_enemy: 23;
     /**
      * Whether object has solved zone puzzle.
@@ -111,43 +360,142 @@ declare module "xray16" {
      * To solve zone puzzle stalkers collected artefacts, did quests etc.
      */
     public static readonly property_puzzle_solved: 4;
+    /**
+     * Engine enum value for `stalker_ids.property_ready_to_detour`.
+     */
     public static readonly property_ready_to_detour: 14;
+    /**
+     * Engine enum value for `stalker_ids.property_ready_to_kill`.
+     */
     public static readonly property_ready_to_kill: 13;
+    /**
+     * Engine enum value for `stalker_ids.property_script`.
+     */
     public static readonly property_script: 74;
     /**
      * Whether object see enemy.
      */
     public static readonly property_see_enemy: 15;
+    /**
+     * Engine enum value for `stalker_ids.property_smart_terrain_task`.
+     */
     public static readonly property_smart_terrain_task: 5;
+    /**
+     * Engine enum value for `stalker_ids.property_use_crouch_to_look_out`.
+     */
     public static readonly property_use_crouch_to_look_out: 24;
+    /**
+     * Engine enum value for `stalker_ids.property_use_suddenness`.
+     */
     public static readonly property_use_suddenness: 22;
 
+    /**
+     * Engine enum value for `stalker_ids.sound_alarm`.
+     */
     public static readonly sound_alarm: 4;
+    /**
+     * Engine enum value for `stalker_ids.sound_attack_allies_several_enemies`.
+     */
     public static readonly sound_attack_allies_several_enemies: 7;
+    /**
+     * Engine enum value for `stalker_ids.sound_attack_allies_single_enemy`.
+     */
     public static readonly sound_attack_allies_single_enemy: 6;
+    /**
+     * Engine enum value for `stalker_ids.sound_attack_no_allies`.
+     */
     public static readonly sound_attack_no_allies: 5;
+    /**
+     * Engine enum value for `stalker_ids.sound_backup`.
+     */
     public static readonly sound_backup: 8;
+    /**
+     * Engine enum value for `stalker_ids.sound_detour`.
+     */
     public static readonly sound_detour: 9;
+    /**
+     * Engine enum value for `stalker_ids.sound_die`.
+     */
     public static readonly sound_die: 0;
+    /**
+     * Engine enum value for `stalker_ids.sound_die_in_anomaly`.
+     */
     public static readonly sound_die_in_anomaly: 1;
+    /**
+     * Engine enum value for `stalker_ids.sound_enemy_critically_wounded`.
+     */
     public static readonly sound_enemy_critically_wounded: 24;
+    /**
+     * Engine enum value for `stalker_ids.sound_enemy_killed_or_wounded`.
+     */
     public static readonly sound_enemy_killed_or_wounded = -805289984;
+    /**
+     * Engine enum value for `stalker_ids.sound_enemy_lost_no_allies`.
+     */
     public static readonly sound_enemy_lost_no_allies: 12;
+    /**
+     * Engine enum value for `stalker_ids.sound_enemy_lost_with_allies`.
+     */
     public static readonly sound_enemy_lost_with_allies: 13;
+    /**
+     * Engine enum value for `stalker_ids.sound_friendly_grenade_alarm`.
+     */
     public static readonly sound_friendly_grenade_alarm: 20;
+    /**
+     * Engine enum value for `stalker_ids.sound_grenade_alarm`.
+     */
     public static readonly sound_grenade_alarm: 19;
+    /**
+     * Engine enum value for `stalker_ids.sound_humming`.
+     */
     public static readonly sound_humming: 3;
+    /**
+     * Engine enum value for `stalker_ids.sound_injuring`.
+     */
     public static readonly sound_injuring: 2;
+    /**
+     * Engine enum value for `stalker_ids.sound_injuring_by_friend`.
+     */
     public static readonly sound_injuring_by_friend: 14;
+    /**
+     * Engine enum value for `stalker_ids.sound_kill_wounded`.
+     */
     public static readonly sound_kill_wounded: 23;
+    /**
+     * Engine enum value for `stalker_ids.sound_need_backup`.
+     */
     public static readonly sound_need_backup: 21;
+    /**
+     * Engine enum value for `stalker_ids.sound_panic_human`.
+     */
     public static readonly sound_panic_human: 15;
+    /**
+     * Engine enum value for `stalker_ids.sound_panic_monster`.
+     */
     public static readonly sound_panic_monster: 16;
+    /**
+     * Engine enum value for `stalker_ids.sound_running_in_danger`.
+     */
     public static readonly sound_running_in_danger: 22;
+    /**
+     * Engine enum value for `stalker_ids.sound_script`.
+     */
     public static readonly sound_script: 27;
+    /**
+     * Engine enum value for `stalker_ids.sound_search1_no_allies`.
+     */
     public static readonly sound_search1_no_allies: 11;
+    /**
+     * Engine enum value for `stalker_ids.sound_search1_with_allies`.
+     */
     public static readonly sound_search1_with_allies: 10;
+    /**
+     * Engine enum value for `stalker_ids.sound_tolls`.
+     */
     public static readonly sound_tolls: 17;
+    /**
+     * Engine enum value for `stalker_ids.sound_wounded`.
+     */
     public static readonly sound_wounded: 18;
 
     /**

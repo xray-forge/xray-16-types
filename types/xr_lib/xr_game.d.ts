@@ -25,22 +25,63 @@ declare module "xray16" {
    * @group xr_game
    */
   export class GAME_TYPE {
+    /**
+     * Engine enum value for `GAME_TYPE.eGameIDArtefactHunt`.
+     */
     public static readonly eGameIDArtefactHunt: 8;
+    /**
+     * Engine enum value for `GAME_TYPE.eGameIDCaptureTheArtefact`.
+     */
     public static readonly eGameIDCaptureTheArtefact: 16;
+    /**
+     * Engine enum value for `GAME_TYPE.eGameIDDeathmatch`.
+     */
     public static readonly eGameIDDeathmatch: 2;
+    /**
+     * Engine enum value for `GAME_TYPE.eGameIDTeamDeathmatch`.
+     */
     public static readonly eGameIDTeamDeathmatch: 4;
 
+    /**
+     * Engine enum value for `GAME_TYPE.GAME_UNKNOWN`.
+     */
     public static readonly GAME_UNKNOWN: -1;
+    /**
+     * Engine enum value for `GAME_TYPE.GAME_ANY`.
+     */
     public static readonly GAME_ANY: 0;
+    /**
+     * Engine enum value for `GAME_TYPE.GAME_SINGLE`.
+     */
     public static readonly GAME_SINGLE: 1;
+    /**
+     * Engine enum value for `GAME_TYPE.GAME_DEATHMATCH`.
+     */
     public static readonly GAME_DEATHMATCH: 2;
+
     //	GAME_CTF							= 3,
     //	GAME_ASSAULT						= 4,	// Team1 - assaulting, Team0 - Defending
+
+    /**
+     * Engine enum value for `GAME_TYPE.GAME_CS`.
+     */
     public static readonly GAME_CS: 5;
+    /**
+     * Engine enum value for `GAME_TYPE.GAME_TEAMDEATHMATCH`.
+     */
     public static readonly GAME_TEAMDEATHMATCH: 6;
+    /**
+     * Engine enum value for `GAME_TYPE.GAME_ARTEFACTHUNT`.
+     */
     public static readonly GAME_ARTEFACTHUNT: 7;
+    /**
+     * Engine enum value for `GAME_TYPE.GAME_CAPTURETHEARTEFACT`.
+     */
     public static readonly GAME_CAPTURETHEARTEFACT: 8;
     // Identifiers in range [100...254] are registered for script game type
+    /**
+     * Engine enum value for `GAME_TYPE.GAME_DUMMY`.
+     */
     public static readonly GAME_DUMMY: 255; // Temporary g
   }
 
@@ -57,9 +98,21 @@ declare module "xray16" {
    * @group xr_game
    */
   export class game_difficulty {
+    /**
+     * Engine enum value for `game_difficulty.novice`.
+     */
     public static readonly novice: 0;
+    /**
+     * Engine enum value for `game_difficulty.stalker`.
+     */
     public static readonly stalker: 1;
+    /**
+     * Engine enum value for `game_difficulty.veteran`.
+     */
     public static readonly veteran: 2;
+    /**
+     * Engine enum value for `game_difficulty.master`.
+     */
     public static readonly master: 3;
   }
 

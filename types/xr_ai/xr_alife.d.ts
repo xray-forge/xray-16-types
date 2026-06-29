@@ -708,6 +708,9 @@ declare module "xray16" {
    * @group xr_alife
    */
   export class spawn_story_ids {
+    /**
+     * Engine enum value for `spawn_story_ids.INVALID_SPAWN_STORY_ID`.
+     */
     public static readonly INVALID_SPAWN_STORY_ID: -1;
 
     /**
@@ -722,12 +725,33 @@ declare module "xray16" {
    * @group xr_alife
    */
   export class story_ids {
+    /**
+     * Engine enum value for `story_ids.INVALID_STORY_ID`.
+     */
     public static readonly INVALID_STORY_ID: -1;
+    /**
+     * Engine enum value for `story_ids.Invalid`.
+     */
     public static readonly Invalid: 65535;
+    /**
+     * Engine enum value for `story_ids.test_01`.
+     */
     public static readonly test_01: 65000;
+    /**
+     * Engine enum value for `story_ids.test_02`.
+     */
     public static readonly test_02: 65001;
+    /**
+     * Engine enum value for `story_ids.test_03`.
+     */
     public static readonly test_03: 65002;
+    /**
+     * Engine enum value for `story_ids.test_04`.
+     */
     public static readonly test_04: 65003;
+    /**
+     * Engine enum value for `story_ids.test_05`.
+     */
     public static readonly test_05: 65004;
   }
 
@@ -771,224 +795,881 @@ declare module "xray16" {
    * @group xr_alife
    */
   export class clsid {
+    /**
+     * Engine enum value for `clsid.actor`.
+     */
     public static readonly actor: 90;
+    /**
+     * Engine enum value for `clsid.art_bast_artefact`.
+     */
     public static readonly art_bast_artefact: 0;
+    /**
+     * Engine enum value for `clsid.art_black_drops`.
+     */
     public static readonly art_black_drops: 1;
+    /**
+     * Engine enum value for `clsid.art_cta`.
+     */
     public static readonly art_cta: 3;
+    /**
+     * Engine enum value for `clsid.art_dummy`.
+     */
     public static readonly art_dummy: 4;
+    /**
+     * Engine enum value for `clsid.art_electric_ball`.
+     */
     public static readonly art_electric_ball: 5;
+    /**
+     * Engine enum value for `clsid.art_faded_ball`.
+     */
     public static readonly art_faded_ball: 6;
+    /**
+     * Engine enum value for `clsid.art_galantine`.
+     */
     public static readonly art_galantine: 7;
+    /**
+     * Engine enum value for `clsid.art_gravi`.
+     */
     public static readonly art_gravi: 8;
+    /**
+     * Engine enum value for `clsid.art_gravi_black`.
+     */
     public static readonly art_gravi_black: 2;
+    /**
+     * Engine enum value for `clsid.art_mercury_ball`.
+     */
     public static readonly art_mercury_ball: 9;
+    /**
+     * Engine enum value for `clsid.art_needles`.
+     */
     public static readonly art_needles: 10;
+    /**
+     * Engine enum value for `clsid.art_rusty_hair`.
+     */
     public static readonly art_rusty_hair: 11;
+    /**
+     * Engine enum value for `clsid.art_thorn`.
+     */
     public static readonly art_thorn: 12;
+    /**
+     * Engine enum value for `clsid.art_zuda`.
+     */
     public static readonly art_zuda: 13;
+    /**
+     * Engine enum value for `clsid.artefact`.
+     */
     public static readonly artefact: 41;
+    /**
+     * Engine enum value for `clsid.artefact_s`.
+     */
     public static readonly artefact_s: 102;
+    /**
+     * Engine enum value for `clsid.bloodsucker`.
+     */
     public static readonly bloodsucker: 14;
+    /**
+     * Engine enum value for `clsid.bloodsucker_s`.
+     */
     public static readonly bloodsucker_s: 108;
+    /**
+     * Engine enum value for `clsid.boar`.
+     */
     public static readonly boar: 15;
+    /**
+     * Engine enum value for `clsid.boar_s`.
+     */
     public static readonly boar_s: 109;
+    /**
+     * Engine enum value for `clsid.burer`.
+     */
     public static readonly burer: 16;
+    /**
+     * Engine enum value for `clsid.burer_s`.
+     */
     public static readonly burer_s: 110;
+    /**
+     * Engine enum value for `clsid.car`.
+     */
     public static readonly car: 52;
+    /**
+     * Engine enum value for `clsid.cat`.
+     */
     public static readonly cat: 17;
+    /**
+     * Engine enum value for `clsid.cat_s`.
+     */
     public static readonly cat_s: 111;
+    /**
+     * Engine enum value for `clsid.chimera`.
+     */
     public static readonly chimera: 29;
+    /**
+     * Engine enum value for `clsid.chimera_s`.
+     */
     public static readonly chimera_s: 112;
+    /**
+     * Engine enum value for `clsid.controller`.
+     */
     public static readonly controller: 18;
+    /**
+     * Engine enum value for `clsid.controller_s`.
+     */
     public static readonly controller_s: 113;
+    /**
+     * Engine enum value for `clsid.crow`.
+     */
     public static readonly crow: 19;
+    /**
+     * Engine enum value for `clsid.destrphys_s`.
+     */
     public static readonly destrphys_s: 93;
+    /**
+     * Engine enum value for `clsid.device_detector_advanced`.
+     */
     public static readonly device_detector_advanced: 53;
+    /**
+     * Engine enum value for `clsid.device_detector_elite`.
+     */
     public static readonly device_detector_elite: 54;
+    /**
+     * Engine enum value for `clsid.device_detector_scientific`.
+     */
     public static readonly device_detector_scientific: 57;
+    /**
+     * Engine enum value for `clsid.detector_scientific_s`.
+     */
     public static readonly detector_scientific_s: -1;
+    /**
+     * Engine enum value for `clsid.device_detector_simple`.
+     */
     public static readonly device_detector_simple: 58;
+    /**
+     * Engine enum value for `clsid.device_flare`.
+     */
     public static readonly device_flare: 55;
+    /**
+     * Engine enum value for `clsid.device_pda`.
+     */
     public static readonly device_pda: 56;
+    /**
+     * Engine enum value for `clsid.device_torch`.
+     */
     public static readonly device_torch: 59;
+    /**
+     * Engine enum value for `clsid.device_torch_s`.
+     */
     public static readonly device_torch_s: 146;
+    /**
+     * Engine enum value for `clsid.dog_black`.
+     */
     public static readonly dog_black: 20;
+    /**
+     * Engine enum value for `clsid.dog_red`.
+     */
     public static readonly dog_red: 23;
+    /**
+     * Engine enum value for `clsid.dog_s`.
+     */
     public static readonly dog_s: 116;
+    /**
+     * Engine enum value for `clsid.equ_exo`.
+     */
     public static readonly equ_exo: 60;
+    /**
+     * Engine enum value for `clsid.equ_military`.
+     */
     public static readonly equ_military: 61;
+    /**
+     * Engine enum value for `clsid.equ_scientific`.
+     */
     public static readonly equ_scientific: 62;
+    /**
+     * Engine enum value for `clsid.equ_stalker`.
+     */
     public static readonly equ_stalker: 63;
+    /**
+     * Engine enum value for `clsid.equ_stalker_s`.
+     */
     public static readonly equ_stalker_s: 65;
+    /**
+     * Engine enum value for `clsid.equ_helmet_s`.
+     */
     public static readonly equ_helmet_s: 70;
+    /**
+     * Engine enum value for `clsid.flesh`.
+     */
     public static readonly flesh: 24;
+    /**
+     * Engine enum value for `clsid.flesh_group`.
+     */
     public static readonly flesh_group: 25;
+    /**
+     * Engine enum value for `clsid.flesh_s`.
+     */
     public static readonly flesh_s: 117;
+    /**
+     * Engine enum value for `clsid.fracture`.
+     */
     public static readonly fracture: 26;
+    /**
+     * Engine enum value for `clsid.fracture_s`.
+     */
     public static readonly fracture_s: 119;
+    /**
+     * Engine enum value for `clsid.game`.
+     */
     public static readonly game: 70;
+    /**
+     * Engine enum value for `clsid.game_cl_artefact_hunt`.
+     */
     public static readonly game_cl_artefact_hunt: 45;
+    /**
+     * Engine enum value for `clsid.game_cl_capture_the_artefact`.
+     */
     public static readonly game_cl_capture_the_artefact: 46;
+    /**
+     * Engine enum value for `clsid.game_cl_deathmatch`.
+     */
     public static readonly game_cl_deathmatch: 47;
+    /**
+     * Engine enum value for `clsid.game_cl_single`.
+     */
     public static readonly game_cl_single: 48;
+    /**
+     * Engine enum value for `clsid.game_cl_team_deathmatch`.
+     */
     public static readonly game_cl_team_deathmatch: 49;
+    /**
+     * Engine enum value for `clsid.game_sv_artefact_hunt`.
+     */
     public static readonly game_sv_artefact_hunt: 129;
+    /**
+     * Engine enum value for `clsid.game_sv_capture_the_artefact`.
+     */
     public static readonly game_sv_capture_the_artefact: 130;
+    /**
+     * Engine enum value for `clsid.game_sv_deathmatch`.
+     */
     public static readonly game_sv_deathmatch: 131;
+    /**
+     * Engine enum value for `clsid.game_sv_single`.
+     */
     public static readonly game_sv_single: 132;
+    /**
+     * Engine enum value for `clsid.game_sv_team_deathmatch`.
+     */
     public static readonly game_sv_team_deathmatch: 133;
+    /**
+     * Engine enum value for `clsid.game_ui_artefact_hunt`.
+     */
     public static readonly game_ui_artefact_hunt: 147;
+    /**
+     * Engine enum value for `clsid.game_ui_capture_the_artefact`.
+     */
     public static readonly game_ui_capture_the_artefact: 148;
+    /**
+     * Engine enum value for `clsid.game_ui_deathmatch`.
+     */
     public static readonly game_ui_deathmatch: 149;
+    /**
+     * Engine enum value for `clsid.game_ui_single`.
+     */
     public static readonly game_ui_single: 150;
+    /**
+     * Engine enum value for `clsid.game_ui_team_deathmatch`.
+     */
     public static readonly game_ui_team_deathmatch: 151;
+    /**
+     * Engine enum value for `clsid.gigant_s`.
+     */
     public static readonly gigant_s: 118;
+    /**
+     * Engine enum value for `clsid.graph_point`.
+     */
     public static readonly graph_point: 28;
+    /**
+     * Engine enum value for `clsid.hanging_lamp`.
+     */
     public static readonly hanging_lamp: 94;
+    /**
+     * Engine enum value for `clsid.helicopter`.
+     */
     public static readonly helicopter: 50;
+    /**
+     * Engine enum value for `clsid.helmet`.
+     */
     public static readonly helmet: 64;
+    /**
+     * Engine enum value for `clsid.hlamp_s`.
+     */
     public static readonly hlamp_s: 125;
+    /**
+     * Engine enum value for `clsid.hud_manager`.
+     */
     public static readonly hud_manager: 74;
+    /**
+     * Engine enum value for `clsid.inventory_box`.
+     */
     public static readonly inventory_box: 95;
+    /**
+     * Engine enum value for `clsid.inventory_box_s`.
+     */
     public static readonly inventory_box_s: 140;
+    /**
+     * Engine enum value for `clsid.level`.
+     */
     public static readonly level: 69;
+    /**
+     * Engine enum value for `clsid.level_changer`.
+     */
     public static readonly level_changer: 84;
+    /**
+     * Engine enum value for `clsid.level_changer_s`.
+     */
     public static readonly level_changer_s: 85;
+    /**
+     * Engine enum value for `clsid.main_menu`.
+     */
     public static readonly main_menu: 86;
+    /**
+     * Engine enum value for `clsid.mp_players_bag`.
+     */
     public static readonly mp_players_bag: 87;
+    /**
+     * Engine enum value for `clsid.nogravity_zone`.
+     */
     public static readonly nogravity_zone: 211;
+    /**
+     * Engine enum value for `clsid.obj_antirad`.
+     */
     public static readonly obj_antirad: 75;
+    /**
+     * Engine enum value for `clsid.obj_antirad_s`.
+     */
     public static readonly obj_antirad_s: 135;
+    /**
+     * Engine enum value for `clsid.obj_attachable`.
+     */
     public static readonly obj_attachable: 76;
+    /**
+     * Engine enum value for `clsid.obj_bandage`.
+     */
     public static readonly obj_bandage: 77;
+    /**
+     * Engine enum value for `clsid.obj_bandage_s`.
+     */
     public static readonly obj_bandage_s: 136;
+    /**
+     * Engine enum value for `clsid.obj_bolt`.
+     */
     public static readonly obj_bolt: 78;
+    /**
+     * Engine enum value for `clsid.obj_bottle`.
+     */
     public static readonly obj_bottle: 79;
+    /**
+     * Engine enum value for `clsid.obj_bottle_s`.
+     */
     public static readonly obj_bottle_s: 137;
+    /**
+     * Engine enum value for `clsid.obj_breakable`.
+     */
     public static readonly obj_breakable: 91;
+    /**
+     * Engine enum value for `clsid.obj_climable`.
+     */
     public static readonly obj_climable: 92;
+    /**
+     * Engine enum value for `clsid.obj_document`.
+     */
     public static readonly obj_document: 80;
+    /**
+     * Engine enum value for `clsid.obj_explosive`.
+     */
     public static readonly obj_explosive: 81;
+    /**
+     * Engine enum value for `clsid.obj_explosive_s`.
+     */
     public static readonly obj_explosive_s: 138;
+    /**
+     * Engine enum value for `clsid.obj_food`.
+     */
     public static readonly obj_food: 82;
+    /**
+     * Engine enum value for `clsid.obj_food_s`.
+     */
     public static readonly obj_food_s: 139;
+    /**
+     * Engine enum value for `clsid.obj_medkit`.
+     */
     public static readonly obj_medkit: 83;
+    /**
+     * Engine enum value for `clsid.obj_medkit_s`.
+     */
     public static readonly obj_medkit_s: 142;
+    /**
+     * Engine enum value for `clsid.obj_pda_s`.
+     */
     public static readonly obj_pda_s: 144;
+    /**
+     * Engine enum value for `clsid.obj_phskeleton`.
+     */
     public static readonly obj_phskeleton: 100;
+    /**
+     * Engine enum value for `clsid.obj_phys_destroyable`.
+     */
     public static readonly obj_phys_destroyable: 99;
+    /**
+     * Engine enum value for `clsid.obj_physic`.
+     */
     public static readonly obj_physic: 96;
+    /**
+     * Engine enum value for `clsid.online_offline_group`.
+     */
     public static readonly online_offline_group: 88;
+    /**
+     * Engine enum value for `clsid.online_offline_group_s`.
+     */
     public static readonly online_offline_group_s: 89;
+    /**
+     * Engine enum value for `clsid.phantom`.
+     */
     public static readonly phantom: 30;
+    /**
+     * Engine enum value for `clsid.poltergeist`.
+     */
     public static readonly poltergeist: 31;
+    /**
+     * Engine enum value for `clsid.poltergeist_s`.
+     */
     public static readonly poltergeist_s: 120;
+    /**
+     * Engine enum value for `clsid.projector`.
+     */
     public static readonly projector: 98;
+    /**
+     * Engine enum value for `clsid.pseudo_gigant`.
+     */
     public static readonly pseudo_gigant: 27;
+    /**
+     * Engine enum value for `clsid.pseudodog_s`.
+     */
     public static readonly pseudodog_s: 121;
+    /**
+     * Engine enum value for `clsid.psy_dog`.
+     */
     public static readonly psy_dog: 22;
+    /**
+     * Engine enum value for `clsid.psy_dog_phantom`.
+     */
     public static readonly psy_dog_phantom: 21;
+    /**
+     * Engine enum value for `clsid.psy_dog_phantom_s`.
+     */
     public static readonly psy_dog_phantom_s: 114;
+    /**
+     * Engine enum value for `clsid.psy_dog_s`.
+     */
     public static readonly psy_dog_s: 115;
+    /**
+     * Engine enum value for `clsid.rat`.
+     */
     public static readonly rat: 32;
+    /**
+     * Engine enum value for `clsid.script_actor`.
+     */
     public static readonly script_actor: 134;
+    /**
+     * Engine enum value for `clsid.script_heli`.
+     */
     public static readonly script_heli: 51;
+    /**
+     * Engine enum value for `clsid.script_object`.
+     */
     public static readonly script_object: 103;
+    /**
+     * Engine enum value for `clsid.script_phys`.
+     */
     public static readonly script_phys: 97;
+    /**
+     * Engine enum value for `clsid.script_restr`.
+     */
     public static readonly script_restr: 127;
+    /**
+     * Engine enum value for `clsid.script_stalker`.
+     */
     public static readonly script_stalker: 35;
+    /**
+     * Engine enum value for `clsid.script_zone`.
+     */
     public static readonly script_zone: 101;
+    /**
+     * Engine enum value for `clsid.smart_cover`.
+     */
     public static readonly smart_cover: 104;
+    /**
+     * Engine enum value for `clsid.smart_terrain`.
+     */
     public static readonly smart_terrain: 105;
+    /**
+     * Engine enum value for `clsid.smart_zone`.
+     */
     public static readonly smart_zone: 106;
+    /**
+     * Engine enum value for `clsid.smartcover_s`.
+     */
     public static readonly smartcover_s: 107;
+    /**
+     * Engine enum value for `clsid.snork`.
+     */
     public static readonly snork: 33;
+    /**
+     * Engine enum value for `clsid.snork_s`.
+     */
     public static readonly snork_s: 122;
+    /**
+     * Engine enum value for `clsid.space_restrictor`.
+     */
     public static readonly space_restrictor: 126;
+    /**
+     * Engine enum value for `clsid.spectator`.
+     */
     public static readonly spectator: 128;
+    /**
+     * Engine enum value for `clsid.stalker`.
+     */
     public static readonly stalker: 34;
+    /**
+     * Engine enum value for `clsid.team_base_zone`.
+     */
     public static readonly team_base_zone: 214;
+    /**
+     * Engine enum value for `clsid.torrid_zone`.
+     */
     public static readonly torrid_zone: 215;
+    /**
+     * Engine enum value for `clsid.trader`.
+     */
     public static readonly trader: 36;
+    /**
+     * Engine enum value for `clsid.tushkano`.
+     */
     public static readonly tushkano: 37;
+    /**
+     * Engine enum value for `clsid.tushkano_s`.
+     */
     public static readonly tushkano_s: 123;
+    /**
+     * Engine enum value for `clsid.wpn_ak74`.
+     */
     public static readonly wpn_ak74: 173;
+    /**
+     * Engine enum value for `clsid.wpn_ak74_s`.
+     */
     public static readonly wpn_ak74_s: 152;
+    /**
+     * Engine enum value for `clsid.wpn_ammo`.
+     */
     public static readonly wpn_ammo: 39;
+    /**
+     * Engine enum value for `clsid.wpn_ammo_m209`.
+     */
     public static readonly wpn_ammo_m209: 42;
+    /**
+     * Engine enum value for `clsid.wpn_ammo_m209_s`.
+     */
     public static readonly wpn_ammo_m209_s: 141;
+    /**
+     * Engine enum value for `clsid.wpn_ammo_og7b`.
+     */
     public static readonly wpn_ammo_og7b: 43;
+    /**
+     * Engine enum value for `clsid.wpn_ammo_og7b_s`.
+     */
     public static readonly wpn_ammo_og7b_s: 143;
+    /**
+     * Engine enum value for `clsid.wpn_ammo_s`.
+     */
     public static readonly wpn_ammo_s: 40;
+    /**
+     * Engine enum value for `clsid.wpn_ammo_vog25`.
+     */
     public static readonly wpn_ammo_vog25: 44;
+    /**
+     * Engine enum value for `clsid.wpn_ammo_vog25_s`.
+     */
     public static readonly wpn_ammo_vog25_s: 145;
+    /**
+     * Engine enum value for `clsid.wpn_auto_shotgun_s`.
+     */
     public static readonly wpn_auto_shotgun_s: 153;
+    /**
+     * Engine enum value for `clsid.wpn_binocular`.
+     */
     public static readonly wpn_binocular: 174;
+    /**
+     * Engine enum value for `clsid.wpn_binocular_s`.
+     */
     public static readonly wpn_binocular_s: 154;
+    /**
+     * Engine enum value for `clsid.wpn_bm16`.
+     */
     public static readonly wpn_bm16: 175;
+    /**
+     * Engine enum value for `clsid.wpn_bm16_s`.
+     */
     public static readonly wpn_bm16_s: 155;
+    /**
+     * Engine enum value for `clsid.wpn_fn2000`.
+     */
     public static readonly wpn_fn2000: 176;
+    /**
+     * Engine enum value for `clsid.wpn_fort`.
+     */
     public static readonly wpn_fort: 177;
+    /**
+     * Engine enum value for `clsid.wpn_grenade_f1`.
+     */
     public static readonly wpn_grenade_f1: 66;
+    /**
+     * Engine enum value for `clsid.wpn_grenade_f1_s`.
+     */
     public static readonly wpn_grenade_f1_s: 67;
+    /**
+     * Engine enum value for `clsid.wpn_grenade_fake`.
+     */
     public static readonly wpn_grenade_fake: 68;
+    /**
+     * Engine enum value for `clsid.wpn_grenade_launcher`.
+     */
     public static readonly wpn_grenade_launcher: 178;
+    /**
+     * Engine enum value for `clsid.wpn_grenade_launcher_s`.
+     */
     public static readonly wpn_grenade_launcher_s: 156;
+    /**
+     * Engine enum value for `clsid.wpn_grenade_rgd5`.
+     */
     public static readonly wpn_grenade_rgd5: 71;
+    /**
+     * Engine enum value for `clsid.wpn_grenade_rgd5_s`.
+     */
     public static readonly wpn_grenade_rgd5_s: 72;
+    /**
+     * Engine enum value for `clsid.wpn_grenade_rpg7`.
+     */
     public static readonly wpn_grenade_rpg7: 73;
+    /**
+     * Engine enum value for `clsid.wpn_groza`.
+     */
     public static readonly wpn_groza: 179;
+    /**
+     * Engine enum value for `clsid.wpn_groza_s`.
+     */
     public static readonly wpn_groza_s: 157;
+    /**
+     * Engine enum value for `clsid.wpn_hpsa`.
+     */
     public static readonly wpn_hpsa: 180;
+    /**
+     * Engine enum value for `clsid.wpn_hpsa_s`.
+     */
     public static readonly wpn_hpsa_s: 158;
+    /**
+     * Engine enum value for `clsid.wpn_knife`.
+     */
     public static readonly wpn_knife: 181;
+    /**
+     * Engine enum value for `clsid.wpn_knife_s`.
+     */
     public static readonly wpn_knife_s: 159;
+    /**
+     * Engine enum value for `clsid.wpn_lr300`.
+     */
     public static readonly wpn_lr300: 182;
+    /**
+     * Engine enum value for `clsid.wpn_lr300_s`.
+     */
     public static readonly wpn_lr300_s: 160;
+    /**
+     * Engine enum value for `clsid.wpn_pm`.
+     */
     public static readonly wpn_pm: 183;
+    /**
+     * Engine enum value for `clsid.wpn_pm_s`.
+     */
     public static readonly wpn_pm_s: 161;
+    /**
+     * Engine enum value for `clsid.wpn_rg6`.
+     */
     public static readonly wpn_rg6: 184;
+    /**
+     * Engine enum value for `clsid.wpn_rg6_s`.
+     */
     public static readonly wpn_rg6_s: 162;
+    /**
+     * Engine enum value for `clsid.wpn_rpg7`.
+     */
     public static readonly wpn_rpg7: 185;
+    /**
+     * Engine enum value for `clsid.wpn_rpg7_s`.
+     */
     public static readonly wpn_rpg7_s: 163;
+    /**
+     * Engine enum value for `clsid.wpn_scope`.
+     */
     public static readonly wpn_scope: 186;
+    /**
+     * Engine enum value for `clsid.wpn_scope_s`.
+     */
     public static readonly wpn_scope_s: 164;
+    /**
+     * Engine enum value for `clsid.wpn_shotgun`.
+     */
     public static readonly wpn_shotgun: 187;
+    /**
+     * Engine enum value for `clsid.wpn_shotgun_s`.
+     */
     public static readonly wpn_shotgun_s: 165;
+    /**
+     * Engine enum value for `clsid.wpn_silencer`.
+     */
     public static readonly wpn_silencer: 188;
+    /**
+     * Engine enum value for `clsid.wpn_silencer_s`.
+     */
     public static readonly wpn_silencer_s: 166;
+    /**
+     * Engine enum value for `clsid.wpn_stat_mgun`.
+     */
     public static readonly wpn_stat_mgun: 189;
+    /**
+     * Engine enum value for `clsid.wpn_svd`.
+     */
     public static readonly wpn_svd: 190;
+    /**
+     * Engine enum value for `clsid.wpn_svd_s`.
+     */
     public static readonly wpn_svd_s: 167;
+    /**
+     * Engine enum value for `clsid.wpn_svu`.
+     */
     public static readonly wpn_svu: 191;
+    /**
+     * Engine enum value for `clsid.wpn_svu_s`.
+     */
     public static readonly wpn_svu_s: 168;
+    /**
+     * Engine enum value for `clsid.wpn_usp45`.
+     */
     public static readonly wpn_usp45: 192;
+    /**
+     * Engine enum value for `clsid.wpn_usp45_s`.
+     */
     public static readonly wpn_usp45_s: 169;
+    /**
+     * Engine enum value for `clsid.wpn_val`.
+     */
     public static readonly wpn_val: 193;
+    /**
+     * Engine enum value for `clsid.wpn_val_s`.
+     */
     public static readonly wpn_val_s: 170;
+    /**
+     * Engine enum value for `clsid.wpn_vintorez`.
+     */
     public static readonly wpn_vintorez: 194;
+    /**
+     * Engine enum value for `clsid.wpn_vintorez_s`.
+     */
     public static readonly wpn_vintorez_s: 171;
+    /**
+     * Engine enum value for `clsid.wpn_walther`.
+     */
     public static readonly wpn_walther: 195;
+    /**
+     * Engine enum value for `clsid.wpn_walther_s`.
+     */
     public static readonly wpn_walther_s: 172;
+    /**
+     * Engine enum value for `clsid.wpn_wmagaz`.
+     */
     public static readonly wpn_wmagaz: 196;
+    /**
+     * Engine enum value for `clsid.wpn_wmaggl`.
+     */
     public static readonly wpn_wmaggl: 197;
+    /**
+     * Engine enum value for `clsid.zombie`.
+     */
     public static readonly zombie: 38;
+    /**
+     * Engine enum value for `clsid.zombie_s`.
+     */
     public static readonly zombie_s: 124;
+    /**
+     * Engine enum value for `clsid.zone`.
+     */
     public static readonly zone: 216;
+    /**
+     * Engine enum value for `clsid.zone_acid_fog`.
+     */
     public static readonly zone_acid_fog: 204;
+    /**
+     * Engine enum value for `clsid.zone_bfuzz`.
+     */
     public static readonly zone_bfuzz: 205;
+    /**
+     * Engine enum value for `clsid.zone_bfuzz_s`.
+     */
     public static readonly zone_bfuzz_s: 198;
+    /**
+     * Engine enum value for `clsid.zone_campfire`.
+     */
     public static readonly zone_campfire: 206;
+    /**
+     * Engine enum value for `clsid.zone_dead`.
+     */
     public static readonly zone_dead: 207;
+    /**
+     * Engine enum value for `clsid.zone_galant_s`.
+     */
     public static readonly zone_galant_s: 199;
+    /**
+     * Engine enum value for `clsid.zone_galantine`.
+     */
     public static readonly zone_galantine: 208;
+    /**
+     * Engine enum value for `clsid.zone_mbald_s`.
+     */
     public static readonly zone_mbald_s: 200;
+    /**
+     * Engine enum value for `clsid.zone_mincer`.
+     */
     public static readonly zone_mincer: 210;
+    /**
+     * Engine enum value for `clsid.zone_mincer_s`.
+     */
     public static readonly zone_mincer_s: 201;
+    /**
+     * Engine enum value for `clsid.zone_mosquito_bald`.
+     */
     public static readonly zone_mosquito_bald: 209;
+    /**
+     * Engine enum value for `clsid.zone_radio_s`.
+     */
     public static readonly zone_radio_s: 202;
+    /**
+     * Engine enum value for `clsid.zone_radioactive`.
+     */
     public static readonly zone_radioactive: 212;
+    /**
+     * Engine enum value for `clsid.zone_rusty_hair`.
+     */
     public static readonly zone_rusty_hair: 213;
+    /**
+     * Engine enum value for `clsid.zone_torrid_s`.
+     */
     public static readonly zone_torrid_s: 203;
   }
 

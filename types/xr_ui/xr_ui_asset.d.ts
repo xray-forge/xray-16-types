@@ -76,8 +76,17 @@ declare module "xray16" {
    * @group xr_ui_asset
    */
   export class CGameFont {
+    /**
+     * Engine enum value for `CGameFont.alCenter`.
+     */
     public static readonly alCenter: 2;
+    /**
+     * Engine enum value for `CGameFont.alLeft`.
+     */
     public static readonly alLeft: 0;
+    /**
+     * Engine enum value for `CGameFont.alRight`.
+     */
     public static readonly alRight: 1;
 
     /**

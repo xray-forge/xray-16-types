@@ -5,10 +5,25 @@ declare module "xray16" {
    * @group xr_action
    */
   export class MonsterSpace {
+    /**
+     * Engine enum value for `MonsterSpace.head_anim_angry`.
+     */
     public static readonly head_anim_angry: 1;
+    /**
+     * Engine enum value for `MonsterSpace.head_anim_glad`.
+     */
     public static readonly head_anim_glad: 2;
+    /**
+     * Engine enum value for `MonsterSpace.head_anim_kind`.
+     */
     public static readonly head_anim_kind: 3;
+    /**
+     * Engine enum value for `MonsterSpace.head_anim_normal`.
+     */
     public static readonly head_anim_normal: 0;
+    /**
+     * Engine enum value for `MonsterSpace.sound_script`.
+     */
     public static readonly sound_script: 128;
   }
 
@@ -173,26 +188,89 @@ declare module "xray16" {
    * @group xr_action
    */
   export class XR_object extends EngineBinding {
+    /**
+     * Engine enum value for `XR_object.activate`.
+     */
     public static readonly activate: 16;
+    /**
+     * Engine enum value for `XR_object.aim1`.
+     */
     public static readonly aim1: 4;
+    /**
+     * Engine enum value for `XR_object.aim2`.
+     */
     public static readonly aim2: 5;
+    /**
+     * Engine enum value for `XR_object.deactivate`.
+     */
     public static readonly deactivate: 17;
+    /**
+     * Engine enum value for `XR_object.drop`.
+     */
     public static readonly drop: 11;
+    /**
+     * Engine enum value for `XR_object.dummy`.
+     */
     public static readonly dummy: -1;
+    /**
+     * Engine enum value for `XR_object.fire1`.
+     */
     public static readonly fire1: 6;
+    /**
+     * Engine enum value for `XR_object.fire2`.
+     */
     public static readonly fire2: 8;
+    /**
+     * Engine enum value for `XR_object.hide`.
+     */
     public static readonly hide: 22;
+    /**
+     * Engine enum value for `XR_object.idle`.
+     */
     public static readonly idle: 9;
+    /**
+     * Engine enum value for `XR_object.reload`.
+     */
     public static readonly reload: 2;
+    /**
+     * Engine enum value for `XR_object.reload1`.
+     */
     public static readonly reload1: 2;
+    /**
+     * Engine enum value for `XR_object.reload2`.
+     */
     public static readonly reload2: 3;
+    /**
+     * Engine enum value for `XR_object.show`.
+     */
     public static readonly show: 21;
+    /**
+     * Engine enum value for `XR_object.strap`.
+     */
     public static readonly strap: 10;
+    /**
+     * Engine enum value for `XR_object.switch1`.
+     */
     public static readonly switch1: 0;
+    /**
+     * Engine enum value for `XR_object.switch2`.
+     */
     public static readonly switch2: 1;
+    /**
+     * Engine enum value for `XR_object.take`.
+     */
     public static readonly take: 23;
+    /**
+     * Engine enum value for `XR_object.turn_off`.
+     */
     public static readonly turn_off: 20;
+    /**
+     * Engine enum value for `XR_object.turn_on`.
+     */
     public static readonly turn_on: 19;
+    /**
+     * Engine enum value for `XR_object.use`.
+     */
     public static readonly use: 18;
 
     /**
@@ -282,47 +360,131 @@ declare module "xray16" {
    */
   export class move extends EngineBinding {
     // Todo: All enums are in one static, probably should declare few parent interfaces / classes with enums
+    /**
+     * Engine enum value for `move.crouch`.
+     */
     public static readonly crouch: 0;
 
+    /**
+     * Engine enum value for `move.back`.
+     */
     public static readonly back: 4;
+    /**
+     * Engine enum value for `move.criteria`.
+     */
     public static readonly criteria: 2;
 
+    /**
+     * Engine enum value for `move.curve`.
+     */
     public static readonly curve: 0;
+    /**
+     * Engine enum value for `move.curve_criteria`.
+     */
     public static readonly curve_criteria: 2;
 
+    /**
+     * Engine enum value for `move.default`.
+     */
     public static readonly default: 0;
+    /**
+     * Engine enum value for `move.dodge`.
+     */
     public static readonly dodge: 1;
+    /**
+     * Engine enum value for `move.down`.
+     */
     public static readonly down: 64;
+    /**
+     * Engine enum value for `move.drag`.
+     */
     public static readonly drag: 3;
+    /**
+     * Engine enum value for `move.force`.
+     */
     public static readonly force: 1;
+    /**
+     * Engine enum value for `move.fwd`.
+     */
     public static readonly fwd: 2;
+    /**
+     * Engine enum value for `move.handbrake`.
+     */
     public static readonly handbrake: 128;
+    /**
+     * Engine enum value for `move.jump`.
+     */
     public static readonly jump: 4;
+    /**
+     * Engine enum value for `move.left`.
+     */
     public static readonly left: 8;
 
+    /**
+     * Engine enum value for `move.line`.
+     */
     public static readonly line: 0;
+    /**
+     * Engine enum value for `move.none`.
+     */
     public static readonly none: 1;
+    /**
+     * Engine enum value for `move.off`.
+     */
     public static readonly off: 512;
+    /**
+     * Engine enum value for `move.on`.
+     */
     public static readonly on: 256;
+    /**
+     * Engine enum value for `move.right`.
+     */
     public static readonly right: 16;
 
     /**
      * Fast run movement type, not sprint but generic fast movement.
      */
     public static readonly run: 1;
+    /**
+     * Engine enum value for `move.run_fwd`.
+     */
     public static readonly run_fwd: 2;
+    /**
+     * Engine enum value for `move.run_with_leader`.
+     */
     public static readonly run_with_leader: 7;
+    /**
+     * Engine enum value for `move.stand`.
+     */
     public static readonly stand: 2;
+    /**
+     * Engine enum value for `move.standing`.
+     */
     public static readonly standing: 1;
+    /**
+     * Engine enum value for `move.steal`.
+     */
     public static readonly steal: 5;
+    /**
+     * Engine enum value for `move.up`.
+     */
     public static readonly up: 32;
     /**
      * Normal walk movement type, generic movement type used in most cases.
      */
     public static readonly walk: 0;
 
+    /**
+     * Engine enum value for `move.walk_fwd`.
+     */
     public static readonly walk_fwd: 0;
+    /**
+     * Engine enum value for `move.walk_bkwd`.
+     */
     public static readonly walk_bkwd: 1;
+    /**
+     * Engine enum value for `move.walk_with_leader`.
+     */
     public static readonly walk_with_leader: 6;
 
     /**
@@ -591,16 +753,35 @@ declare module "xray16" {
    * @group xr_action
    */
   export class patrol extends EngineBinding {
-    // EPatrolRouteType:
+    /**
+     * Engine enum value for `patrol.stop`.
+     */
     public static readonly stop: 0;
     // Public static readonly stop: 1;
 
-    // EPatrolStartType:
+    /**
+     * Engine enum value for `patrol.start`.
+     */
     public static readonly start: 0;
+    /**
+     * Engine enum value for `patrol.continue`.
+     */
     public static readonly continue: 1;
+    /**
+     * Engine enum value for `patrol.nearest`.
+     */
     public static readonly nearest: 2;
+    /**
+     * Engine enum value for `patrol.custom`.
+     */
     public static readonly custom: 3;
+    /**
+     * Engine enum value for `patrol.next`.
+     */
     public static readonly next: 4;
+    /**
+     * Engine enum value for `patrol.dummy`.
+     */
     public static readonly dummy: -1;
 
     /**
@@ -721,18 +902,57 @@ declare module "xray16" {
    * @group xr_action
    */
   export class CSightParams {
+    /**
+     * Engine enum value for `CSightParams.eSightTypeDummy`.
+     */
     public static readonly eSightTypeDummy: -1;
+    /**
+     * Engine enum value for `CSightParams.eSightTypeCurrentDirection`.
+     */
     public static readonly eSightTypeCurrentDirection: 0;
+    /**
+     * Engine enum value for `CSightParams.eSightTypePathDirection`.
+     */
     public static readonly eSightTypePathDirection: 1;
+    /**
+     * Engine enum value for `CSightParams.eSightTypeDirection`.
+     */
     public static readonly eSightTypeDirection: 2;
+    /**
+     * Engine enum value for `CSightParams.eSightTypePosition`.
+     */
     public static readonly eSightTypePosition: 3;
+    /**
+     * Engine enum value for `CSightParams.eSightTypeObject`.
+     */
     public static readonly eSightTypeObject: 4;
+    /**
+     * Engine enum value for `CSightParams.eSightTypeCover`.
+     */
     public static readonly eSightTypeCover: 5;
+    /**
+     * Engine enum value for `CSightParams.eSightTypeSearch`.
+     */
     public static readonly eSightTypeSearch: 6;
+    /**
+     * Engine enum value for `CSightParams.eSightTypeLookOver`.
+     */
     public static readonly eSightTypeLookOver: 7;
+    /**
+     * Engine enum value for `CSightParams.eSightTypeCoverLookOver`.
+     */
     public static readonly eSightTypeCoverLookOver: 8;
+    /**
+     * Engine enum value for `CSightParams.eSightTypeFireObject`.
+     */
     public static readonly eSightTypeFireObject: 9;
+    /**
+     * Engine enum value for `CSightParams.eSightTypeFirePosition`.
+     */
     public static readonly eSightTypeFirePosition: 10;
+    /**
+     * Engine enum value for `CSightParams.eSightTypeAnimationDirection`.
+     */
     public static readonly eSightTypeAnimationDirection: 11;
 
     public readonly m_object: game_object;
@@ -758,12 +978,33 @@ declare module "xray16" {
    * @group xr_action
    */
   export class look extends EngineBinding {
+    /**
+     * Engine enum value for `look.cur_dir`.
+     */
     public static readonly cur_dir: 0;
+    /**
+     * Engine enum value for `look.danger`.
+     */
     public static readonly danger: 5;
+    /**
+     * Engine enum value for `look.direction`.
+     */
     public static readonly direction: 2;
+    /**
+     * Engine enum value for `look.fire_point`.
+     */
     public static readonly fire_point: 10;
+    /**
+     * Engine enum value for `look.path_dir`.
+     */
     public static readonly path_dir: 1;
+    /**
+     * Engine enum value for `look.point`.
+     */
     public static readonly point: 3;
+    /**
+     * Engine enum value for `look.search`.
+     */
     public static readonly search: 6;
 
     /**
@@ -869,20 +1110,59 @@ declare module "xray16" {
    */
   export class anim extends EngineBinding {
     // Mental state:
+    /**
+     * Engine enum value for `anim.danger`.
+     */
     public static readonly danger: 0;
+    /**
+     * Engine enum value for `anim.free`.
+     */
     public static readonly free: 1;
+    /**
+     * Engine enum value for `anim.panic`.
+     */
     public static readonly panic: 2;
 
     // Animation state:
+    /**
+     * Engine enum value for `anim.stand_idle`.
+     */
     public static readonly stand_idle: 0;
+    /**
+     * Engine enum value for `anim.capture_prepare`.
+     */
     public static readonly capture_prepare: 1;
+    /**
+     * Engine enum value for `anim.sit_idle`.
+     */
     public static readonly sit_idle: 2;
+    /**
+     * Engine enum value for `anim.lie_idle`.
+     */
     public static readonly lie_idle: 3;
+    /**
+     * Engine enum value for `anim.eat`.
+     */
     public static readonly eat: 4;
+    /**
+     * Engine enum value for `anim.sleep`.
+     */
     public static readonly sleep: 5;
+    /**
+     * Engine enum value for `anim.rest`.
+     */
     public static readonly rest: 6;
+    /**
+     * Engine enum value for `anim.attack`.
+     */
     public static readonly attack: 7;
+    /**
+     * Engine enum value for `anim.look_around`.
+     */
     public static readonly look_around: 8;
+    /**
+     * Engine enum value for `anim.turn`.
+     */
     public static readonly turn: 9;
 
     /**
@@ -958,14 +1238,41 @@ declare module "xray16" {
    * @group xr_action
    */
   export class sound extends EngineBinding {
+    /**
+     * Engine enum value for `sound.attack`.
+     */
     public static readonly attack: 3;
+    /**
+     * Engine enum value for `sound.attack_hit`.
+     */
     public static readonly attack_hit: 4;
+    /**
+     * Engine enum value for `sound.die`.
+     */
     public static readonly die: 7;
+    /**
+     * Engine enum value for `sound.eat`.
+     */
     public static readonly eat: 2;
+    /**
+     * Engine enum value for `sound.idle`.
+     */
     public static readonly idle: 1;
+    /**
+     * Engine enum value for `sound.panic`.
+     */
     public static readonly panic: 11;
+    /**
+     * Engine enum value for `sound.steal`.
+     */
     public static readonly steal: 10;
+    /**
+     * Engine enum value for `sound.take_damage`.
+     */
     public static readonly take_damage: 5;
+    /**
+     * Engine enum value for `sound.threaten`.
+     */
     public static readonly threaten: 9;
 
     /**
@@ -1185,12 +1492,33 @@ declare module "xray16" {
    * @group xr_action
    */
   export class cond extends EngineBinding {
+    /**
+     * Engine enum value for `cond.move_end`.
+     */
     public static readonly move_end: 1;
+    /**
+     * Engine enum value for `cond.look_end`.
+     */
     public static readonly look_end: 2;
+    /**
+     * Engine enum value for `cond.anim_end`.
+     */
     public static readonly anim_end: 4;
+    /**
+     * Engine enum value for `cond.sound_end`.
+     */
     public static readonly sound_end: 8;
+    /**
+     * Engine enum value for `cond.object_end`.
+     */
     public static readonly object_end: 32;
+    /**
+     * Engine enum value for `cond.time_end`.
+     */
     public static readonly time_end: 64;
+    /**
+     * Engine enum value for `cond.act_end`.
+     */
     public static readonly act_end: 128;
 
     /**
@@ -1227,9 +1555,21 @@ declare module "xray16" {
    * @group xr_action
    */
   export class act {
+    /**
+     * Engine enum value for `act.attack`.
+     */
     public static readonly attack: 2;
+    /**
+     * Engine enum value for `act.eat`.
+     */
     public static readonly eat: 1;
+    /**
+     * Engine enum value for `act.panic`.
+     */
     public static readonly panic: 3;
+    /**
+     * Engine enum value for `act.rest`.
+     */
     public static readonly rest: 0;
 
     /**

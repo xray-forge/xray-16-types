@@ -625,15 +625,45 @@ declare module "xray16" {
    * @group xr_multiplayer
    */
   export class profile_store {
+    /**
+     * Engine enum value for `profile_store.at_award_massacre`.
+     */
     public static readonly at_award_massacre: 0;
+    /**
+     * Engine enum value for `profile_store.at_awards_count`.
+     */
     public static readonly at_awards_count: 30;
+    /**
+     * Engine enum value for `profile_store.bst_backstabs_in_row`.
+     */
     public static readonly bst_backstabs_in_row: 2;
+    /**
+     * Engine enum value for `profile_store.bst_bleed_kills_in_row`.
+     */
     public static readonly bst_bleed_kills_in_row: 2;
+    /**
+     * Engine enum value for `profile_store.bst_explosive_kills_in_row`.
+     */
     public static readonly bst_explosive_kills_in_row: 3;
+    /**
+     * Engine enum value for `profile_store.bst_eye_kills_in_row`.
+     */
     public static readonly bst_eye_kills_in_row: 4;
+    /**
+     * Engine enum value for `profile_store.bst_head_shots_in_row`.
+     */
     public static readonly bst_head_shots_in_row: 3;
+    /**
+     * Engine enum value for `profile_store.bst_kills_in_row`.
+     */
     public static readonly bst_kills_in_row: 0;
+    /**
+     * Engine enum value for `profile_store.bst_kinife_kills_in_row`.
+     */
     public static readonly bst_kinife_kills_in_row: 1;
+    /**
+     * Engine enum value for `profile_store.bst_score_types_count`.
+     */
     public static readonly bst_score_types_count: 7;
 
     /**
@@ -692,27 +722,93 @@ declare module "xray16" {
    * @group xr_multiplayer
    */
   export class game_messages {
+    /**
+     * Engine enum value for `game_messages.GAME_EVENT_ARTEFACT_DESTROYED`.
+     */
     public static GAME_EVENT_ARTEFACT_DESTROYED: 17;
+    /**
+     * Engine enum value for `game_messages.GAME_EVENT_ARTEFACT_DROPPED`.
+     */
     public static GAME_EVENT_ARTEFACT_DROPPED: 19;
+    /**
+     * Engine enum value for `game_messages.GAME_EVENT_ARTEFACT_ONBASE`.
+     */
     public static GAME_EVENT_ARTEFACT_ONBASE: 20;
+    /**
+     * Engine enum value for `game_messages.GAME_EVENT_ARTEFACT_SPAWNED`.
+     */
     public static GAME_EVENT_ARTEFACT_SPAWNED: 16;
+    /**
+     * Engine enum value for `game_messages.GAME_EVENT_ARTEFACT_TAKEN`.
+     */
     public static GAME_EVENT_ARTEFACT_TAKEN: 18;
+    /**
+     * Engine enum value for `game_messages.GAME_EVENT_BUY_MENU_CLOSED`.
+     */
     public static GAME_EVENT_BUY_MENU_CLOSED: 23;
+    /**
+     * Engine enum value for `game_messages.GAME_EVENT_PLAYER_BUY_FINISHED`.
+     */
     public static GAME_EVENT_PLAYER_BUY_FINISHED: 2;
+    /**
+     * Engine enum value for `game_messages.GAME_EVENT_PLAYER_CHANGE_SKIN`.
+     */
     public static GAME_EVENT_PLAYER_CHANGE_SKIN: 6;
+    /**
+     * Engine enum value for `game_messages.GAME_EVENT_PLAYER_CHANGE_TEAM`.
+     */
     public static GAME_EVENT_PLAYER_CHANGE_TEAM: 6;
+    /**
+     * Engine enum value for `game_messages.GAME_EVENT_PLAYER_CONNECTED`.
+     */
     public static GAME_EVENT_PLAYER_CONNECTED: 8;
+    /**
+     * Engine enum value for `game_messages.GAME_EVENT_PLAYER_DISCONNECTED`.
+     */
     public static GAME_EVENT_PLAYER_DISCONNECTED: 9;
+    /**
+     * Engine enum value for `game_messages.GAME_EVENT_PLAYER_ENTER_TEAM_BASE`.
+     */
     public static GAME_EVENT_PLAYER_ENTER_TEAM_BASE: 21;
+    /**
+     * Engine enum value for `game_messages.GAME_EVENT_PLAYER_JOIN_TEAM`.
+     */
     public static GAME_EVENT_PLAYER_JOIN_TEAM: 13;
+    /**
+     * Engine enum value for `game_messages.GAME_EVENT_PLAYER_KILL`.
+     */
     public static GAME_EVENT_PLAYER_KILL: 1;
+    /**
+     * Engine enum value for `game_messages.GAME_EVENT_PLAYER_KILLED`.
+     */
     public static GAME_EVENT_PLAYER_KILLED: 11;
+    /**
+     * Engine enum value for `game_messages.GAME_EVENT_PLAYER_LEAVE_TEAM_BASE`.
+     */
     public static GAME_EVENT_PLAYER_LEAVE_TEAM_BASE: 22;
+    /**
+     * Engine enum value for `game_messages.GAME_EVENT_PLAYER_READY`.
+     */
     public static GAME_EVENT_PLAYER_READY: 0;
+    /**
+     * Engine enum value for `game_messages.GAME_EVENT_ROUND_END`.
+     */
     public static GAME_EVENT_ROUND_END: 15;
+    /**
+     * Engine enum value for `game_messages.GAME_EVENT_ROUND_STARTED`.
+     */
     public static GAME_EVENT_ROUND_STARTED: 14;
+    /**
+     * Engine enum value for `game_messages.GAME_EVENT_SCRIPT_BEGINS_FROM`.
+     */
     public static GAME_EVENT_SCRIPT_BEGINS_FROM: 46;
+    /**
+     * Engine enum value for `game_messages.GAME_EVENT_SKIN_MENU_CLOSED`.
+     */
     public static GAME_EVENT_SKIN_MENU_CLOSED: 25;
+    /**
+     * Engine enum value for `game_messages.GAME_EVENT_TEAM_MENU_CLOSED`.
+     */
     public static GAME_EVENT_TEAM_MENU_CLOSED: 24;
 
     /**

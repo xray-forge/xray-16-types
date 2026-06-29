@@ -7,12 +7,33 @@ declare module "xray16" {
    * @group xr_task
    */
   export class task {
+    /**
+     * Engine enum value for `task.additional`.
+     */
     public static readonly additional: 1;
+    /**
+     * Engine enum value for `task.completed`.
+     */
     public static readonly completed: 2;
+    /**
+     * Engine enum value for `task.fail`.
+     */
     public static readonly fail: 0;
+    /**
+     * Engine enum value for `task.in_progress`.
+     */
     public static readonly in_progress: 1;
+    /**
+     * Engine enum value for `task.insignificant`.
+     */
     public static readonly insignificant: 2;
+    /**
+     * Engine enum value for `task.storyline`.
+     */
     public static readonly storyline: 0;
+    /**
+     * Engine enum value for `task.task_dummy`.
+     */
     public static readonly task_dummy: 65535;
 
     /**

@@ -118,11 +118,29 @@ declare module "xray16" {
    * @group xr_level
    */
   export class CCar extends CGameObject implements holder {
+    /**
+     * Engine enum value for `CCar.eWpnActivate`.
+     */
     public static eWpnActivate: 3;
+    /**
+     * Engine enum value for `CCar.eWpnAutoFire`.
+     */
     public static eWpnAutoFire: 5;
+    /**
+     * Engine enum value for `CCar.eWpnDesiredDir`.
+     */
     public static eWpnDesiredDir: 1;
+    /**
+     * Engine enum value for `CCar.eWpnDesiredPos`.
+     */
     public static eWpnDesiredPos: 2;
+    /**
+     * Engine enum value for `CCar.eWpnFire`.
+     */
     public static eWpnFire: 4;
+    /**
+     * Engine enum value for `CCar.eWpnToDefaultDir`.
+     */
     public static eWpnToDefaultDir: 6;
 
     /**
@@ -377,18 +395,57 @@ declare module "xray16" {
    * @group xr_level
    */
   export class CHelicopter extends CGameObject {
+    /**
+     * Engine enum value for `CHelicopter.eAlive`.
+     */
     public static readonly eAlive: 0;
+    /**
+     * Engine enum value for `CHelicopter.eBodyByPath`.
+     */
     public static readonly eBodyByPath: 0;
+    /**
+     * Engine enum value for `CHelicopter.eBodyToPoint`.
+     */
     public static readonly eBodyToPoint: 1;
+    /**
+     * Engine enum value for `CHelicopter.eDead`.
+     */
     public static readonly eDead: 1;
+    /**
+     * Engine enum value for `CHelicopter.eEnemyEntity`.
+     */
     public static readonly eEnemyEntity: 2;
+    /**
+     * Engine enum value for `CHelicopter.eEnemyNone`.
+     */
     public static readonly eEnemyNone: 0;
+    /**
+     * Engine enum value for `CHelicopter.eEnemyPoint`.
+     */
     public static readonly eEnemyPoint: 1;
+    /**
+     * Engine enum value for `CHelicopter.eMovLanding`.
+     */
     public static readonly eMovLanding: 4;
+    /**
+     * Engine enum value for `CHelicopter.eMovNone`.
+     */
     public static readonly eMovNone: 0;
+    /**
+     * Engine enum value for `CHelicopter.eMovPatrolPath`.
+     */
     public static readonly eMovPatrolPath: 2;
+    /**
+     * Engine enum value for `CHelicopter.eMovRoundPath`.
+     */
     public static readonly eMovRoundPath: 3;
+    /**
+     * Engine enum value for `CHelicopter.eMovTakeOff`.
+     */
     public static readonly eMovTakeOff: 5;
+    /**
+     * Engine enum value for `CHelicopter.eMovToPoint`.
+     */
     public static readonly eMovToPoint: 1;
 
     public readonly m_exploded: boolean;

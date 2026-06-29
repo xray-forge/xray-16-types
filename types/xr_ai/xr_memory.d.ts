@@ -177,16 +177,49 @@ declare module "xray16" {
    * @group xr_memory
    */
   export class danger_object {
+    /**
+     * Engine enum value for `danger_object.attack_sound`.
+     */
     public static attack_sound: 1;
+    /**
+     * Engine enum value for `danger_object.attacked`.
+     */
     public static attacked: 5;
+    /**
+     * Engine enum value for `danger_object.bullet_ricochet`.
+     */
     public static bullet_ricochet: 0;
+    /**
+     * Engine enum value for `danger_object.enemy_sound`.
+     */
     public static enemy_sound: 7;
+    /**
+     * Engine enum value for `danger_object.entity_attacked`.
+     */
     public static entity_attacked: 2;
+    /**
+     * Engine enum value for `danger_object.entity_corpse`.
+     */
     public static entity_corpse: 4;
+    /**
+     * Engine enum value for `danger_object.entity_death`.
+     */
     public static entity_death: 3;
+    /**
+     * Engine enum value for `danger_object.grenade`.
+     */
     public static grenade: 6;
+    /**
+     * Engine enum value for `danger_object.hit`.
+     */
     public static hit: 2;
+    /**
+     * Engine enum value for `danger_object.sound`.
+     */
     public static sound: 1;
+    /**
+     * Engine enum value for `danger_object.visual`.
+     */
     public static visual: 0;
 
     /**

@@ -211,7 +211,13 @@ declare module "xray16" {
    * @group xr_ui_interface
    */
   export class CServerList extends CUIWindow {
+    /**
+     * Engine enum value for `CServerList.ece_unique_nick_expired`.
+     */
     public static readonly ece_unique_nick_expired: 2;
+    /**
+     * Engine enum value for `CServerList.ece_unique_nick_not_registred`.
+     */
     public static readonly ece_unique_nick_not_registred: 1;
 
     /**
@@ -890,8 +896,17 @@ declare module "xray16" {
    * @group xr_ui_interface
    */
   export class CUIMMShniaga extends CUIWindow {
+    /**
+     * Engine enum value for `CUIMMShniaga.epi_main`.
+     */
     public static readonly epi_main: 0;
+    /**
+     * Engine enum value for `CUIMMShniaga.epi_new_game`.
+     */
     public static readonly epi_new_game: 1;
+    /**
+     * Engine enum value for `CUIMMShniaga.epi_new_network_game`.
+     */
     public static readonly epi_new_network_game: 2;
 
     /**
@@ -2134,15 +2149,45 @@ declare module "xray16" {
    * @group xr_ui_interface
    */
   export class EDDListType {
+    /**
+     * Engine enum value for `EDDListType.iActorBag`.
+     */
     public static readonly iActorBag: 2;
+    /**
+     * Engine enum value for `EDDListType.iActorBelt`.
+     */
     public static readonly iActorBelt: 3;
+    /**
+     * Engine enum value for `EDDListType.iActorSlot`.
+     */
     public static readonly iActorSlot: 1;
+    /**
+     * Engine enum value for `EDDListType.iActorTrade`.
+     */
     public static readonly iActorTrade: 4;
+    /**
+     * Engine enum value for `EDDListType.iDeadBodyBag`.
+     */
     public static readonly iDeadBodyBag: 7;
+    /**
+     * Engine enum value for `EDDListType.iInvalid`.
+     */
     public static readonly iInvalid: 0;
+    /**
+     * Engine enum value for `EDDListType.iPartnerTrade`.
+     */
     public static readonly iPartnerTrade: 6;
+    /**
+     * Engine enum value for `EDDListType.iPartnerTradeBag`.
+     */
     public static readonly iPartnerTradeBag: 5;
+    /**
+     * Engine enum value for `EDDListType.iQuickSlot`.
+     */
     public static readonly iQuickSlot: 8;
+    /**
+     * Engine enum value for `EDDListType.iTrashSlot`.
+     */
     public static readonly iTrashSlot: 9;
 
     /**

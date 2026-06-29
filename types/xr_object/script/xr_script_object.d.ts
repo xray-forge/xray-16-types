@@ -8,35 +8,107 @@ declare module "xray16" {
    * @group xr_script_object
    */
   export class game_object extends game_object_callbacks_implementation_base {
+    /**
+     * Engine enum value for `game_object.dummy`.
+     */
     public static readonly dummy: -1;
 
+    /**
+     * Engine enum value for `game_object.game_path`.
+     */
     public static readonly game_path: 0;
+    /**
+     * Engine enum value for `game_object.level_path`.
+     */
     public static readonly level_path: 1;
+    /**
+     * Engine enum value for `game_object.patrol_path`.
+     */
     public static readonly patrol_path: 2;
+    /**
+     * Engine enum value for `game_object.no_path`.
+     */
     public static readonly no_path: 3;
 
+    /**
+     * Engine enum value for `game_object.friend`.
+     */
     public static readonly friend: 0;
+    /**
+     * Engine enum value for `game_object.neutral`.
+     */
     public static readonly neutral: 1;
+    /**
+     * Engine enum value for `game_object.enemy`.
+     */
     public static readonly enemy: 2;
 
+    /**
+     * Engine enum value for `game_object.alifeMovementTypeMask`.
+     */
     public static readonly alifeMovementTypeMask: 0;
+    /**
+     * Engine enum value for `game_object.alifeMovementTypeRandom`.
+     */
     public static readonly alifeMovementTypeRandom: 1;
 
+    /**
+     * Engine enum value for `game_object.dialog_pda_msg`.
+     */
     public static readonly dialog_pda_msg: 0;
+    /**
+     * Engine enum value for `game_object.info_pda_msg`.
+     */
     public static readonly info_pda_msg: 1;
+    /**
+     * Engine enum value for `game_object.no_pda_msg`.
+     */
     public static readonly no_pda_msg: 2;
 
+    /**
+     * Engine enum value for `game_object.relation_kill`.
+     */
     public static readonly relation_kill: 0;
+    /**
+     * Engine enum value for `game_object.relation_attack`.
+     */
     public static readonly relation_attack: 1;
+    /**
+     * Engine enum value for `game_object.relation_fight_help_human`.
+     */
     public static readonly relation_fight_help_human: 2;
+    /**
+     * Engine enum value for `game_object.relation_fight_help_monster`.
+     */
     public static readonly relation_fight_help_monster: 4;
 
+    /**
+     * Engine enum value for `game_object.movement`.
+     */
     public static readonly movement: 0;
+    /**
+     * Engine enum value for `game_object.watch`.
+     */
     public static readonly watch: 1;
+    /**
+     * Engine enum value for `game_object.animation`.
+     */
     public static readonly animation: 2;
+    /**
+     * Engine enum value for `game_object.sound`.
+     */
     public static readonly sound: 3;
+    /**
+     * Engine enum value for `game_object.particle`.
+     */
     public static readonly particle: 4;
+    /**
+     * Engine enum value for `game_object.object`.
+     */
     public static readonly object: 5;
+    /**
+     * Engine enum value for `game_object.action_type_count`.
+     */
     public static readonly action_type_count: 6;
 
     /**

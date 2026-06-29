@@ -7,16 +7,49 @@ declare module "xray16" {
    * @group xr_hit
    */
   export class hit {
+    /**
+     * Engine enum value for `hit.burn`.
+     */
     public static readonly burn = 0;
+    /**
+     * Engine enum value for `hit.chemical_burn`.
+     */
     public static readonly chemical_burn = 2;
+    /**
+     * Engine enum value for `hit.dummy`.
+     */
     public static readonly dummy = 12;
+    /**
+     * Engine enum value for `hit.explosion`.
+     */
     public static readonly explosion = 7;
+    /**
+     * Engine enum value for `hit.fire_wound`.
+     */
     public static readonly fire_wound = 8;
+    /**
+     * Engine enum value for `hit.light_burn`.
+     */
     public static readonly light_burn = 11;
+    /**
+     * Engine enum value for `hit.radiation`.
+     */
     public static readonly radiation = 3;
+    /**
+     * Engine enum value for `hit.shock`.
+     */
     public static readonly shock = 1;
+    /**
+     * Engine enum value for `hit.strike`.
+     */
     public static readonly strike = 5;
+    /**
+     * Engine enum value for `hit.telepatic`.
+     */
     public static readonly telepatic = 4;
+    /**
+     * Engine enum value for `hit.wound`.
+     */
     public static readonly wound = 6;
 
     /**
