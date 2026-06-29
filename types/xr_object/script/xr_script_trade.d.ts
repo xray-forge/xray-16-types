@@ -1,41 +1,51 @@
 declare module "xray16" {
   /**
+   * Set default buy trade factors.
+   *
    * @group xr_script_trade
    *
-   * @param a
-   * @param b
+   * @param friend_factor - Price factor for friendly relations.
+   * @param enemy_factor - Price factor for hostile relations.
    */
-  export function buy_condition(this: void, a: f32, b: f32): void;
+  export function buy_condition(this: void, friend_factor: f32, enemy_factor: f32): void;
 
   /**
+   * Load default buy trade condition from config.
+   *
    * @group xr_script_trade
    *
-   * @param a
-   * @param b
+   * @param ini_file - Trade config.
+   * @param section - Trade section name.
    */
-  export function buy_condition(this: void, a: unknown, b: string): void;
+  export function buy_condition(this: void, ini_file: ini_file, section: string): void;
 
   /**
+   * Set default sell trade factors.
+   *
    * @group xr_script_trade
    *
-   * @param a
-   * @param b
+   * @param friend_factor - Price factor for friendly relations.
+   * @param enemy_factor - Price factor for hostile relations.
    */
-  export function sell_condition(this: void, a: number, b: number): void;
+  export function sell_condition(this: void, friend_factor: f32, enemy_factor: f32): void;
 
   /**
+   * Load default sell trade condition from config.
+   *
    * @group xr_script_trade
    *
-   * @param a
-   * @param b
+   * @param ini_file - Trade config.
+   * @param section - Trade section name.
    */
-  export function sell_condition(this: void, a: unknown, b: string): void;
+  export function sell_condition(this: void, ini_file: ini_file, section: string): void;
 
   /**
+   * Load default item visibility trade condition from config.
+   *
    * @group xr_script_trade
    *
-   * @param file
-   * @param str
+   * @param ini_file - Trade config.
+   * @param section - Trade section name.
    */
-  export function show_condition(this: void, file: ini_file, str: string): void;
+  export function show_condition(this: void, ini_file: ini_file, section: string): void;
 }
