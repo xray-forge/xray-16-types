@@ -8,7 +8,7 @@ declare module "xray16" {
    *
    * @remarks
    * Use `GetUIStyleManager()` to access the engine singleton. Style changes may require UI reload to affect existing
-   * windows.
+   * windows. Available styles are discovered from UI style folders at startup.
    */
   export class UIStyleManager {
     /**
@@ -20,7 +20,7 @@ declare module "xray16" {
      * Iterate over available UI styles.
      *
      * @remarks
-     * The returned value is a Lua iterator over engine style tokens.
+     * The returned value is a Lua iterator over engine style tokens. The default style is always present.
      *
      * @returns Style tokens.
      */
@@ -51,7 +51,7 @@ declare module "xray16" {
      * Switch to a UI style by name.
      *
      * @remarks
-     * Pass `reload_ui` when the current UI should be rebuilt after switching.
+     * Pass `reload_ui` to run the engine UI reset sequence after switching. Unknown names return `false`.
      *
      * @param name - Style name.
      * @param reload_ui - Whether to reload UI after switching.
@@ -62,12 +62,19 @@ declare module "xray16" {
     /**
      * Switch to a UI style by id.
      *
+     * @remarks
+     * Use an id from {@link GetAllStyles}. Unknown ids are accepted here, but later style-name lookup can fail native
+     * verification.
+     *
      * @param id - Style id.
      */
     public SetupStyle(id: u32): void;
 
     /**
      * Reset cached UI style data.
+     *
+     * @remarks
+     * Runs the engine UI reset sequence. It does not change the current style id by itself.
      */
     public ResetUI(): void;
 
@@ -90,7 +97,8 @@ declare module "xray16" {
    * @group xr_ui_asset
    *
    * @remarks
-   * Font instances are owned by the UI subsystem and returned by the `GetFont*` helpers.
+   * Font instances are owned by the UI subsystem and returned by the `GetFont*` helpers. Do not construct or retain
+   * them outside the lifetime of the UI subsystem.
    */
   export class CGameFont {
     /**
@@ -206,7 +214,7 @@ declare module "xray16" {
    * @group xr_ui_asset
    *
    * @remarks
-   * This overload uses the engine's fatal lookup path. Use an output-object overload when missing textures are expected.
+   * This overload verifies that the texture exists. Use an output-object overload when missing textures are expected.
    *
    * @param name - Texture atlas entry name.
    * @returns Texture metadata.
@@ -219,7 +227,7 @@ declare module "xray16" {
    * @group xr_ui_asset
    *
    * @remarks
-   * This overload still uses the fatal lookup path if both names are missing.
+   * This overload verifies that either `name` or `default_name` exists.
    *
    * @param name - Texture atlas entry name.
    * @param default_name - Fallback texture name.
@@ -233,7 +241,8 @@ declare module "xray16" {
    * @group xr_ui_asset
    *
    * @remarks
-   * The passed `tex_info` object is overwritten when the texture is found.
+   * The passed `tex_info` object is overwritten when the texture is found. Missing textures return `false` instead of
+   * failing native verification.
    *
    * @param name - Texture atlas entry name.
    * @param tex_info - Output texture metadata.
@@ -247,7 +256,8 @@ declare module "xray16" {
    * @group xr_ui_asset
    *
    * @remarks
-   * The passed `tex_info` object is overwritten when either texture is found.
+   * The passed `tex_info` object is overwritten when either texture is found. Missing primary and fallback textures
+   * return `false`.
    *
    * @param name - Texture atlas entry name.
    * @param default_name - Fallback texture name.
@@ -262,7 +272,7 @@ declare module "xray16" {
    * @group xr_ui_asset
    *
    * @remarks
-   * Uses the same fatal lookup path as `GetTextureInfo(name)`.
+   * Uses the same verified lookup path as `GetTextureInfo(name)`.
    *
    * @param name - Texture atlas entry name.
    * @returns Texture file name.
@@ -283,7 +293,7 @@ declare module "xray16" {
    *
    * @group xr_ui_asset
    *
-   * @returns Default UI path.
+   * @returns Default UI path, usually the base `ui` config folder.
    */
   export function GetDefaultUIPath(this: void): string;
 
@@ -301,6 +311,9 @@ declare module "xray16" {
    *
    * @group xr_ui_asset
    *
+   * @remarks
+   * Differs from the default path after a non-default UI style is selected.
+   *
    * @returns Active UI path.
    */
   export function GetUIPath(this: void): string;
@@ -309,6 +322,9 @@ declare module "xray16" {
    * Get the active UI path with trailing delimiter.
    *
    * @group xr_ui_asset
+   *
+   * @remarks
+   * Differs from the default path after a non-default UI style is selected.
    *
    * @returns Active UI path with delimiter.
    */

@@ -8,7 +8,8 @@ declare module "xray16" {
    *
    * @remarks
    * Call `ParseFile()` before `Init*` helpers. Created controls are attached to `parent` when it is provided; scroll
-   * views receive them through `AddWindow()`, other windows through `AttachChild()`.
+   * views receive them through `AddWindow()`, other windows through `AttachChild()`. Controls created without a parent
+   * are not attached by this helper.
    */
   export class CScriptXmlInit {
     /**
@@ -20,7 +21,7 @@ declare module "xray16" {
      * Load a UI XML file from the configured UI paths.
      *
      * @remarks
-     * Paths are resolved through the engine config/UI path stack, including the default UI path.
+     * Paths are resolved through the engine config/UI path stack, including the active and default UI paths.
      *
      * @param path - XML file path.
      */
@@ -30,7 +31,7 @@ declare module "xray16" {
      * Load shared texture metadata from an XML file.
      *
      * @remarks
-     * Missing files are ignored by the native loader.
+     * Missing files are ignored by the native loader. Duplicate texture ids from this file replace existing entries.
      *
      * @param path - XML file path.
      */
@@ -40,7 +41,7 @@ declare module "xray16" {
      * Create and initialize a button from XML.
      *
      * @remarks
-     * The created button is marked for parent-owned deletion when attached.
+     * The created button is marked for auto-delete by the native binding.
      *
      * @param selector - XML node path.
      * @param parent - Optional parent window.
@@ -51,6 +52,9 @@ declare module "xray16" {
     /**
      * Create and initialize a three-state button from XML.
      *
+     * @remarks
+     * When `parent` is provided, the created control is marked for parent-owned deletion.
+     *
      * @param selector - XML node path.
      * @param parent - Optional parent window.
      * @returns Created button.
@@ -60,6 +64,9 @@ declare module "xray16" {
     /**
      * Create and initialize an animated static from XML.
      *
+     * @remarks
+     * When `parent` is provided, the created control is marked for parent-owned deletion.
+     *
      * @param selector - XML node path.
      * @param parent - Optional parent window.
      * @returns Created static control.
@@ -68,6 +75,9 @@ declare module "xray16" {
 
     /**
      * Create and initialize a CD key edit box from XML.
+     *
+     * @remarks
+     * Assigns CD-key callbacks and applies the current option value after initialization.
      *
      * @param selector - XML node path.
      * @param parent - Optional parent window.
@@ -141,6 +151,9 @@ declare module "xray16" {
     /**
      * Create and initialize a list window from XML.
      *
+     * @remarks
+     * When `parent` is provided, the created control is marked for parent-owned deletion.
+     *
      * @param selector - XML node path.
      * @param parent - Optional parent window.
      * @returns Created list window.
@@ -149,6 +162,9 @@ declare module "xray16" {
 
     /**
      * Create and initialize a list box from XML.
+     *
+     * @remarks
+     * When `parent` is provided, the created control is marked for parent-owned deletion.
      *
      * @param selector - XML node path.
      * @param parent - Optional parent window.
@@ -180,6 +196,9 @@ declare module "xray16" {
     /**
      * Create and initialize a map info control from XML.
      *
+     * @remarks
+     * Initializes both the base window rect and the map-info content area from the XML node.
+     *
      * @param selector - XML node path.
      * @param parent - Optional parent window.
      * @returns Created map info control.
@@ -206,6 +225,9 @@ declare module "xray16" {
 
     /**
      * Create and initialize a scroll view from XML.
+     *
+     * @remarks
+     * Child controls created under this parent are added through `AddWindow()`.
      *
      * @param selector - XML node path.
      * @param parent - Optional parent window.
@@ -260,6 +282,9 @@ declare module "xray16" {
 
     /**
      * Create and initialize a static control from XML.
+     *
+     * @remarks
+     * `InitLabel()` is bound to the same native initializer as this method.
      *
      * @param selector - XML node path.
      * @param parent - Optional parent window.
@@ -316,7 +341,8 @@ declare module "xray16" {
      * Initialize a window already created by script.
      *
      * @remarks
-     * This does not create a child window. It applies XML properties to the passed window.
+     * This does not create a child window. It applies XML properties to the passed window and does not attach it to a
+     * parent.
      *
      * @param selector - XML node path.
      * @param index - XML node index.
@@ -328,7 +354,8 @@ declare module "xray16" {
      * Initialize a group of auto-created static controls under an existing window.
      *
      * @remarks
-     * Reads static child definitions from the selected XML node and attaches them to `parent`.
+     * Reads static child definitions from the selected XML node and attaches them to `parent`. Requires a non-null
+     * parent window.
      *
      * @param selector - XML node path.
      * @param parent - Parent window.
