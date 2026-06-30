@@ -3,17 +3,11 @@
   "name": "X-Ray 16 Types",
   "entryPoints": ["types/xr_object/script/xr_script_object.d.ts"],
   "out": "docs",
-  "customCss": "./typedoc.css",
   "includeVersion": true,
   "hideGenerator": true,
-  "excludeInternal": true,
+  "disableSources": true,
   "cleanOutputDir": true,
   "searchInComments": true,
-  "navigation": {
-    "includeGroups": true,
-    "includeCategories": false,
-    "compactFolders": false
-  },
   "navigationLinks": {
     "GitHub": "https://github.com/stalker-xrts/xray-16-types",
     "npm": "https://www.npmjs.com/package/xray16"
