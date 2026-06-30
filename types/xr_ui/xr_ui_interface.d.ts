@@ -36,6 +36,11 @@ declare module "xray16" {
     public IsCursorOverWindow(): boolean;
 
     /**
+     * Get the font assigned to this window.
+     *
+     * @remarks
+     * Text controls need a font assigned before drawing custom text reliably.
+     *
      * @returns Font assigned to this window.
      */
     public GetFont(): CGameFont;
@@ -116,6 +121,10 @@ declare module "xray16" {
 
     /**
      * Enable post-process mode for this window.
+     *
+     * @remarks
+     * Use for windows meant to be drawn through the post-process UI path, and reset it when the window returns to
+     * normal UI rendering.
      */
     public SetPPMode(): void;
 
@@ -143,6 +152,9 @@ declare module "xray16" {
     /**
      * Set window rectangle.
      *
+     * @remarks
+     * Coordinates are relative to the parent; `x2` and `y2` are size, not bottom-right coordinates.
+     *
      * @param x1 - X position.
      * @param y1 - Y position.
      * @param x2 - Width.
@@ -165,6 +177,9 @@ declare module "xray16" {
     /**
      * Initialize window rectangle.
      *
+     * @remarks
+     * Coordinates are relative to the parent; `x2` and `y2` are size, not bottom-right coordinates.
+     *
      * @param x1 - X position.
      * @param y1 - Y position.
      * @param x2 - Width.
@@ -174,6 +189,9 @@ declare module "xray16" {
 
     /**
      * Enable or disable interaction.
+     *
+     * @remarks
+     * Enabled state and visibility are separate. Hidden controls can still be enabled.
      *
      * @param is_enabled - Whether the window should be enabled.
      */
@@ -206,11 +224,17 @@ declare module "xray16" {
 
     /**
      * Disable post-process mode for this window.
+     *
+     * @remarks
+     * Pair with {@link CUIWindow.SetPPMode} when a window no longer needs post-process rendering.
      */
     public ResetPPMode(): void;
 
     /**
      * Show or hide the window.
+     *
+     * @remarks
+     * Visibility does not attach, detach, enable, or disable the window.
      *
      * @param show - Whether the window should be visible.
      */
@@ -285,11 +309,17 @@ declare module "xray16" {
 
     /**
      * Connect to the selected server.
+     *
+     * @remarks
+     * Requires a selected server row in the current list.
      */
     public ConnectToSelected(): void;
 
     /**
      * Set callback for connection errors.
+     *
+     * @remarks
+     * Keep the callback object alive for as long as the server list may report connection failures.
      *
      * @param cb - Error callback.
      */
@@ -337,6 +367,9 @@ declare module "xray16" {
     /**
      * Bind another control to this checkbox state.
      *
+     * @remarks
+     * The dependent control follows this checkbox state in the UI.
+     *
      * @param window - Dependent control.
      */
     public SetDependControl(window: CUIWindow): void;
@@ -356,12 +389,18 @@ declare module "xray16" {
     /**
      * Enable an item by id.
      *
+     * @remarks
+     * `id` is the item id passed to {@link CUIComboBox.AddItem}, not the visual index.
+     *
      * @param id - Item id.
      */
     public enable_id(id: i32): void;
 
     /**
      * Disable an item by id.
+     *
+     * @remarks
+     * `id` is the item id passed to {@link CUIComboBox.AddItem}, not the visual index.
      *
      * @param id - Item id.
      */
@@ -407,6 +446,9 @@ declare module "xray16" {
     /**
      * Get text for an item id.
      *
+     * @remarks
+     * `id` is the item id passed to {@link CUIComboBox.AddItem}, not the visual index.
+     *
      * @param id - Item id.
      * @returns Item text.
      */
@@ -427,12 +469,18 @@ declare module "xray16" {
     /**
      * Select an item by id.
      *
+     * @remarks
+     * `id` is the item id passed to {@link CUIComboBox.AddItem}, not the visual index.
+     *
      * @param id - Item id.
      */
     public SetCurrentID(id: i32): void;
 
     /**
      * Select an item by index.
+     *
+     * @remarks
+     * Index follows current visual order and can change when the list contents change.
      *
      * @param index - Item index.
      */
@@ -482,6 +530,9 @@ declare module "xray16" {
     /**
      * Capture or release keyboard focus.
      *
+     * @remarks
+     * Captured focus routes keyboard input to this edit control until it is released or moved to another capturer.
+     *
      * @param value - Whether focus should be captured.
      */
     public CaptureFocus(value: boolean): void;
@@ -525,6 +576,11 @@ declare module "xray16" {
     public ShowDialog(show: boolean): void;
 
     /**
+     * Get the dialog holder.
+     *
+     * @remarks
+     * The holder is available only after the dialog is assigned to one by the owning UI flow.
+     *
      * @returns Dialog holder.
      */
     public GetHolder(): CDialogHolder;
@@ -556,6 +612,9 @@ declare module "xray16" {
     /**
      * Handle keyboard input.
      *
+     * @remarks
+     * Called by the dialog holder/input stack. Return `true` only when the script window handled the key.
+     *
      * @param key - DIK key code.
      * @param event - UI keyboard event.
      * @returns Whether the event was handled.
@@ -583,6 +642,9 @@ declare module "xray16" {
 
     /**
      * Dispatch a UI command.
+     *
+     * @remarks
+     * Used for dialog command routing. Return `true` only when the command was handled.
      *
      * @param command - Command id.
      * @param parameter - Command parameter.

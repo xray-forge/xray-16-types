@@ -5,6 +5,9 @@ declare module "xray16" {
    * @source C++ class demo_info
    * @customConstructor demo_info
    * @group xr_multiplayer
+   *
+   * @remarks
+   * Read-only metadata from a recorded multiplayer demo file.
    */
   export class demo_info {
     /**
@@ -39,6 +42,9 @@ declare module "xray16" {
 
     /**
      * Get saved player stats by index.
+     *
+     * @remarks
+     * Index must be lower than {@link demo_info.get_players_count}.
      *
      * @param value - Zero-based player index.
      * @returns Demo player info.
@@ -164,6 +170,10 @@ declare module "xray16" {
    * @source C++ class account_manager
    * @customConstructor account_manager
    * @group xr_multiplayer
+   *
+   * @remarks
+   * Main-menu GameSpy account service. Requests are asynchronous, but validation errors may call the callback
+   * immediately before any network work starts.
    */
   export class account_manager {
     /**
@@ -173,6 +183,10 @@ declare module "xray16" {
 
     /**
      * Create a GameSpy profile.
+     *
+     * @remarks
+     * Validates nickname, unique nick, email, and password before sending the request. On validation failure the
+     * callback receives a translated status key and no profile is created.
      *
      * @param acc - Account name.
      * @param nick - Public nickname.
@@ -185,12 +199,19 @@ declare module "xray16" {
     /**
      * Delete the currently logged-in profile.
      *
+     * @remarks
+     * Requires an online current profile. Without one, the callback reports a not-logged-in status.
+     *
      * @param operation - Completion callback.
      */
     public delete_profile(operation: account_operation_cb): void;
 
     /**
      * Fetch profiles registered for an account.
+     *
+     * @remarks
+     * Clears previous profile-search results before starting the request. Use
+     * {@link account_manager.get_found_profiles} after the completion callback.
      *
      * @param email - Account email.
      * @param password - Account password.
@@ -199,11 +220,21 @@ declare module "xray16" {
     public get_account_profiles(email: string, password: string, cb: account_profiles_cb): unknown;
 
     /**
+     * Get profiles found by the last email search.
+     *
+     * @remarks
+     * Result list is replaced by each account-profile fetch.
+     *
      * @returns Profiles found by the last email search.
      */
     public get_found_profiles(): LuaIterable<string>;
 
     /**
+     * Get unique nick suggestions from the last request.
+     *
+     * @remarks
+     * Result list is replaced by each suggestion request.
+     *
      * @returns Unique nick suggestions from the last request.
      */
     public get_suggested_unicks(): LuaIterable<string>;
@@ -216,6 +247,9 @@ declare module "xray16" {
     /**
      * Search for an account email.
      *
+     * @remarks
+     * Empty emails are rejected immediately through the callback.
+     *
      * @param email - Email to search.
      * @param cb - Completion callback.
      */
@@ -223,21 +257,33 @@ declare module "xray16" {
 
     /**
      * Stop the active profile fetch request.
+     *
+     * @remarks
+     * Safe to call when no fetch is active.
      */
     public stop_fetching_account_profiles(): void;
 
     /**
      * Stop the active email search request.
+     *
+     * @remarks
+     * Safe to call when no search is active.
      */
     public stop_searching_email(): void;
 
     /**
      * Stop the active nick suggestion request.
+     *
+     * @remarks
+     * Safe to call when no suggestion request is active.
      */
     public stop_suggest_unique_nicks(): void;
 
     /**
      * Request unique nick suggestions.
+     *
+     * @remarks
+     * Starts an asynchronous request and replaces the previous suggestion list when it completes.
      *
      * @param nick - Desired nick.
      * @param b - Completion callback.
@@ -285,6 +331,9 @@ declare module "xray16" {
    * @source C++ class login_manager
    * @customConstructor login_manager
    * @group xr_multiplayer
+   *
+   * @remarks
+   * Main-menu login service with one current profile. Log out before starting another online login.
    */
   export class login_manager {
     /**
@@ -300,6 +349,11 @@ declare module "xray16" {
     public forgot_password(url: string): void;
 
     /**
+     * Get the current logged-in profile.
+     *
+     * @remarks
+     * Offline login also creates a profile object, but it is not an online GameSpy session.
+     *
      * @returns Current logged-in profile, or null when offline.
      */
     public get_current_profile(): profile | null;
@@ -327,6 +381,10 @@ declare module "xray16" {
     /**
      * Log in to a GameSpy account.
      *
+     * @remarks
+     * Starts an asynchronous login. If another profile is already active, native code reports that logout is needed
+     * first.
+     *
      * @param mail - Account email.
      * @param profile - Profile nick.
      * @param password - Account password.
@@ -337,6 +395,9 @@ declare module "xray16" {
     /**
      * Create an offline login profile.
      *
+     * @remarks
+     * Rejects empty or whitespace-only nicknames. Does not contact GameSpy.
+     *
      * @param nick - Offline nick.
      * @param cb - Completion callback.
      */
@@ -344,6 +405,10 @@ declare module "xray16" {
 
     /**
      * Log out and clear current profile state.
+     *
+     * @remarks
+     * Online profiles disconnect from GameSpy. Any account-manager requests tied to the session may need to be
+     * restarted afterward.
      */
     public logout(): void;
 
@@ -370,6 +435,10 @@ declare module "xray16" {
     /**
      * Change the unique nick for the current profile.
      *
+     * @remarks
+     * Requires a current profile and a non-empty unique nick. Offline profiles update locally; online profiles send a
+     * GameSpy request.
+     *
      * @param nick - New unique nick.
      * @param cb - Completion callback.
      */
@@ -377,11 +446,17 @@ declare module "xray16" {
 
     /**
      * Stop the active login request.
+     *
+     * @remarks
+     * Safe to call when no login is active.
      */
     public stop_login(): void;
 
     /**
      * Stop the active unique-nick change request.
+     *
+     * @remarks
+     * Safe to call when no unique-nick request is active.
      */
     public stop_setting_unique_nick(): void;
   }
@@ -430,6 +505,9 @@ declare module "xray16" {
    * @source C++ class account_profiles_cb
    * @customConstructor account_profiles_cb
    * @group xr_multiplayer
+   *
+   * @remarks
+   * Keeps the Lua callback target and function together for asynchronous account requests.
    */
   export class account_profiles_cb {
     /**
@@ -448,6 +526,9 @@ declare module "xray16" {
 
     /**
      * Clear the bound callback.
+     *
+     * @remarks
+     * After clearing, native completion has no Lua function to call.
      */
     public clear(): void;
   }
@@ -458,6 +539,9 @@ declare module "xray16" {
    * @source C++ class login_operation_cb
    * @customConstructor login_operation_cb
    * @group xr_multiplayer
+   *
+   * @remarks
+   * Keeps the Lua callback target and function together for asynchronous login requests.
    */
   export class login_operation_cb {
     /**
@@ -476,6 +560,9 @@ declare module "xray16" {
 
     /**
      * Clear the bound callback.
+     *
+     * @remarks
+     * After clearing, native completion has no Lua function to call.
      */
     public clear(): void;
   }
@@ -486,6 +573,9 @@ declare module "xray16" {
    * @source C++ class connect_error_cb
    * @customConstructor connect_error_cb
    * @group xr_multiplayer
+   *
+   * @remarks
+   * Used by multiplayer server-list connection attempts.
    */
   export class connect_error_cb {
     /**
@@ -504,6 +594,9 @@ declare module "xray16" {
 
     /**
      * Clear the bound callback.
+     *
+     * @remarks
+     * After clearing, native connection errors have no Lua function to call.
      */
     public clear(): void;
   }
@@ -514,6 +607,9 @@ declare module "xray16" {
    * @source C++ class account_operation_cb
    * @customConstructor account_operation_cb
    * @group xr_multiplayer
+   *
+   * @remarks
+   * Keeps the Lua callback target and function together for account operations with a status code.
    */
   export class account_operation_cb {
     /**
@@ -532,6 +628,9 @@ declare module "xray16" {
 
     /**
      * Clear the bound callback.
+     *
+     * @remarks
+     * After clearing, native completion has no Lua function to call.
      */
     public clear(): void;
   }
@@ -542,6 +641,9 @@ declare module "xray16" {
    * @source C++ class found_email_cb
    * @customConstructor found_email_cb
    * @group xr_multiplayer
+   *
+   * @remarks
+   * Used by account email lookup requests.
    */
   export class found_email_cb {
     /**
@@ -560,6 +662,9 @@ declare module "xray16" {
 
     /**
      * Clear the bound callback.
+     *
+     * @remarks
+     * After clearing, native completion has no Lua function to call.
      */
     public clear(): void;
   }
@@ -570,6 +675,9 @@ declare module "xray16" {
    * @source C++ class store_operation_cb
    * @customConstructor store_operation_cb
    * @group xr_multiplayer
+   *
+   * @remarks
+   * Used by profile-store operations. Completion can report either numeric progress/status or boolean success.
    */
   export class store_operation_cb {
     /**
@@ -588,6 +696,9 @@ declare module "xray16" {
 
     /**
      * Clear the bound callback.
+     *
+     * @remarks
+     * After clearing, native profile-store completion has no Lua function to call.
      */
     public clear(): void;
   }
@@ -598,6 +709,9 @@ declare module "xray16" {
    * @source C++ class suggest_nicks_cb
    * @customConstructor suggest_nicks_cb
    * @group xr_multiplayer
+   *
+   * @remarks
+   * Used by unique-nick suggestion requests.
    */
   export class suggest_nicks_cb {
     /**
@@ -616,6 +730,9 @@ declare module "xray16" {
 
     /**
      * Clear the bound callback.
+     *
+     * @remarks
+     * After clearing, native completion has no Lua function to call.
      */
     public clear(): void;
   }
@@ -626,6 +743,9 @@ declare module "xray16" {
    * @source C++ class Patch_Dawnload_Progress
    * @customConstructor Patch_Dawnload_Progress
    * @group xr_multiplayer
+   *
+   * @remarks
+   * Name and `GetFlieName` spelling are preserved from the engine binding.
    */
   export class Patch_Dawnload_Progress {
     /**
@@ -655,6 +775,9 @@ declare module "xray16" {
    * @source C++ class profile_store
    * @customConstructor profile_store
    * @group xr_multiplayer
+   *
+   * @remarks
+   * Reads award and best-score data for the current online GameSpy profile.
    */
   export class profile_store {
     /**
@@ -704,11 +827,21 @@ declare module "xray16" {
     protected constructor();
 
     /**
+     * Get award counters for the current profile.
+     *
+     * @remarks
+     * Values are meaningful after {@link profile_store.load_current_profile} completes successfully.
+     *
      * @returns Award counters for the current profile.
      */
     public get_awards(): LuaIterable<award_pair_t>;
 
     /**
+     * Get best score counters for the current profile.
+     *
+     * @remarks
+     * Values are meaningful after {@link profile_store.load_current_profile} completes successfully.
+     *
      * @returns Best score counters for the current profile.
      */
     public get_best_scores(): LuaIterable<best_scores_pair_t>;
@@ -716,13 +849,20 @@ declare module "xray16" {
     /**
      * Load awards and best scores for the current profile.
      *
+     * @remarks
+     * Requires a current online profile. The completion callback reports the final result; the progress callback is
+     * accepted by the binding for profile-store operations.
+     *
      * @param onProgress - Progress callback.
-     * @param onComlete - Completion callback.
+     * @param onComplete - Completion callback.
      */
-    public load_current_profile(onProgress: store_operation_cb, onComlete: store_operation_cb): void;
+    public load_current_profile(onProgress: store_operation_cb, onComplete: store_operation_cb): void;
 
     /**
      * Stop the active profile-store load request.
+     *
+     * @remarks
+     * Safe to call when no profile-store load is active.
      */
     public stop_loading(): void;
   }
@@ -860,6 +1000,9 @@ declare module "xray16" {
    * @source C++ class game_GameState : DLL_Pure
    * @customConstructor game_GameState
    * @group xr_multiplayer
+   *
+   * @remarks
+   * Multiplayer match state, not single-player task or story state. `type` uses raw engine `EGameIDs` values.
    */
   export class game_GameState extends DLL_Pure {
     /**

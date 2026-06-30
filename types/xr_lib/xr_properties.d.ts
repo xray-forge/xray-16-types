@@ -257,12 +257,18 @@ declare module "xray16" {
     /**
      * Create an 8-bit flag property.
      *
+     * @remarks
+     * Binds individual bit toggles to an unsigned 8-bit integer field.
+     *
      * @returns Engine property value handle.
      */
     public create_flag8(): unknown;
 
     /**
      * Create a 16-bit flag property.
+     *
+     * @remarks
+     * Binds individual bit toggles to an unsigned 16-bit integer field.
      *
      * @returns Engine property value handle.
      */
@@ -271,12 +277,18 @@ declare module "xray16" {
     /**
      * Create a 32-bit flag property.
      *
+     * @remarks
+     * Binds individual bit toggles to an unsigned 32-bit integer field.
+     *
      * @returns Engine property value handle.
      */
     public create_flag32(): unknown;
 
     /**
      * Create a vector property.
+     *
+     * @remarks
+     * Bound object field must be an `Fvector`.
      *
      * @returns Engine property value handle.
      */
@@ -306,12 +318,18 @@ declare module "xray16" {
     /**
      * Create a float property.
      *
+     * @remarks
+     * Bound object field must be a float. Native overloads may also carry min/max/default editor values.
+     *
      * @returns Engine property value handle.
      */
     public create_float(): unknown;
 
     /**
      * Create an unsigned 8-bit integer property.
+     *
+     * @remarks
+     * Bound object field must fit into an unsigned 8-bit value.
      *
      * @returns Engine property value handle.
      */
@@ -320,12 +338,18 @@ declare module "xray16" {
     /**
      * Create an unsigned 16-bit integer property.
      *
+     * @remarks
+     * Bound object field must fit into an unsigned 16-bit value.
+     *
      * @returns Engine property value handle.
      */
     public create_u16(): unknown;
 
     /**
      * Create an unsigned 32-bit integer property.
+     *
+     * @remarks
+     * Bound object field must fit into an unsigned 32-bit value.
      *
      * @returns Engine property value handle.
      */
@@ -334,12 +358,18 @@ declare module "xray16" {
     /**
      * Create a signed 32-bit integer property.
      *
+     * @remarks
+     * Bound object field must fit into a signed 32-bit value.
+     *
      * @returns Engine property value handle.
      */
     public create_s32(): unknown;
 
     /**
      * Create a signed 16-bit integer property.
+     *
+     * @remarks
+     * Bound object field must fit into a signed 16-bit value.
      *
      * @returns Engine property value handle.
      */
@@ -348,12 +378,18 @@ declare module "xray16" {
     /**
      * Create an asset/object chooser property.
      *
+     * @remarks
+     * Requires a chooser mode and a string-like field that receives the selected section, asset, or path.
+     *
      * @returns Engine property value handle.
      */
     public create_choose(): unknown;
 
     /**
      * Create a button property.
+     *
+     * @remarks
+     * Editor-only command row. Use it to expose an action callback, not persistent object data.
      *
      * @returns Engine property value handle.
      */
@@ -362,12 +398,18 @@ declare module "xray16" {
     /**
      * Create a custom canvas property.
      *
+     * @remarks
+     * Editor-only drawing surface for custom property UI.
+     *
      * @returns Engine property value handle.
      */
     public create_canvas(): unknown;
 
     /**
      * Create a read-only caption row.
+     *
+     * @remarks
+     * Editor-only label row used to group or explain nearby properties.
      *
      * @returns Engine property value handle.
      */
@@ -376,12 +418,18 @@ declare module "xray16" {
     /**
      * Callback used after editing a float property.
      *
+     * @remarks
+     * Editor bridge callback. Native code passes the edited value through an output argument.
+     *
      * @returns Engine callback result.
      */
     public float_on_after_edit(): unknown;
 
     /**
      * Callback used before editing a float property.
+     *
+     * @remarks
+     * Editor bridge callback. Native code passes the current value through an output argument.
      *
      * @returns Engine callback result.
      */
@@ -390,12 +438,18 @@ declare module "xray16" {
     /**
      * Callback used after editing an object name.
      *
+     * @remarks
+     * Editor bridge callback. Native code passes the edited name through an output argument.
+     *
      * @returns Engine callback result.
      */
     public name_after_edit(): unknown;
 
     /**
      * Callback used before editing an object name.
+     *
+     * @remarks
+     * Editor bridge callback. Native code passes the current name through an output argument.
      *
      * @returns Engine callback result.
      */
@@ -404,12 +458,18 @@ declare module "xray16" {
     /**
      * Callback used before editing a vector property.
      *
+     * @remarks
+     * Editor bridge callback for vector rows, usually used to prepare a value before the editor opens.
+     *
      * @returns Engine callback result.
      */
     public vector_on_before_edit(): unknown;
 
     /**
      * Callback used after editing a vector property.
+     *
+     * @remarks
+     * Editor bridge callback for vector rows, usually used to accept or normalize the edited value.
      *
      * @returns Engine callback result.
      */
@@ -444,12 +504,18 @@ declare module "xray16" {
     /**
      * Treat this property value as a 16-bit token value.
      *
+     * @remarks
+     * Use only for properties originally created as 16-bit token values.
+     *
      * @returns Engine property value handle.
      */
     public token16_value(): unknown;
 
     /**
      * Treat this property value as a 32-bit flag value.
+     *
+     * @remarks
+     * Use only for properties originally created as 32-bit flag values.
      *
      * @returns Engine property value handle.
      */
@@ -458,12 +524,18 @@ declare module "xray16" {
     /**
      * Treat this property value as text.
      *
+     * @remarks
+     * Use only for properties originally created as text values.
+     *
      * @returns Engine property value handle.
      */
     public text_value(): unknown;
 
     /**
      * Treat this property value as a boolean.
+     *
+     * @remarks
+     * Use only for properties originally created as boolean values.
      *
      * @returns Engine property value handle.
      */
@@ -472,12 +544,18 @@ declare module "xray16" {
     /**
      * Treat this property value as an unsigned 16-bit integer.
      *
+     * @remarks
+     * Use only for properties originally created as unsigned 16-bit values.
+     *
      * @returns Engine property value handle.
      */
     public u16_value(): unknown;
 
     /**
      * Treat this property value as a signed 16-bit integer.
+     *
+     * @remarks
+     * Use only for properties originally created as signed 16-bit values.
      *
      * @returns Engine property value handle.
      */
@@ -486,12 +564,18 @@ declare module "xray16" {
     /**
      * Treat this property value as a button.
      *
+     * @remarks
+     * Use only for properties originally created as button rows.
+     *
      * @returns Engine property value handle.
      */
     public button_value(): unknown;
 
     /**
      * Treat this property value as a caption.
+     *
+     * @remarks
+     * Use only for properties originally created as caption rows.
      *
      * @returns Engine property value handle.
      */
@@ -504,6 +588,9 @@ declare module "xray16" {
    * @source C++ class TEX_INFO
    * @customConstructor TEX_INFO
    * @group xr_properties
+   *
+   * @remarks
+   * Metadata is borrowed from the engine UI texture atlas; use it for inspection, not ownership.
    */
   export class TEX_INFO {
     /**

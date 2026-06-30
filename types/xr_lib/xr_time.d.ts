@@ -1,15 +1,15 @@
 declare module "xray16" {
-   /**
-    * Mutable game calendar/time value.
-    *
-    * Use `game.get_game_time()` for the current in-game time and `time_global()` for real elapsed milliseconds.
-    *
-    * @source C++ class CTime
-    * @customConstructor CTime
-    * @group xr_time
-    * @remarks
-    * Methods such as `add`, `sub`, `set`, and `setHMS` mutate the current instance.
-    */
+  /**
+   * Mutable game calendar/time value.
+   *
+   * Use `game.get_game_time()` for the current in-game time and `time_global()` for real elapsed milliseconds.
+   *
+   * @source C++ class CTime
+   * @customConstructor CTime
+   * @group xr_time
+   * @remarks
+   * Methods such as `add`, `sub`, `set`, and `setHMS` mutate the current instance.
+   */
   export class CTime extends EngineBinding {
     /**
      * Date formatting mode: day.

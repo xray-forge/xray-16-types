@@ -5,6 +5,10 @@ declare module "xray16" {
    * @source C++ class GameGraph__CVertex
    * @customConstructor GameGraph__CVertex
    * @group xr_graph
+   *
+   * @remarks
+   * Engine-owned descriptor returned by {@link CGameGraph.vertex}. Keep it as a short-lived view of graph data,
+   * not as persistent game state.
    */
   export class GameGraph__CVertex extends EngineBinding {
     /**
@@ -47,6 +51,10 @@ declare module "xray16" {
    * @source C++ class CGameGraph
    * @customConstructor CGameGraph
    * @group xr_graph
+   *
+   * @remarks
+   * Represents the global AI game graph. Validate ids before resolving vertices, and restore accessibility changes
+   * when they are only needed temporarily.
    */
   export class CGameGraph {
     /**
@@ -60,6 +68,10 @@ declare module "xray16" {
     /**
      * Get a game-graph vertex by id.
      *
+     * @remarks
+     * Call {@link CGameGraph.valid_vertex_id} first. Native code expects a valid id and can fail hard on invalid
+     * graph references.
+     *
      * @param vertexId - Game-graph vertex id.
      * @returns Graph vertex descriptor.
      */
@@ -67,6 +79,9 @@ declare module "xray16" {
 
     /**
      * Resolve a graph vertex back to its id.
+     *
+     * @remarks
+     * Pass only vertices returned by this graph instance.
      *
      * @param vertex - Vertex returned by {@link CGameGraph.vertex}.
      * @returns Game-graph vertex id.
@@ -76,6 +91,9 @@ declare module "xray16" {
     /**
      * Check whether a game-graph vertex can be used for AI travel.
      *
+     * @remarks
+     * This is pathing accessibility, not whether the vertex exists.
+     *
      * @param vertexId - Game-graph vertex id.
      * @returns Whether the vertex is currently accessible.
      */
@@ -84,6 +102,9 @@ declare module "xray16" {
     /**
      * Mark a game-graph vertex as accessible or blocked.
      *
+     * @remarks
+     * Blocking vertices affects AI travel through the game graph. Prefer narrow, reversible changes.
+     *
      * @param vertexId - Game-graph vertex id.
      * @param value - New accessibility state.
      */
@@ -91,6 +112,9 @@ declare module "xray16" {
 
     /**
      * Iterate over game levels registered in `all.spawn`.
+     *
+     * @remarks
+     * Iterates graph-level descriptors, not currently loaded level objects.
      *
      * @returns Level object on every iteration.
      */
@@ -101,6 +125,9 @@ declare module "xray16" {
    * Get the global game graph used by AI navigation.
    *
    * @group xr_graph
+   *
+   * @remarks
+   * Available after the engine has loaded AI graph data.
    *
    * @returns Game graph singleton.
    */
