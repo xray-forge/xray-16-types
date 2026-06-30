@@ -375,7 +375,7 @@ declare module "xray16" {
      * @param fs_type - Filesystem source to search.
      * @returns File status.
      */
-    public exist(alias: string, filename: string, fs_type: TXR_fs_type): FileStatus;
+    public exist(alias: string, filename: string, fs_type: TXR_fs_type): FileStatus | null;
 
     /**
      * Check whether a file exists below a path alias.
