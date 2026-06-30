@@ -1,3 +1,5 @@
+import type { Nillable, Nullable } from "../internal";
+
 declare module "xray16" {
   /**
    * Base UI window used by script-created controls.
@@ -682,7 +684,7 @@ declare module "xray16" {
      * @param id - Window id.
      * @returns Control instance, or `null` when not found or not matching.
      */
-    public GetListWnd(id: string): CUIListWnd | null;
+    public GetListWnd(id: string): Nullable<CUIListWnd>;
 
     /**
      * Find a dialog window by id.
@@ -690,7 +692,7 @@ declare module "xray16" {
      * @param id - Window id.
      * @returns Control instance, or `null` when not found or not matching.
      */
-    public GetDialogWnd(id: string): CUIDialogWnd | null;
+    public GetDialogWnd(id: string): Nullable<CUIDialogWnd>;
 
     /**
      * Find an edit box by id.
@@ -698,7 +700,7 @@ declare module "xray16" {
      * @param id - Window id.
      * @returns Control instance, or `null` when not found or not matching.
      */
-    public GetEditBox(id: string): CUIEditBox | null;
+    public GetEditBox(id: string): Nullable<CUIEditBox>;
 
     /**
      * Find a list box by id.
@@ -706,7 +708,7 @@ declare module "xray16" {
      * @param id - Window id.
      * @returns Control instance, or `null` when not found or not matching.
      */
-    public GetListBox(id: string): CUIListBox | null;
+    public GetListBox(id: string): Nullable<CUIListBox>;
 
     /**
      * Find a frame line by id.
@@ -714,7 +716,7 @@ declare module "xray16" {
      * @param id - Window id.
      * @returns Control instance, or `null` when not found or not matching.
      */
-    public GetFrameLineWnd(id: string): CUIFrameLineWnd | null;
+    public GetFrameLineWnd(id: string): Nullable<CUIFrameLineWnd>;
 
     /**
      * Find a tab control by id.
@@ -722,7 +724,7 @@ declare module "xray16" {
      * @param id - Window id.
      * @returns Control instance, or `null` when not found or not matching.
      */
-    public GetTabControl(id: string): CUITabControl | null;
+    public GetTabControl(id: string): Nullable<CUITabControl>;
 
     /**
      * Find a progress bar by id.
@@ -730,7 +732,7 @@ declare module "xray16" {
      * @param id - Window id.
      * @returns Control instance, or `null` when not found or not matching.
      */
-    public GetProgressBar(id: string): CUIProgressBar | null;
+    public GetProgressBar(id: string): Nullable<CUIProgressBar>;
 
     /**
      * Find a frame window by id.
@@ -738,7 +740,7 @@ declare module "xray16" {
      * @param id - Window id.
      * @returns Control instance, or `null` when not found or not matching.
      */
-    public GetFrameWindow(id: string): CUIFrameWindow | null;
+    public GetFrameWindow(id: string): Nullable<CUIFrameWindow>;
 
     /**
      * Find a static control by id.
@@ -746,7 +748,7 @@ declare module "xray16" {
      * @param id - Window id.
      * @returns Control instance, or `null` when not found or not matching.
      */
-    public GetStatic(id: string): CUIStatic | null;
+    public GetStatic(id: string): Nullable<CUIStatic>;
   }
 
   /**
@@ -902,7 +904,7 @@ declare module "xray16" {
     /**
      * @returns Selected item, or `null` when nothing is selected.
      */
-    public GetSelectedItem(): T | null;
+    public GetSelectedItem(): Nullable<T>;
 
     /**
      * @returns List item height.
@@ -1972,7 +1974,7 @@ declare module "xray16" {
     /**
      * @returns Current top input receiver, or `null` when no dialog owns input.
      */
-    public TopInputReceiver(): CUIDialogWnd | null;
+    public TopInputReceiver(): Nullable<CUIDialogWnd>;
 
     /**
      * Set the main input receiver.
@@ -1983,12 +1985,12 @@ declare module "xray16" {
      * @param window - Dialog window, or `null` to pop the current receiver.
      * @param find_remove - Whether to remove the previous receiver if found.
      */
-    public SetMainInputReceiver(window: CUIDialogWnd | null, find_remove: boolean): void;
+    public SetMainInputReceiver(window: Nillable<CUIDialogWnd>, find_remove: boolean): void;
 
     /**
      * @returns Current main input receiver, or `null` when no dialog owns input.
      */
-    public MainInputReceiver(): CUIDialogWnd | null;
+    public MainInputReceiver(): Nullable<CUIDialogWnd>;
 
     /**
      * Start or stop an in-game menu.
@@ -2300,12 +2302,12 @@ declare module "xray16" {
      *
      * @param dialog - Dialog window, or `null` to clear.
      */
-    public SetActiveDialog(dialog: CUIWindow | null): void;
+    public SetActiveDialog(dialog: Nillable<CUIWindow>): void;
 
     /**
      * @returns Active PDA dialog window, or `null`.
      */
-    public GetActiveDialog(): CUIWindow | null;
+    public GetActiveDialog(): Nullable<CUIWindow>;
   }
 
   /**
@@ -2327,7 +2329,7 @@ declare module "xray16" {
     /**
      * @returns Item currently being dragged, or `null`.
      */
-    public get_drag_item(): game_object | null;
+    public get_drag_item(): Nullable<game_object>;
 
     /**
      * Highlight inventory cells containing a section in a slot list.

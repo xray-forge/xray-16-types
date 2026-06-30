@@ -1,3 +1,5 @@
+import type { Nillable } from "../../internal";
+
 declare module "xray16" {
   /**
    * Cover point returned by cover search helpers.
@@ -344,15 +346,15 @@ declare module "xray16" {
      * @param type - Type of callback.
      * @param cb - Null to reset.
      */
-    public set_callback(type: TXR_callback, cb: null): void;
+    public set_callback(type: TXR_callback, cb: Nillable<never>): void;
 
     /**
      * 0 todo;.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["trade_start"],
-      cb?: ((this: void) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -360,8 +362,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["trade_stop"],
-      cb?: ((this: void) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -369,8 +371,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["trade_sell_buy_item"],
-      cb?: ((this: void, item: game_object, money_direction: boolean, money: number) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, item: game_object, money_direction: boolean, money: number) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -378,8 +380,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["trade_perform_operation"],
-      cb?: ((this: void, money_get: u32, money_put: u32) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, money_get: u32, money_put: u32) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -389,8 +391,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["zone_enter"],
-      cb?: ((this: void, zone: game_object, object: game_object) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, zone: game_object, object: game_object) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -400,8 +402,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["zone_exit"],
-      cb?: ((this: void, zone: game_object, object: game_object) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, zone: game_object, object: game_object) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -409,8 +411,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["level_border_exit"],
-      cb?: ((this: void, xobject: game_object) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, xobject: game_object) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -418,8 +420,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["level_border_enter"],
-      cb?: ((this: void, xobject: game_object) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, xobject: game_object) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -428,7 +430,7 @@ declare module "xray16" {
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["death"],
       cb?: (this: void, target: game_object, killer: game_object) => void,
-      object?: Maybe<T>
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -436,8 +438,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["patrol_path_in_point"],
-      cb?: ((this: void, object: game_object, action_type: number, point_index: number) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, object: game_object, action_type: number, point_index: number) => void>,
+      object?: Nillable<T>
     ): void;
 
     // 10 todo: inventory_pda -> implement in game engine
@@ -447,8 +449,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["inventory_info"],
-      cb?: ((this: void, npc: game_object, info_id: string) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, npc: game_object, info_id: string) => void>,
+      object?: Nillable<T>
     ): void;
 
     // 12 todo: article_info -> implement in game engine
@@ -458,8 +460,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["task_state"],
-      cb?: ((this: void, task: CGameTask, state: TXR_TaskState) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, task: CGameTask, state: TXR_TaskState) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -467,8 +469,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["map_location_added"],
-      cb?: ((this: void, spot_type: string, id: u16) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, spot_type: string, id: u16) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -476,8 +478,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["use_object"],
-      cb?: ((this: void, object: game_object) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, object: game_object) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -485,8 +487,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["use_object"],
-      cb?: ((this: void, object: game_object, who: game_object) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, object: game_object, who: game_object) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -494,17 +496,10 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["hit"],
-      cb?:
-        | ((
-            this: void,
-            object: game_object,
-            damage: number,
-            direction: vector,
-            who: game_object,
-            bone_id: number
-          ) => void)
-        | null,
-      object?: Maybe<T>
+      cb?: Nillable<
+        (this: void, object: game_object, damage: number, direction: vector, who: game_object, bone_id: number) => void
+      >,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -512,17 +507,17 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["sound"],
-      cb?:
-        | ((
-            this: void,
-            object: game_object,
-            source_id: number,
-            sound_type: TXR_snd_type,
-            position: vector,
-            sound_power: number
-          ) => void)
-        | null,
-      object?: Maybe<T>
+      cb?: Nillable<
+        (
+          this: void,
+          object: game_object,
+          source_id: number,
+          sound_type: TXR_snd_type,
+          position: vector,
+          sound_power: number
+        ) => void
+      >,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -530,8 +525,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["action_movement"],
-      cb?: ((this: void, object: game_object, movement_type: u32 /* EMovementType */, unknown: -1) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, object: game_object, movement_type: u32 /* EMovementType */, unknown: -1) => void>,
+      object?: Nillable<T>
     ): void;
 
     // 19 todo: action_watch
@@ -553,8 +548,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["helicopter_on_point"],
-      cb?: ((this: void, distance: number, current_position: vector, vertex_id: number) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, distance: number, current_position: vector, vertex_id: number) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -562,8 +557,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["helicopter_on_hit"],
-      cb?: ((this: void, damage: number, impulse: number, hit_type: number, who_id: number) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, damage: number, impulse: number, hit_type: number, who_id: number) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -571,8 +566,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["on_item_take"],
-      cb?: ((this: void, object: game_object, item: game_object) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, object: game_object, item: game_object) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -580,8 +575,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["on_item_drop"],
-      cb?: ((this: void, object: game_object, item: game_object) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, object: game_object, item: game_object) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -589,8 +584,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["script_animation"],
-      cb?: ((this: void, skip_multi_anim_check?: boolean) => void) | null,
-      object?: object | null
+      cb?: Nillable<(this: void, skip_multi_anim_check?: boolean) => void>,
+      object?: Nillable<object>
     ): void;
 
     /**
@@ -598,8 +593,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["trader_global_anim_request"],
-      cb?: ((this: void) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -607,8 +602,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["trader_head_anim_request"],
-      cb?: ((this: void) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -616,8 +611,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["trader_sound_end"],
-      cb?: ((this: void) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -625,8 +620,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["take_item_from_box"],
-      cb?: ((this: void, object: game_object, box: game_object, item: game_object) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, object: game_object, box: game_object, item: game_object) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -634,8 +629,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["weapon_no_ammo"],
-      cb?: ((this: void, object: game_object, suitable_ammo_total: i32) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, object: game_object, suitable_ammo_total: i32) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -644,17 +639,17 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["hud_animation_end"],
-      cb?:
-        | ((
-            this: void,
-            object: game_object,
-            hud_section: string,
-            current_motion: string,
-            state: u32,
-            animation_slot: u32
-          ) => void)
-        | null,
-      object?: Maybe<T>
+      cb?: Nillable<
+        (
+          this: void,
+          object: game_object,
+          hud_section: string,
+          current_motion: string,
+          state: u32,
+          animation_slot: u32
+        ) => void
+      >,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -662,8 +657,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["key_press"],
-      cb?: ((this: void, key: i32) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, key: i32) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -671,8 +666,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["key_release"],
-      cb?: ((this: void, key: i32) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, key: i32) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -680,8 +675,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["key_hold"],
-      cb?: ((this: void, key: i32) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, key: i32) => void>,
+      object?: Nillable<T>
     ): void;
 
     // 40 todo: mouse_move
@@ -701,8 +696,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["item_to_belt"],
-      cb?: ((this: void, object: game_object) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, object: game_object) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -710,8 +705,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["item_to_slot"],
-      cb?: ((this: void, object: game_object) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, object: game_object) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -719,8 +714,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["item_to_ruck"],
-      cb?: ((this: void, object: game_object) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, object: game_object) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -728,8 +723,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["weapon_zoom_in"],
-      cb?: ((this: void, owner: game_object, weapon: game_object) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, owner: game_object, weapon: game_object) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -737,8 +732,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["weapon_zoom_out"],
-      cb?: ((this: void, owner: game_object, weapon: game_object) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, owner: game_object, weapon: game_object) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -746,8 +741,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["weapon_jammed"],
-      cb?: ((this: void, owner: game_object, weapon: game_object) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, owner: game_object, weapon: game_object) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -755,8 +750,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["weapon_magazine_empty"],
-      cb?: ((this: void, object: game_object, suitable_ammo_total: i32) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, object: game_object, suitable_ammo_total: i32) => void>,
+      object?: Nillable<T>
     ): void;
 
     /**
@@ -764,8 +759,8 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["actor_before_death"],
-      cb?: ((this: void, killer_id: u16) => void) | null,
-      object?: Maybe<T>
+      cb?: Nillable<(this: void, killer_id: u16) => void>,
+      object?: Nillable<T>
     ): void;
 
     // 54 todo: on_attach_vehicle
@@ -806,7 +801,7 @@ declare module "xray16" {
      * @param cb - Callback called with current patrol point index.
      * @param object - Optional Lua context.
      */
-    public set_patrol_extrapolate_callback(cb?: ((cur_pt: number) => boolean) | null, object?: object): void;
+    public set_patrol_extrapolate_callback(cb?: Nillable<(cur_pt: number) => boolean>, object?: object): void;
 
     /**
      * Set or clear smart-cover target selection callback.
@@ -814,6 +809,9 @@ declare module "xray16" {
      * @param cb - Callback that receives this object when a smart-cover target is selected.
      * @param object - Optional Lua context.
      */
-    public set_smart_cover_target_selector(cb?: ((object: game_object) => void) | null, object?: object | null): void;
+    public set_smart_cover_target_selector(
+      cb?: Nillable<(object: game_object) => void>,
+      object?: Nillable<object>
+    ): void;
   }
 }

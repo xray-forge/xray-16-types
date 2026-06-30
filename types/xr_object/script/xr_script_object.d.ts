@@ -1,3 +1,5 @@
+import type { Nillable, Nullable } from "../../internal";
+
 declare module "xray16" {
   /**
    * Client object base presentation as script object.
@@ -199,7 +201,7 @@ declare module "xray16" {
      * @param value - Inventory index or item name.
      * @returns Matching item, or `null` when it does not exist.
      */
-    public object(value: i32 | string): game_object | null;
+    public object(value: i32 | string): Nullable<game_object>;
 
     /**
      * Get engine class id.
@@ -251,7 +253,7 @@ declare module "xray16" {
      *
      * @returns Current action, or `null` when no action is active.
      */
-    public action(): entity_action | null;
+    public action(): Nullable<entity_action>;
 
     /**
      * Get queued action count.
@@ -273,7 +275,7 @@ declare module "xray16" {
      *
      * @returns Active detector, or `null`.
      */
-    public active_detector(): game_object | null;
+    public active_detector(): Nullable<game_object>;
 
     /**
      * Get active inventory item.
@@ -284,7 +286,7 @@ declare module "xray16" {
      *
      * @returns Active item, or `null`.
      */
-    public active_item(): game_object | null;
+    public active_item(): Nullable<game_object>;
 
     /**
      * @returns Active item slot of game object.
@@ -344,7 +346,7 @@ declare module "xray16" {
      *
      * @returns Best item, or `null`.
      */
-    public best_item(): game_object | null;
+    public best_item(): Nullable<game_object>;
 
     /**
      * Get best available weapon for this object.
@@ -355,7 +357,7 @@ declare module "xray16" {
      *
      * @returns Best weapon, or `null`.
      */
-    public best_weapon(): game_object | null;
+    public best_weapon(): Nullable<game_object>;
 
     /**
      * Attach a Lua binder to this object.
@@ -591,7 +593,7 @@ declare module "xray16" {
      *
      * @returns Cover name, or `null`.
      */
-    public get_dest_smart_cover_name(): string | null;
+    public get_dest_smart_cover_name(): Nullable<string>;
 
     /**
      * Get latest monster hit information.
@@ -727,7 +729,7 @@ declare module "xray16" {
      * @param weapon - Weapon to check.
      * @returns Whether weapon is being strapped.
      */
-    public is_weapon_going_to_be_strapped(weapon: game_object | null): boolean;
+    public is_weapon_going_to_be_strapped(weapon: Nillable<game_object>): boolean;
 
     /**
      * Iterate items inside an inventory box.
@@ -994,7 +996,7 @@ declare module "xray16" {
      * @param min_queue_size - Optional minimum queue size.
      * @param max_queue_size - Optional maximum queue size.
      */
-    public set_item(action_id: number, object: game_object | null, min_queue_size?: u32, max_queue_size?: u32): void;
+    public set_item(action_id: number, object: Nillable<game_object>, min_queue_size?: u32, max_queue_size?: u32): void;
 
     /**
      * Set mental animation state.
@@ -1322,7 +1324,7 @@ declare module "xray16" {
      *
      * @returns Danger object, or `null`.
      */
-    public best_danger(): danger_object | null;
+    public best_danger(): Nullable<danger_object>;
 
     /**
      * @remarks
@@ -1638,7 +1640,7 @@ declare module "xray16" {
      *
      * @returns Currently equipped outfit, or `null` when none is equipped.
      */
-    public get_current_outfit(): game_object | null;
+    public get_current_outfit(): Nullable<game_object>;
 
     /**
      * @remarks
@@ -1938,7 +1940,7 @@ declare module "xray16" {
      *
      * @returns Current patrol path name, or `null` when no patrol path is active.
      */
-    public patrol(): string | null;
+    public patrol(): Nullable<string>;
 
     /**
      * Mark the current patrol path as needing recalculation.
@@ -2353,7 +2355,7 @@ declare module "xray16" {
     /**
      * @returns Spawn ini attached to this object, or `null`.
      */
-    public spawn_ini(): ini_file | null;
+    public spawn_ini(): Nullable<ini_file>;
 
     /**
      * @remarks
@@ -2484,7 +2486,7 @@ declare module "xray16" {
      * @param target - Point to look at, or `null` to clear the explicit point.
      * @param look_over_delay - Delay before looking over.
      */
-    public set_sight(type: TXR_SightType, target: vector | null, look_over_delay: u32): void;
+    public set_sight(type: TXR_SightType, target: Nillable<vector>, look_over_delay: u32): void;
 
     /**
      * Set the NPC sight mode toward a point and optionally fire at it.
@@ -2963,12 +2965,12 @@ declare module "xray16" {
      *
      * @returns Corpse selected by this monster, or `null`.
      */
-    public get_corpse(): game_object | null;
+    public get_corpse(): Nullable<game_object>;
 
     /**
      * @returns Current holder used by the actor, or `null`.
      */
-    public get_current_holder(): holder | null;
+    public get_current_holder(): Nullable<holder>;
 
     /**
      * @remarks
@@ -2977,7 +2979,7 @@ declare module "xray16" {
      *
      * @returns Current enemy object, or `null`.
      */
-    public get_enemy(): game_object | null;
+    public get_enemy(): Nullable<game_object>;
 
     /**
      * @remarks
@@ -2995,7 +2997,7 @@ declare module "xray16" {
      *
      * @returns Physics shell for this object, or `null`.
      */
-    public get_physics_shell(): physics_shell | null;
+    public get_physics_shell(): Nullable<physics_shell>;
 
     /**
      * Get current start dialog id.
@@ -3017,7 +3019,7 @@ declare module "xray16" {
      * @param only_in_process - Whether to return only active tasks.
      * @returns Task object, or `null`.
      */
-    public get_task(task_id: string, only_in_process: boolean): CGameTask | null;
+    public get_task(task_id: string, only_in_process: boolean): Nullable<CGameTask>;
 
     /**
      * Get task state by id.
@@ -3262,7 +3264,7 @@ declare module "xray16" {
      * @param slot - Slot id.
      * @returns Item in slot, or `null`.
      */
-    public item_in_slot(slot: u32): game_object | null;
+    public item_in_slot(slot: u32): Nullable<game_object>;
 
     /**
      * Get item on belt by slot.
@@ -3276,7 +3278,7 @@ declare module "xray16" {
      * @param slot - Belt slot id.
      * @returns Item on belt, or `null`.
      */
-    public item_on_belt(slot: u32): game_object | null;
+    public item_on_belt(slot: u32): Nullable<game_object>;
 
     /**
      * Force this monster to jump toward a point.
@@ -3514,7 +3516,7 @@ declare module "xray16" {
      * @param mid_radius - Middle home radius.
      */
     public set_home(
-      name: string | null,
+      name: Nillable<string>,
       min_radius: f32,
       max_radius?: f32,
       is_aggressive?: boolean,
@@ -3531,7 +3533,7 @@ declare module "xray16" {
      * @param mid_radius - Middle home radius.
      */
     public set_home(
-      lvid: u32 | null,
+      lvid: Nillable<u32>,
       min_radius: f32,
       max_radius?: f32,
       is_aggressive?: boolean,
@@ -3906,7 +3908,7 @@ declare module "xray16" {
       icon_texture: string,
       delay: i32,
       show_time: i32,
-      type?: Maybe<i32>
+      type?: Nillable<i32>
     ): void;
 
     /**
@@ -3980,7 +3982,7 @@ declare module "xray16" {
      *
      * @returns Enemy object, or `null`.
      */
-    public best_enemy(): game_object | null;
+    public best_enemy(): Nullable<game_object>;
 
     /**
      * Get object center position.
@@ -4259,7 +4261,7 @@ declare module "xray16" {
      * @param index - Action index.
      * @returns Action object, or `null`.
      */
-    public action_by_index(index: u32): entity_action | null;
+    public action_by_index(index: u32): Nullable<entity_action>;
 
     /**
      * @returns Whether game object is alive.
@@ -5349,7 +5351,7 @@ declare module "xray16" {
      *
      * @returns Vehicle currently attached to the actor, or `null`.
      */
-    public get_attached_vehicle(): game_object | null;
+    public get_attached_vehicle(): Nullable<game_object>;
 
     /**
      * Get actor belt slot count.

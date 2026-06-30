@@ -1,3 +1,5 @@
+import type { Nullable } from "../../internal";
+
 declare module "xray16" {
   /**
    * @source C++ class cse_motion
@@ -247,7 +249,7 @@ declare module "xray16" {
     /**
      * @returns Spawn ini attached to this object, if any.
      */
-    public spawn_ini(): ini_file | null;
+    public spawn_ini(): Nullable<ini_file>;
 
     /**
      * @returns Spawn section name.
@@ -1244,7 +1246,7 @@ declare module "xray16" {
      * @param monster - Monster server object.
      * @returns Smart terrain task, or `null` when none is assigned.
      */
-    public task(monster: cse_alife_monster_abstract): CALifeSmartTerrainTask | null;
+    public task(monster: cse_alife_monster_abstract): Nullable<CALifeSmartTerrainTask>;
 
     /**
      * Check whether this smart zone is enabled for a monster.
@@ -1346,7 +1348,7 @@ declare module "xray16" {
     /**
      * @returns Smart-cover description table id.
      */
-    public description<T extends string = string>(): T | null;
+    public description<T extends string = string>(): Nullable<T>;
 
     /**
      * Replace the table of available loopholes.

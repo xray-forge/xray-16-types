@@ -1,3 +1,5 @@
+import type { Nullable } from "../internal";
+
 declare module "xray16" {
   /**
    * Hit packet that can be sent to game objects.
@@ -70,7 +72,7 @@ declare module "xray16" {
      * @remarks
      * Leave `null` for world or scripted damage that should not be attributed to a game object.
      */
-    public draftsman: game_object | null;
+    public draftsman: Nullable<game_object>;
 
     /**
      * Physics impulse applied with the hit.

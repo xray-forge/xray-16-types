@@ -1,3 +1,5 @@
+import type { Nillable } from "../../internal";
+
 declare module "xray16" {
   /**
    * Campfire anomaly object.
@@ -642,7 +644,7 @@ declare module "xray16" {
      *
      * @param game_object - Enemy object, or null to clear.
      */
-    public SetEnemy(game_object: game_object | null): void;
+    public SetEnemy(game_object: Nillable<game_object>): void;
 
     /**
      * Track an enemy point.

@@ -1,3 +1,5 @@
+import type { Nillable, Nullable } from "../internal";
+
 declare module "xray16" {
   /**
    * Global helpers for the currently loaded level.
@@ -243,7 +245,7 @@ declare module "xray16" {
      *
      * @returns Target object, or `null` when nothing is targeted.
      */
-    get_target_obj(this: void): game_object | null;
+    get_target_obj(this: void): Nullable<game_object>;
 
     /**
      * Get current game day count.
@@ -437,7 +439,7 @@ declare module "xray16" {
      * @param object_id - Game object id.
      * @returns Matching object, or `null` when it is not online.
      */
-    object_by_id(this: void, object_id: u16): game_object | null;
+    object_by_id(this: void, object_id: u16): Nullable<game_object>;
 
     /**
      * Check whether a patrol path exists on this level.
@@ -782,7 +784,7 @@ declare module "xray16" {
       range: f32,
       target: unknown,
       result: unknown,
-      ignore_object: game_object | null
+      ignore_object: Nillable<game_object>
     ): boolean;
   }
 

@@ -1,3 +1,5 @@
+import type { Nillable } from "../internal";
+
 declare module "xray16" {
   /**
    * XML UI initialization helper.
@@ -47,7 +49,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created button.
      */
-    public InitButton(selector: string, parent: CUIWindow | null): CUIButton;
+    public InitButton(selector: string, parent: Nillable<CUIWindow>): CUIButton;
 
     /**
      * Create and initialize a three-state button from XML.
@@ -59,7 +61,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created button.
      */
-    public Init3tButton(selector: string, parent: CUIWindow | null): CUI3tButton;
+    public Init3tButton(selector: string, parent: Nillable<CUIWindow>): CUI3tButton;
 
     /**
      * Create and initialize an animated static from XML.
@@ -71,7 +73,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created static control.
      */
-    public InitAnimStatic(selector: string, parent: CUIWindow | null): CUIStatic;
+    public InitAnimStatic(selector: string, parent: Nillable<CUIWindow>): CUIStatic;
 
     /**
      * Create and initialize a CD key edit box from XML.
@@ -83,7 +85,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created edit box.
      */
-    public InitCDkey(selector: string, parent: CUIWindow | null): CUIEditBox;
+    public InitCDkey(selector: string, parent: Nillable<CUIWindow>): CUIEditBox;
 
     /**
      * Create and initialize a check button from XML.
@@ -92,7 +94,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created check button.
      */
-    public InitCheck(selector: string, parent: CUIWindow | null): CUICheckButton;
+    public InitCheck(selector: string, parent: Nillable<CUIWindow>): CUICheckButton;
 
     /**
      * Create and initialize a combo box from XML.
@@ -101,7 +103,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created combo box.
      */
-    public InitComboBox(selector: string, parent: CUIWindow | null): CUIComboBox;
+    public InitComboBox(selector: string, parent: Nillable<CUIWindow>): CUIComboBox;
 
     /**
      * Create and initialize an edit box from XML.
@@ -110,7 +112,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created edit box.
      */
-    public InitEditBox(selector: string, parent: CUIWindow | null): CUIEditBox;
+    public InitEditBox(selector: string, parent: Nillable<CUIWindow>): CUIEditBox;
 
     /**
      * Create and initialize a frame window from XML.
@@ -119,7 +121,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created frame window.
      */
-    public InitFrame(selector: string, parent: CUIWindow | null): CUIFrameWindow;
+    public InitFrame(selector: string, parent: Nillable<CUIWindow>): CUIFrameWindow;
 
     /**
      * Create and initialize a frame line from XML.
@@ -128,7 +130,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created frame line.
      */
-    public InitFrameLine(selector: string, parent: CUIWindow | null): CUIFrameLineWnd;
+    public InitFrameLine(selector: string, parent: Nillable<CUIWindow>): CUIFrameLineWnd;
 
     /**
      * Create and initialize a key binding control from XML.
@@ -137,7 +139,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created key binding window.
      */
-    public InitKeyBinding(selector: string, parent: CUIWindow | null): CUIWindow;
+    public InitKeyBinding(selector: string, parent: Nillable<CUIWindow>): CUIWindow;
 
     /**
      * Create and initialize a label from XML.
@@ -146,7 +148,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created label static.
      */
-    public InitLabel(selector: string, parent: CUIWindow | null): CUIStatic;
+    public InitLabel(selector: string, parent: Nillable<CUIWindow>): CUIStatic;
 
     /**
      * Create and initialize a list window from XML.
@@ -158,7 +160,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created list window.
      */
-    public InitList(selector: string, parent: CUIWindow | null): CUIListWnd;
+    public InitList(selector: string, parent: Nillable<CUIWindow>): CUIListWnd;
 
     /**
      * Create and initialize a list box from XML.
@@ -172,7 +174,7 @@ declare module "xray16" {
      */
     public InitListBox<T extends CUIListBoxItem = CUIListBoxItem>(
       selector: string,
-      parent: CUIWindow | null
+      parent: Nillable<CUIWindow>
     ): CUIListBox<T>;
 
     /**
@@ -182,7 +184,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created main-menu shniaga control.
      */
-    public InitMMShniaga(selector: string, parent: CUIWindow | null): CUIMMShniaga;
+    public InitMMShniaga(selector: string, parent: Nillable<CUIWindow>): CUIMMShniaga;
 
     /**
      * Create and initialize a multiplayer player-name edit box from XML.
@@ -191,7 +193,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created edit box.
      */
-    public InitMPPlayerName(selector: string, parent: CUIWindow | null): CUIEditBox;
+    public InitMPPlayerName(selector: string, parent: Nillable<CUIWindow>): CUIEditBox;
 
     /**
      * Create and initialize a map info control from XML.
@@ -203,7 +205,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created map info control.
      */
-    public InitMapInfo(selector: string, parent: CUIWindow | null): CUIMapInfo;
+    public InitMapInfo(selector: string, parent: Nillable<CUIWindow>): CUIMapInfo;
 
     /**
      * Create and initialize a map list control from XML.
@@ -212,7 +214,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created map list control.
      */
-    public InitMapList(selector: string, parent: CUIWindow | null): CUIMapList;
+    public InitMapList(selector: string, parent: Nillable<CUIWindow>): CUIMapList;
 
     /**
      * Create and initialize a progress bar from XML.
@@ -221,7 +223,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created progress bar.
      */
-    public InitProgressBar(selector: string, parent: CUIWindow | null): CUIProgressBar;
+    public InitProgressBar(selector: string, parent: Nillable<CUIWindow>): CUIProgressBar;
 
     /**
      * Create and initialize a scroll view from XML.
@@ -233,7 +235,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created scroll view.
      */
-    public InitScrollView(selector: string, parent: CUIWindow | null): CUIScrollView;
+    public InitScrollView(selector: string, parent: Nillable<CUIWindow>): CUIScrollView;
 
     /**
      * Create and initialize a server list from XML.
@@ -242,7 +244,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created server list.
      */
-    public InitServerList(selector: string, parent: CUIWindow | null): CServerList;
+    public InitServerList(selector: string, parent: Nillable<CUIWindow>): CServerList;
 
     /**
      * Create and initialize a sleep static from XML.
@@ -251,7 +253,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created sleep static.
      */
-    public InitSleepStatic(selector: string, parent: CUIWindow | null): CUISleepStatic;
+    public InitSleepStatic(selector: string, parent: Nillable<CUIWindow>): CUISleepStatic;
 
     /**
      * Create and initialize a float spin control from XML.
@@ -260,7 +262,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created spin control.
      */
-    public InitSpinFlt(selector: string, parent: CUIWindow | null): CUISpinFlt;
+    public InitSpinFlt(selector: string, parent: Nillable<CUIWindow>): CUISpinFlt;
 
     /**
      * Create and initialize an integer spin control from XML.
@@ -269,7 +271,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created spin control.
      */
-    public InitSpinNum(selector: string, parent: CUIWindow | null): CUISpinNum;
+    public InitSpinNum(selector: string, parent: Nillable<CUIWindow>): CUISpinNum;
 
     /**
      * Create and initialize a text spin control from XML.
@@ -278,7 +280,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created spin control.
      */
-    public InitSpinText(selector: string, parent: CUIWindow | null): CUISpinText;
+    public InitSpinText(selector: string, parent: Nillable<CUIWindow>): CUISpinText;
 
     /**
      * Create and initialize a static control from XML.
@@ -290,7 +292,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created static control.
      */
-    public InitStatic(selector: string, parent: CUIWindow | null): CUIStatic;
+    public InitStatic(selector: string, parent: Nillable<CUIWindow>): CUIStatic;
 
     /**
      * Create and initialize a tab control from XML.
@@ -299,7 +301,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created tab control.
      */
-    public InitTab(selector: string, parent: CUIWindow | null): CUITabControl;
+    public InitTab(selector: string, parent: Nillable<CUIWindow>): CUITabControl;
 
     /**
      * Create and initialize a text window from XML.
@@ -308,7 +310,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created text window.
      */
-    public InitTextWnd(selector: string, parent: CUIWindow | null): CUITextWnd;
+    public InitTextWnd(selector: string, parent: Nillable<CUIWindow>): CUITextWnd;
 
     /**
      * Create and initialize a track bar from XML.
@@ -317,7 +319,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created track bar.
      */
-    public InitTrackBar(selector: string, parent: CUIWindow | null): CUITrackBar;
+    public InitTrackBar(selector: string, parent: Nillable<CUIWindow>): CUITrackBar;
 
     /**
      * Create and initialize a version list from XML.
@@ -326,7 +328,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created version list.
      */
-    public InitVerList(selector: string, parent: CUIWindow | null): CUIVersionList;
+    public InitVerList(selector: string, parent: Nillable<CUIWindow>): CUIVersionList;
 
     /**
      * Create and initialize a hint window from XML.
@@ -335,7 +337,7 @@ declare module "xray16" {
      * @param parent - Optional parent window.
      * @returns Created hint window.
      */
-    public InitHint(selector: string, parent: CUIWindow | null): UIHint;
+    public InitHint(selector: string, parent: Nillable<CUIWindow>): UIHint;
 
     /**
      * Initialize a window already created by script.
@@ -348,7 +350,7 @@ declare module "xray16" {
      * @param index - XML node index.
      * @param parent - Window to initialize.
      */
-    public InitWindow(selector: string, index: i32, parent: CUIWindow | null): void;
+    public InitWindow(selector: string, index: i32, parent: Nillable<CUIWindow>): void;
 
     /**
      * Initialize a group of auto-created static controls under an existing window.

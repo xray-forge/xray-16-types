@@ -1,3 +1,5 @@
+import type { Nillable } from "../internal";
+
 declare module "xray16" {
   /**
    * Network client identifier.
@@ -507,7 +509,7 @@ declare module "xray16" {
      *
      * @param value - String value.
      */
-    public w_stringZ(value: string | null): void;
+    public w_stringZ(value: Nillable<string>): void;
 
     /**
      * Get current write cursor offset.

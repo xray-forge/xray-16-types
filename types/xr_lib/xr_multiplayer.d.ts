@@ -1,3 +1,5 @@
+import type { Nillable, Nullable } from "../internal";
+
 declare module "xray16" {
   /**
    * Metadata stored inside a recorded multiplayer demo.
@@ -356,7 +358,7 @@ declare module "xray16" {
      *
      * @returns Current logged-in profile, or null when offline.
      */
-    public get_current_profile(): profile | null;
+    public get_current_profile(): Nullable<profile>;
 
     /**
      * @returns Saved email from registry.
@@ -548,7 +550,7 @@ declare module "xray16" {
      * @param object - Lua object used as callback `this`.
      * @param cb - Called with login profile and status description.
      */
-    public constructor(object: object, cb: (this: object, profile: profile | null, description: string) => void);
+    public constructor(object: object, cb: (this: object, profile: Nillable<profile>, description: string) => void);
 
     /**
      * Replace the bound callback.
@@ -556,7 +558,7 @@ declare module "xray16" {
      * @param object - Lua object used as callback `this`.
      * @param cb - Called with login profile and status description.
      */
-    public bind(object: object, cb: (this: object, profile: profile | null, description: string) => void): void;
+    public bind(object: object, cb: (this: object, profile: Nillable<profile>, description: string) => void): void;
 
     /**
      * Clear the bound callback.

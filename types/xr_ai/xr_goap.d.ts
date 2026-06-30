@@ -1,3 +1,5 @@
+import type { Nillable } from "../internal";
+
 declare module "xray16" {
   /**
    * GOAP property and action id constants for stalker AI.
@@ -646,13 +648,13 @@ declare module "xray16" {
     /**
      * @param object - Target game object to work with, `null` is OK since correct object will be injected on setup.
      */
-    public constructor(object: game_object | null);
+    public constructor(object: Nillable<game_object>);
 
     /**
      * @param object - Target game object to work with, `null` is OK since correct object will be injected on setup.
      * @param name - Name of the evaluator, used for debug purposes mainly.
      */
-    public constructor(object: game_object | null, name: string);
+    public constructor(object: Nillable<game_object>, name: string);
 
     /**
      * Handle setup of the evaluator and binding to a specific object.
@@ -715,13 +717,13 @@ declare module "xray16" {
     /**
      * @param object - Target game object to work with, `null` is OK since correct object will be injected on setup.
      */
-    public constructor(object?: game_object | null);
+    public constructor(object?: Nillable<game_object>);
 
     /**
      * @param object - Target game object to work with, `null` is OK since correct object will be injected on setup.
      * @param name - Name of the action, used for debug purposes mainly.
      */
-    public constructor(object: game_object | null, name: string);
+    public constructor(object: Nillable<game_object>, name: string);
 
     /**
      * Handle setup of the action and binding to a specific object.
@@ -1000,13 +1002,13 @@ declare module "xray16" {
     /**
      * @param object - Target game object to work with, `null` is OK since correct object will be injected on setup.
      */
-    public constructor(object?: game_object | null);
+    public constructor(object?: Nillable<game_object>);
 
     /**
      * @param object - Target game object to work with, `null` is OK since correct object will be injected on setup.
      * @param name - Name of the action, used for debug purposes mainly.
      */
-    public constructor(object: game_object | null, name: string);
+    public constructor(object: Nillable<game_object>, name: string);
 
     /**
      * Lifecycle method called once on action execution start.

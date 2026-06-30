@@ -1,3 +1,5 @@
+import type { Nullable } from "../internal";
+
 declare module "xray16" {
   /**
    * Task state and task type constants.
@@ -102,7 +104,7 @@ declare module "xray16" {
     /**
      * @returns Objective icon name, or null when none is set.
      */
-    public get_icon_name<T extends string = string>(): T | null;
+    public get_icon_name<T extends string = string>(): Nullable<T>;
 
     /**
      * Set objective description text.

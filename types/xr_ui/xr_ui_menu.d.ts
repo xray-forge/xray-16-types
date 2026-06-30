@@ -1,3 +1,5 @@
+import type { Nullable } from "../internal";
+
 declare module "xray16" {
   /**
    * Main-menu options manager binding.
@@ -102,7 +104,7 @@ declare module "xray16" {
      * @param fileName - Demo file name.
      * @returns Demo info, or `null` when it cannot be read.
      */
-    public GetDemoInfo(fileName: string): demo_info | null;
+    public GetDemoInfo(fileName: string): Nullable<demo_info>;
 
     /**
      * Get patch download progress.
@@ -209,7 +211,7 @@ declare module "xray16" {
      *
      * @returns Game object for the item, or `null` when the cell has no item.
      */
-    public CurrentItemAtCell(): game_object | null;
+    public CurrentItemAtCell(): Nullable<game_object>;
 
     /**
      * Get an active custom HUD static by id.
@@ -217,7 +219,7 @@ declare module "xray16" {
      * @param id - Static descriptor id.
      * @returns Drawable wrapper, or `null` when missing.
      */
-    public GetCustomStatic(id: string): StaticDrawableWrapper | null;
+    public GetCustomStatic(id: string): Nullable<StaticDrawableWrapper>;
 
     /**
      * Hide the actor inventory menu.

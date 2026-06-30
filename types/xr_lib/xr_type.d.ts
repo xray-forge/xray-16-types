@@ -56,11 +56,6 @@ declare module "xray16" {
   /**
    * @group xr_type
    */
-  type Maybe<T> = T | null | undefined;
-
-  /**
-   * @group xr_type
-   */
   type AnyObject = Record<string, any>;
 
   /**

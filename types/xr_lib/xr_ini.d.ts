@@ -1,3 +1,5 @@
+import type { Nillable } from "../internal";
+
 declare module "xray16" {
   /**
    * LTX/INI file reader and writer.
@@ -74,7 +76,7 @@ declare module "xray16" {
      * @param section - Section name.
      * @returns Whether the section exists.
      */
-    public section_exist(section: string | null): boolean;
+    public section_exist(section: Nillable<string>): boolean;
 
     /**
      * Read a floating-point value.
@@ -198,7 +200,7 @@ declare module "xray16" {
      * @param field - Section field to check.
      * @returns Whether line exists.
      */
-    public line_exist(section: string | null, field: string): boolean;
+    public line_exist(section: Nillable<string>, field: string): boolean;
 
     /**
      * Write a 2D vector value.

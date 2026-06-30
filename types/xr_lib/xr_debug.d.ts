@@ -1,3 +1,5 @@
+import type { Nullable } from "../internal";
+
 declare module "xray16" {
   /**
    * Engine console interface.
@@ -97,7 +99,7 @@ declare module "xray16" {
      * @param key - Console variable name.
      * @returns String value.
      */
-    public get_string(key: string): string | null;
+    public get_string(key: string): Nullable<string>;
 
     /**
      * Read console variable token text.
@@ -108,7 +110,7 @@ declare module "xray16" {
      * @param key - Console variable name.
      * @returns Token text.
      */
-    public get_token(key: string): string | null;
+    public get_token(key: string): Nullable<string>;
   }
 
   /**

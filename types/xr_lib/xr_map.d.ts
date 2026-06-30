@@ -1,3 +1,5 @@
+import type { Nullable } from "../internal";
+
 declare module "xray16" {
   /**
    * Manages active PDA/minimap locations.
@@ -95,7 +97,7 @@ declare module "xray16" {
      *
      * @returns Hint text shown for the spot.
      */
-    public GetHint(): string | null;
+    public GetHint(): Nullable<string>;
 
     /**
      * @remarks

@@ -1,3 +1,5 @@
+import type { Nillable, Nullable } from "./internal";
+
 declare global {
   /**
    * Current source file name injected at transpile time.
@@ -21,7 +23,7 @@ declare global {
    * @param value - Value to check.
    * @returns Whether value is `null` or `undefined`.
    */
-  function $isNil(value: unknown): value is null | undefined;
+  function $isNil(value: unknown): value is Nillable<never>;
 
   /**
    * Check whether a value is not nil-compatible in Lua and Jest runtimes.

@@ -1,3 +1,5 @@
+import type { Nillable } from "../internal";
+
 declare module "xray16" {
   /**
    * Current playback parameters for a launched sound.
@@ -164,7 +166,7 @@ declare module "xray16" {
      *
      * @param object - Object used as sound owner.
      */
-    public play(object: game_object | null): void;
+    public play(object: Nillable<game_object>): void;
 
     /**
      * Play the sound after a delay.
@@ -174,7 +176,7 @@ declare module "xray16" {
      * @param object - Object used as sound owner.
      * @param delay - Delay in seconds.
      */
-    public play(object: game_object | null, delay: f32): void;
+    public play(object: Nillable<game_object>, delay: f32): void;
 
     /**
      * Play the sound with engine sound flags.
@@ -185,7 +187,7 @@ declare module "xray16" {
      * @param delay - Delay in seconds.
      * @param flags - Playback flags such as `sound_object.looped` or `sound_object.s2d`.
      */
-    public play(object: game_object | null, delay: f32, flags: i32): void;
+    public play(object: Nillable<game_object>, delay: f32, flags: i32): void;
 
     /**
      * Play the sound at a fixed world position.
@@ -195,7 +197,7 @@ declare module "xray16" {
      * @param object - Optional object used as sound owner.
      * @param position - World position for playback.
      */
-    public play_at_pos(object: game_object | null, position: vector): void;
+    public play_at_pos(object: Nillable<game_object>, position: vector): void;
 
     /**
      * Play the sound at a fixed world position after a delay.
@@ -206,7 +208,7 @@ declare module "xray16" {
      * @param position - World position for playback.
      * @param delay - Delay in seconds.
      */
-    public play_at_pos(object: game_object | null, position: vector, delay: f32): void;
+    public play_at_pos(object: Nillable<game_object>, position: vector, delay: f32): void;
 
     /**
      * Play the sound at a fixed world position with engine sound flags.
@@ -218,7 +220,7 @@ declare module "xray16" {
      * @param delay - Delay in seconds.
      * @param flags - Playback flags such as `sound_object.looped` or `sound_object.s2d`.
      */
-    public play_at_pos(object: game_object | null, position: vector, delay: f32, flags: i32): void;
+    public play_at_pos(object: Nillable<game_object>, position: vector, delay: f32, flags: i32): void;
 
     /**
      * Play without tracking feedback.
@@ -235,7 +237,7 @@ declare module "xray16" {
      * @param position - Optional playback position.
      * @param volume - Optional playback volume.
      */
-    public play_no_feedback(object: game_object | null, flags: i32, delay: f32, position: vector, volume: f32): void;
+    public play_no_feedback(object: Nillable<game_object>, flags: i32, delay: f32, position: vector, volume: f32): void;
 
     /**
      * Stop playback immediately.

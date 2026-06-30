@@ -1,3 +1,5 @@
+import type { Nullable } from "../internal";
+
 declare module "xray16" {
   /**
    * Base memory record with timing information.
@@ -352,7 +354,7 @@ declare module "xray16" {
      *
      * @returns Source object, or `null` when the source is not a game object.
      */
-    public object(): game_object | null;
+    public object(): Nullable<game_object>;
 
     /**
      * @returns How the danger was perceived.
@@ -367,7 +369,7 @@ declare module "xray16" {
      *
      * @returns Dependent object, or `null` when there is none.
      */
-    public dependent_object(): game_object | null;
+    public dependent_object(): Nullable<game_object>;
   }
 
   /**

@@ -1,3 +1,5 @@
+import type { Nillable, Nullable } from "../internal";
+
 declare module "xray16" {
   /**
    * Access point for ALife simulation objects and registries.
@@ -123,7 +125,7 @@ declare module "xray16" {
      * @param object - Object to remove.
      * @param flag - Compatibility flag accepted by the engine binding.
      */
-    public release(object: cse_alife_object | null, flag: boolean): void;
+    public release(object: Nillable<cse_alife_object>, flag: boolean): void;
 
     /**
      * Remove all restrictions of one type from an object.
@@ -212,7 +214,7 @@ declare module "xray16" {
      * @param storyId - Story id.
      * @returns Matching server object, or `null` when it is not registered.
      */
-    public story_object(storyId: u32): cse_alife_object | null;
+    public story_object(storyId: u32): Nullable<cse_alife_object>;
 
     /**
      * @returns Alife server-client switch distance.
@@ -287,7 +289,7 @@ declare module "xray16" {
      * @param no_assert - Return `null` instead of asserting when the object is missing.
      * @returns Matching server object, or `null`.
      */
-    public object<T extends cse_alife_object = cse_alife_object>(object_id: u16, no_assert?: boolean): T | null;
+    public object<T extends cse_alife_object = cse_alife_object>(object_id: u16, no_assert?: boolean): Nullable<T>;
 
     /**
      * Get a server object by its engine replacement name.
@@ -295,7 +297,7 @@ declare module "xray16" {
      * @param name - Server object replacement name.
      * @returns Matching server object, or `null`.
      */
-    public object<T extends cse_alife_object = cse_alife_object>(name: string): T | null;
+    public object<T extends cse_alife_object = cse_alife_object>(name: string): Nullable<T>;
 
     /**
      * Create an object from a spawn graph id.

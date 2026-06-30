@@ -1,3 +1,5 @@
+import type { Nullable } from "../internal";
+
 declare module "xray16" {
   /**
    * Named integer token used by editor property lists.
@@ -55,7 +57,7 @@ declare module "xray16" {
      * @param index - Token index.
      * @returns Token text, or `null` from native code when index is out of range.
      */
-    public get(index: u32): string | null;
+    public get(index: u32): Nullable<string>;
 
     /**
      * Get number of tokens in the list.

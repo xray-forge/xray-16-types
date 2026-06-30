@@ -1,3 +1,5 @@
+import type { Nillable, Nullable } from "../internal";
+
 declare module "xray16" {
   /**
    * File list returned by the engine filesystem.
@@ -437,7 +439,7 @@ declare module "xray16" {
      * @param fs_type - Filesystem source to search.
      * @returns File status.
      */
-    public exist(alias: string, filename: string, fs_type: TXR_fs_type): FileStatus | null;
+    public exist(alias: string, filename: string, fs_type: TXR_fs_type): Nullable<FileStatus>;
 
     /**
      * Check whether a file exists below a path alias.
@@ -449,7 +451,7 @@ declare module "xray16" {
      * @param filename - File name.
      * @returns File descriptor pointer or `null`.
      */
-    public exist(alias: string, filename: string): i32 | null;
+    public exist(alias: string, filename: string): Nullable<i32>;
 
     /**
      * Check whether a file exists.
@@ -460,7 +462,7 @@ declare module "xray16" {
      * @param path - File path.
      * @returns File descriptor pointer or `null`.
      */
-    public exist(path: string): i32 | null;
+    public exist(path: string): Nullable<i32>;
 
     /**
      * Check whether a file exists.
@@ -472,7 +474,7 @@ declare module "xray16" {
      * @param fs_type - Filesystem source to search.
      * @returns File status.
      */
-    public exist(path: string, fs_type: TXR_fs_type): FileStatus | null;
+    public exist(path: string, fs_type: TXR_fs_type): Nullable<FileStatus>;
 
     /**
      * Add a path alias.
@@ -562,7 +564,7 @@ declare module "xray16" {
      *
      * @param writer - Writer returned by `w_open`.
      */
-    public w_close(writer: IWriter | null): void;
+    public w_close(writer: Nillable<IWriter>): void;
 
     /**
      * Open a binary writer below a path alias.
@@ -574,7 +576,7 @@ declare module "xray16" {
      * @param filename - Relative file path.
      * @returns Binary writer, or `null`.
      */
-    public w_open(path: string, filename: string): IWriter | null;
+    public w_open(path: string, filename: string): Nullable<IWriter>;
 
     /**
      * Open a binary writer.
@@ -585,7 +587,7 @@ declare module "xray16" {
      * @param path - File path.
      * @returns Binary writer, or `null`.
      */
-    public w_open(path: string): IWriter | null;
+    public w_open(path: string): Nullable<IWriter>;
   }
 
   /**

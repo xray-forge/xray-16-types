@@ -1,3 +1,5 @@
+import type { Nullable } from "../internal";
+
 declare module "xray16" {
   /**
    * Actor statistics helpers exposed through the `actor_stats` namespace.
@@ -37,7 +39,7 @@ declare module "xray16" {
      *
      * @param object_id - Object id to remove.
      */
-    remove_from_ranking(this: void, object_id: number): void | null;
+    remove_from_ranking(this: void, object_id: number): Nullable<void>;
   }
 
   /**
