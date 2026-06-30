@@ -21,7 +21,7 @@ declare global {
    * @param value - Value to check.
    * @returns Whether value is `null` or `undefined`.
    */
-  function $isNil<T>(value: T): value is null | undefined;
+  function $isNil(value: unknown): value is null | undefined;
 
   /**
    * Check whether a value is not nil-compatible in Lua and Jest runtimes.
