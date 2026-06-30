@@ -181,6 +181,66 @@ declare module "xray16" {
   }
 
   /**
+   * Registered filesystem path alias descriptor.
+   *
+   * @source C++ class FS_Path
+   * @customConstructor FS_Path
+   * @group xr_fs
+   *
+   * @remarks
+   * Returned by filesystem alias lookups. The object is owned by the engine filesystem.
+   */
+  export class FS_Path {
+    /**
+     * Resolved full path.
+     */
+    public readonly m_Path: string;
+
+    /**
+     * Root path used by this alias.
+     */
+    public readonly m_Root: string;
+
+    /**
+     * Relative path segment added to the root.
+     */
+    public readonly m_Add: string;
+
+    /**
+     * Default extension used by this alias.
+     */
+    public readonly m_DefExt: string;
+
+    /**
+     * File dialog filter caption.
+     */
+    public readonly m_FilterCaption: string;
+
+    /**
+     * Engine-created path descriptor.
+     */
+    private constructor();
+  }
+
+  /**
+   * Opaque filesystem writer handle.
+   *
+   * @source C++ class IWriter
+   * @customConstructor IWriter
+   * @group xr_fs
+   *
+   * @remarks
+   * Returned by {@link FS.w_open}. The writer class is not registered with script-callable write methods in this
+   * binding, so scripts normally only pass it back to {@link FS.w_close}.
+   */
+  export class IWriter {
+    /**
+     * Engine-created writer handle.
+     */
+    private constructor();
+  }
+
+  /**
    * Engine filesystem facade.
    *
    * Path aliases such as `$game_config$` and `$logs$` are resolved by this object.
@@ -410,7 +470,7 @@ declare module "xray16" {
      * @param fs_type - Filesystem source to search.
      * @returns File status.
      */
-    public exist(path: string, fs_type: TXR_fs_type): FileStatus;
+    public exist(path: string, fs_type: TXR_fs_type): FileStatus | null;
 
     /**
      * Add a path alias.
@@ -421,7 +481,7 @@ declare module "xray16" {
      * @param recursive - Whether subfolders should be scanned.
      * @returns Native filesystem path descriptor.
      */
-    public append_path(alias: string, root: string, path: string, recursive: boolean): unknown; /* FS_Path */
+    public append_path(alias: string, root: string, path: string, recursive: boolean): FS_Path;
 
     /**
      * Check whether a path alias exists.
@@ -461,7 +521,7 @@ declare module "xray16" {
      * @param alias - Filesystem path alias.
      * @returns Native filesystem path descriptor.
      */
-    public get_path(alias: string): unknown;
+    public get_path(alias: string): FS_Path;
 
     /**
      * Close a binary reader.
@@ -492,7 +552,7 @@ declare module "xray16" {
      *
      * @param writer - Writer returned by `w_open`.
      */
-    public w_close(writer: unknown /* IWriter */): void;
+    public w_close(writer: IWriter): void;
 
     /**
      * Open a binary writer below a path alias.
@@ -501,7 +561,7 @@ declare module "xray16" {
      * @param filename - Relative file path.
      * @returns Binary writer.
      */
-    public w_open(path: string, filename: string): unknown; /* IWriter */
+    public w_open(path: string, filename: string): IWriter;
 
     /**
      * Open a binary writer.
@@ -509,7 +569,7 @@ declare module "xray16" {
      * @param path - File path.
      * @returns Binary writer.
      */
-    public w_open(path: string): unknown; /* IWriter */
+    public w_open(path: string): IWriter;
   }
 
   /**
