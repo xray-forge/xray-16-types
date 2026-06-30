@@ -146,6 +146,8 @@ declare module "xray16" {
     /**
      * Resolve a string table key for the current language.
      *
+     * @since OpenXRay 2022-08-09, a2d264fc, PR #1032
+     *
      * @param translation_key - String table key to translate.
      * @returns Localized text or the fallback string from the string table.
      */
@@ -163,6 +165,8 @@ declare module "xray16" {
 
     /**
      * Reload string table data for the active language.
+     *
+     * @since OpenXRay 2022-08-09, a2d264fc, PR #1032
      */
     reload_language(this: void): void;
 
@@ -178,11 +182,15 @@ declare module "xray16" {
 
     /**
      * Write the current native stack trace to the engine log.
+     *
+     * @since OpenXRay 2022-08-09, a2d264fc, PR #1032
      */
     log_stack_trace(this: void): void;
 
     /**
      * Move the actor to another level by level name.
+     *
+     * @since OpenXRay 2014-12-27, c82669625
      *
      * @remarks
      * If the level name is not present in the game graph, the engine logs a script error and leaves the actor in the
@@ -195,6 +203,8 @@ declare module "xray16" {
     /**
      * Move the actor to another level graph point.
      *
+     * @since OpenXRay 2014-12-27, c82669625
+     *
      * @param position - Target position.
      * @param level_vertex_id - Target level vertex.
      * @param game_vertex_id - Target game graph vertex.
@@ -203,6 +213,8 @@ declare module "xray16" {
 
     /**
      * Move the actor to another level graph point and face a direction.
+     *
+     * @since OpenXRay 2014-12-27, c82669625
      *
      * @param position - Target position.
      * @param level_vertex_id - Target level vertex.
@@ -231,6 +243,8 @@ declare module "xray16" {
 
     /**
      * Get the active tutorial identifier.
+     *
+     * @since OpenXRay 2022-08-09, a2d264fc, PR #1032
      *
      * @remarks
      * Call only after `has_active_tutorial()` returns `true`; the binding dereferences the active tutorial directly.
@@ -292,8 +306,9 @@ declare module "xray16" {
   /**
    * Set the actor start position used by level transition logic.
    *
-   * @group xr_game
+   * @since OpenXRay 2022-08-22, 33f6da05, PR #1006
    *
+   * @group xr_game
    * @remarks
    * Updates the global start position consumed by ALife level-transition code.
    *
@@ -303,6 +318,8 @@ declare module "xray16" {
 
   /**
    * Set the actor start game graph vertex.
+   *
+   * @since OpenXRay 2022-08-22, 33f6da05, PR #1006
    *
    * @group xr_game
    *

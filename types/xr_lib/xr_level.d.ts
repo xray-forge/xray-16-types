@@ -30,12 +30,7 @@ declare module "xray16" {
      * @param condition - Callback polled by the engine.
      * @param action - Callback called when the condition is satisfied.
      */
-    add_call(
-      this: void,
-      object: object,
-      condition: (this: void) => boolean,
-      action: (this: void) => boolean
-    ): void;
+    add_call(this: void, object: object, condition: (this: void) => boolean, action: (this: void) => boolean): void;
 
     /**
      * Register named object methods as a conditional level callback.
@@ -66,6 +61,8 @@ declare module "xray16" {
     /**
      * Start a camera effector with custom field of view.
      *
+     * @since OpenXRay 2019-05-07, 2d1b946a, PR #382
+     *
      * @remarks
      * Requires an actor. The binding adds the effector to `Actor().Cameras()`.
      *
@@ -76,14 +73,7 @@ declare module "xray16" {
      * @param camera_fov - Optional field of view for the effector.
      * @returns Effector animation length.
      */
-    add_cam_effector2(
-      this: void,
-      effect: string,
-      id: i32,
-      is_cyclic: boolean,
-      callback: string,
-      camera_fov?: f32
-    ): f32;
+    add_cam_effector2(this: void, effect: string, id: i32, is_cyclic: boolean, callback: string, camera_fov?: f32): f32;
 
     /**
      * Start a named complex effector.
@@ -195,6 +185,8 @@ declare module "xray16" {
     /**
      * Get active camera id.
      *
+     * @since OpenXRay 2015-07-07, 6e703b4c
+     *
      * @remarks
      * Returns `255` when the current view entity is not an actor.
      *
@@ -226,12 +218,16 @@ declare module "xray16" {
     /**
      * Get distance to the object or surface under the crosshair.
      *
+     * @since OpenXRay 2014-12-27, c82669625
+     *
      * @returns Target distance.
      */
     get_target_dist(this: void): f32;
 
     /**
      * Get targeted model element under the crosshair.
+     *
+     * @since OpenXRay 2015-06-03, 7213550c
      *
      * @remarks
      * Returns `0` when the current ray query has no model element.
@@ -242,6 +238,8 @@ declare module "xray16" {
 
     /**
      * Get the object under the crosshair.
+     *
+     * @since OpenXRay 2014-12-27, c82669625
      *
      * @returns Target object, or `null` when nothing is targeted.
      */
@@ -324,6 +322,8 @@ declare module "xray16" {
     /**
      * Iterate objects currently online on the level.
      *
+     * @since OpenXRay 2019-04-28, 13c5c022
+     *
      * @param cb - Callback called for each online object.
      */
     iterate_online_objects(this: void, cb: (this: void, object: game_object) => void | boolean): void;
@@ -353,7 +353,13 @@ declare module "xray16" {
      * @param object - Owner object.
      * @param cb - Callback called with each sound name.
      */
-    iterate_sounds(this: void, section: string, max_count: u32, object: object, cb: (this: void, name: string) => void): void;
+    iterate_sounds(
+      this: void,
+      section: string,
+      max_count: u32,
+      object: object,
+      cb: (this: void, name: string) => void
+    ): void;
 
     /**
      * Sample low cover from a level vertex in a direction.
@@ -490,12 +496,7 @@ declare module "xray16" {
      * @param condition - Condition callback originally registered.
      * @param action - Action callback originally registered.
      */
-    remove_call(
-      this: void,
-      object: object,
-      condition: (this: void) => boolean,
-      action: (this: void) => void
-    ): void;
+    remove_call(this: void, object: object, condition: (this: void) => boolean, action: (this: void) => void): void;
 
     /**
      * Remove named object methods registered as a level callback.
@@ -556,6 +557,8 @@ declare module "xray16" {
     /**
      * Send a network packet through the level.
      *
+     * @since OpenXRay 2014-12-27, c82669625
+     *
      * @param packet - Packet to send.
      * @param reliable - Whether the packet is reliable.
      * @param sequential - Whether the packet is sequential.
@@ -573,6 +576,8 @@ declare module "xray16" {
 
     /**
      * Set active camera id.
+     *
+     * @since OpenXRay 2015-07-07, 6e703b4c
      *
      * @remarks
      * Does nothing when the current view entity is not an actor or when the id is outside the actor camera range.
@@ -667,6 +672,8 @@ declare module "xray16" {
 
     /**
      * Spawn an item on the level.
+     *
+     * @since OpenXRay 2015-01-18, 3ee7401d
      *
      * @remarks
      * Uses the level spawn path, which is suitable for sections that are unsafe to create through `alife():create()`,

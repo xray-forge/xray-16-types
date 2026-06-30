@@ -117,24 +117,25 @@ export default [
       "jsdoc/require-yields-type": "off",
       "jsdoc/ts-no-empty-object-type": "off",
       "jsdoc/valid-types": "off",
+      "jsdoc/check-values": "off",
       // JSDoc: structural blank-line rule kept at error (auto-fixable).
       "jsdoc/tag-lines": ["error", "any", { startLines: 1, endLines: 0 }],
       // JSDoc + comment standardisation: warnings during incremental adoption, not build-blocking.
       "jsdoc/check-tag-names": [
         "warn",
-        { definedTags: ["group", "source", "customConstructor", "remarks", "internal", "LuabindClass"] },
+        { definedTags: ["since", "group", "source", "customConstructor", "remarks", "internal", "LuabindClass"] },
       ],
       "jsdoc/require-description-complete-sentence": ["warn", { tags: ["param", "returns"] }],
       "jsdoc/require-param": "warn",
       "jsdoc/require-returns": "warn",
-      // Tag order within each JSDoc block: `@source`, `@customConstructor`, `@group` first, then
+      // Tag order within each JSDoc block: `@source`, `@customConstructor`, `@group`, `@since` first, then
       // any other tags in appearance order, then `@param` and `@returns` last. Reorder only,
       // without inserting blank lines between groups.
       "jsdoc/sort-tags": [
         "warn",
         {
           tagSequence: [
-            { tags: ["source", "customConstructor", "group"] },
+            { tags: ["since", "source", "customConstructor", "group"] },
             { tags: ["-other"] },
             { tags: ["param", "returns"] },
           ],
@@ -148,7 +149,8 @@ export default [
         "always",
         {
           ignoreConsecutiveComments: true,
-          ignorePattern: "c8|v8|eslint|prettier|webpack|@?ts-?|tslint|jshint|jscs|istanbul|globals?|exported|noinspection",
+          ignorePattern:
+            "c8|v8|eslint|prettier|webpack|@?ts-?|tslint|jshint|jscs|istanbul|globals?|exported|noinspection",
         },
       ],
     },

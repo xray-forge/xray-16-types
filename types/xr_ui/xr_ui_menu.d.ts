@@ -202,6 +202,8 @@ declare module "xray16" {
     /**
      * Get the inventory item currently under the actor menu cursor.
      *
+     * @since OpenXRay 2015-07-07, 6e703b4c
+     *
      * @remarks
      * Requires the actor menu to have a current inventory cell.
      *
@@ -265,6 +267,8 @@ declare module "xray16" {
 
     /**
      * Refresh actor menu state.
+     *
+     * @since OpenXRay 2015-07-07, 6e703b4c
      *
      * @remarks
      * Updates the actor menu only when it is currently shown.

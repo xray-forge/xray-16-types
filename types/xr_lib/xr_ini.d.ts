@@ -1,17 +1,18 @@
 declare module "xray16" {
-   /**
-    * LTX/INI file reader and writer.
-    *
-    * Use it to read config sections and fields from game data, or to create small script-owned config files.
-    * Engine configs support section inheritance and `#include` statements.
-    *
-    * @source C++ class ini_file
-    * @customConstructor ini_file
-    * @group xr_ini
-    * @remarks
-    * Most typed read methods use the engine's strict config readers. Check `section_exist` and `line_exist` first when
-    * missing data is valid for your script.
-    */
+  /**
+   * LTX/INI file reader and writer.
+   *
+   * Use it to read config sections and fields from game data, or to create small script-owned config files.
+   * Engine configs support section inheritance and `#include` statements.
+   *
+   * @source C++ class ini_file
+   * @customConstructor ini_file
+   * @group xr_ini
+   *
+   * @remarks
+   * Most typed read methods use the engine's strict config readers. Check `section_exist` and `line_exist` first when
+   * missing data is valid for your script.
+   */
   export class ini_file {
     /**
      * Create an empty ini file.
@@ -202,6 +203,8 @@ declare module "xray16" {
     /**
      * Write a 2D vector value.
      *
+     * @since OpenXRay 2014-12-30, 565b39e5
+     *
      * @param section - Section name.
      * @param field - Field name.
      * @param vector - Value to write.
@@ -212,6 +215,8 @@ declare module "xray16" {
     /**
      * Write a 3D vector value.
      *
+     * @since OpenXRay 2014-12-30, 565b39e5
+     *
      * @param section - Section name.
      * @param field - Field name.
      * @param vector - Value to write.
@@ -221,6 +226,8 @@ declare module "xray16" {
 
     /**
      * Write a 4D vector value.
+     *
+     * @since OpenXRay 2014-12-30, 565b39e5
      *
      * @param section - Section name.
      * @param field - Field name.
@@ -377,6 +384,8 @@ declare module "xray16" {
 
     /**
      * Enable or disable section override name handling.
+     *
+     * @since OpenXRay 2014-12-30, 565b39e5
      *
      * @param override - Whether override names should be used.
      */

@@ -2,6 +2,8 @@ declare module "xray16" {
   /**
    * UI style manager binding.
    *
+   * @since OpenXRay 2023-03-31, 8c4f1500, PR #1114
+   *
    * @source C++ class UIStyleManager
    * @customConstructor UIStyleManager
    * @group xr_ui_asset
@@ -19,6 +21,8 @@ declare module "xray16" {
     /**
      * Iterate over available UI styles.
      *
+     * @since OpenXRay 2023-03-31, 8c4f1500, PR #1114
+     *
      * @remarks
      * The returned value is a Lua iterator over engine style tokens. The default style is always present.
      *
@@ -29,12 +33,16 @@ declare module "xray16" {
     /**
      * Check whether the default UI style is active.
      *
+     * @since OpenXRay 2023-03-31, 8c4f1500, PR #1114
+     *
      * @returns Whether the default style is set.
      */
     public DefaultStyleIsSet(): boolean;
 
     /**
      * Get the active UI style id.
+     *
+     * @since OpenXRay 2023-03-31, 8c4f1500, PR #1114
      *
      * @returns Current style id.
      */
@@ -43,12 +51,16 @@ declare module "xray16" {
     /**
      * Get the active UI style name.
      *
+     * @since OpenXRay 2023-03-31, 8c4f1500, PR #1114
+     *
      * @returns Current style name.
      */
     public GetCurrentStyleName(): string;
 
     /**
      * Switch to a UI style by name.
+     *
+     * @since OpenXRay 2023-03-31, 8c4f1500, PR #1114
      *
      * @remarks
      * Pass `reload_ui` to run the engine UI reset sequence after switching. Unknown names return `false`.
@@ -62,6 +74,8 @@ declare module "xray16" {
     /**
      * Switch to a UI style by id.
      *
+     * @since OpenXRay 2023-03-31, 8c4f1500, PR #1114
+     *
      * @remarks
      * Use an id from {@link GetAllStyles}. Unknown ids are accepted here, but later style-name lookup can fail native
      * verification.
@@ -73,6 +87,8 @@ declare module "xray16" {
     /**
      * Reset cached UI style data.
      *
+     * @since OpenXRay 2023-03-31, 8c4f1500, PR #1114
+     *
      * @remarks
      * Runs the engine UI reset sequence. It does not change the current style id by itself.
      */
@@ -80,6 +96,8 @@ declare module "xray16" {
 
     /**
      * Switch to a UI style by id.
+     *
+     * @since OpenXRay 2023-03-31, 8c4f1500, PR #1114
      *
      * @deprecated Use {@link UIStyleManager.SetupStyle}; the engine binding accepts names in `SetStyle`.
      *
@@ -332,6 +350,8 @@ declare module "xray16" {
 
   /**
    * Get the global UI style manager.
+   *
+   * @since OpenXRay 2023-03-31, 8c4f1500, PR #1114
    *
    * @group xr_ui_asset
    *

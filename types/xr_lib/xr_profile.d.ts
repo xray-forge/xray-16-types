@@ -2,6 +2,8 @@ declare module "xray16" {
   /**
    * No Lua profiler is active.
    *
+   * @since OpenXRay 2025-03-19, ac4ba75d, PR #1771
+   *
    * @source C++ enum CScriptProfilerType::None
    * @group xr_profiler
    */
@@ -10,6 +12,8 @@ declare module "xray16" {
   /**
    * Hook-based Lua profiler.
    *
+   * @since OpenXRay 2025-03-19, ac4ba75d, PR #1771
+   *
    * @source C++ enum CScriptProfilerType::Hook
    * @group xr_profiler
    */
@@ -17,6 +21,8 @@ declare module "xray16" {
 
   /**
    * LuaJIT sampling profiler.
+   *
+   * @since OpenXRay 2025-03-19, ac4ba75d, PR #1771
    *
    * @source C++ enum CScriptProfilerType::Sampling
    * @group xr_profiler
@@ -33,6 +39,8 @@ declare module "xray16" {
 
   /**
    * Lightweight script profile timer.
+   *
+   * @since OpenXRay 2025-03-19, ac4ba75d, PR #1771
    *
    * @source C++ class profile_timer
    * @customConstructor profile_timer
@@ -87,6 +95,8 @@ declare module "xray16" {
 
   /**
    * Lua script profiler namespace.
+   *
+   * @since OpenXRay 2025-03-19, ac4ba75d, PR #1771
    *
    * @source namespace profiler
    * @group xr_profiler
@@ -192,6 +202,8 @@ declare module "xray16" {
 
   /**
    * Lua script profiler namespace.
+   *
+   * @since OpenXRay 2025-03-19, ac4ba75d, PR #1771
    *
    * @source namespace profiler
    * @group xr_profiler

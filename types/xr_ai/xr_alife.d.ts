@@ -229,12 +229,16 @@ declare module "xray16" {
     /**
      * Set count of object updated in alife per one tick.
      *
+     * @since OpenXRay 2022-06-29, 09598fe7, PR #1033
+     *
      * @param count - Count of objects to update per tick.
      */
     public set_objects_per_update(count: u16): void;
 
     /**
      * Move a server object to another graph and level vertex.
+     *
+     * @since OpenXRay 2014-12-27, c82669625
      *
      * @param object_id - Object id to teleport.
      * @param game_vertex_id - Destination game graph vertex id.

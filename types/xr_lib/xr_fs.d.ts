@@ -446,6 +446,8 @@ declare module "xray16" {
     /**
      * Rescan a path alias.
      *
+     * @since OpenXRay 2015-07-07, 6e703b4c
+     *
      * @remarks
      * Marks the alias as needing a rescan. The next filesystem check refreshes cached entries.
      *

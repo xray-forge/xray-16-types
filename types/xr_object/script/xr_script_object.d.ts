@@ -638,6 +638,8 @@ declare module "xray16" {
     /**
      * Show a talk message.
      *
+     * @since OpenXRay 2019-06-27, 1ea203d0, PR #392
+     *
      * @remarks
      * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
      * a default value or do nothing.
@@ -889,6 +891,8 @@ declare module "xray16" {
 
     /**
      * Set carried object weight.
+     *
+     * @since OpenXRay 2016-04-12, 1a206d71
      *
      * @param weight - New weight.
      */
@@ -1156,6 +1160,8 @@ declare module "xray16" {
     /**
      * Attach a weapon addon from an inventory object.
      *
+     * @since OpenXRay 2015-01-06, 8f694c78
+     *
      * @remarks
      * Requires this object to be a weapon. Other object types log a script error and return a default
      * value or do nothing.
@@ -1166,6 +1172,8 @@ declare module "xray16" {
 
     /**
      * Detach a weapon addon by section name.
+     *
+     * @since OpenXRay 2015-01-06, 8f694c78
      *
      * @remarks
      * Requires this object to be a weapon. Other object types log a script error and return a default
@@ -3268,6 +3276,8 @@ declare module "xray16" {
     /**
      * Get item on belt by slot.
      *
+     * @since OpenXRay 2015-10-07, 658f68a2
+     *
      * @remarks
      * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
      * a default value or do nothing.
@@ -3414,6 +3424,8 @@ declare module "xray16" {
 
     /**
      * Start actor talk dialog with another inventory owner.
+     *
+     * @since OpenXRay 2023-04-17, 2b71746f
      *
      * @remarks
      * Requires this object to be the actor. Other object types log a script error or do nothing.
@@ -3693,12 +3705,20 @@ declare module "xray16" {
     // For weapons / outfits:
 
     /**
+     * Check whether an upgrade can be added.
+     *
+     * @since OpenXRay 2023-10-19, a6016f10, PR #1463
+     *
      * @param upgrade_section - Section of upgrade to check.
      * @returns Whether upgrade can be added.
      */
     public can_add_upgrade(upgrade_section: string): boolean;
 
     /**
+     * Check whether an upgrade can be installed.
+     *
+     * @since OpenXRay 2023-10-19, a6016f10, PR #1463
+     *
      * @param upgrade_section - Section of upgrade to check.
      * @returns Whether upgrade can be installed.
      */
@@ -3711,24 +3731,40 @@ declare module "xray16" {
     public has_upgrade(upgrade_section: string): boolean;
 
     /**
+     * Check whether an upgrade group is installed.
+     *
+     * @since OpenXRay 2023-10-19, a6016f10, PR #1463
+     *
      * @param upgrade_group_section - Section of upgrade group to check.
      * @returns Whether upgrade group is installed.
      */
     public has_upgrade_group(upgrade_group_section: string): boolean;
 
     /**
+     * Check whether an upgrade's parent group is installed.
+     *
+     * @since OpenXRay 2023-10-19, a6016f10, PR #1463
+     *
      * @param upgrade_section - Section of upgrade to check parent group.
      * @returns Whether upgrade parent group is installed.
      */
     public has_upgrade_group_by_upgrade_id(upgrade_section: string): boolean;
 
     /**
+     * Add an upgrade section.
+     *
+     * @since OpenXRay 2023-10-19, a6016f10, PR #1463
+     *
      * @param upgrade_section - Section of upgrade to add.
      * @returns Whether upgrade is installed successfully or not.
      */
     public add_upgrade(upgrade_section: string): boolean;
 
     /**
+     * Install an upgrade section.
+     *
+     * @since OpenXRay 2023-10-19, a6016f10, PR #1463
+     *
      * @param upgrade_section - Section of upgrade to install.
      * @returns Whether upgrade is installed successfully or not.
      */
@@ -3736,6 +3772,8 @@ declare module "xray16" {
 
     /**
      * Iterate over all item upgrades.
+     *
+     * @since OpenXRay 2023-10-19, a6016f10, PR #1463
      *
      * @param callback - Callback to call on each iteration to check installed upgrades.
      */
@@ -3843,6 +3881,10 @@ declare module "xray16" {
     public weapon_scope_status(): i32;
 
     /**
+     * Get object weight.
+     *
+     * @since OpenXRay 2015-10-07, 658f68a2
+     *
      * @remarks
      * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
      * a default value or do nothing.
@@ -3853,6 +3895,8 @@ declare module "xray16" {
 
     /**
      * Display in-game UI notification.
+     *
+     * @since OpenXRay 2023-04-17, a9d0a11a, PR #392
      *
      * @remarks
      * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
@@ -4706,6 +4750,8 @@ declare module "xray16" {
     /**
      * Check whether a bone is visible.
      *
+     * @since OpenXRay 2015-07-07, 6e703b4c
+     *
      * @remarks
      * Requires this object to have a renderable visual. Objects without a visual can log an engine
      * error or return a default value.
@@ -4717,6 +4763,8 @@ declare module "xray16" {
 
     /**
      * Check whether weapon supports an ammo type.
+     *
+     * @since OpenXRay 2016-02-25, 46c1c78c
      *
      * @remarks
      * Requires this object to be a weapon. Other object types log a script error and return a default
@@ -4730,6 +4778,8 @@ declare module "xray16" {
     /**
      * Check whether an item is on belt.
      *
+     * @since OpenXRay 2015-10-07, 658f68a2
+     *
      * @remarks
      * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
      * a default value or do nothing.
@@ -4742,6 +4792,8 @@ declare module "xray16" {
     /**
      * Use an object.
      *
+     * @since OpenXRay 2016-04-12, 1a206d71
+     *
      * @remarks
      * Requires this object to support the requested use interaction. Unsupported object pairs do
      * nothing or report an engine script error.
@@ -4752,6 +4804,8 @@ declare module "xray16" {
 
     /**
      * Set remaining item uses count.
+     *
+     * @since OpenXRay 2015-08-27, 7840b0fe
      *
      * @remarks
      * Requires this object to be an eatable inventory item. Other object types log a script error and
@@ -4764,6 +4818,8 @@ declare module "xray16" {
     /**
      * Get maximum item uses.
      *
+     * @since OpenXRay 2015-08-27, 7840b0fe
+     *
      * @remarks
      * Requires this object to be an eatable inventory item. Other object types log a script error and
      * return a default value or do nothing.
@@ -4774,6 +4830,8 @@ declare module "xray16" {
 
     /**
      * Get remaining item uses.
+     *
+     * @since OpenXRay 2015-08-27, 7840b0fe
      *
      * @remarks
      * Requires this object to be an eatable inventory item. Other object types log a script error and
@@ -4806,6 +4864,8 @@ declare module "xray16" {
     /**
      * Set spatial registration type for this object.
      *
+     * @since OpenXRay 2016-05-31, 15edbfd9
+     *
      * @remarks
      * Requires this object to be registered in spatial object logic. Other object types can log an
      * engine error or return a default value.
@@ -4817,6 +4877,8 @@ declare module "xray16" {
     /**
      * Set weapon type id.
      *
+     * @since OpenXRay 2016-02-25, 46c1c78c
+     *
      * @remarks
      * Requires this object to be a weapon. Other object types log a script error and return a default
      * value or do nothing.
@@ -4826,6 +4888,10 @@ declare module "xray16" {
     public set_weapon_type(type: u8): void;
 
     /**
+     * Get weapon substate.
+     *
+     * @since OpenXRay 2016-02-25, 46c1c78c
+     *
      * @remarks
      * Requires this object to be a weapon. Other object types log a script error and return a default
      * value or do nothing.
@@ -4837,6 +4903,8 @@ declare module "xray16" {
     /**
      * Start trade with another object.
      *
+     * @since OpenXRay 2016-04-12, 1a206d71
+     *
      * @remarks
      * Requires this object to be the actor and the argument to be an inventory owner. Invalid object
      * types do nothing or log an engine script error.
@@ -4847,6 +4915,8 @@ declare module "xray16" {
 
     /**
      * Start upgrade interaction with another object.
+     *
+     * @since OpenXRay 2016-04-12, 1a206d71
      *
      * @remarks
      * Requires this object to be the actor and the argument to be an inventory owner. Invalid object
@@ -4870,6 +4940,8 @@ declare module "xray16" {
     /**
      * Set enemy target for this phantom.
      *
+     * @since OpenXRay 2015-10-07, 658f68a2
+     *
      * @remarks
      * Requires this object to be a phantom. Other object types log a script error or do nothing.
      *
@@ -4879,6 +4951,8 @@ declare module "xray16" {
 
     /**
      * Set actor jump speed.
+     *
+     * @since OpenXRay 2015-10-07, 658f68a2
      *
      * @remarks
      * Requires this object to be the actor. Other object types log a script error or do nothing.
@@ -4890,6 +4964,8 @@ declare module "xray16" {
     /**
      * Set actor maximum walk weight.
      *
+     * @since OpenXRay 2015-10-07, 658f68a2
+     *
      * @remarks
      * Requires this object to be the actor. Other object types log a script error or do nothing.
      *
@@ -4899,6 +4975,8 @@ declare module "xray16" {
 
     /**
      * Set actor maximum carry weight.
+     *
+     * @since OpenXRay 2015-10-07, 658f68a2
      *
      * @remarks
      * Requires this object to be the actor. Other object types log a script error or do nothing.
@@ -4910,6 +4988,8 @@ declare module "xray16" {
     /**
      * Set actor run speed coefficient.
      *
+     * @since OpenXRay 2015-10-07, 658f68a2
+     *
      * @remarks
      * Requires this object to be the actor. Other object types log a script error or do nothing.
      *
@@ -4919,6 +4999,8 @@ declare module "xray16" {
 
     /**
      * Set actor backward run speed coefficient.
+     *
+     * @since OpenXRay 2015-10-07, 658f68a2
      *
      * @remarks
      * Requires this object to be the actor. Other object types log a script error or do nothing.
@@ -4930,6 +5012,8 @@ declare module "xray16" {
     /**
      * Set actor sprint speed coefficient.
      *
+     * @since OpenXRay 2015-10-07, 658f68a2
+     *
      * @remarks
      * Requires this object to be the actor. Other object types log a script error or do nothing.
      *
@@ -4939,6 +5023,8 @@ declare module "xray16" {
 
     /**
      * Set additional maximum walk weight.
+     *
+     * @since OpenXRay 2015-10-07, 658f68a2
      *
      * @remarks
      * Requires this object to be the actor. Other object types log a script error or do nothing.
@@ -4950,6 +5036,8 @@ declare module "xray16" {
     /**
      * Set additional maximum carry weight.
      *
+     * @since OpenXRay 2015-10-07, 658f68a2
+     *
      * @remarks
      * Requires this object to be the actor. Other object types log a script error or do nothing.
      *
@@ -4959,6 +5047,8 @@ declare module "xray16" {
 
     /**
      * Set active ammo type for this weapon.
+     *
+     * @since OpenXRay 2016-02-25, 46c1c78c
      *
      * @remarks
      * Requires this object to be a weapon. Other object types log a script error and return a default
@@ -5026,6 +5116,8 @@ declare module "xray16" {
     /**
      * Set bone visibility on this object visual.
      *
+     * @since OpenXRay 2015-07-07, 6e703b4c
+     *
      * @remarks
      * Requires this object to have a renderable visual. Objects without a visual can log an engine
      * error or return a default value.
@@ -5050,6 +5142,8 @@ declare module "xray16" {
     /**
      * Directly set entity health instead of applying a health property delta.
      *
+     * @since OpenXRay 2015-02-01, a91ff26a
+     *
      * @remarks
      * This binding exists because the normal health property setter routes through
      * conditions().ChangeHealth.
@@ -5058,6 +5152,8 @@ declare module "xray16" {
 
     /**
      * Set main weapon type id.
+     *
+     * @since OpenXRay 2016-02-25, 46c1c78c
      *
      * @remarks
      * Requires this object to be a weapon. Other object types log a script error and return a default
@@ -5068,6 +5164,10 @@ declare module "xray16" {
     public set_main_weapon_type(type: u32): void;
 
     /**
+     * Get actor jump speed.
+     *
+     * @since OpenXRay 2015-10-07, 658f68a2
+     *
      * @remarks
      * Requires this object to be the actor. Other object types log a script error or do nothing.
      *
@@ -5076,6 +5176,10 @@ declare module "xray16" {
     public get_actor_jump_speed(): f32;
 
     /**
+     * Get actor maximum walk weight.
+     *
+     * @since OpenXRay 2015-10-07, 658f68a2
+     *
      * @remarks
      * Requires this object to be the actor. Other object types log a script error or do nothing.
      *
@@ -5084,6 +5188,10 @@ declare module "xray16" {
     public get_actor_max_walk_weight(): f32;
 
     /**
+     * Get actor maximum carry weight.
+     *
+     * @since OpenXRay 2015-10-07, 658f68a2
+     *
      * @remarks
      * Requires this object to be the actor. Other object types log a script error or do nothing.
      *
@@ -5092,6 +5200,10 @@ declare module "xray16" {
     public get_actor_max_weight(): f32;
 
     /**
+     * Get actor run speed coefficient.
+     *
+     * @since OpenXRay 2015-10-07, 658f68a2
+     *
      * @remarks
      * Requires this object to be the actor. Other object types log a script error or do nothing.
      *
@@ -5100,6 +5212,10 @@ declare module "xray16" {
     public get_actor_run_coef(): f32;
 
     /**
+     * Get actor backward run speed coefficient.
+     *
+     * @since OpenXRay 2015-10-07, 658f68a2
+     *
      * @remarks
      * Requires this object to be the actor. Other object types log a script error or do nothing.
      *
@@ -5108,6 +5224,10 @@ declare module "xray16" {
     public get_actor_runback_coef(): f32;
 
     /**
+     * Get actor sprint speed coefficient.
+     *
+     * @since OpenXRay 2015-10-07, 658f68a2
+     *
      * @remarks
      * Requires this object to be the actor. Other object types log a script error or do nothing.
      *
@@ -5116,6 +5236,10 @@ declare module "xray16" {
     public get_actor_sprint_koef(): f32;
 
     /**
+     * Get additional maximum walk weight.
+     *
+     * @since OpenXRay 2015-10-07, 658f68a2
+     *
      * @remarks
      * Requires this object to be the actor. Other object types log a script error or do nothing.
      *
@@ -5124,6 +5248,10 @@ declare module "xray16" {
     public get_additional_max_walk_weight(): f32;
 
     /**
+     * Get additional maximum carry weight.
+     *
+     * @since OpenXRay 2015-10-07, 658f68a2
+     *
      * @remarks
      * Requires this object to be the actor. Other object types log a script error or do nothing.
      *
@@ -5186,6 +5314,10 @@ declare module "xray16" {
     public get_artefact_satiety(): f32;
 
     /**
+     * Get object luminocity.
+     *
+     * @since OpenXRay 2015-07-07, 6e703b4c
+     *
      * @remarks
      * Requires this object to have a renderable visual. Objects without a visual can log an engine
      * error or return a default value.
@@ -5195,6 +5327,10 @@ declare module "xray16" {
     public get_luminocity(): f32;
 
     /**
+     * Get object hemisphere luminocity.
+     *
+     * @since OpenXRay 2015-07-07, 6e703b4c
+     *
      * @remarks
      * Requires this object to have a renderable visual. Objects without a visual can log an engine
      * error or return a default value.
@@ -5204,6 +5340,10 @@ declare module "xray16" {
     public get_luminocity_hemi(): f32;
 
     /**
+     * Get actor total carried weight.
+     *
+     * @since OpenXRay 2015-10-07, 658f68a2
+     *
      * @remarks
      * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
      * a default value or do nothing.
@@ -5221,6 +5361,10 @@ declare module "xray16" {
     public get_attached_vehicle(): game_object | null;
 
     /**
+     * Get actor belt slot count.
+     *
+     * @since OpenXRay 2015-10-07, 658f68a2
+     *
      * @remarks
      * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
      * a default value or do nothing.
@@ -5230,6 +5374,10 @@ declare module "xray16" {
     public belt_count(): u32;
 
     /**
+     * Get weapon main type.
+     *
+     * @since OpenXRay 2016-02-25, 46c1c78c
+     *
      * @remarks
      * Requires this object to be a weapon. Other object types log a script error and return a default
      * value or do nothing.
@@ -5239,6 +5387,10 @@ declare module "xray16" {
     public get_main_weapon_type(): u32;
 
     /**
+     * Get object spatial type flags.
+     *
+     * @since OpenXRay 2016-05-31, 15edbfd9
+     *
      * @remarks
      * Requires this object to be registered in spatial object logic. Other object types can log an
      * engine error or return a default value.
@@ -5257,6 +5409,10 @@ declare module "xray16" {
     public get_state(): u32;
 
     /**
+     * Get weapon type.
+     *
+     * @since OpenXRay 2016-02-25, 46c1c78c
+     *
      * @remarks
      * Requires this object to be a weapon. Other object types log a script error and return a default
      * value or do nothing.
@@ -5320,6 +5476,8 @@ declare module "xray16" {
     /**
      * Get inventory ammo count for a weapon ammo type.
      *
+     * @since OpenXRay 2016-02-25, 46c1c78c
+     *
      * @remarks
      * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
      * a default value or do nothing.
@@ -5330,6 +5488,10 @@ declare module "xray16" {
     public get_ammo_count_for_type(type: u8): i32;
 
     /**
+     * Check whether weapon is in grenade launcher fire mode.
+     *
+     * @since OpenXRay 2016-09-14, 4f312ea6
+     *
      * @remarks
      * Requires this object to be a weapon. Other object types log a script error and return a default
      * value or do nothing.
@@ -5339,106 +5501,190 @@ declare module "xray16" {
     public weapon_in_grenade_mode(): boolean;
 
     /**
+     * Check whether this object is an alive entity.
+     *
+     * @since OpenXRay 2014-12-30, 565b39e5
+     *
      * @returns Whether this object is an alive entity.
      */
     public is_entity_alive(): boolean;
 
     /**
+     * Check whether this object is an inventory item.
+     *
+     * @since OpenXRay 2014-12-30, 565b39e5
+     *
      * @returns Whether this object is an inventory item.
      */
     public is_inventory_item(): boolean;
 
     /**
+     * Check whether this object is an inventory owner.
+     *
+     * @since OpenXRay 2014-12-30, 565b39e5
+     *
      * @returns Whether this object is an inventory owner.
      */
     public is_inventory_owner(): boolean;
 
     /**
+     * Check whether this object is the actor.
+     *
+     * @since OpenXRay 2014-12-30, 565b39e5
+     *
      * @returns Whether this object is the actor.
      */
     public is_actor(): boolean;
 
     /**
+     * Check whether this object is a custom monster.
+     *
+     * @since OpenXRay 2014-12-30, 565b39e5
+     *
      * @returns Whether this object is a custom monster.
      */
     public is_custom_monster(): boolean;
 
     /**
+     * Check whether this object is a weapon.
+     *
+     * @since OpenXRay 2014-12-30, 565b39e5
+     *
      * @returns Whether this object is a weapon.
      */
     public is_weapon(): boolean;
 
     /**
+     * Check whether this object is an outfit.
+     *
+     * @since OpenXRay 2014-12-30, 565b39e5
+     *
      * @returns Whether this object is an outfit.
      */
     public is_outfit(): boolean;
 
     /**
+     * Check whether this object is a scope addon.
+     *
+     * @since OpenXRay 2014-12-30, 565b39e5
+     *
      * @returns Whether this object is a scope addon.
      */
     public is_scope(): boolean;
 
     /**
+     * Check whether this object is a silencer addon.
+     *
+     * @since OpenXRay 2014-12-30, 565b39e5
+     *
      * @returns Whether this object is a silencer addon.
      */
     public is_silencer(): boolean;
 
     /**
+     * Check whether this object is a grenade launcher addon.
+     *
+     * @since OpenXRay 2014-12-30, 565b39e5
+     *
      * @returns Whether this object is a grenade launcher addon.
      */
     public is_grenade_launcher(): boolean;
 
     /**
+     * Check whether this object is a magazined weapon.
+     *
+     * @since OpenXRay 2014-12-30, 565b39e5
+     *
      * @returns Whether this object is a magazined weapon.
      */
     public is_weapon_magazined(): boolean;
 
     /**
+     * Check whether this object is a space restrictor.
+     *
+     * @since OpenXRay 2014-12-30, 565b39e5
+     *
      * @returns Whether this object is a space restrictor.
      */
     public is_space_restrictor(): boolean;
 
     /**
+     * Check whether this object is a stalker.
+     *
+     * @since OpenXRay 2014-12-30, 565b39e5
+     *
      * @returns Whether this object is a stalker.
      */
     public is_stalker(): boolean;
 
     /**
+     * Check whether this object is an anomaly.
+     *
+     * @since OpenXRay 2014-12-30, 565b39e5
+     *
      * @returns Whether this object is an anomaly zone.
      */
     public is_anomaly(): boolean;
 
     /**
+     * Check whether this object is a monster.
+     *
+     * @since OpenXRay 2014-12-30, 565b39e5
+     *
      * @returns Whether this object is a monster.
      */
     public is_monster(): boolean;
 
     /**
+     * Check whether this object is an artefact.
+     *
+     * @since OpenXRay 2014-12-30, 565b39e5
+     *
      * @returns Whether this object is an artefact.
      */
     public is_artefact(): boolean;
 
     /**
+     * Check whether this object is ammo.
+     *
+     * @since OpenXRay 2014-12-30, 565b39e5
+     *
      * @returns Whether this object is ammo.
      */
     public is_ammo(): boolean;
 
     /**
+     * Check whether this object is a trader.
+     *
+     * @since OpenXRay 2014-12-30, 565b39e5
+     *
      * @returns Whether this object is a trader.
      */
     public is_trader(): boolean;
 
     /**
+     * Check whether this object is a HUD item.
+     *
+     * @since OpenXRay 2014-12-30, 565b39e5
+     *
      * @returns Whether this object is a HUD item.
      */
     public is_hud_item(): boolean;
 
     /**
+     * Check whether this object is a grenade-launcher weapon.
+     *
+     * @since OpenXRay 2014-12-30, 565b39e5
+     *
      * @returns Whether this object is a weapon with grenade launcher support.
      */
     public is_weapon_gl(): boolean;
 
     /**
+     * Check whether this object is an inventory box.
+     *
+     * @since OpenXRay 2014-12-30, 565b39e5
+     *
      * @returns Whether this object is an inventory box.
      */
     public is_inventory_box(): boolean;
