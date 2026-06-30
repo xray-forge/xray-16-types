@@ -360,7 +360,21 @@ declare module "xray16" {
      * @returns Numeric `EMenuMode` value.
      */
     get_menu_mode(this: void): number;
-    // Get_maingame(this: void): unknown; // CUIMainIngameWnd - not registered, throws exception
+
+    /**
+     * Get the current main in-game HUD window.
+     *
+     * @source `src/xrGame/ui/UIActorMenu_script.cpp`, `ActorMenu.get_maingame`.
+     *
+     * @remarks
+     * The concrete `CUIMainIngameWnd` class is not declared as a Lua binding, so the returned pointer is typed as
+     * `unknown`.
+     *
+     * @throws When called without an active current game UI.
+     *
+     * @returns Main in-game HUD window pointer.
+     */
+    get_maingame(this: void): unknown;
   }
 
   /**

@@ -106,7 +106,7 @@ Lua does not provide convenient API do get filename in runtime and static step i
 
 Plugin to simplify casting from `LuaTable` to typescript array/map objects.\
 All the calls are completely gets stripped and removed from runtime.
- 
+
 ### optimize_return_ternary
 
 Plugin rewrites returned ternary expressions into direct `if` / `else` branch returns when it is safe.\

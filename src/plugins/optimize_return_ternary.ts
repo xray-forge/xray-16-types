@@ -53,9 +53,15 @@ function transformConditionalReturnStatement(
 ): Array<lua.Statement> {
   checkOnlyTruthyCondition(expression.condition, context);
 
-  const condition = transformInPrecedingStatementScope(context, () => context.transformExpression(expression.condition));
+  const condition = transformInPrecedingStatementScope(context, () =>
+    context.transformExpression(expression.condition)
+  );
   const whenTrue: Array<lua.Statement> = transformExpressionToReturnStatements(context, statement, expression.whenTrue);
-  const whenFalse: Array<lua.Statement> = transformExpressionToReturnStatements(context, statement, expression.whenFalse);
+  const whenFalse: Array<lua.Statement> = transformExpressionToReturnStatements(
+    context,
+    statement,
+    expression.whenFalse
+  );
 
   return [
     ...condition.precedingStatements,

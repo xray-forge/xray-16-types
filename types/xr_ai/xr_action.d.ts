@@ -818,9 +818,10 @@ declare module "xray16" {
   export class patrol extends EngineBinding {
     /**
      * Engine enum value for `patrol.stop`.
+     *
+     * @source `src/xrAICore/Navigation/PatrolPath/patrol_path_params_script.cpp`, route stop enum.
      */
     public static readonly stop: 0;
-    // Public static readonly stop: 1;
 
     /**
      * Engine enum value for `patrol.start`.

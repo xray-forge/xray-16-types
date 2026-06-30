@@ -23,7 +23,6 @@ import {
   transformWithInjectedZones,
 } from "./utils/tracy";
 
-
 /**
  * Plugin that injects FILE_NAME in compile-time.
  */

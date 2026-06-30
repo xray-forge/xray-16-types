@@ -577,9 +577,7 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["task_state"],
-      cb?: Nillable<
-        (this: void, task: CGameTask, objective: SGameTaskObjective, state: TXR_TaskState) => void
-      >,
+      cb?: Nillable<(this: void, task: CGameTask, objective: SGameTaskObjective, state: TXR_TaskState) => void>,
       object?: Nillable<T>
     ): void;
 

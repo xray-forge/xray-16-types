@@ -6,9 +6,11 @@ import {
   factory,
   getDecorators,
   isAccessor,
-  isConstructorDeclaration, isGetAccessor,
+  isConstructorDeclaration,
+  isGetAccessor,
   isMethodDeclaration,
-  isPropertyDeclaration, isSetAccessor,
+  isPropertyDeclaration,
+  isSetAccessor,
 } from "typescript";
 import * as tstl from "typescript-to-lua";
 import { type AllAccessorDeclarations, LuaTarget, type TransformationContext } from "typescript-to-lua";
@@ -245,8 +247,7 @@ function getAllAccessorDeclarations(classDeclaration: ClassLikeDeclaration): All
   const getAccessor = classDeclaration.members.find(isGetAccessor);
   const setAccessor = classDeclaration.members.find(isSetAccessor);
   // Get the first of the two (that is not undefined)
-  const firstAccessor =
-    getAccessor && (!setAccessor || getAccessor.pos < setAccessor.pos) ? getAccessor : setAccessor!;
+  const firstAccessor = getAccessor && (!setAccessor || getAccessor.pos < setAccessor.pos) ? getAccessor : setAccessor!;
 
   return {
     firstAccessor,

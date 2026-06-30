@@ -59,26 +59,26 @@ declare module "xray16" {
      */
     public static readonly GAME_DEATHMATCH: 2;
 
-    //	GAME_CTF							= 3,
-    //	GAME_ASSAULT						= 4,	// Team1 - assaulting, Team0 - Defending
-
     /**
      * Engine enum value for `GAME_TYPE.GAME_CS`.
      */
     public static readonly GAME_CS: 5;
+
     /**
      * Engine enum value for `GAME_TYPE.GAME_TEAMDEATHMATCH`.
      */
     public static readonly GAME_TEAMDEATHMATCH: 6;
+
     /**
      * Engine enum value for `GAME_TYPE.GAME_ARTEFACTHUNT`.
      */
     public static readonly GAME_ARTEFACTHUNT: 7;
+
     /**
      * Engine enum value for `GAME_TYPE.GAME_CAPTURETHEARTEFACT`.
      */
     public static readonly GAME_CAPTURETHEARTEFACT: 8;
-    // Identifiers in range [100...254] are registered for script game type
+
     /**
      * Engine enum value for `GAME_TYPE.GAME_DUMMY`.
      */

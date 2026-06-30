@@ -1,4 +1,11 @@
-import { type CallExpression, type Expression, factory, isIdentifier, type SuperExpression, SyntaxKind } from "typescript";
+import {
+  type CallExpression,
+  type Expression,
+  factory,
+  isIdentifier,
+  type SuperExpression,
+  SyntaxKind,
+} from "typescript";
 import * as tstl from "typescript-to-lua";
 import { isSymbolExported } from "typescript-to-lua/dist/transformation/utils/export";
 import { getCalledExpression, transformArguments } from "typescript-to-lua/dist/transformation/visitors/call";
