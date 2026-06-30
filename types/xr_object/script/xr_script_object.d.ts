@@ -1650,15 +1650,6 @@ declare module "xray16" {
     public get_current_point_index(): u32;
 
     /**
-     * @remarks
-     * Requires this object to be a base monster. Other object types log a script error and return a
-     * default value or do nothing.
-     *
-     * @returns Whether monster anti-aim is forced.
-     */
-    public get_force_anti_aim(): boolean;
-
-    /**
      * Cast this object to a hanging lamp.
      *
      * @remarks
