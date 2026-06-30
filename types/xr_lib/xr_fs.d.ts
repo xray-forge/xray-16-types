@@ -188,7 +188,8 @@ declare module "xray16" {
    * @group xr_fs
    *
    * @remarks
-   * Returned by filesystem alias lookups. The object is owned by the engine filesystem.
+   * Returned by filesystem alias lookups. The object is owned by the engine filesystem. Missing aliases assert in
+   * the single-argument `get_path` binding instead of returning `null`.
    */
   export class FS_Path {
     /**
@@ -231,7 +232,8 @@ declare module "xray16" {
    *
    * @remarks
    * Returned by {@link FS.w_open}. The writer class is not registered with script-callable write methods in this
-   * binding, so scripts normally only pass it back to {@link FS.w_close}.
+   * binding, so scripts normally only pass it back to {@link FS.w_close}. Writer creation can return `null` when
+   * native writer setup fails.
    */
   export class IWriter {
     /**
@@ -475,6 +477,10 @@ declare module "xray16" {
     /**
      * Add a path alias.
      *
+     * @remarks
+     * Native code asserts if `root` is invalid or `alias` is already registered. On success it returns a path
+     * descriptor.
+     *
      * @param alias - Alias name.
      * @param root - Root path.
      * @param path - Relative path.
@@ -518,6 +524,10 @@ declare module "xray16" {
     /**
      * Get native path descriptor for an alias.
      *
+     * @remarks
+     * Native code asserts when the alias is missing. Use {@link FS.path_exist} before calling when the alias is
+     * optional.
+     *
      * @param alias - Filesystem path alias.
      * @returns Native filesystem path descriptor.
      */
@@ -552,24 +562,30 @@ declare module "xray16" {
      *
      * @param writer - Writer returned by `w_open`.
      */
-    public w_close(writer: IWriter): void;
+    public w_close(writer: IWriter | null): void;
 
     /**
      * Open a binary writer below a path alias.
      *
+     * @remarks
+     * Can return `null` when native writer setup fails.
+     *
      * @param path - Filesystem path alias.
      * @param filename - Relative file path.
-     * @returns Binary writer.
+     * @returns Binary writer, or `null`.
      */
-    public w_open(path: string, filename: string): IWriter;
+    public w_open(path: string, filename: string): IWriter | null;
 
     /**
      * Open a binary writer.
      *
+     * @remarks
+     * Can return `null` when native writer setup fails.
+     *
      * @param path - File path.
-     * @returns Binary writer.
+     * @returns Binary writer, or `null`.
      */
-    public w_open(path: string): IWriter;
+    public w_open(path: string): IWriter | null;
   }
 
   /**
