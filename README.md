@@ -61,6 +61,7 @@ Plugins can be included in [tstl tsconfig](https://typescripttolua.github.io/doc
       { "name": "xray16/plugins/strip_lua_logger" },
       { "name": "xray16/plugins/inject_filename" },
       { "name": "xray16/plugins/from_cast_utils" },
+      { "name": "xray16/plugins/optimize_return_ternary" },
       { "name": "xray16/plugins/inject_tracy_zones" }
     ]
   }
@@ -105,6 +106,11 @@ Lua does not provide convenient API do get filename in runtime and static step i
 
 Plugin to simplify casting from `LuaTable` to typescript array/map objects.\
 All the calls are completely gets stripped and removed from runtime.
+ 
+### optimize_return_ternary
+
+Plugin rewrites returned ternary expressions into direct `if` / `else` branch returns when it is safe.\
+This avoids temporary result locals for patterns like `return condition ? first : second` while preserving general ternary semantics.
 
 ### inject_tracy_zones
 
