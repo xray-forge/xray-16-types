@@ -56,8 +56,11 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
-      - name: Build tstl plugins
-        run: npm run build:plugins
+      - name: Build package artifacts
+        run: npm run build
+
+      - name: Verify package contents
+        run: npm pack --dry-run
 
       - name: Publish package to npm
         run: npm publish
