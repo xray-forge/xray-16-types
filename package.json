@@ -1,16 +1,19 @@
 {
   "name": "xray16",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "author": "Neloreck",
   "repository": "https://github.com/xray-forge/xray-16-types",
   "homepage": "https://xray-forge.github.io/xray-16-types/index.html",
   "private": false,
-  "main": "types/index.d.ts",
-  "types": "types/index.d.ts",
+  "main": "xray16.d.ts",
+  "types": "xray16.d.ts",
   "scripts": {
-    "prepublish": "npm run build:plugins",
+    "prepublish": "npm run build",
+    "prepack": "npm run build",
+    "build": "npm run build:plugins && npm run build:types",
     "build:plugins": "tsc -p ./src/tsconfig.json",
-    "build:types": "typedoc",
+    "build:types": "rollup -c rollup.dts.config.mjs",
+    "build:docs": "typedoc",
     "typecheck": "tsc --noEmit",
     "typedoc": "typedoc",
     "format": "prettier --write \"**/*.(js|ts|tsx|md)\" && eslint . --fix",
@@ -32,6 +35,8 @@
     "eslint-plugin-jsdoc": "^63.0.7",
     "globals": "^17.7.0",
     "prettier": "^3.4.2",
+    "rollup": "^4.62.2",
+    "rollup-plugin-dts": "^6.4.1",
     "typedoc": "^0.27.5",
     "typescript": "5.7.2",
     "typescript-eslint": "^8.62.0",
@@ -39,7 +44,7 @@
   },
   "files": [
     "plugins/**/*",
-    "types/**/*",
+    "xray16.d.ts",
     "README.md",
     "LICENSE"
   ]

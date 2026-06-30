@@ -9,7 +9,7 @@ import tsPlugin from "typescript-eslint";
 
 export default [
   {
-    ignores: ["plugins/**/*", "src/plugins/**/*.js", "docs/**/*", "node_modules/**/*"],
+    ignores: ["xray16.d.ts", "plugins/**/*", "src/plugins/**/*.js", "docs/**/*", "node_modules/**/*"],
   },
   jsdocPlugin.configs["flat/recommended"],
   jsPlugin.configs.recommended,
