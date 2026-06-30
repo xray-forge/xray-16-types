@@ -14,6 +14,26 @@ declare global {
   const $dirname: string;
 
   /**
+   * Check whether a value is nil-compatible in Lua and Jest runtimes.
+   *
+   * @group xrf_plugin
+   *
+   * @param value - Value to check.
+   * @returns Whether value is `null` or `undefined`.
+   */
+  function $isNil<T>(value: T): value is null | undefined;
+
+  /**
+   * Check whether a value is not nil-compatible in Lua and Jest runtimes.
+   *
+   * @group xrf_plugin
+   *
+   * @param value - Value to check.
+   * @returns Whether value is neither `null` nor `undefined`.
+   */
+  function $isNotNil<T>(value: T): value is NonNullable<T>;
+
+  /**
    * Treat a TypeScript array as a Lua array.
    *
    * The transformer removes this call and emits its argument.

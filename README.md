@@ -106,7 +106,7 @@ Lua does not provide convenient API do get filename in runtime and static step i
 Plugin to simplify casting from `LuaTable` to typescript array/map objects.\
 All the calls are completely gets stripped and removed from runtime.
 
-### from_cast_utils
+### inject_tracy_zones
 
 Plugin designed to work specifically with [tracy profiler](https://github.com/wolfpld/tracy).\
 Once it is enabled with env variable or path parameter, tracy zone marking calls are injected for every method.\
