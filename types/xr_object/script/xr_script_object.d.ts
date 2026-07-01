@@ -2334,7 +2334,7 @@ declare module "xray16" {
      * @param route_type - Patrol route type.
      * @param random - Whether path point selection is random.
      */
-    public set_patrol_path(path_name: string, start_type: number, route_type: number, random: boolean): void;
+    public set_patrol_path(path_name: string, start_type: TXR_patrol_start_type, route_type: TXR_patrol_route_type, random: boolean): void;
 
     /**
      * Make smart-cover target selection prefer idle positions.

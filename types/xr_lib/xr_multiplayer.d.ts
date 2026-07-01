@@ -1049,6 +1049,21 @@ declare module "xray16" {
   }
 
   /**
+   * Opaque native list of multiplayer buy/spawn item ids.
+   *
+   * @source C++ type game_PlayerState::PLAYER_ITEMS_LIST (`xr_vector<u16>`)
+   * @customConstructor game_player_item_list
+   * @group xr_multiplayer
+   *
+   * @remarks
+   * The field is exposed as a native vector object. No public vector mutation or iteration helpers are declared here
+   * because the binding only exposes the field, not a script API for `xr_vector<u16>` itself.
+   */
+  export class game_player_item_list {
+    private constructor();
+  }
+
+  /**
    * Multiplayer player state replicated by multiplayer game modes.
    *
    * @source C++ class game_PlayerState
@@ -1121,9 +1136,9 @@ declare module "xray16" {
     public money_delta: i16;
 
     /**
-     * Native `xr_vector<u16>` containing selected buy/spawn item ids.
+     * Native item id vector containing selected buy/spawn item ids.
      */
-    public pItemList: unknown;
+    public pItemList: game_player_item_list;
 
     /**
      * Money difference from the last buy transaction.

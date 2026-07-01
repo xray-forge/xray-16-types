@@ -681,6 +681,21 @@ declare module "xray16" {
   }
 
   /**
+   * Opaque native quaternion used by matrix transform helpers.
+   *
+   * @source C++ struct Fquaternion
+   * @customConstructor Fquaternion
+   * @group xr_math
+   *
+   * @remarks
+   * The engine binds matrix transforms against this native quaternion type, but does not expose a public constructor or
+   * script-side quaternion operations in these Lua bindings.
+   */
+  export class Fquaternion {
+    private constructor();
+  }
+
+  /**
    * Mutable 4x4 transform matrix.
    *
    * Basis vectors are exposed as `i`, `j`, `k`; translation is exposed as `c`.
@@ -746,7 +761,7 @@ declare module "xray16" {
      * @param position - Translation vector.
      * @returns This matrix.
      */
-    public mk_xform(rotation: unknown /* _quaternion<float> */, position: vector): matrix;
+    public mk_xform(rotation: Fquaternion, position: vector): matrix;
 
     /**
      * Copy another matrix.

@@ -359,7 +359,7 @@ declare module "xray16" {
     /**
      * @returns How the danger was perceived.
      */
-    public perceive_type(): number; /* CDangerObject::EDangerPerceiveType */
+    public perceive_type(): TXR_danger_perceive_type;
 
     /**
      * Get the object attached to this danger event.
@@ -372,6 +372,13 @@ declare module "xray16" {
     public dependent_object(): Nullable<game_object>;
   }
 
+  /**
+   * How a danger event was perceived by AI memory.
+   *
+   * @source C++ enum CDangerObject::EDangerPerceiveType
+   * @group xr_memory
+   */
+  export type TXR_danger_perceive_type = typeof danger_object.visual | typeof danger_object.sound | typeof danger_object.hit;
   /**
    * @group xr_memory
    */

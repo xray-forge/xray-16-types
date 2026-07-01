@@ -729,7 +729,7 @@ declare module "xray16" {
      *
      * @returns Movement path type.
      */
-    public path_type(): number; /* EPathType */
+    public path_type(): TXR_game_object_path;
 
     /**
      * Get the detail path manager.
@@ -798,14 +798,14 @@ declare module "xray16" {
      *
      * @param type - Patrol route type.
      */
-    public route_type(type: u32 /* Const enum PatrolPathManager::EPatrolRouteType */): void;
+    public route_type(type: TXR_patrol_route_type): void;
 
     /**
      * Get patrol route behavior.
      *
      * @returns Patrol route type.
      */
-    public route_type(): u32;
+    public route_type(): TXR_patrol_route_type;
 
     /**
      * Enable or disable random patrol point selection.
@@ -826,14 +826,14 @@ declare module "xray16" {
      *
      * @param type - Patrol start type.
      */
-    public start_type(type: u32 /* Const enum PatrolPathManager::EPatrolStartType */): void;
+    public start_type(type: TXR_patrol_start_type): void;
 
     /**
      * Get how the patrol path starts.
      *
      * @returns Patrol start type.
      */
-    public start_type(): u32;
+    public start_type(): TXR_patrol_start_type;
 
     /**
      * Set the starting patrol point.

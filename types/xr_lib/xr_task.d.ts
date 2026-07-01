@@ -50,14 +50,36 @@ declare module "xray16" {
   /**
    * @group xr_task
    */
-  export type TXR_TaskStateName = EnumeratedStaticsKeys<typeof task>;
+  export type TXR_TaskStateName = "fail" | "in_progress" | "completed" | "task_dummy";
 
   /**
    * ETaskState.
    *
    * @group xr_task
    */
-  export type TXR_TaskState = EnumeratedStaticsValues<typeof task>;
+  export type TXR_TaskState =
+    | typeof task.fail
+    | typeof task.in_progress
+    | typeof task.completed
+    | typeof task.task_dummy;
+
+  /**
+   * ETaskType constant names.
+   *
+   * @group xr_task
+   */
+  export type TXR_TaskTypeName = "storyline" | "additional" | "insignificant" | "task_dummy";
+
+  /**
+   * ETaskType.
+   *
+   * @group xr_task
+   */
+  export type TXR_TaskType =
+    | typeof task.storyline
+    | typeof task.additional
+    | typeof task.insignificant
+    | typeof task.task_dummy;
 
   /**
    * One objective inside a game task.
@@ -231,14 +253,14 @@ declare module "xray16" {
     /**
      * @returns Task type, such as `task.storyline` or `task.additional`.
      */
-    public get_type(): number; /* ETaskType */
+    public get_type(): TXR_TaskType;
 
     /**
      * Set task type.
      *
      * @param type - Task type, such as `task.storyline` or `task.additional`.
      */
-    public set_type(type: i32 /* ETaskType */): void;
+    public set_type(type: TXR_TaskType): void;
 
     /**
      * Set hint text for the linked map location.

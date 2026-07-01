@@ -372,6 +372,21 @@ declare module "xray16" {
   export const object: typeof XR_object;
 
   /**
+   * Opaque native patrol path handle used by low-level movement action bindings.
+   *
+   * @source C++ class CPatrolPath
+   * @customConstructor CPatrolPath
+   * @group xr_action
+   *
+   * @remarks
+   * The engine does not register this as a public Lua constructor. Scripts normally use the public `patrol` parameter
+   * object when constructing movement actions; this handle models native code paths that pass a raw patrol path pointer.
+   */
+  export class CPatrolPath {
+    private constructor();
+  }
+
+  /**
    * Movement action for stalkers, monsters, and vehicles.
    *
    * @source C++ class move
@@ -788,10 +803,10 @@ declare module "xray16" {
      * This low-level binding expects an internal `CPatrolPath*`, not the public `patrol` parameter object. Prefer the
      * movement action constructors that accept `patrol` unless native code passes a raw patrol path pointer.
      *
-     * @param patrolPath - Internal `CPatrolPath*` pointer.
+     * @param patrolPath - Internal native patrol path handle.
      * @param path_name - Patrol path name copied into the movement action.
      */
-    public patrol(patrolPath: unknown /* CPatrolPath* */, path_name: string): void;
+    public patrol(patrolPath: CPatrolPath, path_name: string): void;
 
     /**
      * Set target object.
@@ -838,6 +853,25 @@ declare module "xray16" {
    * @group xr_action
    */
   export type TXR_detail_path_type = typeof move.line | typeof move.dodge | typeof move.criteria;
+
+  /**
+   * Patrol start mode accepted by native patrol path managers.
+   *
+   * @source C++ enum EPatrolStartType
+   * @group xr_action
+   *
+   * @remarks
+   * `1` is the native `ePatrolStartTypeLast` value. The Lua `patrol` constants do not expose a dedicated name for it.
+   */
+  export type TXR_patrol_start_type = -1 | 0 | 1 | 2 | 3 | 4;
+
+  /**
+   * Patrol route behavior accepted by native patrol path managers.
+   *
+   * @source C++ enum EPatrolRouteType
+   * @group xr_action
+   */
+  export type TXR_patrol_route_type = typeof patrol.stop | typeof patrol.continue | typeof patrol.dummy;
 
   /**
    * Patrol path parameters used by movement actions.
@@ -898,8 +932,8 @@ declare module "xray16" {
      */
     public constructor(
       name?: string,
-      startType?: TXR_patrol_type,
-      routeType?: TXR_patrol_type,
+      startType?: TXR_patrol_start_type,
+      routeType?: TXR_patrol_route_type,
       random?: boolean,
       customPointIndex?: u32
     );
