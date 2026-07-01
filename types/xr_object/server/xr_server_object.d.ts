@@ -297,7 +297,7 @@ declare module "xray16" {
      * @param pref - Property prefix.
      * @param items - Property collection to populate.
      */
-    public FillProps(pref: string, items: LuaTable<number, unknown>): void;
+    public FillProps(pref: string, items: prop_item_vec): void;
   }
 
   /**
@@ -1366,7 +1366,7 @@ declare module "xray16" {
      *
      * @param value - Whether loopholes should be checked.
      */
-    public set_loopholes_table_checker(value: boolean): void;
+    public set_loopholes_table_checker(value: bool_value): void;
   }
 
   /**

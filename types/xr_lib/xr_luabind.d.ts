@@ -40,6 +40,20 @@ declare module "xray16" {
   export function LuabindClass(): ClassDecorator;
 
   /**
+   * Opaque native Lua state pointer.
+   *
+   * @source C++ type lua_State
+   * @customConstructor lua_State
+   * @group xr_luabind
+   */
+  export class lua_State {
+    /**
+     * Native engine pointer; scripts do not construct Lua states.
+     */
+    private constructor();
+  }
+
+  /**
    * Runtime metadata for a LuaBind class.
    *
    * @source C++ class class_info_data
@@ -76,7 +90,7 @@ declare module "xray16" {
    * @param lua_state - Lua state to inspect.
    * @returns Registered class names.
    */
-  export function class_names(this: void, lua_state: unknown /* Lua_State*/): LuaTable<number, string>;
+  export function class_names(this: void, lua_state: lua_State): LuaTable<number, string>;
 
   /**
    * Get LuaBind metadata for an object or class.
@@ -86,5 +100,5 @@ declare module "xray16" {
    * @param target - Object or class to inspect.
    * @returns LuaBind class metadata.
    */
-  export function class_info(this: void, target: unknown): class_info_data;
+  export function class_info(this: void, target: object): class_info_data;
 }

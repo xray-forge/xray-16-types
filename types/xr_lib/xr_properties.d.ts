@@ -145,6 +145,104 @@ declare module "xray16" {
   }
 
   /**
+   * Native editor property item collection.
+   *
+   * @source C++ class PropItemVec
+   * @customConstructor prop_item_vec
+   * @group xr_properties
+   */
+  export class prop_item_vec {
+    /**
+     * Engine-created property item vector.
+     */
+    private constructor();
+  }
+
+  /**
+   * Editor asset chooser mode constants.
+   *
+   * @source `src/xrServerEntities/script_properties_list_helper_script.cpp`, `choose_type` binding.
+   * @customConstructor choose_type
+   * @group xr_properties
+   */
+  export class choose_type {
+    public static readonly custom: u32;
+    public static readonly sound_source: u32;
+    public static readonly sound_environment: u32;
+    public static readonly library_object: u32;
+    public static readonly engine_shader: u32;
+    public static readonly compiler_shader: u32;
+    public static readonly particle_effect: u32;
+    public static readonly particle_system: u32;
+    public static readonly texture: u32;
+    public static readonly entity: u32;
+    public static readonly spawn_item: u32;
+    public static readonly light_animation: u32;
+    public static readonly visual: u32;
+    public static readonly skeleton_animations: u32;
+    public static readonly skeleton_bones: u32;
+    public static readonly material: u32;
+    public static readonly game_animation: u32;
+    public static readonly game_motion: u32;
+
+    /**
+     * Engine-owned chooser constants.
+     */
+    private constructor();
+  }
+
+  /**
+   * Editor asset chooser mode value.
+   *
+   * @group xr_properties
+   */
+  export type TXR_choose_type = EnumeratedStaticsValues<typeof choose_type>;
+
+  /** @group xr_properties */
+  export class caption_value extends prop_value {}
+  /** @group xr_properties */
+  export class canvas_value extends prop_value {}
+  /** @group xr_properties */
+  export class button_value extends prop_value {}
+  /** @group xr_properties */
+  export class text_value extends prop_value {}
+  /** @group xr_properties */
+  export class choose_value extends text_value {}
+  /** @group xr_properties */
+  export class bool_value extends prop_value {}
+  /** @group xr_properties */
+  export class vector_value extends prop_value {}
+  /** @group xr_properties */
+  export class color_value extends prop_value {}
+  /** @group xr_properties */
+  export class float_value extends prop_value {}
+  /** @group xr_properties */
+  export class s8_value extends prop_value {}
+  /** @group xr_properties */
+  export class s16_value extends prop_value {}
+  /** @group xr_properties */
+  export class s32_value extends prop_value {}
+  /** @group xr_properties */
+  export class u8_value extends prop_value {}
+  /** @group xr_properties */
+  export class u16_value extends prop_value {}
+  /** @group xr_properties */
+  export class u32_value extends prop_value {}
+  /** @group xr_properties */
+  export class flag8_value extends prop_value {}
+  /** @group xr_properties */
+  export class flag16_value extends prop_value {}
+  /** @group xr_properties */
+  export class flag32_value extends prop_value {}
+  /** @group xr_properties */
+  export class token8_value extends prop_value {}
+  /** @group xr_properties */
+  export class token16_value extends prop_value {}
+  /** @group xr_properties */
+  export class token32_value extends prop_value {}
+  /** @group xr_properties */
+  export class list_value extends text_value {}
+  /**
    * Helper for building editor property rows for spawned objects.
    *
    * @source C++ class properties_list_helper
@@ -157,327 +255,208 @@ declare module "xray16" {
    */
   export class properties_list_helper extends EngineBinding {
     /**
-     * Create a 3-axis angle property.
-     *
-     * @remarks
-     * Bound object field must be an `Fvector`.
-     *
-     * @returns Engine property value handle.
+     * Create a 3-axis angle property bound to an `Fvector` field.
      */
-    public create_vangle(): unknown;
+    public create_vangle(
+      items: prop_item_vec,
+      key: string,
+      object: object,
+      name: string,
+      min?: f32,
+      max?: f32,
+      increment?: f32,
+      decimals?: i32
+    ): vector_value;
 
     /**
-     * Create an angle property.
-     *
-     * @remarks
-     * Bound object field must be a float.
-     *
-     * @returns Engine property value handle.
+     * Create an angle property bound to a float field.
      */
-    public create_angle(): unknown;
+    public create_angle(
+      items: prop_item_vec,
+      key: string,
+      object: object,
+      name: string,
+      min?: f32,
+      max?: f32,
+      increment?: f32,
+      decimals?: i32
+    ): float_value;
 
     /**
-     * Create a time property.
-     *
-     * @remarks
-     * Bound object field must be a float.
-     *
-     * @returns Engine property value handle.
+     * Create a time property bound to a float field.
      */
-    public create_time(): unknown;
+    public create_time(
+      items: prop_item_vec,
+      key: string,
+      object: object,
+      name: string,
+      min?: f32,
+      max?: f32
+    ): float_value;
 
     /**
-     * Create a color property.
-     *
-     * @remarks
-     * Bound object field must be a 32-bit color value.
-     *
-     * @returns Engine property value handle.
+     * Create a 32-bit packed color property bound to an unsigned integer field.
      */
-    public create_color(): unknown;
+    public create_color(items: prop_item_vec, key: string, object: object, name: string): u32_value;
 
     /**
-     * Create a vector color property.
-     *
-     * @remarks
-     * Bound object field must be an `Fvector`.
-     *
-     * @returns Engine property value handle.
+     * Create a vector color property bound to an `Fvector` field.
      */
-    public create_vcolor(): unknown;
+    public create_vcolor(items: prop_item_vec, key: string, object: object, name: string): vector_value;
 
     /**
-     * Create a float color property.
-     *
-     * @remarks
-     * Bound object field must be an `Fcolor`.
-     *
-     * @returns Engine property value handle.
+     * Create a float color property bound to an `Fcolor` field.
      */
-    public create_fcolor(): unknown;
+    public create_fcolor(items: prop_item_vec, key: string, object: object, name: string): color_value;
 
     /**
-     * Create a runtime token list property.
-     *
-     * @remarks
-     * Requires an `rtoken_list`; keep it alive while the editor property uses it.
-     *
-     * @returns Engine property value handle.
+     * Create a runtime token list property bound to a string field.
      */
-    public create_list(): unknown;
+    public create_list(items: prop_item_vec, key: string, object: object, name: string, tokens: rtoken_list): list_value;
 
     /**
-     * Create an 8-bit token property.
-     *
-     * @remarks
-     * Requires a `token_list`; ids must fit into an unsigned 8-bit value.
-     *
-     * @returns Engine property value handle.
+     * Create token properties bound to integer fields.
      */
-    public create_token8(): unknown;
+    public create_token8(items: prop_item_vec, key: string, object: object, name: string, tokens: token_list): token8_value;
+    public create_token16(items: prop_item_vec, key: string, object: object, name: string, tokens: token_list): token16_value;
+    public create_token32(items: prop_item_vec, key: string, object: object, name: string, tokens: token_list): token32_value;
 
     /**
-     * Create a 16-bit token property.
-     *
-     * @remarks
-     * Requires a `token_list`; ids must fit into an unsigned 16-bit value.
-     *
-     * @returns Engine property value handle.
+     * Create flag properties bound to integer flag fields.
      */
-    public create_token16(): unknown;
+    public create_flag8(
+      items: prop_item_vec,
+      key: string,
+      object: object,
+      name: string,
+      mask: u8,
+      offCaption?: string,
+      onCaption?: string,
+      flags?: u32
+    ): flag8_value;
+    public create_flag16(
+      items: prop_item_vec,
+      key: string,
+      object: object,
+      name: string,
+      mask: u16,
+      offCaption?: string,
+      onCaption?: string,
+      flags?: u32
+    ): flag16_value;
+    public create_flag32(
+      items: prop_item_vec,
+      key: string,
+      object: object,
+      name: string,
+      mask: u32,
+      offCaption?: string,
+      onCaption?: string,
+      flags?: u32
+    ): flag32_value;
 
     /**
-     * Create a 32-bit token property.
-     *
-     * @remarks
-     * Requires a `token_list`; ids are stored as unsigned 32-bit values.
-     *
-     * @returns Engine property value handle.
+     * Create a vector property bound to an `Fvector` field.
      */
-    public create_token32(): unknown;
+    public create_vector(
+      items: prop_item_vec,
+      key: string,
+      object: object,
+      name: string,
+      min?: f32,
+      max?: f32,
+      increment?: f32,
+      decimals?: i32
+    ): vector_value;
 
     /**
-     * Create an 8-bit flag property.
-     *
-     * @remarks
-     * Binds individual bit toggles to an unsigned 8-bit integer field.
-     *
-     * @returns Engine property value handle.
+     * Create a boolean property bound to `table[name]` and owned by `object`.
      */
-    public create_flag8(): unknown;
+    public create_bool(items: prop_item_vec, key: string, object: object, table: object, name: string): bool_value;
 
     /**
-     * Create a 16-bit flag property.
-     *
-     * @remarks
-     * Binds individual bit toggles to an unsigned 16-bit integer field.
-     *
-     * @returns Engine property value handle.
+     * Create numeric properties bound to object fields.
      */
-    public create_flag16(): unknown;
+    public create_float(
+      items: prop_item_vec,
+      key: string,
+      object: object,
+      name: string,
+      min?: f32,
+      max?: f32,
+      increment?: f32,
+      decimals?: i32
+    ): float_value;
+    public create_u8(items: prop_item_vec, key: string, object: object, name: string, min?: u8, max?: u8, increment?: u8): u8_value;
+    public create_u16(
+      items: prop_item_vec,
+      key: string,
+      object: object,
+      name: string,
+      min?: u16,
+      max?: u16,
+      increment?: u16
+    ): u16_value;
+    public create_u32(
+      items: prop_item_vec,
+      key: string,
+      object: object,
+      name: string,
+      min?: u32,
+      max?: u32,
+      increment?: u32
+    ): u32_value;
+    public create_s32(
+      items: prop_item_vec,
+      key: string,
+      object: object,
+      name: string,
+      min?: i32,
+      max?: i32,
+      increment?: i32
+    ): s32_value;
+    public create_s16(
+      items: prop_item_vec,
+      key: string,
+      object: object,
+      name: string,
+      min?: i16,
+      max?: i16,
+      increment?: i16
+    ): s16_value;
 
     /**
-     * Create a 32-bit flag property.
-     *
-     * @remarks
-     * Binds individual bit toggles to an unsigned 32-bit integer field.
-     *
-     * @returns Engine property value handle.
+     * Create an asset/object chooser property bound to a string field.
      */
-    public create_flag32(): unknown;
+    public create_choose(
+      items: prop_item_vec,
+      key: string,
+      object: object,
+      name: string,
+      mode: TXR_choose_type,
+      path?: string,
+      fillParam?: string,
+      subItemCount?: u32
+    ): choose_value;
 
     /**
-     * Create a vector property.
-     *
-     * @remarks
-     * Bound object field must be an `Fvector`.
-     *
-     * @returns Engine property value handle.
+     * Create editor-only utility rows.
      */
-    public create_vector(): unknown;
+    public create_button(items: prop_item_vec, key: string, value: string, flags: u32): button_value;
+    public create_canvas(items: prop_item_vec, key: string, value: string, height: i32): canvas_value;
+    public create_caption(items: prop_item_vec, key: string, value: string): caption_value;
+    public create_text(items: prop_item_vec, key: string, object: object, name: string): text_value;
 
     /**
-     * Create a boolean property bound to an object field.
-     *
-     * @remarks
-     * The native helper wraps `value[id]` and attaches the wrapper to `object`, so `object` must be a server object.
-     *
-     * @param items - Property item list to append to.
-     * @param path - Property path or caption.
-     * @param object - Spawn object owning the property.
-     * @param value - Property storage descriptor.
-     * @param id - Field identifier used by the editor bridge.
-     * @returns Whether the property was created.
+     * Standard editor callbacks used by property rows with luabind out-parameters.
      */
-    public create_bool(
-      items: LuaTable<number>,
-      path: string,
-      object: cse_abstract,
-      value: unknown,
-      id: number | string
-    ): boolean;
-
-    /**
-     * Create a float property.
-     *
-     * @remarks
-     * Bound object field must be a float. Native overloads may also carry min/max/default editor values.
-     *
-     * @returns Engine property value handle.
-     */
-    public create_float(): unknown;
-
-    /**
-     * Create an unsigned 8-bit integer property.
-     *
-     * @remarks
-     * Bound object field must fit into an unsigned 8-bit value.
-     *
-     * @returns Engine property value handle.
-     */
-    public create_u8(): unknown;
-
-    /**
-     * Create an unsigned 16-bit integer property.
-     *
-     * @remarks
-     * Bound object field must fit into an unsigned 16-bit value.
-     *
-     * @returns Engine property value handle.
-     */
-    public create_u16(): unknown;
-
-    /**
-     * Create an unsigned 32-bit integer property.
-     *
-     * @remarks
-     * Bound object field must fit into an unsigned 32-bit value.
-     *
-     * @returns Engine property value handle.
-     */
-    public create_u32(): unknown;
-
-    /**
-     * Create a signed 32-bit integer property.
-     *
-     * @remarks
-     * Bound object field must fit into a signed 32-bit value.
-     *
-     * @returns Engine property value handle.
-     */
-    public create_s32(): unknown;
-
-    /**
-     * Create a signed 16-bit integer property.
-     *
-     * @remarks
-     * Bound object field must fit into a signed 16-bit value.
-     *
-     * @returns Engine property value handle.
-     */
-    public create_s16(): unknown;
-
-    /**
-     * Create an asset/object chooser property.
-     *
-     * @remarks
-     * Requires a chooser mode and a string-like field that receives the selected section, asset, or path.
-     *
-     * @returns Engine property value handle.
-     */
-    public create_choose(): unknown;
-
-    /**
-     * Create a button property.
-     *
-     * @remarks
-     * Editor-only command row. Use it to expose an action callback, not persistent object data.
-     *
-     * @returns Engine property value handle.
-     */
-    public create_button(): unknown;
-
-    /**
-     * Create a custom canvas property.
-     *
-     * @remarks
-     * Editor-only drawing surface for custom property UI.
-     *
-     * @returns Engine property value handle.
-     */
-    public create_canvas(): unknown;
-
-    /**
-     * Create a read-only caption row.
-     *
-     * @remarks
-     * Editor-only label row used to group or explain nearby properties.
-     *
-     * @returns Engine property value handle.
-     */
-    public create_caption(): unknown;
-
-    /**
-     * Callback used after editing a float property.
-     *
-     * @remarks
-     * Editor bridge callback. Native code passes the edited value through an output argument.
-     *
-     * @returns Engine callback result.
-     */
-    public float_on_after_edit(): unknown;
-
-    /**
-     * Callback used before editing a float property.
-     *
-     * @remarks
-     * Editor bridge callback. Native code passes the current value through an output argument.
-     *
-     * @returns Engine callback result.
-     */
-    public float_on_before_edit(): unknown;
-
-    /**
-     * Callback used after editing an object name.
-     *
-     * @remarks
-     * Editor bridge callback. Native code passes the edited name through an output argument.
-     *
-     * @returns Engine callback result.
-     */
-    public name_after_edit(): unknown;
-
-    /**
-     * Callback used before editing an object name.
-     *
-     * @remarks
-     * Editor bridge callback. Native code passes the current name through an output argument.
-     *
-     * @returns Engine callback result.
-     */
-    public name_before_edit(): unknown;
-
-    /**
-     * Callback used before editing a vector property.
-     *
-     * @remarks
-     * Editor bridge callback for vector rows, usually used to prepare a value before the editor opens.
-     *
-     * @returns Engine callback result.
-     */
-    public vector_on_before_edit(): unknown;
-
-    /**
-     * Callback used after editing a vector property.
-     *
-     * @remarks
-     * Editor bridge callback for vector rows, usually used to accept or normalize the edited value.
-     *
-     * @returns Engine callback result.
-     */
-    public vector_on_after_edit(): unknown;
+    public float_on_after_edit(sender: prop_value, value: f32): LuaMultiReturn<[boolean, f32]>;
+    public float_on_before_edit(sender: prop_value, value: f32): f32;
+    public name_after_edit(sender: prop_value, value: string): LuaMultiReturn<[boolean, string]>;
+    public name_before_edit(sender: prop_value, value: string): string;
+    public vector_on_before_edit(sender: prop_value, value: vector): vector;
+    public vector_on_after_edit(sender: prop_value, value: vector): boolean;
   }
-
   /**
    * Global editor properties helper.
    *
@@ -511,7 +490,7 @@ declare module "xray16" {
      *
      * @returns Engine property value handle.
      */
-    public token16_value(): unknown;
+    public token16_value(): token16_value;
 
     /**
      * Treat this property value as a 32-bit flag value.
@@ -521,7 +500,7 @@ declare module "xray16" {
      *
      * @returns Engine property value handle.
      */
-    public flag32_value(): unknown;
+    public flag32_value(): flag32_value;
 
     /**
      * Treat this property value as text.
@@ -531,7 +510,7 @@ declare module "xray16" {
      *
      * @returns Engine property value handle.
      */
-    public text_value(): unknown;
+    public text_value(): text_value;
 
     /**
      * Treat this property value as a boolean.
@@ -541,7 +520,7 @@ declare module "xray16" {
      *
      * @returns Engine property value handle.
      */
-    public bool_value(): unknown;
+    public bool_value(): bool_value;
 
     /**
      * Treat this property value as an unsigned 16-bit integer.
@@ -551,7 +530,7 @@ declare module "xray16" {
      *
      * @returns Engine property value handle.
      */
-    public u16_value(): unknown;
+    public u16_value(): u16_value;
 
     /**
      * Treat this property value as a signed 16-bit integer.
@@ -561,7 +540,7 @@ declare module "xray16" {
      *
      * @returns Engine property value handle.
      */
-    public s16_value(): unknown;
+    public s16_value(): s16_value;
 
     /**
      * Treat this property value as a button.
@@ -571,7 +550,7 @@ declare module "xray16" {
      *
      * @returns Engine property value handle.
      */
-    public button_value(): unknown;
+    public button_value(): button_value;
 
     /**
      * Treat this property value as a caption.
@@ -581,7 +560,7 @@ declare module "xray16" {
      *
      * @returns Engine property value handle.
      */
-    public caption_value(): unknown;
+    public caption_value(): caption_value;
   }
 
   /**
