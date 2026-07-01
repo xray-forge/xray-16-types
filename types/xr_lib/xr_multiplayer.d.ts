@@ -219,7 +219,7 @@ declare module "xray16" {
      * @param password - Account password.
      * @param cb - Completion callback.
      */
-    public get_account_profiles(email: string, password: string, cb: account_profiles_cb): unknown;
+    public get_account_profiles(email: string, password: string, cb: account_profiles_cb): void;
 
     /**
      * Get profiles found by the last email search.
@@ -1049,33 +1049,144 @@ declare module "xray16" {
   }
 
   /**
-   * Todo:
+   * Multiplayer player state replicated by multiplayer game modes.
    *
-   *    class_<game_PlayerState, no_bases, default_holder, WrapType>("game_PlayerState")
-   *         .def(constructor<>())
-   *         .def_readwrite("team", &BaseType::team)
-   *         .def_readwrite("kills", &BaseType::m_iRivalKills)
-   *         .def_readwrite("deaths", &BaseType::m_iDeaths)
-   *         .def_readwrite("money_for_round", &BaseType::money_for_round)
-   *         .def_readwrite("flags", &BaseType::flags__)
-   *         .def_readwrite("ping", &BaseType::ping)
-   *         .def_readwrite("GameID", &BaseType::GameID)
-   *         //.def_readwrite("Skip", &BaseType::Skip)
-   *         .def_readwrite("lasthitter", &BaseType::lasthitter)
-   *         .def_readwrite("lasthitweapon", &BaseType::lasthitweapon)
-   *         .def_readwrite("skin", &BaseType::skin)
-   *         .def_readwrite("RespawnTime", &BaseType::RespawnTime)
-   *         .def_readwrite("money_delta", &BaseType::money_delta).
+   * @source C++ class game_PlayerState
+   * @customConstructor game_PlayerState
+   * @group xr_multiplayer
    *
-   *         .def_readwrite("pItemList", &BaseType::pItemList)
-   *         .def_readwrite("LastBuyAcount", &BaseType::LastBuyAcount)
-   *         .def("testFlag", &BaseType::testFlag)
-   *         .def("setFlag", &BaseType::setFlag)
-   *         .def("resetFlag", &BaseType::resetFlag)
-   *         .def("getName", &BaseType::getName)
-   *         .def("setName", &BaseType::setName)
-   *         .def("clear", &BaseType::clear, &WrapType::clear_static)
-   *         .def("net_Export", &BaseType::net_Export, &WrapType::net_Export_static)
-   *         .def("net_Import", &BaseType::net_Import, &WrapType::net_Import_static).
+   * @remarks
+   * This is the networked player state used by multiplayer server/client code. The public fields are the exact names
+   * exported by the Lua binding, which do not always match the underlying C++ member names.
    */
+  export class game_PlayerState {
+    /**
+     * Player team id.
+     */
+    public team: u8;
+
+    /**
+     * Rival kill count.
+     */
+    public kills: i16;
+
+    /**
+     * Death count.
+     */
+    public deaths: i16;
+
+    /**
+     * Current multiplayer money amount.
+     */
+    public money_for_round: i32;
+
+    /**
+     * Packed `GAME_PLAYER_FLAG_*` bitmask.
+     */
+    public flags: u16;
+
+    /**
+     * Player network ping.
+     */
+    public ping: u16;
+
+    /**
+     * Current player game id.
+     */
+    public GameID: u16;
+
+    /**
+     * Object id of the last hitter.
+     */
+    public lasthitter: u16;
+
+    /**
+     * Weapon id used by the last hitter.
+     */
+    public lasthitweapon: u16;
+
+    /**
+     * Multiplayer skin id.
+     */
+    public skin: i8;
+
+    /**
+     * Scheduled respawn time.
+     */
+    public RespawnTime: u32;
+
+    /**
+     * Last money delta shown to the player.
+     */
+    public money_delta: i16;
+
+    /**
+     * Native `xr_vector<u16>` containing selected buy/spawn item ids.
+     */
+    public pItemList: unknown;
+
+    /**
+     * Money difference from the last buy transaction.
+     */
+    public LastBuyAcount: i32;
+
+    /**
+     * Create an empty player state.
+     */
+    public constructor();
+
+    /**
+     * Check whether a player flag bit is set.
+     *
+     * @param flag - `GAME_PLAYER_FLAG_*` bit to test.
+     * @returns Whether the bit is set.
+     */
+    public testFlag(flag: u16): boolean;
+
+    /**
+     * Set a player flag bit.
+     *
+     * @param flag - `GAME_PLAYER_FLAG_*` bit to set.
+     */
+    public setFlag(flag: u16): void;
+
+    /**
+     * Clear a player flag bit.
+     *
+     * @param flag - `GAME_PLAYER_FLAG_*` bit to clear.
+     */
+    public resetFlag(flag: u16): void;
+
+    /**
+     * @returns Current multiplayer player name.
+     */
+    public getName(): string;
+
+    /**
+     * Set multiplayer player name.
+     *
+     * @param name - New player name.
+     */
+    public setName(name: string): void;
+
+    /**
+     * Reset this state to default values.
+     */
+    public clear(): void;
+
+    /**
+     * Write this state to a network packet.
+     *
+     * @param packet - Target network packet.
+     * @param full - Whether to include account data in the packet.
+     */
+    public net_Export(packet: net_packet, full?: boolean): void;
+
+    /**
+     * Read this state from a network packet.
+     *
+     * @param packet - Source network packet.
+     */
+    public net_Import(packet: net_packet): void;
+  }
 }

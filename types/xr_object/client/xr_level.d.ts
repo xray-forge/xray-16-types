@@ -404,6 +404,47 @@ declare module "xray16" {
   export type TXR_CCar_weapon_param = EnumeratedStaticsValues<typeof CCar>;
 
   /**
+   * Helicopter life-state values returned by `CHelicopter.GetState()`.
+   *
+   * @source `src/xrGame/helicopter_script.cpp`, `CHelicopter.state` enum.
+   * @group xr_level
+   */
+  export type TXR_helicopter_state = typeof CHelicopter.eAlive | typeof CHelicopter.eDead | -1;
+
+  /**
+   * Helicopter movement-state values returned by `CHelicopter.GetMovementState()`.
+   *
+   * @source `src/xrGame/helicopter_script.cpp`, `CHelicopter.movement_state` enum.
+   * @group xr_level
+   */
+  export type TXR_helicopter_movement_state =
+    | typeof CHelicopter.eMovNone
+    | typeof CHelicopter.eMovToPoint
+    | typeof CHelicopter.eMovPatrolPath
+    | typeof CHelicopter.eMovRoundPath
+    | typeof CHelicopter.eMovLanding
+    | typeof CHelicopter.eMovTakeOff;
+
+  /**
+   * Helicopter body-state values returned by `CHelicopter.GetBodyState()`.
+   *
+   * @source `src/xrGame/helicopter_script.cpp`, `CHelicopter.body_state` enum.
+   * @group xr_level
+   */
+  export type TXR_helicopter_body_state = typeof CHelicopter.eBodyByPath | typeof CHelicopter.eBodyToPoint;
+
+  /**
+   * Helicopter enemy-tracking values returned by `CHelicopter.GetHuntState()`.
+   *
+   * @source `src/xrGame/helicopter_script.cpp`, `CHelicopter.hunt_state` enum.
+   * @group xr_level
+   */
+  export type TXR_helicopter_hunt_state =
+    | typeof CHelicopter.eEnemyNone
+    | typeof CHelicopter.eEnemyPoint
+    | typeof CHelicopter.eEnemyEntity;
+
+  /**
    * Script-controlled helicopter object.
    *
    * @source C++ class CHelicopter : CGameObject
@@ -582,12 +623,12 @@ declare module "xray16" {
     /**
      * @returns Current movement state.
      */
-    public GetMovementState(): i32; /* Enum ? */
+    public GetMovementState(): TXR_helicopter_movement_state;
 
     /**
      * @returns Current body aiming state.
      */
-    public GetBodyState(): i32; /* Enum ? */
+    public GetBodyState(): TXR_helicopter_body_state;
 
     /**
      * @returns Current velocity vector.
@@ -597,7 +638,7 @@ declare module "xray16" {
     /**
      * @returns Alive/dead state.
      */
-    public GetState(): i32;
+    public GetState(): TXR_helicopter_state;
 
     /**
      * @returns Distance to destination position.
@@ -607,14 +648,14 @@ declare module "xray16" {
     /**
      * @returns Current enemy tracking state.
      */
-    public GetHuntState(): i32; /* Enum ? */
+    public GetHuntState(): TXR_helicopter_hunt_state;
 
     /**
      * Set desired speed near the destination point.
      *
      * @param value - Speed value.
      */
-    public SetSpeedInDestPoint(value: f32): unknown;
+    public SetSpeedInDestPoint(value: f32): void;
 
     /**
      * Set linear acceleration limits.

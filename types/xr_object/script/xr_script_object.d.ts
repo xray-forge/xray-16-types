@@ -4929,24 +4929,22 @@ declare module "xray16" {
     public get_remaining_uses(): u8;
 
     /**
-     * Set custom zone restrictor type.
+     * Set space-restrictor category.
      *
      * @remarks
-     * Requires this object to be a custom zone. Other object types log a script error and return a
-     * default value or do nothing.
+     * Requires this object to be a space restrictor. Other object types silently do nothing.
      *
      * @param type - Restrictor type.
      */
-    public set_restrictor_type(type: u8): void;
+    public set_restrictor_type(type: TXR_restrictor_type): void;
 
     /**
      * @remarks
-     * Requires this object to be a custom zone. Other object types log a script error and return a
-     * default value or do nothing.
+     * Requires this object to be a space restrictor. Other object types return `255`.
      *
-     * @returns Custom zone restrictor type.
+     * @returns Space-restrictor category, or `255` when this object is not a space restrictor.
      */
-    public get_restrictor_type(): u8;
+    public get_restrictor_type(): TXR_restrictor_type | 255;
 
     /**
      * Set spatial registration type for this object.

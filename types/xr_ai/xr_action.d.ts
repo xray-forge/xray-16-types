@@ -383,7 +383,6 @@ declare module "xray16" {
    * actions. Use the constructor group that matches the object receiving the resulting `entity_action`.
    */
   export class move extends EngineBinding {
-    // Todo: All enums are in one static, probably should declare few parent interfaces / classes with enums
     /**
      * Engine enum value for `move.crouch`.
      */
@@ -1319,7 +1318,7 @@ declare module "xray16" {
      *
      * @param state - Mental state id.
      */
-    public constructor(state: number); /* Enum MonsterSpace::EMentalState */
+    public constructor(state: TXR_mental_state);
 
     /**
      * Set monster animation action and extra value.
@@ -1330,7 +1329,7 @@ declare module "xray16" {
      * @param state - Monster animation action id.
      * @param value - Extra action value.
      */
-    public constructor(state: number /* Enum MonsterSpace::EScriptMonsterAnimAction */, value: i32);
+    public constructor(state: TXR_monster_animation_action, value: i32);
 
     /**
      * @returns Whether the animation action is complete.
@@ -1342,7 +1341,7 @@ declare module "xray16" {
      *
      * @param state - Mental state id.
      */
-    public type(state: number /* Enum MonsterSpace::EMentalState */): void;
+    public type(state: TXR_mental_state): void;
 
     /**
      * Set animation name.
@@ -1371,6 +1370,37 @@ declare module "xray16" {
    * @group xr_action
    */
   export type TXR_mental_state = typeof anim.danger | typeof anim.free | typeof anim.panic;
+
+  /**
+   * Monster animation action constants accepted by the two-argument `anim` constructor.
+   *
+   * @source `src/xrGame/script_animation_action_script.cpp`, `anim.monster` enum.
+   * @group xr_action
+   */
+  export type TXR_monster_animation_action =
+    | typeof anim.stand_idle
+    | typeof anim.capture_prepare
+    | typeof anim.sit_idle
+    | typeof anim.lie_idle
+    | typeof anim.eat
+    | typeof anim.sleep
+    | typeof anim.rest
+    | typeof anim.attack
+    | typeof anim.look_around
+    | typeof anim.turn;
+
+  /**
+   * Monster head-animation constants accepted by trader sound actions.
+   *
+   * @source `src/xrGame/script_sound_action_script.cpp`, trader-specific sound constructor.
+   * @group xr_action
+   */
+  export type TXR_monster_head_animation =
+    | typeof MonsterSpace.head_anim_normal
+    | typeof MonsterSpace.head_anim_angry
+    | typeof MonsterSpace.head_anim_glad
+    | typeof MonsterSpace.head_anim_kind
+    | -1;
 
   /**
    * Sound action for scripted AI behavior.
@@ -1556,7 +1586,7 @@ declare module "xray16" {
      *
      * @param type - Monster sound type id.
      */
-    public constructor(type: TXR_sound_type); /* MonsterSound::EType */
+    public constructor(type: TXR_sound_type);
 
     /**
      * Play a monster sound by type with extra value.
@@ -1567,19 +1597,22 @@ declare module "xray16" {
      * @param type - Monster sound type id.
      * @param value - Extra sound value.
      */
-    public constructor(type: TXR_sound_type /* Enum MonsterSound::EType*/, value: number);
+    public constructor(type: TXR_sound_type, value: number);
 
     /**
      * Play a trader sound with a head animation.
      *
+     * @source `src/xrGame/script_sound_action_script.cpp`, trader-specific sound constructor.
+     *
      * @remarks
-     * Trader-specific overload. The head animation is one of `MonsterSpace.head_anim_*`.
+     * Trader-specific overload. The head animation is one of the `MonsterSpace.head_anim_*` constants. The native enum
+     * also has `-1` for no head animation, but that value is not exported as a named Lua constant.
      *
      * @param value1 - Sound prefix or collection.
      * @param value2 - Sound name.
      * @param type - Monster head animation type.
      */
-    public constructor(value1: string, value2: string, type: unknown); /* Enum MonsterSpace::EMonsterHeadAnimType */
+    public constructor(value1: string, value2: string, type: TXR_monster_head_animation);
 
     /**
      * Set sound by name.
@@ -1621,7 +1654,7 @@ declare module "xray16" {
      *
      * @param type - Sound type id.
      */
-    public set_sound_type(type: number /* ESoundTypes */): void;
+    public set_sound_type(type: TXR_snd_type): void;
 
     /**
      * @returns Whether sound playback is complete.

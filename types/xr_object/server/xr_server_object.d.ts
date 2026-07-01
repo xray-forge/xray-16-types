@@ -1353,9 +1353,13 @@ declare module "xray16" {
     /**
      * Replace the table of available loopholes.
      *
-     * @param object - Lua table with loophole ids.
+     * @remarks
+     * Keys are smart-cover loophole ids from the description table. A `false` value hides the matching loophole from
+     * parsed draw/usage data; missing keys leave loopholes available.
+     *
+     * @param loopholes - Lua table mapping loophole id to availability flag.
      */
-    public set_available_loopholes(object: unknown): void;
+    public set_available_loopholes(loopholes: LuaTable<string, boolean>): void;
 
     /**
      * Enable or disable editor validation for the loopholes table.

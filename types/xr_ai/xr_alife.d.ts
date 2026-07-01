@@ -2,6 +2,27 @@ import type { Nillable, Nullable } from "../internal";
 
 declare module "xray16" {
   /**
+   * Restriction-space category stored on space restrictors and used by ALife restriction events.
+   *
+   * @group xr_alife
+   *
+   * @remarks
+   * Values mirror `RestrictionSpace::ERestrictorTypes`: default none/out/in are `0`, `1`, `2`; runtime none/in/out
+   * are `3`, `4`, `5`.
+   */
+  export type TXR_restrictor_type = 0 | 1 | 2 | 3 | 4 | 5;
+
+  /**
+   * Dynamic restriction-list type accepted by APIs that clear ALife in/out restriction arrays.
+   *
+   * @group xr_alife
+   *
+   * @remarks
+   * The engine switch handles only runtime `eRestrictorTypeIn` (`4`) and `eRestrictorTypeOut` (`5`) here.
+   */
+  export type TXR_dynamic_restrictor_type = 4 | 5;
+
+  /**
    * Access point for ALife simulation objects and registries.
    *
    * @source C++ class alife_simulator
@@ -136,7 +157,7 @@ declare module "xray16" {
      * @param objectId - Restricted object id.
      * @param type - Restriction type.
      */
-    public remove_all_restrictions(objectId: u16, type: i32 /* Enum RestrictionSpace::ERestrictorTypes */): void;
+    public remove_all_restrictions(objectId: u16, type: TXR_dynamic_restrictor_type): void;
 
     /**
      * Remove an inside-space restriction from an offline monster.

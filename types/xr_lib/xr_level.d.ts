@@ -86,6 +86,47 @@ declare module "xray16" {
   }
 
   /**
+   * Active weather descriptor exposed through `CEnvironment.current()`.
+   *
+   * @source C++ class CEnvDescriptor
+   * @customConstructor CEnvDescriptor
+   * @group xr_level
+   *
+   * @remarks
+   * Lua receives the engine-owned current descriptor; scripts should treat it as read-only.
+   */
+  export class CEnvDescriptor {
+    /**
+     * Current fog density.
+     */
+    public readonly fog_density: f32;
+
+    /**
+     * Current far clipping plane distance.
+     */
+    public readonly far_plane: f32;
+  }
+
+  /**
+   * Active weather environment controller.
+   *
+   * @source C++ class CEnvironment
+   * @customConstructor CEnvironment
+   * @group xr_level
+   *
+   * @remarks
+   * Returned by `level.environment()`. The Lua binding exposes only access to the current descriptor.
+   */
+  export class CEnvironment {
+    /**
+     * Get the current interpolated environment descriptor.
+     *
+     * @returns Engine-owned current environment descriptor.
+     */
+    public current(): CEnvDescriptor;
+  }
+
+  /**
    * Reusable ray query object.
    *
    * @source `src/xrGame/level_script.cpp`, `ray_pick` binding.
@@ -361,11 +402,11 @@ declare module "xray16" {
     enable_input(this: void): void;
 
     /**
-     * Get the active environment object.
+     * Get the active weather environment controller.
      *
-     * @returns Engine environment object.
+     * @returns Engine-owned environment controller.
      */
-    environment(this: void): unknown /* XR_CEnvironment */;
+    environment(this: void): CEnvironment;
 
     /**
      * Get current game state id.
