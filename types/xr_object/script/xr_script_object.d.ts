@@ -4403,9 +4403,14 @@ declare module "xray16" {
     /**
      * Get parent object.
      *
-     * @returns Parent object.
+     * @source `src/xrGame/script_game_object_use.cpp`, `CScriptGameObject::Parent`.
+     *
+     * @remarks
+     * Returns `null` when the object has no parent game object.
+     *
+     * @returns Parent object, or `null` when no parent exists.
      */
-    public parent(): game_object;
+    public parent(): Nullable<game_object>;
 
     /**
      * Get current world position.
