@@ -62,6 +62,7 @@ Plugins can be included in [tstl tsconfig](https://typescripttolua.github.io/doc
       { "name": "xray16/plugins/inject_filename" },
       { "name": "xray16/plugins/from_cast_utils" },
       { "name": "xray16/plugins/optimize_return_ternary" },
+      { "name": "xray16/plugins/inline_constants" },
       { "name": "xray16/plugins/inject_tracy_zones" }
     ]
   }
@@ -111,6 +112,26 @@ All the calls are completely gets stripped and removed from runtime.
 
 Plugin rewrites returned ternary expressions into direct `if` / `else` branch returns when it is safe.\
 This avoids temporary result locals for patterns like `return condition ? first : second` while preserving general ternary semantics.
+
+### inline_constants
+
+Plugin inlining compile-time constant values of `@inline` JSDoc tagged declarations.\
+Supported targets are enums, module-level `as const` object literals and module-level literal scalar constants.\
+Member accesses are replaced with literal values in place, while original tables are still emitted,
+so iteration / reverse mapping / whole-object usages keep working.\
+Tagged declarations act as an explicit whitelist and produce build errors when they cannot be inlined.
+
+```typescript
+/**
+ * @inline
+ */
+export const medkits = {
+  medkit: "medkit",
+  medkit_army: "medkit_army",
+} as const;
+
+// Build time: `medkits.medkit_army` access is emitted as plain "medkit_army" string literal.
+```
 
 ### inject_tracy_zones
 

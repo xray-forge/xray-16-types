@@ -1,10 +1,8 @@
 {
   "extends": "../tsconfig.json",
   "include": ["./plugins"],
-  "exclude": ["./plugins/**/*.test.ts"],
   "compilerOptions": {
-    "declaration": true,
     "module": "commonjs",
-    "outDir": "../plugins"
+    "types": ["node", "jest", "@typescript-to-lua/language-extensions"]
   }
 }
