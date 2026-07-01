@@ -781,12 +781,18 @@ declare module "xray16" {
     public input(inputKey: number): void;
 
     /**
-     * Set patrol path.
+     * Set patrol path from a native patrol path pointer.
      *
-     * @param patrolPath - Patrol path object.
-     * @param path_name - Patrol path name.
+     * @source `src/xrGame/script_movement_action_script.cpp`, `move.patrol` binding.
+     *
+     * @remarks
+     * This low-level binding expects an internal `CPatrolPath*`, not the public `patrol` parameter object. Prefer the
+     * movement action constructors that accept `patrol` unless native code passes a raw patrol path pointer.
+     *
+     * @param patrolPath - Internal `CPatrolPath*` pointer.
+     * @param path_name - Patrol path name copied into the movement action.
      */
-    public patrol(patrolPath: unknown, path_name: string): void;
+    public patrol(patrolPath: unknown /* CPatrolPath* */, path_name: string): void;
 
     /**
      * Set target object.
@@ -811,9 +817,13 @@ declare module "xray16" {
   /**
    * Patrol path parameters used by movement actions.
    *
-   * @source C++ class patrol
+   * @source `src/xrAICore/Navigation/PatrolPath/patrol_path_params_script.cpp`, `CPatrolPathParams` binding.
    * @customConstructor patrol
    * @group xr_action
+   *
+   * @remarks
+   * The Lua-visible `patrol` class stores a patrol path name, start mode, route mode, randomization flag, and optional
+   * custom point index. Movement action constructors copy those values into the native movement action.
    */
   export class patrol extends EngineBinding {
     /**
@@ -851,18 +861,22 @@ declare module "xray16" {
     /**
      * Create patrol path parameters.
      *
+     * @remarks
+     * The native constructor resolves `name` through patrol path storage. Missing patrol paths can assert in debug
+     * builds. Use `patrol.custom` with `customPointIndex` to start from an explicit patrol point.
+     *
      * @param name - Patrol path name.
-     * @param startType - Patrol start type.
-     * @param routeType - Patrol route type.
-     * @param bool - Whether random point selection is enabled.
-     * @param int - Custom start point index.
+     * @param startType - Patrol start mode.
+     * @param routeType - Patrol route mode.
+     * @param random - Whether random point selection is enabled.
+     * @param customPointIndex - Custom start point index.
      */
     public constructor(
       name?: string,
       startType?: TXR_patrol_type,
       routeType?: TXR_patrol_type,
-      bool?: boolean,
-      int?: u32
+      random?: boolean,
+      customPointIndex?: u32
     );
 
     /**
@@ -954,7 +968,13 @@ declare module "xray16" {
   }
 
   /**
+   * Patrol start or route enum value.
+   *
    * @group xr_action
+   *
+   * @remarks
+   * The xray binding exports patrol start and route enums on the same Lua class, so this type is a flattened union of
+   * both enum groups.
    */
   export type TXR_patrol_type = EnumeratedStaticsValues<typeof patrol>;
 

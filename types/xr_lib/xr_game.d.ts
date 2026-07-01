@@ -93,7 +93,7 @@ declare module "xray16" {
   /**
    * Single-player difficulty constants.
    *
-   * @source C++ class game_difficulty
+   * @source `src/xrGame/game_cl_single.h`, `ESingleGameDifficulty`; `src/xrGame/level_script.cpp`, `game_difficulty` binding
    * @customConstructor game_difficulty
    * @group xr_game
    */
