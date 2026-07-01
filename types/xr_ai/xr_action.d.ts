@@ -545,7 +545,7 @@ declare module "xray16" {
      * @param pathType - Detail path type id.
      * @param game_object - Target object.
      */
-    public constructor(bodyState: number, movementType: TXR_move, pathType: number, game_object: game_object);
+    public constructor(bodyState: TXR_body_state, movementType: TXR_movement_type, pathType: TXR_detail_path_type, game_object: game_object);
 
     /**
      * Move toward an object with a speed value.
@@ -557,9 +557,9 @@ declare module "xray16" {
      * @param value - Speed or distance value.
      */
     public constructor(
-      bodyState: number,
-      movementType: TXR_move,
-      pathType: number,
+      bodyState: TXR_body_state,
+      movementType: TXR_movement_type,
+      pathType: TXR_detail_path_type,
       game_object: game_object,
       value: f32
     );
@@ -572,7 +572,7 @@ declare module "xray16" {
      * @param pathType - Detail path type id.
      * @param patrol - Patrol path parameters.
      */
-    public constructor(bodyState: number, movementType: TXR_move, pathType: number, patrol: patrol);
+    public constructor(bodyState: TXR_body_state, movementType: TXR_movement_type, pathType: TXR_detail_path_type, patrol: patrol);
 
     /**
      * Move along a patrol path with a speed value.
@@ -583,7 +583,7 @@ declare module "xray16" {
      * @param patrol - Patrol path parameters.
      * @param value - Speed or distance value.
      */
-    public constructor(bodyState: number, movementType: TXR_move, pathType: number, patrol: patrol, value: f32);
+    public constructor(bodyState: TXR_body_state, movementType: TXR_movement_type, pathType: TXR_detail_path_type, patrol: patrol, value: f32);
 
     /**
      * Move toward a position.
@@ -593,7 +593,7 @@ declare module "xray16" {
      * @param pathType - Detail path type id.
      * @param vector - Target position.
      */
-    public constructor(bodyState: number, movementType: TXR_move, pathType: number, vector: vector);
+    public constructor(bodyState: TXR_body_state, movementType: TXR_movement_type, pathType: TXR_detail_path_type, vector: vector);
 
     /**
      * Move toward a position with a speed value.
@@ -604,7 +604,7 @@ declare module "xray16" {
      * @param vector - Target position.
      * @param value - Speed or distance value.
      */
-    public constructor(bodyState: number, movementType: TXR_move, pathType: number, vector: vector, value: f32);
+    public constructor(bodyState: TXR_body_state, movementType: TXR_movement_type, pathType: TXR_detail_path_type, vector: vector, value: f32);
 
     /**
      * Move toward a position with distance.
@@ -757,14 +757,14 @@ declare module "xray16" {
      *
      * @param pathType - Detail path type id.
      */
-    public path(pathType: number): void;
+    public path(pathType: TXR_detail_path_type): void;
 
     /**
      * Set movement type.
      *
      * @param movementType - Movement type id.
      */
-    public move(movementType: number): void;
+    public move(movementType: TXR_movement_type): void;
 
     /**
      * Set target position.
@@ -806,13 +806,39 @@ declare module "xray16" {
      *
      * @param bodyState - Body state id.
      */
-    public body(bodyState: number): void;
+    public body(bodyState: TXR_body_state): void;
   }
 
   /**
+   * Movement action constants exposed by the `move` class.
+   *
    * @group xr_action
    */
   export type TXR_move = EnumeratedStaticsValues<typeof move>;
+
+  /**
+   * Body-state constants accepted by stalker movement actions.
+   *
+   * @source `src/xrGame/script_movement_action_script.cpp`, `move.body` enum.
+   * @group xr_action
+   */
+  export type TXR_body_state = typeof move.crouch | typeof move.standing;
+
+  /**
+   * Movement-type constants accepted by stalker movement actions.
+   *
+   * @source `src/xrGame/script_movement_action_script.cpp`, `move.move` enum.
+   * @group xr_action
+   */
+  export type TXR_movement_type = typeof move.walk | typeof move.run | typeof move.stand;
+
+  /**
+   * Detail-path constants accepted by stalker movement actions.
+   *
+   * @source `src/xrGame/script_movement_action_script.cpp`, `move.path` enum.
+   * @group xr_action
+   */
+  export type TXR_detail_path_type = typeof move.line | typeof move.dodge | typeof move.criteria;
 
   /**
    * Patrol path parameters used by movement actions.
@@ -1332,9 +1358,19 @@ declare module "xray16" {
   export type TXR_animation_key = EnumeratedStaticsKeys<typeof anim>;
 
   /**
+   * Animation action constants exposed by the `anim` class.
+   *
    * @group xr_action
    */
   export type TXR_animation = EnumeratedStaticsValues<typeof anim>;
+
+  /**
+   * Mental-state constants accepted by stalker animation and movement APIs.
+   *
+   * @source `src/xrGame/script_animation_action_script.cpp`, `anim.type` enum.
+   * @group xr_action
+   */
+  export type TXR_mental_state = typeof anim.danger | typeof anim.free | typeof anim.panic;
 
   /**
    * Sound action for scripted AI behavior.

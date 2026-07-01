@@ -79,10 +79,18 @@ declare module "xray16" {
   export type TXR_bloodsucker_visibility_state = -1 | 0 | 1 | 2;
 
   /**
-   * @source C++ enum visibility_t
+   * @source `src/xrGame/script_game_object_script2.cpp`, `game_object.EPathType` enum.
    * @group xr_script_interface
    */
   export type TXR_game_object_path = 0 | 1 | 2 | 3 | number;
+
+  /**
+   * Game-graph destination selection mode for stalker movement.
+   *
+   * @source `src/xrGame/script_game_object_script2.cpp`, `game_object.ESelectionType` enum.
+   * @group xr_script_interface
+   */
+  export type TXR_movement_selection_type = 0 | 1;
 
   /**
    * Engine callback id registry.

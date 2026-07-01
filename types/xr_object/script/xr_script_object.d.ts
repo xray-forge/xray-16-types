@@ -823,15 +823,17 @@ declare module "xray16" {
     public max_ignore_monster_distance(value: f32): void;
 
     /**
-     * Get objects that recently hit this object.
+     * Iterate native hit-memory records for this monster.
+     *
+     * @source `src/xrGame/script_game_object_script3.cpp`, `memory_hit_objects` binding with `return_stl_iterator()`.
      *
      * @remarks
-     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
-     * objects log a script error and return a default value or do nothing.
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. The binding returns a Lua iterator over
+     * the native `xr_vector<MemorySpace::CHitObject>` collection.
      *
-     * @returns Engine hit-memory collection.
+     * @returns Iterable hit-memory records.
      */
-    public memory_hit_objects(): unknown; // :vector<MemorySpace::CHitObject, xalloc<struct MemorySpace::CHitObject>
+    public memory_hit_objects(): LuaIterable<hit_memory_object>;
 
     /**
      * Get time since this object remembered another object.
@@ -859,20 +861,29 @@ declare module "xray16" {
     /**
      * Get current stalker mental state.
      *
-     * @returns Mental state id.
-     */
-    public mental_state<T extends number>(): T; // Todo: unknown enum
-
-    /**
-     * Get objects that are being detected but are not visible yet.
+     * @source `src/xrGame/script_game_object3.cpp`, `CScriptGameObject::mental_state`.
      *
      * @remarks
-     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
-     * objects log a script error and return a default value or do nothing.
+     * Requires this object to be a `CAI_Stalker`. Non-stalker objects log an engine script error and return
+     * `anim.danger`.
      *
-     * @returns Engine not-yet-visible collection.
+     * @returns Current mental state.
      */
-    public not_yet_visible_objects(): unknown;
+    public mental_state(): TXR_mental_state;
+
+    /**
+     * Iterate visual-memory candidates that are being detected but are not visible yet.
+     *
+     * @source `src/xrGame/script_game_object_script3.cpp`, `not_yet_visible_objects` binding with
+     * `return_stl_iterator()`.
+     *
+     * @remarks
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. The binding returns a Lua iterator over
+     * the native visual memory manager collection. Use `memory_visible_objects()` for fully visible remembered objects.
+     *
+     * @returns Iterable pending-visibility records.
+     */
+    public not_yet_visible_objects(): LuaIterable<not_yet_visible_object>;
 
     /**
      * Get inventory object count.
@@ -1039,7 +1050,7 @@ declare module "xray16" {
      *
      * @param state - Target mental state.
      */
-    public set_mental_state(state: TXR_animation): void;
+    public set_mental_state(state: TXR_mental_state): void;
 
     /**
      * Force an override animation.
@@ -1365,7 +1376,7 @@ declare module "xray16" {
      *
      * @returns Current stalker body state.
      */
-    public body_state(): TXR_MonsterBodyState;
+    public body_state(): TXR_body_state;
 
     /**
      * Get model bone world position.
@@ -1931,15 +1942,17 @@ declare module "xray16" {
     public marked_dropped(object: game_object): boolean;
 
     /**
-     * Get sound memory records.
+     * Iterate sound-memory records for this monster.
+     *
+     * @source `src/xrGame/script_game_object_script3.cpp`, `memory_sound_objects` binding with `return_stl_iterator()`.
      *
      * @remarks
-     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
-     * objects log a script error and return a default value or do nothing.
+     * Requires this object to be a `CCustomMonster` or one of its subclasses. The binding returns a Lua iterator over
+     * the native `xr_vector<MemorySpace::CSoundObject>` collection.
      *
-     * @returns Engine sound-memory collection.
+     * @returns Iterable sound-memory records.
      */
-    public memory_sound_objects(): unknown;
+    public memory_sound_objects(): LuaIterable<sound_memory_object>;
 
     /**
      * @remarks
@@ -1960,13 +1973,17 @@ declare module "xray16" {
     public motivation_action_manager(): action_planner;
 
     /**
-     * @remarks
-     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
-     * default value or do nothing.
+     * Get current stalker movement type.
      *
-     * @returns Current movement type id.
+     * @source `src/xrGame/script_game_object3.cpp`, `CScriptGameObject::movement_type`.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Non-stalker objects log an engine script error and return
+     * `move.stand`.
+     *
+     * @returns Current movement type.
      */
-    public movement_type(): number; // Todo: unknown enum
+    public movement_type(): TXR_movement_type;
 
     /**
      * @remarks
@@ -2179,7 +2196,7 @@ declare module "xray16" {
      *
      * @param state - Body state.
      */
-    public set_body_state(state: TXR_MonsterBodyState): void;
+    public set_body_state(state: TXR_body_state): void;
 
     /**
      * Configure bloodsucker capture animation jump.
@@ -2277,9 +2294,9 @@ declare module "xray16" {
      * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return a
      * default value or do nothing.
      *
-     * @param EDetailPathType - Detail path type id.
+     * @param type - Detail path type id.
      */
-    public set_detail_path_type(EDetailPathType: unknown /* Enum DetailPathManager::EDetailPathType */): void;
+    public set_detail_path_type(type: TXR_detail_path_type): void;
 
     /**
      * Force bloodsucker invisibility state.
@@ -2295,13 +2312,15 @@ declare module "xray16" {
     /**
      * Set movement target selection type.
      *
+     * @source `src/xrGame/script_game_object3.cpp`, `CScriptGameObject::set_movement_selection_type`.
+     *
      * @remarks
-     * Requires an AI object using movement path selection. Invalid enum values can trip native assertions or leave the
-     * path builder in an unusable state.
+     * Requires this object to be a `CAI_Stalker`. The native wrapper logs an error for non-stalker objects but then
+     * still dereferences the missing stalker pointer, so this should only be called after the runtime type is known.
      *
      * @param type - Selection type id.
      */
-    public set_movement_selection_type(type: unknown /* Enum ESelectionType */): void;
+    public set_movement_selection_type(type: TXR_movement_selection_type): void;
 
     /**
      * Set movement patrol path.
@@ -2593,7 +2612,7 @@ declare module "xray16" {
      * @param ini_file - Trade config.
      * @param section - Condition section.
      */
-    public show_condition(ini_file: unknown, section: string): void;
+    public show_condition(ini_file: ini_file, section: string): void;
 
     /**
      * @remarks
@@ -2638,43 +2657,47 @@ declare module "xray16" {
     /**
      * Register an NPC sound.
      *
+     * @source `src/xrGame/script_game_object4.cpp`, `CScriptGameObject::add_sound`.
+     *
      * @remarks
      * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
      * objects log a script error and return a default value or do nothing.
      *
      * @param prefix - Sound prefix.
+     * @param max_count - Maximum samples in the sound collection.
+     * @param type - AI sound category.
      * @param priority - Sound priority.
-     * @param type - Sound type.
-     * @param mask - Sound mask.
-     * @param internal_type - Internal sound type.
-     * @param max_count - Maximum active sounds.
-     * @returns Registered sound id.
+     * @param mask - Sound synchronization mask.
+     * @param internal_type - Internal monster sound id.
+     * @returns Registered sound id, or `0` when this object is not a custom monster.
      */
-    public add_sound(prefix: string, priority: u32, type: unknown, mask: u32, internal_type: u32, max_count: u32): u32;
+    public add_sound(prefix: string, max_count: u32, type: TXR_snd_type, priority: u32, mask: u32, internal_type: u32): u32;
 
     /**
      * Register an NPC sound with a bone name.
      *
+     * @source `src/xrGame/script_game_object4.cpp`, `CScriptGameObject::add_sound`.
+     *
      * @remarks
      * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
      * objects log a script error and return a default value or do nothing.
      *
      * @param prefix - Sound prefix.
+     * @param max_count - Maximum samples in the sound collection.
+     * @param type - AI sound category.
      * @param priority - Sound priority.
-     * @param type - Sound type.
-     * @param mask - Sound mask.
-     * @param internal_type - Internal sound type.
-     * @param max_count - Maximum active sounds.
-     * @param bone - Bone name.
-     * @returns Registered sound id.
+     * @param mask - Sound synchronization mask.
+     * @param internal_type - Internal monster sound id.
+     * @param bone - Bone name used for playback placement.
+     * @returns Registered sound id, or `0` when this object is not a custom monster.
      */
     public add_sound(
       prefix: string,
+      max_count: u32,
+      type: TXR_snd_type,
       priority: u32,
-      type: unknown,
       mask: u32,
       internal_type: u32,
-      max_count: u32,
       bone: string
     ): u32;
 
@@ -2859,9 +2882,18 @@ declare module "xray16" {
     public deadbody_can_take_status(): boolean;
 
     /**
-     * @returns Current detail path type used by the object's movement manager.
+     * Get current detail path type used by the object's movement manager.
+     *
+     * @source `src/xrGame/script_game_object3.cpp`, `CScriptGameObject::detail_path_type`.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Non-stalker objects log an engine script error and return
+     * `move.line`. In the verified xray source, the wrapper also returns `move.line` for stalkers instead of reading
+     * the current movement manager value.
+     *
+     * @returns Detail path type id.
      */
-    public detail_path_type(): unknown;
+    public detail_path_type(): TXR_detail_path_type;
 
     /**
      * Enable or disable weapon show, hide and reload sounds for this inventory owner.
@@ -3072,9 +3104,9 @@ declare module "xray16" {
      * a default value or do nothing.
      *
      * @param task_id - Task id.
-     * @returns Task state id.
+     * @returns Task state id, or `task.task_dummy` when this object is not an inventory owner or the task is missing.
      */
-    public get_task_state(task_id: string): unknown;
+    public get_task_state(task_id: string): TXR_TaskState;
 
     /**
      * Add an info portion to this object.
@@ -3399,9 +3431,17 @@ declare module "xray16" {
     public out_restrictions(): string;
 
     /**
+     * Get current movement path type.
+     *
+     * @source `src/xrGame/script_game_object3.cpp`, `CScriptGameObject::path_type`.
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Non-stalker objects log an engine script error and return
+     * `game_object.no_path`.
+     *
      * @returns Current movement path type.
      */
-    public path_type(): unknown;
+    public path_type(): TXR_game_object_path;
 
     /**
      * @remarks
@@ -3825,7 +3865,7 @@ declare module "xray16" {
      *
      * @returns Target body state requested by the movement manager.
      */
-    public target_body_state(): TXR_move;
+    public target_body_state(): TXR_body_state;
 
     /**
      * @remarks
@@ -3834,7 +3874,7 @@ declare module "xray16" {
      *
      * @returns Target movement type requested by the movement manager.
      */
-    public target_movement_type(): number; /* EMovementType */
+    public target_movement_type(): TXR_movement_type;
 
     /**
      * Transfer an item to another inventory owner.
@@ -4173,26 +4213,27 @@ declare module "xray16" {
     /**
      * Register a combat sound.
      *
+     * @source `src/xrGame/script_game_object4.cpp`, `CScriptGameObject::add_combat_sound`.
+     *
      * @remarks
-     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
-     * objects log a script error and return a default value or do nothing.
+     * Requires this object to be a `CAI_Stalker`. Other object types log a script error and return `0`.
      *
      * @param prefix - Sound prefix.
+     * @param max_count - Maximum samples in the sound collection.
+     * @param type - AI sound category.
      * @param priority - Sound priority.
-     * @param type - Sound type.
-     * @param mask - Sound mask.
-     * @param internal_type - Internal sound type.
-     * @param max_count - Maximum active sounds.
-     * @param bone - Bone name.
-     * @returns Registered sound id.
+     * @param mask - Sound synchronization mask.
+     * @param internal_type - Internal stalker sound id.
+     * @param bone - Bone name used for playback placement.
+     * @returns Registered sound id, or `0` when this object is not a stalker.
      */
     public add_combat_sound(
       prefix: string,
-      priority: number,
-      type: i32 /* Enum ESoundTypes */,
+      max_count: u32,
+      type: TXR_snd_type,
+      priority: u32,
       mask: u32,
       internal_type: u32,
-      max_count: u32,
       bone: string
     ): u32;
 
@@ -4525,7 +4566,7 @@ declare module "xray16" {
      *
      * @param movement_type - Movement type.
      */
-    public set_movement_type(movement_type: number /* MonsterSpace::EMovementType */): void;
+    public set_movement_type(movement_type: TXR_movement_type): void;
 
     /**
      * Move an NPC to a position.
@@ -4578,7 +4619,7 @@ declare module "xray16" {
      *
      * @returns Target mental state requested by the movement manager.
      */
-    public target_mental_state(): TXR_animation;
+    public target_mental_state(): TXR_mental_state;
 
     /**
      * Unregister this door from NPC door management.
