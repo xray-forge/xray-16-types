@@ -2,6 +2,190 @@ import type { Nillable, Nullable } from "../internal";
 
 declare module "xray16" {
   /**
+   * Ray query target bitmask accepted by `level.ray_pick` and `ray_pick`.
+   *
+   * @source `src/xrGame/level_script.cpp`, `rq_target` binding.
+   * @customConstructor rq_target
+   * @group xr_level
+   */
+  export class rq_target {
+    /**
+     * No ray query target.
+     */
+    public static readonly rqtNone: 0;
+
+    /**
+     * Dynamic game objects.
+     */
+    public static readonly rqtObject: 1;
+
+    /**
+     * Static level geometry.
+     */
+    public static readonly rqtStatic: 2;
+
+    /**
+     * Dynamic collision shapes.
+     */
+    public static readonly rqtShape: 4;
+
+    /**
+     * Dynamic obstacles.
+     */
+    public static readonly rqtObstacle: 8;
+
+    /**
+     * Dynamic game objects and static level geometry.
+     */
+    public static readonly rqtBoth: 3;
+
+    /**
+     * Dynamic game objects, collision shapes, and obstacles.
+     */
+    public static readonly rqtDyn: 13;
+  }
+
+  /**
+   * Ray query target bitmask value.
+   *
+   * @group xr_level
+   */
+  export type TXR_rq_target = EnumeratedStaticsValues<typeof rq_target>;
+
+  /**
+   * Result object filled by level ray queries.
+   *
+   * @source `src/xrGame/raypick.h`, `script_rq_result`.
+   * @customConstructor rq_result
+   * @group xr_level
+   *
+   * @remarks
+   * A new result starts with `object = null`, `range = 0`, and `element = 0`. `level.ray_pick` updates it only when the
+   * query returns `true`.
+   */
+  export class rq_result extends EngineBinding {
+    /**
+     * Create an empty ray query result.
+     */
+    public constructor();
+
+    /**
+     * Hit object, or `null` when the hit is not a game object.
+     */
+    public readonly object: Nullable<game_object>;
+
+    /**
+     * Distance from ray origin to the hit.
+     */
+    public readonly range: f32;
+
+    /**
+     * Hit model element id, or `0` when the hit has no element.
+     */
+    public readonly element: i32;
+  }
+
+  /**
+   * Reusable ray query object.
+   *
+   * @source `src/xrGame/level_script.cpp`, `ray_pick` binding.
+   * @customConstructor ray_pick
+   * @group xr_level
+   */
+  export class ray_pick extends EngineBinding {
+    /**
+     * Create an empty ray query with no target flags and zero range.
+     */
+    public constructor();
+
+    /**
+     * Create a configured ray query.
+     *
+     * @param position - Ray origin.
+     * @param direction - Ray direction.
+     * @param range - Ray range.
+     * @param target - Ray query target flags.
+     * @param ignore_object - Object ignored by the query, or `null` / `undefined`.
+     */
+    public constructor(
+      position: vector,
+      direction: vector,
+      range: f32,
+      target: TXR_rq_target,
+      ignore_object: Nillable<game_object>
+    );
+
+    /**
+     * Set ray origin.
+     *
+     * @param position - Ray origin.
+     */
+    public set_position(position: vector): void;
+
+    /**
+     * Set ray direction.
+     *
+     * @param direction - Ray direction.
+     */
+    public set_direction(direction: vector): void;
+
+    /**
+     * Set ray range.
+     *
+     * @param range - Ray range.
+     */
+    public set_range(range: f32): void;
+
+    /**
+     * Set ray target flags.
+     *
+     * @param target - Ray query target flags.
+     */
+    public set_flags(target: TXR_rq_target): void;
+
+    /**
+     * Set object ignored by the query.
+     *
+     * @param ignore_object - Object ignored by the query, or `null` / `undefined`.
+     */
+    public set_ignore_object(ignore_object: Nillable<game_object>): void;
+
+    /**
+     * Execute the ray query and update this query's result on hit.
+     *
+     * @returns Whether the ray hit anything.
+     */
+    public query(): boolean;
+
+    /**
+     * Get last ray query result.
+     *
+     * @returns Last ray query result.
+     */
+    public get_result(): rq_result;
+
+    /**
+     * Get hit object from the last ray query.
+     *
+     * @returns Hit object, or `null`.
+     */
+    public get_object(): Nullable<game_object>;
+
+    /**
+     * Get hit distance from the last ray query.
+     *
+     * @returns Hit distance.
+     */
+    public get_distance(): f32;
+
+    /**
+     * Get hit model element id from the last ray query.
+     *
+     * @returns Hit model element id, or `0`.
+     */
+    public get_element(): i32;
+  }
+  /**
    * Global helpers for the currently loaded level.
    *
    * This namespace covers object lookup, time/weather control, navigation queries, map spots, and effectors.
@@ -137,25 +321,31 @@ declare module "xray16" {
     client_spawn_manager(this: void): client_spawn_manager;
 
     /**
-     * Get actor object used by debug helpers.
+     * Get the current actor object used by debug helpers.
+     *
+     * @source `src/xrGame/level_script.cpp`, `debug_actor` binding.
      *
      * @remarks
-     * Exported only in debug builds.
+     * Exported only in debug builds. The native helper logs a warning on first use and returns `null` when the current
+     * level entity is not an actor.
      *
-     * @returns Actor game object.
+     * @returns Actor game object, or `null` when no actor is current.
      */
-    debug_actor(this: void): game_object;
+    debug_actor(this: void): Nullable<game_object>;
 
     /**
-     * Find an object by debug name.
+     * Find an online object by debug name.
+     *
+     * @source `src/xrGame/level_script.cpp`, `debug_object` binding.
      *
      * @remarks
-     * Exported only in debug builds.
+     * Exported only in debug builds. The native helper logs a warning on first use and searches loaded level objects by
+     * runtime name.
      *
-     * @param name - Object name.
-     * @returns Matching game object.
+     * @param name - Runtime object name.
+     * @returns Matching online object, or `null` when no object with this name is loaded.
      */
-    debug_object(this: void, name: string): game_object;
+    debug_object(this: void, name: string): Nullable<game_object>;
 
     /**
      * Disable player input.
@@ -206,7 +396,9 @@ declare module "xray16" {
     /**
      * Get active single-player difficulty.
      *
-     * @returns Difficulty id.
+     * @source `src/xrGame/level_script.cpp`, `get_game_difficulty`.
+     *
+     * @returns Current `game_difficulty` enum value.
      */
     get_game_difficulty(this: void): TXR_game_difficulty;
 
@@ -242,6 +434,11 @@ declare module "xray16" {
      * Get the object under the crosshair.
      *
      * @since OpenXRay 2014-12-27, c82669625
+     * @source `src/xrGame/level_script.cpp`, `g_get_target_obj`.
+     *
+     * @remarks
+     * Reads the current HUD ray query. Returns `null` when the ray hit has no object or the hit object is not a
+     * `CGameObject`.
      *
      * @returns Target object, or `null` when nothing is targeted.
      */
@@ -434,10 +631,15 @@ declare module "xray16" {
     name<T extends string = string>(this: void): T;
 
     /**
-     * Find an online object by id.
+     * Find an online object by runtime id.
      *
-     * @param object_id - Game object id.
-     * @returns Matching object, or `null` when it is not online.
+     * @source `src/xrGame/level_script.cpp`, `object_by_id` binding.
+     *
+     * @remarks
+     * Looks up the object in `Level().Objects` by network id. This does not search offline ALife objects.
+     *
+     * @param object_id - Runtime network object id.
+     * @returns Matching online object, or `null` when it is not loaded on the level.
      */
     object_by_id(this: void, object_id: u16): Nullable<game_object>;
 
@@ -591,14 +793,17 @@ declare module "xray16" {
     /**
      * Set active single-player difficulty.
      *
+     * @source `src/xrGame/level_script.cpp`, `set_game_difficulty`.
+     *
      * @remarks
-     * Updates the global difficulty and notifies the active single-player game state.
+     * Updates the global difficulty and notifies the active single-player game state. The native binding verifies that
+     * the current game state is `game_cl_Single`.
      *
      * @throws If the active game state is not single-player.
      *
-     * @param difficulty - Difficulty id.
+     * @param difficulty - `game_difficulty` enum value.
      */
-    set_game_difficulty(this: void, difficulty: unknown /* Enum ESingleGameDifficulty */): void;
+    set_game_difficulty(this: void, difficulty: TXR_game_difficulty): void;
 
     /**
      * Set a post-process effector factor.
@@ -767,7 +972,7 @@ declare module "xray16" {
      * Cast a ray through the level collision world.
      *
      * @remarks
-     * `result` is updated only when this returns `true`.
+     * `result` is updated only when this returns `true`. Use `rq_target` flags to choose static, object, or dynamic collision targets.
      *
      * @param position - Ray origin.
      * @param direction - Ray direction.
@@ -782,8 +987,8 @@ declare module "xray16" {
       position: vector,
       direction: vector,
       range: f32,
-      target: unknown,
-      result: unknown,
+      target: TXR_rq_target,
+      result: rq_result,
       ignore_object: Nillable<game_object>
     ): boolean;
   }

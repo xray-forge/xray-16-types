@@ -215,8 +215,15 @@ declare module "xray16" {
     /**
      * Get inventory object by index or name.
      *
+     * @source `src/xrGame/script_game_object_script2.cpp`, `object` bindings.
+     *
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Numeric lookup uses the engine inventory index, not a runtime
+     * object id. String lookup searches inventory item names. Both overloads return `null` when the item is missing or
+     * the inventory entry cannot be cast back to a game object.
+     *
      * @param value - Inventory index or item name.
-     * @returns Matching item, or `null` when it does not exist.
+     * @returns Matching inventory item, or `null`.
      */
     public object(value: i32 | string): Nullable<game_object>;
 
@@ -286,22 +293,25 @@ declare module "xray16" {
     /**
      * Get active detector item.
      *
-     * @remarks
-     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
-     * a default value or do nothing.
+     * @source `src/xrGame/script_game_object_inventory_owner.cpp`, `CScriptGameObject::active_detector`.
      *
-     * @returns Active detector, or `null`.
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. The binding reads the detector slot and returns the detector only
+     * while it is working. Missing inventory owner, empty detector slot, or inactive detector returns `null`.
+     *
+     * @returns Working detector item, or `null`.
      */
     public active_detector(): Nullable<game_object>;
 
     /**
      * Get active inventory item.
      *
-     * @remarks
-     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
-     * a default value or do nothing.
+     * @source `src/xrGame/script_game_object3.cpp`, `CScriptGameObject::GetActiveItem`.
      *
-     * @returns Active item, or `null`.
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return `null`.
+     *
+     * @returns Active inventory item, or `null` when no item is active.
      */
     public active_item(): Nullable<game_object>;
 
@@ -355,24 +365,29 @@ declare module "xray16" {
     public base_out_restrictions(): string;
 
     /**
-     * Get best known item for this object.
+     * Get best remembered item for this object.
+     *
+     * @source `src/xrGame/script_game_object2.cpp`, `CScriptGameObject::GetBestItem`.
      *
      * @remarks
-     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
-     * a default value or do nothing.
+     * Requires this object to be a `CCustomMonster`. This is the selected item from monster memory, not the best item in
+     * the object's inventory. Non-monster objects or monsters without a selected item return `null`.
      *
-     * @returns Best item, or `null`.
+     * @returns Best remembered item, or `null`.
      */
     public best_item(): Nullable<game_object>;
 
     /**
      * Get best available weapon for this object.
      *
-     * @remarks
-     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
-     * a default value or do nothing.
+     * @source `src/xrGame/script_game_object2.cpp`, `CScriptGameObject::best_weapon`.
      *
-     * @returns Best weapon, or `null`.
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. The binding reads the stalker object handler's best weapon candidate
+     * and returns it only when the item still belongs to this object. Non-stalker objects, missing candidates, and
+     * candidates owned by another object return `null`.
+     *
+     * @returns Best weapon candidate, or `null`.
      */
     public best_weapon(): Nullable<game_object>;
 
@@ -1651,9 +1666,12 @@ declare module "xray16" {
     public get_campfire(): CZoneCampfire;
 
     /**
+     * Get currently equipped outfit.
+     *
+     * @source `src/xrGame/script_game_object3.cpp`, `CScriptGameObject::GetCurrentOutfit`.
+     *
      * @remarks
-     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
-     * a default value or do nothing.
+     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return `null`.
      *
      * @returns Currently equipped outfit, or `null` when none is equipped.
      */
@@ -2976,9 +2994,13 @@ declare module "xray16" {
     public get_car(): CCar;
 
     /**
+     * Get current corpse selected by this monster.
+     *
+     * @source `src/xrGame/script_game_object3.cpp`, `CScriptGameObject::GetCorpse`.
+     *
      * @remarks
-     * Requires this object to be a monster with corpse-search logic. Other object types log a script
-     * error and return `null`.
+     * Requires this object to be a `CCustomMonster`. The binding ignores destroyed corpse objects and returns `null`
+     * when no usable corpse is selected.
      *
      * @returns Corpse selected by this monster, or `null`.
      */
@@ -2990,9 +3012,13 @@ declare module "xray16" {
     public get_current_holder(): Nullable<holder>;
 
     /**
+     * Get current enemy selected by this monster.
+     *
+     * @source `src/xrGame/script_game_object3.cpp`, `CScriptGameObject::GetEnemy`.
+     *
      * @remarks
-     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
-     * objects log a script error and return a default value or do nothing.
+     * Requires this object to be an alive `CCustomMonster`. The binding ignores destroyed enemy objects and returns
+     * `null` when the monster is dead, has no current enemy, or is not a monster.
      *
      * @returns Current enemy object, or `null`.
      */
@@ -3274,25 +3300,28 @@ declare module "xray16" {
     /**
      * Get item in inventory slot.
      *
-     * @remarks
-     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
-     * a default value or do nothing.
+     * @source `src/xrGame/script_game_object_inventory_owner.cpp`, `CScriptGameObject::item_in_slot`.
      *
-     * @param slot - Slot id.
+     * @remarks
+     * Requires this object to be a `CInventoryOwner`. Compatibility mode can shift slot ids by one for legacy
+     * minus-one slot ordering. Empty slots and non-inventory owners return `null`.
+     *
+     * @param slot - Inventory slot id.
      * @returns Item in slot, or `null`.
      */
     public item_in_slot(slot: u32): Nullable<game_object>;
 
     /**
-     * Get item on belt by slot.
+     * Get item on belt by belt container index.
      *
      * @since OpenXRay 2015-10-07, 658f68a2
+     * @source `src/xrGame/script_game_object_inventory_owner.cpp`, `CScriptGameObject::ItemOnBelt`.
      *
      * @remarks
-     * Requires this object to be a `CInventoryOwner`. Other object types log a script error and return
-     * a default value or do nothing.
+     * Requires this object to be a `CInventoryOwner`. Empty belt cells, non-inventory owners, and invalid belt indices
+     * return `null` after logging a script error where applicable.
      *
-     * @param slot - Belt slot id.
+     * @param slot - Belt container index.
      * @returns Item on belt, or `null`.
      */
     public item_on_belt(slot: u32): Nullable<game_object>;
@@ -3991,13 +4020,15 @@ declare module "xray16" {
     ): cover_point;
 
     /**
-     * Get best known enemy.
+     * Get best enemy selected by monster memory.
+     *
+     * @source `src/xrGame/script_game_object2.cpp`, `CScriptGameObject::GetBestEnemy`.
      *
      * @remarks
-     * Requires this object to be a `CCustomMonster` or one of its subclasses. Items, actors, and other
-     * objects log a script error and return a default value or do nothing.
+     * Requires this object to be a `CCustomMonster`. The binding reads the selected enemy from monster memory and
+     * returns `null` when the object is not a monster or no enemy is selected.
      *
-     * @returns Enemy object, or `null`.
+     * @returns Selected enemy object, or `null`.
      */
     public best_enemy(): Nullable<game_object>;
 
