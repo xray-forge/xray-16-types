@@ -1,8 +1,0 @@
-{
-  "extends": "../tsconfig.json",
-  "include": ["./plugins"],
-  "compilerOptions": {
-    "module": "commonjs",
-    "types": ["node", "jest", "@typescript-to-lua/language-extensions"]
-  }
-}

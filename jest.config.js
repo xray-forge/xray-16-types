@@ -4,6 +4,6 @@ module.exports = {
   roots: ["<rootDir>/src"],
   testEnvironment: "node",
   transform: {
-    "^.+\\.ts$": ["ts-jest", { tsconfig: "<rootDir>/src/tsconfig.tests.json" }],
+    "^.+\\.ts$": ["ts-jest", { tsconfig: "<rootDir>/src/tsconfig.json" }],
   },
 };

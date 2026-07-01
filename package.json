@@ -11,11 +11,11 @@
     "prepublish": "npm run build",
     "prepack": "npm run build",
     "build": "npm run build:plugins && npm run build:types",
-    "build:plugins": "tsc -p ./src/tsconfig.json",
+    "build:plugins": "tsc -p ./src/tsconfig.build.json",
     "build:types": "rollup -c rollup.dts.config.mjs",
     "build:docs": "typedoc",
     "test": "jest",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p ./src/tsconfig.json",
     "typedoc": "typedoc",
     "format": "prettier --write \"**/*.(js|ts|tsx|md)\" && eslint . --fix",
     "lint": "eslint ."

@@ -6,5 +6,5 @@
     "moduleResolution": "node",
     "types": ["node", "@typescript-to-lua/language-extensions"]
   },
-  "exclude": ["xray16.d.ts", "docs", "plugins"]
+  "exclude": ["xray16.d.ts", "docs", "plugins", "src/**/*.test.ts"]
 }
