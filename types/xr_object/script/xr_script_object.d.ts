@@ -2334,7 +2334,12 @@ declare module "xray16" {
      * @param route_type - Patrol route type.
      * @param random - Whether path point selection is random.
      */
-    public set_patrol_path(path_name: string, start_type: TXR_patrol_start_type, route_type: TXR_patrol_route_type, random: boolean): void;
+    public set_patrol_path(
+      path_name: string,
+      start_type: TXR_patrol_start_type,
+      route_type: TXR_patrol_route_type,
+      random: boolean
+    ): void;
 
     /**
      * Make smart-cover target selection prefer idle positions.
@@ -2671,7 +2676,14 @@ declare module "xray16" {
      * @param internal_type - Internal monster sound id.
      * @returns Registered sound id, or `0` when this object is not a custom monster.
      */
-    public add_sound(prefix: string, max_count: u32, type: TXR_snd_type, priority: u32, mask: u32, internal_type: u32): u32;
+    public add_sound(
+      prefix: string,
+      max_count: u32,
+      type: TXR_snd_type,
+      priority: u32,
+      mask: u32,
+      internal_type: u32
+    ): u32;
 
     /**
      * Register an NPC sound with a bone name.

@@ -46,10 +46,10 @@ export function createFoldedExpression(value: TFoldedValue, node: ts.Node): lua.
   if (typeof value === "number") {
     return value < 0
       ? lua.createUnaryExpression(
-        lua.createNumericLiteral(Math.abs(value), node),
-        lua.SyntaxKind.NegationOperator,
-        node
-      )
+          lua.createNumericLiteral(Math.abs(value), node),
+          lua.SyntaxKind.NegationOperator,
+          node
+        )
       : lua.createNumericLiteral(value, node);
   }
 
@@ -155,10 +155,7 @@ export function transformAccessExpression(
  * @param context - Transformation context.
  * @returns Lua literal when the identifier resolves to a tagged constant, default transformation otherwise.
  */
-export function transformIdentifierExpression(
-  node: ts.Identifier,
-  context: lua.TransformationContext
-): lua.Expression {
+export function transformIdentifierExpression(node: ts.Identifier, context: lua.TransformationContext): lua.Expression {
   if (node.parent !== undefined && ts.isSpreadAssignment(node.parent)) {
     const symbol: ts.Symbol | undefined = context.checker.getSymbolAtLocation(node);
     const table: lua.Expression | null =
@@ -356,7 +353,13 @@ export function transformImportDeclaration(
 
     // Side effects are possible, keep the module require without bindings:
     return context.superTransformStatements(
-      ts.factory.updateImportDeclaration(statement, statement.modifiers, undefined, statement.moduleSpecifier, undefined)
+      ts.factory.updateImportDeclaration(
+        statement,
+        statement.modifiers,
+        undefined,
+        statement.moduleSpecifier,
+        undefined
+      )
     );
   }
 

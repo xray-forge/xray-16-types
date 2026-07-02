@@ -234,9 +234,5 @@ declare module "xray16" {
    * `3` is the native `eRelationTypeWorstEnemy` value; it is not exported as a named Lua enum member.
    */
   export type TXR_relation =
-    | typeof game_object.dummy
-    | typeof game_object.friend
-    | typeof game_object.neutral
-    | typeof game_object.enemy
-    | 3;
+    typeof game_object.dummy | typeof game_object.friend | typeof game_object.neutral | typeof game_object.enemy | 3;
 }

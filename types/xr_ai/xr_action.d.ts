@@ -559,7 +559,12 @@ declare module "xray16" {
      * @param pathType - Detail path type id.
      * @param game_object - Target object.
      */
-    public constructor(bodyState: TXR_body_state, movementType: TXR_movement_type, pathType: TXR_detail_path_type, game_object: game_object);
+    public constructor(
+      bodyState: TXR_body_state,
+      movementType: TXR_movement_type,
+      pathType: TXR_detail_path_type,
+      game_object: game_object
+    );
 
     /**
      * Move toward an object with a speed value.
@@ -586,7 +591,12 @@ declare module "xray16" {
      * @param pathType - Detail path type id.
      * @param patrol - Patrol path parameters.
      */
-    public constructor(bodyState: TXR_body_state, movementType: TXR_movement_type, pathType: TXR_detail_path_type, patrol: patrol);
+    public constructor(
+      bodyState: TXR_body_state,
+      movementType: TXR_movement_type,
+      pathType: TXR_detail_path_type,
+      patrol: patrol
+    );
 
     /**
      * Move along a patrol path with a speed value.
@@ -597,7 +607,13 @@ declare module "xray16" {
      * @param patrol - Patrol path parameters.
      * @param value - Speed or distance value.
      */
-    public constructor(bodyState: TXR_body_state, movementType: TXR_movement_type, pathType: TXR_detail_path_type, patrol: patrol, value: f32);
+    public constructor(
+      bodyState: TXR_body_state,
+      movementType: TXR_movement_type,
+      pathType: TXR_detail_path_type,
+      patrol: patrol,
+      value: f32
+    );
 
     /**
      * Move toward a position.
@@ -607,7 +623,12 @@ declare module "xray16" {
      * @param pathType - Detail path type id.
      * @param vector - Target position.
      */
-    public constructor(bodyState: TXR_body_state, movementType: TXR_movement_type, pathType: TXR_detail_path_type, vector: vector);
+    public constructor(
+      bodyState: TXR_body_state,
+      movementType: TXR_movement_type,
+      pathType: TXR_detail_path_type,
+      vector: vector
+    );
 
     /**
      * Move toward a position with a speed value.
@@ -618,7 +639,13 @@ declare module "xray16" {
      * @param vector - Target position.
      * @param value - Speed or distance value.
      */
-    public constructor(bodyState: TXR_body_state, movementType: TXR_movement_type, pathType: TXR_detail_path_type, vector: vector, value: f32);
+    public constructor(
+      bodyState: TXR_body_state,
+      movementType: TXR_movement_type,
+      pathType: TXR_detail_path_type,
+      vector: vector,
+      value: f32
+    );
 
     /**
      * Move toward a position with distance.

@@ -14,7 +14,7 @@ export const createVirtualValueReferenceError = createErrorDiagnosticFactory(
 
 export const createImpureVirtualModuleError = createErrorDiagnosticFactory(
   `Modules with '@${VIRTUAL_TAG}' declarations may contain only type-only imports, ` +
-  `'@${INLINE_TAG}'/'@${VIRTUAL_TAG}' constants, constant enums, type aliases and interfaces.`
+    `'@${INLINE_TAG}'/'@${VIRTUAL_TAG}' constants, constant enums, type aliases and interfaces.`
 );
 
 export const createNotModuleLevelError = createErrorDiagnosticFactory(

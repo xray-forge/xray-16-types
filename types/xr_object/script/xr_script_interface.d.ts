@@ -698,9 +698,7 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["action_movement"],
-            cb?: Nillable<
-        (this: void, object: game_object, action_type: TXR_action_type, target_point_index: -1) => void
-      >,
+      cb?: Nillable<(this: void, object: game_object, action_type: TXR_action_type, target_point_index: -1) => void>,
       object?: Nillable<T>
     ): void;
 

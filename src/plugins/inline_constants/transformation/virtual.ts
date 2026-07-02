@@ -308,7 +308,8 @@ export function validateVirtualModulePurity(checker: ts.TypeChecker, sourceFile:
       ts.isInterfaceDeclaration(statement) ||
       isAmbientStatement(statement) ||
       (ts.isVariableStatement(statement) && hasInlineTag(statement)) ||
-      (ts.isEnumDeclaration(statement) && statement.members.every((member) => isComputableEnumMember(checker, member))) ||
+      (ts.isEnumDeclaration(statement) &&
+        statement.members.every((member) => isComputableEnumMember(checker, member))) ||
       (ts.isImportDeclaration(statement) &&
         (isTypeOnlyImport(checker, statement) || isAmbientModuleImport(checker, statement))) ||
       (ts.isExportDeclaration(statement) && (statement.isTypeOnly || statement.moduleSpecifier === undefined));

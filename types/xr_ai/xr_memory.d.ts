@@ -378,7 +378,8 @@ declare module "xray16" {
    * @source C++ enum CDangerObject::EDangerPerceiveType
    * @group xr_memory
    */
-  export type TXR_danger_perceive_type = typeof danger_object.visual | typeof danger_object.sound | typeof danger_object.hit;
+  export type TXR_danger_perceive_type =
+    typeof danger_object.visual | typeof danger_object.sound | typeof danger_object.hit;
   /**
    * @group xr_memory
    */

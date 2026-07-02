@@ -35,13 +35,13 @@ declare module "xray16" {
   /**
    * Animated client physics object.
    *
-   * @source C++ class CPhysicObject : CGameObject
+   * @source `src/xrGame/PhysicObject_script.cpp`, `CPhysicObject` binding.
    * @customConstructor CPhysicObject
    * @group xr_level
    *
    * @remarks
-   * Wrapper for animated physics props, especially door-like objects. Door and bone-sound helpers require this runtime
-   * class.
+   * Wrapper for animated physics props, especially door-like objects. The exposed methods control native object
+   * animation time, bone-attached sounds, and temporary dynamic-collision ignoring.
    */
   export class CPhysicObject extends CGameObject {
     /**
@@ -95,14 +95,28 @@ declare module "xray16" {
   }
 
   /**
+   * Destroyable animated physics object.
+   *
+   * @source `src/xrGame/PhysicObject_script.cpp`, `CDestroyablePhysicsObject` binding.
+   * @customConstructor CDestroyablePhysicsObject
+   * @group xr_level
+   *
+   * @remarks
+   * Registered as a `CPhysicObject` subclass. It inherits the animated physics helpers and participates in destroyable
+   * object callbacks through the engine object lifecycle.
+   */
+  export class CDestroyablePhysicsObject extends CPhysicObject {}
+
+  /**
    * Hanging lamp object controlled from scripts.
    *
-   * @source C++ class hanging_lamp : CGameObject
+   * @source `src/xrGame/HangingLamp.cpp`, `hanging_lamp` binding.
    * @customConstructor hanging_lamp
    * @group xr_level
    *
    * @remarks
-   * Lamp controls require this runtime object. They do not apply to arbitrary lights or torches.
+   * Lamp controls require this runtime object. `turn_on()` activates render lights, glow/ambient light, visible light
+   * bones, and processing; `turn_off()` disables those native lamp effects.
    */
   export class hanging_lamp extends CGameObject {
     /**
@@ -476,9 +490,7 @@ declare module "xray16" {
    * @group xr_level
    */
   export type TXR_helicopter_hunt_state =
-    | typeof CHelicopter.eEnemyNone
-    | typeof CHelicopter.eEnemyPoint
-    | typeof CHelicopter.eEnemyEntity;
+    typeof CHelicopter.eEnemyNone | typeof CHelicopter.eEnemyPoint | typeof CHelicopter.eEnemyEntity;
 
   /**
    * Script-controlled helicopter object.

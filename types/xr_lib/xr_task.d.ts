@@ -65,10 +65,7 @@ declare module "xray16" {
    * `task.task_dummy` is returned for missing tasks or objects that cannot expose task state.
    */
   export type TXR_TaskState =
-    | typeof task.fail
-    | typeof task.in_progress
-    | typeof task.completed
-    | typeof task.task_dummy;
+    typeof task.fail | typeof task.in_progress | typeof task.completed | typeof task.task_dummy;
 
   /**
    * Task type constant names, including the shared native dummy sentinel.
@@ -93,10 +90,7 @@ declare module "xray16" {
    * in the type because native task APIs can use the dummy sentinel value.
    */
   export type TXR_TaskType =
-    | typeof task.storyline
-    | typeof task.additional
-    | typeof task.insignificant
-    | typeof task.task_dummy;
+    typeof task.storyline | typeof task.additional | typeof task.insignificant | typeof task.task_dummy;
 
   /**
    * One objective inside a game task.

@@ -2,7 +2,7 @@ declare module "xray16" {
   /**
    * Explosive component shared by grenade and explosive item classes.
    *
-   * @source C++ class explosive
+   * @source `src/xrGame/WeaponScript.cpp`, `explosive` binding.
    * @customConstructor explosive
    * @group xr_item
    *
@@ -27,57 +27,75 @@ declare module "xray16" {
   /**
    * Client object binding for `CAntirad` inventory items.
    *
-   * @source C++ class CAntirad : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CAntirad` binding.
    * @customConstructor CAntirad
    * @group xr_item
+   *
+   * @remarks
+   * Antirad objects are registered as plain `CGameObject` wrappers. Use shared inventory item/game object APIs for
+   * ownership, condition, and activation checks.
    */
   export class CAntirad extends CGameObject {}
 
   /**
    * Client object binding for `CStalkerOutfit` inventory items.
    *
-   * @source C++ class CStalkerOutfit : CGameObject
+   * @source `src/xrGame/StalkerOutfit.cpp`, `CStalkerOutfit` binding.
    * @customConstructor CStalkerOutfit
    * @group xr_item
+   *
+   * @remarks
+   * Stalker outfit objects are registered separately from generic custom outfits. Script-visible behavior is exposed
+   * through the shared game-object and inventory-item helpers.
    */
   export class CStalkerOutfit extends CGameObject {}
 
   /**
    * Client object binding for `CInventoryBox` inventory items.
    *
-   * @source C++ class CInventoryBox : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CInventoryBox` binding.
    * @customConstructor CInventoryBox
    * @group xr_item
    *
    * @remarks
-   * Inventory box helpers on `game_object` require this runtime class, not any inventory owner.
+   * Inventory box helpers on `game_object` require this runtime class, not any inventory owner. The object itself is
+   * still exposed as a client `CGameObject` wrapper.
    */
   export class CInventoryBox extends CGameObject {}
 
   /**
    * Client object binding for `CBottleItem` inventory items.
    *
-   * @source C++ class CBottleItem : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CBottleItem` binding.
    * @customConstructor CBottleItem
    * @group xr_item
+   *
+   * @remarks
+   * Bottle items are consumable inventory objects with no direct script-only methods in this binding.
    */
   export class CBottleItem extends CGameObject {}
 
   /**
    * Client object binding for `CFoodItem` inventory items.
    *
-   * @source C++ class CFoodItem : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CFoodItem` binding.
    * @customConstructor CFoodItem
    * @group xr_item
+   *
+   * @remarks
+   * Food items are consumable inventory objects with no direct script-only methods in this binding.
    */
   export class CFoodItem extends CGameObject {}
 
   /**
    * Client object binding for `CMedkit` inventory items.
    *
-   * @source C++ class CMedkit : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CMedkit` binding.
    * @customConstructor CMedkit
    * @group xr_item
+   *
+   * @remarks
+   * Medkit items are consumable inventory objects with no direct script-only methods in this binding.
    */
   export class CMedkit extends CGameObject {}
 
@@ -101,21 +119,26 @@ declare module "xray16" {
   /**
    * Client object binding for `CGrenadeLauncher` inventory items.
    *
-   * @source C++ class CGrenadeLauncher : CGameObject
+   * @source `src/xrGame/Scope.cpp`, `CGrenadeLauncher` binding.
    * @customConstructor CGrenadeLauncher
    * @group xr_item
+   *
+   * @remarks
+   * Weapon addon wrapper registered together with scopes and silencers. It is an inventory object, not a weapon
+   * subclass, so weapon-only methods are not available on this type.
    */
   export class CGrenadeLauncher extends CGameObject {}
 
   /**
    * Client object binding for `CWeaponAmmo` inventory items.
    *
-   * @source C++ class CWeaponAmmo : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CWeaponAmmo` binding.
    * @customConstructor CWeaponAmmo
    * @group xr_item
    *
    * @remarks
-   * Ammo-count helpers on `game_object` require this runtime class.
+   * Ammo-count helpers on `game_object` require this runtime class. The Lua class itself exposes only the common
+   * game-object surface.
    */
   export class CWeaponAmmo extends CGameObject {}
 

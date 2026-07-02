@@ -312,14 +312,38 @@ declare module "xray16" {
     /**
      * Create a runtime token list property bound to a string field.
      */
-    public create_list(items: prop_item_vec, key: string, object: object, name: string, tokens: rtoken_list): list_value;
+    public create_list(
+      items: prop_item_vec,
+      key: string,
+      object: object,
+      name: string,
+      tokens: rtoken_list
+    ): list_value;
 
     /**
      * Create token properties bound to integer fields.
      */
-    public create_token8(items: prop_item_vec, key: string, object: object, name: string, tokens: token_list): token8_value;
-    public create_token16(items: prop_item_vec, key: string, object: object, name: string, tokens: token_list): token16_value;
-    public create_token32(items: prop_item_vec, key: string, object: object, name: string, tokens: token_list): token32_value;
+    public create_token8(
+      items: prop_item_vec,
+      key: string,
+      object: object,
+      name: string,
+      tokens: token_list
+    ): token8_value;
+    public create_token16(
+      items: prop_item_vec,
+      key: string,
+      object: object,
+      name: string,
+      tokens: token_list
+    ): token16_value;
+    public create_token32(
+      items: prop_item_vec,
+      key: string,
+      object: object,
+      name: string,
+      tokens: token_list
+    ): token32_value;
 
     /**
      * Create flag properties bound to integer flag fields.
@@ -387,7 +411,15 @@ declare module "xray16" {
       increment?: f32,
       decimals?: i32
     ): float_value;
-    public create_u8(items: prop_item_vec, key: string, object: object, name: string, min?: u8, max?: u8, increment?: u8): u8_value;
+    public create_u8(
+      items: prop_item_vec,
+      key: string,
+      object: object,
+      name: string,
+      min?: u8,
+      max?: u8,
+      increment?: u8
+    ): u8_value;
     public create_u16(
       items: prop_item_vec,
       key: string,
