@@ -1,5 +1,3 @@
-import type { Nillable } from "../../internal";
-
 declare module "xray16" {
   /**
    * Campfire anomaly object.
@@ -125,7 +123,7 @@ declare module "xray16" {
   /**
    * Driveable car and mounted weapon holder.
    *
-   * @source C++ class CCar : CGameObject, holder
+   * @source `src/xrGame/CarScript.cpp`, `CCar` binding.
    * @customConstructor CCar
    * @group xr_level
    *
@@ -189,14 +187,22 @@ declare module "xray16" {
     public CarExplode(): void;
 
     /**
-     * Change fuel by a delta.
+     * Change current fuel by a delta and clamp it to the tank range.
+     *
+     * @remarks
+     * Negative deltas cannot reduce fuel below `0`; positive deltas cannot increase it above `GetfFuelTank()`.
+     * Use `SetfFuel()` or `set_fuel()` when the script needs to assign an absolute fuel value.
      *
      * @param fuel - Fuel delta.
      */
     public ChangefFuel(fuel: f32): void;
 
     /**
-     * Change vehicle health by a delta.
+     * Change vehicle health by a delta and clamp it to the normalized health range.
+     *
+     * @remarks
+     * The native implementation clamps the result to `0..1`. Use `SetfHealth()` when assigning an absolute health
+     * value.
      *
      * @param value - Health delta.
      */
@@ -208,7 +214,7 @@ declare module "xray16" {
     public CurrentVel(): vector;
 
     /**
-     * @returns Scheduled explosion time.
+     * @returns Scheduled delayed-fuse explosion time in milliseconds, or `0` when no fuse was initialized.
      */
     public ExplodeTime(): u32;
 
@@ -271,21 +277,30 @@ declare module "xray16" {
     public PlayDamageParticles(): void;
 
     /**
-     * Set scheduled explosion time.
+     * Set delayed-fuse explosion time.
      *
-     * @param time - Explosion time.
+     * @remarks
+     * The native method accepts milliseconds and converts them to the delayed action fuse timeout.
+     *
+     * @param time - Explosion time in milliseconds.
      */
     public SetExplodeTime(time: u32): void;
 
     /**
-     * Set current fuel amount.
+     * Set current fuel amount directly.
+     *
+     * @remarks
+     * This is an absolute setter and does not clamp against tank capacity.
      *
      * @param fuel - Fuel amount.
      */
     public SetfFuel(fuel: f32): void;
 
     /**
-     * Set current fuel amount.
+     * Set current fuel amount directly.
+     *
+     * @remarks
+     * Lowercase alias for `SetfFuel()`.
      *
      * @param fuel - Fuel amount.
      */
@@ -320,11 +335,16 @@ declare module "xray16" {
     public set_fuel_tank(fuel: f32): void;
 
     /**
-     * Set vehicle health.
+     * Set vehicle health directly.
+     *
+     * @remarks
+     * This forwards to the entity health setter and returns the applied value. `ChangefHealth()` is the clamped delta
+     * helper.
      *
      * @param health - New health value.
+     * @returns Applied health value.
      */
-    public SetfHealth(health: f32): void;
+    public SetfHealth(health: f32): f32;
 
     /**
      * @returns Whether vehicle engine is active at the moment.
@@ -374,15 +394,23 @@ declare module "xray16" {
     public engaged(): boolean;
 
     /**
-     * Send a holder or weapon action.
+     * Send a mounted-weapon action.
      *
-     * @param id - Action id.
+     * @remarks
+     * For `eWpnFire`, `eWpnActivate`, and `eWpnAutoFire`, native code treats `flags === 1` as enabled/start and any
+     * other value as disabled/stop. `eWpnToDefaultDir` resets the weapon direction to its bind orientation.
+     *
+     * @param id - Weapon action id.
      * @param flags - Action flags.
      */
     public Action(id: u16, flags: u32): void;
 
     /**
-     * Set a mounted weapon vector parameter.
+     * Set a mounted-weapon vector parameter.
+     *
+     * @remarks
+     * The script binding exposes the vector overload. Native code handles `eWpnDesiredPos` by aiming the weapon at the
+     * provided world position; other ids are ignored by this overload.
      *
      * @param id - Weapon parameter id.
      * @param vector - Parameter value.
@@ -390,16 +418,23 @@ declare module "xray16" {
     public SetParam(id: i32, vector: vector): void;
 
     /**
-     * Set a mounted weapon vector parameter.
+     * Set mounted weapon desired target position.
      *
-     * @param id - Weapon parameter id.
-     * @param vector - Parameter value.
+     * @param id - `CCar.eWpnDesiredPos`.
+     * @param vector - Target world position.
      */
-    public SetParam(id: TXR_CCar_weapon_param, vector: vector): void;
+    public SetParam(id: typeof CCar.eWpnDesiredPos, vector: vector): void;
   }
 
   /**
+   * Mounted-weapon action and parameter ids exported on `CCar`.
+   *
+   * @source `src/xrGame/CarScript.cpp`, `CCar.wpn_action` enum.
    * @group xr_level
+   *
+   * @remarks
+   * `eWpnFire`, `eWpnActivate`, `eWpnAutoFire`, and `eWpnToDefaultDir` are action ids for `CCar.Action()`.
+   * `eWpnDesiredPos` is handled by the script-visible `CCar.SetParam()` vector overload.
    */
   export type TXR_CCar_weapon_param = EnumeratedStaticsValues<typeof CCar>;
 
@@ -447,7 +482,7 @@ declare module "xray16" {
   /**
    * Script-controlled helicopter object.
    *
-   * @source C++ class CHelicopter : CGameObject
+   * @source `src/xrGame/helicopter_script.cpp`, `CHelicopter` binding.
    * @customConstructor CHelicopter
    * @group xr_level
    *
@@ -600,8 +635,12 @@ declare module "xray16" {
     /**
      * Get desired speed near the destination point.
      *
-     * @param value - Distance threshold.
-     * @returns Speed at that destination distance.
+     * @remarks
+     * The native binding requires one numeric argument, but the implementation ignores it and returns the configured
+     * destination speed.
+     *
+     * @param value - Ignored by native code.
+     * @returns Speed used near the destination point.
      */
     public GetSpeedInDestPoint(value: f32): f32;
 
@@ -653,15 +692,18 @@ declare module "xray16" {
     /**
      * Set desired speed near the destination point.
      *
+     * @remarks
+     * Used by the movement manager while approaching the current destination or patrol point.
+     *
      * @param value - Speed value.
      */
     public SetSpeedInDestPoint(value: f32): void;
 
     /**
-     * Set linear acceleration limits.
+     * Set forward and braking linear acceleration values.
      *
-     * @param min - Minimum acceleration.
-     * @param max - Maximum acceleration.
+     * @param min - Forward acceleration.
+     * @param max - Braking acceleration.
      */
     public SetLinearAcc(min: f32, max: f32): void;
 
@@ -681,14 +723,20 @@ declare module "xray16" {
     public SetMaxVelocity(value: f32): void;
 
     /**
-     * Track an enemy object.
+     * Track an enemy object by its engine id.
      *
-     * @param game_object - Enemy object, or null to clear.
+     * @remarks
+     * Passing nullish values is not safe for the native object overload. Use `ClearEnemy()` to clear the current enemy.
+     *
+     * @param game_object - Enemy object to track.
      */
-    public SetEnemy(game_object: Nillable<game_object>): void;
+    public SetEnemy(game_object: game_object): void;
 
     /**
      * Track an enemy point.
+     *
+     * @remarks
+     * Sets the hunt state to `CHelicopter.eEnemyPoint` and stores the provided world position.
      *
      * @param position - Enemy world position.
      */
@@ -709,7 +757,7 @@ declare module "xray16" {
     public SetBarrelDirTolerance(value: f32): void;
 
     /**
-     * Set movement destination.
+     * Set movement destination and switch movement state to `CHelicopter.eMovToPoint`.
      *
      * @param position - Destination world position.
      */
@@ -723,18 +771,22 @@ declare module "xray16" {
     public SetOnPointRangeDist(distance: f32): void;
 
     /**
-     * Aim the helicopter body at a point.
+     * Aim the helicopter body at a point or return aiming to path direction.
      *
-     * @param position - Point to look at.
-     * @param is_smooth - Whether to rotate smoothly.
+     * @remarks
+     * Native code treats the boolean as an enable flag: `true` switches body state to `eBodyToPoint`, while `false`
+     * switches it back to `eBodyByPath`.
+     *
+     * @param position - Point to look at when enabled.
+     * @param is_smooth - Whether point aiming is enabled.
      */
     public LookAtPoint(position: vector, is_smooth: boolean): void;
 
     /**
-     * Move by a patrol path.
+     * Move by a named patrol path and switch movement state to `CHelicopter.eMovPatrolPath`.
      *
      * @param path_name - Patrol path name.
-     * @param start_point - Starting point index.
+     * @param start_point - Starting patrol vertex id.
      */
     public GoPatrolByPatrolPath(path_name: string, start_point: i32): void;
 
@@ -756,14 +808,17 @@ declare module "xray16" {
     public UseFireTrail(): boolean;
 
     /**
-     * Enable or disable fire trail rendering.
+     * Enable or disable fire trail rendering and update fire dispersion settings.
      *
      * @param is_enabled - New fire trail state.
      */
     public UseFireTrail(is_enabled: boolean): void;
 
     /**
-     * Move around a point by a round patrol path.
+     * Move around a point by a generated round patrol path and switch movement state to `CHelicopter.eMovRoundPath`.
+     *
+     * @remarks
+     * Native code refuses radii smaller than the current speed and angular-speed constraints allow.
      *
      * @param center - Round path center.
      * @param radius - Path radius.
@@ -772,12 +827,15 @@ declare module "xray16" {
     public GoPatrolByRoundPath(center: vector, radius: f32, clockwise: boolean): void;
 
     /**
-     * Kill the helicopter without running a full explosion command.
+     * Switch the helicopter to dead state and enable its falling physics.
+     *
+     * @remarks
+     * This stops the engine sound and starts the broken-loop sound, but it is separate from `Explode()`.
      */
     public Die(): void;
 
     /**
-     * Start flame effects.
+     * Start smoke/flame particle effects if they are not already active.
      */
     public StartFlame(): void;
 
@@ -789,7 +847,7 @@ declare module "xray16" {
     public TurnEngineSound(enabled: boolean): void;
 
     /**
-     * Clear current enemy target.
+     * Clear current enemy target and switch hunt state to `CHelicopter.eEnemyNone`.
      */
     public ClearEnemy(): void;
   }
