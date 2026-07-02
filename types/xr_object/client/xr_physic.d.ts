@@ -529,6 +529,36 @@ declare module "xray16" {
   }
 
   /**
+   * Opaque native physics condition handle.
+   *
+   * @source C++ class CPHCondition
+   * @customConstructor CPHCondition
+   * @group xr_physic
+   *
+   * @remarks
+   * Script-friendly condition callbacks are exposed through `level.add_call`; this handle models native physics world
+   * calls that already have a C++ condition object.
+   */
+  export class CPHCondition {
+    private constructor();
+  }
+
+  /**
+   * Opaque native physics action handle.
+   *
+   * @source C++ class CPHAction
+   * @customConstructor CPHAction
+   * @group xr_physic
+   *
+   * @remarks
+   * Script-friendly action callbacks are exposed through `level.add_call`; this handle models native physics world calls
+   * that already have a C++ action object.
+   */
+  export class CPHAction {
+    private constructor();
+  }
+
+  /**
    * Global physics world controls.
    *
    * @source C++ class physics_world
@@ -555,9 +585,13 @@ declare module "xray16" {
      * Add a physics condition/action callback pair.
      *
      * @remarks
-     * This binding expects native `CPHCondition` and `CPHAction` objects; ordinary scripts rarely call it directly.
+     * This binding expects native `CPHCondition` and `CPHAction` objects; ordinary scripts usually use
+     * `level.add_call` instead.
+     *
+     * @param condition - Native physics condition object.
+     * @param action - Native physics action object.
      */
-    public add_call(/* Class CPHCondition*, class CPHAction */): void;
+    public add_call(condition: CPHCondition, action: CPHAction): void;
   }
 
   /**

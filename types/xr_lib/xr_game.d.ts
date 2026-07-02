@@ -15,7 +15,7 @@ declare module "xray16" {
    * @source C++ enum EGameIDs
    * @group xr_game
    */
-  export type TXR_EGameID = 0 | 1 | 2 | 8 | 16 | 32 | 64;
+  export type TXR_EGameID = 0 | 1 | 2 | 4 | 8 | 16 | 32 | 64;
 
   /**
    * Game type constants used by menu and multiplayer scripts.
@@ -82,7 +82,7 @@ declare module "xray16" {
     /**
      * Engine enum value for `GAME_TYPE.GAME_DUMMY`.
      */
-    public static readonly GAME_DUMMY: 255; // Temporary g
+    public static readonly GAME_DUMMY: 255;
   }
 
   /**

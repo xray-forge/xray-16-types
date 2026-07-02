@@ -93,6 +93,21 @@ declare module "xray16" {
   export type TXR_movement_selection_type = 0 | 1;
 
   /**
+   * Script entity action type id passed to action callbacks.
+   *
+   * @source C++ enum ScriptEntity::EActionType
+   * @group xr_script_interface
+   */
+  export type TXR_action_type =
+    | typeof game_object.movement
+    | typeof game_object.watch
+    | typeof game_object.animation
+    | typeof game_object.sound
+    | typeof game_object.particle
+    | typeof game_object.object
+    | 7;
+
+  /**
    * Engine callback id registry.
    *
    * @source C++ class callback
@@ -664,11 +679,14 @@ declare module "xray16" {
      * @source `src/xrGame/script_entity.cpp`, `CScriptEntity::ProcessScripts`.
      *
      * @remarks
-     * The engine passes `-1` as the third argument for this callback path.
+     * The engine passes `ScriptEntity::eActionTypeMovement` as the action type and `-1` as the target point index for
+     * this callback path.
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["action_movement"],
-      cb?: Nillable<(this: void, object: game_object, movement_type: u32 /* EMovementType */, unknown: -1) => void>,
+            cb?: Nillable<
+        (this: void, object: game_object, action_type: TXR_action_type, target_point_index: -1) => void
+      >,
       object?: Nillable<T>
     ): void;
 
@@ -679,7 +697,7 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["action_watch"],
-      cb?: Nillable<(this: void, object: game_object, action_type: u32) => void>,
+      cb?: Nillable<(this: void, object: game_object, action_type: TXR_action_type) => void>,
       object?: Nillable<T>
     ): void;
 
@@ -690,7 +708,7 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["action_removed"],
-      cb?: Nillable<(this: void, object: game_object, action_type: u32) => void>,
+      cb?: Nillable<(this: void, object: game_object, action_type: TXR_action_type) => void>,
       object?: Nillable<T>
     ): void;
 
@@ -701,7 +719,7 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["action_animation"],
-      cb?: Nillable<(this: void, object: game_object, action_type: u32) => void>,
+      cb?: Nillable<(this: void, object: game_object, action_type: TXR_action_type) => void>,
       object?: Nillable<T>
     ): void;
 
@@ -712,7 +730,7 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["action_sound"],
-      cb?: Nillable<(this: void, object: game_object, action_type: u32) => void>,
+      cb?: Nillable<(this: void, object: game_object, action_type: TXR_action_type) => void>,
       object?: Nillable<T>
     ): void;
 
@@ -723,7 +741,7 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["action_particle"],
-      cb?: Nillable<(this: void, object: game_object, action_type: u32) => void>,
+      cb?: Nillable<(this: void, object: game_object, action_type: TXR_action_type) => void>,
       object?: Nillable<T>
     ): void;
 
@@ -734,7 +752,7 @@ declare module "xray16" {
      */
     public set_callback<T extends AnyObject>(
       type: TXR_callbacks["action_object"],
-      cb?: Nillable<(this: void, object: game_object, action_type: u32) => void>,
+      cb?: Nillable<(this: void, object: game_object, action_type: TXR_action_type) => void>,
       object?: Nillable<T>
     ): void;
 

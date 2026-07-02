@@ -1004,7 +1004,7 @@ declare module "xray16" {
    * @group xr_multiplayer
    *
    * @remarks
-   * Multiplayer match state, not single-player task or story state. `type` uses raw engine `EGameIDs` values.
+   * Multiplayer match state, not single-player task or story state. `type` uses engine `EGameIDs` values.
    */
   export class game_GameState extends DLL_Pure {
     /**
@@ -1020,7 +1020,7 @@ declare module "xray16" {
     /**
      * Multiplayer game type id.
      */
-    public type: number; /* EGameIDs */
+    public type: TXR_EGameID;
 
     /**
      * Create an empty multiplayer game state.
@@ -1045,7 +1045,7 @@ declare module "xray16" {
     /**
      * @returns Multiplayer game type id.
      */
-    public Type(): number; /* EGameIDs */
+    public Type(): TXR_EGameID;
   }
 
   /**
