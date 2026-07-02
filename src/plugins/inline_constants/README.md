@@ -61,6 +61,7 @@ Values may use expressions that can be folded at build time with JavaScript sema
   Referenced declarations do not need their own inline tags.
 - Whitelisted namespace constants: `math.pi`, `Math.PI` and other `Math` constants
   with identical IEEE 754 double values in the build environment and LuaJIT runtime.
+- Engine constant references from ambient `xray16` typings, substituted as expressions (see below).
 
 ```typescript
 /** @inline */
@@ -76,6 +77,38 @@ export const PI_DEGREE = math.pi / 180; // -> 0.017453292519943295
 The plugin rejects values that would change runtime behavior: function calls, properties of mutable objects,
 values that produce `NaN` or `Infinity`, and non-integer numbers in string concatenation contexts. Non-integer
 numbers are rejected there because JavaScript `String()` and LuaJIT `tostring` format them differently.
+
+## Engine constants
+
+`static readonly` class members declared inside ambient `declare module "xray16"` typings qualify as
+runtime-constant engine references. The engine registers these values once, so tagged declarations may
+reference them freely.
+
+Engine references are substituted as global access expressions instead of baked literals. The literal types
+declared in typings stay documentation - emitted code always reads the live engine value, so builds stay
+correct even when engine versions diverge from the typings.
+
+```typescript
+import { stalker_ids } from "xray16";
+
+/**
+ * @virtual
+ */
+export enum EActionId {
+  DYING = stalker_ids.action_dying,
+  SHIFTED = stalker_ids.action_base + 2,
+}
+
+// EActionId.DYING   -> stalker_ids.action_dying, no enum table is emitted
+// EActionId.SHIFTED -> stalker_ids.action_base + 2
+```
+
+Expression trees with engine references allow numeric operators `+ - * / **` and unary minus.
+`%`, bitwise operators and string concatenation are rejected for trees because emitted Lua could
+diverge from TSTL operator lowering. Instance members do not qualify - only statics are engine constants.
+
+Imports from ambient modules count as pure, so `@virtual` modules may import `xray16` values
+for use inside erased declarations.
 
 ## Import cleanup
 

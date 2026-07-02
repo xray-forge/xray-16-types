@@ -12,7 +12,7 @@ import {
   createNotModuleLevelError,
   createUnsupportedDeclarationError,
 } from "./errors";
-import { getComputedDeclarationValue } from "./evaluation";
+import { getComputedDeclarationValue, isComputableEnumMember } from "./evaluation";
 
 /**
  * Validate `@inline` tagged variable statement and push diagnostics for not supported shapes.
@@ -69,14 +69,15 @@ export function validateVariableStatement(statement: ts.VariableStatement, conte
 }
 
 /**
- * Validate `@inline` tagged enum declaration and push diagnostics for members without constant values.
+ * Validate `@inline` tagged enum declaration and push diagnostics for members without computable values.
+ * Members may be constant for TypeScript or initialized with foldable engine references.
  *
  * @param declaration - Tagged enum declaration to validate.
  * @param context - Transformation context.
  */
 export function validateEnumDeclaration(declaration: ts.EnumDeclaration, context: lua.TransformationContext): void {
   for (const member of declaration.members) {
-    if (context.checker.getConstantValue(member) === undefined) {
+    if (!isComputableEnumMember(context.checker, member)) {
       context.diagnostics.push(createNotConstantEnumMemberError(member, member.name.getText()));
     }
   }

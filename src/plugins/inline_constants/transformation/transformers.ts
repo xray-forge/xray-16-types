@@ -1,8 +1,8 @@
 import * as ts from "typescript";
 import * as lua from "typescript-to-lua";
 
-import { getContainingVariableStatement, hasInlineTag, isValueUsagePosition } from "./ast";
-import { type TInlineValue } from "./constants";
+import { getContainingVariableStatement, hasInlineTag, hasVirtualTag, isValueUsagePosition } from "./ast";
+import { type TFoldedBinaryOperator, type TFoldedValue } from "./constants";
 import { resolveMemberSymbol, tryGetInlineValue } from "./evaluation";
 import {
   getVirtualDeclaration,
@@ -15,16 +15,26 @@ import {
 
 const NUMERIC_KEY_PATTERN: RegExp = /^(0|[1-9][0-9]*)$/;
 
+const TREE_LUA_OPERATORS: Record<TFoldedBinaryOperator, lua.BinaryOperator> = {
+  "+": lua.SyntaxKind.AdditionOperator,
+  "-": lua.SyntaxKind.SubtractionOperator,
+  "*": lua.SyntaxKind.MultiplicationOperator,
+  "/": lua.SyntaxKind.DivisionOperator,
+  "**": lua.SyntaxKind.PowerOperator,
+};
+
 const fileBindingUsageCache: WeakMap<ts.SourceFile, Map<ts.Symbol, boolean>> = new WeakMap();
 
 /**
- * Create a Lua literal expression for the provided constant value.
+ * Create a Lua expression for the provided folded value.
+ * Literals become Lua literals; expression trees with engine references become global access
+ * expressions and arithmetic over them.
  *
- * @param value - Constant value to create literal for.
+ * @param value - Folded value to create expression for.
  * @param node - Original TypeScript node.
- * @returns Lua literal expression.
+ * @returns Lua expression.
  */
-export function createLiteralExpression(value: TInlineValue, node: ts.Node): lua.Expression {
+export function createFoldedExpression(value: TFoldedValue, node: ts.Node): lua.Expression {
   if (typeof value === "string") {
     return lua.createStringLiteral(value, node);
   }
@@ -33,9 +43,42 @@ export function createLiteralExpression(value: TInlineValue, node: ts.Node): lua
     return lua.createBooleanLiteral(value, node);
   }
 
-  return value < 0
-    ? lua.createUnaryExpression(lua.createNumericLiteral(Math.abs(value), node), lua.SyntaxKind.NegationOperator, node)
-    : lua.createNumericLiteral(value, node);
+  if (typeof value === "number") {
+    return value < 0
+      ? lua.createUnaryExpression(
+        lua.createNumericLiteral(Math.abs(value), node),
+        lua.SyntaxKind.NegationOperator,
+        node
+      )
+      : lua.createNumericLiteral(value, node);
+  }
+
+  switch (value.kind) {
+    case "engine-ref": {
+      let expression: lua.Expression = lua.createIdentifier(value.path[0]);
+
+      for (const member of value.path.slice(1)) {
+        expression = lua.createTableIndexExpression(expression, lua.createStringLiteral(member), node);
+      }
+
+      return expression;
+    }
+
+    case "binary":
+      return lua.createBinaryExpression(
+        createFoldedExpression(value.left, node),
+        createFoldedExpression(value.right, node),
+        TREE_LUA_OPERATORS[value.operator],
+        node
+      );
+
+    case "negate":
+      return lua.createUnaryExpression(
+        createFoldedExpression(value.operand, node),
+        lua.SyntaxKind.NegationOperator,
+        node
+      );
+  }
 }
 
 /**
@@ -52,7 +95,7 @@ function tryCreateVirtualSpreadTable(checker: ts.TypeChecker, symbol: ts.Symbol,
     return null;
   }
 
-  const entries: Array<[string, TInlineValue]> | null = getVirtualObjectEntries(checker, symbol);
+  const entries: Array<[string, TFoldedValue]> | null = getVirtualObjectEntries(checker, symbol);
 
   if (entries === null) {
     return null;
@@ -63,7 +106,7 @@ function tryCreateVirtualSpreadTable(checker: ts.TypeChecker, symbol: ts.Symbol,
       ? lua.createNumericLiteral(Number(name))
       : lua.createStringLiteral(name);
 
-    return lua.createTableFieldExpression(createLiteralExpression(value, node), key);
+    return lua.createTableFieldExpression(createFoldedExpression(value, node), key);
   });
 
   return lua.createTableExpression(fields, node);
@@ -87,10 +130,10 @@ export function transformAccessExpression(
     return context.superTransformExpression(node);
   }
 
-  const value: TInlineValue | null = tryGetInlineValue(context.checker, symbol);
+  const value: TFoldedValue | null = tryGetInlineValue(context.checker, symbol);
 
   if (value !== null) {
-    return createLiteralExpression(value, node);
+    return createFoldedExpression(value, node);
   }
 
   if (node.parent !== undefined && ts.isSpreadAssignment(node.parent)) {
@@ -136,10 +179,10 @@ export function transformIdentifierExpression(
     }
 
     if (symbol?.valueDeclaration !== undefined && ts.isVariableDeclaration(symbol.valueDeclaration)) {
-      const value: TInlineValue | null = tryGetInlineValue(context.checker, symbol);
+      const value: TFoldedValue | null = tryGetInlineValue(context.checker, symbol);
 
       if (value !== null) {
-        return createLiteralExpression(value, node);
+        return createFoldedExpression(value, node);
       }
     }
   }
@@ -184,6 +227,11 @@ function getFileBindingUsage(checker: ts.TypeChecker, sourceFile: ts.SourceFile)
   }
 
   function visitNode(node: ts.Node): void {
+    // References inside erased virtual statements never survive to emitted output:
+    if ((ts.isVariableStatement(node) || ts.isEnumDeclaration(node)) && hasVirtualTag(node)) {
+      return;
+    }
+
     if (ts.isIdentifier(node) && node.parent !== undefined && !ts.isImportSpecifier(node.parent)) {
       // Re-exports and shorthand properties emit direct references to import bindings:
       if (ts.isExportSpecifier(node.parent)) {
@@ -283,7 +331,9 @@ export function transformImportDeclaration(
       continue;
     }
 
-    const isDroppable: boolean = isTaggedImportTarget(checker, symbol) && usage.get(symbol) !== true;
+    // Tagged targets with only erased usages and bindings with no surviving usages at all are droppable:
+    const isDroppable: boolean =
+      (isTaggedImportTarget(checker, symbol) || !usage.has(symbol)) && usage.get(symbol) !== true;
 
     if (isDroppable) {
       continue;

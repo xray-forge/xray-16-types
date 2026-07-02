@@ -1,9 +1,9 @@
 import * as ts from "typescript";
 
 import { getContainingVariableStatement, hasInlineTag, hasVirtualTag, isValueUsagePosition } from "./ast";
-import { type TInlineValue } from "./constants";
+import { type TFoldedValue } from "./constants";
 import { createImpureVirtualModuleError, createVirtualValueReferenceError } from "./errors";
-import { resolveMemberSymbol, tryGetInlineValue } from "./evaluation";
+import { isComputableEnumMember, resolveMemberSymbol, tryGetInlineValue } from "./evaluation";
 
 const modulePurityCache: WeakMap<ts.SourceFile, boolean> = new WeakMap();
 
@@ -190,6 +190,20 @@ function isTypeOnlyImport(checker: ts.TypeChecker, statement: ts.ImportDeclarati
 }
 
 /**
+ * Check whether an import references an ambient module like 'xray16'.
+ * Ambient modules describe engine-provided globals, so importing them has no script side effects.
+ *
+ * @param checker - Program type checker.
+ * @param statement - Import declaration to check.
+ * @returns Whether the import references an ambient module.
+ */
+function isAmbientModuleImport(checker: ts.TypeChecker, statement: ts.ImportDeclaration): boolean {
+  const symbol: ts.Symbol | undefined = checker.getSymbolAtLocation(statement.moduleSpecifier);
+
+  return symbol?.declarations?.some((it) => ts.isModuleDeclaration(it)) ?? false;
+}
+
+/**
  * Resolve the source file for a module referenced by an import or export declaration specifier.
  *
  * @param checker - Program type checker.
@@ -240,11 +254,11 @@ export function isPureConstantsModule(
     }
 
     if (ts.isEnumDeclaration(statement)) {
-      return statement.members.every((member) => checker.getConstantValue(member) !== undefined);
+      return statement.members.every((member) => isComputableEnumMember(checker, member));
     }
 
     if (ts.isImportDeclaration(statement)) {
-      if (isTypeOnlyImport(checker, statement)) {
+      if (isTypeOnlyImport(checker, statement) || isAmbientModuleImport(checker, statement)) {
         return true;
       }
 
@@ -294,9 +308,9 @@ export function validateVirtualModulePurity(checker: ts.TypeChecker, sourceFile:
       ts.isInterfaceDeclaration(statement) ||
       isAmbientStatement(statement) ||
       (ts.isVariableStatement(statement) && hasInlineTag(statement)) ||
-      (ts.isEnumDeclaration(statement) &&
-        statement.members.every((member) => checker.getConstantValue(member) !== undefined)) ||
-      (ts.isImportDeclaration(statement) && isTypeOnlyImport(checker, statement)) ||
+      (ts.isEnumDeclaration(statement) && statement.members.every((member) => isComputableEnumMember(checker, member))) ||
+      (ts.isImportDeclaration(statement) &&
+        (isTypeOnlyImport(checker, statement) || isAmbientModuleImport(checker, statement))) ||
       (ts.isExportDeclaration(statement) && (statement.isTypeOnly || statement.moduleSpecifier === undefined));
 
     if (!isAllowed) {
@@ -392,18 +406,18 @@ export function collectVirtualDiagnostics(program: ts.Program): Array<ts.Diagnos
 export function getVirtualObjectEntries(
   checker: ts.TypeChecker,
   symbol: ts.Symbol
-): Array<[string, TInlineValue]> | null {
+): Array<[string, TFoldedValue]> | null {
   const declaration: ts.Declaration | undefined = resolveAliasedSymbol(checker, symbol).valueDeclaration;
 
   if (declaration === undefined || !ts.isVariableDeclaration(declaration)) {
     return null;
   }
 
-  const entries: Array<[string, TInlineValue]> = [];
+  const entries: Array<[string, TFoldedValue]> = [];
   const type: ts.Type = checker.getTypeAtLocation(declaration);
 
   for (const property of type.getProperties()) {
-    const value: TInlineValue | null = tryGetInlineValue(checker, property);
+    const value: TFoldedValue | null = tryGetInlineValue(checker, property);
 
     if (value === null) {
       return null;

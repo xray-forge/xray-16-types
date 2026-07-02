@@ -24,6 +24,7 @@ export function transpile(files: Record<string, string>): ITranspileResult {
     luaTarget: tstl.LuaTarget.LuaJIT,
     luaLibImport: tstl.LuaLibImportKind.Require,
     noHeader: true,
+    noResolvePaths: ["xray16"],
     skipLibCheck: true,
     strict: true,
   };

@@ -219,3 +219,45 @@ export function isValueUsagePosition(node: ts.Identifier): boolean {
 
   return true;
 }
+
+/**
+ * Get global access path for a runtime-constant engine member declaration.
+ * Qualifying declarations are `static readonly` class members declared inside ambient `declare module "xray16"` -
+ * such values are registered once by the engine and never change at runtime.
+ * The path uses the declared class name, so import aliases do not affect emitted references.
+ *
+ * @param declaration - Declaration to check.
+ * @returns Global access path like ['stalker_ids', 'action_dying'], or null when not a constant engine member.
+ */
+export function getEngineConstantPath(declaration: ts.Declaration): Array<string> | null {
+  if (!ts.isPropertyDeclaration(declaration) || !ts.isIdentifier(declaration.name)) {
+    return null;
+  }
+
+  const modifiers: ReadonlyArray<ts.Modifier> = ts.getModifiers(declaration) ?? [];
+  const isStaticReadonly: boolean =
+    modifiers.some((it) => it.kind === ts.SyntaxKind.StaticKeyword) &&
+    modifiers.some((it) => it.kind === ts.SyntaxKind.ReadonlyKeyword);
+
+  if (!isStaticReadonly) {
+    return null;
+  }
+
+  const classDeclaration: ts.Node = declaration.parent;
+
+  if (!ts.isClassDeclaration(classDeclaration) || classDeclaration.name === undefined) {
+    return null;
+  }
+
+  let current: ts.Node | undefined = classDeclaration.parent;
+
+  while (current !== undefined && !ts.isSourceFile(current)) {
+    if (ts.isModuleDeclaration(current) && ts.isStringLiteral(current.name) && current.name.text === "xray16") {
+      return [classDeclaration.name.text, declaration.name.text];
+    }
+
+    current = current.parent;
+  }
+
+  return null;
+}
