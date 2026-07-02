@@ -48,14 +48,21 @@ declare module "xray16" {
   }
 
   /**
+   * Script-visible task state constant names from the `task.task_state` enum.
+   *
+   * @source `src/xrGame/GameTask_script.cpp`, `task.task_state` enum.
    * @group xr_task
    */
   export type TXR_TaskStateName = "fail" | "in_progress" | "completed" | "task_dummy";
 
   /**
-   * ETaskState.
+   * Runtime task state returned by task and objective state APIs.
    *
+   * @source C++ enum ETaskState
    * @group xr_task
+   *
+   * @remarks
+   * `task.task_dummy` is returned for missing tasks or objects that cannot expose task state.
    */
   export type TXR_TaskState =
     | typeof task.fail
@@ -64,16 +71,26 @@ declare module "xray16" {
     | typeof task.task_dummy;
 
   /**
-   * ETaskType constant names.
+   * Task type constant names, including the shared native dummy sentinel.
    *
+   * @source `src/xrGame/GameTask_script.cpp`, `task.task_type` enum and `task.task_state` dummy export.
    * @group xr_task
+   *
+   * @remarks
+   * `storyline`, `additional`, and `insignificant` are exported by the task type enum. `task_dummy` is exported
+   * by the same `task` class and has the native `ETaskTypeDummy` sentinel value.
    */
   export type TXR_TaskTypeName = "storyline" | "additional" | "insignificant" | "task_dummy";
 
   /**
-   * ETaskType.
+   * Task category used by `SGameTaskObjective.get_type()` and `set_type()`.
    *
+   * @source C++ enum ETaskType
    * @group xr_task
+   *
+   * @remarks
+   * `storyline`, `additional`, and `insignificant` are the script-exposed categories. `task.task_dummy` is kept
+   * in the type because native task APIs can use the dummy sentinel value.
    */
   export type TXR_TaskType =
     | typeof task.storyline

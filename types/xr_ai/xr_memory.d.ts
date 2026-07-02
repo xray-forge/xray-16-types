@@ -289,47 +289,47 @@ declare module "xray16" {
     /**
      * Engine enum value for `danger_object.attack_sound`.
      */
-    public static attack_sound: 1;
+    public static readonly attack_sound: 1;
     /**
      * Engine enum value for `danger_object.attacked`.
      */
-    public static attacked: 5;
+    public static readonly attacked: 5;
     /**
      * Engine enum value for `danger_object.bullet_ricochet`.
      */
-    public static bullet_ricochet: 0;
+    public static readonly bullet_ricochet: 0;
     /**
      * Engine enum value for `danger_object.enemy_sound`.
      */
-    public static enemy_sound: 7;
+    public static readonly enemy_sound: 7;
     /**
      * Engine enum value for `danger_object.entity_attacked`.
      */
-    public static entity_attacked: 2;
+    public static readonly entity_attacked: 2;
     /**
      * Engine enum value for `danger_object.entity_corpse`.
      */
-    public static entity_corpse: 4;
+    public static readonly entity_corpse: 4;
     /**
      * Engine enum value for `danger_object.entity_death`.
      */
-    public static entity_death: 3;
+    public static readonly entity_death: 3;
     /**
      * Engine enum value for `danger_object.grenade`.
      */
-    public static grenade: 6;
+    public static readonly grenade: 6;
     /**
      * Engine enum value for `danger_object.hit`.
      */
-    public static hit: 2;
+    public static readonly hit: 2;
     /**
      * Engine enum value for `danger_object.sound`.
      */
-    public static sound: 1;
+    public static readonly sound: 1;
     /**
      * Engine enum value for `danger_object.visual`.
      */
-    public static visual: 0;
+    public static readonly visual: 0;
 
     /**
      * @returns Danger type.

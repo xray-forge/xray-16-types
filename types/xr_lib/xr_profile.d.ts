@@ -30,10 +30,14 @@ declare module "xray16" {
   export const PROFILER_TYPE_SAMPLING: 2;
 
   /**
-   * Lua profiler mode accepted by `profiler.start`.
+   * Lua profiler mode accepted by `profiler.start()`.
    *
    * @source C++ enum CScriptProfilerType
    * @group xr_profiler
+   *
+   * @remarks
+   * Hook mode records Lua call/return events. Sampling mode uses the LuaJIT profiler. `PROFILER_TYPE_NONE` is exposed
+   * for status reporting and does not start profiling.
    */
   export type TXR_ProfilerType = typeof PROFILER_TYPE_NONE | typeof PROFILER_TYPE_HOOK | typeof PROFILER_TYPE_SAMPLING;
 

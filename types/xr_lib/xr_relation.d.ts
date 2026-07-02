@@ -238,4 +238,5 @@ declare module "xray16" {
     | typeof game_object.friend
     | typeof game_object.neutral
     | typeof game_object.enemy
-    | 3;}
+    | 3;
+}

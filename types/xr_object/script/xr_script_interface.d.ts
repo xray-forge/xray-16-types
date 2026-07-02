@@ -79,8 +79,14 @@ declare module "xray16" {
   export type TXR_bloodsucker_visibility_state = -1 | 0 | 1 | 2;
 
   /**
+   * Movement path type accepted by `game_object.set_path_type()` and returned by `game_object.path_type()`.
+   *
    * @source `src/xrGame/script_game_object_script2.cpp`, `game_object.EPathType` enum.
    * @group xr_script_interface
+   *
+   * @remarks
+   * The Lua binding exposes only the four named `MovementManager::EPathType` values. When mirroring these values in a
+   * TypeScript enum, use literal numeric initializers (`0`, `1`, `2`, `3`) instead of runtime `game_object` lookups.
    */
   export type TXR_game_object_path =
     | typeof game_object.game_path
@@ -101,6 +107,10 @@ declare module "xray16" {
    *
    * @source C++ enum ScriptEntity::EActionType
    * @group xr_script_interface
+   *
+   * @remarks
+   * `7` is native `ScriptEntity::eActionTypeRemoved`. It is used by the action-removed callback but is not exported as
+   * a named `game_object.action_types` enum member.
    */
   export type TXR_action_type =
     | typeof game_object.movement

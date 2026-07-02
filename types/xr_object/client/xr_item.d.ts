@@ -82,22 +82,21 @@ declare module "xray16" {
   export class CMedkit extends CGameObject {}
 
   /**
-   * Client object binding for `CExplosiveItem` inventory items.
+   * Client object binding for explosive inventory items.
    *
-   * @source C++ class CExplosiveItem : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CExplosiveItem` binding.
    * @customConstructor CExplosiveItem
    * @group xr_item
-   */
-  export class CExplosiveItem extends CGameObject {}
-
-  /**
-   * Client object binding for `CCWeaponAK74` inventory items.
    *
-   * @source C++ class CWeaponAK74 : CGameObject
-   * @customConstructor CWeaponAK74
-   * @group xr_item
+   * @remarks
+   * The script binding exposes both `CGameObject` and `explosive` bases for this class.
    */
-  export class CCWeaponAK74 extends CGameObject {}
+  export class CExplosiveItem extends CGameObject {
+    /**
+     * Trigger the item's explosive component immediately.
+     */
+    public explode(): void;
+  }
 
   /**
    * Client object binding for `CGrenadeLauncher` inventory items.
@@ -123,8 +122,8 @@ declare module "xray16" {
   /**
    * Client object binding for `CWeapon` inventory items.
    *
-   * @source C++ class CWeapon : public CHudItemObject, public CShootingObject
-   * @customConstructor CWeaponAmmo
+   * @source `src/xrGame/WeaponScript.cpp`, `CWeapon` binding.
+   * @customConstructor CWeapon
    * @group xr_item
    *
    * @remarks
@@ -136,7 +135,8 @@ declare module "xray16" {
      * Check whether the weapon can currently fire a lethal shot.
      *
      * @remarks
-     * Takes current weapon state into account, including ammo and readiness.
+     * Returns true when the weapon has suitable ammo available or does not use ammo. This is the same predicate used by
+     * actor and stalker weapon selection before considering an item lethal.
      *
      * @returns Whether the weapon can kill.
      */
@@ -144,18 +144,40 @@ declare module "xray16" {
   }
 
   /**
-   * Client object binding for `CWeaponMagazined` inventory items.
+   * Client object binding for magazine-fed weapons.
    *
-   * @source C++ class CWeaponMagazined : public CWeapon
+   * @source `src/xrGame/WeaponScript.cpp`, `CWeaponMagazined` binding.
    * @customConstructor CWeaponMagazined
    * @group xr_item
+   *
+   * @remarks
+   * Base class for most firearms exposed to scripts. The binding inherits `CWeapon`, so `can_kill()` is available on
+   * all subclasses declared under this family.
    */
   export class CWeaponMagazined extends CWeapon {}
 
   /**
+   * Client object binding for magazine-fed weapons with grenade-launcher support.
+   *
+   * @source `src/xrGame/WeaponScript.cpp`, `CWeaponMagazinedWGrenade` binding.
+   * @customConstructor CWeaponMagazinedWGrenade
+   * @group xr_item
+   */
+  export class CWeaponMagazinedWGrenade extends CWeaponMagazined {}
+
+  /**
+   * Client object binding for `CWeaponAK74` inventory items.
+   *
+   * @source `src/xrGame/WeaponScript.cpp`, `CWeaponAK74` binding.
+   * @customConstructor CWeaponAK74
+   * @group xr_item
+   */
+  export class CWeaponAK74 extends CWeaponMagazinedWGrenade {}
+
+  /**
    * Client object binding for `CWeaponAutomaticShotgun` inventory items.
    *
-   * @source C++ class CWeaponAutomaticShotgun : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CWeaponAutomaticShotgun` binding.
    * @customConstructor CWeaponAutomaticShotgun
    * @group xr_item
    */
@@ -164,7 +186,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CWeaponBM16` inventory items.
    *
-   * @source C++ class CWeaponBM16 : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CWeaponBM16` binding.
    * @customConstructor CWeaponBM16
    * @group xr_item
    */
@@ -173,160 +195,160 @@ declare module "xray16" {
   /**
    * Client object binding for `CWeaponBinoculars` inventory items.
    *
-   * @source C++ class CWeaponBinoculars : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CWeaponBinoculars` binding.
    * @customConstructor CWeaponBinoculars
    * @group xr_item
    */
-  export class CWeaponBinoculars extends CGameObject {}
+  export class CWeaponBinoculars extends CWeaponMagazined {}
 
   /**
    * Client object binding for `CWeaponFN2000` inventory items.
    *
-   * @source C++ class CWeaponFN2000 : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CWeaponFN2000` binding.
    * @customConstructor CWeaponFN2000
    * @group xr_item
    */
-  export class CWeaponFN2000 extends CGameObject {}
+  export class CWeaponFN2000 extends CWeaponMagazined {}
 
   /**
    * Client object binding for `CWeaponFORT` inventory items.
    *
-   * @source C++ class CWeaponFORT : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CWeaponFORT` binding.
    * @customConstructor CWeaponFORT
    * @group xr_item
    */
-  export class CWeaponFORT extends CGameObject {}
+  export class CWeaponFORT extends CWeaponMagazined {}
 
   /**
    * Client object binding for `CWeaponGroza` inventory items.
    *
-   * @source C++ class CWeaponGroza : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CWeaponGroza` binding.
    * @customConstructor CWeaponGroza
    * @group xr_item
    */
-  export class CWeaponGroza extends CGameObject {}
+  export class CWeaponGroza extends CWeaponMagazinedWGrenade {}
 
   /**
    * Client object binding for `CWeaponHPSA` inventory items.
    *
-   * @source C++ class CWeaponHPSA : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CWeaponHPSA` binding.
    * @customConstructor CWeaponHPSA
    * @group xr_item
    */
-  export class CWeaponHPSA extends CGameObject {}
+  export class CWeaponHPSA extends CWeaponMagazined {}
 
   /**
    * Client object binding for `CWeaponKnife` inventory items.
    *
-   * @source C++ class CWeaponKnife : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CWeaponKnife` binding.
    * @customConstructor CWeaponKnife
    * @group xr_item
    */
-  export class CWeaponKnife extends CGameObject {}
+  export class CWeaponKnife extends CWeapon {}
 
   /**
    * Client object binding for `CWeaponLR300` inventory items.
    *
-   * @source C++ class CWeaponLR300 : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CWeaponLR300` binding.
    * @customConstructor CWeaponLR300
    * @group xr_item
    */
-  export class CWeaponLR300 extends CGameObject {}
+  export class CWeaponLR300 extends CWeaponMagazined {}
 
   /**
    * Client object binding for `CWeaponPM` inventory items.
    *
-   * @source C++ class CWeaponPM : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CWeaponPM` binding.
    * @customConstructor CWeaponPM
    * @group xr_item
    */
-  export class CWeaponPM extends CGameObject {}
+  export class CWeaponPM extends CWeaponMagazined {}
 
   /**
    * Client object binding for `CWeaponRG6` inventory items.
    *
-   * @source C++ class CWeaponRG6 : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CWeaponRG6` binding.
    * @customConstructor CWeaponRG6
    * @group xr_item
    */
-  export class CWeaponRG6 extends CGameObject {}
+  export class CWeaponRG6 extends CWeaponShotgun {}
 
   /**
    * Client object binding for `CWeaponRPG7` inventory items.
    *
-   * @source C++ class CWeaponRPG7 : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CWeaponRPG7` binding.
    * @customConstructor CWeaponRPG7
    * @group xr_item
    */
-  export class CWeaponRPG7 extends CGameObject {}
+  export class CWeaponRPG7 extends CWeaponMagazined {}
 
   /**
    * Client object binding for `CWeaponSVD` inventory items.
    *
-   * @source C++ class CWeaponSVD : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CWeaponSVD` binding.
    * @customConstructor CWeaponSVD
    * @group xr_item
    */
-  export class CWeaponSVD extends CGameObject {}
+  export class CWeaponSVD extends CWeaponMagazined {}
 
   /**
    * Client object binding for `CWeaponSVU` inventory items.
    *
-   * @source C++ class CWeaponSVU : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CWeaponSVU` binding.
    * @customConstructor CWeaponSVU
    * @group xr_item
    */
-  export class CWeaponSVU extends CGameObject {}
+  export class CWeaponSVU extends CWeaponMagazined {}
 
   /**
    * Client object binding for `CWeaponShotgun` inventory items.
    *
-   * @source C++ class CWeaponShotgun : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CWeaponShotgun` binding.
    * @customConstructor CWeaponShotgun
    * @group xr_item
    */
-  export class CWeaponShotgun extends CGameObject {}
+  export class CWeaponShotgun extends CWeaponMagazined {}
 
   /**
    * Client object binding for `CWeaponUSP45` inventory items.
    *
-   * @source C++ class CWeaponUSP45 : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CWeaponUSP45` binding.
    * @customConstructor CWeaponUSP45
    * @group xr_item
    */
-  export class CWeaponUSP45 extends CGameObject {}
+  export class CWeaponUSP45 extends CWeaponMagazined {}
 
   /**
    * Client object binding for `CWeaponVal` inventory items.
    *
-   * @source C++ class CWeaponVal : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CWeaponVal` binding.
    * @customConstructor CWeaponVal
    * @group xr_item
    */
-  export class CWeaponVal extends CGameObject {}
+  export class CWeaponVal extends CWeaponMagazined {}
 
   /**
    * Client object binding for `CWeaponVintorez` inventory items.
    *
-   * @source C++ class CWeaponVintorez : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CWeaponVintorez` binding.
    * @customConstructor CWeaponVintorez
    * @group xr_item
    */
-  export class CWeaponVintorez extends CGameObject {}
+  export class CWeaponVintorez extends CWeaponMagazined {}
 
   /**
    * Client object binding for `CWeaponWalther` inventory items.
    *
-   * @source C++ class CWeaponWalther : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CWeaponWalther` binding.
    * @customConstructor CWeaponWalther
    * @group xr_item
    */
-  export class CWeaponWalther extends CGameObject {}
+  export class CWeaponWalther extends CWeaponMagazined {}
 
   /**
    * Client object binding for `CSilencer` inventory items.
    *
-   * @source C++ class CSilencer : CGameObject
+   * @source `src/xrGame/Scope.cpp`, `CSilencer` binding.
    * @customConstructor CSilencer
    * @group xr_item
    */
@@ -335,34 +357,50 @@ declare module "xray16" {
   /**
    * Client object binding for `CScope` inventory items.
    *
-   * @source C++ class CScope : CGameObject
+   * @source `src/xrGame/Scope.cpp`, `CScope` binding.
    * @customConstructor CScope
    * @group xr_item
    */
   export class CScope extends CGameObject {}
 
   /**
-   * Client object binding for `CRGD5` inventory items.
+   * Client object binding for `CRGD5` grenade items.
    *
-   * @source C++ class CRGD5 : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CRGD5` binding.
    * @customConstructor CRGD5
    * @group xr_item
+   *
+   * @remarks
+   * The script binding exposes both `CGameObject` and `explosive` bases for this class.
    */
-  export class CRGD5 extends CGameObject {}
+  export class CRGD5 extends CGameObject {
+    /**
+     * Trigger the grenade's explosive component immediately.
+     */
+    public explode(): void;
+  }
 
   /**
-   * Client object binding for `CF1` inventory items.
+   * Client object binding for `CF1` grenade items.
    *
-   * @source C++ class CF1 : CGameObject
+   * @source `src/xrGame/WeaponScript.cpp`, `CF1` binding.
    * @customConstructor CF1
    * @group xr_item
+   *
+   * @remarks
+   * The script binding exposes both `CGameObject` and `explosive` bases for this class.
    */
-  export class CF1 extends CGameObject {}
+  export class CF1 extends CGameObject {
+    /**
+     * Trigger the grenade's explosive component immediately.
+     */
+    public explode(): void;
+  }
 
   /**
    * Client object binding for `CPda` inventory items.
    *
-   * @source C++ class CPda : CGameObject
+   * @source `src/xrGame/torch_script.cpp`, `CPda` binding.
    * @customConstructor CPda
    * @group xr_item
    */

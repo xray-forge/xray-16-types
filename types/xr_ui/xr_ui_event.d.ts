@@ -137,9 +137,13 @@ declare module "xray16" {
   }
 
   /**
-   * UI event id.
+   * UI event id passed to window message handlers such as `CUIScriptWnd.OnKeyboard()`.
    *
+   * @source C++ class ui_events
    * @group xr_ui_event
+   *
+   * @remarks
+   * Values identify UI notifications, not keyboard or mouse button codes. For input key codes use `TXR_DIK_key`.
    */
   export type TXR_ui_event = EnumeratedStaticsValues<typeof ui_events>;
 
@@ -1198,16 +1202,20 @@ declare module "xray16" {
   }
 
   /**
-   * Static key name from `DIK_keys`.
+   * Static key constant name from `DIK_keys`.
    *
    * @group xr_ui_event
    */
   export type TXR_DIK_key_name = EnumeratedStaticsKeys<typeof DIK_keys>;
 
   /**
-   * DIK, mouse, or gamepad key code.
+   * DIK, mouse, or gamepad key code passed to keyboard/input callbacks.
    *
+   * @source C++ class DIK_keys
    * @group xr_ui_event
+   *
+   * @remarks
+   * The binding keeps the legacy `DIK_*` names, but values come from SDL scancodes plus engine mouse/gamepad ranges.
    */
   export type TXR_DIK_key = EnumeratedStaticsValues<typeof DIK_keys>;
 

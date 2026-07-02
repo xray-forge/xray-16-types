@@ -137,27 +137,27 @@ declare module "xray16" {
     /**
      * Engine enum value for `CCar.eWpnActivate`.
      */
-    public static eWpnActivate: 3;
+    public static readonly eWpnActivate: 3;
     /**
      * Engine enum value for `CCar.eWpnAutoFire`.
      */
-    public static eWpnAutoFire: 5;
+    public static readonly eWpnAutoFire: 5;
     /**
      * Engine enum value for `CCar.eWpnDesiredDir`.
      */
-    public static eWpnDesiredDir: 1;
+    public static readonly eWpnDesiredDir: 1;
     /**
      * Engine enum value for `CCar.eWpnDesiredPos`.
      */
-    public static eWpnDesiredPos: 2;
+    public static readonly eWpnDesiredPos: 2;
     /**
      * Engine enum value for `CCar.eWpnFire`.
      */
-    public static eWpnFire: 4;
+    public static readonly eWpnFire: 4;
     /**
      * Engine enum value for `CCar.eWpnToDefaultDir`.
      */
-    public static eWpnToDefaultDir: 6;
+    public static readonly eWpnToDefaultDir: 6;
 
     /**
      * Create a car object wrapper.

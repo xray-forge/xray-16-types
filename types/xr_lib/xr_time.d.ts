@@ -14,37 +14,37 @@ declare module "xray16" {
     /**
      * Date formatting mode: day.
      */
-    public static DateToDay: 0;
+    public static readonly DateToDay: 0;
 
     /**
      * Date formatting mode: month.
      */
-    public static DateToMonth: 1;
+    public static readonly DateToMonth: 1;
 
     /**
      * Date formatting mode: year.
      */
-    public static DateToYear: 2;
+    public static readonly DateToYear: 2;
 
     /**
      * Time formatting mode: hours.
      */
-    public static TimeToHours: 0;
+    public static readonly TimeToHours: 0;
 
     /**
      * Time formatting mode: milliseconds.
      */
-    public static TimeToMilisecs: 3;
+    public static readonly TimeToMilisecs: 3;
 
     /**
      * Time formatting mode: minutes.
      */
-    public static TimeToMinutes: 1;
+    public static readonly TimeToMinutes: 1;
 
     /**
      * Time formatting mode: seconds.
      */
-    public static TimeToSeconds: 2;
+    public static readonly TimeToSeconds: 2;
 
     /**
      * Create an empty time value.

@@ -10,7 +10,7 @@ declare module "xray16" {
    * - eGameIDArtefactHunt = u32(1) << 3,
    * - eGameIDCaptureTheArtefact = u32(1) << 4,
    * - eGameIDDominationZone = u32(1) << 5,
-   * - eGameIDTeamDominationZone = u32(1) << 6,.
+   * - eGameIDTeamDominationZone = u32(1) << 6.
    *
    * @source C++ enum EGameIDs
    * @group xr_game
@@ -86,7 +86,13 @@ declare module "xray16" {
   }
 
   /**
+   * Legacy game type constants exposed through the `GAME_TYPE` Lua class.
+   *
    * @group xr_game
+   *
+   * @remarks
+   * `GAME_TYPE.GAME_*` values are UI/menu constants and are not the same set as the `EGameIDs` bitmask values returned
+   * by `level.game_id()`.
    */
   export type TXR_GAME_TYPE = EnumeratedStaticsValues<typeof GAME_TYPE>;
 

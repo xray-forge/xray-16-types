@@ -1832,11 +1832,15 @@ declare module "xray16" {
   }
 
   /**
+   * Script-visible class id constant names from `clsid`.
+   *
    * @group xr_alife
    */
   export type TXR_class_key = EnumeratedStaticsKeys<typeof clsid>;
 
   /**
+   * Numeric engine class id values from `clsid`.
+   *
    * @group xr_alife
    */
   export type TXR_class_id = EnumeratedStaticsValues<typeof clsid>;

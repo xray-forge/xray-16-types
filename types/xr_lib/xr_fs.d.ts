@@ -261,67 +261,67 @@ declare module "xray16" {
     /**
      * Clamp listed paths by extension.
      */
-    public static FS_ClampExt: 4;
+    public static readonly FS_ClampExt: 4;
 
     /**
      * List files.
      */
-    public static FS_ListFiles: 1;
+    public static readonly FS_ListFiles: 1;
 
     /**
      * List folders.
      */
-    public static FS_ListFolders: 2;
+    public static readonly FS_ListFolders: 2;
 
     /**
      * Do not recurse into subfolders.
      */
-    public static FS_RootOnly: 8;
+    public static readonly FS_RootOnly: 8;
 
     /**
      * Sort by modification time, newest first.
      */
-    public static FS_sort_by_modif_down: 5;
+    public static readonly FS_sort_by_modif_down: 5;
 
     /**
      * Sort by modification time, oldest first.
      */
-    public static FS_sort_by_modif_up: 4;
+    public static readonly FS_sort_by_modif_up: 4;
 
     /**
      * Sort by name descending.
      */
-    public static FS_sort_by_name_down: 1;
+    public static readonly FS_sort_by_name_down: 1;
 
     /**
      * Sort by name ascending.
      */
-    public static FS_sort_by_name_up: 0;
+    public static readonly FS_sort_by_name_up: 0;
 
     /**
      * Sort by size descending.
      */
-    public static FS_sort_by_size_down: 3;
+    public static readonly FS_sort_by_size_down: 3;
 
     /**
      * Sort by size ascending.
      */
-    public static FS_sort_by_size_up: 2;
+    public static readonly FS_sort_by_size_up: 2;
 
     /**
      * Search virtual registered files only.
      */
-    public static FSType_Virtual: 1;
+    public static readonly FSType_Virtual: 1;
 
     /**
      * Search external files only.
      */
-    public static FSType_External: 2;
+    public static readonly FSType_External: 2;
 
     /**
      * Search virtual and external files.
      */
-    public static FSType_Any: 3;
+    public static readonly FSType_Any: 3;
 
     /**
      * Delete a directory below a path alias.
@@ -591,9 +591,14 @@ declare module "xray16" {
   }
 
   /**
-   * Filesystem enum value accepted by filesystem queries.
+   * Filesystem scope accepted by `FS.exist()` and related path queries.
    *
+   * @source `src/xrGame/fs_registrator_script.cpp`, `FS.FSType` enum.
    * @group xr_fs
+   *
+   * @remarks
+   * `FSType_Virtual` searches mounted game paths, `FSType_External` searches external filesystem paths, and
+   * `FSType_Any` allows either source.
    */
   export type TXR_fs_type = typeof FS.FSType_Virtual | typeof FS.FSType_External | typeof FS.FSType_Any;
 

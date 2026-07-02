@@ -46,9 +46,14 @@ declare module "xray16" {
   }
 
   /**
-   * Ray query target bitmask value.
+   * Ray query target bitmask accepted by `level.ray_pick()` and `ray_pick.set_flags()`.
    *
+   * @source `src/xrGame/level_script.cpp`, `rq_target` binding.
    * @group xr_level
+   *
+   * @remarks
+   * Values are bit flags from `collide::rq_target`. Combined constants such as `rqtBoth` and `rqtDyn` are precomputed
+   * masks exported by the engine, not separate target categories.
    */
   export type TXR_rq_target = EnumeratedStaticsValues<typeof rq_target>;
 
@@ -226,6 +231,7 @@ declare module "xray16" {
      */
     public get_element(): i32;
   }
+
   /**
    * Global helpers for the currently loaded level.
    *
