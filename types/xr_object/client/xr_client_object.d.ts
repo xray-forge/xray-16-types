@@ -113,23 +113,28 @@ declare module "xray16" {
   }
 
   /**
-   * Class to link client side object with script object entity.
+   * Script-side binder attached to a client `game_object`.
    *
    * @source `src/xrGame/script_binder_object_script.cpp`, `object_binder` binding.
+   * @source `src/xrGame/script_binder.cpp`, `CScriptBinder`.
    * @customConstructor object_binder
    * @group xr_client_object
    *
    * @remarks
-   * Script binders are callbacks attached to a `game_object`. The engine calls lifecycle methods through wrapper
-   * fallbacks, so script subclasses can override these methods and call `super` when they need base behavior.
+   * A config section can name a `script_binding` function. During reload, the engine calls that function with the
+   * object's `game_object`; the script normally creates an `object_binder` subclass for it. Binder hooks are
+   * client-object hooks. Server ALife objects use `cse_alife_dynamic_object` lifecycle methods instead.
+   *
+   * Base hook implementations are empty, except `net_spawn` returns `true` and `net_save_relevant` returns `false`.
+   * If a hook throws, the engine clears the binder.
    */
   export class object_binder<T = game_object> extends EngineBinding {
     /**
-     * Script game object controlled by this binder.
+     * Client `game_object` controlled by this binder.
      *
      * @remarks
-     * Bound through luabind `def_readwrite`, but consumers should normally treat the binder target as stable after
-     * construction.
+     * The engine passes this object to the constructor and stores the binder on the native client object. Treat the
+     * reference as engine-owned.
      */
     public readonly object: T;
 
@@ -143,12 +148,18 @@ declare module "xray16" {
     /**
      * Save binder state.
      *
+     * @remarks
+     * Write only data that `load` will read back in the same order.
+     *
      * @param packet - Destination save packet.
      */
     public save(packet: net_packet): void;
 
     /**
      * Load binder state.
+     *
+     * @remarks
+     * Read data written by `save`. The engine does not validate custom binder packet layouts.
      *
      * @param reader - Source save reader.
      */
@@ -157,6 +168,9 @@ declare module "xray16" {
     /**
      * Update binder logic.
      *
+     * @remarks
+     * Called from the owning client object's scheduled update while the object is online.
+     *
      * @param delta - Time since last update in milliseconds.
      */
     public update(delta: u32): void;
@@ -164,43 +178,59 @@ declare module "xray16" {
     /**
      * Reload binder configuration.
      *
+     * @remarks
+     * Called after the engine creates the script binder from the section's `script_binding` callback.
+     *
      * @param section - Object config section.
      */
     public reload(section: string): void;
 
     /**
      * Reinitialize binder runtime state.
+     *
+     * @remarks
+     * Called when the owning client object is reinitialized. Keep persistent state in `save` and `load`, not here.
      */
     public reinit(): void;
 
     /**
-     * Export binder network state.
-     *
-     * @param net_packet - Destination network packet.
-     */
-    public net_export(net_packet: net_packet): void;
-
-    /**
      * Decide whether binder state should be saved over the network.
+     *
+     * @remarks
+     * The base implementation returns `false`.
      *
      * @returns Whether the state is relevant for network save.
      */
     public net_save_relevant(): boolean;
 
     /**
-     * Handle client object destruction.
+     * Import binder network state.
+     *
+     * @remarks
+     * Pair this with `net_export` when the binder participates in network state synchronization.
+     *
+     * @param net_packet - Source network packet.
      */
-    public net_destroy(): void;
+    public net_import(net_packet: net_packet): void;
 
     /**
-     * Release references to a game object.
+     * Export binder network state.
      *
-     * @param object - Object being released.
+     * @remarks
+     * Pair this with `net_import` when the binder participates in network state synchronization.
+     *
+     * @param net_packet - Destination network packet.
      */
-    public net_Relcase(object: T): void;
+    public net_export(net_packet: net_packet): void;
 
     /**
      * Handle network spawn.
+     *
+     * @source `src/xrGame/script_binder.cpp`, `CScriptBinder::net_Spawn`.
+     *
+     * @remarks
+     * Client-side online spawn hook. It can run again for the same logical ALife object when the engine recreates its
+     * online client object. Return `false` to reject the client spawn. The base implementation returns `true`.
      *
      * @param object - Server object used for spawn data.
      * @returns Whether spawn succeeded.
@@ -208,10 +238,30 @@ declare module "xray16" {
     public net_spawn(object: cse_alife_object): boolean;
 
     /**
-     * Import binder network state.
+     * Handle this client object destruction.
      *
-     * @param net_packet - Source network packet.
+     * @remarks
+     * Called when this client object goes offline or is destroyed. This is the binder's own cleanup hook. `net_Relcase`
+     * is for another object being released.
      */
-    public net_import(net_packet: net_packet): void;
+    public net_destroy(): void;
+
+    /**
+     * Release references to a game object that is about to be destroyed.
+     *
+     * @source `src/xrEngine/xr_object_list.cpp`, `CObjectList::SingleUpdate`.
+     * @source `src/xrGame/GameObject.cpp`, `CGameObject::net_Relcase`.
+     * @source `src/xrGame/script_binder.cpp`, `CScriptBinder::net_Relcase`.
+     *
+     * @remarks
+     * The engine broadcasts this to every active and sleeping client object for every object in the destroy queue. Use
+     * it only to drop references to `object`; the callback is not limited to binders that reference it.
+     *
+     * Keep overrides small, tolerate unrelated objects, and do not store or use `object` after this callback returns.
+     * The broadcast cost is roughly `(active + sleeping client objects) * destroyed objects`.
+     *
+     * @param object - Object being released.
+     */
+    public net_Relcase(object: T): void;
   }
 }

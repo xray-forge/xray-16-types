@@ -428,54 +428,100 @@ declare module "xray16" {
   }
 
   /**
-   * Server object binding for `cse_alife_dynamic_object`.
+   * Server-side ALife object that can switch between offline simulation and an online client object.
    *
    * @source C++ class cse_alife_dynamic_object : cse_alife_object
    * @customConstructor cse_alife_dynamic_object
    * @group xr_object_server
    *
    * @remarks
-   * Dynamic ALife object that can have a client representation while online.
+   * This is the server object stored in ALife, not the live client `game_object`. Online means the server object has,
+   * or is creating, a client-side representation. Offline means ALife simulates it without a client object.
+   *
+   * `switch_online` and `switch_offline` are low-level state changes used by the ALife switch manager. The
+   * `can_switch_online` and `can_switch_offline` flags only allow or forbid switching; they do not switch the object.
    */
   export class cse_alife_dynamic_object extends cse_alife_object {
     /**
-     * Move the object to offline ALife simulation.
+     * Mark the server object offline.
+     *
+     * @source `src/xrGame/alife_dynamic_object.cpp`, `CSE_ALifeDynamicObject::switch_offline`.
      *
      * @remarks
-     * Call only when the object is currently online and the object type supports switching offline.
+     * Requires the object to be online. The base implementation marks it offline, removes it from the online ALife
+     * set, and clears client data unless `keep_saved_data_anyway()` returns `true`.
      */
     public switch_offline(): void;
 
     /**
-     * Bring the object online and create its client-side representation.
+     * Mark the server object online.
+     *
+     * @source `src/xrGame/alife_dynamic_object.cpp`, `CSE_ALifeDynamicObject::switch_online`.
      *
      * @remarks
-     * Call only when the object is currently offline and the object type supports switching online.
+     * Requires the object to be offline. The base implementation marks it online and adds it to the online ALife set.
+     * Use the simulator switch manager for normal distance-based switching.
      */
     public switch_online(): void;
 
     /**
+     * Check whether client data should survive regular cleanup.
+     *
+     * @source `src/xrGame/alife_object.cpp`, `CSE_ALifeObject::keep_saved_data_anyway`.
+     * @source `src/xrGame/alife_dynamic_object.cpp`, `CSE_ALifeDynamicObject::clear_client_data`.
+     *
+     * @remarks
+     * Most objects return `false`, so `client_data` is cleared when switching offline or after a failed switch online.
+     * Classes can override this to keep saved client data across cleanup.
+     *
      * @returns Whether saved data should be kept even when regular cleanup would remove it.
      */
     public keep_saved_data_anyway(): boolean;
 
     /**
-     * Called after the object is registered in the ALife registry.
+     * Handle registration in the ALife registry.
+     *
+     * @source `src/xrGame/alife_simulator_base2.cpp`, `CALifeSimulatorBase::register_object`.
+     * @source `src/xrGame/alife_storage_manager.cpp`, `CALifeStorageManager::load`.
+     * @source `src/xrGame/alife_update_manager.cpp`, `CALifeUpdateManager::update`.
+     *
+     * @remarks
+     * This is a repeatable registry hook, not first-spawn-only logic. Savegame load registers restored objects with
+     * callbacks disabled, then calls `on_register` for each restored object. Keep handlers idempotent and pair cleanup
+     * with `on_unregister`.
      */
     public on_register(): void;
 
     /**
-     * Called before the object is registered in the ALife registry.
+     * Prepare for registration in the ALife registry.
+     *
+     * @source `src/xrGame/alife_simulator_base2.cpp`, `CALifeSimulatorBase::register_object`.
+     *
+     * @remarks
+     * Uses the same registration path as `on_register`. During savegame load it runs before the final `on_register`
+     * pass for all restored objects, so avoid cross-object links that need every object fully registered.
      */
     public on_before_register(): void;
 
     /**
-     * Called when the object has been spawned.
+     * Handle initial server-object spawn.
+     *
+     * @source `src/xrGame/alife_simulator_base.cpp`, `CALifeSimulatorBase::create`.
+     * @source `src/xrGame/alife_storage_manager.cpp`, `CALifeStorageManager::load`.
+     *
+     * @remarks
+     * This is a server-object creation hook. ALife create paths call it after registration and supply spawning.
+     * Savegame load does not call it for restored objects; restored objects receive `on_register` instead.
      */
     public on_spawn(): void;
 
     /**
-     * Called when the object is removed from the ALife registry.
+     * Handle removal from the ALife registry.
+     *
+     * @source `src/xrGame/alife_simulator_base2.cpp`, `CALifeSimulatorBase::unregister_object`.
+     *
+     * @remarks
+     * Pair this with `on_register` to remove registry links, scheduler state, story mappings, or similar state.
      */
     public on_unregister(): void;
   }

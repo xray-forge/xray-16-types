@@ -497,11 +497,18 @@ declare module "xray16" {
 
     /**
      * Called when the owning monster is registered.
+     *
+     * @remarks
+     * Follows the owning server object's `on_register` lifecycle. It can run during savegame load or ALife update
+     * setup, so treat it as repeatable.
      */
     public on_register(): void;
 
     /**
      * Called when the owning monster is unregistered.
+     *
+     * @remarks
+     * Pair cleanup here with state installed from `on_register`.
      */
     public on_unregister(): void;
 
