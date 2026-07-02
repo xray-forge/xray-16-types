@@ -1,13 +1,16 @@
+import type { Nullable } from "../../internal";
+
 declare module "xray16" {
   /**
    * Base engine object exposed for compatibility with script binders.
    *
-   * @source C++ class DLL_Pure
+   * @source `src/xrGame/base_client_classes_script.cpp`, `DLL_Pure` binding.
    * @customConstructor DLL_Pure
    * @group xr_core
    *
    * @remarks
-   * Base for engine-owned client objects. Scripts normally receive derived objects from xray callbacks or casts.
+   * Backward-compatible script name for the native `IFactoryObject` base. It is exposed as `DLL_Pure` for existing mod
+   * scripts, while most gameplay code receives derived client objects from engine callbacks or casts.
    */
   export class DLL_Pure extends EngineBinding {
     /**
@@ -19,34 +22,35 @@ declare module "xray16" {
   /**
    * Render visual handle for client objects.
    *
-   * @source C++ class IRender_Visual
+   * @source `src/xrGame/base_client_classes_script.cpp`, `IRender_Visual` binding.
    * @group xr_client_object
    *
    * @remarks
-   * Visual handles are owned by the object. Treat returned cast interfaces as borrowed engine references.
+   * Visual handles are owned by the object. Cast helpers return borrowed engine interfaces and can return `null` when
+   * the underlying visual does not implement the requested interface.
    */
   export interface IXR_IRender_Visual {
     /**
      * Cast the visual to animated kinematics when supported.
      *
      * @remarks
-     * Runtime can return `null` when the visual is not animated even though older declarations expose a non-null type.
+     * Returns `null` when the visual is not animated. The native default implementation returns `nullptr`.
      *
      * @returns Animated kinematics interface.
      */
-    dcast_PKinematicsAnimated(): IKinematicsAnimated;
+    dcast_PKinematicsAnimated(): Nullable<IKinematicsAnimated>;
   }
 
   /**
    * Base client-side game object.
    *
-   * @source C++ class CGameObject : DLL_Pure, ISheduled, ICollidable, IRenderable
+   * @source `src/xrGame/base_client_classes_script.cpp`, `CGameObject` binding.
    * @customConstructor CGameObject
    * @group xr_client_object
    *
    * @remarks
-   * Client-side object state is engine-owned. Use this wrapper for low-level engine callbacks; gameplay scripts usually
-   * work with `game_object` instead.
+   * Client-side object state is engine-owned. The binding exposes low-level lifecycle hooks used by custom client
+   * subclasses; ordinary gameplay scripts usually work with the higher-level `game_object` wrapper instead.
    */
   export class CGameObject extends DLL_Pure {
     /**
@@ -111,21 +115,27 @@ declare module "xray16" {
   /**
    * Class to link client side object with script object entity.
    *
-   * @source C++ class object_binder
+   * @source `src/xrGame/script_binder_object_script.cpp`, `object_binder` binding.
    * @customConstructor object_binder
    * @group xr_client_object
    *
    * @remarks
-   * Script binders are callbacks attached to a `game_object`. The engine calls lifecycle methods; scripts usually
-   * override them in subclasses instead of invoking them directly.
+   * Script binders are callbacks attached to a `game_object`. The engine calls lifecycle methods through wrapper
+   * fallbacks, so script subclasses can override these methods and call `super` when they need base behavior.
    */
   export class object_binder<T = game_object> extends EngineBinding {
     /**
      * Script game object controlled by this binder.
+     *
+     * @remarks
+     * Bound through luabind `def_readwrite`, but consumers should normally treat the binder target as stable after
+     * construction.
      */
     public readonly object: T;
 
     /**
+     * Create a binder for a script game object.
+     *
      * @param object - Script game object controlled by this binder.
      */
     public constructor(object: T);

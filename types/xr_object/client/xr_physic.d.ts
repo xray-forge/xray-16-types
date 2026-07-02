@@ -2,7 +2,7 @@ declare module "xray16" {
   /**
    * One rigid body element inside a physics shell.
    *
-   * @source C++ class physics_element
+   * @source `src/xrPhysics/PhysicsShellScript.cpp`, `physics_element` binding.
    * @customConstructor physics_element
    * @group xr_physic
    *
@@ -11,6 +11,11 @@ declare module "xray16" {
    * them only while the owning shell and object are alive.
    */
   export class physics_element {
+    /**
+     * Engine-owned physics element.
+     */
+    private constructor();
+
     /**
      * Apply force to the element.
      *
@@ -84,7 +89,7 @@ declare module "xray16" {
   /**
    * Script-controlled particle system.
    *
-   * @source C++ class particles_object
+   * @source `src/xrGame/script_particles_script.cpp`, `particles_object` binding.
    * @customConstructor particles_object
    * @group xr_physic
    *
@@ -214,7 +219,7 @@ declare module "xray16" {
   /**
    * Joint connecting two physics elements.
    *
-   * @source C++ class physics_joint
+   * @source `src/xrPhysics/PhysicsShellScript.cpp`, `physics_joint` binding.
    * @customConstructor physics_joint
    * @group xr_physic
    *
@@ -223,6 +228,11 @@ declare module "xray16" {
    * `get_axes_number()` before using indexed axis methods. Keep them only while the owning shell and object are alive.
    */
   export class physics_joint {
+    /**
+     * Engine-owned physics joint.
+     */
+    private constructor();
+
     /**
      * Write the joint anchor into a vector.
      *
@@ -387,7 +397,7 @@ declare module "xray16" {
   /**
    * Physics shell made of elements and joints.
    *
-   * @source C++ class physics_shell
+   * @source `src/xrPhysics/PhysicsShellScript.cpp`, `physics_shell` binding.
    * @customConstructor physics_shell
    * @group xr_physic
    *
@@ -531,7 +541,7 @@ declare module "xray16" {
   /**
    * Opaque native physics condition handle.
    *
-   * @source C++ class CPHCondition
+   * @source `src/xrPhysics/PHCommander.h`, `CPHCondition` binding.
    * @customConstructor CPHCondition
    * @group xr_physic
    *
@@ -540,13 +550,13 @@ declare module "xray16" {
    * calls that already have a C++ condition object.
    */
   export class CPHCondition {
-    private constructor();
+    protected constructor();
   }
 
   /**
    * Opaque native physics action handle.
    *
-   * @source C++ class CPHAction
+   * @source `src/xrPhysics/PHCommander.h`, `CPHAction` binding.
    * @customConstructor CPHAction
    * @group xr_physic
    *
@@ -555,13 +565,113 @@ declare module "xray16" {
    * that already have a C++ action object.
    */
   export class CPHAction {
-    private constructor();
+    protected constructor();
+  }
+
+
+  /**
+   * Physics condition that becomes true on or after a selected physics step/time.
+   *
+   * @source `src/xrPhysics/PHSimpleCallsScript.cpp`, `phcondition_callonstep` binding.
+   * @customConstructor phcondition_callonstep
+   * @group xr_physic
+   *
+   * @remarks
+   * Use with `physics_world.add_call()` to schedule a physics action. Step and time interval setters compute the
+   * target step from the current physics world state.
+   */
+  export class phcondition_callonstep extends CPHCondition {
+    /**
+     * Create a physics step condition.
+     */
+    public constructor();
+
+    /**
+     * Set the absolute physics step that must be reached.
+     *
+     * @param step - Absolute physics step number.
+     */
+    public set_step(step: u64): void;
+
+    /**
+     * Set the condition to become true after a number of physics steps.
+     *
+     * @param steps - Step count from the current physics world step.
+     */
+    public set_steps_interval(steps: u64): void;
+
+    /**
+     * Set the absolute game time in milliseconds that must be reached.
+     *
+     * @param time - Absolute global time in milliseconds.
+     */
+    public set_global_time_ms(time: u32): void;
+
+    /**
+     * Set the absolute game time in seconds that must be reached.
+     *
+     * @param time - Absolute global time in seconds.
+     */
+    public set_global_time_s(time: f32): void;
+
+    /**
+     * Set the condition to become true after a millisecond interval.
+     *
+     * @param time - Interval in milliseconds.
+     */
+    public set_time_interval_ms(time: u32): void;
+
+    /**
+     * Set the condition to become true after a second interval.
+     *
+     * @param time - Interval in seconds.
+     */
+    public set_time_interval_s(time: f32): void;
+  }
+
+  /**
+   * Physics condition that expires on the selected step.
+   *
+   * @source `src/xrPhysics/PHSimpleCallsScript.cpp`, `phcondition_expireonstep` binding.
+   * @customConstructor phcondition_expireonstep
+   * @group xr_physic
+   *
+   * @remarks
+   * Subclass of `phcondition_callonstep` used by the physics commander for calls that should be considered true while
+   * expiring on the configured step.
+   */
+  export class phcondition_expireonstep extends phcondition_callonstep {
+    /**
+     * Create an expiring physics step condition.
+     */
+    public constructor();
+  }
+
+  /**
+   * Physics action that applies a constant force to a shell when run.
+   *
+   * @source `src/xrPhysics/PHSimpleCallsScript.cpp`, `phaction_constforce` binding.
+   * @customConstructor phaction_constforce
+   * @group xr_physic
+   *
+   * @remarks
+   * The action stores the target shell and force vector. The physics commander applies that force when the paired
+   * condition becomes true.
+   */
+  export class phaction_constforce extends CPHAction {
+    /**
+     * Create a constant-force physics action.
+     *
+     * @param shell - Target physics shell.
+     * @param force - Force vector to apply.
+     */
+    public constructor(shell: physics_shell, force: vector);
   }
 
   /**
    * Global physics world controls.
    *
-   * @source C++ class physics_world
+   * @source `src/xrPhysics/PHWorldScript.cpp`, `physics_world` binding.
    * @customConstructor physics_world
    * @group xr_physic
    *
@@ -569,6 +679,11 @@ declare module "xray16" {
    * Obtain the live world through `level.physics_world()`. Gravity changes affect the whole level.
    */
   export class physics_world {
+    /**
+     * Live level physics world returned by `level.physics_world()` in the engine.
+     */
+    private constructor();
+
     /**
      * Set world gravity.
      *
@@ -597,11 +712,16 @@ declare module "xray16" {
   /**
    * Animated model kinematics.
    *
-   * @source C++ class IKinematicsAnimated
+   * @source `src/xrGame/base_client_classes_script.cpp`, `IKinematicsAnimated` binding.
    * @customConstructor IKinematicsAnimated
    * @group xr_physic
    */
   export class IKinematicsAnimated {
+    /**
+     * Engine-owned animated kinematics interface.
+     */
+    private constructor();
+
     /**
      * Play an animation cycle by name.
      *
@@ -613,8 +733,7 @@ declare module "xray16" {
   /**
    * Client object that owns a physics shell.
    *
-   * @source C++ class CPhysicsShellHolder : public CGameObject, CParticlesPlayer,
-   *   IObjectPhysicsCollision, IPhysicsShellHolder
+   * @source `src/xrGame/script_game_object_script3.cpp`, `cast_PhysicsShellHolder` binding.
    * @customConstructor CPhysicsShellHolder
    * @group xr_physic
    *
@@ -632,7 +751,7 @@ declare module "xray16" {
   /**
    * Holder object that the actor can engage with.
    *
-   * @source C++ class holder
+   * @source `src/xrGame/holder_custom_script.cpp`, `holder` binding.
    * @customConstructor holder
    * @group xr_physic
    *
@@ -640,6 +759,11 @@ declare module "xray16" {
    * Returned only for objects that implement holder controls, such as mounted weapons or vehicles.
    */
   export class holder {
+    /**
+     * Engine-owned holder interface.
+     */
+    private constructor();
+
     /**
      * @returns Whether the actor is currently attached to the holder.
      */
