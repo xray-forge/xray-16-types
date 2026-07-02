@@ -403,6 +403,61 @@ declare module "xray16" {
    * @source `src/xrGame/torch_script.cpp`, `CPda` binding.
    * @customConstructor CPda
    * @group xr_item
+   *
+   * @remarks
+   * PDA objects are inventory items exposed through the torch binding file. Runtime PDA ownership and contact logic are
+   * handled by native inventory-owner code, not by script-visible PDA methods.
    */
   export class CPda extends CGameObject {}
+
+  /**
+   * Client object binding for simple artefact detectors.
+   *
+   * @source `src/xrGame/torch_script.cpp`, `CSimpleDetector` binding.
+   * @customConstructor CSimpleDetector
+   * @group xr_item
+   *
+   * @remarks
+   * The native detector rank is 1. The binding exposes the object as a `CGameObject`; detector UI and artefact search
+   * logic are handled internally by the engine.
+   */
+  export class CSimpleDetector extends CGameObject {}
+
+  /**
+   * Client object binding for advanced artefact detectors.
+   *
+   * @source `src/xrGame/torch_script.cpp`, `CAdvancedDetector` binding.
+   * @customConstructor CAdvancedDetector
+   * @group xr_item
+   *
+   * @remarks
+   * The native detector rank is 2. It is registered as a concrete `CGameObject` wrapper without extra script-visible
+   * methods.
+   */
+  export class CAdvancedDetector extends CGameObject {}
+
+  /**
+   * Client object binding for elite artefact detectors.
+   *
+   * @source `src/xrGame/torch_script.cpp`, `CEliteDetector` binding.
+   * @customConstructor CEliteDetector
+   * @group xr_item
+   *
+   * @remarks
+   * The native detector rank is 3. Use generic inventory-item and game-object APIs for script interaction.
+   */
+  export class CEliteDetector extends CGameObject {}
+
+  /**
+   * Client object binding for scientific artefact detectors.
+   *
+   * @source `src/xrGame/torch_script.cpp`, `CScientificDetector` binding.
+   * @customConstructor CScientificDetector
+   * @group xr_item
+   *
+   * @remarks
+   * Scientific detectors use the elite-detector rank and add native anomaly-zone scanning, but the Lua binding exposes
+   * no detector-specific methods beyond the game-object surface.
+   */
+  export class CScientificDetector extends CGameObject {}
 }

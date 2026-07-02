@@ -2,12 +2,13 @@ declare module "xray16" {
   /**
    * Client-side artefact object.
    *
-   * @source C++ class CArtefact : CGameObject
+   * @source `src/xrGame/artefact_script.cpp`, `CArtefact` binding.
    * @customConstructor CArtefact
    * @group xr_artefact
    *
    * @remarks
-   * Scripts usually reach this wrapper through `game_object.cast_Artefact()` after checking `is_artefact()`.
+   * Scripts usually reach this wrapper through `game_object.cast_Artefact()` after checking `is_artefact()`. Path and
+   * visibility helpers only affect artefacts with detector support.
    */
   export class CArtefact extends CGameObject {
     /**
@@ -16,14 +17,15 @@ declare module "xray16" {
     public constructor();
 
     /**
-     * Move the artefact along a patrol path.
+     * Move the artefact detector helper along a patrol path.
      *
      * @remarks
-     * Requires a patrol path with the given name. The point index must refer to an existing path point.
+     * Native code delegates to detector support when it exists. Missing detector support makes this a no-op. The vector
+     * parameter is stored as movement force, not as an initial world position.
      *
      * @param path_name - Patrol path name.
      * @param point_index - Starting path point index.
-     * @param position - Initial position.
+     * @param position - Movement force used by detector support.
      */
     public FollowByPath(path_name: string, point_index: i32, position: vector): void;
 
@@ -33,10 +35,11 @@ declare module "xray16" {
     public GetAfRank(): u8;
 
     /**
-     * Show or hide the artefact.
+     * Show or hide the artefact detector helper.
      *
      * @remarks
-     * This changes the artefact's client visibility; it does not spawn or destroy the object.
+     * Native code delegates to detector support when it exists. Missing detector support makes this a no-op; it does
+     * not spawn or destroy the artefact object.
      *
      * @param is_visible - New visibility state.
      */
@@ -46,7 +49,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CZudaArtefact` artefacts.
    *
-   * @source C++ class CZudaArtefact : CArtefact
+   * @source `src/xrGame/artefact_script.cpp`, `CZudaArtefact` binding.
    * @customConstructor CZudaArtefact
    * @group xr_artefact
    */
@@ -55,7 +58,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CThornArtefact` artefacts.
    *
-   * @source C++ class CThornArtefact : CArtefact
+   * @source `src/xrGame/artefact_script.cpp`, `CThornArtefact` binding.
    * @customConstructor CThornArtefact
    * @group xr_artefact
    */
@@ -64,7 +67,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CBastArtefact` artefacts.
    *
-   * @source C++ class CBastArtefact : CArtefact
+   * @source `src/xrGame/artefact_script.cpp`, `CBastArtefact` binding.
    * @customConstructor CBastArtefact
    * @group xr_artefact
    */
@@ -73,7 +76,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CBlackDrops` artefacts.
    *
-   * @source C++ class CBlackDrops : CArtefact
+   * @source `src/xrGame/artefact_script.cpp`, `CBlackDrops` binding.
    * @customConstructor CBlackDrops
    * @group xr_artefact
    */
@@ -82,7 +85,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CBlackGraviArtefact` artefacts.
    *
-   * @source C++ class CBlackGraviArtefact : CArtefact
+   * @source `src/xrGame/artefact_script.cpp`, `CBlackGraviArtefact` binding.
    * @customConstructor CBlackGraviArtefact
    * @group xr_artefact
    */
@@ -91,7 +94,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CDummyArtefact` artefacts.
    *
-   * @source C++ class CDummyArtefact : CArtefact
+   * @source `src/xrGame/artefact_script.cpp`, `CDummyArtefact` binding.
    * @customConstructor CDummyArtefact
    * @group xr_artefact
    */
@@ -100,7 +103,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CElectricBall` artefacts.
    *
-   * @source C++ class CElectricBall : CArtefact
+   * @source `src/xrGame/artefact_script.cpp`, `CElectricBall` binding.
    * @customConstructor CElectricBall
    * @group xr_artefact
    */
@@ -109,7 +112,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CFadedBall` artefacts.
    *
-   * @source C++ class CFadedBall : CArtefact
+   * @source `src/xrGame/artefact_script.cpp`, `CFadedBall` binding.
    * @customConstructor CFadedBall
    * @group xr_artefact
    */
@@ -118,7 +121,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CGalantineArtefact` artefacts.
    *
-   * @source C++ class CGalantineArtefact : CArtefact
+   * @source `src/xrGame/artefact_script.cpp`, `CGalantineArtefact` binding.
    * @customConstructor CGalantineArtefact
    * @group xr_artefact
    */
@@ -127,7 +130,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CGraviArtefact` artefacts.
    *
-   * @source C++ class CGraviArtefact : CArtefact
+   * @source `src/xrGame/artefact_script.cpp`, `CGraviArtefact` binding.
    * @customConstructor CGraviArtefact
    * @group xr_artefact
    */
@@ -136,7 +139,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CMercuryBall` artefacts.
    *
-   * @source C++ class CMercuryBall : CArtefact
+   * @source `src/xrGame/artefact_script.cpp`, `CMercuryBall` binding.
    * @customConstructor CMercuryBall
    * @group xr_artefact
    */
@@ -145,7 +148,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CRustyHairArtefact` artefacts.
    *
-   * @source C++ class CRustyHairArtefact : CArtefact
+   * @source `src/xrGame/artefact_script.cpp`, `CRustyHairArtefact` binding.
    * @customConstructor CRustyHairArtefact
    * @group xr_artefact
    */

@@ -2,7 +2,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CMosquitoBald` anomaly objects.
    *
-   * @source C++ class CMosquitoBald : CGameObject
+   * @source `src/xrGame/MosquitoBald_script.cpp`, `CMosquitoBald` binding.
    * @customConstructor CMosquitoBald
    * @group xr_anomaly
    *
@@ -14,7 +14,7 @@ declare module "xray16" {
   /**
    * Client object binding for torch items.
    *
-   * @source C++ class CTorch : CGameObject
+   * @source `src/xrGame/torch_script.cpp`, `CTorch` binding.
    * @customConstructor CTorch
    * @group xr_anomaly
    *
@@ -26,7 +26,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CTorridZone` anomaly objects.
    *
-   * @source C++ class CTorridZone : CGameObject
+   * @source `src/xrGame/MosquitoBald_script.cpp`, `CTorridZone` binding.
    * @customConstructor CTorridZone
    * @group xr_anomaly
    */
@@ -35,7 +35,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CRadioactiveZone` anomaly objects.
    *
-   * @source C++ class CRadioactiveZone : CGameObject
+   * @source `src/xrGame/mincer_script.cpp`, `CRadioactiveZone` binding.
    * @customConstructor CRadioactiveZone
    * @group xr_anomaly
    */
@@ -44,7 +44,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CMincer` anomaly objects.
    *
-   * @source C++ class CMincer : CGameObject
+   * @source `src/xrGame/mincer_script.cpp`, `CMincer` binding.
    * @customConstructor CMincer
    * @group xr_anomaly
    */
@@ -53,7 +53,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CFracture` anomaly objects.
    *
-   * @source C++ class CFracture : CGameObject
+   * @source `src/xrGame/ai/monsters/fracture/fracture_script.cpp`, `CFracture` binding.
    * @customConstructor CFracture
    * @group xr_anomaly
    */
@@ -62,9 +62,34 @@ declare module "xray16" {
   /**
    * Client object binding for `CHairsZone` anomaly objects.
    *
-   * @source C++ class CHairsZone : CGameObject
+   * @source `src/xrGame/HairsZone_script.cpp`, `CHairsZone` binding.
    * @customConstructor CHairsZone
    * @group xr_anomaly
    */
   export class CHairsZone extends CGameObject {}
+
+  /**
+   * Client object binding for `CAmebaZone` anomaly objects.
+   *
+   * @source `src/xrGame/HairsZone_script.cpp`, `CAmebaZone` binding.
+   * @customConstructor CAmebaZone
+   * @group xr_anomaly
+   *
+   * @remarks
+   * Registered together with hair and no-gravity anomaly zones. Generic anomaly helpers are available through
+   * `CCustomZone`/`game_object` after checking the runtime class.
+   */
+  export class CAmebaZone extends CGameObject {}
+
+  /**
+   * Client object binding for `CNoGravityZone` anomaly objects.
+   *
+   * @source `src/xrGame/HairsZone_script.cpp`, `CNoGravityZone` binding.
+   * @customConstructor CNoGravityZone
+   * @group xr_anomaly
+   *
+   * @remarks
+   * Registered by the hair-zone script binding as a concrete anomaly wrapper.
+   */
+  export class CNoGravityZone extends CGameObject {}
 }

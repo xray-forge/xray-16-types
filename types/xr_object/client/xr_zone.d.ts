@@ -2,7 +2,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CSpaceRestrictor` zones.
    *
-   * @source C++ class CSpaceRestrictor : CGameObject
+   * @source `src/xrGame/space_restrictor_script.cpp`, `CSpaceRestrictor` binding.
    * @customConstructor CSpaceRestrictor
    * @group xr_zone
    *
@@ -13,21 +13,27 @@ declare module "xray16" {
   export class CSpaceRestrictor extends CGameObject {}
 
   /**
-   * Client object binding for `CCustomZone` zones.
+   * Runtime family wrapper for custom anomaly zones returned by `game_object.cast_CustomZone()`.
    *
-   * @source C++ class CCustomZone : public CSpaceRestrictor, public Feel::Touch
+   * @source `src/xrGame/script_game_object_script3.cpp`, `cast_CustomZone` binding.
    * @customConstructor CCustomZone
    * @group xr_zone
    *
    * @remarks
-   * Anomaly power and activation helpers on `game_object` require this family.
+   * No direct `CCustomZone` class constructor is registered in the script binding; concrete zone classes are exported
+   * separately. Anomaly power and activation helpers on `game_object` require this family.
    */
-  export class CCustomZone extends CSpaceRestrictor {}
+  export class CCustomZone extends CSpaceRestrictor {
+    /**
+     * Cast-only runtime wrapper.
+     */
+    protected constructor();
+  }
 
   /**
    * Client object binding for `CLevelChanger` zones.
    *
-   * @source C++ class CLevelChanger : CGameObject
+   * @source `src/xrGame/actor_script.cpp`, `CLevelChanger` binding.
    * @customConstructor CLevelChanger
    * @group xr_zone
    *
@@ -39,7 +45,7 @@ declare module "xray16" {
   /**
    * Client object binding for `smart_cover_object` zones.
    *
-   * @source C++ class smart_cover_object : CGameObject
+   * @source `src/xrGame/smart_cover_object_script.cpp`, `smart_cover_object` binding.
    * @customConstructor smart_cover_object
    * @group xr_zone
    *
@@ -49,9 +55,9 @@ declare module "xray16" {
   export class smart_cover_object extends CGameObject {}
 
   /**
-   * Client object binding for `ce_script_zone` zones.
+   * Server object binding for script zone spawn entities.
    *
-   * @source C++ class ce_script_zone : DLL_Pure
+   * @source `src/xrGame/script_zone_script.cpp`, `ce_script_zone` binding.
    * @customConstructor ce_script_zone
    * @group xr_zone
    *
@@ -67,9 +73,9 @@ declare module "xray16" {
   }
 
   /**
-   * Client object binding for `ce_smart_zone` zones.
+   * Server object binding for smart-zone spawn entities.
    *
-   * @source C++ class ce_smart_zone : DLL_Pure
+   * @source `src/xrGame/script_zone_script.cpp`, `ce_smart_zone` binding.
    * @customConstructor ce_smart_zone
    * @group xr_zone
    *

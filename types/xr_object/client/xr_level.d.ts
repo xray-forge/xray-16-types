@@ -2,12 +2,13 @@ declare module "xray16" {
   /**
    * Campfire anomaly object.
    *
-   * @source C++ class CZoneCampfire : CGameObject
+   * @source `src/xrGame/MosquitoBald_script.cpp`, `CZoneCampfire` binding.
    * @customConstructor CZoneCampfire
    * @group xr_level
    *
    * @remarks
-   * Campfire controls require this runtime object. They are not available on generic anomaly zones.
+   * Campfire controls require this runtime object. The binding is registered next to mosquito-bald anomalies and
+   * exposes only on/off state controls; generic anomaly zones do not have these methods.
    */
   export class CZoneCampfire extends CGameObject {
     /**
@@ -21,12 +22,12 @@ declare module "xray16" {
     public is_on(): boolean;
 
     /**
-     * Turn the campfire on.
+     * Switch the campfire into its enabled state and start native idle effects.
      */
     public turn_on(): void;
 
     /**
-     * Turn the campfire off.
+     * Switch the campfire into its disabled state and stop native idle effects.
      */
     public turn_off(): void;
   }

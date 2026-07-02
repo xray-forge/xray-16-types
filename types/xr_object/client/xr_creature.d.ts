@@ -1,21 +1,26 @@
 declare module "xray16" {
   /**
-   * Client object binding for `CEntityAlive`.
+   * Runtime family wrapper for alive entities returned by `game_object.cast_EntityAlive()`.
    *
-   * @source C++ class CEntityAlive : public CEntity
+   * @source `src/xrGame/script_game_object_script3.cpp`, `cast_EntityAlive` binding.
    * @customConstructor CEntityAlive
    * @group xr_creature
    *
    * @remarks
-   * Base wrapper for alive objects. Use `game_object.is_entity_alive()` or a narrower predicate before calling
-   * alive-object methods from the shared `game_object` surface.
+   * This is a cast target, not a directly registered script constructor. Use `game_object.is_entity_alive()` or a
+   * narrower predicate before calling alive-object methods from the shared `game_object` surface.
    */
-  export class CEntityAlive extends CGameObject {}
+  export class CEntityAlive extends CGameObject {
+    /**
+     * Cast-only runtime wrapper.
+     */
+    protected constructor();
+  }
 
   /**
    * Client object binding for `CActor`.
    *
-   * @source C++ class CActor : CGameObject
+   * @source `src/xrGame/actor_script.cpp`, `CActor` binding.
    * @customConstructor CActor
    * @group xr_creature
    *
@@ -25,22 +30,27 @@ declare module "xray16" {
   export class CActor extends CGameObject {}
 
   /**
-   * Client object binding for `CCustomMonster`.
+   * Runtime family wrapper for custom monsters returned by `game_object.cast_Monster()`.
    *
-   * @source C++ class CCustomMonster : CGameObject
+   * @source `src/xrGame/script_game_object_script3.cpp`, `cast_Monster` binding.
    * @customConstructor CCustomMonster
    * @group xr_creature
    *
    * @remarks
-   * Base wrapper for custom monsters. Monster sound, range, memory, home, and enemy-transfer helpers require this
-   * family or one of its subclasses.
+   * This is a cast target for monster-specific helpers. Sound, range, memory, home, and enemy-transfer helpers require
+   * this family or one of its concrete runtime classes.
    */
-  export class CCustomMonster extends CGameObject {}
+  export class CCustomMonster extends CGameObject {
+    /**
+     * Cast-only runtime wrapper.
+     */
+    protected constructor();
+  }
 
   /**
-   * Client object binding for `CInventoryOwner`.
+   * Runtime family wrapper for inventory owners returned by `game_object.cast_InventoryOwner()`.
    *
-   * @source C++ class CInventoryOwner : CGameObject
+   * @source `src/xrGame/script_game_object_script3.cpp`, `cast_InventoryOwner` binding.
    * @customConstructor CInventoryOwner
    * @group xr_creature
    *
@@ -48,12 +58,17 @@ declare module "xray16" {
    * Inventory-owner APIs cover NPCs, traders, corpses, boxes, and the actor depending on runtime class. Check the
    * object kind before assuming dialog, trade, belt, or inventory-box behavior exists.
    */
-  export class CInventoryOwner extends CGameObject {}
+  export class CInventoryOwner extends CGameObject {
+    /**
+     * Cast-only runtime wrapper.
+     */
+    protected constructor();
+  }
 
   /**
-   * Client object binding for `CInventoryItem`.
+   * Runtime family wrapper for inventory items returned by `game_object.cast_InventoryItem()`.
    *
-   * @source C++ class CInventoryItem : CGameObject
+   * @source `src/xrGame/script_game_object_script3.cpp`, `cast_InventoryItem` binding.
    * @customConstructor CInventoryItem
    * @group xr_creature
    *
@@ -61,12 +76,17 @@ declare module "xray16" {
    * Base wrapper for inventory items. Item condition, cost, upgrades, and slot behavior depend on the concrete item
    * class.
    */
-  export class CInventoryItem extends CGameObject {}
+  export class CInventoryItem extends CGameObject {
+    /**
+     * Cast-only runtime wrapper.
+     */
+    protected constructor();
+  }
 
   /**
    * Client object binding for `CZombie`.
    *
-   * @source C++ class CZombie : CGameObject
+   * @source `src/xrGame/ai/monsters/zombie/zombie_script.cpp`, `CZombie` binding.
    * @customConstructor CZombie
    * @group xr_creature
    */
@@ -75,7 +95,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CController`.
    *
-   * @source C++ class CController : CGameObject
+   * @source `src/xrGame/ai/monsters/controller/controller_script.cpp`, `CController` binding.
    * @customConstructor CController
    * @group xr_creature
    */
@@ -84,7 +104,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CTushkano`.
    *
-   * @source C++ class CTushkano : CGameObject
+   * @source `src/xrGame/ai/monsters/tushkano/tushkano_script.cpp`, `CTushkano` binding.
    * @customConstructor CTushkano
    * @group xr_creature
    */
@@ -93,7 +113,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CBurer`.
    *
-   * @source C++ class CBurer : CGameObject
+   * @source `src/xrGame/ai/monsters/burer/burer_script.cpp`, `CBurer` binding.
    * @customConstructor CBurer
    * @group xr_creature
    */
@@ -102,7 +122,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CCat`.
    *
-   * @source C++ class CCat : CGameObject
+   * @source `src/xrGame/ai/monsters/cat/cat_script.cpp`, `CCat` binding.
    * @customConstructor CCat
    * @group xr_creature
    */
@@ -111,7 +131,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CChimera`.
    *
-   * @source C++ class CChimera : CGameObject
+   * @source `src/xrGame/ai/monsters/chimera/chimera_script.cpp`, `CChimera` binding.
    * @customConstructor CChimera
    * @group xr_creature
    */
@@ -120,7 +140,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CPoltergeist`.
    *
-   * @source C++ class CPoltergeist : CGameObject
+   * @source `src/xrGame/ai/monsters/poltergeist/poltergeist_script.cpp`, `CPoltergeist` binding.
    * @customConstructor CPoltergeist
    * @group xr_creature
    */
@@ -129,7 +149,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CPseudoGigant`.
    *
-   * @source C++ class CPseudoGigant : CGameObject
+   * @source `src/xrGame/ai/monsters/pseudogigant/pseudogigant_script.cpp`, `CPseudoGigant` binding.
    * @customConstructor CPseudoGigant
    * @group xr_creature
    */
@@ -138,7 +158,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CPsyDog`.
    *
-   * @source C++ class CPsyDog : CGameObject
+   * @source `src/xrGame/ai/monsters/pseudodog/pseudodog_script.cpp`, `CPsyDog` binding.
    * @customConstructor CPsyDog
    * @group xr_creature
    */
@@ -147,7 +167,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CPsyDogPhantom`.
    *
-   * @source C++ class CPsyDogPhantom : CGameObject
+   * @source `src/xrGame/ai/monsters/pseudodog/pseudodog_script.cpp`, `CPsyDogPhantom` binding.
    * @customConstructor CPsyDogPhantom
    * @group xr_creature
    */
@@ -156,12 +176,13 @@ declare module "xray16" {
   /**
    * Client object binding for `CAI_Bloodsucker`.
    *
-   * @source C++ class CAI_Bloodsucker : CGameObject
+   * @source `src/xrGame/ai/monsters/bloodsucker/bloodsucker_script.cpp`, `CAI_Bloodsucker` binding.
    * @customConstructor CAI_Bloodsucker
    * @group xr_creature
    *
    * @remarks
-   * Bloodsucker-specific visibility helpers are not valid for other custom monsters.
+   * Bloodsucker-specific visibility helpers are not valid for other custom monsters. The shared `game_object` wrapper
+   * also exposes this helper and logs a script error when the object is not this runtime class.
    */
   export class CAI_Bloodsucker extends CGameObject {
     /**
@@ -175,7 +196,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CAI_Boar`.
    *
-   * @source C++ class CAI_Boar : CGameObject
+   * @source `src/xrGame/ai/monsters/boar/boar_script.cpp`, `CAI_Boar` binding.
    * @customConstructor CAI_Boar
    * @group xr_creature
    */
@@ -184,7 +205,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CAI_Dog`.
    *
-   * @source C++ class CAI_Dog : CGameObject
+   * @source `src/xrGame/ai/monsters/dog/dog_script.cpp`, `CAI_Dog` binding.
    * @customConstructor CAI_Dog
    * @group xr_creature
    */
@@ -193,7 +214,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CAI_Flesh`.
    *
-   * @source C++ class CAI_Flesh : CGameObject
+   * @source `src/xrGame/ai/monsters/flesh/flesh_script.cpp`, `CAI_Flesh` binding.
    * @customConstructor CAI_Flesh
    * @group xr_creature
    */
@@ -202,7 +223,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CAI_PseudoDog`.
    *
-   * @source C++ class CAI_PseudoDog : CGameObject
+   * @source `src/xrGame/ai/monsters/pseudodog/pseudodog_script.cpp`, `CAI_PseudoDog` binding.
    * @customConstructor CAI_PseudoDog
    * @group xr_creature
    */
@@ -211,7 +232,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CAI_Stalker`.
    *
-   * @source C++ class CAI_Stalker : CGameObject
+   * @source `src/xrGame/ai/stalker/ai_stalker_script.cpp`, `CAI_Stalker` binding.
    * @customConstructor CAI_Stalker
    * @group xr_creature
    *
@@ -223,7 +244,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CAI_Trader`.
    *
-   * @source C++ class CAI_Trader : CGameObject
+   * @source `src/xrGame/ai/trader/ai_trader_script.cpp`, `CAI_Trader` binding.
    * @customConstructor CAI_Trader
    * @group xr_creature
    *
@@ -235,7 +256,7 @@ declare module "xray16" {
   /**
    * Client object binding for `CSnork`.
    *
-   * @source C++ class CSnork : CGameObject
+   * @source `src/xrGame/ai/monsters/snork/snork_script.cpp`, `CSnork` binding.
    * @customConstructor CSnork
    * @group xr_creature
    */
