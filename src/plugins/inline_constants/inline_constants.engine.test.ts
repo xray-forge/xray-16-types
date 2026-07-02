@@ -38,9 +38,7 @@ export function get(): unknown {
     });
 
     expect(errors).toEqual([]);
-    expect(lua["main.lua"]).toContain("stalker_ids.action_dying");
-    expect(lua["main.lua"]).toContain("10000");
-    expect(lua["main.lua"]).toContain("stalker_ids.action_base + 2");
+    expect(lua["main.lua"]).toContain("return {stalker_ids.action_dying, 10000, stalker_ids.action_base + 2}");
     expect(lua["main.lua"]).not.toContain("EActionId");
     expect(lua["main.lua"]).not.toContain('require("ids")');
     expect(lua["ids.lua"]).not.toContain("EActionId");
@@ -72,7 +70,9 @@ export function get(): unknown {
 
     expect(errors).toEqual([]);
     // References are substituted, declared literal types are never baked:
-    expect(lua["main.lua"]).toContain("{stalker_ids.action_dying, stalker_ids.action_base * 2, -stalker_ids.action_base}");
+    expect(lua["main.lua"]).toContain(
+      "return {stalker_ids.action_dying, stalker_ids.action_base * 2, -stalker_ids.action_base}"
+    );
   });
 
   it("should substitute engine references in object properties and spread expansion", () => {
