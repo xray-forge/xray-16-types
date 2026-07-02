@@ -3664,7 +3664,7 @@ declare module "xray16" {
      * @param relation - Relation id.
      * @param object - Target object.
      */
-    public set_relation(relation: number, object: game_object): void;
+    public set_relation(relation: TXR_relation, object: game_object): void;
 
     /**
      * Make the smart-cover target mode fire without lookout.

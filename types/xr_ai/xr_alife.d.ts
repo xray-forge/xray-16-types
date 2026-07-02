@@ -1834,12 +1834,12 @@ declare module "xray16" {
   /**
    * @group xr_alife
    */
-  type TXR_class_key = EnumeratedStaticsKeys<typeof clsid>;
+  export type TXR_class_key = EnumeratedStaticsKeys<typeof clsid>;
 
   /**
    * @group xr_alife
    */
-  type TXR_class_id = EnumeratedStaticsValues<typeof clsid>;
+  export type TXR_class_id = EnumeratedStaticsValues<typeof clsid>;
 
   /**
    * Factory for ALife server object bindings.

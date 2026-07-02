@@ -141,7 +141,7 @@ declare module "xray16" {
    *
    * @group xr_ui_event
    */
-  type TXR_ui_event = EnumeratedStaticsValues<typeof ui_events>;
+  export type TXR_ui_event = EnumeratedStaticsValues<typeof ui_events>;
 
   /**
    * Keyboard scan-code constants.
@@ -1202,14 +1202,14 @@ declare module "xray16" {
    *
    * @group xr_ui_event
    */
-  type TXR_DIK_key_name = EnumeratedStaticsKeys<typeof DIK_keys>;
+  export type TXR_DIK_key_name = EnumeratedStaticsKeys<typeof DIK_keys>;
 
   /**
    * DIK, mouse, or gamepad key code.
    *
    * @group xr_ui_event
    */
-  type TXR_DIK_key = EnumeratedStaticsValues<typeof DIK_keys>;
+  export type TXR_DIK_key = EnumeratedStaticsValues<typeof DIK_keys>;
 
   /**
    * Game action binding constants.

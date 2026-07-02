@@ -88,7 +88,7 @@ declare module "xray16" {
   /**
    * @group xr_game
    */
-  type TXR_GAME_TYPE = EnumeratedStaticsValues<typeof GAME_TYPE>;
+  export type TXR_GAME_TYPE = EnumeratedStaticsValues<typeof GAME_TYPE>;
 
   /**
    * Single-player difficulty constants.

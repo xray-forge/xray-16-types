@@ -216,16 +216,26 @@ declare module "xray16" {
   export const relation_registry: IXR_relation_registry;
 
   /**
-   * Enumeration of relations.
+   * Relation type names exposed through the `game_object.relation` Lua enum.
    *
-   * ERelationTypeFriend - 0
-   * eRelationTypeNeutral - 1
-   * eRelationTypeEnemy - 2
-   * eRelationTypeWorstEnemy - 3
-   * eRelationTypeLast - 4
-   * eRelationTypeDummy - -1.
-   *
+   * @source `src/xrGame/script_game_object_script2.cpp`, `game_object.relation` enum.
    * @group xr_relation
    */
-  export type TXR_relation = 0 | 1 | 2 | 3;
-}
+  export type TXR_relation_name = "friend" | "neutral" | "enemy" | "dummy";
+
+  /**
+   * Relation type returned by `game_object.relation()` and accepted by `game_object.set_relation()`.
+   *
+   * @source C++ enum ALife::ERelationType
+   * @group xr_relation
+   *
+   * @remarks
+   * `game_object.relation()` returns `game_object.dummy` when either object cannot be treated as a living entity.
+   * `3` is the native `eRelationTypeWorstEnemy` value; it is not exported as a named Lua enum member.
+   */
+  export type TXR_relation =
+    | typeof game_object.dummy
+    | typeof game_object.friend
+    | typeof game_object.neutral
+    | typeof game_object.enemy
+    | 3;}

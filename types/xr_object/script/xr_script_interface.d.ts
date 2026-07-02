@@ -82,7 +82,11 @@ declare module "xray16" {
    * @source `src/xrGame/script_game_object_script2.cpp`, `game_object.EPathType` enum.
    * @group xr_script_interface
    */
-  export type TXR_game_object_path = 0 | 1 | 2 | 3 | number;
+  export type TXR_game_object_path =
+    | typeof game_object.game_path
+    | typeof game_object.level_path
+    | typeof game_object.patrol_path
+    | typeof game_object.no_path;
 
   /**
    * Game-graph destination selection mode for stalker movement.
