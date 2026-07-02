@@ -4,3 +4,4 @@ export * from "./errors";
 export * from "./evaluation";
 export * from "./transformers";
 export * from "./validation";
+export * from "./virtual";

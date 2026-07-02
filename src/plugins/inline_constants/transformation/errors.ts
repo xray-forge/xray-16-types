@@ -1,9 +1,20 @@
 import { createErrorDiagnosticFactory } from "../../utils/diagnostics";
 
-import { INLINE_TAG } from "./constants";
+import { INLINE_TAG, VIRTUAL_TAG } from "./constants";
 
 export const createUnsupportedDeclarationError = createErrorDiagnosticFactory(
-  `'@${INLINE_TAG}' is supported only for enums and module-level 'const' declarations.`
+  `'@${INLINE_TAG}' and '@${VIRTUAL_TAG}' are supported only for enums and module-level 'const' declarations.`
+);
+
+export const createVirtualValueReferenceError = createErrorDiagnosticFactory(
+  (name: string) =>
+    `'@${VIRTUAL_TAG}' declaration '${name}' is referenced as a value and cannot be erased, ` +
+    `demote it to '@${INLINE_TAG}' or make the reference computable on build time.`
+);
+
+export const createImpureVirtualModuleError = createErrorDiagnosticFactory(
+  `Modules with '@${VIRTUAL_TAG}' declarations may contain only type-only imports, ` +
+  `'@${INLINE_TAG}'/'@${VIRTUAL_TAG}' constants, constant enums, type aliases and interfaces.`
 );
 
 export const createNotModuleLevelError = createErrorDiagnosticFactory(

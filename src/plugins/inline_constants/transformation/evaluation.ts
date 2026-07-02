@@ -5,10 +5,39 @@ import {
   hasInlineTag,
   isModuleLevelConst,
   isReadonlyModuleConstProperty,
-  resolveMemberSymbol,
   unwrapInitializer,
 } from "./ast";
 import { FOLDABLE_NAMESPACE_CONSTANTS, type TInlineValue } from "./constants";
+
+/**
+ * Resolve the member symbol for a property or element access expression.
+ * When direct symbol resolution fails, element access is resolved through the object type. This supports
+ * literal keys and keys that fold to constants at build time, such as 'table[misc.device_pda]'.
+ *
+ * @param checker - Program type checker.
+ * @param node - Access expression to resolve symbol for.
+ * @returns Resolved member symbol or null.
+ */
+export function resolveMemberSymbol(
+  checker: ts.TypeChecker,
+  node: ts.PropertyAccessExpression | ts.ElementAccessExpression
+): ts.Symbol | null {
+  const symbol: ts.Symbol | undefined = checker.getSymbolAtLocation(node);
+
+  if (symbol !== undefined) {
+    return symbol;
+  }
+
+  if (ts.isElementAccessExpression(node)) {
+    const key: TInlineValue | null = evaluateConstantExpression(checker, node.argumentExpression, new Set());
+
+    if (typeof key === "string" || typeof key === "number") {
+      return checker.getTypeAtLocation(node.expression).getProperty(String(key)) ?? null;
+    }
+  }
+
+  return null;
+}
 
 /**
  * Get literal value of symbol declared type, if it is a unit type.
@@ -16,7 +45,7 @@ import { FOLDABLE_NAMESPACE_CONSTANTS, type TInlineValue } from "./constants";
  *
  * @param checker - Program type checker.
  * @param symbol - Symbol to get declared literal value for.
- * @returns Literal value or null.
+ * @returns Literal value, or null when the declared type is not a unit type.
  */
 export function getDeclaredLiteralValue(checker: ts.TypeChecker, symbol: ts.Symbol): TInlineValue | null {
   const declaration: ts.Declaration | undefined = symbol.valueDeclaration;
@@ -43,8 +72,8 @@ export function getDeclaredLiteralValue(checker: ts.TypeChecker, symbol: ts.Symb
 }
 
 /**
- * Convert folded value to string for concatenation contexts.
- * Non-integer numbers are rejected - JS 'String()' and LuaJIT 'tostring' format them differently
+ * Convert a folded value to a string for concatenation contexts.
+ * Non-integer numbers are rejected because JS 'String()' and LuaJIT 'tostring' format them differently
  * (17 significant digits vs '%.14g'), so folding would change runtime-visible output.
  *
  * @param value - Folded value to convert.
@@ -63,23 +92,24 @@ export function toFoldedString(value: TInlineValue | null): string | null {
 }
 
 /**
- * Guard folded numeric results against NaN / Infinity that cannot be emitted as lua literals.
+ * Guard folded numeric results against NaN and Infinity, which cannot be emitted as Lua literals.
  *
  * @param value - Folded numeric value.
- * @returns Finite number or null.
+ * @returns Finite number, or null when the value cannot be emitted as a Lua literal.
  */
 export function toFiniteNumber(value: number): number | null {
   return Number.isFinite(value) ? value : null;
 }
 
 /**
- * Fold binary expression of constant operands with JS semantics.
- * JS semantics are the correct target since tstl preserves them at runtime (e.g. '%' on negative operands).
+ * Fold a binary expression with constant operands using JavaScript semantics.
+ * JavaScript semantics are the correct target because TSTL preserves them at runtime,
+ * including '%' behavior for negative operands.
  *
  * @param operator - Binary operator kind.
  * @param left - Folded left operand.
  * @param right - Folded right operand.
- * @returns Folded value or null.
+ * @returns Folded value, or null when the operation is not safe to fold.
  */
 export function foldBinaryExpression(
   operator: ts.SyntaxKind,
@@ -141,7 +171,7 @@ export function foldBinaryExpression(
 }
 
 /**
- * Evaluate expression to a compile-time constant value when possible.
+ * Evaluate an expression to a compile-time constant value when possible.
  * Supports literals, unary/binary arithmetic, string concatenation, template literals,
  * references to enum members / module-level const scalars / `as const` object properties
  * and whitelisted namespace constants like 'math.pi'.
@@ -149,7 +179,7 @@ export function foldBinaryExpression(
  * @param checker - Program type checker.
  * @param expression - Expression to evaluate.
  * @param seen - Set of declarations on current resolution path, guards from circular references.
- * @returns Folded constant value or null.
+ * @returns Folded constant value, or null when the expression is not safe to fold.
  */
 export function evaluateConstantExpression(
   checker: ts.TypeChecker,
@@ -259,14 +289,14 @@ export function evaluateConstantExpression(
 }
 
 /**
- * Resolve referenced symbol to a compile-time constant value when the reference is safe to fold.
+ * Resolve a referenced symbol to a compile-time constant value when the reference is safe to fold.
  * Safe references are enum members, module-level const scalars and readonly `as const` object properties -
  * values that cannot legally change at runtime. Tags are not required on referenced declarations.
  *
  * @param checker - Program type checker.
  * @param symbol - Referenced symbol to resolve.
  * @param seen - Set of declarations on current resolution path.
- * @returns Folded constant value or null.
+ * @returns Folded constant value, or null when the symbol is not safe to fold.
  */
 export function resolveConstantSymbol(
   checker: ts.TypeChecker,
@@ -304,13 +334,14 @@ export function resolveConstantSymbol(
 }
 
 /**
- * Get constant value of a declaration - declared unit type first, initializer folding as fallback.
+ * Get the constant value of a declaration.
+ * Declared unit types are used first, with initializer folding as a fallback.
  * Safety and tagging requirements are checked by callers.
  *
  * @param checker - Program type checker.
  * @param symbol - Symbol to get value for.
  * @param seen - Set of declarations on current resolution path.
- * @returns Constant value or null.
+ * @returns Constant value, or null when the declaration cannot be folded.
  */
 export function getComputedDeclarationValue(
   checker: ts.TypeChecker,
@@ -356,12 +387,12 @@ export function getComputedDeclarationValue(
 }
 
 /**
- * Get inline-able literal value for a symbol resolved from an access expression or identifier.
- * Only symbols declared inside `@inline` tagged enums / variable statements produce values.
+ * Get the inlineable literal value for a symbol resolved from an access expression or identifier.
+ * Only symbols declared inside tagged enums or variable statements produce values.
  *
  * @param checker - Program type checker.
  * @param symbol - Symbol to resolve inline value for.
- * @returns Literal value or null.
+ * @returns Literal value, or null when the symbol is not tagged for inlining.
  */
 export function tryGetInlineValue(checker: ts.TypeChecker, symbol: ts.Symbol): TInlineValue | null {
   const declaration: ts.Declaration | undefined = symbol.valueDeclaration;

@@ -4,14 +4,20 @@
 export const INLINE_TAG: string = "inline";
 
 /**
- * Value types that can be inlined as lua literals.
+ * JSDoc tag marking declarations for compile-time inlining and erasure from emitted output.
+ * Includes `@inline` behavior and requires every value reference to be erasable.
+ */
+export const VIRTUAL_TAG: string = "virtual";
+
+/**
+ * Value types that can be inlined as Lua literals.
  */
 export type TInlineValue = string | number | boolean;
 
 /**
- * Numeric namespace constants that are identical IEEE 754 doubles in build environment and LuaJIT runtime.
- * Covers both TS 'Math' and lua 'math' namespaces, function calls are intentionally not supported
- * since libm implementations may differ between build machine and game runtime.
+ * Numeric namespace constants with identical IEEE 754 double values in the build environment and LuaJIT runtime.
+ * Covers both TS 'Math' and Lua 'math' namespaces. Function calls are intentionally not supported because
+ * libm implementations may differ between build machine and game runtime.
  */
 export const FOLDABLE_NAMESPACE_CONSTANTS: Record<string, Record<string, number>> = {
   Math: {

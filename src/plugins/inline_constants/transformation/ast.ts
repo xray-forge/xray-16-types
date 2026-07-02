@@ -1,19 +1,41 @@
 import * as ts from "typescript";
 
-import { INLINE_TAG } from "./constants";
+import { INLINE_TAG, VIRTUAL_TAG } from "./constants";
 
 /**
- * Check whether node is annotated with `@inline` JSDoc tag.
+ * Check whether a node has the provided JSDoc tag.
  *
  * @param node - Node to check tags for.
- * @returns Whether the node has `@inline` JSDoc tag.
+ * @param tag - Tag name to look for.
+ * @returns Whether the node has the JSDoc tag.
  */
-export function hasInlineTag(node: ts.Node): boolean {
-  return ts.getJSDocTags(node).some((it) => it.tagName.text === INLINE_TAG);
+function hasJsDocTag(node: ts.Node, tag: string): boolean {
+  return ts.getJSDocTags(node).some((it) => it.tagName.text === tag);
 }
 
 /**
- * Find variable statement containing provided declaration node, if any.
+ * Check whether a node is whitelisted for inlining.
+ * Both `@inline` and `@virtual` enable inlining; `@virtual` adds erasure rules elsewhere.
+ *
+ * @param node - Node to check tags for.
+ * @returns Whether the node is whitelisted for inlining.
+ */
+export function hasInlineTag(node: ts.Node): boolean {
+  return hasJsDocTag(node, INLINE_TAG) || hasJsDocTag(node, VIRTUAL_TAG);
+}
+
+/**
+ * Check whether a node has the `@virtual` JSDoc tag.
+ *
+ * @param node - Node to check tags for.
+ * @returns Whether the node has `@virtual` JSDoc tag.
+ */
+export function hasVirtualTag(node: ts.Node): boolean {
+  return hasJsDocTag(node, VIRTUAL_TAG);
+}
+
+/**
+ * Find the variable statement that contains the provided declaration node.
  *
  * @param node - Declaration node to walk up from.
  * @returns Containing variable statement or null.
@@ -33,7 +55,7 @@ export function getContainingVariableStatement(node: ts.Node): ts.VariableStatem
 }
 
 /**
- * Unwrap initializer expression from as/satisfies/parenthesized wrappers.
+ * Unwrap an initializer expression from `as`, `satisfies`, and parenthesized wrappers.
  *
  * @param expression - Initializer expression to unwrap.
  * @returns Unwrapped expression or null.
@@ -58,17 +80,17 @@ export function unwrapInitializer(expression?: ts.Expression): ts.Expression | n
  * Check whether variable statement is a module-level `const` declaration.
  *
  * @param statement - Variable statement to check.
- * @returns Whether statement is module-level const.
+ * @returns Whether the statement is a module-level const.
  */
 export function isModuleLevelConst(statement: ts.VariableStatement): boolean {
   return ts.isSourceFile(statement.parent) && (statement.declarationList.flags & ts.NodeFlags.Const) !== 0;
 }
 
 /**
- * Check whether expression is wrapped with `as const` assertion, possibly through parens/satisfies wrappers.
+ * Check whether an expression is wrapped in an `as const` assertion, possibly through parens/satisfies wrappers.
  *
  * @param expression - Expression to check.
- * @returns Whether expression has `as const` assertion.
+ * @returns Whether the expression has an `as const` assertion.
  */
 export function hasAsConstAssertion(expression?: ts.Expression): boolean {
   let current: ts.Expression | undefined = expression;
@@ -93,7 +115,7 @@ export function hasAsConstAssertion(expression?: ts.Expression): boolean {
 }
 
 /**
- * Check whether property is declared inside an `as const` object literal assigned to a module-level const.
+ * Check whether a property is declared inside an `as const` object literal assigned to a module-level const.
  * Such properties are readonly and cannot be legally reassigned, so their values are stable at runtime.
  *
  * @param declaration - Property declaration to check.
@@ -137,10 +159,10 @@ export function isReadonlyModuleConstProperty(
 }
 
 /**
- * Check whether identifier node is used in a value position where it can be replaced with a literal.
+ * Check whether an identifier is used in a value position where it can be replaced with a literal.
  *
  * @param node - Identifier node to check.
- * @returns Whether identifier is a replace-able value usage.
+ * @returns Whether the identifier is a replaceable value usage.
  */
 export function isValueUsagePosition(node: ts.Identifier): boolean {
   const parent: ts.Node | undefined = node.parent;
@@ -196,32 +218,4 @@ export function isValueUsagePosition(node: ts.Identifier): boolean {
   }
 
   return true;
-}
-
-/**
- * Resolve member symbol for property/element access expression.
- * Element access with literal key is resolved through object type when direct symbol resolution fails.
- *
- * @param checker - Program type checker.
- * @param node - Access expression to resolve symbol for.
- * @returns Resolved member symbol or null.
- */
-export function resolveMemberSymbol(
-  checker: ts.TypeChecker,
-  node: ts.PropertyAccessExpression | ts.ElementAccessExpression
-): ts.Symbol | null {
-  const symbol: ts.Symbol | undefined = checker.getSymbolAtLocation(node);
-
-  if (symbol !== undefined) {
-    return symbol;
-  }
-
-  if (
-    ts.isElementAccessExpression(node) &&
-    (ts.isStringLiteralLike(node.argumentExpression) || ts.isNumericLiteral(node.argumentExpression))
-  ) {
-    return checker.getTypeAtLocation(node.expression).getProperty(node.argumentExpression.text) ?? null;
-  }
-
-  return null;
 }

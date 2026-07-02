@@ -115,17 +115,17 @@ This avoids temporary result locals for patterns like `return condition ? first 
 
 ### inline_constants
 
-Plugin inlining compile-time constant values of `@inline` JSDoc tagged declarations.\
+Plugin that inlines compile-time constants from declarations tagged with `@inline` or `@virtual`.\
 Supported targets are enums, module-level `as const` object literals and module-level scalar constants.\
-Member accesses are replaced with literal values in place, while original tables are still emitted,
-so iteration / reverse mapping / whole-object usages keep working.\
+Values may be literals or expressions that can be folded at build time: arithmetic, string concatenation,
+template literals and references to other constant declarations.\
 Tagged declarations act as an explicit whitelist and produce build errors when they cannot be inlined.
 
-Values may be literals or expressions foldable on build time - arithmetic, string concatenation,
-template literals and references to other constant declarations (enum members, module-level const scalars,
-`as const` object properties, whitelisted namespace constants like `math.pi`).\
-Runtime-dependent expressions (function calls, mutable object properties, values producing NaN / Infinity)
-are rejected with build errors.
+- `@inline` replaces accesses with literal values but still emits the original declaration, so iteration,
+  reverse mapping and whole-object usages keep working. Import bindings that are no longer used at runtime
+  are stripped; if the target module is proven pure, its `require` is dropped too.
+- `@virtual` includes `@inline` behavior and also removes the declaration from emitted output. Every value
+  reference must be computable at build time. Object spreads of virtual objects are expanded to table literals.
 
 ```typescript
 /**
@@ -137,18 +137,15 @@ export const medkits = {
 } as const;
 
 /**
- * @inline
+ * @virtual
  */
 export const TIMEOUT: number = 60 * 1000;
 
-/**
- * @inline
- */
-export const PI_DEGREE: number = math.pi / 180;
-
 // Build time: `medkits.medkit_army` access is emitted as plain "medkit_army" string literal.
-// Build time: `TIMEOUT` reference is emitted as 60000, `PI_DEGREE` as 0.017453292519943295.
+// Build time: `TIMEOUT` reference is emitted as 60000 and the declaration is erased from output.
 ```
+
+See [src/plugins/inline_constants/README.md](src/plugins/inline_constants/README.md) for full documentation.
 
 ### inject_tracy_zones
 

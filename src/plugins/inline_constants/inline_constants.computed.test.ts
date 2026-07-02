@@ -80,6 +80,25 @@ export function get(): unknown {
     expect(lua["main.lua"]).toContain('{15, "zone_alpha_2"}');
   });
 
+  it("should inline element access with build-time computable keys", () => {
+    const { lua, errors } = transpile({
+      "main.ts": `
+/** @inline */
+export const misc = { device_pda: "device_pda" } as const;
+
+/** @inline */
+export const excluded = { [misc.device_pda]: true } as const;
+
+export function get(): boolean {
+  return excluded[misc.device_pda];
+}
+`,
+    });
+
+    expect(errors).toEqual([]);
+    expect(lua["main.lua"]).toContain("return true");
+  });
+
   it("should reject not foldable computed values", () => {
     const { errors } = transpile({
       "main.ts": `
