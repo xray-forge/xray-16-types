@@ -62,7 +62,7 @@ Plugins can be included in [tstl tsconfig](https://typescripttolua.github.io/doc
       { "name": "xray16/plugins/inject_filename" },
       { "name": "xray16/plugins/from_cast_utils" },
       { "name": "xray16/plugins/optimize_return_ternary" },
-      { "name": "xray16/plugins/inline_constants" },
+      { "name": "xray16/plugins/inline_constants/plugin" },
       { "name": "xray16/plugins/inject_tracy_zones" }
     ]
   }
