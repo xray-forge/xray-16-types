@@ -126,6 +126,20 @@ declare module "xray16" {
   export function log(this: void, text: string): void;
 
   /**
+   * Log a message directly to the engine log.
+   *
+   * @since OpenXRay 2026-01-01, e3b0e3c5, PR #2028
+   *
+   * @group xr_debug
+   *
+   * @remarks
+   * Unlike `log()`, this writes through `Msg` unconditionally in the native binding.
+   *
+   * @param text - Message to print.
+   */
+  export function log1(this: void, text: string): void;
+
+  /**
    * Log an error message and print the current script stack.
    *
    * @group xr_debug
@@ -150,6 +164,18 @@ declare module "xray16" {
    * @group xr_debug
    */
   export function flush(this: void): void;
+
+  /**
+   * Flush pending engine log output.
+   *
+   * @since OpenXRay 2026-01-01, e3b0e3c5, PR #2028
+   *
+   * @group xr_debug
+   *
+   * @remarks
+   * Calls the engine log flusher without the debug-build guard used by `flush()`.
+   */
+  export function flush1(this: void): void;
 
   /**
    * Get console object reference.

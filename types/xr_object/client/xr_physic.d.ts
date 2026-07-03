@@ -568,7 +568,6 @@ declare module "xray16" {
     protected constructor();
   }
 
-
   /**
    * Physics condition that becomes true on or after a selected physics step/time.
    *

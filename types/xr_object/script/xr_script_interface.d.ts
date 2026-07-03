@@ -311,106 +311,183 @@ declare module "xray16" {
 
     /**
      * Engine enum value for `callback.hud_animation_end`.
+     *
+     * @since OpenXRay 2024-08-09, e08b8073
      */
     public static readonly hud_animation_end: 36;
 
     /**
      * Engine enum value for `callback.key_press`.
+     *
+     * @since OpenXRay 2017-08-14, 713a513e
      */
     public static readonly key_press: 123;
 
     /**
      * Engine enum value for `callback.key_release`.
+     *
+     * @since OpenXRay 2017-08-14, 713a513e
      */
     public static readonly key_release: 124;
 
     /**
      * Engine enum value for `callback.key_hold`.
+     *
+     * @since OpenXRay 2017-08-14, 713a513e
      */
     public static readonly key_hold: 125;
 
     /**
      * Engine enum value for `callback.mouse_move`.
+     *
+     * @since OpenXRay 2017-08-14, 713a513e
      */
     public static readonly mouse_move: 127;
 
     /**
      * Engine enum value for `callback.mouse_wheel`.
+     *
+     * @since OpenXRay 2017-08-14, 713a513e
      */
     public static readonly mouse_wheel: 126;
 
     /**
+     * Alias for `callback.key_press`.
+     *
+     * @since OpenXRay 2026-01-01, e3b0e3c5, PR #2028
+     */
+    public static readonly on_key_press: 123;
+
+    /**
+     * Alias for `callback.key_release`.
+     *
+     * @since OpenXRay 2026-01-01, e3b0e3c5, PR #2028
+     */
+    public static readonly on_key_release: 124;
+
+    /**
+     * Alias for `callback.key_hold`.
+     *
+     * @since OpenXRay 2026-01-01, e3b0e3c5, PR #2028
+     */
+    public static readonly on_key_hold: 125;
+
+    /**
+     * Alias for `callback.mouse_wheel`.
+     *
+     * @since OpenXRay 2026-01-01, e3b0e3c5, PR #2028
+     */
+    public static readonly on_mouse_wheel: 126;
+
+    /**
+     * Alias for `callback.mouse_move`.
+     *
+     * @since OpenXRay 2026-01-01, e3b0e3c5, PR #2028
+     */
+    public static readonly on_mouse_move: 127;
+
+    /**
      * Engine enum value for `callback.controller_press`.
+     *
+     * @since OpenXRay 2022-01-01, 937fe9b6
      */
     public static readonly controller_press: 48;
 
     /**
      * Engine enum value for `callback.controller_release`.
+     *
+     * @since OpenXRay 2022-01-01, 937fe9b6
      */
     public static readonly controller_release: 49;
 
     /**
      * Engine enum value for `callback.controller_hold`.
+     *
+     * @since OpenXRay 2022-01-01, 937fe9b6
      */
     public static readonly controller_hold: 50;
 
     /**
      * Engine enum value for `callback.controller_attitude_change`.
+     *
+     * @since OpenXRay 2022-02-13, 663133a3, PR #943
      */
     public static readonly controller_attitude_change: 51;
 
     /**
      * Engine enum value for `callback.item_to_belt`.
+     *
+     * @since OpenXRay 2024-08-09, e08b8073
      */
     public static readonly item_to_belt: 37;
 
     /**
      * Engine enum value for `callback.item_to_slot`.
+     *
+     * @since OpenXRay 2024-08-09, e08b8073
      */
     public static readonly item_to_slot: 38;
 
     /**
      * Engine enum value for `callback.item_to_ruck`.
+     *
+     * @since OpenXRay 2024-08-09, e08b8073
      */
     public static readonly item_to_ruck: 39;
 
     /**
      * Engine enum value for `callback.weapon_zoom_in`.
+     *
+     * @since OpenXRay 2015-06-17, 0fe21c14
      */
     public static readonly weapon_zoom_in: 40;
 
     /**
      * Engine enum value for `callback.weapon_zoom_out`.
+     *
+     * @since OpenXRay 2015-06-17, 0fe21c14
      */
     public static readonly weapon_zoom_out: 41;
 
     /**
      * Engine enum value for `callback.weapon_jammed`.
+     *
+     * @since OpenXRay 2015-06-17, 0fe21c14
      */
     public static readonly weapon_jammed: 42;
 
     /**
      * Engine enum value for `callback.weapon_magazine_empty`.
+     *
+     * @since OpenXRay 2024-08-09, e08b8073
      */
     public static readonly weapon_magazine_empty: 43;
 
     /**
      * Engine enum value for `callback.actor_before_death`.
+     *
+     * @since OpenXRay 2015-02-02, a91ff26a
      */
     public static readonly actor_before_death: 44;
 
     /**
      * Engine enum value for `callback.on_attach_vehicle`.
+     *
+     * @since OpenXRay 2015-06-13, d0323b3a
      */
     public static readonly on_attach_vehicle: 45;
 
     /**
      * Engine enum value for `callback.on_detach_vehicle`.
+     *
+     * @since OpenXRay 2015-06-13, d0323b3a
      */
     public static readonly on_detach_vehicle: 46;
 
     /**
      * Engine enum value for `callback.on_use_vehicle`.
+     *
+     * @since OpenXRay 2015-06-13, d0323b3a
      */
     public static readonly on_use_vehicle: 47;
   }

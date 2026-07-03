@@ -48,6 +48,26 @@ declare module "xray16" {
     public GetFont(): CGameFont;
 
     /**
+     * Get cursor X coordinate stored on this window.
+     *
+     * @since OpenXRay 2026-01-01, e3b0e3c5, PR #2028
+     * @source `src/xrUICore/ui_export_script.cpp`, `CUIWindow.GetMouseX` binding.
+     *
+     * @returns Current cursor X coordinate.
+     */
+    public GetMouseX(): f32;
+
+    /**
+     * Get cursor Y coordinate stored on this window.
+     *
+     * @since OpenXRay 2026-01-01, e3b0e3c5, PR #2028
+     * @source `src/xrUICore/ui_export_script.cpp`, `CUIWindow.GetMouseY` binding.
+     *
+     * @returns Current cursor Y coordinate.
+     */
+    public GetMouseY(): f32;
+
+    /**
      * @returns Window height.
      */
     public GetHeight(): f32;

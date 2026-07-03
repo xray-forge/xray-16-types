@@ -196,7 +196,7 @@ declare module "xray16" {
     /**
      * Move the actor to another level by level name.
      *
-     * @since OpenXRay 2014-12-27, c82669625
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @remarks
      * If the level name is not present in the game graph, the engine logs a script error and leaves the actor in the
@@ -209,7 +209,7 @@ declare module "xray16" {
     /**
      * Move the actor to another level graph point.
      *
-     * @since OpenXRay 2014-12-27, c82669625
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @param position - Target position.
      * @param level_vertex_id - Target level vertex.
@@ -220,7 +220,7 @@ declare module "xray16" {
     /**
      * Move the actor to another level graph point and face a direction.
      *
-     * @since OpenXRay 2014-12-27, c82669625
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @param position - Target position.
      * @param level_vertex_id - Target level vertex.

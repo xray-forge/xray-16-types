@@ -204,6 +204,8 @@ declare module "xray16" {
     /**
      * Change current fuel by a delta and clamp it to the tank range.
      *
+     * @since OpenXRay 2024-08-09, e08b8073
+     *
      * @remarks
      * Negative deltas cannot reduce fuel below `0`; positive deltas cannot increase it above `GetfFuelTank()`.
      * Use `SetfFuel()` or `set_fuel()` when the script needs to assign an absolute fuel value.
@@ -214,6 +216,8 @@ declare module "xray16" {
 
     /**
      * Change vehicle health by a delta and clamp it to the normalized health range.
+     *
+     * @since OpenXRay 2024-08-09, e08b8073
      *
      * @remarks
      * The native implementation clamps the result to `0..1`. Use `SetfHealth()` when assigning an absolute health
@@ -239,31 +243,43 @@ declare module "xray16" {
     public FireDirDiff(): f32;
 
     /**
+     * @since OpenXRay 2024-08-09, e08b8073
+     *
      * @returns Amount of fuel in vehicle instance.
      */
     public GetfFuel(): f32;
 
     /**
+     * @since OpenXRay 2026-01-01, e3b0e3c5, PR #2028
+     *
      * @returns Amount of fuel in vehicle instance.
      */
     public get_fuel(): f32;
 
     /**
+     * @since OpenXRay 2024-08-09, e08b8073
+     *
      * @returns Fuel consumption rate of vehicle instance.
      */
     public GetfFuelConsumption(): f32;
 
     /**
+     * @since OpenXRay 2026-01-01, e3b0e3c5, PR #2028
+     *
      * @returns Fuel consumption rate of vehicle instance.
      */
     public get_fuel_consumption(): f32;
 
     /**
+     * @since OpenXRay 2024-08-09, e08b8073
+     *
      * @returns Fuel tank size (max possible amount of fuel at time).
      */
     public GetfFuelTank(): f32;
 
     /**
+     * @since OpenXRay 2026-01-01, e3b0e3c5, PR #2028
+     *
      * @returns Fuel tank size.
      */
     public get_fuel_tank(): f32;
@@ -288,6 +304,8 @@ declare module "xray16" {
 
     /**
      * Start car damage particles.
+     *
+     * @since OpenXRay 2024-08-09, e08b8073
      */
     public PlayDamageParticles(): void;
 
@@ -304,6 +322,8 @@ declare module "xray16" {
     /**
      * Set current fuel amount directly.
      *
+     * @since OpenXRay 2024-08-09, e08b8073
+     *
      * @remarks
      * This is an absolute setter and does not clamp against tank capacity.
      *
@@ -313,6 +333,8 @@ declare module "xray16" {
 
     /**
      * Set current fuel amount directly.
+     *
+     * @since OpenXRay 2026-01-01, e3b0e3c5, PR #2028
      *
      * @remarks
      * Lowercase alias for `SetfFuel()`.
@@ -324,12 +346,16 @@ declare module "xray16" {
     /**
      * Set fuel consumption rate.
      *
+     * @since OpenXRay 2024-08-09, e08b8073
+     *
      * @param consumption - Fuel consumption rate.
      */
     public SetfFuelConsumption(consumption: f32): void;
 
     /**
      * Set fuel consumption rate.
+     *
+     * @since OpenXRay 2026-01-01, e3b0e3c5, PR #2028
      *
      * @param consumption - Fuel consumption rate.
      */
@@ -338,12 +364,16 @@ declare module "xray16" {
     /**
      * Set fuel tank capacity.
      *
+     * @since OpenXRay 2024-08-09, e08b8073
+     *
      * @param fuel - Fuel tank capacity.
      */
     public SetfFuelTank(fuel: f32): void;
 
     /**
      * Set fuel tank capacity.
+     *
+     * @since OpenXRay 2026-01-01, e3b0e3c5, PR #2028
      *
      * @param fuel - Fuel tank capacity.
      */
@@ -362,31 +392,43 @@ declare module "xray16" {
     public SetfHealth(health: f32): f32;
 
     /**
+     * @since OpenXRay 2024-08-09, e08b8073
+     *
      * @returns Whether vehicle engine is active at the moment.
      */
     public IsActiveEngine(): boolean;
 
     /**
      * Start vehicle engine.
+     *
+     * @since OpenXRay 2024-08-09, e08b8073
      */
     public StartEngine(): void;
 
     /**
      * Stop vehicle engine.
+     *
+     * @since OpenXRay 2024-08-09, e08b8073
      */
     public StopEngine(): void;
 
     /**
      * Set vehicle hand break in active state.
+     *
+     * @since OpenXRay 2024-08-09, e08b8073
      */
     public HandBreak(): void;
 
     /**
      * Deactivate vehicle hand break.
+     *
+     * @since OpenXRay 2024-08-09, e08b8073
      */
     public ReleaseHandBreak(): void;
 
     /**
+     * @since OpenXRay 2024-08-09, e08b8073
+     *
      * @returns Current vehicle RPM value (speed).
      */
     public GetRPM(): f32;
@@ -394,12 +436,16 @@ declare module "xray16" {
     /**
      * Set current vehicle RPM value (speed).
      *
+     * @since OpenXRay 2024-08-09, e08b8073
+     *
      * @param rpm - RPM value to apply.
      */
     public SetRPM(rpm: f32): void;
 
     /**
      * Stop car damage particles.
+     *
+     * @since OpenXRay 2024-08-09, e08b8073
      */
     public StopDamageParticles(): void;
 

@@ -90,6 +90,58 @@ declare module "xray16" {
     ): cse_abstract;
 
     /**
+     * Clone a registered magazined weapon server object.
+     *
+     * @since OpenXRay 2022-06-29, 09598fe7, PR #1033
+     * @source `src/xrGame/alife_simulator_script.cpp`, `alife_simulator.clone_weapon` binding.
+     *
+     * @remarks
+     * Returns `null` when the source object is not a magazined weapon or when the clone cannot be spawned as a
+     * magazined weapon. By default the clone is reprocessed through the spawn packet path and registered.
+     *
+     * @param object - Source server weapon object.
+     * @param section - Section to spawn for the clone.
+     * @param position - Clone position.
+     * @param level_vertex_id - Clone level vertex id.
+     * @param game_vertex_id - Clone game graph vertex id.
+     * @param parent_id - Parent object id, or `65535` for no parent.
+     * @returns Spawned clone object, or `null`.
+     */
+    public clone_weapon(
+      object: cse_abstract,
+      section: string,
+      position: vector,
+      level_vertex_id: u32,
+      game_vertex_id: u16,
+      parent_id: u16
+    ): Nullable<cse_abstract>;
+
+    /**
+     * Clone a registered magazined weapon server object with explicit registration control.
+     *
+     * @since OpenXRay 2022-06-29, 09598fe7, PR #1033
+     * @source `src/xrGame/alife_simulator_script.cpp`, `alife_simulator.clone_weapon` binding.
+     *
+     * @param object - Source server weapon object.
+     * @param section - Section to spawn for the clone.
+     * @param position - Clone position.
+     * @param level_vertex_id - Clone level vertex id.
+     * @param game_vertex_id - Clone game graph vertex id.
+     * @param parent_id - Parent object id, or `65535` for no parent.
+     * @param should_register - Whether to reprocess and register the cloned object before returning it.
+     * @returns Spawned clone object, or `null`.
+     */
+    public clone_weapon(
+      object: cse_abstract,
+      section: string,
+      position: vector,
+      level_vertex_id: u32,
+      game_vertex_id: u16,
+      parent_id: u16,
+      should_register: boolean
+    ): Nullable<cse_abstract>;
+
+    /**
      * Check that an object does not know an info portion.
      *
      * @param object_id - ALife object id.
@@ -108,7 +160,34 @@ declare module "xray16" {
     public has_info(object_id: u16, info_id: string): boolean;
 
     /**
+     * Get child object ids for a server object.
+     *
+     * @since OpenXRay 2022-06-29, 09598fe7, PR #1033
+     * @source `src/xrGame/alife_simulator_script.cpp`, `alife_simulator.get_children` binding.
+     *
+     * @param object - Server object whose child id list should be exposed.
+     * @returns Iterable child object ids.
+     */
+    public get_children(object: cse_abstract): LuaIterable<u16>;
+
+    /**
+     * Iterate info portions known by an ALife object.
+     *
+     * @since OpenXRay 2022-06-29, 09598fe7, PR #1033
+     * @source `src/xrGame/alife_simulator_script.cpp`, `alife_simulator.iterate_info` binding.
+     *
+     * @remarks
+     * Does nothing when the object has no info registry.
+     *
+     * @param object_id - ALife object id.
+     * @param cb - Callback called with the object id and each known info portion id.
+     */
+    public iterate_info(object_id: u16, cb: (this: void, object_id: u16, info_id: string) => void): void;
+
+    /**
      * Iterate over registered ALife objects until the callback returns `true`.
+     *
+     * @since OpenXRay 2022-06-29, 09598fe7, PR #1033
      *
      * @remarks
      * Returning `true` from the callback stops iteration early.
@@ -193,7 +272,34 @@ declare module "xray16" {
     public set_interactive(objectId: u16, enabled: boolean): void;
 
     /**
+     * Reprocess and register a server object through the spawn packet path.
+     *
+     * @since OpenXRay 2022-06-29, 09598fe7, PR #1033
+     * @source `src/xrGame/alife_simulator_script.cpp`, `alife_simulator.register` binding.
+     *
+     * @remarks
+     * The native helper serializes the object, frees its current id, destroys the old instance, and processes a new
+     * spawn packet. The returned object is the registered replacement.
+     *
+     * @param object - Server object to reprocess.
+     * @returns Registered replacement server object.
+     */
+    public register(object: cse_abstract): cse_abstract;
+
+    /**
+     * Set ALife processing time budget in microseconds.
+     *
+     * @since OpenXRay 2022-06-29, 09598fe7, PR #1033
+     * @source `src/xrGame/alife_simulator_script.cpp`, `alife_simulator.set_process_time` binding.
+     *
+     * @param microseconds - Processing time budget.
+     */
+    public set_process_time(microseconds: i32): void;
+
+    /**
      * Set the online/offline switch distance.
+     *
+     * @since OpenXRay 2022-06-29, 09598fe7, PR #1033
      *
      * @param distance - Switch distance in meters.
      */
@@ -261,7 +367,7 @@ declare module "xray16" {
     /**
      * Move a server object to another graph and level vertex.
      *
-     * @since OpenXRay 2014-12-27, c82669625
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @param object_id - Object id to teleport.
      * @param game_vertex_id - Destination game graph vertex id.

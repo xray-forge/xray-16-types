@@ -5600,7 +5600,7 @@ declare module "xray16" {
     /**
      * Check whether this object is an alive entity.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @returns Whether this object is an alive entity.
      */
@@ -5609,7 +5609,7 @@ declare module "xray16" {
     /**
      * Check whether this object is an inventory item.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @returns Whether this object is an inventory item.
      */
@@ -5618,7 +5618,7 @@ declare module "xray16" {
     /**
      * Check whether this object is an inventory owner.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @returns Whether this object is an inventory owner.
      */
@@ -5627,7 +5627,7 @@ declare module "xray16" {
     /**
      * Check whether this object is the actor.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @returns Whether this object is the actor.
      */
@@ -5636,7 +5636,7 @@ declare module "xray16" {
     /**
      * Check whether this object is a custom monster.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @returns Whether this object is a custom monster.
      */
@@ -5645,7 +5645,7 @@ declare module "xray16" {
     /**
      * Check whether this object is a weapon.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @returns Whether this object is a weapon.
      */
@@ -5654,7 +5654,7 @@ declare module "xray16" {
     /**
      * Check whether this object is an outfit.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @returns Whether this object is an outfit.
      */
@@ -5663,7 +5663,7 @@ declare module "xray16" {
     /**
      * Check whether this object is a scope addon.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @returns Whether this object is a scope addon.
      */
@@ -5672,7 +5672,7 @@ declare module "xray16" {
     /**
      * Check whether this object is a silencer addon.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @returns Whether this object is a silencer addon.
      */
@@ -5681,7 +5681,7 @@ declare module "xray16" {
     /**
      * Check whether this object is a grenade launcher addon.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @returns Whether this object is a grenade launcher addon.
      */
@@ -5690,7 +5690,7 @@ declare module "xray16" {
     /**
      * Check whether this object is a magazined weapon.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @returns Whether this object is a magazined weapon.
      */
@@ -5699,7 +5699,7 @@ declare module "xray16" {
     /**
      * Check whether this object is a space restrictor.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @returns Whether this object is a space restrictor.
      */
@@ -5708,7 +5708,7 @@ declare module "xray16" {
     /**
      * Check whether this object is a stalker.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @returns Whether this object is a stalker.
      */
@@ -5717,7 +5717,7 @@ declare module "xray16" {
     /**
      * Check whether this object is an anomaly.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @returns Whether this object is an anomaly zone.
      */
@@ -5726,7 +5726,7 @@ declare module "xray16" {
     /**
      * Check whether this object is a monster.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @returns Whether this object is a monster.
      */
@@ -5735,7 +5735,7 @@ declare module "xray16" {
     /**
      * Check whether this object is an artefact.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @returns Whether this object is an artefact.
      */
@@ -5744,7 +5744,7 @@ declare module "xray16" {
     /**
      * Check whether this object is ammo.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @returns Whether this object is ammo.
      */
@@ -5753,7 +5753,7 @@ declare module "xray16" {
     /**
      * Check whether this object is a trader.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @returns Whether this object is a trader.
      */
@@ -5762,7 +5762,7 @@ declare module "xray16" {
     /**
      * Check whether this object is a HUD item.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @returns Whether this object is a HUD item.
      */
@@ -5771,7 +5771,7 @@ declare module "xray16" {
     /**
      * Check whether this object is a grenade-launcher weapon.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @returns Whether this object is a weapon with grenade launcher support.
      */
@@ -5780,7 +5780,7 @@ declare module "xray16" {
     /**
      * Check whether this object is an inventory box.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @returns Whether this object is an inventory box.
      */

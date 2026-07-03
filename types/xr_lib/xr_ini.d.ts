@@ -205,7 +205,7 @@ declare module "xray16" {
     /**
      * Write a 2D vector value.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @param section - Section name.
      * @param field - Field name.
@@ -217,7 +217,7 @@ declare module "xray16" {
     /**
      * Write a 3D vector value.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @param section - Section name.
      * @param field - Field name.
@@ -229,7 +229,7 @@ declare module "xray16" {
     /**
      * Write a 4D vector value.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @param section - Section name.
      * @param field - Field name.
@@ -387,7 +387,7 @@ declare module "xray16" {
     /**
      * Enable or disable section override name handling.
      *
-     * @since OpenXRay 2014-12-30, 565b39e5
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @param override - Whether override names should be used.
      */

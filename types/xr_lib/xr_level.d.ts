@@ -450,6 +450,42 @@ declare module "xray16" {
     get_game_difficulty(this: void): TXR_game_difficulty;
 
     /**
+     * Get current actor body state.
+     *
+     * @since OpenXRay 2026-01-01, e3b0e3c5, PR #2028
+     * @source `src/xrGame/level_script.cpp`, `level.get_actor_body_state` binding.
+     *
+     * @remarks
+     * Returns `0` when there is no actor object.
+     *
+     * @returns Current actor body state id, or `0` when unavailable.
+     */
+    get_actor_body_state(this: void): u32;
+
+    /**
+     * Get body state currently requested by actor movement.
+     *
+     * @since OpenXRay 2026-01-01, e3b0e3c5, PR #2028
+     * @source `src/xrGame/level_script.cpp`, `level.get_actor_body_state_wishful` binding.
+     *
+     * @remarks
+     * Returns `0` when there is no actor object.
+     *
+     * @returns Desired actor body state id, or `0` when unavailable.
+     */
+    get_actor_body_state_wishful(this: void): u32;
+
+    /**
+     * Get global world field of view.
+     *
+     * @since OpenXRay 2026-01-01, e3b0e3c5, PR #2028
+     * @source `src/xrGame/level_script.cpp`, `level.get_fov` binding.
+     *
+     * @returns Current world FOV value.
+     */
+    get_fov(this: void): f32;
+
+    /**
      * Get sound volume.
      *
      * @returns Sound volume.
@@ -459,7 +495,7 @@ declare module "xray16" {
     /**
      * Get distance to the object or surface under the crosshair.
      *
-     * @since OpenXRay 2014-12-27, c82669625
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @returns Target distance.
      */
@@ -480,7 +516,7 @@ declare module "xray16" {
     /**
      * Get the object under the crosshair.
      *
-     * @since OpenXRay 2014-12-27, c82669625
+     * @since OpenXRay 2017-08-15, 565b39e5
      * @source `src/xrGame/level_script.cpp`, `g_get_target_obj`.
      *
      * @remarks
@@ -490,6 +526,16 @@ declare module "xray16" {
      * @returns Target object, or `null` when nothing is targeted.
      */
     get_target_obj(this: void): Nullable<game_object>;
+
+    /**
+     * Get the level start game time.
+     *
+     * @since OpenXRay 2022-08-09, a2d264fc, PR #1032
+     * @source `src/xrGame/level_script.cpp`, `level.get_start_time` binding.
+     *
+     * @returns Start game time value.
+     */
+    get_start_time(this: void): CTime;
 
     /**
      * Get current game day count.
@@ -534,6 +580,17 @@ declare module "xray16" {
     get_wfx_time(this: void): f32;
 
     /**
+     * Hide the HUD minimap.
+     *
+     * @since OpenXRay 2026-01-01, e3b0e3c5, PR #2028
+     * @source `src/xrGame/level_script.cpp`, `level.hide_minimap` binding.
+     *
+     * @remarks
+     * Requires an active game UI and main in-game HUD window.
+     */
+    hide_minimap(this: void): void;
+
+    /**
      * Hide HUD indicators.
      *
      * @remarks
@@ -557,6 +614,19 @@ declare module "xray16" {
      * @returns Cover value.
      */
     high_cover_in_direction(this: void, vertex_id: u32, direction: vector): f32;
+
+    /**
+     * Check whether the HUD minimap is visible.
+     *
+     * @since OpenXRay 2026-01-01, e3b0e3c5, PR #2028
+     * @source `src/xrGame/level_script.cpp`, `level.minimap_shown` binding.
+     *
+     * @remarks
+     * Requires an active game UI and main in-game HUD window.
+     *
+     * @returns Whether the minimap is currently shown.
+     */
+    minimap_shown(this: void): boolean;
 
     /**
      * Check whether a weather effect is playing.
@@ -699,6 +769,16 @@ declare module "xray16" {
     patrol_path_exists(this: void, path_name: string): boolean;
 
     /**
+     * Get the current physics time factor.
+     *
+     * @since OpenXRay 2026-01-01, e3b0e3c5, PR #2028
+     * @source `src/xrPhysics/PHWorldScript.cpp`, `level.get_ph_time_factor` binding.
+     *
+     * @returns Physics simulation time factor.
+     */
+    get_ph_time_factor(this: void): f32;
+
+    /**
      * Get the level physics world.
      *
      * @returns Physics world object.
@@ -808,7 +888,7 @@ declare module "xray16" {
     /**
      * Send a network packet through the level.
      *
-     * @since OpenXRay 2014-12-27, c82669625
+     * @since OpenXRay 2017-08-15, 565b39e5
      *
      * @param packet - Packet to send.
      * @param reliable - Whether the packet is reliable.
@@ -873,6 +953,27 @@ declare module "xray16" {
      * @param volume - Sound volume.
      */
     set_snd_volume(this: void, volume: f32): void;
+
+    /**
+     * Set global world field of view.
+     *
+     * @since OpenXRay 2026-01-01, e3b0e3c5, PR #2028
+     * @source `src/xrGame/level_script.cpp`, `level.set_fov` binding.
+     *
+     * @param fov - World FOV value to assign.
+     */
+    set_fov(this: void, fov: f32): void;
+
+    /**
+     * Set physics simulation time factor.
+     *
+     * @since OpenXRay 2026-01-01, e3b0e3c5, PR #2028
+     * @source `src/xrPhysics/PHWorldScript.cpp`, `level.set_ph_time_factor` binding.
+     *
+     * @param factor - Physics time factor to assign.
+     * @returns Applied physics time factor.
+     */
+    set_ph_time_factor(this: void, factor: f32): f32;
 
     /**
      * Set game time speed multiplier.
@@ -949,6 +1050,17 @@ declare module "xray16" {
     ): void;
 
     /**
+     * Show the HUD minimap.
+     *
+     * @since OpenXRay 2026-01-01, e3b0e3c5, PR #2028
+     * @source `src/xrGame/level_script.cpp`, `level.show_minimap` binding.
+     *
+     * @remarks
+     * Requires an active game UI and main in-game HUD window.
+     */
+    show_minimap(this: void): void;
+
+    /**
      * Spawn a phantom at a position.
      *
      * @param position - Spawn position.
@@ -993,6 +1105,17 @@ declare module "xray16" {
      * @returns Level vertex id.
      */
     vertex_id(this: void, position: vector): u64;
+
+    /**
+     * Check whether a level vertex id is valid.
+     *
+     * @since OpenXRay 2022-08-09, a2d264fc, PR #1032
+     * @source `src/xrGame/level_script.cpp`, `level.valid_vertex` binding.
+     *
+     * @param vertex_id - Level vertex id to check.
+     * @returns Whether the level graph contains the vertex.
+     */
+    valid_vertex(this: void, vertex_id: u32): boolean;
 
     /**
      * Move from a level vertex in a direction.
