@@ -21,7 +21,7 @@ import {
  * The object is provided verbatim from the `tstl.luaPlugins` entry in the consumer tsconfig,
  * so any extra fields (like `name`/`import`) are ignored.
  */
-export interface ITransformLuabindClassPluginConfig {
+export interface IPluginConfig {
   /**
    * Strategy used to transform parent constructor `super(...)` calls.
    *
@@ -37,7 +37,7 @@ export interface ITransformLuabindClassPluginConfig {
  * @param config - Optional plugin configuration provided by the tsconfig `luaPlugins` entry.
  * @returns Configured TypeScriptToLua plugin.
  */
-export function createTransformLuabindClassPlugin(config: ITransformLuabindClassPluginConfig = {}): Plugin {
+export function createPlugin(config: IPluginConfig = {}): Plugin {
   const superCall: TLuabindSuperCall = config.superCall === "luabind" ? "luabind" : LUABIND_DEFAULT_SUPER_CALL;
 
   return {

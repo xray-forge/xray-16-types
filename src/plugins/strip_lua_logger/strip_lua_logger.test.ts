@@ -1,7 +1,7 @@
 import { ENV_XR_NO_LUA_LOGS } from "../constants";
 import { transpileWithPlugins } from "../testing";
 
-import stripLuaLoggerPlugin from "./plugin";
+import { plugin } from "./plugin";
 
 describe("strip_lua_logger plugin", () => {
   const originalNoLuaLogs = process.env[ENV_XR_NO_LUA_LOGS];
@@ -36,7 +36,7 @@ export function run(): number {
 }
 `,
       },
-      { plugins: [stripLuaLoggerPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);
@@ -67,7 +67,7 @@ export function run(): number {
 }
 `,
       },
-      { plugins: [stripLuaLoggerPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);
@@ -97,7 +97,7 @@ export function run(): void {
 }
 `,
       },
-      { plugins: [stripLuaLoggerPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);
@@ -127,7 +127,7 @@ export function run(): number {
 }
 `,
       },
-      { plugins: [stripLuaLoggerPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);

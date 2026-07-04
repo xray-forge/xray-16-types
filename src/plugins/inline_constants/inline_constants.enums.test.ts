@@ -1,9 +1,12 @@
-import { transpile } from "./testing";
+import { transpileWithPlugins } from "../testing";
+
+import { plugin } from "./plugin";
 
 describe("inline_constants plugin enums handling", () => {
   it("should inline tagged enum members and keep enum tables emitted", () => {
-    const { lua, errors } = transpile({
-      "enums.ts": `
+    const { errors, lua } = transpileWithPlugins(
+      {
+        "enums.ts": `
 /**
  * @inline
  */
@@ -22,28 +25,49 @@ export enum ENumericEnum {
   NEXT,
 }
 `,
-      "main.ts": `
+        "main.ts": `
 import { ENumericEnum, EStringEnum } from "./enums";
 
 export function get(): unknown {
   return [EStringEnum.SECOND, ENumericEnum.NEXT, ENumericEnum["TENTH"]];
 }
 `,
-    });
+      },
+      { plugins: [plugin] }
+    );
 
     expect(errors).toEqual([]);
-    expect(lua["main.lua"]).toContain('"second"');
-    expect(lua["main.lua"]).toContain("11");
-    expect(lua["main.lua"]).toContain("10");
-    expect(lua["main.lua"]).not.toContain("EStringEnum.SECOND");
-    expect(lua["main.lua"]).not.toContain("ENumericEnum.NEXT");
-    expect(lua["enums.lua"]).toContain('EStringEnum.FIRST = "first"');
-    expect(lua["enums.lua"]).toContain("ENumericEnum.TENTH = 10");
+    expect(lua["enums.lua"]).toBe(`local ____exports = {}
+---
+-- @inline
+____exports.EStringEnum = EStringEnum or ({})
+____exports.EStringEnum.FIRST = "first"
+____exports.EStringEnum.SECOND = "second"
+---
+-- @inline
+____exports.ENumericEnum = ENumericEnum or ({})
+____exports.ENumericEnum.FIRST = 0
+____exports.ENumericEnum[____exports.ENumericEnum.FIRST] = "FIRST"
+____exports.ENumericEnum.SECOND = 1
+____exports.ENumericEnum[____exports.ENumericEnum.SECOND] = "SECOND"
+____exports.ENumericEnum.TENTH = 10
+____exports.ENumericEnum[____exports.ENumericEnum.TENTH] = "TENTH"
+____exports.ENumericEnum.NEXT = 11
+____exports.ENumericEnum[____exports.ENumericEnum.NEXT] = "NEXT"
+return ____exports
+`);
+    expect(lua["main.lua"]).toBe(`local ____exports = {}
+function ____exports.get(self)
+    return {"second", 11, 10}
+end
+return ____exports
+`);
   });
 
   it("should error when tagged enum has computed members", () => {
-    const { errors } = transpile({
-      "main.ts": `
+    const { errors, lua } = transpileWithPlugins(
+      {
+        "main.ts": `
 function computeValue(): number {
   return 10;
 }
@@ -54,9 +78,23 @@ export enum EComputed {
   DYNAMIC = computeValue(),
 }
 `,
-    });
+      },
+      { plugins: [plugin] }
+    );
 
-    expect(errors).toHaveLength(1);
-    expect(errors[0]).toContain("'DYNAMIC' must have a compile-time constant value");
+    expect(errors).toEqual(["'@inline' enum member 'DYNAMIC' must have a compile-time constant value."]);
+    expect(lua["main.lua"]).toBe(`local ____exports = {}
+local function computeValue(self)
+    return 10
+end
+---
+-- @inline
+____exports.EComputed = EComputed or ({})
+____exports.EComputed.STATIC = 1
+____exports.EComputed[____exports.EComputed.STATIC] = "STATIC"
+____exports.EComputed.DYNAMIC = computeValue(nil)
+____exports.EComputed[____exports.EComputed.DYNAMIC] = "DYNAMIC"
+return ____exports
+`);
   });
 });

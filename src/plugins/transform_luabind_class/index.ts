@@ -1,1 +1,1 @@
-export { createTransformLuabindClassPlugin as default, ITransformLuabindClassPluginConfig } from "./plugin";
+export { createPlugin as default, IPluginConfig } from "./plugin";

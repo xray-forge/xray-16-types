@@ -1,6 +1,6 @@
 import { transpileWithPlugins } from "../testing";
 
-import globalDeclarationsTransformPlugin from "./plugin";
+import { plugin } from "./plugin";
 
 const xray16Declaration = `
 declare module "xray16" {
@@ -24,7 +24,7 @@ export const result = engineValue + localValue;
 `,
         "xray16.d.ts": xray16Declaration,
       },
-      { plugins: [globalDeclarationsTransformPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);
@@ -50,7 +50,7 @@ export const value = xr.engineValue;
 `,
         "xray16.d.ts": xray16Declaration,
       },
-      { plugins: [globalDeclarationsTransformPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);
@@ -72,7 +72,7 @@ export const value = 1;
         "side.ts": `export const s = 2;`,
         "xray16.d.ts": xray16Declaration,
       },
-      { plugins: [globalDeclarationsTransformPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);

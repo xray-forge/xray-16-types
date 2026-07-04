@@ -1,7 +1,7 @@
 import { ENV_XR_INJECT_TRACY_ZONES } from "../constants";
 import { transpileWithPlugins } from "../testing";
 
-import injectTracyZonesPlugin from "./plugin";
+import { plugin } from "./plugin";
 
 describe("inject_tracy_zones plugin", () => {
   const originalInjectTracyZones = process.env[ENV_XR_INJECT_TRACY_ZONES];
@@ -27,7 +27,7 @@ export function run(): number {
 }
 `,
       },
-      { plugins: [injectTracyZonesPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);
@@ -57,7 +57,7 @@ export function run(): number {
 }
 `,
       },
-      { plugins: [injectTracyZonesPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);
@@ -89,7 +89,7 @@ export function run(a: number): number {
 }
 `,
       },
-      { plugins: [injectTracyZonesPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);
@@ -131,7 +131,7 @@ export class Foo {
 }
 `,
       },
-      { plugins: [injectTracyZonesPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);
@@ -175,7 +175,7 @@ extern("mod", {
 });
 `,
       },
-      { plugins: [injectTracyZonesPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);
@@ -204,7 +204,7 @@ export function run(a: number): number {
 }
 `,
       },
-      { plugins: [injectTracyZonesPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);

@@ -1,6 +1,6 @@
 import { transpileWithPlugins } from "../testing";
 
-import transformLuabindClassPlugin from "./plugin";
+import { createPlugin } from "./plugin";
 
 const LUABIND_DECLARATION = `declare function LuabindClass(): ClassDecorator;`;
 
@@ -29,7 +29,7 @@ export function create(): Actor {
 }
 `,
       },
-      { plugins: [transformLuabindClassPlugin()] }
+      { plugins: [createPlugin()] }
     );
 
     expect(errors).toEqual([]);
@@ -80,7 +80,7 @@ export class Child extends Base {
 }
 `,
       },
-      { plugins: [transformLuabindClassPlugin()] }
+      { plugins: [createPlugin()] }
     );
 
     expect(errors).toEqual([]);
@@ -128,7 +128,7 @@ export class Child extends Base {
 }
 `,
       },
-      { plugins: [transformLuabindClassPlugin()] }
+      { plugins: [createPlugin()] }
     );
 
     expect(errors).toEqual([]);
@@ -176,7 +176,7 @@ export class Foo {
 }
 `,
       },
-      { plugins: [transformLuabindClassPlugin()] }
+      { plugins: [createPlugin()] }
     );
 
     expect(errors).toEqual([]);
@@ -219,7 +219,7 @@ export default class Foo {
 }
 `,
       },
-      { plugins: [transformLuabindClassPlugin()] }
+      { plugins: [createPlugin()] }
     );
 
     expect(errors).toEqual([]);
@@ -250,7 +250,7 @@ export class Foo {
 }
 `,
       },
-      { plugins: [transformLuabindClassPlugin()] }
+      { plugins: [createPlugin()] }
     );
 
     expect(errors).toEqual(["Unable transform static properties for luabind classes."]);
@@ -283,7 +283,7 @@ export class Foo {
 }
 `,
       },
-      { plugins: [transformLuabindClassPlugin()] }
+      { plugins: [createPlugin()] }
     );
 
     expect(errors).toEqual(["Unable transform method decorator for luabind classes."]);
@@ -315,7 +315,7 @@ export class Plain {
 }
 `,
       },
-      { plugins: [transformLuabindClassPlugin()] }
+      { plugins: [createPlugin()] }
     );
 
     expect(errors).toEqual([]);
@@ -355,7 +355,7 @@ export class Child extends Base {
 }
 `,
         },
-        { plugins: [transformLuabindClassPlugin()] }
+        { plugins: [createPlugin()] }
       );
 
       expect(errors).toEqual([]);
@@ -383,7 +383,7 @@ export class Child extends Base {
 }
 `,
         },
-        { plugins: [transformLuabindClassPlugin({ superCall: "reference" })] }
+        { plugins: [createPlugin({ superCall: "reference" })] }
       );
 
       expect(errors).toEqual([]);
@@ -419,7 +419,7 @@ export class Child extends Base {
 }
 `,
         },
-        { plugins: [transformLuabindClassPlugin({ superCall: "luabind" })] }
+        { plugins: [createPlugin({ superCall: "luabind" })] }
       );
 
       expect(errors).toEqual([]);
@@ -467,7 +467,7 @@ export class Child extends Base {
 }
 `,
         },
-        { plugins: [transformLuabindClassPlugin({ superCall: "luabind" })] }
+        { plugins: [createPlugin({ superCall: "luabind" })] }
       );
 
       expect(errors).toEqual([]);

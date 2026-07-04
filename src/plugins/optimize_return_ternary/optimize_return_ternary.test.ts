@@ -1,6 +1,6 @@
 import { transpileWithPlugins } from "../testing";
 
-import optimizeReturnTernaryPlugin from "./plugin";
+import { plugin } from "./plugin";
 
 describe("optimize_return_ternary plugin", () => {
   it("should rewrite returned ternaries into branch returns", () => {
@@ -12,7 +12,7 @@ export function pick(value: boolean): number {
 }
 `,
       },
-      { plugins: [optimizeReturnTernaryPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);
@@ -37,7 +37,7 @@ export function pick(a: number): string {
 }
 `,
       },
-      { plugins: [optimizeReturnTernaryPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);
@@ -66,7 +66,7 @@ export function pick(a: boolean): number {
 }
 `,
       },
-      { plugins: [optimizeReturnTernaryPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);
@@ -91,7 +91,7 @@ export function pick(a: number): number {
 }
 `,
       },
-      { plugins: [optimizeReturnTernaryPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);
@@ -116,7 +116,7 @@ export function pick(a: boolean): LuaMultiReturn<[number, number]> {
 }
 `,
       },
-      { plugins: [optimizeReturnTernaryPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);

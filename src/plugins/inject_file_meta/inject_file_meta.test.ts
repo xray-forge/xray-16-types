@@ -1,6 +1,6 @@
 import { transpileWithPlugins } from "../testing";
 
-import injectFileMetaPlugin from "./plugin";
+import { plugin } from "./plugin";
 
 describe("inject_file_meta plugin", () => {
   it("should replace file metadata placeholders", () => {
@@ -13,7 +13,7 @@ declare const $dirname: string;
 export const meta = [$filename, $dirname];
 `,
       },
-      { plugins: [injectFileMetaPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);
@@ -33,7 +33,7 @@ declare const $dirname: string;
 export const meta = $filename + "/" + $dirname;
 `,
       },
-      { plugins: [injectFileMetaPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);
@@ -54,7 +54,7 @@ const filename = "keep";
 export const meta = [filename, $filename];
 `,
       },
-      { plugins: [injectFileMetaPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);

@@ -6,7 +6,7 @@ const XRF_GLOBALS: Array<string> = ["xray16"];
 /**
  * Plugin that removes imports from 'global' libraries like engine typedefs.
  */
-const plugin: Plugin = {
+export const plugin: Plugin = {
   visitors: {
     [SyntaxKind.ImportDeclaration]: (node, context) => {
       const module: string = node.moduleSpecifier.getText().slice(1, -1);
@@ -20,5 +20,3 @@ const plugin: Plugin = {
     },
   },
 };
-
-export default plugin;

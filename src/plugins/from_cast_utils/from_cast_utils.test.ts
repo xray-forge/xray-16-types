@@ -1,6 +1,6 @@
 import { transpileWithPlugins } from "../testing";
 
-import fromCastUtilsPlugin from "./plugin";
+import { plugin } from "./plugin";
 
 describe("from_cast_utils plugin", () => {
   it("should transform cast helpers and nil checks", () => {
@@ -18,7 +18,7 @@ export function run(value: unknown): unknown {
 }
 `,
       },
-      { plugins: [fromCastUtilsPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);
@@ -50,7 +50,7 @@ export function run(value: unknown): unknown {
 }
 `,
       },
-      { plugins: [fromCastUtilsPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);
@@ -74,7 +74,7 @@ export function run(a: unknown, b: { x: unknown }): boolean {
 }
 `,
       },
-      { plugins: [fromCastUtilsPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);
@@ -97,7 +97,7 @@ export function run(a: unknown, b: unknown): unknown {
 }
 `,
       },
-      { plugins: [fromCastUtilsPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual(["Invalid transformer call, expected function to have exactly 1 argument."]);
@@ -121,7 +121,7 @@ export function run(value: unknown): unknown {
 }
 `,
       },
-      { plugins: [fromCastUtilsPlugin] }
+      { plugins: [plugin] }
     );
 
     expect(errors).toEqual([]);

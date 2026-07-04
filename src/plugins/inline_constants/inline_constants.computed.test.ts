@@ -1,9 +1,12 @@
-import { transpile } from "./testing";
+import { transpileWithPlugins } from "../testing";
+
+import { plugin } from "./plugin";
 
 describe("inline_constants plugin computed values handling", () => {
   it("should inline computed scalar constants folded on build time", () => {
-    const { lua, errors } = transpile({
-      "constants.ts": `
+    const { errors, lua } = transpileWithPlugins(
+      {
+        "constants.ts": `
 declare const math: { readonly pi: number };
 
 /** @inline */
@@ -18,25 +21,45 @@ export const SECTION: string = "smart" + "_" + "terrain";
 /** @inline */
 export const DEGREE = math.pi / 180;
 `,
-      "main.ts": `
+        "main.ts": `
 import { DEGREE, HOUR, MINUTE, SECTION } from "./constants";
 
 export function get(): unknown {
   return [MINUTE, HOUR, SECTION, DEGREE];
 }
 `,
-    });
+      },
+      { plugins: [plugin] }
+    );
 
     expect(errors).toEqual([]);
-    expect(lua["main.lua"]).toContain("60000");
-    expect(lua["main.lua"]).toContain("3600000");
-    expect(lua["main.lua"]).toContain('"smart_terrain"');
-    expect(lua["main.lua"]).toContain("0.017453292519943295");
+    expect(lua["constants.lua"]).toBe(`local ____exports = {}
+---
+-- @inline
+____exports.MINUTE = 60 * 1000
+---
+-- @inline
+____exports.HOUR = 60 * 60000
+---
+-- @inline
+____exports.SECTION = ("smart" .. "_") .. "terrain"
+---
+-- @inline
+____exports.DEGREE = math.pi / 180
+return ____exports
+`);
+    expect(lua["main.lua"]).toBe(`local ____exports = {}
+function ____exports.get(self)
+    return {60000, 3600000, "smart_terrain", 0.017453292519943295}
+end
+return ____exports
+`);
   });
 
   it("should inline computed object properties folded on build time", () => {
-    const { lua, errors } = transpile({
-      "main.ts": `
+    const { errors, lua } = transpileWithPlugins(
+      {
+        "main.ts": `
 /** @inline */
 export const timeouts = {
   flag: !false,
@@ -48,17 +71,26 @@ export function get(): unknown {
   return [timeouts.short, timeouts.name, timeouts.flag];
 }
 `,
-    });
+      },
+      { plugins: [plugin] }
+    );
 
     expect(errors).toEqual([]);
-    expect(lua["main.lua"]).toContain("15000");
-    expect(lua["main.lua"]).toContain('"t_x"');
-    expect(lua["main.lua"]).toContain('{15000, "t_x", true}');
+    expect(lua["main.lua"]).toBe(`local ____exports = {}
+---
+-- @inline
+____exports.timeouts = {flag = not false, name = ("t" .. "_") .. "x", short = 15 * 1000}
+function ____exports.get(self)
+    return {15000, "t_x", true}
+end
+return ____exports
+`);
   });
 
   it("should inline template literals and constant cross references", () => {
-    const { lua, errors } = transpile({
-      "main.ts": `
+    const { errors, lua } = transpileWithPlugins(
+      {
+        "main.ts": `
 /** @inline */
 export enum EBase {
   PREFIX = 10,
@@ -74,15 +106,34 @@ export function get(): unknown {
   return [NEXT, NAME];
 }
 `,
-    });
+      },
+      { plugins: [plugin] }
+    );
 
     expect(errors).toEqual([]);
-    expect(lua["main.lua"]).toContain('{15, "zone_alpha_2"}');
+    expect(lua["main.lua"]).toBe(`local ____exports = {}
+---
+-- @inline
+____exports.EBase = EBase or ({})
+____exports.EBase.PREFIX = 10
+____exports.EBase[____exports.EBase.PREFIX] = "PREFIX"
+---
+-- @inline
+____exports.NEXT = 10 + 5
+---
+-- @inline
+____exports.NAME = (("zone_" .. "alpha") .. "_") .. 2
+function ____exports.get(self)
+    return {15, "zone_alpha_2"}
+end
+return ____exports
+`);
   });
 
   it("should inline element access with build-time computable keys", () => {
-    const { lua, errors } = transpile({
-      "main.ts": `
+    const { errors, lua } = transpileWithPlugins(
+      {
+        "main.ts": `
 /** @inline */
 export const misc = { device_pda: "device_pda" } as const;
 
@@ -93,15 +144,29 @@ export function get(): boolean {
   return excluded[misc.device_pda];
 }
 `,
-    });
+      },
+      { plugins: [plugin] }
+    );
 
     expect(errors).toEqual([]);
-    expect(lua["main.lua"]).toContain("return true");
+    expect(lua["main.lua"]).toBe(`local ____exports = {}
+---
+-- @inline
+____exports.misc = {device_pda = "device_pda"}
+---
+-- @inline
+____exports.excluded = {device_pda = true}
+function ____exports.get(self)
+    return true
+end
+return ____exports
+`);
   });
 
   it("should reject not foldable computed values", () => {
-    const { errors } = transpile({
-      "main.ts": `
+    const { errors, lua } = transpileWithPlugins(
+      {
+        "main.ts": `
 declare function runtimeValue(): number;
 
 const mutable = { x: 1 };
@@ -118,12 +183,31 @@ export const FROM_MUTABLE = mutable.x + 1;
 /** @inline */
 export const FLOAT_CONCAT = "x" + 1 / 3;
 `,
-    });
+      },
+      { plugins: [plugin] }
+    );
 
-    expect(errors).toHaveLength(4);
-    expect(errors[0]).toContain("'FROM_CALL'");
-    expect(errors[1]).toContain("'NOT_FINITE'");
-    expect(errors[2]).toContain("'FROM_MUTABLE'");
-    expect(errors[3]).toContain("'FLOAT_CONCAT'");
+    expect(errors).toEqual([
+      "'@inline' constant 'FROM_CALL' must have a compile-time constant value, use a literal or an expression computable on build time.",
+      "'@inline' constant 'NOT_FINITE' must have a compile-time constant value, use a literal or an expression computable on build time.",
+      "'@inline' constant 'FROM_MUTABLE' must have a compile-time constant value, use a literal or an expression computable on build time.",
+      "'@inline' constant 'FLOAT_CONCAT' must have a compile-time constant value, use a literal or an expression computable on build time.",
+    ]);
+    expect(lua["main.lua"]).toBe(`local ____exports = {}
+local mutable = {x = 1}
+---
+-- @inline
+____exports.FROM_CALL = runtimeValue(nil) * 2
+---
+-- @inline
+____exports.NOT_FINITE = 1 / 0
+---
+-- @inline
+____exports.FROM_MUTABLE = mutable.x + 1
+---
+-- @inline
+____exports.FLOAT_CONCAT = "x" .. tostring(1 / 3)
+return ____exports
+`);
   });
 });
