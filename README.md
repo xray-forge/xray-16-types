@@ -107,7 +107,7 @@ Default `tstl` behaviour does not work well with engine imports and I tried to a
 Plugin to strip all `LuaLogger` calls from runtime if env variable is set or path param is provided.\
 Logger can consume a lot of processing time that does not benefit player.
 
-### inject_filename
+### inject-file-meta
 
 Plugin adding `$filename` global variable replaced with actual file name on build time.\
 Lua does not provide convenient API do get filename in runtime and static step is much simpler.
