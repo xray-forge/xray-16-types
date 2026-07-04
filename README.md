@@ -42,6 +42,22 @@ At build time the `macros` plugin strips the import and folds each usage (identi
 unmodified — no hand-written mocks and nothing added to the global scope. `$filename`/`$dirname` are per-file
 literals at build time and stable stubs at runtime.
 
+### Ambient runtime typedefs
+
+The ambient Lua runtime an X-Ray script executes in (open-xray standard library extensions and bundled Lua
+libraries) ships as opt-in ambient declarations. They are globals, so add the ones you use to the `types`
+array of your tsconfig (or reference them with `/// <reference types="..." />`) rather than importing them:
+
+- `xray16/typedefs/extensions` — open-xray `table` (`random`, `size`, `keys`, `values`) and `string` (`trim*`) extensions.
+- `xray16/typedefs/luajit` — base Lua `table`/`string`/`math` methods and `ipairs` that TSTL's typings omit.
+- `xray16/typedefs/lfs` — the LuaFileSystem (`lfs`) library.
+- `xray16/typedefs/marshal` — the `marshal` serialization library.
+
+```jsonc
+// tsconfig.json
+"types": ["@typescript-to-lua/language-extensions", "xray16", "xray16/typedefs/extensions", "xray16/typedefs/luajit"]
+```
+
 ## 📦Extending C++ classes and overriding virtual methods
 
 ### Lua

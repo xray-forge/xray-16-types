@@ -49,6 +49,7 @@
   },
   "files": [
     "plugins/**/*",
+    "typedefs/**/*",
     "index.d.ts",
     "macros.js",
     "macros.d.ts",
@@ -71,6 +72,10 @@
     "./plugins/optimize": "./plugins/optimize.js",
     "./plugins/strip": "./plugins/strip.js",
     "./plugins/tracy": "./plugins/tracy.js",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./typedefs/extensions": "./typedefs/extensions.d.ts",
+    "./typedefs/luajit": "./typedefs/luajit.d.ts",
+    "./typedefs/lfs": "./typedefs/lfs.d.ts",
+    "./typedefs/marshal": "./typedefs/marshal.d.ts"
   }
 }
