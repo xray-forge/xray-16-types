@@ -836,6 +836,19 @@ declare module "xray16" {
     public memory_hit_objects(): LuaIterable<hit_memory_object>;
 
     /**
+     * Remove a hit-memory record from this stalker's memory manager.
+     *
+     * @since OpenXRay 2022-12-02, 48a5ff60, PR #1015
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Non-stalker objects return without changing memory. Pass a record
+     * previously obtained from `memory_hit_objects()` or compatible engine memory lookup.
+     *
+     * @param object - Hit-memory record to remove.
+     */
+    public remove_memory_hit_object(object: hit_memory_object): void;
+
+    /**
      * Get time since this object remembered another object.
      *
      * @remarks
@@ -857,6 +870,19 @@ declare module "xray16" {
      * @returns Iterable visible memory objects.
      */
     public memory_visible_objects(): LuaIterable<visible_memory_object>;
+
+    /**
+     * Remove a visual-memory record from this stalker's memory manager.
+     *
+     * @since OpenXRay 2022-12-02, 48a5ff60, PR #1015
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Non-stalker objects return without changing memory. Pass a record
+     * previously obtained from `memory_visible_objects()` or compatible engine memory lookup.
+     *
+     * @param object - Visual-memory record to remove.
+     */
+    public remove_memory_visible_object(object: visible_memory_object): void;
 
     /**
      * Get current stalker mental state.
@@ -1368,6 +1394,19 @@ declare module "xray16" {
      * @returns Danger object, or `null`.
      */
     public best_danger(): Nullable<danger_object>;
+
+    /**
+     * Remove a danger event from this stalker's danger memory.
+     *
+     * @since OpenXRay 2022-12-02, 48a5ff60, PR #1015
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Non-stalker objects return without changing memory. Pass a danger
+     * object previously obtained from `best_danger()` or another engine danger-memory lookup.
+     *
+     * @param object - Danger event to remove.
+     */
+    public remove_danger(object: danger_object): void;
 
     /**
      * @remarks
@@ -1953,6 +1992,19 @@ declare module "xray16" {
      * @returns Iterable sound-memory records.
      */
     public memory_sound_objects(): LuaIterable<sound_memory_object>;
+
+    /**
+     * Remove a sound-memory record from this stalker's memory manager.
+     *
+     * @since OpenXRay 2022-12-02, 48a5ff60, PR #1015
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Non-stalker objects return without changing memory. Pass a record
+     * previously obtained from `memory_sound_objects()` or compatible engine memory lookup.
+     *
+     * @param object - Sound-memory record to remove.
+     */
+    public remove_memory_sound_object(object: sound_memory_object): void;
 
     /**
      * @remarks
@@ -4643,9 +4695,12 @@ declare module "xray16" {
     public unregister_door_for_npc(): void;
 
     /**
+     * Get current ammo count in this ammo box.
+     *
+     * @since OpenXRay 2022-12-25, 3afded2f, PR #1190
+     *
      * @remarks
-     * Requires this object to be an ammo box item. Other object types log a script error and return a
-     * default value or do nothing.
+     * Requires this object to be a `CWeaponAmmo` item. Other object types log a script error and return `0`.
      *
      * @returns Ammo count in this ammo box.
      */
@@ -4654,18 +4709,22 @@ declare module "xray16" {
     /**
      * Set ammo count for this ammo box.
      *
+     * @since OpenXRay 2022-12-25, 3afded2f, PR #1190
+     *
      * @remarks
-     * Requires this object to be an ammo box item. Other object types log a script error and return a
-     * default value or do nothing.
+     * Requires this object to be a `CWeaponAmmo` item. Other object types log a script error and do nothing.
      *
      * @param count - Ammo count.
      */
     public ammo_set_count(count: u16): void;
 
     /**
+     * Get configured ammo box size for this ammo item.
+     *
+     * @since OpenXRay 2022-12-25, 3afded2f, PR #1190
+     *
      * @remarks
-     * Requires this object to be an ammo box item. Other object types log a script error and return a
-     * default value or do nothing.
+     * Requires this object to be a `CWeaponAmmo` item. Other object types log a script error and return `0`.
      *
      * @returns Configured ammo box size.
      */
@@ -5450,8 +5509,12 @@ declare module "xray16" {
     public get_total_weight(): f32;
 
     /**
+     * Get vehicle currently attached to the actor.
+     *
+     * @since OpenXRay 2015-07-07, 6e703b4c
+     *
      * @remarks
-     * Requires this object to be the actor. Other object types log a script error or do nothing.
+     * Requires this object to be the actor. Other object types log a script error or return `null`.
      *
      * @returns Vehicle currently attached to the actor, or `null`.
      */
@@ -5535,6 +5598,8 @@ declare module "xray16" {
     /**
      * Attach actor to a vehicle or holder.
      *
+     * @since OpenXRay 2015-06-16, 0fe21c14
+     *
      * @remarks
      * Requires this object to be the actor. Other object types log a script error or do nothing.
      *
@@ -5555,6 +5620,8 @@ declare module "xray16" {
     /**
      * Detach actor from the current vehicle or holder.
      *
+     * @since OpenXRay 2015-06-16, 0fe21c14
+     *
      * @remarks
      * Requires this object to be the actor. Other object types log a script error or do nothing.
      *
@@ -5563,12 +5630,45 @@ declare module "xray16" {
     public detach_vehicle(force: boolean): void;
 
     /**
-     * Move object to a position immediately.
+     * Move object with a physics shell to a position immediately.
+     *
+     * @since OpenXRay 2015-07-07, 6e703b4c
+     *
+     * @remarks
+     * Requires this object to be a physics-shell holder. Objects without a shell return or log a script error. When
+     * `activate` is `true`, the engine activates the physics shell before forcing the transform.
      *
      * @param position - Target position.
-     * @param update_ai_location - Whether AI location should be updated.
+     * @param activate - Whether to activate the physics shell before moving it.
      */
-    public force_set_position(position: vector, update_ai_location: boolean): void;
+    public force_set_position(position: vector, activate: boolean): void;
+
+    /**
+     * Reset stalker bone protections from immunity and bones sections.
+     *
+     * @since OpenXRay 2022-12-02, 5ba7bd86, PR #1016
+     *
+     * @remarks
+     * Requires this object to be a `CAI_Stalker`. Non-stalker objects log a script error and do nothing. The engine
+     * reads the provided config sections and updates the stalker's per-bone protections from the model user data.
+     *
+     * @param immunity_section - Immunity section name, or an empty string to use the model default.
+     * @param bones_section - Bones protection section name.
+     */
+    public reset_bone_protections(immunity_section: string, bones_section: string): void;
+
+    /**
+     * Iterate object ids from this object's `Feel::Touch` contact list.
+     *
+     * @since OpenXRay 2016-05-31, 15edbfd9
+     *
+     * @remarks
+     * Requires this object to implement `Feel::Touch`. Objects without touch sensing do nothing. The callback receives
+     * each touched object's server id, not a `game_object` wrapper.
+     *
+     * @param callback - Callback invoked for each touched object id.
+     */
+    public iterate_feel_touch(callback: (this: void, object_id: u16) => void): void;
 
     /**
      * Get inventory ammo count for a weapon ammo type.

@@ -156,14 +156,16 @@ declare module "xray16" {
   }
 
   /**
-   * Result of an `FS.exist` query that checks virtual and/or external files.
+   * Result of an OpenXRay `FS.exist` query that checks virtual and/or external files.
    *
+   * @since OpenXRay 2014-11-02, 827c9f58
    * @source C++ class FileStatus
    * @customConstructor FileStatus
    * @group xr_fs
    *
    * @remarks
-   * The object can be used as a boolean in Lua. `External` means the file was found outside registered virtual archives.
+   * The object can be used as a boolean in Lua. `External` means the file was found outside registered virtual
+   * archives.
    */
   export class FileStatus {
     /**
@@ -310,16 +312,22 @@ declare module "xray16" {
 
     /**
      * Search virtual registered files only.
+     *
+     * @since OpenXRay 2014-11-02, 827c9f58
      */
     public static readonly FSType_Virtual: 1;
 
     /**
      * Search external files only.
+     *
+     * @since OpenXRay 2014-11-02, 827c9f58
      */
     public static readonly FSType_External: 2;
 
     /**
      * Search virtual and external files.
+     *
+     * @since OpenXRay 2014-11-02, 827c9f58
      */
     public static readonly FSType_Any: 3;
 
@@ -429,52 +437,62 @@ declare module "xray16" {
     public file_delete(path: string): void;
 
     /**
-     * Check whether a file exists below a path alias.
+     * Check whether a file exists below a path alias in a selected filesystem source.
+     *
+     * @since OpenXRay 2014-11-02, 827c9f58
      *
      * @remarks
-     * This overload checks virtual and/or external files and returns a status object.
+     * OpenXRay extension. This overload resolves `alias` and `filename`, then checks virtual files, external files,
+     * or both according to `fs_type`. It always returns a `FileStatus`; inspect `Exists` for the result and `External`
+     * to see whether the match came from the external filesystem.
      *
      * @param alias - Filesystem path alias.
      * @param filename - File name.
      * @param fs_type - Filesystem source to search.
      * @returns File status.
      */
-    public exist(alias: string, filename: string, fs_type: TXR_fs_type): Nullable<FileStatus>;
+    public exist(alias: string, filename: string, fs_type: TXR_fs_type): FileStatus;
 
     /**
-     * Check whether a file exists below a path alias.
+     * Get a registered file descriptor below a path alias.
      *
      * @remarks
-     * This overload resolves `alias` and `filename`, then returns a registered file descriptor when found.
+     * Original X-Ray/vanilla-compatible overload. It resolves `alias` and `filename` and searches registered virtual
+     * files only.
      *
      * @param alias - Filesystem path alias.
      * @param filename - File name.
-     * @returns File descriptor pointer or `null`.
+     * @returns Registered file descriptor, or `null` when no registered file is found.
      */
-    public exist(alias: string, filename: string): Nullable<i32>;
+    public exist(alias: string, filename: string): Nullable<fs_file>;
 
     /**
-     * Check whether a file exists.
+     * Get a registered file descriptor by full virtual path.
      *
      * @remarks
-     * This overload returns a registered file descriptor when found.
+     * Original X-Ray/vanilla-compatible overload. It searches registered virtual files only. OpenXRay restored this
+     * overload on 2023-01-25 after external-filesystem overloads had temporarily taken the `exist` name.
      *
      * @param path - File path.
-     * @returns File descriptor pointer or `null`.
+     * @returns Registered file descriptor, or `null` when no registered file is found.
      */
-    public exist(path: string): Nullable<i32>;
+    public exist(path: string): Nullable<fs_file>;
 
     /**
-     * Check whether a file exists.
+     * Check whether a file exists in a selected filesystem source.
+     *
+     * @since OpenXRay 2014-11-02, 827c9f58
      *
      * @remarks
-     * This overload checks virtual and/or external files and returns a status object.
+     * OpenXRay extension. This overload checks virtual files, external files, or both according to `fs_type`. It always
+     * returns a `FileStatus`; inspect `Exists` for the result and `External` to see whether the match came from the
+     * external filesystem.
      *
      * @param path - File path.
      * @param fs_type - Filesystem source to search.
      * @returns File status.
      */
-    public exist(path: string, fs_type: TXR_fs_type): Nullable<FileStatus>;
+    public exist(path: string, fs_type: TXR_fs_type): FileStatus;
 
     /**
      * Add a path alias.
@@ -591,14 +609,16 @@ declare module "xray16" {
   }
 
   /**
-   * Filesystem scope accepted by `FS.exist()` and related path queries.
+   * OpenXRay filesystem scope accepted by `FS.exist()` overloads that return `FileStatus`.
    *
+   * @since OpenXRay 2014-11-02, 827c9f58
    * @source `src/xrGame/fs_registrator_script.cpp`, `FS.FSType` enum.
    * @group xr_fs
    *
    * @remarks
    * `FSType_Virtual` searches mounted game paths, `FSType_External` searches external filesystem paths, and
-   * `FSType_Any` allows either source.
+   * `FSType_Any` allows either source. Original vanilla `FS.exist(path)` overloads do not accept this argument and
+   * return an `fs_file` descriptor instead.
    */
   export type TXR_fs_type = typeof FS.FSType_Virtual | typeof FS.FSType_External | typeof FS.FSType_Any;
 
