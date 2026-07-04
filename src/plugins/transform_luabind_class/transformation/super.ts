@@ -12,7 +12,12 @@ import { getCalledExpression, transformArguments } from "typescript-to-lua/dist/
 import { transformIdentifier } from "typescript-to-lua/dist/transformation/visitors/identifier";
 
 import { type ITransformationContext } from "./class_declaration";
-import { LUABIND_CONSTRUCTOR_METHOD, LUABIND_DEFAULT_SUPER_CALL, LUABIND_SUPER_IDENTIFIER, type TLuabindSuperCall } from "./constants";
+import {
+  LUABIND_CONSTRUCTOR_METHOD,
+  LUABIND_DEFAULT_SUPER_CALL,
+  LUABIND_SUPER_IDENTIFIER,
+  type TLuabindSuperCall,
+} from "./constants";
 import { isLuabindClassType } from "./utils";
 
 /**
