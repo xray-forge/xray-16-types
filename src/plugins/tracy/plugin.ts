@@ -82,7 +82,7 @@ export function createPlugin(config: IInjectTracyZonesPluginConfig = {}): Plugin
       },
       [SyntaxKind.ClassDeclaration]: (node, context) => {
         if (isEnabled()) {
-          const name: string = node.name ? node.name.getText() : null;
+          const name: string | undefined = node.name ? node.name.getText() : undefined;
 
           return context.superTransformStatements(
             factory.updateClassDeclaration(

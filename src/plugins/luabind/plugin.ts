@@ -1,5 +1,11 @@
-import { type CallExpression, type NewExpression, type SuperExpression, SyntaxKind } from "typescript";
-import { type Plugin } from "typescript-to-lua";
+import {
+  type CallExpression,
+  type ClassDeclaration,
+  type NewExpression,
+  type SuperExpression,
+  SyntaxKind,
+} from "typescript";
+import { type Plugin, type TransformationContext } from "typescript-to-lua";
 
 import {
   isLuabindClassSuperCall,
@@ -42,33 +48,41 @@ export function createPlugin(config: IPluginConfig = {}): Plugin {
 
   return {
     visitors: {
-      [SyntaxKind.CallExpression]: (expression: CallExpression, context: ITransformationContext) => {
-        if (isLuabindClassSuperCall(expression, context)) {
-          return transformLuabindConstructorSuperCall(expression, context, superCall);
+      [SyntaxKind.CallExpression]: (expression: CallExpression, context: TransformationContext) => {
+        const ctx = context as ITransformationContext;
+
+        if (isLuabindClassSuperCall(expression, ctx)) {
+          return transformLuabindConstructorSuperCall(expression, ctx, superCall);
         }
 
-        return context.superTransformExpression(expression);
+        return ctx.superTransformExpression(expression);
       },
-      [SyntaxKind.ClassDeclaration]: (declaration, context: ITransformationContext) => {
+      [SyntaxKind.ClassDeclaration]: (declaration: ClassDeclaration, context: TransformationContext) => {
+        const ctx = context as ITransformationContext;
+
         if (isLuabindDecoratedClass(declaration)) {
-          return transformLuabindClassDeclaration(declaration, context, superCall);
+          return transformLuabindClassDeclaration(declaration, ctx, superCall);
         }
 
-        return context.superTransformStatements(declaration);
+        return ctx.superTransformStatements(declaration);
       },
-      [SyntaxKind.NewExpression]: (expression: NewExpression, context: ITransformationContext) => {
-        if (isLuabindClassType(expression, context)) {
-          return transformNewCallExpression(expression, context);
+      [SyntaxKind.NewExpression]: (expression: NewExpression, context: TransformationContext) => {
+        const ctx = context as ITransformationContext;
+
+        if (isLuabindClassType(expression, ctx)) {
+          return transformNewCallExpression(expression, ctx);
         }
 
-        return context.superTransformExpression(expression);
+        return ctx.superTransformExpression(expression);
       },
-      [SyntaxKind.SuperKeyword]: (expression: SuperExpression, context: ITransformationContext) => {
-        if (isLuabindClassSuperMethodCall(expression, context)) {
-          return transformClassSuperMethodExpression(expression, context);
+      [SyntaxKind.SuperKeyword]: (expression: SuperExpression, context: TransformationContext) => {
+        const ctx = context as ITransformationContext;
+
+        if (isLuabindClassSuperMethodCall(expression, ctx)) {
+          return transformClassSuperMethodExpression(expression, ctx);
         }
 
-        return context.superTransformExpression(expression);
+        return ctx.superTransformExpression(expression);
       },
     },
   };

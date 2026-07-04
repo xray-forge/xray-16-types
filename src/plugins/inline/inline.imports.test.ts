@@ -33,7 +33,7 @@ export function get(): unknown {
 ____exports.MAX_VALUE = 255
 ---
 -- @inline
-____exports.EColor = EColor or ({})
+____exports.EColor = ____exports.EColor or ({})
 ____exports.EColor.RED = "red"
 return ____exports
 `);
@@ -239,7 +239,7 @@ return ____exports
     expect(lua["enums.lua"]).toBe(`local ____exports = {}
 ---
 -- @inline
-____exports.EOne = EOne or ({})
+____exports.EOne = ____exports.EOne or ({})
 ____exports.EOne.FIRST = 1
 ____exports.EOne[____exports.EOne.FIRST] = "FIRST"
 return ____exports

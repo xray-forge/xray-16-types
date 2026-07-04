@@ -103,8 +103,8 @@ export function remapStatementsWithZoneEnd<T extends { statements: NodeArray<Sta
   return statements;
 }
 
-export function transformNestedStatementsToInjectEndZones(statement?: Statement): Statement {
-  if (!statement || isTraceBeginExpression(statement) || isTraceEndExpression(statement)) {
+export function transformNestedStatementsToInjectEndZones(statement: Statement): Statement {
+  if (isTraceBeginExpression(statement) || isTraceEndExpression(statement)) {
     return statement;
   }
 
@@ -171,7 +171,7 @@ export function transformNestedStatementsToInjectEndZones(statement?: Statement)
       statement,
       statement.expression,
       transformNestedStatementsToInjectEndZones(statement.thenStatement),
-      transformNestedStatementsToInjectEndZones(statement.elseStatement)
+      statement.elseStatement ? transformNestedStatementsToInjectEndZones(statement.elseStatement) : undefined
     );
   } else if (isSwitchStatement(statement)) {
     return factory.updateSwitchStatement(
@@ -206,7 +206,7 @@ export function transformWithInjectedZones<T extends FunctionDeclaration | Metho
   node: T,
   parentName?: string
 ): T {
-  const name: string = node.name ? node.name.getText() : null;
+  const name: string | undefined = node.name ? node.name.getText() : undefined;
 
   if (!name || !node.body?.statements.length) {
     return node;

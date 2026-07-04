@@ -45,7 +45,7 @@ export interface ITransformationContext extends TransformationContext {
 }
 
 export function transformLuabindClassDeclaration(
-  declaration,
+  declaration: ClassLikeDeclaration,
   context: TransformationContext,
   superCall: TLuabindSuperCall = LUABIND_DEFAULT_SUPER_CALL
 ) {

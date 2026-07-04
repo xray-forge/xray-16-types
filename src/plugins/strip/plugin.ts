@@ -2,6 +2,7 @@ import {
   type CallExpression,
   factory,
   type Identifier,
+  type Node,
   type PropertyAccessExpression,
   SyntaxKind,
   type Type,
@@ -61,14 +62,14 @@ export function createPlugin(config: IStripPluginConfig = {}): Plugin {
           const list = statement.declarationList as VariableDeclarationList;
           const nodes: Array<VariableDeclaration> = [];
 
-          list.forEachChild((it: VariableDeclaration) => {
+          list.forEachChild((it: Node) => {
             const checker: TypeChecker = context.program.getTypeChecker();
             const typeSymbol: Type = checker.getTypeAtLocation(it);
 
             if (typeSymbol.symbol?.name === LUA_LOGGER_STRIP_TARGET) {
               // Nothing
             } else {
-              nodes.push(it);
+              nodes.push(it as VariableDeclaration);
             }
 
             elementsCount += 1;

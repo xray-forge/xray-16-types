@@ -26,7 +26,7 @@ export function get(): string {
     expect(errors).toEqual([]);
     expect(lua["main.lua"]).toBe(`local ____exports = {}
 ____exports.values = {a = "a"}
-____exports.EUntagged = EUntagged or ({})
+____exports.EUntagged = ____exports.EUntagged or ({})
 ____exports.EUntagged.FIRST = "first"
 ____exports.UNTAGGED_SCALAR = 10
 function ____exports.get(self)

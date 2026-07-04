@@ -114,7 +114,7 @@ export function get(): unknown {
     expect(lua["main.lua"]).toBe(`local ____exports = {}
 ---
 -- @inline
-____exports.EBase = EBase or ({})
+____exports.EBase = ____exports.EBase or ({})
 ____exports.EBase.PREFIX = 10
 ____exports.EBase[____exports.EBase.PREFIX] = "PREFIX"
 ---

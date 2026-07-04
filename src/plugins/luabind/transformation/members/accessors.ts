@@ -11,7 +11,7 @@ import { isStaticNode } from "../utils";
 
 function transformAccessor(context: TransformationContext, node: AccessorDeclaration): lua.FunctionExpression {
   const [params, dot, restParam] = transformParameters(context, node.parameters, createSelfIdentifier());
-  const body = node.body ? transformFunctionBody(context, node.parameters, node.body, restParam)[0] : [];
+  const body = node.body ? transformFunctionBody(context, node.parameters, node.body, node, restParam)[0] : [];
 
   return lua.createFunctionExpression(lua.createBlock(body), params, dot, lua.NodeFlags.Declaration);
 }

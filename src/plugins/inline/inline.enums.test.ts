@@ -40,12 +40,12 @@ export function get(): unknown {
     expect(lua["enums.lua"]).toBe(`local ____exports = {}
 ---
 -- @inline
-____exports.EStringEnum = EStringEnum or ({})
+____exports.EStringEnum = ____exports.EStringEnum or ({})
 ____exports.EStringEnum.FIRST = "first"
 ____exports.EStringEnum.SECOND = "second"
 ---
 -- @inline
-____exports.ENumericEnum = ENumericEnum or ({})
+____exports.ENumericEnum = ____exports.ENumericEnum or ({})
 ____exports.ENumericEnum.FIRST = 0
 ____exports.ENumericEnum[____exports.ENumericEnum.FIRST] = "FIRST"
 ____exports.ENumericEnum.SECOND = 1
@@ -89,7 +89,7 @@ local function computeValue(self)
 end
 ---
 -- @inline
-____exports.EComputed = EComputed or ({})
+____exports.EComputed = ____exports.EComputed or ({})
 ____exports.EComputed.STATIC = 1
 ____exports.EComputed[____exports.EComputed.STATIC] = "STATIC"
 ____exports.EComputed.DYNAMIC = computeValue(nil)

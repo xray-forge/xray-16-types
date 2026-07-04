@@ -11,7 +11,7 @@
     "prepublish": "npm run build",
     "prepack": "npm run build",
     "build": "npm run build:plugins && npm run build:types",
-    "build:plugins": "rolldown -c rolldown.config.mjs && tsc src/plugins/constants.ts --declaration --emitDeclarationOnly --outDir plugins --skipLibCheck",
+    "build:plugins": "rolldown -c rolldown.config.mjs && tsc src/plugins/constants.ts --declaration --emitDeclarationOnly --outDir plugins --skipLibCheck --ignoreConfig",
     "build:types": "rolldown -c rolldown.dts.config.mjs",
     "build:docs": "typedoc",
     "test": "jest",
@@ -21,7 +21,7 @@
     "lint": "eslint ."
   },
   "peerDependencies": {
-    "typescript-to-lua": "^1.28.1"
+    "typescript-to-lua": "^1.37.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
@@ -41,10 +41,10 @@
     "rolldown": "^1.1.4",
     "rolldown-plugin-dts": "^0.26.0",
     "ts-jest": "^29.4.11",
-    "typedoc": "^0.27.5",
-    "typescript": "5.7.2",
+    "typedoc": "^0.28.19",
+    "typescript": "6.0.2",
     "typescript-eslint": "^8.62.0",
-    "typescript-to-lua": "1.28.1"
+    "typescript-to-lua": "1.37.0"
   },
   "files": [
     "plugins/**/*",
