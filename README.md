@@ -55,33 +55,25 @@ Plugins can be included in [tstl tsconfig](https://typescripttolua.github.io/doc
 {
   "tstl": {
     "luaPlugins": [
-      { "name": "xray16/plugins/transform-luabind-class" },
-      { "name": "xray16/plugins/global-declarations-transform" },
-      { "name": "xray16/plugins/built-at-info" },
-      { "name": "xray16/plugins/strip-lua-logger" },
-      { "name": "xray16/plugins/inject-file-meta" },
-      { "name": "xray16/plugins/from-cast-utils" },
-      { "name": "xray16/plugins/optimize-return-ternary" },
-      { "name": "xray16/plugins/inline-constants" },
-      { "name": "xray16/plugins/inject-tracy-zones" }
+      { "name": "xray16/plugins/luabind" },
+      { "name": "xray16/plugins/strip", "engineImports": true },
+      { "name": "xray16/plugins/macros" },
+      { "name": "xray16/plugins/optimize" },
+      { "name": "xray16/plugins/inline" },
+      { "name": "xray16/plugins/tracy" }
     ]
   }
 }
 ```
 
-Arguments for TSTL:
+Toggles that are configurable per-plugin also accept environment / CLI fallbacks when the config field is left unset:
 
-- `--no-lua-logs`
-- `--inject-tracy-zones`
+- `strip` `luaLogger` ← `XR_NO_LUA_LOGS` env / `--no-lua-logs` CLI
+- `tracy` `enabled` ← `XR_INJECT_TRACY_ZONES` env / `--inject-tracy-zones` CLI
 
-Env variables for custom CLI scripts:
+### luabind
 
-- `XR_NO_LUA_LOGS`
-- `XR_INJECT_TRACY_ZONES `
-
-### transform-luabind-class
-
-Custom plugin overriding transformation of classes marked with `@LuaClass` decorator.\
+Custom plugin overriding transformation of classes marked with `@LuabindClass()` decorator.\
 Instead of using prototypes and metatables use luabind API to declare such classes.
 
 Accepts an optional `superCall` field controlling how parent constructor `super(...)` calls are emitted:
@@ -90,39 +82,51 @@ Accepts an optional `superCall` field controlling how parent constructor `super(
 - `"luabind"` - delegate to the luabind `super(...)` global, e.g. `super(...)`.
 
 ```json
-{ "name": "xray16/plugins/transform-luabind-class", "superCall": "luabind" }
+{ "name": "xray16/plugins/luabind", "superCall": "luabind" }
 ```
 
-### built-at-info
+See [src/plugins/luabind/README.md](src/plugins/luabind/README.md) for full documentation.
 
-Plugin injecting time and generic metadata on top of built lua scripts.
+### strip
 
-### global-declarations-transform
+Plugin that removes selected constructs from the emitted Lua. Accepts a config object selecting what to strip:
 
-Plugin stripping all the runtime imports from `xray16` package.
-Default `tstl` behaviour does not work well with engine imports and I tried to avoid implicit globals.
+- `luaLogger` - remove all `LuaLogger` declarations and calls (they can consume processing time that does not
+  benefit the player). When unset, falls back to the `XR_NO_LUA_LOGS` env / `--no-lua-logs` CLI flag.
+- `engineImports` (default `true`) - remove runtime imports of engine typedef modules (`xray16`), which have no
+  runtime counterpart. Default `tstl` behaviour does not work well with engine imports and produces implicit globals.
 
-### strip-lua-logger
+```json
+{ "name": "xray16/plugins/strip", "luaLogger": true, "engineImports": true }
+```
 
-Plugin to strip all `LuaLogger` calls from runtime if env variable is set or path param is provided.\
-Logger can consume a lot of processing time that does not benefit player.
+See [src/plugins/strip/README.md](src/plugins/strip/README.md) for full documentation.
 
-### inject-file-meta
+### macros
 
-Plugin adding `$filename` global variable replaced with actual file name on build time.\
-Lua does not provide convenient API do get filename in runtime and static step is much simpler.
+Plugin applying compile-time macros. Accepts a config object toggling each feature (all default to `true`; the
+token-driven ones are inert unless the matching `$` token is used):
 
-### from-cast-utils
+- `buildTimestamp` - prepend a build time / metadata comment on top of every emitted Lua file.
+- `fileName` / `dirName` - replace the `$filename` / `$dirname` globals with the compile-time file / directory name
+  (Lua provides no convenient runtime API for this, so a static step is simpler).
+- `castHelpers` - expand `$fromObject`/`$fromArray`/`$fromLuaArray`/`$fromLuaTable` (unwrapped, removed from runtime)
+  and `$isNil`/`$isNotNil` (compiled to `== nil` / `~= nil`) to simplify `LuaTable` interoperation.
 
-Plugin to simplify casting from `LuaTable` to typescript array/map objects.\
-All the calls are completely gets stripped and removed from runtime.
+```json
+{ "name": "xray16/plugins/macros", "buildTimestamp": true, "fileName": true, "dirName": true, "castHelpers": true }
+```
 
-### optimize-return-ternary
+See [src/plugins/macros/README.md](src/plugins/macros/README.md) for full documentation.
+
+### optimize
 
 Plugin rewrites returned ternary expressions into direct `if` / `else` branch returns when it is safe.\
 This avoids temporary result locals for patterns like `return condition ? first : second` while preserving general ternary semantics.
 
-### inline-constants
+See [src/plugins/optimize/README.md](src/plugins/optimize/README.md) for full documentation.
+
+### inline
 
 Plugin that inlines compile-time constants from declarations tagged with `@inline` or `@virtual`.\
 Supported targets are enums, module-level `as const` object literals and module-level scalar constants.\
@@ -154,10 +158,18 @@ export const TIMEOUT: number = 60 * 1000;
 // Build time: `TIMEOUT` reference is emitted as 60000 and the declaration is erased from output.
 ```
 
-See [src/plugins/inline-constants/README.md](src/plugins/inline-constants/README.md) for full documentation.
+See [src/plugins/inline/README.md](src/plugins/inline/README.md) for full documentation.
 
-### inject-tracy-zones
+### tracy
 
 Plugin designed to work specifically with [tracy profiler](https://github.com/wolfpld/tracy).\
-Once it is enabled with env variable or path parameter, tracy zone marking calls are injected for every method.\
-This way you will be able to build profiling bundle to understand bottlenecks and what takes CPU time.
+Once enabled, tracy zone marking calls are injected for every file, function and method, letting you build a
+profiling bundle to understand bottlenecks and what takes CPU time.
+
+Accepts an `enabled` config field; when unset, falls back to the `XR_INJECT_TRACY_ZONES` env / `--inject-tracy-zones` CLI flag.
+
+```json
+{ "name": "xray16/plugins/tracy", "enabled": true }
+```
+
+See [src/plugins/tracy/README.md](src/plugins/tracy/README.md) for full documentation.
