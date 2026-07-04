@@ -25,12 +25,32 @@ Types documentation can be checked [here](https://xray-forge.github.io/xray-16-t
 
 Types are used with [xrf template](https://github.com/xray-forge/stalker-xrf-engine) and can be referenced as an example.
 
+### Engine types and plugin types
+
+Engine bindings and plugin types ship as separate declarations, so a project takes the engine surface without any
+plugin globals:
+
+- `xray16` (the package `types` entry) declares the `xray16` engine module. It has no dependency on the plugins.
+- Each plugin that introduces ambient declarations ships its own type file next to its bundle, at
+  `xray16/plugins/<name>`.
+
+```json
+{
+  "compilerOptions": {
+    "types": [
+      "@typescript-to-lua/language-extensions",
+      "xray16/plugins/macros"
+    ]
+  }
+}
+```
+
 ## 📦Extending C++ classes and overriding virtual methods
 
 ### Lua
 
 <p>
-C++ classes can be extended in Lua code with 'class' keyword. 
+C++ classes can be extended in Lua code with 'class' keyword.
 Class declaration registers table as userdata and adds constructor/destructor metamethods. <br/>
 </p>
 

@@ -1,24 +1,24 @@
-import type { Nillable, Nullable } from "./internal";
+type Nillable<T> = T | null | undefined;
 
 declare global {
   /**
    * Current source file name injected at transpile time.
    *
-   * @group xrf_plugin
+   * @group macros
    */
   const $filename: string;
 
   /**
    * Current source directory name injected at transpile time.
    *
-   * @group xrf_plugin
+   * @group macros
    */
   const $dirname: string;
 
   /**
    * Check whether a value is nil-compatible in Lua and Jest runtimes.
    *
-   * @group xrf_plugin
+   * @group macros
    *
    * @param value - Value to check.
    * @returns Whether value is `null` or `undefined`.
@@ -28,7 +28,7 @@ declare global {
   /**
    * Check whether a value is not nil-compatible in Lua and Jest runtimes.
    *
-   * @group xrf_plugin
+   * @group macros
    *
    * @param value - Value to check.
    * @returns Whether value is neither `null` nor `undefined`.
@@ -40,7 +40,7 @@ declare global {
    *
    * The transformer removes this call and emits its argument.
    *
-   * @group xrf_plugin
+   * @group macros
    *
    * @param array - TypeScript array.
    * @returns Same value typed as a Lua array.
@@ -52,7 +52,7 @@ declare global {
    *
    * The transformer removes this call and emits its argument.
    *
-   * @group xrf_plugin
+   * @group macros
    *
    * @param array - Lua array.
    * @returns Same value typed as a TypeScript array.
@@ -64,7 +64,7 @@ declare global {
    *
    * The transformer removes this call and emits its argument.
    *
-   * @group xrf_plugin
+   * @group macros
    *
    * @param object - TypeScript object.
    * @returns Same value typed as a Lua table.
@@ -76,7 +76,7 @@ declare global {
    *
    * The transformer removes this call and emits its argument.
    *
-   * @group xrf_plugin
+   * @group macros
    *
    * @param object - TypeScript object.
    * @returns Same value typed as a Lua table.
@@ -88,7 +88,7 @@ declare global {
    *
    * The transformer removes this call and emits its argument.
    *
-   * @group xrf_plugin
+   * @group macros
    *
    * @param object - Lua table.
    * @returns Same value typed as a TypeScript object.
@@ -100,7 +100,7 @@ declare global {
    *
    * The transformer removes this call and emits its argument.
    *
-   * @group xrf_plugin
+   * @group macros
    *
    * @param object - Lua table.
    * @returns Same value typed as a TypeScript object.

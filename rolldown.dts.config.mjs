@@ -1,25 +1,34 @@
 import { dts } from "rolldown-plugin-dts";
 
-// The engine typings are hand-written ambient `declare module "xray16"` augmentations aggregated
-// through side-effect imports in `index.d.ts`. Tree-shaking MUST stay off, otherwise rolldown drops
-// every augmentation body (nothing is "used") and emits an empty module.
-export default {
-  input: "./src/types/index.d.ts",
-  treeshake: false,
-  plugins: [
-    ...dts({ dtsInput: true, emitDtsOnly: true }),
-    {
-      name: "finalize-dts",
-      renderChunk(code) {
-        const stripped = code.replace(/^\/\/#(?:region|endregion).*\r?\n/gm, "").replace(/\s+$/, "");
+// The typings are hand-written ambient declarations aggregated through side-effect imports.
+// Tree-shaking MUST stay off, otherwise rolldown drops every augmentation body (nothing is "used")
+// and emits an empty module.
+function bundleDts(input, outDir, outName) {
+  return {
+    input,
+    treeshake: false,
+    plugins: [
+      ...dts({ dtsInput: true, emitDtsOnly: true }),
+      {
+        name: "finalize-dts",
+        renderChunk(code) {
+          const body = code
+            .replace(/^\/\/#(?:region|endregion).*\r?\n/gm, "")
+            .replace(/(?:\r?\nexport\s*\{\s*\};?)*\s*$/, "");
 
-        return `${stripped}\nexport {};\n`;
+          return `${body}\nexport {};\n`;
+        },
       },
+    ],
+    output: {
+      dir: outDir,
+      entryFileNames: outName,
+      format: "es",
     },
-  ],
-  output: {
-    dir: ".",
-    entryFileNames: "index.d.ts",
-    format: "es",
-  },
-};
+  };
+}
+
+export default [
+  bundleDts("./src/types/index.d.ts", ".", "index.d.ts"),
+  bundleDts("./src/plugins/macros/types.d.ts", "plugins", "macros.d.ts"),
+];
