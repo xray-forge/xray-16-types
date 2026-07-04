@@ -238,4 +238,37 @@ return ____exports
 `);
     });
   });
+
+  describe("xray16/macros import", () => {
+    it("should strip xray16/macros imports and fold their usages", () => {
+      const { errors, lua } = transpileWithPlugins(
+        {
+          "macros.d.ts": `declare module "xray16/macros" {
+  export const $filename: string;
+  export function $isNil(value: unknown): boolean;
+  export function $fromObject<T>(value: unknown): T;
+}`,
+          "scripts/main.ts": `
+import { $filename, $fromObject, $isNil } from "xray16/macros";
+
+export function run(value: unknown): unknown {
+  return [$filename, $isNil(value), $fromObject<number>(value)];
+}
+`,
+        },
+        {
+          plugins: [createPlugin({ buildTimestamp: false })],
+          compilerOptions: { noResolvePaths: ["xray16", "xray16/macros"] },
+        }
+      );
+
+      expect(errors).toEqual([]);
+      expect(lua["main.lua"]).toBe(`local ____exports = {}
+function ____exports.run(self, value)
+    return {"main", value == nil, value}
+end
+return ____exports
+`);
+    });
+  });
 });

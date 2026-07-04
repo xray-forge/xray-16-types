@@ -28,7 +28,4 @@ function bundleDts(input, outDir, outName) {
   };
 }
 
-export default [
-  bundleDts("./src/types/index.d.ts", ".", "index.d.ts"),
-  bundleDts("./src/plugins/macros/types.d.ts", "plugins", "macros.d.ts"),
-];
+export default [bundleDts("./src/types/index.d.ts", "./", "index.d.ts")];

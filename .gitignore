@@ -3,3 +3,5 @@ node_modules/
 docs/
 /plugins/
 /index.d.ts
+/macros.js
+/macros.d.ts

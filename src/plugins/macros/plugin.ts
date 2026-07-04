@@ -12,6 +12,8 @@ import {
 
 import { createErrorDiagnosticFactory } from "../utils/diagnostics";
 
+const MACROS_MODULE: string = "xray16/macros";
+
 const FILENAME_IDENTIFIER: string = "$filename";
 const DIRNAME_IDENTIFIER: string = "$dirname";
 
@@ -58,6 +60,15 @@ export function createPlugin(config: IMacrosPluginConfig = {}): Plugin {
 
   const plugin: Plugin = {
     visitors: {
+      [SyntaxKind.ImportDeclaration]: (node, context) => {
+        // Runtime helpers are imported from `xray16/macros` so the code runs under jest/node without
+        // globals or mocks; the import has no runtime counterpart in the emitted Lua, so drop it.
+        if (node.moduleSpecifier.getText().slice(1, -1) === MACROS_MODULE) {
+          return undefined;
+        }
+
+        return context.superTransformStatements(node);
+      },
       [SyntaxKind.Identifier]: (node, context) => {
         if (injectFileName && node.text === FILENAME_IDENTIFIER) {
           return createStringLiteral(path.parse(context.sourceFile.fileName).name);

@@ -9,7 +9,7 @@ import tsPlugin from "typescript-eslint";
 
 export default [
   {
-    ignores: ["index.d.ts", "plugins/**/*", "src/plugins/**/*.js", "docs/**/*", "node_modules/**/*"],
+    ignores: ["index.d.ts", "macros.js", "macros.d.ts", "plugins/**/*", "src/plugins/**/*.js", "docs/**/*", "node_modules/**/*"],
   },
   jsdocPlugin.configs["flat/recommended"],
   jsPlugin.configs.recommended,

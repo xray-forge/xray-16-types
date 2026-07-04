@@ -3,6 +3,10 @@
 TypeScriptToLua plugin that applies compile-time macros: a build header, file metadata tokens, and `LuaTable`
 cast helpers.
 
+The `$` helpers are imported from the `xray16/macros` module (which ships a real runtime, so the same code runs
+under jest/node without mocks or globals). This plugin strips that import at build time and folds each usage; the
+`$` tokens are recognized by name whether imported or ambient.
+
 Every feature is on by default. The token-driven features are inert unless the matching `$` token appears in the
 source, so leaving them enabled is safe.
 

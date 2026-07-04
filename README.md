@@ -25,25 +25,22 @@ Types documentation can be checked [here](https://xray-forge.github.io/xray-16-t
 
 Types are used with [xrf template](https://github.com/xray-forge/stalker-xrf-engine) and can be referenced as an example.
 
-### Engine types and plugin types
-
-Engine bindings and plugin types ship as separate declarations, so a project takes the engine surface without any
-plugin globals:
+### Engine types and macros
 
 - `xray16` (the package `types` entry) declares the `xray16` engine module. It has no dependency on the plugins.
-- Each plugin that introduces ambient declarations ships its own type file next to its bundle, at
-  `xray16/plugins/<name>`.
+- `xray16/macros` is a real module (types **and** runtime) exporting the compile-time helpers: `$filename`,
+  `$dirname`, `$fromObject`, `$fromArray`, `$fromLuaArray`, `$fromLuaTable`, `$isNil`, `$isNotNil`.
 
-```json
-{
-  "compilerOptions": {
-    "types": [
-      "@typescript-to-lua/language-extensions",
-      "xray16/plugins/macros"
-    ]
-  }
-}
+Import the helpers instead of relying on globals:
+
+```typescript
+import { $filename, $isNil, $fromObject } from "xray16/macros";
 ```
+
+At build time the `macros` plugin strips the import and folds each usage (identifiers to literals, `$isNil(x)` to
+`x == nil`, casts unwrapped). Under jest/node the same import resolves to the shipped runtime, so the code runs
+unmodified — no hand-written mocks and nothing added to the global scope. `$filename`/`$dirname` are per-file
+literals at build time and stable stubs at runtime.
 
 ## 📦Extending C++ classes and overriding virtual methods
 
@@ -124,11 +121,13 @@ See [src/plugins/strip/README.md](src/plugins/strip/README.md) for full document
 
 ### macros
 
-Plugin applying compile-time macros. Accepts a config object toggling each feature (all default to `true`; the
-token-driven ones are inert unless the matching `$` token is used):
+Plugin applying compile-time macros. The helpers are imported from [`xray16/macros`](#engine-types-and-macros)
+(a real module with runtime, so jest/node need no mocks); this plugin strips that import and folds the usages.
+Accepts a config object toggling each feature (all default to `true`; the token-driven ones are inert unless the
+matching `$` token is used):
 
 - `buildTimestamp` - prepend a build time / metadata comment on top of every emitted Lua file.
-- `fileName` / `dirName` - replace the `$filename` / `$dirname` globals with the compile-time file / directory name
+- `fileName` / `dirName` - replace the `$filename` / `$dirname` tokens with the compile-time file / directory name
   (Lua provides no convenient runtime API for this, so a static step is simpler).
 - `castHelpers` - expand `$fromObject`/`$fromArray`/`$fromLuaArray`/`$fromLuaTable` (unwrapped, removed from runtime)
   and `$isNil`/`$isNotNil` (compiled to `== nil` / `~= nil`) to simplify `LuaTable` interoperation.
