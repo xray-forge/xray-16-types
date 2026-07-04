@@ -12,7 +12,7 @@ import { getCalledExpression, transformArguments } from "typescript-to-lua/dist/
 import { transformIdentifier } from "typescript-to-lua/dist/transformation/visitors/identifier";
 
 import { type ITransformationContext } from "./class_declaration";
-import { LUABIND_CONSTRUCTOR_METHOD } from "./constants";
+import { LUABIND_CONSTRUCTOR_METHOD, LUABIND_DEFAULT_SUPER_CALL, LUABIND_SUPER_IDENTIFIER, type TLuabindSuperCall } from "./constants";
 import { isLuabindClassType } from "./utils";
 
 /**
@@ -96,14 +96,32 @@ export function isLuabindClassSuperMethodCall(
 }
 
 /**
- * Transform a super() call into luabind classes to base_class.__init(self, param).
+ * Transform a super() constructor call of a luabind class.
+ *
+ * Depending on the configured strategy this emits either a direct reference to the parent
+ * constructor (`Base.__init(self, param)`) or a delegation to the luabind `super(param)` global.
  *
  * @param expression - Super constructor call to transform.
  * @param context - Active transformation context.
+ * @param superCall - Strategy controlling how the parent constructor is invoked.
  * @returns Lua call to the base class constructor.
  */
-export function transformLuabindConstructorSuperCall(expression: CallExpression, context: ITransformationContext) {
+export function transformLuabindConstructorSuperCall(
+  expression: CallExpression,
+  context: ITransformationContext,
+  superCall: TLuabindSuperCall = LUABIND_DEFAULT_SUPER_CALL
+) {
   const signature = context.checker.getResolvedSignature(expression);
+
+  // Delegate to the luabind `super(...)` global, which binds `self` implicitly.
+  if (superCall === "luabind") {
+    return tstl.createCallExpression(
+      tstl.createIdentifier(LUABIND_SUPER_IDENTIFIER),
+      transformArguments(context, expression.arguments, signature),
+      expression
+    );
+  }
+
   const parameters = transformArguments(context, expression.arguments, signature, factory.createThis());
 
   return tstl.createCallExpression(

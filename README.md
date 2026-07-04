@@ -82,7 +82,16 @@ Env variables for custom CLI scripts:
 ### transform_luabind_class
 
 Custom plugin overriding transformation of classes marked with `@LuaClass` decorator.\
-Instead of using prototypes and metatables use luabind API to declare such classes.\
+Instead of using prototypes and metatables use luabind API to declare such classes.
+
+Accepts an optional `superCall` field controlling how parent constructor `super(...)` calls are emitted:
+
+- `"reference"` (default) - call the parent constructor directly, e.g. `Base.__init(self, ...)`.
+- `"luabind"` - delegate to the luabind `super(...)` global, e.g. `super(...)`.
+
+```json
+{ "name": "xray16/plugins/transform_luabind_class/plugin", "superCall": "luabind" }
+```
 
 ### built_at_info
 

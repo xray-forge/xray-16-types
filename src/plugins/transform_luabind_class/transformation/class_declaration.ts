@@ -25,7 +25,12 @@ import { transformInPrecedingStatementScope } from "typescript-to-lua/dist/trans
 import { createSafeName, isUnsafeName } from "typescript-to-lua/dist/transformation/utils/safe-names";
 import { transformIdentifier } from "typescript-to-lua/dist/transformation/visitors/identifier";
 
-import { LUABIND_CONSTRUCTOR_METHOD } from "./constants";
+import {
+  LUABIND_CONSTRUCTOR_METHOD,
+  LUABIND_DEFAULT_SUPER_CALL,
+  LUABIND_SUPER_IDENTIFIER,
+  type TLuabindSuperCall,
+} from "./constants";
 import { checkLuabindClassDecoratorExpression } from "./decorators";
 import { unsupportedStaticMethod } from "./errors";
 import { transformAccessorDeclarations } from "./members/accessors";
@@ -39,12 +44,16 @@ export interface ITransformationContext extends TransformationContext {
   classSuperInfos: Array<ClassSuperInfo>;
 }
 
-export const transformLuabindClassDeclaration = (declaration, context: TransformationContext) => {
+export function transformLuabindClassDeclaration(
+  declaration,
+  context: TransformationContext,
+  superCall: TLuabindSuperCall = LUABIND_DEFAULT_SUPER_CALL
+) {
   // If declaration is a default export, transform to export variable assignment instead
   if (hasDefaultExportModifier(declaration)) {
     // Class declaration including assignment to ____exports.default are in preceding statements
     const { precedingStatements } = transformInPrecedingStatementScope(context, () => {
-      transformClassAsExpression(declaration, context as ITransformationContext);
+      transformClassAsExpression(declaration, context as ITransformationContext, superCall);
 
       return [];
     });
@@ -52,16 +61,17 @@ export const transformLuabindClassDeclaration = (declaration, context: Transform
     return precedingStatements;
   }
 
-  const { statements } = transformClassLikeDeclaration(declaration, context as ITransformationContext);
+  const { statements } = transformClassLikeDeclaration(declaration, context as ITransformationContext, superCall);
 
   return statements;
-};
+}
 
 export function transformClassAsExpression(
   expression: ClassLikeDeclaration,
-  context: ITransformationContext
+  context: ITransformationContext,
+  superCall: TLuabindSuperCall = LUABIND_DEFAULT_SUPER_CALL
 ): tstl.Expression {
-  const { statements, name } = transformClassLikeDeclaration(expression, context);
+  const { statements, name } = transformClassLikeDeclaration(expression, context, superCall);
 
   context.addPrecedingStatements(statements);
 
@@ -78,6 +88,7 @@ export interface ClassSuperInfo {
 export function transformClassLikeDeclaration(
   classDeclaration: ClassLikeDeclaration,
   context: ITransformationContext,
+  superCall: TLuabindSuperCall = LUABIND_DEFAULT_SUPER_CALL,
   nameOverride?: tstl.Identifier
 ): { statements: Array<tstl.Statement>; name: tstl.Identifier } {
   let className: tstl.Identifier;
@@ -160,17 +171,20 @@ export function transformClassLikeDeclaration(
       context.luaTarget === LuaTarget.Lua50
         ? tstl.createCallExpression(tstl.createIdentifier("unpack"), [tstl.createArgLiteral()])
         : tstl.createDotsLiteral();
-    const superCall = tstl.createExpressionStatement(
-      tstl.createCallExpression(
-        tstl.createTableIndexExpression(
-          context.transformExpression(factory.createSuper()),
-          tstl.createStringLiteral(LUABIND_CONSTRUCTOR_METHOD)
-        ),
-        [createSelfIdentifier(), argsExpression]
-      )
+    const parentConstructorCall = tstl.createExpressionStatement(
+      superCall === "luabind"
+        ? // Luabind global `super(...)` binds `self` implicitly.
+          tstl.createCallExpression(tstl.createIdentifier(LUABIND_SUPER_IDENTIFIER), [argsExpression])
+        : tstl.createCallExpression(
+            tstl.createTableIndexExpression(
+              context.transformExpression(factory.createSuper()),
+              tstl.createStringLiteral(LUABIND_CONSTRUCTOR_METHOD)
+            ),
+            [createSelfIdentifier(), argsExpression]
+          )
     );
 
-    constructorBody.unshift(superCall);
+    constructorBody.unshift(parentConstructorCall);
 
     const constructorFunction = tstl.createFunctionExpression(
       tstl.createBlock(constructorBody),

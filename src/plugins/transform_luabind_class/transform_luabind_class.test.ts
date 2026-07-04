@@ -29,7 +29,7 @@ export function create(): Actor {
 }
 `,
       },
-      { plugins: [transformLuabindClassPlugin] }
+      { plugins: [transformLuabindClassPlugin()] }
     );
 
     expect(errors).toEqual([]);
@@ -80,7 +80,7 @@ export class Child extends Base {
 }
 `,
       },
-      { plugins: [transformLuabindClassPlugin] }
+      { plugins: [transformLuabindClassPlugin()] }
     );
 
     expect(errors).toEqual([]);
@@ -128,7 +128,7 @@ export class Child extends Base {
 }
 `,
       },
-      { plugins: [transformLuabindClassPlugin] }
+      { plugins: [transformLuabindClassPlugin()] }
     );
 
     expect(errors).toEqual([]);
@@ -176,7 +176,7 @@ export class Foo {
 }
 `,
       },
-      { plugins: [transformLuabindClassPlugin] }
+      { plugins: [transformLuabindClassPlugin()] }
     );
 
     expect(errors).toEqual([]);
@@ -219,7 +219,7 @@ export default class Foo {
 }
 `,
       },
-      { plugins: [transformLuabindClassPlugin] }
+      { plugins: [transformLuabindClassPlugin()] }
     );
 
     expect(errors).toEqual([]);
@@ -250,7 +250,7 @@ export class Foo {
 }
 `,
       },
-      { plugins: [transformLuabindClassPlugin] }
+      { plugins: [transformLuabindClassPlugin()] }
     );
 
     expect(errors).toEqual(["Unable transform static properties for luabind classes."]);
@@ -283,7 +283,7 @@ export class Foo {
 }
 `,
       },
-      { plugins: [transformLuabindClassPlugin] }
+      { plugins: [transformLuabindClassPlugin()] }
     );
 
     expect(errors).toEqual(["Unable transform method decorator for luabind classes."]);
@@ -315,7 +315,7 @@ export class Plain {
 }
 `,
       },
-      { plugins: [transformLuabindClassPlugin] }
+      { plugins: [transformLuabindClassPlugin()] }
     );
 
     expect(errors).toEqual([]);
@@ -333,5 +333,166 @@ function Plain.prototype.getValue(self)
 end
 return ____exports
 `);
+  });
+
+  describe("superCall configuration", () => {
+    it("should default to the direct parent __init reference when no config is provided", () => {
+      const { errors, lua } = transpileWithPlugins(
+        {
+          "main.ts": `
+${LUABIND_DECLARATION}
+
+@LuabindClass()
+class Base {
+  public constructor(name: string) {}
+}
+
+@LuabindClass()
+export class Child extends Base {
+  public constructor() {
+    super("child");
+  }
+}
+`,
+        },
+        { plugins: [transformLuabindClassPlugin()] }
+      );
+
+      expect(errors).toEqual([]);
+      expect(lua["main.lua"]).toContain(`function Child.__init(self)
+    Base.__init(self, "child")
+end`);
+    });
+
+    it("should keep the direct parent __init reference when superCall is 'reference'", () => {
+      const { errors, lua } = transpileWithPlugins(
+        {
+          "main.ts": `
+${LUABIND_DECLARATION}
+
+@LuabindClass()
+class Base {
+  public constructor(name: string) {}
+}
+
+@LuabindClass()
+export class Child extends Base {
+  public constructor() {
+    super("child");
+  }
+}
+`,
+        },
+        { plugins: [transformLuabindClassPlugin({ superCall: "reference" })] }
+      );
+
+      expect(errors).toEqual([]);
+      expect(lua["main.lua"]).toContain(`function Child.__init(self)
+    Base.__init(self, "child")
+end`);
+    });
+
+    it("should delegate explicit super() calls to the luabind super global when superCall is 'luabind'", () => {
+      const { errors, lua } = transpileWithPlugins(
+        {
+          "main.ts": `
+${LUABIND_DECLARATION}
+
+@LuabindClass()
+class Base {
+  public value = 1;
+
+  public constructor(name: string) {
+    this.value = 2;
+  }
+}
+
+@LuabindClass()
+export class Child extends Base {
+  public constructor() {
+    super("child");
+  }
+
+  public getValue(): number {
+    return this.value;
+  }
+}
+`,
+        },
+        { plugins: [transformLuabindClassPlugin({ superCall: "luabind" })] }
+      );
+
+      expect(errors).toEqual([]);
+      expect(lua["main.lua"]).toBe(`local ____exports = {}
+class("Base")
+local Base = Base
+Base.__name = "Base"
+function Base.__init(self, name)
+    self.value = 1
+    self.value = 2
+end
+class("Child")(Base)
+____exports.Child = Child
+local Child = ____exports.Child
+Child.__name = "Child"
+function Child.__init(self)
+    super("child")
+end
+function Child.getValue(self)
+    return self.value
+end
+____exports.Child = Child
+return ____exports
+`);
+    });
+
+    it("should emit super(...) for auto-generated constructors and keep super.method() base references in luabind mode", () => {
+      const { errors, lua } = transpileWithPlugins(
+        {
+          "main.ts": `
+${LUABIND_DECLARATION}
+
+@LuabindClass()
+class Base {
+  public act(): number {
+    return 1;
+  }
+}
+
+@LuabindClass()
+export class Child extends Base {
+  public act(): number {
+    return super.act() + 1;
+  }
+}
+`,
+        },
+        { plugins: [transformLuabindClassPlugin({ superCall: "luabind" })] }
+      );
+
+      expect(errors).toEqual([]);
+      expect(lua["main.lua"]).toBe(`local ____exports = {}
+class("Base")
+local Base = Base
+Base.__name = "Base"
+function Base.__init(self)
+end
+function Base.act(self)
+    return 1
+end
+class("Child")(Base)
+____exports.Child = Child
+local Child = ____exports.Child
+Child.__name = "Child"
+function Child.__init(self, ...)
+    super(...)
+end
+function Child.act(self)
+    return Base.act(self) + 1
+end
+____exports.Child = Child
+return ____exports
+`);
+    });
   });
 });
