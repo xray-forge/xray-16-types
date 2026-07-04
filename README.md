@@ -55,15 +55,15 @@ Plugins can be included in [tstl tsconfig](https://typescripttolua.github.io/doc
 {
   "tstl": {
     "luaPlugins": [
-      { "name": "xray16/plugins/transform_luabind_class" },
-      { "name": "xray16/plugins/global_declarations_transform" },
-      { "name": "xray16/plugins/built_at_info" },
-      { "name": "xray16/plugins/strip_lua_logger" },
-      { "name": "xray16/plugins/inject_file_meta" },
-      { "name": "xray16/plugins/from_cast_utils" },
-      { "name": "xray16/plugins/optimize_return_ternary" },
-      { "name": "xray16/plugins/inline_constants" },
-      { "name": "xray16/plugins/inject_tracy_zones" }
+      { "name": "xray16/plugins/transform-luabind-class" },
+      { "name": "xray16/plugins/global-declarations-transform" },
+      { "name": "xray16/plugins/built-at-info" },
+      { "name": "xray16/plugins/strip-lua-logger" },
+      { "name": "xray16/plugins/inject-file-meta" },
+      { "name": "xray16/plugins/from-cast-utils" },
+      { "name": "xray16/plugins/optimize-return-ternary" },
+      { "name": "xray16/plugins/inline-constants" },
+      { "name": "xray16/plugins/inject-tracy-zones" }
     ]
   }
 }
@@ -79,7 +79,7 @@ Env variables for custom CLI scripts:
 - `XR_NO_LUA_LOGS`
 - `XR_INJECT_TRACY_ZONES `
 
-### transform_luabind_class
+### transform-luabind-class
 
 Custom plugin overriding transformation of classes marked with `@LuaClass` decorator.\
 Instead of using prototypes and metatables use luabind API to declare such classes.
@@ -90,19 +90,19 @@ Accepts an optional `superCall` field controlling how parent constructor `super(
 - `"luabind"` - delegate to the luabind `super(...)` global, e.g. `super(...)`.
 
 ```json
-{ "name": "xray16/plugins/transform_luabind_class", "superCall": "luabind" }
+{ "name": "xray16/plugins/transform-luabind-class", "superCall": "luabind" }
 ```
 
-### built_at_info
+### built-at-info
 
 Plugin injecting time and generic metadata on top of built lua scripts.
 
-### global_declarations_transform
+### global-declarations-transform
 
 Plugin stripping all the runtime imports from `xray16` package.
 Default `tstl` behaviour does not work well with engine imports and I tried to avoid implicit globals.
 
-### strip_lua_logger
+### strip-lua-logger
 
 Plugin to strip all `LuaLogger` calls from runtime if env variable is set or path param is provided.\
 Logger can consume a lot of processing time that does not benefit player.
@@ -112,17 +112,17 @@ Logger can consume a lot of processing time that does not benefit player.
 Plugin adding `$filename` global variable replaced with actual file name on build time.\
 Lua does not provide convenient API do get filename in runtime and static step is much simpler.
 
-### from_cast_utils
+### from-cast-utils
 
 Plugin to simplify casting from `LuaTable` to typescript array/map objects.\
 All the calls are completely gets stripped and removed from runtime.
 
-### optimize_return_ternary
+### optimize-return-ternary
 
 Plugin rewrites returned ternary expressions into direct `if` / `else` branch returns when it is safe.\
 This avoids temporary result locals for patterns like `return condition ? first : second` while preserving general ternary semantics.
 
-### inline_constants
+### inline-constants
 
 Plugin that inlines compile-time constants from declarations tagged with `@inline` or `@virtual`.\
 Supported targets are enums, module-level `as const` object literals and module-level scalar constants.\
@@ -154,9 +154,9 @@ export const TIMEOUT: number = 60 * 1000;
 // Build time: `TIMEOUT` reference is emitted as 60000 and the declaration is erased from output.
 ```
 
-See [src/plugins/inline_constants/README.md](src/plugins/inline_constants/README.md) for full documentation.
+See [src/plugins/inline-constants/README.md](src/plugins/inline-constants/README.md) for full documentation.
 
-### inject_tracy_zones
+### inject-tracy-zones
 
 Plugin designed to work specifically with [tracy profiler](https://github.com/wolfpld/tracy).\
 Once it is enabled with env variable or path parameter, tracy zone marking calls are injected for every method.\

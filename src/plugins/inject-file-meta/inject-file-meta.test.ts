@@ -2,7 +2,7 @@ import { transpileWithPlugins } from "../testing";
 
 import { plugin } from "./plugin";
 
-describe("inject_file_meta plugin", () => {
+describe("inject-file-meta plugin", () => {
   it("should replace file metadata placeholders", () => {
     const { errors, lua } = transpileWithPlugins(
       {

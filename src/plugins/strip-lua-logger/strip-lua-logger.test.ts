@@ -3,7 +3,7 @@ import { transpileWithPlugins } from "../testing";
 
 import { plugin } from "./plugin";
 
-describe("strip_lua_logger plugin", () => {
+describe("strip-lua-logger plugin", () => {
   const originalNoLuaLogs = process.env[ENV_XR_NO_LUA_LOGS];
 
   afterEach(() => {

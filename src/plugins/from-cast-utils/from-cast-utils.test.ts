@@ -2,7 +2,7 @@ import { transpileWithPlugins } from "../testing";
 
 import { plugin } from "./plugin";
 
-describe("from_cast_utils plugin", () => {
+describe("from-cast-utils plugin", () => {
   it("should transform cast helpers and nil checks", () => {
     const { errors, lua } = transpileWithPlugins(
       {

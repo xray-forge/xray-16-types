@@ -2,7 +2,7 @@ import { transpileWithPlugins } from "../testing";
 
 import { plugin } from "./plugin";
 
-describe("inline_constants plugin virtual declarations handling", () => {
+describe("inline-constants plugin virtual declarations handling", () => {
   it("should erase virtual objects and inline accesses across modules", () => {
     const { errors, lua } = transpileWithPlugins(
       {

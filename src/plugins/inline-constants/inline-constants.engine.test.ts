@@ -16,7 +16,7 @@ declare module "xray16" {
 }
 `;
 
-describe("inline_constants plugin engine constants handling", () => {
+describe("inline-constants plugin engine constants handling", () => {
   it("should substitute engine references instead of baking declared literal types", () => {
     const { errors, lua } = transpileWithPlugins(
       {

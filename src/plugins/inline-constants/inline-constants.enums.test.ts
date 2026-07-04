@@ -2,7 +2,7 @@ import { transpileWithPlugins } from "../testing";
 
 import { plugin } from "./plugin";
 
-describe("inline_constants plugin enums handling", () => {
+describe("inline-constants plugin enums handling", () => {
   it("should inline tagged enum members and keep enum tables emitted", () => {
     const { errors, lua } = transpileWithPlugins(
       {

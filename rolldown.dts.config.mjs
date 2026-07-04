@@ -19,7 +19,7 @@ export default {
   ],
   output: {
     dir: ".",
-    entryFileNames: "xray16.d.ts",
+    entryFileNames: "index.d.ts",
     format: "es",
   },
 };

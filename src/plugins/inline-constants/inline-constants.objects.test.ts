@@ -2,7 +2,7 @@ import { transpileWithPlugins } from "../testing";
 
 import { plugin } from "./plugin";
 
-describe("inline_constants plugin objects handling", () => {
+describe("inline-constants plugin objects handling", () => {
   it("should inline property and element access on tagged as-const objects across modules", () => {
     const { errors, lua } = transpileWithPlugins(
       {

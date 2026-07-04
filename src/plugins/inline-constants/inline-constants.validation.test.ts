@@ -2,7 +2,7 @@ import { transpileWithPlugins } from "../testing";
 
 import { plugin } from "./plugin";
 
-describe("inline_constants plugin validation", () => {
+describe("inline-constants plugin validation", () => {
   it("should not inline untagged declarations", () => {
     const { errors, lua } = transpileWithPlugins(
       {

@@ -2,7 +2,7 @@ import { transpileWithPlugins } from "../testing";
 
 import { plugin } from "./plugin";
 
-describe("inline_constants plugin computed values handling", () => {
+describe("inline-constants plugin computed values handling", () => {
   it("should inline computed scalar constants folded on build time", () => {
     const { errors, lua } = transpileWithPlugins(
       {

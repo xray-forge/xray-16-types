@@ -2,7 +2,7 @@ import { transpileWithPlugins } from "../testing";
 
 import { plugin } from "./plugin";
 
-describe("optimize_return_ternary plugin", () => {
+describe("optimize-return-ternary plugin", () => {
   it("should rewrite returned ternaries into branch returns", () => {
     const { errors, lua } = transpileWithPlugins(
       {

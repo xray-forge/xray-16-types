@@ -2,7 +2,7 @@ import { transpileWithPlugins } from "../testing";
 
 import { plugin } from "./plugin";
 
-describe("inline_constants plugin scalars handling", () => {
+describe("inline-constants plugin scalars handling", () => {
   it("should inline tagged scalar constants including namespace access", () => {
     const { errors, lua } = transpileWithPlugins(
       {

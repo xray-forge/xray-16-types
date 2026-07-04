@@ -1,4 +1,4 @@
 node_modules/
 docs/
 plugins/
-xray16.d.ts
+index.d.ts

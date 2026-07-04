@@ -2,7 +2,7 @@ import { transpileWithPlugins } from "../testing";
 
 import { plugin } from "./plugin";
 
-describe("built_at_info plugin", () => {
+describe("built-at-info plugin", () => {
   it("should prepend build timestamp comments", () => {
     const { errors, lua } = transpileWithPlugins(
       {

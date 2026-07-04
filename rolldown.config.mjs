@@ -5,15 +5,15 @@ import * as path from "node:path";
  * TypeScriptToLua loads them via `require("xray16/plugins/<name>")` and reads the default export.
  */
 const PLUGINS = [
-  "built_at_info",
-  "from_cast_utils",
-  "global_declarations_transform",
-  "inject_file_meta",
-  "inject_tracy_zones",
-  "optimize_return_ternary",
-  "strip_lua_logger",
-  "inline_constants",
-  "transform_luabind_class",
+  "built-at-info",
+  "from-cast-utils",
+  "global-declarations-transform",
+  "inject-file-meta",
+  "inject-tracy-zones",
+  "optimize-return-ternary",
+  "strip-lua-logger",
+  "inline-constants",
+  "transform-luabind-class",
 ];
 
 // Inline everything local, keep third-party deps (typescript, typescript-to-lua) and node builtins external.

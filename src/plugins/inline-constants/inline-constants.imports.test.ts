@@ -2,7 +2,7 @@ import { transpileWithPlugins } from "../testing";
 
 import { plugin } from "./plugin";
 
-describe("inline_constants plugin imports cleanup", () => {
+describe("inline-constants plugin imports cleanup", () => {
   it("should strip inlined bindings and drop requires of pure modules", () => {
     const { errors, lua } = transpileWithPlugins(
       {

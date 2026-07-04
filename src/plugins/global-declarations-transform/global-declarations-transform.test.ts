@@ -8,7 +8,7 @@ declare module "xray16" {
 }
 `;
 
-describe("global_declarations_transform plugin", () => {
+describe("global-declarations-transform plugin", () => {
   it("should erase xray16 imports while keeping regular imports", () => {
     const { errors, lua } = transpileWithPlugins(
       {

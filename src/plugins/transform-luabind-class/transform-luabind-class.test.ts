@@ -4,7 +4,7 @@ import { createPlugin } from "./plugin";
 
 const LUABIND_DECLARATION = `declare function LuabindClass(): ClassDecorator;`;
 
-describe("transform_luabind_class plugin", () => {
+describe("transform-luabind-class plugin", () => {
   it("should transform decorated classes into luabind class declarations", () => {
     const { errors, lua } = transpileWithPlugins(
       {

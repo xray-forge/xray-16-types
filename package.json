@@ -5,8 +5,8 @@
   "repository": "https://github.com/xray-forge/xray-16-types",
   "homepage": "https://xray-forge.github.io/xray-16-types/index.html",
   "private": false,
-  "main": "xray16.d.ts",
-  "types": "xray16.d.ts",
+  "main": "index.d.ts",
+  "types": "index.d.ts",
   "scripts": {
     "prepublish": "npm run build",
     "prepack": "npm run build",
@@ -48,7 +48,7 @@
   },
   "files": [
     "plugins/**/*",
-    "xray16.d.ts",
+    "index.d.ts",
     "README.md",
     "LICENSE"
   ]

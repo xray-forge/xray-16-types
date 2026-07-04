@@ -3,7 +3,7 @@ import { transpileWithPlugins } from "../testing";
 
 import { plugin } from "./plugin";
 
-describe("inject_tracy_zones plugin", () => {
+describe("inject-tracy-zones plugin", () => {
   const originalInjectTracyZones = process.env[ENV_XR_INJECT_TRACY_ZONES];
 
   afterEach(() => {
