@@ -1,8 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "exclude": ["./plugins/**/*.test.ts", "./plugins/**/testing.ts"],
-  "compilerOptions": {
-    "declaration": true,
-    "outDir": "../plugins"
-  }
-}

@@ -1,1 +1,1 @@
-export { createPlugin as default, IPluginConfig } from "./plugin";
+export { createPlugin as default } from "./plugin";

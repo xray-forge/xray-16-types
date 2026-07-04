@@ -1,7 +1,7 @@
 {
   "$schema": "https://typedoc.org/schema.json",
   "name": "X-Ray 16 Types",
-  "entryPoints": ["types/xr_object/script/xr_script_object.d.ts"],
+  "entryPoints": ["src/types/xr_object/script/xr_script_object.d.ts"],
   "out": "docs",
   "includeVersion": true,
   "hideGenerator": true,
