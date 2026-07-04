@@ -14,19 +14,19 @@ import {
 import { type Plugin } from "typescript-to-lua";
 import { transformSourceFileNode } from "typescript-to-lua/dist/transformation/visitors/sourceFile";
 
-import { getIdentifierText } from "./utils/ast";
-import { isTracyZonesInjectionEnabled } from "./utils/environment";
+import { getIdentifierText } from "../utils/ast";
+import { isTracyZonesInjectionEnabled } from "../utils/environment";
 import {
   createTraceZoneBeginNExpression,
   createTraceZoneEndExpression,
   transformArrowFunctionWithInjectedZones,
   transformWithInjectedZones,
-} from "./utils/tracy";
+} from "../utils/tracy";
 
 /**
  * Plugin that injects FILE_NAME in compile-time.
  */
-const plugin: Plugin = {
+export const plugin: Plugin = {
   visitors: {
     [SyntaxKind.SourceFile]: (node, context) => {
       if (isTracyZonesInjectionEnabled()) {
@@ -148,5 +148,3 @@ const plugin: Plugin = {
     },
   },
 };
-
-export default plugin;

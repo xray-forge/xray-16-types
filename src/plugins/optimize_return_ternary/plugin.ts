@@ -72,7 +72,7 @@ function transformConditionalReturnStatement(
 /**
  * Plugin that rewrites returned ternary expressions as direct branch returns.
  */
-const plugin: Plugin = {
+export const plugin: Plugin = {
   visitors: {
     [ts.SyntaxKind.ReturnStatement]: (statement, context) => {
       if (statement.expression === undefined) {
@@ -96,5 +96,3 @@ const plugin: Plugin = {
     },
   },
 };
-
-export default plugin;

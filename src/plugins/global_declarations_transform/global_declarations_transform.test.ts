@@ -1,5 +1,6 @@
-import globalDeclarationsTransformPlugin from "./global_declarations_transform";
-import { transpileWithPlugins } from "./testing";
+import { transpileWithPlugins } from "../testing";
+
+import globalDeclarationsTransformPlugin from "./plugin";
 
 const xray16Declaration = `
 declare module "xray16" {

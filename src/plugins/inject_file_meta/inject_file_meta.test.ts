@@ -1,5 +1,6 @@
-import injectFileMetaPlugin from "./inject_file_meta";
-import { transpileWithPlugins } from "./testing";
+import { transpileWithPlugins } from "../testing";
+
+import injectFileMetaPlugin from "./plugin";
 
 describe("inject_file_meta plugin", () => {
   it("should replace file metadata placeholders", () => {

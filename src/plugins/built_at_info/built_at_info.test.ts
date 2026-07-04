@@ -1,5 +1,6 @@
-import builtAtInfoPlugin from "./built_at_info";
-import { transpileWithPlugins } from "./testing";
+import { transpileWithPlugins } from "../testing";
+
+import builtAtInfoPlugin from "./plugin";
 
 describe("built_at_info plugin", () => {
   it("should prepend build timestamp comments", () => {

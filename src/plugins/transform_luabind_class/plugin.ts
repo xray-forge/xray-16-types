@@ -73,11 +73,3 @@ export function createTransformLuabindClassPlugin(config: ITransformLuabindClass
     },
   };
 }
-
-/**
- * Plugin default export.
- *
- * TypeScriptToLua treats a function default export as a factory and invokes it with the tsconfig
- * `luaPlugins` entry, so the plugin is configured via that entry (e.g. `{ "name": "...", "superCall": "luabind" }`).
- */
-export default createTransformLuabindClassPlugin;

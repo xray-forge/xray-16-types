@@ -1,5 +1,6 @@
-import optimizeReturnTernaryPlugin from "./optimize_return_ternary";
-import { transpileWithPlugins } from "./testing";
+import { transpileWithPlugins } from "../testing";
+
+import optimizeReturnTernaryPlugin from "./plugin";
 
 describe("optimize_return_ternary plugin", () => {
   it("should rewrite returned ternaries into branch returns", () => {

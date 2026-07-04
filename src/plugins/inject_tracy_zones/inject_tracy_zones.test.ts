@@ -1,6 +1,7 @@
-import { ENV_XR_INJECT_TRACY_ZONES } from "./constants";
-import injectTracyZonesPlugin from "./inject_tracy_zones";
-import { transpileWithPlugins } from "./testing";
+import { ENV_XR_INJECT_TRACY_ZONES } from "../constants";
+import { transpileWithPlugins } from "../testing";
+
+import injectTracyZonesPlugin from "./plugin";
 
 describe("inject_tracy_zones plugin", () => {
   const originalInjectTracyZones = process.env[ENV_XR_INJECT_TRACY_ZONES];

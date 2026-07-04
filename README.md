@@ -55,14 +55,14 @@ Plugins can be included in [tstl tsconfig](https://typescripttolua.github.io/doc
 {
   "tstl": {
     "luaPlugins": [
-      { "name": "xray16/plugins/transform_luabind_class/plugin" },
+      { "name": "xray16/plugins/transform_luabind_class" },
       { "name": "xray16/plugins/global_declarations_transform" },
       { "name": "xray16/plugins/built_at_info" },
       { "name": "xray16/plugins/strip_lua_logger" },
-      { "name": "xray16/plugins/inject_filename" },
+      { "name": "xray16/plugins/inject_file_meta" },
       { "name": "xray16/plugins/from_cast_utils" },
       { "name": "xray16/plugins/optimize_return_ternary" },
-      { "name": "xray16/plugins/inline_constants/plugin" },
+      { "name": "xray16/plugins/inline_constants" },
       { "name": "xray16/plugins/inject_tracy_zones" }
     ]
   }
@@ -90,7 +90,7 @@ Accepts an optional `superCall` field controlling how parent constructor `super(
 - `"luabind"` - delegate to the luabind `super(...)` global, e.g. `super(...)`.
 
 ```json
-{ "name": "xray16/plugins/transform_luabind_class/plugin", "superCall": "luabind" }
+{ "name": "xray16/plugins/transform_luabind_class", "superCall": "luabind" }
 ```
 
 ### built_at_info

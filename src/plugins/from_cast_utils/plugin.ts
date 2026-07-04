@@ -2,7 +2,7 @@ import { isIdentifier, SyntaxKind } from "typescript";
 import * as lua from "typescript-to-lua";
 import { type Plugin } from "typescript-to-lua";
 
-import { createErrorDiagnosticFactory } from "./utils/diagnostics";
+import { createErrorDiagnosticFactory } from "../utils/diagnostics";
 
 const FROM_CAST_METHODS: Array<string> = ["$fromObject", "$fromArray", "$fromLuaArray", "$fromLuaTable"];
 const NIL_CHECK_METHODS: Map<string, lua.BinaryOperator> = new Map([
@@ -21,7 +21,7 @@ const createInvalidFunctionCallError = createErrorDiagnosticFactory((name?: stri
  * Plugin for transformation of casting methods.
  * Simplifies TS/Lua testing and interoperation.
  */
-const plugin: Plugin = {
+export const plugin: Plugin = {
   visitors: {
     [SyntaxKind.CallExpression]: (node, context) => {
       if (isIdentifier(node.expression) && FROM_CAST_METHODS.includes(node.expression.text)) {
@@ -51,5 +51,3 @@ const plugin: Plugin = {
     },
   },
 };
-
-export default plugin;

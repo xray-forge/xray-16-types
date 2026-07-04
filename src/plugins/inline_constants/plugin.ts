@@ -31,7 +31,7 @@ import {
  *
  * Tagged declarations act as an explicit whitelist and produce build errors when they cannot be inlined.
  */
-const plugin: Plugin = {
+export const plugin: Plugin = {
   beforeTransform(program: ts.Program): Array<ts.Diagnostic> | void {
     // Force binder to assign node parents before any 'getJSDocTags' call,
     // otherwise empty results are computed for parent-less nodes and cached on them forever.
@@ -72,5 +72,3 @@ const plugin: Plugin = {
     },
   },
 };
-
-export default plugin;

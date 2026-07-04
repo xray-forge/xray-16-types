@@ -11,14 +11,14 @@ import {
 } from "typescript";
 import { type Plugin } from "typescript-to-lua";
 
-import { isLuaLoggerEnabled } from "./utils/environment";
+import { isLuaLoggerEnabled } from "../utils/environment";
 
 const LUA_LOGGER_STRIP_TARGET: string = "LuaLogger";
 
 /**
  * Plugin that removes all LuaLogger instance creations and calls when possible.
  */
-const plugin: Plugin = {
+export const plugin: Plugin = {
   visitors: {
     [SyntaxKind.VariableStatement]: (statement, context) => {
       if (!isLuaLoggerEnabled()) {
@@ -70,5 +70,3 @@ const plugin: Plugin = {
     },
   },
 };
-
-export default plugin;

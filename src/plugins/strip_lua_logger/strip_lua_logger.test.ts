@@ -1,6 +1,7 @@
-import { ENV_XR_NO_LUA_LOGS } from "./constants";
-import stripLuaLoggerPlugin from "./strip_lua_logger";
-import { transpileWithPlugins } from "./testing";
+import { ENV_XR_NO_LUA_LOGS } from "../constants";
+import { transpileWithPlugins } from "../testing";
+
+import stripLuaLoggerPlugin from "./plugin";
 
 describe("strip_lua_logger plugin", () => {
   const originalNoLuaLogs = process.env[ENV_XR_NO_LUA_LOGS];

@@ -9,7 +9,7 @@ const DIRNAME_IDENTIFIER: string = "$dirname";
 /**
  * Plugin that injects FILE_NAME in compile-time.
  */
-const plugin: Plugin = {
+export const plugin: Plugin = {
   visitors: {
     [SyntaxKind.Identifier]: (node, context) => {
       if (node.text === FILENAME_IDENTIFIER) {

@@ -1,5 +1,6 @@
-import fromCastUtilsPlugin from "./from_cast_utils";
-import { transpileWithPlugins } from "./testing";
+import { transpileWithPlugins } from "../testing";
+
+import fromCastUtilsPlugin from "./plugin";
 
 describe("from_cast_utils plugin", () => {
   it("should transform cast helpers and nil checks", () => {
