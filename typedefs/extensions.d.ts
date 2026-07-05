@@ -1,29 +1,26 @@
 /**
- * Ambient global type definitions for open-xray Lua standard library extensions.
+ * Ambient declarations for OpenXRay Lua standard-library extensions.
  *
- * These are extra methods open-xray adds to the base `table` and `string` libraries. They are ambient
- * globals, so reference this file from a consumer instead of importing it, e.g. add
- * `"xray16/typedefs/extensions"` to the `types` array of your tsconfig or use
+ * These globals extend the base `table` and `string` libraries. They are not modules.
+ * Add `"xray16/typedefs/extensions"` to `compilerOptions.types`, or use
  * `/// <reference types="xray16/typedefs/extensions" />`.
  */
 
 /**
- * Extension methods for table.
+ * OpenXRay `table` helpers.
  */
 declare namespace table {
   /**
-   * Get random value from table.
-   * Provided by lua extensions lib in open-xray.
+   * Pick a random key/value pair from a Lua table.
    *
-   * @returns Random value from table.
+   * @returns Selected key and value.
    */
   function random<K extends AnyNotNil, V>(list: LuaTable<K, V> | LuaMap<K, V>): LuaMultiReturn<[K, V]>;
 
   /**
-   * Get table size.
-   * Provided by lua extensions lib in open-xray.
+   * Count entries in an array, record, Lua table, or Lua map.
    *
-   * @returns Table size.
+   * @returns Number of entries.
    */
   function size<V>(list: Array<V>): number;
   function size<V extends string = string>(list: Record<V, unknown>): number;
@@ -31,43 +28,41 @@ declare namespace table {
   function size<K extends AnyNotNil, V>(list: LuaMap<K, V>): number;
 
   /**
-   * Get table keys.
-   * Provided by lua extensions lib in open-xray.
+   * Collect table keys.
    *
-   * @returns List of keys in an unordered way.
+   * @returns Unordered Lua table of keys.
    */
   function keys<K extends AnyNotNil, V>(list: LuaTable<K, V>): LuaTable<number, K>;
 
   /**
-   * Get table values.
-   * Provided by lua extensions lib in open-xray.
+   * Collect table values.
    *
-   * @returns List of values in an unordered way.
+   * @returns Unordered Lua table of values.
    */
   function values<K extends AnyNotNil, V>(list: LuaTable<K, V>): LuaTable<number, V>;
 }
 
 /**
- * Extension methods for string.
+ * OpenXRay `string` helpers.
  */
 declare namespace string {
   /**
-   * Trim all spaces from both sides of string.
+   * Trim whitespace from both ends.
    */
   function trim(value: string): string;
 
   /**
-   * Trim spaces from left side of string.
+   * Trim whitespace from the left side.
    */
   function trim_l(value: string): string;
 
   /**
-   * Trim spaces from right side of string.
+   * Trim whitespace from the right side.
    */
   function trim_r(value: string): string;
 
   /**
-   * Trim everything separated by spaces from first text entry.
+   * Return the first whitespace-separated word.
    */
   function trim_w(value: string): string;
 }
