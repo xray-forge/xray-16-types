@@ -15,6 +15,7 @@ export default [
       "macros.d.ts",
       "plugins/**/*",
       "src/plugins/**/*.js",
+      "jest/**/*",
       "docs/**/*",
       "node_modules/**/*",
     ],
@@ -173,6 +174,15 @@ export default [
   {
     // Ambient typedefs mirror external Lua libraries (open-xray extensions, lfs, marshal).
     files: ["typedefs/**/*.d.ts"],
+    rules: {
+      "jsdoc/require-param": "off",
+      "jsdoc/require-returns": "off",
+      "jsdoc/require-description-complete-sentence": "off",
+    },
+  },
+  {
+    // Jest Lua-runtime mocks: fixture code where per-parameter JSDoc adds no value.
+    files: ["src/jest/**/*.ts"],
     rules: {
       "jsdoc/require-param": "off",
       "jsdoc/require-returns": "off",

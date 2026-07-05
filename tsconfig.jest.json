@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "esnext",
+    "declaration": true,
+    "outDir": "jest",
+    "rootDir": "src/jest",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "ignoreDeprecations": "6.0",
+    "types": ["@typescript-to-lua/language-extensions", "lua-types/jit", "jest", "node"]
+  },
+  "include": ["src/jest/**/*"],
+  "exclude": []
+}

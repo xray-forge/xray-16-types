@@ -8,5 +8,5 @@
     "strict": true,
     "types": ["node", "@typescript-to-lua/language-extensions"]
   },
-  "exclude": ["index.d.ts", "macros.js", "macros.d.ts", "docs", "plugins", "src/**/*.test.ts"]
+  "exclude": ["index.d.ts", "macros.js", "macros.d.ts", "docs", "plugins", "jest", "src/jest", "src/**/*.test.ts"]
 }

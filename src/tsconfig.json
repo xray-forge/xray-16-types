@@ -1,7 +1,7 @@
 {
   "extends": "../tsconfig.json",
   "include": ["."],
-  "exclude": [],
+  "exclude": ["jest"],
   "compilerOptions": {
     "module": "commonjs",
     "moduleResolution": "node",

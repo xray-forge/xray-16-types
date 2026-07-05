@@ -2,6 +2,7 @@
 node_modules/
 docs/
 /plugins/
+/jest/
 /index.d.ts
 /macros.js
 /macros.d.ts
