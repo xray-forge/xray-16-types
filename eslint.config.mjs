@@ -15,7 +15,7 @@ export default [
       "macros.d.ts",
       "plugins/**/*",
       "src/plugins/**/*.js",
-      "jest/**/*",
+      "mocks/**/*",
       "docs/**/*",
       "node_modules/**/*",
     ],
@@ -181,8 +181,8 @@ export default [
     },
   },
   {
-    // Jest Lua-runtime mocks: fixture code where per-parameter JSDoc adds no value.
-    files: ["src/jest/**/*.ts"],
+    // Lua-runtime mocks: fixture code where per-parameter JSDoc adds no value.
+    files: ["src/mocks/**/*.ts"],
     rules: {
       "jsdoc/require-param": "off",
       "jsdoc/require-returns": "off",

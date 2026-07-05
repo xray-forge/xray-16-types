@@ -1,5 +1,5 @@
 /**
- * `xray16/jest` — runtime Lua environment mocks for testing X-Ray TypeScriptToLua code under jest/node.
+ * `xray16/mocks` — runtime Lua environment mocks for testing X-Ray TypeScriptToLua code under jest/node.
  *
  * Wire {@link mockLuaEnvironment} (or {@link mockLuaGlobals}) into a jest setup file to install the mocked
  * `table`/`string`/`math`/`io`/`debug` libraries, `LuaTable`/`LuaMap` runtimes, and the `pairs`/`ipairs`/

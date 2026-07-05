@@ -2,7 +2,7 @@
  * Build-time ambient type declarations for the fengari Lua VM.
  *
  * The published fengari package ships no types; this declaration lets the jest runtime compile. It is not
- * part of the public API surface — the compiled `xray16/jest` only `require`s fengari at runtime.
+ * part of the public API surface — the compiled `xray16/mocks` only `require`s fengari at runtime.
  */
 declare module "fengari" {
   interface ILuaString {}
