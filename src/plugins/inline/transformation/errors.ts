@@ -12,11 +12,6 @@ export const createVirtualValueReferenceError = createErrorDiagnosticFactory(
     `demote it to '@${INLINE_TAG}' or make the reference computable on build time.`
 );
 
-export const createImpureVirtualModuleError = createErrorDiagnosticFactory(
-  `Modules with '@${VIRTUAL_TAG}' declarations may contain only type-only imports, ` +
-    `'@${INLINE_TAG}'/'@${VIRTUAL_TAG}' constants, constant enums, type aliases and interfaces.`
-);
-
 export const createNotModuleLevelError = createErrorDiagnosticFactory(
   `'@${INLINE_TAG}' declarations must be module-level statements.`
 );

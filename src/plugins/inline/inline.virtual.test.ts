@@ -182,7 +182,7 @@ return ____exports
 `);
   });
 
-  it("should error when virtual module contains impure statements", () => {
+  it("should allow runtime statements alongside virtual declarations", () => {
     const { errors, lua } = transpileWithPlugins(
       {
         "main.ts": `
@@ -197,9 +197,7 @@ export function helper(): number {
       { plugins: [plugin] }
     );
 
-    expect(errors).toEqual([
-      "Modules with '@virtual' declarations may contain only type-only imports, '@inline'/'@virtual' constants, constant enums, type aliases and interfaces.",
-    ]);
+    expect(errors).toEqual([]);
     expect(lua["main.lua"]).toBe(`local ____exports = {}
 function ____exports.helper(self)
     return 1

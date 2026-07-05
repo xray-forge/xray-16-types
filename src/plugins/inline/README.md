@@ -121,11 +121,11 @@ When no runtime bindings remain, the plugin handles the module load in one of tw
 This also applies to `@inline`. A module that exports only constants can stop loading for consumers that only read
 inlined members, even when none of its declarations are `@virtual`.
 
-## Virtual module purity
+## Virtual modules and side effects
 
-Modules containing `@virtual` declarations must be side-effect free on load. They may contain only type-only imports,
-`@inline` or `@virtual` constants, constant enums, type aliases, interfaces and ambient declarations. This keeps
-erased declarations from silently removing required runtime work.
+A module containing `@virtual` declarations may freely import, re-export and hold runtime statements. The `require`
+to such a module is dropped only when the module is proven side-effect free (see above); modules that may have side
+effects keep their load, so erasing `@virtual` declarations never silently removes required runtime work.
 
 ## Limitations
 

@@ -249,5 +249,32 @@ ____exports.value = 1
 return ____exports
 `);
     });
+
+    it("should erase imports and star re-exports of the xray16/alias subpath", () => {
+      const { errors, lua } = transpileWithPlugins(
+        {
+          "alias.d.ts": `declare module "xray16/alias" {
+  export type GameObject = number;
+}`,
+          "main.ts": `
+import { GameObject } from "xray16/alias";
+
+export * from "xray16/alias";
+
+export const value: GameObject = 1;
+`,
+        },
+        {
+          plugins: [createPlugin({ engineImports: true })],
+          compilerOptions: { noResolvePaths: ["xray16", "xray16/alias"] },
+        }
+      );
+
+      expect(errors).toEqual([]);
+      expect(lua["main.lua"]).toBe(`local ____exports = {}
+____exports.value = 1
+return ____exports
+`);
+    });
   });
 });

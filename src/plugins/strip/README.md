@@ -46,12 +46,12 @@ export function run(): number {
 
 ### `engineImports`
 
-Removes runtime imports of engine typedef modules (`xray16`). These modules are ambient type declarations with no
-runtime counterpart, so a `require` for them would fail. Default `tstl` behavior does not handle engine imports well
-and can produce implicit globals.
+Removes runtime imports and star re-exports of engine typedef modules (`xray16`, `xray16/alias`). These modules have
+no runtime Lua counterpart, so a `require` for them would fail. Default `tstl` behavior does not handle engine imports
+well and can produce implicit globals.
 
-Defaults to `true`. Named, namespace (`import * as x`) and side-effect (`import "xray16"`) imports of `xray16` are
-all erased; imports of other modules are left untouched.
+Defaults to `true`. Named, namespace (`import * as x`) and side-effect (`import "xray16"`) imports, as well as star
+re-exports (`export * from "xray16/alias"`), are all erased; imports of other modules are left untouched.
 
 ```typescript
 import { engineValue } from "xray16";
@@ -66,4 +66,4 @@ export const result = engineValue + localValue;
 ## Limitations
 
 - `luaLogger` detection is type-based: a value is stripped only when its type symbol resolves to `LuaLogger`.
-- `engineImports` targets the `xray16` module specifier only.
+- `engineImports` targets the `xray16` and `xray16/alias` module specifiers only.

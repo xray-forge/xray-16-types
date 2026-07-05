@@ -10,10 +10,11 @@
   "scripts": {
     "prepublish": "npm run build",
     "prepack": "npm run build",
-    "build": "npm run build:plugins && npm run build:macros && npm run build:mocks && npm run build:types",
+    "build": "npm run build:plugins && npm run build:macros && npm run build:mocks && npm run build:alias && npm run build:types",
     "build:plugins": "rolldown -c rolldown.config.mjs && tsc src/plugins/constants.ts --declaration --emitDeclarationOnly --outDir plugins --skipLibCheck --ignoreConfig",
     "build:macros": "tsc src/macros.ts --declaration --outDir . --module commonjs --moduleResolution node --target esnext --skipLibCheck --types @typescript-to-lua/language-extensions --ignoreDeprecations 6.0 --ignoreConfig",
     "build:mocks": "tsc -p tsconfig.mocks.json",
+    "build:alias": "tsc -p tsconfig.alias.json",
     "build:types": "rolldown -c rolldown.dts.config.mjs",
     "build:docs": "typedoc",
     "test": "jest",
@@ -56,6 +57,8 @@
     "index.d.ts",
     "macros.js",
     "macros.d.ts",
+    "alias.js",
+    "alias.d.ts",
     "README.md",
     "LICENSE"
   ],
@@ -67,6 +70,10 @@
     "./macros": {
       "types": "./macros.d.ts",
       "default": "./macros.js"
+    },
+    "./alias": {
+      "types": "./alias.d.ts",
+      "default": "./alias.js"
     },
     "./mocks": {
       "types": "./mocks/index.d.ts",

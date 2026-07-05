@@ -15,7 +15,17 @@ import { type Plugin } from "typescript-to-lua";
 import { isLuaLoggerEnabled } from "../utils/environment";
 
 const LUA_LOGGER_STRIP_TARGET: string = "LuaLogger";
-const ENGINE_MODULES: Array<string> = ["xray16"];
+const ENGINE_MODULES: Array<string> = ["xray16", "xray16/alias"];
+
+/**
+ * Check whether a module specifier text (quotes included) points at a type-only engine module.
+ *
+ * @param moduleSpecifier - Module specifier node text, e.g. `"xray16/alias"`.
+ * @returns Whether the module has no Lua runtime counterpart and its require can be dropped.
+ */
+function isEngineModule(moduleSpecifier: string): boolean {
+  return ENGINE_MODULES.includes(moduleSpecifier.slice(1, -1));
+}
 
 /**
  * Configuration for the strip plugin, provided verbatim from the tsconfig `luaPlugins` entry.
@@ -27,8 +37,8 @@ export interface IStripPluginConfig {
    */
   luaLogger?: boolean;
   /**
-   * Remove imports of engine typedef modules (e.g. `xray16`), which have no runtime counterpart.
-   * Defaults to `true`.
+   * Remove imports and star re-exports of engine typedef modules (`xray16`, `xray16/alias`), which have no
+   * runtime Lua counterpart and would otherwise emit dangling `require` calls. Defaults to `true`.
    */
   engineImports?: boolean;
 }
@@ -46,12 +56,17 @@ export function createPlugin(config: IStripPluginConfig = {}): Plugin {
   return {
     visitors: {
       [SyntaxKind.ImportDeclaration]: (node, context) => {
-        if (shouldStripEngineImports) {
-          const module: string = node.moduleSpecifier.getText().slice(1, -1);
+        if (shouldStripEngineImports && isEngineModule(node.moduleSpecifier.getText())) {
+          return undefined;
+        }
 
-          if (ENGINE_MODULES.includes(module)) {
-            return undefined;
-          }
+        return context.superTransformStatements(node);
+      },
+      [SyntaxKind.ExportDeclaration]: (node, context) => {
+        // Re-exports of type-only engine modules (e.g. `export * from "xray16/alias"`) emit a runtime
+        // require loop with no counterpart Lua module; drop them.
+        if (shouldStripEngineImports && node.moduleSpecifier !== undefined && isEngineModule(node.moduleSpecifier.getText())) {
+          return undefined;
         }
 
         return context.superTransformStatements(node);

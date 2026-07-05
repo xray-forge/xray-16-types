@@ -1,8 +1,11 @@
 .idea/
 node_modules/
 docs/
-/plugins/
-/mocks/
+
+/alias.d.ts
+/alias.js
 /index.d.ts
-/macros.js
 /macros.d.ts
+/macros.js
+/mocks/
+/plugins/

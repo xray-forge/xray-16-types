@@ -27,7 +27,8 @@ import {
  *
  * `@virtual` includes `@inline` behavior and also erases the declaration from emitted output. Every
  * value reference must be computable at build time. Object spreads are expanded to table literals.
- * Modules containing `@virtual` declarations are validated to be side-effect free.
+ * A `@virtual`-containing module may freely import, re-export and hold runtime statements; its require is
+ * only dropped when the module is provably side-effect free, so impure modules keep their load.
  *
  * Tagged declarations act as an explicit whitelist and produce build errors when they cannot be inlined.
  */

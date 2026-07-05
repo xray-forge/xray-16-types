@@ -13,6 +13,8 @@ export default [
       "index.d.ts",
       "macros.js",
       "macros.d.ts",
+      "alias.js",
+      "alias.d.ts",
       "plugins/**/*",
       "src/plugins/**/*.js",
       "mocks/**/*",
@@ -36,6 +38,16 @@ export default [
         ...globals.node,
       },
       parser: tsParser,
+    },
+    settings: {
+      // `@virtual` / `@inline` are the inline plugin's own tags; keep them as-is instead of jsdoc's
+      // default `@virtual` -> `@abstract` remap.
+      jsdoc: {
+        tagNamePreference: {
+          virtual: "virtual",
+          inline: "inline",
+        },
+      },
     },
     rules: {
       // TypeScript relaxations: this package ships engine type bindings, where `any`, empty
@@ -132,7 +144,19 @@ export default [
       // JSDoc + comment standardisation: warnings during incremental adoption, not build-blocking.
       "jsdoc/check-tag-names": [
         "warn",
-        { definedTags: ["since", "group", "source", "customConstructor", "remarks", "internal", "LuabindClass"] },
+        {
+          definedTags: [
+            "since",
+            "group",
+            "source",
+            "customConstructor",
+            "remarks",
+            "internal",
+            "LuabindClass",
+            "inline",
+            "virtual",
+          ],
+        },
       ],
       "jsdoc/require-description-complete-sentence": ["warn", { tags: ["param", "returns"] }],
       "jsdoc/require-param": "warn",

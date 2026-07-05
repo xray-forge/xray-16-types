@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "esnext",
+    "declaration": true,
+    "outDir": ".",
+    "rootDir": "src",
+    "skipLibCheck": true,
+    "ignoreDeprecations": "6.0",
+    "types": ["@typescript-to-lua/language-extensions"]
+  },
+  "include": ["src/alias.ts", "src/types/**/*.d.ts"],
+  "exclude": []
+}

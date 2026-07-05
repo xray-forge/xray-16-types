@@ -2,7 +2,7 @@ import * as ts from "typescript";
 
 import { getContainingVariableStatement, hasInlineTag, hasVirtualTag, isValueUsagePosition } from "./ast";
 import { type TFoldedValue } from "./constants";
-import { createImpureVirtualModuleError, createVirtualValueReferenceError } from "./errors";
+import { createVirtualValueReferenceError } from "./errors";
 import { isComputableEnumMember, resolveMemberSymbol, tryGetInlineValue } from "./evaluation";
 
 const modulePurityCache: WeakMap<ts.SourceFile, boolean> = new WeakMap();
@@ -291,40 +291,11 @@ export function isPureConstantsModule(
 }
 
 /**
- * Validate strict purity for a module containing `@virtual` declarations.
- * This is stricter than silent analysis: value imports and value re-exports are rejected even from pure modules,
- * so erasing requires to this module can never silently drop transitive loads.
+ * Scan the program for references to `@virtual` declarations that cannot be erased.
  *
- * @param checker - Program type checker.
- * @param sourceFile - Module source file to validate.
- * @returns List of produced diagnostics.
- */
-export function validateVirtualModulePurity(checker: ts.TypeChecker, sourceFile: ts.SourceFile): Array<ts.Diagnostic> {
-  const diagnostics: Array<ts.Diagnostic> = [];
-
-  for (const statement of sourceFile.statements) {
-    const isAllowed: boolean =
-      ts.isTypeAliasDeclaration(statement) ||
-      ts.isInterfaceDeclaration(statement) ||
-      isAmbientStatement(statement) ||
-      (ts.isVariableStatement(statement) && hasInlineTag(statement)) ||
-      (ts.isEnumDeclaration(statement) &&
-        statement.members.every((member) => isComputableEnumMember(checker, member))) ||
-      (ts.isImportDeclaration(statement) &&
-        (isTypeOnlyImport(checker, statement) || isAmbientModuleImport(checker, statement))) ||
-      (ts.isExportDeclaration(statement) && (statement.isTypeOnly || statement.moduleSpecifier === undefined));
-
-    if (!isAllowed) {
-      diagnostics.push(createImpureVirtualModuleError(statement));
-    }
-  }
-
-  return diagnostics;
-}
-
-/**
- * Scan the program for references to `@virtual` declarations that cannot be erased, and for impure modules
- * containing `@virtual` declarations.
+ * Module purity is not enforced here: a `@virtual`-containing module may freely import, re-export and hold
+ * runtime statements. Requires to it are only dropped when {@link isPureConstantsModule} proves it side-effect
+ * free (see `transformImportDeclaration`), so allowing impure modules can never silently drop transitive loads.
  *
  * @param program - Program to scan.
  * @returns List of produced diagnostics.
@@ -333,7 +304,6 @@ export function collectVirtualDiagnostics(program: ts.Program): Array<ts.Diagnos
   const checker: ts.TypeChecker = program.getTypeChecker();
   const diagnostics: Array<ts.Diagnostic> = [];
   const virtualNames: Set<string> = new Set();
-  const virtualModules: Set<ts.SourceFile> = new Set();
 
   // First pass: collect virtual declaration names for cheap identifier prefiltering.
   for (const sourceFile of program.getSourceFiles()) {
@@ -352,21 +322,14 @@ export function collectVirtualDiagnostics(program: ts.Program): Array<ts.Diagnos
             virtualNames.add(declaration.name.text);
           }
         }
-
-        virtualModules.add(sourceFile);
       } else if (ts.isEnumDeclaration(statement)) {
         virtualNames.add(statement.name.text);
-        virtualModules.add(sourceFile);
       }
     }
   }
 
   if (virtualNames.size === 0) {
     return diagnostics;
-  }
-
-  for (const virtualModule of virtualModules) {
-    diagnostics.push(...validateVirtualModulePurity(checker, virtualModule));
   }
 
   // Second pass: every reference to a virtual declaration must be erasable.
