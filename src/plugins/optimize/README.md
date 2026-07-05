@@ -1,12 +1,10 @@
-# optimize
+﻿# optimize Plugin
 
-TypeScriptToLua plugin that rewrites returned ternary expressions into direct `if` / `else` branch returns.
+`xray16/plugins/optimize` rewrites returned ternary expressions into direct Lua `if` / `else` returns.
 
-For `return condition ? first : second`, the default TSTL output introduces a temporary local to hold the ternary
-result. This plugin emits the branches as direct returns instead, while preserving ternary semantics. It has no
-configuration.
+Default TypeScriptToLua output for `return condition ? first : second` introduces a temporary local. This plugin avoids that local while preserving ternary behavior. It has no configuration.
 
-```typescript
+```ts
 export function pick(value: boolean): number {
   return value ? 1 : 2;
 }
@@ -24,16 +22,12 @@ end
 
 ## Behavior
 
-- Only `return` statements are affected. Ternaries in other positions are left to the default transform.
-- Nested ternaries in a branch are expanded recursively into nested `if` / `else` returns.
-- The returned expression is unwrapped through parentheses, `as` assertions, angle-bracket type assertions,
-  non-null assertions (`!`), and `satisfies` before checking for a ternary, so `return (a ? 1 : 2) as number` is
-  still rewritten.
-- Branch expressions that need preceding statements are handled; the branch keeps its own emitted statements.
-- Assignment compatibility against the function return type is still validated, so type errors are not lost.
+- Only `return` statements are affected.
+- Nested ternaries in return branches are expanded recursively.
+- Parentheses, `as` assertions, angle-bracket assertions, non-null assertions, and `satisfies` are unwrapped before checking for a ternary.
+- Branch expressions that emit preceding statements keep those statements inside the matching branch.
+- Assignment compatibility against the function return type is still checked.
 
 ## Limitations
 
-- Ternaries whose branches return Lua multiple values (`LuaMultiReturn`) are left untouched, because the multi-value
-  return is handled by the default transform. Such a case emits the standard `unpack(condition and ({...}) or ({...}))`
-  form instead of `if` / `else`.
+- Ternaries whose branches return Lua multiple values (`LuaMultiReturn`) are left to the default TypeScriptToLua transform. Those still emit the standard `unpack(condition and ({...}) or ({...}))` form.

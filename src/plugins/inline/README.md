@@ -1,138 +1,114 @@
-# inline
+﻿# inline Plugin
 
-TypeScriptToLua plugin that replaces tagged constant references with Lua literals at build time.
+`xray16/plugins/inline` replaces tagged constant references with Lua literals at build time.
 
-The plugin only touches declarations tagged with `@inline` or `@virtual`. If a tagged declaration cannot be
-folded safely, the build fails instead of emitting a runtime lookup.
+The plugin only touches declarations tagged with `@inline` or `@virtual`. If a tagged declaration cannot be folded safely, the build fails instead of emitting a runtime lookup.
 
 ## Annotations
 
 ### `@inline`
 
-Use `@inline` when consumers should get literal values, but the exported declaration should still exist at runtime.
-The original table, enum or scalar is emitted, so iteration, enum reverse mapping and whole-object usages keep working.
+Use `@inline` when consumers should get literal values and the exported declaration should still exist at runtime.
 
-```typescript
-/**
- * @inline
- */
+```ts
+/** @inline */
 export const medkits = {
   medkit: "medkit",
   medkit_army: "medkit_army",
 } as const;
-
-// medkits.medkit_army   -> "medkit_army"
-// medkits["medkit-x"]   -> "medkit-x"
-// pairs(medkits)        -> still works because the table is emitted
 ```
+
+Effects:
+
+- `medkits.medkit_army` emits `"medkit_army"`.
+- `medkits["medkit_army"]` emits `"medkit_army"`.
+- `pairs(medkits)` still works because the table is emitted.
 
 ### `@virtual`
 
-Use `@virtual` when the declaration is only a compile-time source for constants. It includes `@inline` behavior and
-removes the declaration from emitted Lua.
+Use `@virtual` when the declaration is only a compile-time source for constants.
 
-Every value reference must be computable at build time. If not, the build error points at the reference. Change the
-declaration to `@inline` when runtime consumers need the object, enum or scalar to exist.
+`@virtual` includes `@inline` behavior and removes the declaration from emitted Lua. Every value reference must be computable at build time.
 
-```typescript
-/**
- * @virtual
- */
-export const weapons = { ...pistols, wpn_knife: "wpn_knife" } as const;
-
-// weapons.wpn_knife      -> "wpn_knife", and no weapons table is emitted
-// { ...weapons, x: "x" } -> spread is expanded to literal entries in place
-// pairs(weapons)         -> build error, demote to '@inline'
+```ts
+/** @virtual */
+export const weapons = { wpn_knife: "wpn_knife" } as const;
 ```
 
-## Supported targets
+Effects:
+
+- `weapons.wpn_knife` emits `"wpn_knife"`.
+- No `weapons` table is emitted.
+- Runtime object usage, such as `pairs(weapons)`, fails the build. Use `@inline` instead when runtime code needs the object.
+
+## Supported Targets
 
 - Enums with compile-time constant members.
 - Module-level scalar `const` declarations.
 - Module-level flat object literals with an `as const` assertion.
 
-## Computed values
+## Computed Values
 
-Values may use expressions that can be folded at build time with JavaScript semantics:
+Values may use expressions that can be folded with JavaScript semantics:
 
-- Arithmetic and bitwise operators: `+ - * / % ** & | ^ << >> >>>`, unary `- + ~ !`.
-- String concatenation and template literals.
-- References to other constant declarations: enum members, module-level const scalars and `as const` object properties.
-  Referenced declarations do not need their own inline tags.
-- Whitelisted namespace constants: `math.pi`, `Math.PI` and other `Math` constants
-  with identical IEEE 754 double values in the build environment and LuaJIT runtime.
-- Engine constant references from ambient `xray16` typings, substituted as expressions (see below).
+- arithmetic and bitwise operators: `+ - * / % ** & | ^ << >> >>>`, unary `- + ~ !`,
+- string concatenation and template literals,
+- references to enum members, module-level scalar constants, and flat `as const` object properties,
+- selected namespace constants such as `math.pi`, `Math.PI`, and other `Math` constants with matching LuaJIT values,
+- engine constant references from ambient `xray16` typings.
 
-```typescript
+```ts
 /** @inline */
 export const MINUTE = 60 * 1000;
 
 /** @inline */
-export const HOUR = 60 * MINUTE; // -> 3600000
+export const HOUR = 60 * MINUTE;
 
 /** @inline */
-export const PI_DEGREE = math.pi / 180; // -> 0.017453292519943295
+export const PI_DEGREE = math.pi / 180;
 ```
 
-The plugin rejects values that would change runtime behavior: function calls, properties of mutable objects,
-values that produce `NaN` or `Infinity`, and non-integer numbers in string concatenation contexts. Non-integer
-numbers are rejected there because JavaScript `String()` and LuaJIT `tostring` format them differently.
+The plugin rejects values that would change runtime behavior: function calls, mutable object properties, `NaN`, `Infinity`, and non-integer numbers in string concatenation contexts.
 
-## Engine constants
+## Engine Constants
 
-`static readonly` class members declared inside ambient `declare module "xray16"` typings qualify as
-runtime-constant engine references. The engine registers these values once, so tagged declarations may
-reference them freely.
+`static readonly` class members declared inside ambient `declare module "xray16"` typings qualify as engine constants.
 
-Engine references are substituted as global access expressions instead of baked literals. The literal types
-declared in typings stay documentation - emitted code always reads the live engine value, so builds stay
-correct even when engine versions diverge from the typings.
+Engine constants are emitted as global access expressions, not baked numeric literals. This keeps output compatible with engine builds whose runtime values differ from the typings.
 
-```typescript
+```ts
 import { stalker_ids } from "xray16";
 
-/**
- * @virtual
- */
+/** @virtual */
 export enum EActionId {
   DYING = stalker_ids.action_dying,
   SHIFTED = stalker_ids.action_base + 2,
 }
-
-// EActionId.DYING   -> stalker_ids.action_dying, no enum table is emitted
-// EActionId.SHIFTED -> stalker_ids.action_base + 2
 ```
 
-Expression trees with engine references allow numeric operators `+ - * / **` and unary minus.
-`%`, bitwise operators and string concatenation are rejected for trees because emitted Lua could
-diverge from TSTL operator lowering. Instance members do not qualify - only statics are engine constants.
+Effects:
 
-Imports from ambient modules count as pure, so `@virtual` modules may import `xray16` values
-for use inside erased declarations.
+- `EActionId.DYING` emits `stalker_ids.action_dying`.
+- `EActionId.SHIFTED` emits `stalker_ids.action_base + 2`.
+- No enum table is emitted.
 
-## Import cleanup
+Expression trees with engine references allow `+ - * / **` and unary minus. `%`, bitwise operators, and string concatenation are rejected for these trees because emitted Lua could diverge from TypeScriptToLua operator lowering.
 
-Import bindings for tagged declarations are removed when all references in the importing file are erased or inlined.
-When no runtime bindings remain, the plugin handles the module load in one of two ways:
+## Import Cleanup
 
-- If the imported module is proven pure, the `require` is removed.
-- If the imported module may have side effects, the `require` is kept as a side-effect import.
+Import bindings for tagged declarations are removed when every reference in the importing file is erased or inlined.
 
-This also applies to `@inline`. A module that exports only constants can stop loading for consumers that only read
-inlined members, even when none of its declarations are `@virtual`.
+When no runtime bindings remain:
 
-## Virtual modules and side effects
+- imports from proven-pure modules are removed,
+- imports from modules that may have side effects are kept as side-effect imports.
 
-A module containing `@virtual` declarations may freely import, re-export and hold runtime statements. The `require`
-to such a module is dropped only when the module is proven side-effect free (see above); modules that may have side
-effects keep their load, so erasing `@virtual` declarations never silently removes required runtime work.
+This applies to both `@inline` and `@virtual` declarations.
 
 ## Limitations
 
-- Objects must be flat; nested object values are rejected.
-- Namespace imports (`import * as x`) are not stripped; whole-namespace value usages of modules
-  with `@virtual` declarations are not detected (member accesses through namespaces are).
-- Erased `@virtual` declarations disappear from the runtime API of emitted modules. External
-  scripts requiring those modules will not see the constants. In-project consumers are checked at compile time.
-- `Math` function calls (`Math.sqrt`, etc.) are not folded because libm implementations may differ
-  between build machine and game runtime.
+- Object values must be flat. Nested object values are rejected.
+- Namespace imports (`import * as constants`) are not stripped.
+- Whole-namespace usages of modules with `@virtual` declarations are not detected, though member accesses through namespaces are.
+- Erased `@virtual` declarations disappear from emitted runtime modules. External Lua code requiring those modules will not see them.
+- `Math` function calls such as `Math.sqrt` are not folded because libm implementations can differ between the build machine and game runtime.

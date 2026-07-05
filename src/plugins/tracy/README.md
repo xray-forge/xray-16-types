@@ -1,10 +1,8 @@
-# tracy
+﻿# tracy Plugin
 
-TypeScriptToLua plugin that injects [Tracy profiler](https://github.com/wolfpld/tracy) zone markers into the emitted
-Lua.
+`xray16/plugins/tracy` injects [Tracy profiler](https://github.com/wolfpld/tracy) zone markers into emitted Lua.
 
-When enabled, the plugin wraps files, functions, and methods in `tracy:ZoneBeginN(...)` / `tracy:ZoneEnd()` calls.
-Build a profiling bundle with this plugin on to see where runtime is spent, and keep it off for release builds.
+Enable it for profiling builds. Keep it disabled for release builds.
 
 ```json
 { "name": "xray16/plugins/tracy", "enabled": true }
@@ -14,19 +12,18 @@ Build a profiling bundle with this plugin on to see where runtime is spent, and 
 
 ### `enabled`
 
-Turns zone injection on or off. When unset, the plugin falls back to the `XR_INJECT_TRACY_ZONES` environment
-variable / `--inject-tracy-zones` CLI flag. When disabled, the plugin is a no-op and emits normal Lua.
+Turns zone injection on or off.
 
-## What it injects
+When `enabled` is unset, the plugin falls back to `XR_INJECT_TRACY_ZONES=true` or the `--inject-tracy-zones` CLI flag. When disabled, it emits normal Lua.
 
-- File zones: `lua::file::<name>.script` around the whole module. `index.*` files are named
-  `<dir>@index.script` to keep them distinct.
+## What It Injects
+
+- File zones: `lua::file::<name>.script` around the whole module. `index.*` files are named `<dir>@index.script`.
 - Function zones: `lua::function::<name>` at the start of each function body.
-- Method zones: `lua::method::<Class>::<name>`, qualified by the containing class name.
-- `extern("name", ...)` registrations: arrow functions passed directly or as object-literal properties are wrapped
-  with `lua::function::<name>` / `lua::function::<name>.<prop>` zones.
+- Method zones: `lua::method::<Class>::<name>` for class methods.
+- `extern("name", ...)` zones for inline arrow functions and object-literal properties passed to `extern`.
 
-```typescript
+```ts
 export function run(): number {
   const value = 1;
 
@@ -45,11 +42,9 @@ end
 tracy:ZoneEnd()
 ```
 
-Zones close correctly around early exits: a `tracy:ZoneEnd()` is inserted before every `return` in a body, including
-returns nested in `if`, `for`, and `switch` blocks.
+Zones close before early exits, including returns inside `if`, `for`, and `switch` blocks.
 
 ## Limitations
 
-- Single-statement `return` function bodies are skipped. There is nothing to profile between begin and end without
-  rewriting the return into a temporary, so the zone is omitted.
-- The injected calls assume a global `tracy` object is available in the runtime.
+- Single-expression return function bodies are skipped. Profiling them would require rewriting the return into a temporary.
+- The emitted Lua assumes a global `tracy` object exists at runtime.

@@ -1,9 +1,8 @@
-# strip
+﻿# strip Plugin
 
-TypeScriptToLua plugin that removes selected constructs from the emitted Lua.
+`xray16/plugins/strip` removes selected constructs from TypeScriptToLua output.
 
-The plugin takes a configuration object from the `luaPlugins` entry and strips only what you enable. Nothing is
-removed unless the matching flag is on.
+Use it to keep release Lua smaller and to erase imports that only exist for TypeScript typing. The plugin reads its options from the `luaPlugins` entry.
 
 ```json
 { "name": "xray16/plugins/strip", "luaLogger": true, "engineImports": true }
@@ -13,19 +12,18 @@ removed unless the matching flag is on.
 
 ### `luaLogger`
 
-Removes `LuaLogger` declarations and calls from the runtime. Logging can consume processing time that does not
-benefit the player, so release builds can drop it entirely.
+Removes `LuaLogger` declarations and method calls.
 
-When the field is unset, the plugin falls back to the `XR_NO_LUA_LOGS` environment variable / `--no-lua-logs` CLI
-flag (stripping happens when logging is disabled through either).
+When `luaLogger` is unset, the plugin falls back to `XR_NO_LUA_LOGS=true` or the `--no-lua-logs` CLI flag. If neither fallback is set, logger calls are kept.
 
 What it removes:
 
-- Variable declarations whose type is `LuaLogger`. In a multi-declaration statement, only the `LuaLogger` binding is
-  dropped and the rest is kept.
-- Expression statements that call a method on a `LuaLogger` value (e.g. `logger.info("...")`).
+- Variable declarations whose resolved type is `LuaLogger`.
+- Method-call expression statements on a `LuaLogger` value, such as `logger.info("message")`.
 
-```typescript
+In a multi-declaration statement, only the `LuaLogger` binding is removed. Other bindings are kept.
+
+```ts
 declare class LuaLogger {
   public info(message: string): void;
 }
@@ -36,34 +34,40 @@ export function run(): number {
   const logger = getLogger();
   const kept = 1;
 
-  logger.info("removed"); // dropped
+  logger.info("removed");
 
   return kept;
 }
-
-// Emits only `local kept = 1; return kept` inside `run`.
 ```
+
+The logger declaration and call are removed from the emitted Lua. `kept` and the return stay intact.
 
 ### `engineImports`
 
-Removes runtime imports and star re-exports of engine typedef modules (`xray16`, `xray16/alias`). These modules have
-no runtime Lua counterpart, so a `require` for them would fail. Default `tstl` behavior does not handle engine imports
-well and can produce implicit globals.
+Removes runtime imports and star re-exports for engine declaration modules.
 
-Defaults to `true`. Named, namespace (`import * as x`) and side-effect (`import "xray16"`) imports, as well as star
-re-exports (`export * from "xray16/alias"`), are all erased; imports of other modules are left untouched.
+Defaults to `true`. This matters because `xray16` and `xray16/alias` describe engine globals and aliases; they do not have Lua modules that can be required in the game runtime.
 
-```typescript
-import { engineValue } from "xray16";
+The plugin erases:
 
+- named imports from `xray16` and `xray16/alias`,
+- namespace imports,
+- side-effect imports,
+- star re-exports.
+
+Imports from other modules are left untouched.
+
+```ts
+import { game_object } from "xray16";
 import { localValue } from "./local";
 
-export const result = engineValue + localValue;
-
-// The `xray16` import is erased; `engineValue` stays as a global reference. `./local` still requires normally.
+export const result = localValue;
+export type Object = game_object;
 ```
+
+The emitted Lua keeps the `./local` require and removes the `xray16` require.
 
 ## Limitations
 
-- `luaLogger` detection is type-based: a value is stripped only when its type symbol resolves to `LuaLogger`.
-- `engineImports` targets the `xray16` and `xray16/alias` module specifiers only.
+- `luaLogger` is type-based. A value is stripped only when its type symbol resolves to `LuaLogger`.
+- `engineImports` targets only `xray16` and `xray16/alias`.

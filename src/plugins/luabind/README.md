@@ -1,13 +1,10 @@
-# luabind
+﻿# luabind Plugin
 
-TypeScriptToLua plugin that transforms classes marked with the `@LuabindClass()` decorator into luabind class
-declarations.
+`xray16/plugins/luabind` transforms classes marked with `@LuabindClass()` into luabind class declarations.
 
-By default TSTL builds classes with prototype tables and metatables. Engine classes that extend C++ types must use
-the luabind `class()` API instead so virtual method overrides are registered with the engine. This plugin emits that
-form for decorated classes and leaves undecorated classes to the default transform.
+Default TypeScriptToLua classes use prototype tables and metatables. Engine classes that extend C++ objects need the luabind `class()` API so virtual overrides are registered with the engine. This plugin emits that form for decorated classes and leaves other classes to the default transform.
 
-```typescript
+```ts
 declare function LuabindClass(): ClassDecorator;
 
 @LuabindClass()
@@ -37,16 +34,16 @@ end
 
 ### `superCall`
 
-Controls how a parent constructor `super(...)` call is emitted. Defaults to `"reference"`.
+Controls how constructor `super(...)` calls are emitted. Defaults to `"reference"`.
 
 - `"reference"` calls the parent constructor directly: `Base.__init(self, ...)`.
-- `"luabind"` delegates to the luabind global `super(...)`, which binds `self` implicitly.
+- `"luabind"` delegates to the luabind global: `super(...)`.
 
 ```json
 { "name": "xray16/plugins/luabind", "superCall": "luabind" }
 ```
 
-```typescript
+```ts
 @LuabindClass()
 class Base {
   public constructor(name: string) {}
@@ -58,33 +55,29 @@ export class Child extends Base {
     super("child");
   }
 }
-
-// "reference": Child.__init calls Base.__init(self, "child")
-// "luabind":   Child.__init calls super("child")
 ```
 
-The setting applies to the constructor call only. `super.method()` always resolves to a direct base class reference
-(`Base.method(self)`), because luabind has no global for arbitrary parent methods.
+With `"reference"`, `Child.__init` calls `Base.__init(self, "child")`. With `"luabind"`, it calls `super("child")`.
 
-## What it handles
+The setting only affects constructor calls. `super.method()` always emits a direct base class reference, such as `Base.method(self)`, because luabind has no global for arbitrary parent methods.
 
-- Class setup as `class("Name")` and `class("Name")(Base)` for inheritance.
-- Constructor bodies, instance field initialization, and generated constructors for classes that omit one.
+## What It Handles
+
+- Class setup through `class("Name")` and `class("Name")(Base)`.
+- Constructor bodies, instance field initialization, and generated constructors.
 - Get/set accessors via `ObjectDefineProperty`.
-- Default exports, assigned to `exports.default`.
-- `new Expr(...)` on luabind classes.
+- Default exports assigned to `exports.default`.
+- `new Expr(...)` calls for luabind classes.
 
-## Unsupported constructs
+## Unsupported Constructs
 
 These produce build errors instead of silent miscompiles:
 
-- Static properties: `Unable transform static properties for luabind classes`.
-- Method, property, parameter, and class decorators other than `@LuabindClass()`: `Unable transform method decorator
-  for luabind classes` (and the property / parameter / class variants).
-- Static accessors: `Unable transform static accessors for luabind classes`.
+- Static properties.
+- Static accessors.
+- Method, property, parameter, and class decorators other than `@LuabindClass()`.
 
 ## Limitations
 
-- Inheritance and `super` require the base class to be a non-exported local identifier in the same module. An
-  exported base fails with `Super without identifier - not supported with luabind`.
-- The decorator is matched by name (`@LuabindClass()`); renaming or aliasing the decorator is not detected.
+- Inheritance and `super` require the base class to be a non-exported local identifier in the same module. An exported base fails with `Super without identifier - not supported with luabind`.
+- The decorator is matched by name. Renaming or aliasing `@LuabindClass()` is not detected.
