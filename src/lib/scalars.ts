@@ -21,6 +21,11 @@ export type TLabel = string;
 export type TPath = string;
 
 /**
+ * Configuration section name.
+ */
+export type TSection = string;
+
+/**
  * String-based identifier.
  */
 export type TStringId = string;
