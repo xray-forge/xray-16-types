@@ -7,12 +7,14 @@ import {
   createNotAsConstObjectError,
   createNotConstantEnumMemberError,
   createNotConstError,
+  createNotInlinableFunctionError,
   createNotLiteralConstantError,
   createNotLiteralPropertyError,
   createNotModuleLevelError,
   createUnsupportedDeclarationError,
 } from "./errors";
 import { getComputedDeclarationValue, isComputableEnumMember } from "./evaluation";
+import { isInlinableFunction } from "./functions";
 
 /**
  * Validate `@inline` tagged variable statement and push diagnostics for not supported shapes.
@@ -98,7 +100,15 @@ export function validateTopLevelTags(program: ts.Program): Array<ts.Diagnostic> 
     }
 
     for (const statement of sourceFile.statements) {
-      if (hasInlineTag(statement) && !ts.isVariableStatement(statement) && !ts.isEnumDeclaration(statement)) {
+      if (!hasInlineTag(statement)) {
+        continue;
+      }
+
+      if (ts.isFunctionDeclaration(statement)) {
+        if (!isInlinableFunction(statement)) {
+          diagnostics.push(createNotInlinableFunctionError(statement, statement.name?.getText() ?? "<anonymous>"));
+        }
+      } else if (!ts.isVariableStatement(statement) && !ts.isEnumDeclaration(statement)) {
         diagnostics.push(createUnsupportedDeclarationError(statement));
       }
     }

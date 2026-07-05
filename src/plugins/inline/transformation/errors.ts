@@ -3,7 +3,14 @@ import { createErrorDiagnosticFactory } from "../../utils/diagnostics";
 import { INLINE_TAG, VIRTUAL_TAG } from "./constants";
 
 export const createUnsupportedDeclarationError = createErrorDiagnosticFactory(
-  `'@${INLINE_TAG}' and '@${VIRTUAL_TAG}' are supported only for enums and module-level 'const' declarations.`
+  `'@${INLINE_TAG}' and '@${VIRTUAL_TAG}' are supported only for enums, module-level 'const' declarations ` +
+    "and functions."
+);
+
+export const createNotInlinableFunctionError = createErrorDiagnosticFactory(
+  (name: string) =>
+    `'@${INLINE_TAG}' function '${name}' must have a single 'return <expression>' body and only plain ` +
+    "parameters (no rest or destructuring) to be inlinable."
 );
 
 export const createVirtualValueReferenceError = createErrorDiagnosticFactory(

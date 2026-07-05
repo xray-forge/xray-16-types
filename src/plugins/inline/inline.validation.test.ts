@@ -178,7 +178,7 @@ export class Something {}
     );
 
     expect(errors).toEqual([
-      "'@inline' and '@virtual' are supported only for enums and module-level 'const' declarations.",
+      "'@inline' and '@virtual' are supported only for enums, module-level 'const' declarations and functions.",
     ]);
     expect(lua["main.lua"]).toBe(`local ____lualib = require("lualib_bundle")
 local __TS__Class = ____lualib.__TS__Class

@@ -6,6 +6,7 @@ import {
   hasInlineTag,
   hasVirtualTag,
   transformAccessExpression,
+  transformCallExpression,
   transformIdentifierExpression,
   transformImportDeclaration,
   validateEnumDeclaration,
@@ -47,6 +48,7 @@ export const plugin: Plugin = {
   visitors: {
     [ts.SyntaxKind.PropertyAccessExpression]: transformAccessExpression,
     [ts.SyntaxKind.ElementAccessExpression]: transformAccessExpression,
+    [ts.SyntaxKind.CallExpression]: transformCallExpression,
     [ts.SyntaxKind.Identifier]: transformIdentifierExpression,
     [ts.SyntaxKind.ImportDeclaration]: transformImportDeclaration,
     [ts.SyntaxKind.VariableStatement]: (statement, context) => {

@@ -1,7 +1,7 @@
-import { type TIndex } from "../scalars";
-
 /**
  * Clamp number to limits.
+ *
+ * @inline
  *
  * @param value - Target number value.
  * @param min - Minimal bound.
@@ -9,13 +9,7 @@ import { type TIndex } from "../scalars";
  * @returns Clamped to provided bounds number.
  */
 export function clamp(value: number, min: number, max: number): number {
-  if (value < min) {
-    return min;
-  } else if (value > max) {
-    return max;
-  } else {
-    return value;
-  }
+  return value < min ? min : value > max ? max : value;
 }
 
 /**
