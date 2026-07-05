@@ -7,11 +7,12 @@
   "private": true,
   "scripts": {
     "clean": "rimraf ./target",
-    "build": "npm run clean && npm run build:plugins && npm run build:macros && npm run build:mocks && npm run build:alias && npm run build:types && npm run build:pkg",
+    "build": "npm run clean && npm run build:plugins && npm run build:macros && npm run build:mocks && npm run build:alias && npm run build:lib && npm run build:types && npm run build:pkg",
     "build:plugins": "rolldown -c cli/build/rolldown.config.mjs && tsc -p cli/build/tsconfig.plugins.json",
     "build:macros": "tsc -p cli/build/tsconfig.macros.json",
     "build:mocks": "tsc -p cli/build/tsconfig.mocks.json",
     "build:alias": "tsc -p cli/build/tsconfig.alias.json",
+    "build:lib": "tsc -p cli/build/tsconfig.lib.json",
     "build:types": "rolldown -c cli/build/rolldown.dts.config.mjs",
     "build:pkg": "tsx cli/deploy/prepare.ts",
     "docs": "typedoc --options cli/docs/typedoc.json",
