@@ -12,7 +12,8 @@ const REQUIRED_ARTIFACTS: Array<string> = [
   "macros.d.ts",
   "alias.js",
   "alias.d.ts",
-  "lib",
+  "lib.js",
+  "lib.d.ts",
   "plugins",
   "mocks",
 ];

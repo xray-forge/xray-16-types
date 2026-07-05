@@ -26,8 +26,8 @@
       "default": "./alias.js"
     },
     "./lib": {
-      "types": "./lib/index.d.ts",
-      "default": "./lib/index.js"
+      "types": "./lib.d.ts",
+      "default": "./lib.js"
     },
     "./mocks": {
       "types": "./mocks/index.d.ts",
