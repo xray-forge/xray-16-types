@@ -1,4 +1,4 @@
-{
+﻿{
   "$schema": "https://typedoc.org/schema.json",
   "name": "X-Ray 16 Types",
   "entryPoints": ["src/types/xr_object/script/xr_script_object.d.ts"],
@@ -9,7 +9,7 @@
   "cleanOutputDir": true,
   "searchInComments": true,
   "navigationLinks": {
-    "GitHub": "https://github.com/stalker-xrts/xray-16-types",
+    "GitHub": "https://github.com/xray-forge/xray-16-types",
     "npm": "https://www.npmjs.com/package/xray16"
   },
   "sort": ["alphabetical", "static-first", "visibility", "enum-value-ascending"]
