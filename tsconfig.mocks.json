@@ -13,5 +13,5 @@
     "types": ["@typescript-to-lua/language-extensions", "lua-types/jit", "jest", "node"]
   },
   "include": ["src/mocks/**/*"],
-  "exclude": []
+  "exclude": ["src/mocks/**/*.test.ts"]
 }

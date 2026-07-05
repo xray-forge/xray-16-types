@@ -17,7 +17,7 @@ declare namespace table {
    *
    * @returns Random value from table.
    */
-  function random<K extends AnyNotNil, V>(list: LuaTable<K, V>): LuaMultiReturn<[K, V]>;
+  function random<K extends AnyNotNil, V>(list: LuaTable<K, V> | LuaMap<K, V>): LuaMultiReturn<[K, V]>;
 
   /**
    * Get table size.

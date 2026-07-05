@@ -159,7 +159,7 @@ export const mockString = {
 
     return result;
   },
-  sub(target: string, start: number, end: number): Nillable<string> {
+  sub(target: string, start: number, end?: number): Nillable<string> {
     const L: ILuaState = lauxlib.luaL_newstate();
 
     lualib.luaL_openlibs(L);

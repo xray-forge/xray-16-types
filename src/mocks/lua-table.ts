@@ -1,4 +1,5 @@
 import { type AnyObject } from "./internal";
+import { type MockLuaMap } from "./mock-lua-map";
 import { MockLuaTable } from "./mock-lua-table";
 
 /**
@@ -23,7 +24,7 @@ export const mockTable = {
       throw new Error("Unexpected data provided for table size check mock.");
     }
   },
-  random: (table: MockLuaTable) => {
+  random: (table: MockLuaTable | MockLuaMap) => {
     const entries = table.getEntriesArray();
 
     return entries.length ? entries[Math.floor(entries.length * Math.random())] : [null, null];

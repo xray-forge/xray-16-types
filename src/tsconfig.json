@@ -1,11 +1,12 @@
 {
   "extends": "../tsconfig.json",
   "include": ["."],
-  "exclude": ["mocks"],
+  "exclude": [],
   "compilerOptions": {
     "module": "commonjs",
     "moduleResolution": "node",
     "ignoreDeprecations": "6.0",
-    "types": ["node", "jest", "@typescript-to-lua/language-extensions"]
+    "skipLibCheck": true,
+    "types": ["node", "jest", "@typescript-to-lua/language-extensions", "lua-types/jit"]
   }
 }
