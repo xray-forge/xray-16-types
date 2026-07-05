@@ -6,7 +6,7 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "strict": true,
-    "types": ["node", "@typescript-to-lua/language-extensions"]
+    "types": ["node", "@typescript-to-lua/language-extensions", "lua-types/jit"]
   },
   "exclude": ["target", "cli", "src/alias.ts", "src/mocks", "src/**/*.test.ts"]
 }
