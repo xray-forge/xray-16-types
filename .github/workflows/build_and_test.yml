@@ -35,11 +35,57 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
+      - name: Run tests
+        run: npm test
+
       - name: Build package artifacts
         run: npm run build
 
-      - name: Verify package contents
-        run: npm pack --dry-run
+      - name: Pack package tarball
+        run: npm pack ./target/pkg/xray16 && mv xray16-*.tgz xray16-nightly.tgz
 
       - name: Build API documentation
-        run: npm run typedoc
+        run: npm run docs
+
+      - name: Upload package tarball
+        uses: actions/upload-artifact@v4
+        with:
+          if-no-files-found: error
+          name: package
+          path: xray16-nightly.tgz
+          retention-days: 1
+
+  upload-nightly:
+    name: Upload nightly release
+    if: ${{ github.ref_name == 'main' && github.event_name != 'pull_request' }}
+    needs: [build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download package tarball
+        uses: actions/download-artifact@v4
+        with:
+          name: package
+
+      - name: Update nightly tag
+        uses: EndBug/latest-tag@latest
+        id: update-nightly-tag
+        with:
+          ref: nightly
+
+      - name: Publish nightly package release
+        if: ${{ steps.update-nightly-tag.outcome == 'success' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if ! gh release view nightly >/dev/null 2>&1; then
+            gh release create nightly --prerelease --verify-tag --title "Nightly" \
+              --notes "Rolling build of the latest successful main commit."
+          fi
+
+          gh release upload --clobber nightly xray16-nightly.tgz

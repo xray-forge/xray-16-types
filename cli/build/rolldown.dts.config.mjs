@@ -3,6 +3,8 @@ import { dts } from "rolldown-plugin-dts";
 // The typings are hand-written ambient declarations aggregated through side-effect imports.
 // Tree-shaking MUST stay off, otherwise rolldown drops every augmentation body (nothing is "used")
 // and emits an empty module.
+//
+// Paths are relative to the project root, where npm scripts run.
 function bundleDts(input, outDir, outName) {
   return {
     input,
@@ -28,4 +30,4 @@ function bundleDts(input, outDir, outName) {
   };
 }
 
-export default [bundleDts("./src/types/index.d.ts", "./", "index.d.ts")];
+export default [bundleDts("./src/types/index.d.ts", "./target/pkg/xray16", "index.d.ts")];

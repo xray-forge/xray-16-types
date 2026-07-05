@@ -1,17 +1,17 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
     "moduleResolution": "node",
     "target": "esnext",
     "declaration": true,
-    "outDir": "mocks",
-    "rootDir": "src/mocks",
+    "outDir": "../../target/pkg/xray16/mocks",
+    "rootDir": "../../src/mocks",
     "skipLibCheck": true,
     "esModuleInterop": true,
     "ignoreDeprecations": "6.0",
     "types": ["@typescript-to-lua/language-extensions", "lua-types/jit", "jest", "node"]
   },
-  "include": ["src/mocks/**/*"],
-  "exclude": ["src/mocks/**/*.test.ts"]
+  "include": ["../../src/mocks/**/*"],
+  "exclude": ["../../src/mocks/**/*.test.ts"]
 }

@@ -8,5 +8,5 @@
     "strict": true,
     "types": ["node", "@typescript-to-lua/language-extensions"]
   },
-  "exclude": ["index.d.ts", "macros.js", "macros.d.ts", "alias.js", "alias.d.ts", "src/alias.ts", "docs", "plugins", "mocks", "src/mocks", "src/**/*.test.ts"]
+  "exclude": ["target", "cli", "src/alias.ts", "src/mocks", "src/**/*.test.ts"]
 }

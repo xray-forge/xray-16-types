@@ -1,11 +1,3 @@
 .idea/
 node_modules/
-docs/
-
-/alias.d.ts
-/alias.js
-/index.d.ts
-/macros.d.ts
-/macros.js
-/mocks/
-/plugins/
+target/

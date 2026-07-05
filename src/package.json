@@ -1,0 +1,48 @@
+{
+  "name": "xray16",
+  "version": "2.0.0-experimental.0",
+  "author": "Neloreck",
+  "repository": "https://github.com/xray-forge/xray-16-types",
+  "homepage": "https://xray-forge.github.io/xray-16-types/index.html",
+  "main": "index.d.ts",
+  "types": "index.d.ts",
+  "peerDependencies": {
+    "typescript-to-lua": "^1.37.0"
+  },
+  "dependencies": {
+    "fengari": "^0.1.5"
+  },
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.d.ts"
+    },
+    "./macros": {
+      "types": "./macros.d.ts",
+      "default": "./macros.js"
+    },
+    "./alias": {
+      "types": "./alias.d.ts",
+      "default": "./alias.js"
+    },
+    "./mocks": {
+      "types": "./mocks/index.d.ts",
+      "default": "./mocks/index.js"
+    },
+    "./plugins/constants": {
+      "types": "./plugins/constants.d.ts",
+      "default": "./plugins/constants.js"
+    },
+    "./plugins/inline": "./plugins/inline.js",
+    "./plugins/luabind": "./plugins/luabind.js",
+    "./plugins/macros": "./plugins/macros.js",
+    "./plugins/optimize": "./plugins/optimize.js",
+    "./plugins/strip": "./plugins/strip.js",
+    "./plugins/tracy": "./plugins/tracy.js",
+    "./package.json": "./package.json",
+    "./typedefs/extensions": "./typedefs/extensions.d.ts",
+    "./typedefs/luajit": "./typedefs/luajit.d.ts",
+    "./typedefs/lfs": "./typedefs/lfs.d.ts",
+    "./typedefs/marshal": "./typedefs/marshal.d.ts"
+  }
+}

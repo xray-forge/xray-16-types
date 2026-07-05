@@ -3,6 +3,8 @@ import * as path from "node:path";
 /**
  * Plugins are bundled one-by-one into a single self-contained CommonJS file each.
  * TypeScriptToLua loads them via `require("xray16/plugins/<name>")` and reads the default export.
+ *
+ * Paths are relative to the project root, where npm scripts run.
  */
 const PLUGINS = [
   "strip",
@@ -24,7 +26,7 @@ function bundle(name, input) {
     external,
     platform: "node",
     output: {
-      file: `plugins/${name}.js`,
+      file: `target/pkg/xray16/plugins/${name}.js`,
       format: "cjs",
       minify: false,
     },

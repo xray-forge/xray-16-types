@@ -1,16 +1,14 @@
 {
-  "extends": "./tsconfig.json",
   "compilerOptions": {
+    "declaration": true,
     "module": "commonjs",
     "moduleResolution": "node",
     "target": "esnext",
-    "declaration": true,
-    "outDir": ".",
-    "rootDir": "src",
+    "rootDir": "../../src",
+    "outDir": "../../target/pkg/xray16",
     "skipLibCheck": true,
     "ignoreDeprecations": "6.0",
     "types": ["@typescript-to-lua/language-extensions"]
   },
-  "include": ["src/alias.ts", "src/types/**/*.d.ts"],
-  "exclude": []
+  "files": ["../../src/macros.ts"]
 }

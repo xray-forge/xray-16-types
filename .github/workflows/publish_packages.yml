@@ -1,9 +1,15 @@
 name: Publish Packages
 
-run-name: Publish package from ${{ github.ref_name }}
+run-name: Publish ${{ inputs.experimental && 'experimental' || 'stable' }} package from ${{ github.ref_name }}
 
 on:
   workflow_dispatch:
+    inputs:
+      experimental:
+        description: "Publish with the experimental npm tag"
+        required: true
+        type: boolean
+        default: true
 
 permissions:
   contents: write
@@ -59,19 +65,42 @@ jobs:
       - name: Build package artifacts
         run: npm run build
 
+      - name: Resolve publish channel and version
+        id: publish
+        env:
+          EXPERIMENTAL: ${{ inputs.experimental }}
+        run: |
+          VERSION="$(node -p "require('./target/pkg/xray16/package.json').version")"
+
+          if [ "${EXPERIMENTAL}" = "true" ]; then
+            TAG="experimental"
+
+            if ! echo "${VERSION}" | grep -Eq -- '-experimental\.[0-9]+$'; then
+              echo "::error::Experimental publish requires an -experimental.N version in src/package.json, got '${VERSION}'."
+              exit 1
+            fi
+          else
+            TAG="latest"
+
+            if ! echo "${VERSION}" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+              echo "::error::Stable publish requires a plain x.y.z version in src/package.json, got '${VERSION}'."
+              exit 1
+            fi
+          fi
+
+          echo "tag=${TAG}" >> "${GITHUB_OUTPUT}"
+          echo "version=${VERSION}" >> "${GITHUB_OUTPUT}"
+          echo "Publishing ${VERSION} with npm tag '${TAG}'." >> "${GITHUB_STEP_SUMMARY}"
+
       - name: Verify package contents
-        run: npm pack --dry-run
+        run: npm pack --dry-run ./target/pkg/xray16
 
       - name: Publish package to npm
-        run: npm publish
-
-      - name: Resolve published version
-        id: version
-        run: echo "version=$(node -p "require('./package.json').version")" >> "${GITHUB_OUTPUT}"
+        run: npm publish ./target/pkg/xray16 --tag "${{ steps.publish.outputs.tag }}"
 
       - name: Tag the published commit
         env:
-          VERSION: ${{ steps.version.outputs.version }}
+          VERSION: ${{ steps.publish.outputs.version }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -85,7 +114,8 @@ jobs:
           git push origin "v${VERSION}"
 
       - name: Create GitHub release
+        if: steps.publish.outputs.tag == 'latest'
         env:
-          VERSION: ${{ steps.version.outputs.version }}
+          VERSION: ${{ steps.publish.outputs.version }}
           GH_TOKEN: ${{ github.token }}
         run: gh release create "v${VERSION}" --title "v${VERSION}" --generate-notes

@@ -10,15 +10,8 @@ import tsPlugin from "typescript-eslint";
 export default [
   {
     ignores: [
-      "index.d.ts",
-      "macros.js",
-      "macros.d.ts",
-      "alias.js",
-      "alias.d.ts",
-      "plugins/**/*",
+      "target/**/*",
       "src/plugins/**/*.js",
-      "mocks/**/*",
-      "docs/**/*",
       "node_modules/**/*",
     ],
   },

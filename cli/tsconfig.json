@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "ignoreDeprecations": "6.0",
+    "skipLibCheck": true,
+    "types": ["node"]
+  },
+  "include": ["config/**/*.ts", "deploy/**/*.ts"],
+  "exclude": []
+}

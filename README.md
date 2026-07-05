@@ -22,6 +22,12 @@ The package includes:
 npm install xray16 typescript-to-lua
 ```
 
+Pre-release builds are available through two channels: `xray16@experimental` on npm for manually published release candidates, and a rolling [nightly GitHub release](https://github.com/xray-forge/xray-16-types/releases/tag/nightly) with a tarball uploaded after every successful `main` build:
+
+```sh
+npm install https://github.com/xray-forge/xray-16-types/releases/download/nightly/xray16-nightly.tgz
+```
+
 Add the base declarations to the TypeScript `types` array. Add only the ambient typedef packages your project uses.
 
 ```jsonc
@@ -165,7 +171,9 @@ npm run typecheck
 npm run lint
 npm run test
 npm run build
-npm run build:docs
+npm run docs
 ```
 
-`npm run build` regenerates the packaged declarations, plugin output, macros runtime declarations, alias module, mocks, and TypeDoc output.
+`npm run build` regenerates the packaged declarations, plugin output, macros runtime declarations, alias module, and mocks, then stages the publishable package in `target/pkg/xray16`. `npm run docs` builds TypeDoc output into `target/docs`.
+
+Build and tooling configuration lives in `cli/` (`cli/build` for compiler/bundler configs, `cli/test` for jest, `cli/deploy` for package staging, `cli/docs` for TypeDoc). The published `package.json` manifest is maintained at `src/package.json`; the root manifest is a private project shell.
