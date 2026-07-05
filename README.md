@@ -101,7 +101,7 @@ Add plugins through the TypeScriptToLua `luaPlugins` config. A typical XRF build
   "tstl": {
     "luaPlugins": [
       { "name": "xray16/plugins/luabind" },
-      { "name": "xray16/plugins/strip", "engineImports": true },
+      { "name": "xray16/plugins/strip" },
       { "name": "xray16/plugins/macros" },
       { "name": "xray16/plugins/optimize" },
       { "name": "xray16/plugins/inline" },
