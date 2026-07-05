@@ -1,8 +1,5 @@
 /**
  * Shared compile-time constants.
- *
- * All are tagged `@inline`: the `inline` plugin folds their usages into literals in the emitted Lua (no runtime
- * table), while jest/node get the real values from the compiled `lib.js`.
  */
 
 /**

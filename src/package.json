@@ -1,6 +1,6 @@
 {
   "name": "xray16",
-  "version": "2.0.0-experimental.1",
+  "version": "2.0.0-experimental.2",
   "author": "Neloreck",
   "repository": "https://github.com/xray-forge/xray-16-types",
   "homepage": "https://xray-forge.github.io/xray-16-types/index.html",
@@ -26,8 +26,9 @@
       "default": "./alias.js"
     },
     "./lib": {
-      "types": "./lib.d.ts",
-      "default": "./lib.js"
+      "types": "./lib/index.d.ts",
+      "tstl": "./lib/index.lua",
+      "default": "./lib/index.js"
     },
     "./mocks": {
       "types": "./mocks/index.d.ts",

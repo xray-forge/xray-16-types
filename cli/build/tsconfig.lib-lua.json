@@ -4,12 +4,17 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "target": "esnext",
-    "declaration": true,
     "outDir": "../../target/pkg/xray16/lib",
     "rootDir": "../../target/tmp/lib",
     "skipLibCheck": true,
     "ignoreDeprecations": "6.0",
     "types": ["@typescript-to-lua/language-extensions", "lua-types/jit"]
+  },
+  "tstl": {
+    "buildMode": "library",
+    "luaTarget": "JIT",
+    "noImplicitSelf": true,
+    "noImplicitGlobalVariables": true
   },
   "include": ["../../target/tmp/lib/**/*"],
   "exclude": []

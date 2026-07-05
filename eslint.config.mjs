@@ -148,6 +148,8 @@ export default [
             "LuabindClass",
             "inline",
             "virtual",
+            "noSelf",
+            "noSelfInFile",
           ],
         },
       ],

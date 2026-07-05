@@ -12,7 +12,7 @@
     "build:macros": "tsc -p cli/build/tsconfig.macros.json",
     "build:mocks": "tsc -p cli/build/tsconfig.mocks.json",
     "build:alias": "tsc -p cli/build/tsconfig.alias.json",
-    "build:lib": "tsc -p cli/build/tsconfig.lib.json && rolldown -c cli/build/rolldown.lib.config.mjs",
+    "build:lib": "tsx cli/build/lib-bundle.ts && tsc -p cli/build/tsconfig.lib.json && tstl -p cli/build/tsconfig.lib-lua.json",
     "build:types": "rolldown -c cli/build/rolldown.dts.config.mjs",
     "build:pkg": "tsx cli/deploy/prepare.ts",
     "docs": "typedoc --options cli/docs/typedoc.json",
