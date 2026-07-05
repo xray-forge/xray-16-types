@@ -5,6 +5,8 @@
  *
  * These declarations are not modules. Add `"xray16/typedefs/marshal"` to `compilerOptions.types`, or use
  * `/// <reference types="xray16/typedefs/marshal" />`.
+ *
+ * @noSelfInFile
  */
 
 /**

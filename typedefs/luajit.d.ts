@@ -4,6 +4,8 @@
  * Use this file for Lua standard-library members that TypeScriptToLua typings do not expose.
  * These declarations are not modules. Add `"xray16/typedefs/luajit"` to `compilerOptions.types`, or use
  * `/// <reference types="xray16/typedefs/luajit" />`.
+ *
+ * @noSelfInFile
  */
 
 /**

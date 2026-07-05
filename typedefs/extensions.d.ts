@@ -4,6 +4,8 @@
  * These globals extend the base `table` and `string` libraries. They are not modules.
  * Add `"xray16/typedefs/extensions"` to `compilerOptions.types`, or use
  * `/// <reference types="xray16/typedefs/extensions" />`.
+ *
+ * @noSelfInFile
  */
 
 /**
