@@ -43,7 +43,7 @@ export function roundWithPrecision(value: number, precision?: number): number {
  *
  * @param size - Size of rage.
  * @param startAt - First value in range.
- * @returns The array containing range indxes.
+ * @returns The array containing range indexes.
  */
 export function range(size: number, startAt: number = 0): ReadonlyArray<number> {
   const list = [];

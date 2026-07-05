@@ -5,6 +5,7 @@
     "lib": ["esnext"],
     "module": "esnext",
     "moduleResolution": "bundler",
+    "skipLibCheck": true,
     "strict": true,
     "types": ["node", "@typescript-to-lua/language-extensions", "lua-types/jit"]
   },

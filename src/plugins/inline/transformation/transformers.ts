@@ -4,6 +4,7 @@ import * as lua from "typescript-to-lua";
 import { getContainingVariableStatement, hasInlineTag, hasVirtualTag, isValueUsagePosition } from "./ast";
 import { type TFoldedBinaryOperator, type TFoldedValue } from "./constants";
 import { resolveMemberSymbol, tryGetInlineValue } from "./evaluation";
+import { isInlinedCalleeReference } from "./functions";
 import {
   getVirtualDeclaration,
   getVirtualObjectEntries,
@@ -240,8 +241,10 @@ function getFileBindingUsage(checker: ts.TypeChecker, sourceFile: ts.SourceFile)
 
         if (symbol !== undefined) {
           const isVirtual: boolean = getVirtualDeclaration(checker, symbol) !== null;
+          const isErasable: boolean =
+            isErasableReference(checker, node, symbol, isVirtual) || isInlinedCalleeReference(checker, node);
 
-          markImportBindingUsage(symbol, !isErasableReference(checker, node, symbol, isVirtual));
+          markImportBindingUsage(symbol, !isErasable);
         }
       }
     }
@@ -264,7 +267,7 @@ function isTaggedImportTarget(checker: ts.TypeChecker, symbol: ts.Symbol): boole
     return false;
   }
 
-  if (ts.isEnumDeclaration(declaration)) {
+  if (ts.isEnumDeclaration(declaration) || ts.isFunctionDeclaration(declaration)) {
     return hasInlineTag(declaration);
   }
 

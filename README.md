@@ -11,6 +11,7 @@ The package includes:
 
 - `xray16`: engine globals, luabind classes, UI classes, GOAP classes, and script objects.
 - `xray16/alias`: friendlier type aliases over raw engine declaration names, plus virtual engine enums.
+- `xray16/lib`: shared scalar aliases, utility types, constants, and small runtime helpers.
 - `xray16/macros`: compile-time helper functions with a Node/Jest runtime fallback.
 - `xray16/typedefs/*`: opt-in ambient declarations for LuaJIT and bundled Lua libraries.
 - `xray16/plugins/*`: TypeScriptToLua plugins used by XRF builds.
@@ -87,6 +88,20 @@ export function readConfig(value: unknown): LuaTable<string, string> {
 
 At build time the `macros` plugin strips the import and folds helper usage. Under Jest or Node, the same import resolves to the shipped runtime module, so tests do not need hand-written globals.
 
+## Shared Lib
+
+Import shared aliases, constants, and utility helpers from `xray16/lib`.
+
+```ts
+import { MAX_U16, clamp, type TSection } from "xray16/lib";
+
+export function normalizeSection(section: TSection, value: number): string {
+  return `${section}:${clamp(value, 0, MAX_U16)}`;
+}
+```
+
+Type aliases erase at build time. Constants tagged with `@inline` can be folded by the `inline` plugin. Runtime helpers such as `round` and `range` need a real Lua module in game builds; use the `libcompile` plugin when compiling gamedata from `xray16/lib` source.
+
 ## Ambient Typedefs
 
 Ambient typedefs describe globals from the X-Ray Lua runtime and bundled Lua libraries. They are not modules to import. Add them to `compilerOptions.types` or reference them with `/// <reference types="..." />`.
@@ -111,20 +126,22 @@ Add plugins through the TypeScriptToLua `luaPlugins` config. A typical XRF build
       { "name": "xray16/plugins/macros" },
       { "name": "xray16/plugins/optimize" },
       { "name": "xray16/plugins/inline" },
+      { "name": "xray16/plugins/libcompile" },
       { "name": "xray16/plugins/tracy" },
     ],
   },
 }
 ```
 
-| Plugin     | Purpose                                                                              | Docs                                     |
-| ---------- | ------------------------------------------------------------------------------------ | ---------------------------------------- |
-| `luabind`  | Emits `class("Name")` declarations for classes marked with `@LuabindClass()`.        | [README](src/plugins/luabind/README.md)  |
-| `strip`    | Removes Lua logger calls and runtime imports for engine-only typedef modules.        | [README](src/plugins/strip/README.md)    |
-| `macros`   | Folds `$filename`, `$dirname`, nil checks, cast helpers, and optional build headers. | [README](src/plugins/macros/README.md)   |
-| `optimize` | Rewrites returned ternaries into direct Lua `if` / `else` returns.                   | [README](src/plugins/optimize/README.md) |
-| `inline`   | Inlines constants tagged with `@inline` or `@virtual`.                               | [README](src/plugins/inline/README.md)   |
-| `tracy`    | Injects Tracy profiler zones when enabled.                                           | [README](src/plugins/tracy/README.md)    |
+| Plugin       | Purpose                                                                              | Docs                                        |
+| ------------ | ------------------------------------------------------------------------------------ | ------------------------------------------- |
+| `luabind`    | Emits `class("Name")` declarations for classes marked with `@LuabindClass()`.        | [README](src/plugins/luabind/README.md)     |
+| `strip`      | Removes Lua logger calls and runtime imports for engine-only typedef modules.        | [README](src/plugins/strip/README.md)       |
+| `macros`     | Folds `$filename`, `$dirname`, nil checks, cast helpers, and optional build headers. | [README](src/plugins/macros/README.md)      |
+| `optimize`   | Rewrites returned ternaries into direct Lua `if` / `else` returns.                   | [README](src/plugins/optimize/README.md)    |
+| `inline`     | Inlines constants tagged with `@inline` or `@virtual`.                               | [README](src/plugins/inline/README.md)      |
+| `libcompile` | Emits `xray16/lib` source as a flat `xray_bundle` module for game builds.            | [README](src/plugins/libcompile/README.md)  |
+| `tracy`      | Injects Tracy profiler zones when enabled.                                           | [README](src/plugins/tracy/README.md)       |
 
 The `strip` and `tracy` plugins also support build toggles when their config fields are unset:
 

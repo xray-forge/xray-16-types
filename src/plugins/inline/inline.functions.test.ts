@@ -64,8 +64,7 @@ end
 return ____exports
 `);
     expect(lua["main.lua"]).toBe(`local ____exports = {}
-local ____lib = require("lib")
-local add = ____lib.add
+require("lib")
 function ____exports.use(self, x)
     return x + 5
 end

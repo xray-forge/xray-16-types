@@ -27,7 +27,6 @@
     },
     "./lib": {
       "types": "./lib/index.d.ts",
-      "tstl": "./lib/index.lua",
       "default": "./lib/index.js"
     },
     "./mocks": {
@@ -39,6 +38,7 @@
       "default": "./plugins/constants.js"
     },
     "./plugins/inline": "./plugins/inline.js",
+    "./plugins/libcompile": "./plugins/libcompile.js",
     "./plugins/luabind": "./plugins/luabind.js",
     "./plugins/macros": "./plugins/macros.js",
     "./plugins/optimize": "./plugins/optimize.js",

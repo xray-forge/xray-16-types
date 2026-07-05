@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 
-import { PKG_ROOT, PROJECT_ROOT, SRC_ROOT, TYPEDEFS_ROOT } from "../config/build.constants";
+import { PKG_ROOT, PROJECT_ROOT, SRC_ROOT, TARGET_ROOT, TYPEDEFS_ROOT } from "../config/build.constants";
 
 /**
  * Build artifacts that every build must have emitted into the staged package before it can ship.
@@ -44,8 +44,23 @@ function stagePluginReadmes(): void {
   }
 }
 
+/**
+ * Stage the merged `xray16/lib` TypeScript source next to its declarations.
+ */
+function stageLibSource(): void {
+  const merged: string = path.resolve(TARGET_ROOT, "tmp/lib/index.ts");
+
+  if (!fs.existsSync(merged)) {
+    throw new Error(`Merged lib source missing at ${merged}. Run 'build:lib' first.`);
+  }
+
+  fs.copyFileSync(merged, path.resolve(PKG_ROOT, "lib", "index.ts"));
+}
+
 function stagePackage(): void {
   verifyBuildArtifacts();
+
+  stageLibSource();
 
   fs.copyFileSync(path.resolve(SRC_ROOT, "package.json"), path.resolve(PKG_ROOT, "package.json"));
   fs.copyFileSync(path.resolve(PROJECT_ROOT, "README.md"), path.resolve(PKG_ROOT, "README.md"));

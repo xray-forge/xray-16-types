@@ -13,6 +13,7 @@ const PLUGINS = [
   "optimize",
   "inline",
   "luabind",
+  "libcompile",
 ];
 
 // Inline everything local, keep third-party deps (typescript, typescript-to-lua) and node builtins external.

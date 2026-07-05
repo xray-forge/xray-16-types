@@ -1,5 +1,5 @@
 import * as ts from "typescript";
-import * as lua from "typescript-to-lua";
+import type * as lua from "typescript-to-lua";
 
 import { hasInlineTag, unwrapInitializer } from "./ast";
 import { resolveAliasedSymbol } from "./virtual";
@@ -97,6 +97,7 @@ function isSideEffectFree(expression: ts.Expression): boolean {
   if (
     ts.isIdentifier(node) ||
     ts.isLiteralExpression(node) ||
+    node.kind === ts.SyntaxKind.ThisKeyword ||
     node.kind === ts.SyntaxKind.TrueKeyword ||
     node.kind === ts.SyntaxKind.FalseKeyword ||
     node.kind === ts.SyntaxKind.NullKeyword
@@ -104,8 +105,13 @@ function isSideEffectFree(expression: ts.Expression): boolean {
     return true;
   }
 
+  // Field reads on a side-effect-free base are safe to duplicate (plain table index, no call).
   if (ts.isPropertyAccessExpression(node)) {
     return isSideEffectFree(node.expression);
+  }
+
+  if (ts.isElementAccessExpression(node)) {
+    return isSideEffectFree(node.expression) && isSideEffectFree(node.argumentExpression);
   }
 
   if (ts.isPrefixUnaryExpression(node)) {
@@ -189,6 +195,79 @@ function substituteParameters(
 }
 
 /**
+ * Resolve the argument expression bound to a parameter at a call site, applying its default when omitted.
+ *
+ * @param declaration - Inlinable function declaration.
+ * @param node - Call expression.
+ * @param index - Parameter index.
+ * @returns The argument expression (or default / `undefined` placeholder).
+ */
+function getArgumentForParameter(
+  declaration: ts.FunctionDeclaration,
+  node: ts.CallExpression,
+  index: number
+): ts.Expression {
+  return node.arguments[index] ?? declaration.parameters[index].initializer ?? ts.factory.createIdentifier("undefined");
+}
+
+/**
+ * Decide whether a call to an inlinable function can be folded: every parameter symbol must resolve, and no
+ * parameter used more than once may receive a side-effecting argument (duplicating it would change semantics).
+ *
+ * @param checker - Program type checker.
+ * @param declaration - Target inlinable function declaration.
+ * @param node - Call expression to check.
+ * @returns Whether the call can be inlined.
+ */
+export function canInlineCall(
+  checker: ts.TypeChecker,
+  declaration: ts.FunctionDeclaration,
+  node: ts.CallExpression
+): boolean {
+  const returnExpression: ts.Expression | null = getSingleReturnExpression(declaration);
+
+  if (returnExpression === null) {
+    return false;
+  }
+
+  const usageCounts: Map<ts.Symbol, number> = countParameterUsages(checker, declaration, returnExpression);
+
+  for (let index = 0; index < declaration.parameters.length; index += 1) {
+    const parameterSymbol: ts.Symbol | undefined = checker.getSymbolAtLocation(declaration.parameters[index].name);
+
+    if (parameterSymbol === undefined) {
+      return false;
+    }
+
+    if ((usageCounts.get(parameterSymbol) ?? 0) > 1 && !isSideEffectFree(getArgumentForParameter(declaration, node, index))) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+/**
+ * Check whether an identifier is the callee of a call that will be inlined, so its import binding reference
+ * does not survive to emitted output and can be stripped.
+ *
+ * @param checker - Program type checker.
+ * @param node - Identifier node to check.
+ * @returns Whether the identifier is an inlined-call callee.
+ */
+export function isInlinedCalleeReference(checker: ts.TypeChecker, node: ts.Identifier): boolean {
+  const parent: ts.Node | undefined = node.parent;
+
+  if (parent === undefined || !ts.isCallExpression(parent) || parent.expression !== node) {
+    return false;
+  }
+
+  const declaration: ts.FunctionDeclaration | null = getInlineFunctionDeclaration(checker, parent);
+
+  return declaration !== null && canInlineCall(checker, declaration, parent);
+}
+
+/**
  * Inline a call to an `@inline` single-return function by substituting arguments into its return expression.
  * Returns null when inlining would duplicate a side-effecting argument, so the caller can fall back to a
  * regular call.
@@ -204,27 +283,18 @@ function tryInlineFunctionCall(
   context: lua.TransformationContext
 ): lua.Expression | null {
   const checker: ts.TypeChecker = context.checker;
+
+  if (!canInlineCall(checker, declaration, node)) {
+    return null;
+  }
+
   const returnExpression: ts.Expression = getSingleReturnExpression(declaration) as ts.Expression;
-  const usageCounts: Map<ts.Symbol, number> = countParameterUsages(checker, declaration, returnExpression);
   const substitutions: Map<ts.Symbol, ts.Expression> = new Map();
 
   for (let index = 0; index < declaration.parameters.length; index += 1) {
-    const parameter: ts.ParameterDeclaration = declaration.parameters[index];
-    const parameterSymbol: ts.Symbol | undefined = checker.getSymbolAtLocation(parameter.name);
+    const parameterSymbol: ts.Symbol = checker.getSymbolAtLocation(declaration.parameters[index].name) as ts.Symbol;
 
-    if (parameterSymbol === undefined) {
-      return null;
-    }
-
-    const argument: ts.Expression =
-      node.arguments[index] ?? parameter.initializer ?? ts.factory.createIdentifier("undefined");
-
-    // Duplicating a side-effecting argument would change evaluation semantics; fall back to a real call.
-    if ((usageCounts.get(parameterSymbol) ?? 0) > 1 && !isSideEffectFree(argument)) {
-      return null;
-    }
-
-    substitutions.set(parameterSymbol, argument);
+    substitutions.set(parameterSymbol, getArgumentForParameter(declaration, node, index));
   }
 
   return context.transformExpression(substituteParameters(checker, returnExpression, substitutions));
