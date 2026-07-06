@@ -10,6 +10,9 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "ignoreDeprecations": "6.0",
+    "paths": {
+      "xray16/alias": ["../../target/pkg/xray16/alias"]
+    },
     "types": ["@typescript-to-lua/language-extensions", "lua-types/jit", "jest", "node"]
   },
   "include": ["../../src/mocks/**/*"],

@@ -7,6 +7,10 @@
     "moduleResolution": "node",
     "ignoreDeprecations": "6.0",
     "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "xray16/alias": ["./alias.ts"]
+    },
     "types": ["node", "jest", "@typescript-to-lua/language-extensions", "lua-types/jit"]
   }
 }

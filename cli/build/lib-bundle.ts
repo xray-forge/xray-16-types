@@ -19,9 +19,11 @@ const HEADER: string = `/**
  */
 `;
 
-// Relative import/export statements referencing sibling lib modules; dropped because the symbols are inlined.
-const RELATIVE_IMPORT = /^\s*import\s[^;]*?from\s+["']\.[^"']*["'];?[^\n]*$/gm;
+const IMPORT_LINE = /^\s*import\s[^;]*?from\s+["']([^"']*)["'];?[^\n]*$/gm;
 const RELATIVE_EXPORT = /^\s*export\s[^;]*?from\s+["']\.[^"']*["'];?[^\n]*$/gm;
+// Named import (`import { a, b } from "m"`), capturing the specifier list and module. Named imports from the
+// same module are merged so two files importing overlapping names (e.g. `Vector`) don't emit duplicates.
+const NAMED_IMPORT = /^import\s*\{([^}]*)\}\s*from\s+["']([^"']*)["'];?/;
 
 /**
  * Collect every leaf `.ts` module under `src/lib`, recursively, skipping barrel `index.ts` files (pure
@@ -49,13 +51,52 @@ function collectLeaves(dir: string): Array<string> {
 function mergeLib(): void {
   const leaves: Array<string> = collectLeaves(LIB_SRC);
 
-  const parts: Array<string> = leaves.map((leaf) =>
-    fs.readFileSync(leaf, "utf8").replace(RELATIVE_IMPORT, "").replace(RELATIVE_EXPORT, "").trim()
+  // Non-relative imports (e.g. `xray16`, `xray16/alias`) must survive the merge. Named imports are grouped by
+  // module and their specifiers unioned; any other form (default/namespace) is kept verbatim.
+  const namedByModule: Map<string, Set<string>> = new Map();
+  const otherImports: Set<string> = new Set();
+
+  const parts: Array<string> = leaves.map((leaf) => {
+    const content: string = fs.readFileSync(leaf, "utf8");
+
+    for (const match of content.matchAll(IMPORT_LINE)) {
+      const specifier: string = match[1] as string;
+
+      if (specifier.startsWith(".")) {
+        continue;
+      }
+
+      const named: RegExpMatchArray | null = match[0].trim().match(NAMED_IMPORT);
+
+      if (named === null) {
+        otherImports.add(match[0].trim());
+        continue;
+      }
+
+      const bindings: Set<string> = namedByModule.get(specifier) ?? new Set();
+
+      for (const binding of (named[1] as string).split(",")) {
+        const trimmed: string = binding.trim();
+
+        if (trimmed.length > 0) {
+          bindings.add(trimmed);
+        }
+      }
+
+      namedByModule.set(specifier, bindings);
+    }
+
+    return content.replace(IMPORT_LINE, "").replace(RELATIVE_EXPORT, "").trim();
+  });
+
+  const namedImports: Array<string> = [...namedByModule.entries()].map(
+    ([specifier, bindings]) => `import { ${[...bindings].sort().join(", ")} } from "${specifier}";`
   );
+  const imports: string = [...otherImports, ...namedImports].sort().join("\n");
 
   fs.rmSync(OUT_DIR, { recursive: true, force: true });
   fs.mkdirSync(OUT_DIR, { recursive: true });
-  fs.writeFileSync(OUT_FILE, `${HEADER}\n${parts.join("\n\n")}\n`);
+  fs.writeFileSync(OUT_FILE, `${HEADER}${imports ? `\n${imports}\n` : ""}\n${parts.join("\n\n")}\n`);
 
   console.log(`Merged ${leaves.length} lib module(s) -> ${OUT_FILE}`);
 }

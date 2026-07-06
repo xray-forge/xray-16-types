@@ -9,8 +9,11 @@
     "rootDir": "../../target/tmp/lib",
     "skipLibCheck": true,
     "ignoreDeprecations": "6.0",
-    "types": ["@typescript-to-lua/language-extensions", "lua-types/jit"]
+    "types": ["@typescript-to-lua/language-extensions", "lua-types/jit"],
+    "paths": {
+      "xray16/alias": ["../../target/pkg/xray16/alias"]
+    }
   },
-  "include": ["../../target/tmp/lib/**/*"],
+  "include": ["../../target/tmp/lib/**/*", "../../src/types/**/*.d.ts"],
   "exclude": []
 }

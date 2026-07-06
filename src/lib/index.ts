@@ -10,3 +10,5 @@ export * from "./types";
 export * from "./constants";
 
 export * from "./utils/number";
+export * from "./utils/vector";
+export * from "./utils/vectors";
