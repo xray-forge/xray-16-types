@@ -5,7 +5,7 @@ const MAX_U32: number = 4_294_967_295;
 /**
  * Data types that can be saved in net packets (game save files).
  */
-export enum EPacketDataType {
+export enum EMockPacketDataType {
   STRING = "string",
   BOOLEAN = "boolean",
   F32 = "f32",
@@ -21,8 +21,8 @@ export enum EPacketDataType {
  * X-Ray net processor mock for testing save/load of data.
  */
 export class MockNetProcessor {
-  public readDataOrder: Array<EPacketDataType> = [];
-  public writeDataOrder: Array<EPacketDataType> = [];
+  public readDataOrder: Array<EMockPacketDataType> = [];
+  public writeDataOrder: Array<EMockPacketDataType> = [];
 
   public dataList: Array<unknown>;
 
@@ -31,7 +31,7 @@ export class MockNetProcessor {
   }
 
   public r_stringZ(): string {
-    this.readDataOrder.push(EPacketDataType.STRING);
+    this.readDataOrder.push(EMockPacketDataType.STRING);
 
     if (this.hasData()) {
       return this.dataList.shift() as string;
@@ -41,7 +41,7 @@ export class MockNetProcessor {
   }
 
   public r_float(): number {
-    this.readDataOrder.push(EPacketDataType.F32);
+    this.readDataOrder.push(EMockPacketDataType.F32);
 
     if (this.hasData()) {
       return this.dataList.shift() as number;
@@ -51,7 +51,7 @@ export class MockNetProcessor {
   }
 
   public r_u32(): number {
-    this.readDataOrder.push(EPacketDataType.U32);
+    this.readDataOrder.push(EMockPacketDataType.U32);
 
     if (this.hasData()) {
       return this.dataList.shift() as number;
@@ -61,7 +61,7 @@ export class MockNetProcessor {
   }
 
   public r_s32(): number {
-    this.readDataOrder.push(EPacketDataType.I32);
+    this.readDataOrder.push(EMockPacketDataType.I32);
 
     if (this.hasData()) {
       return this.dataList.shift() as number;
@@ -71,7 +71,7 @@ export class MockNetProcessor {
   }
 
   public r_u16(): number {
-    this.readDataOrder.push(EPacketDataType.U16);
+    this.readDataOrder.push(EMockPacketDataType.U16);
 
     if (this.hasData()) {
       return this.dataList.shift() as number;
@@ -81,7 +81,7 @@ export class MockNetProcessor {
   }
 
   public r_u8(): number {
-    this.readDataOrder.push(EPacketDataType.U8);
+    this.readDataOrder.push(EMockPacketDataType.U8);
 
     if (this.hasData()) {
       return this.dataList.shift() as number;
@@ -91,7 +91,7 @@ export class MockNetProcessor {
   }
 
   public r_bool(): boolean {
-    this.readDataOrder.push(EPacketDataType.BOOLEAN);
+    this.readDataOrder.push(EMockPacketDataType.BOOLEAN);
 
     if (this.hasData()) {
       return this.dataList.shift() as boolean;
@@ -101,37 +101,37 @@ export class MockNetProcessor {
   }
 
   public w_stringZ(data: string): void {
-    this.writeDataOrder.push(EPacketDataType.STRING);
+    this.writeDataOrder.push(EMockPacketDataType.STRING);
     this.dataList.push(data);
   }
 
   public w_u16(data: number): void {
-    this.writeDataOrder.push(EPacketDataType.U16);
+    this.writeDataOrder.push(EMockPacketDataType.U16);
     this.dataList.push(data);
   }
 
   public w_u32(data: number): void {
-    this.writeDataOrder.push(EPacketDataType.U32);
+    this.writeDataOrder.push(EMockPacketDataType.U32);
     this.dataList.push(data === -1 ? MAX_U32 : data);
   }
 
   public w_s32(data: number): void {
-    this.writeDataOrder.push(EPacketDataType.I32);
+    this.writeDataOrder.push(EMockPacketDataType.I32);
     this.dataList.push(data);
   }
 
   public w_u8(data: number): void {
-    this.writeDataOrder.push(EPacketDataType.U8);
+    this.writeDataOrder.push(EMockPacketDataType.U8);
     this.dataList.push(data);
   }
 
   public w_float(data: number): void {
-    this.writeDataOrder.push(EPacketDataType.F32);
+    this.writeDataOrder.push(EMockPacketDataType.F32);
     this.dataList.push(data);
   }
 
   public w_bool(data: boolean): void {
-    this.writeDataOrder.push(EPacketDataType.BOOLEAN);
+    this.writeDataOrder.push(EMockPacketDataType.BOOLEAN);
     this.dataList.push(data);
   }
 

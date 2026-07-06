@@ -2,7 +2,7 @@ import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 import { game, level } from "xray16";
 import { type Time } from "xray16/alias";
 
-import { mockMarshal, MockCTime, EPacketDataType, MockNetProcessor } from "../../mocks";
+import { mockMarshal, MockCTime, EMockPacketDataType, MockNetProcessor } from "../../mocks";
 import { mockMath } from "../../mocks/lua/lua-math";
 import { mockString } from "../../mocks/lua/lua-string";
 import { mockToString } from "../../mocks/lua/lua-tostring";
@@ -43,13 +43,13 @@ describe("writeTimeToPacket and readTimeFromPacket utils", () => {
 
     expect(processor.dataList).toEqual([12, 6, 12, 3, 6, 12, 500]);
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U16,
     ]);
 
     const timeToRead: Nillable<Time> = readTimeFromPacket(processor.asNetReader());
@@ -67,7 +67,7 @@ describe("writeTimeToPacket and readTimeFromPacket utils", () => {
     writeTimeToPacket(processor.asNetPacket(), null);
 
     expect(processor.dataList).toEqual([MAX_U8]);
-    expect(processor.writeDataOrder).toEqual([EPacketDataType.U8]);
+    expect(processor.writeDataOrder).toEqual([EMockPacketDataType.U8]);
 
     expect(readTimeFromPacket(processor.asNetReader())).toBeNull();
 

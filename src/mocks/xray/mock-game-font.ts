@@ -10,6 +10,6 @@ export class MockCGameFont {
 /**
  * Mock of the engine `GetFontLetterica16Russian` global.
  */
-export function mockGetFontLetterica16Russian(): MockCGameFont {
+export const mockGetFontLetterica16Russian = jest.fn((): MockCGameFont => {
   return new MockCGameFont();
-}
+});
