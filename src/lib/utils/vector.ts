@@ -1,4 +1,5 @@
 import { vector, vector2 } from "xray16";
+import { type Vector, type Vector2D } from "xray16/alias";
 
 import { NIL } from "../constants";
 import { type TDistance, type TRate } from "../scalars";
@@ -13,7 +14,7 @@ import { PI_DEGREE, RADIAN } from "./number";
  *
  * @returns New zero vector.
  */
-export function createEmptyVector(): vector {
+export function createEmptyVector(): Vector {
   return new vector().set(0, 0, 0);
 }
 
@@ -24,7 +25,7 @@ export function createEmptyVector(): vector {
  *
  * @returns New zero vector.
  */
-export function createEmpty2dVector(): vector2 {
+export function createEmpty2dVector(): Vector2D {
   return new vector2().set(0, 0);
 }
 
@@ -38,7 +39,7 @@ export function createEmpty2dVector(): vector2 {
  * @param z - Z coordinate.
  * @returns New vector with the provided coordinates.
  */
-export function createVector(x: number, y: number, z: number): vector {
+export function createVector(x: number, y: number, z: number): Vector {
   return new vector().set(x, y, z);
 }
 
@@ -51,7 +52,7 @@ export function createVector(x: number, y: number, z: number): vector {
  * @param y - Y coordinate.
  * @returns New vector with the provided coordinates.
  */
-export function create2dVector(x: number, y: number): vector2 {
+export function create2dVector(x: number, y: number): Vector2D {
   return new vector2().set(x, y);
 }
 
@@ -64,7 +65,7 @@ export function create2dVector(x: number, y: number): vector2 {
  * @param second - Right operand.
  * @returns New vector containing `first + second`.
  */
-export function addVectors(first: Readonly<vector>, second: Readonly<vector>): vector {
+export function addVectors(first: Readonly<Vector>, second: Readonly<Vector>): Vector {
   return new vector().add(first, second);
 }
 
@@ -77,7 +78,7 @@ export function addVectors(first: Readonly<vector>, second: Readonly<vector>): v
  * @param second - Vector to subtract.
  * @returns New vector containing `first - second`.
  */
-export function subVectors(first: vector, second: vector): vector {
+export function subVectors(first: Vector, second: Vector): Vector {
   return new vector().sub(first, second);
 }
 
@@ -90,7 +91,7 @@ export function subVectors(first: vector, second: vector): vector {
  * @param second - Right operand.
  * @returns New vector containing `first x second`.
  */
-export function vectorCross(first: Readonly<vector>, second: Readonly<vector>): vector {
+export function vectorCross(first: Readonly<Vector>, second: Readonly<Vector>): Vector {
   return new vector().set(
     first.y * second.z - first.z * second.y,
     first.z * second.x - first.x * second.z,
@@ -106,7 +107,7 @@ export function vectorCross(first: Readonly<vector>, second: Readonly<vector>): 
  * @param source - Vector to copy.
  * @returns New vector with same coordinates.
  */
-export function copyVector(source: Readonly<vector>): vector {
+export function copyVector(source: Readonly<Vector>): Vector {
   return new vector().set(source);
 }
 
@@ -119,7 +120,7 @@ export function copyVector(source: Readonly<vector>): vector {
  * @param second - Second vector.
  * @returns Angle in radians.
  */
-export function yaw(first: Readonly<vector>, second: Readonly<vector>): TRate {
+export function yaw(first: Readonly<Vector>, second: Readonly<Vector>): TRate {
   return math.acos(
     (first.x * second.x + first.z * second.z) /
       (math.sqrt(first.x * first.x + first.z * first.z) * math.sqrt(second.x * second.x + second.z * second.z))
@@ -135,7 +136,7 @@ export function yaw(first: Readonly<vector>, second: Readonly<vector>): TRate {
  * @param second - Second vector.
  * @returns Angle in degrees.
  */
-export function yawDegree(first: Readonly<vector>, second: Readonly<vector>): TRate {
+export function yawDegree(first: Readonly<Vector>, second: Readonly<Vector>): TRate {
   return (
     math.acos(
       (first.x * second.x + first.z * second.z) /
@@ -153,7 +154,7 @@ export function yawDegree(first: Readonly<vector>, second: Readonly<vector>): TR
  * @param second - Second vector.
  * @returns Angle in degrees.
  */
-export function yawDegree3d(first: Readonly<vector>, second: Readonly<vector>): TRate {
+export function yawDegree3d(first: Readonly<Vector>, second: Readonly<Vector>): TRate {
   return (
     math.acos(
       (first.x * second.x + first.y * second.y + first.z * second.z) /
@@ -172,7 +173,7 @@ export function yawDegree3d(first: Readonly<vector>, second: Readonly<vector>): 
  * @param angleBase - Rotation angle in degrees.
  * @returns New rotated vector.
  */
-export function vectorRotateY(target: Readonly<vector>, angleBase: TRate): vector {
+export function vectorRotateY(target: Readonly<Vector>, angleBase: TRate): Vector {
   const angle: TRate = angleBase * PI_DEGREE;
   const cos: number = math.cos(angle);
   const sin: number = math.sin(angle);
@@ -213,7 +214,7 @@ export function degreeToRadian(degree: number): number {
  * @param second - Second vector.
  * @returns Angle difference in degrees.
  */
-export function angleDiff(first: Readonly<vector>, second: Readonly<vector>): number {
+export function angleDiff(first: Readonly<Vector>, second: Readonly<Vector>): number {
   return radianToDegree(math.acos(math.abs(first.normalize().dotproduct(second.normalize()))));
 }
 
@@ -225,7 +226,7 @@ export function angleDiff(first: Readonly<vector>, second: Readonly<vector>): nu
  * @param angle - Angle vector where `x` is pitch and `y` is yaw.
  * @returns Normalized direction vector.
  */
-export function angleToDirection(angle: Readonly<vector>): vector {
+export function angleToDirection(angle: Readonly<Vector>): Vector {
   return new vector().setHP(angle.y, angle.x).normalize();
 }
 
@@ -238,7 +239,7 @@ export function angleToDirection(angle: Readonly<vector>): vector {
  * @param second - Second vector.
  * @returns 2D distance using X and Z coordinates.
  */
-export function distanceBetween2d(first: Readonly<vector>, second: Readonly<vector>): TDistance {
+export function distanceBetween2d(first: Readonly<Vector>, second: Readonly<Vector>): TDistance {
   return math.sqrt((second.x - first.x) ** 2 + (second.z - first.z) ** 2);
 }
 
@@ -251,7 +252,7 @@ export function distanceBetween2d(first: Readonly<vector>, second: Readonly<vect
  * @param second - Second vector.
  * @returns Whether all coordinates are equal with `===`.
  */
-export function areSameVectors(first: Readonly<vector>, second: Readonly<vector>): boolean {
+export function areSameVectors(first: Readonly<Vector>, second: Readonly<Vector>): boolean {
   return first.x === second.x && first.y === second.y && first.z === second.z;
 }
 
@@ -264,7 +265,7 @@ export function areSameVectors(first: Readonly<vector>, second: Readonly<vector>
  * @param second - Second vector.
  * @returns Whether all coordinates are equal with `===`.
  */
-export function areSame2dVectors(first: Readonly<vector2>, second: Readonly<vector2>): boolean {
+export function areSame2dVectors(first: Readonly<Vector2D>, second: Readonly<Vector2D>): boolean {
   return first.x === second.x && first.y === second.y;
 }
 
@@ -278,7 +279,7 @@ export function areSame2dVectors(first: Readonly<vector2>, second: Readonly<vect
  * @param eps - Maximum allowed coordinate difference.
  * @returns Whether all coordinate differences are less than or equal to `eps`.
  */
-export function areSameVectorsByPrecision(first: Readonly<vector>, second: Readonly<vector>, eps: TRate): boolean {
+export function areSameVectorsByPrecision(first: Readonly<Vector>, second: Readonly<Vector>, eps: TRate): boolean {
   return (
     math.abs(first.x - second.x) <= eps && math.abs(first.y - second.y) <= eps && math.abs(first.z - second.z) <= eps
   );
@@ -294,6 +295,6 @@ export function areSameVectorsByPrecision(first: Readonly<vector>, second: Reado
  * @param target - Vector to stringify, or nil-like value.
  * @returns String in `[x:y:z]` format, or `nil`.
  */
-export function vectorToString(target: Nillable<Readonly<vector>>): string {
+export function vectorToString(target: Nillable<Readonly<Vector>>): string {
   return target ? string.format("[%s:%s:%s]", target.x, target.y, target.z) : NIL;
 }
