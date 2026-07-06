@@ -56,6 +56,7 @@ export { MockTask } from "./xray/mock-task";
 export { MockCGameFont } from "./xray/mock-game-font";
 export { MockCSightParams } from "./xray/mock-sight-params";
 export { MockCTime } from "./xray/mock-ctime";
+export { MockCGameGraph } from "./xray/mock-game-graph";
 export { MockCVertex } from "./xray/mock-cvertex";
 export { MockColor, mockGetARGB } from "./xray/mock-color";
 export { MockCond } from "./xray/mock-cond";
