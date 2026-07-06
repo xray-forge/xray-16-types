@@ -1,4 +1,14 @@
 /**
+ * Radians per degree (`PI / 180`).
+ */
+export const PI_DEGREE: number = Math.PI / 180;
+
+/**
+ * Degrees per radian (`180 / PI`).
+ */
+export const RADIAN: number = 180 / Math.PI;
+
+/**
  * Clamp number to limits.
  *
  * @inline
