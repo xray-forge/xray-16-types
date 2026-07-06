@@ -1,4 +1,4 @@
-import { NIL } from "./internal";
+import { NIL } from "../internal";
 
 /**
  * Mock lua `tostring` global method.

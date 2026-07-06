@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
 
-import { mockMath } from "../../mocks/lua-math";
+import { mockMath } from "../../mocks/lua/lua-math";
 
 import { clamp, range, round, roundWithPrecision } from "./number";
 

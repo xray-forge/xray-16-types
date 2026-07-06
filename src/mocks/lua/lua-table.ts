@@ -1,6 +1,6 @@
-import { type AnyObject } from "./internal";
-import { type MockLuaMap } from "./mock-lua-map";
-import { MockLuaTable } from "./mock-lua-table";
+import { type AnyObject } from "../internal";
+import { type MockLuaMap } from "../mock-lua-map";
+import { MockLuaTable } from "../mock-lua-table";
 
 /**
  * Mock default lua lib table methods.

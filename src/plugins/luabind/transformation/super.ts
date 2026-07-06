@@ -11,7 +11,7 @@ import { isSymbolExported } from "typescript-to-lua/dist/transformation/utils/ex
 import { getCalledExpression, transformArguments } from "typescript-to-lua/dist/transformation/visitors/call";
 import { transformIdentifier } from "typescript-to-lua/dist/transformation/visitors/identifier";
 
-import { type ITransformationContext } from "./class_declaration";
+import { type ITransformationContext } from "./class-declaration";
 import {
   LUABIND_CONSTRUCTOR_METHOD,
   LUABIND_DEFAULT_SUPER_CALL,

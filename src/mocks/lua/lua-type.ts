@@ -1,4 +1,4 @@
-import { NIL } from "./internal";
+import { NIL } from "../internal";
 
 /**
  * Mock lua `type` global method.

@@ -1,4 +1,4 @@
-import { type Nillable } from "./internal";
+import { type Nillable } from "../internal";
 
 /**
  * Mock generic io file.

@@ -1,5 +1,5 @@
-import { type AnyObject, type LuaArray, type Nillable } from "./internal";
-import { MockLuaTable } from "./mock-lua-table";
+import { type AnyObject, type LuaArray, type Nillable } from "../internal";
+import { MockLuaTable } from "../mock-lua-table";
 
 /**
  * Transform lua table to array for easier testing with equals checks.
