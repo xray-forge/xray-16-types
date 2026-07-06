@@ -20,11 +20,10 @@ export { mockType } from "./lua/lua-type";
 
 export { defaultCommunities, type TDefaultCommunity } from "./xray/mock-constants";
 export { mockConfig } from "./xray/mock-config";
+export { charactersGoodwill, communityGoodwill, mockCharactersGoodwill } from "./xray/mock-community-relations";
+export { mockRelationRegistryInterface } from "./xray/mock-relation-registry-interface";
 
-// NOTE: `MockAlifeSimulator` must be re-exported before `MockAlifeObject`. The base object and the simulator form an
-// import cycle (base registers itself with the simulator; the simulator constructs subclasses). Entering the cycle via
-// the simulator lets the base class finish defining before its subclasses `extends` it - the base's simulator use is
-// runtime-only. Loading the base first would leave it `undefined` when a subclass extends it.
+// NOTE: `MockAlifeSimulator` must be re-exported before `MockAlifeObject`.
 export { MockAlifeSimulator } from "./xray/server/mock-alife-simulator";
 export { type IMockAlifeObjectConfig, MockAlifeObject } from "./xray/server/mock-alife-object";
 export { MockAlifeDynamicObject } from "./xray/server/mock-alife-dynamic-object";
@@ -65,6 +64,8 @@ export { EMockPacketDataType, MockNetProcessor } from "./xray/net-processor";
 export { MockActionBase, mockActionBase } from "./xray/mock-action-base";
 export { MockActionPlanner, mockActionPlanner } from "./xray/mock-action-planner";
 export { MockAnim } from "./xray/mock-anim";
+export { MockMove } from "./xray/mock-move";
+export { MockSightParameters } from "./xray/mock-sight-parameters";
 export { MockObjectBinder } from "./xray/mock-object-binder";
 export { mockCastPlanner } from "./xray/mock-cast-planner";
 export { MockCALifeSmartTerrainTask } from "./xray/mock-alife-smart-terrain-task";
