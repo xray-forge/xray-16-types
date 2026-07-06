@@ -18,6 +18,49 @@ export { mockToString } from "./lua/lua-tostring";
 export { mockTonumber } from "./lua/lua-tonumber";
 export { mockType } from "./lua/lua-type";
 
+export { ACTOR_ID, defaultCommunities, MAX_ALIFE_ID, type TCommunity } from "./xray/game-constants";
+export { mockConfig } from "./xray/mock-config";
+
+// NOTE: `MockAlifeSimulator` must be re-exported before `MockAlifeObject`. The base object and the simulator form an
+// import cycle (base registers itself with the simulator; the simulator constructs subclasses). Entering the cycle via
+// the simulator lets the base class finish defining before its subclasses `extends` it - the base's simulator use is
+// runtime-only. Loading the base first would leave it `undefined` when a subclass extends it.
+export { MockAlifeSimulator } from "./xray/server/mock-alife-simulator";
+export { type IMockAlifeObjectConfig, MockAlifeObject } from "./xray/server/mock-alife-object";
+export { MockAlifeDynamicObject } from "./xray/server/mock-alife-dynamic-object";
+export { MockAlifeDynamicObjectVisual } from "./xray/server/mock-alife-dynamic-object-visual";
+export { MockServerAlifeCreatureAbstract } from "./xray/server/mock-alife-creature-abstract";
+export { MockAlifeMonsterBase } from "./xray/server/mock-alife-monster-base";
+export { MockAlifeCreatureActor } from "./xray/server/mock-alife-creature-actor";
+export { MockAlifeHumanStalker } from "./xray/server/mock-alife-human-stalker";
+export { MockAlifeOnlineOfflineGroup } from "./xray/server/mock-alife-online-offline-group";
+export { MockAlifeSmartZone } from "./xray/server/mock-alife-smart-zone";
+export { MockAlifeSmartCover } from "./xray/server/mock-alife-smart-cover";
+export { MockAlifeItem } from "./xray/server/mock-alife-item";
+export { MockAlifeItemAmmo } from "./xray/server/mock-alife-item-ammo";
+export { MockAlifeItemArtefact } from "./xray/server/mock-alife-item-artefact";
+export { MockAlifeItemDetector } from "./xray/server/mock-alife-item-detector";
+export { MockAlifeItemExplosive } from "./xray/server/mock-alife-item-explosive";
+export { MockAlifeItemGrenade } from "./xray/server/mock-alife-item-grenade";
+export { MockAlifeItemHelmet } from "./xray/server/mock-alife-item-helmet";
+export { MockAlifeItemOutfit } from "./xray/server/mock-alife-item-outfit";
+export { MockAlifeItemPda } from "./xray/server/mock-alife-item-pda";
+export { MockAlifeItemTorch } from "./xray/server/mock-alife-item-torch";
+export { MockAlifeItemWeapon } from "./xray/server/mock-alife-item-weapon";
+export { MockAlifeItemWeaponAutoShotgun } from "./xray/server/mock-alife-item-weapon-auto-shotgun";
+export { MockAlifeItemWeaponMagazined } from "./xray/server/mock-alife-item-weapon-magazined";
+export { MockAlifeItemWeaponMagazinedWGL } from "./xray/server/mock-alife-item-weapon-magazined-w-gl";
+export { MockAlifeItemWeaponShotgun } from "./xray/server/mock-alife-item-weapon-shotgun";
+export { MockAlifeHangingLamp } from "./xray/server/mock-alife-hanging-lamp";
+export { MockAlifeHelicopter } from "./xray/server/mock-alife-helicopter";
+export { MockAlifeInventoryBox } from "./xray/server/mock-alife-inventory-box";
+export { MockSpaceRestrictor } from "./xray/server/mock-space-restrictor";
+export { MockAlifeLevelChanger } from "./xray/server/mock-alife-level-changer";
+export { MockAnomalousZone } from "./xray/server/mock-anomalous-zone";
+export { MockTorridZone } from "./xray/server/mock-torrid-zone";
+export { MockZoneVisual } from "./xray/server/mock-zone-visual";
+export { MockAlifeObjectPhysic } from "./xray/server/mock-alife-object-physic";
+
 export { EMockPacketDataType, MockNetProcessor } from "./xray/net-processor";
 export { MockActionBase, mockActionBase } from "./xray/mock-action-base";
 export { MockActionPlanner, mockActionPlanner } from "./xray/mock-action-planner";
