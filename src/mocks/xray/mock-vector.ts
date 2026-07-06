@@ -1,4 +1,4 @@
-import { type Vector } from "xray16/alias";
+import { type vector } from "xray16";
 
 /**
  * Mock of the X-Ray engine 3D `vector` class for jest/node.
@@ -11,8 +11,8 @@ export class MockVector {
     return new MockVector().set(x, y, z);
   }
 
-  public static mock(x: number = 0, y: number = 0, z: number = 0): Vector {
-    return new MockVector().set(x, y, z) as unknown as Vector;
+  public static mock(x: number = 0, y: number = 0, z: number = 0): vector {
+    return new MockVector().set(x, y, z) as unknown as vector;
   }
 
   public static DEFAULT_DISTANCE: number = 20;
