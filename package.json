@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "clean": "rimraf ./target",
-    "build": "npm run clean && npm run build:plugins && npm run build:macros && npm run build:alias && npm run build:lib && npm run build:mocks && npm run build:types && npm run build:pkg",
+    "build": "npm run clean && npm run build:plugins && npm run build:macros && npm run build:alias && npm run build:mocks && npm run build:lib && npm run build:types && npm run build:pkg",
     "build:plugins": "rolldown -c cli/build/rolldown.config.mjs && tsc -p cli/build/tsconfig.plugins.json",
     "build:macros": "tsc -p cli/build/tsconfig.macros.json",
     "build:mocks": "tsc -p cli/build/tsconfig.mocks.json",

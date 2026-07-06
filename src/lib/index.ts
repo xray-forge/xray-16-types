@@ -8,7 +8,6 @@
 export * from "./scalars";
 export * from "./types";
 export * from "./constants";
-export * from "./ids";
 
 export * from "./utils/game-wait";
 export * from "./utils/number";
