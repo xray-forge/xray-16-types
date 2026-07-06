@@ -6,6 +6,7 @@ import { jest } from "@jest/globals";
  */
 export { MockVector as vector } from "./mock-vector";
 export { MockVector2D as vector2 } from "./mock-vector-2d";
+export { MockCTime as CTime } from "./mock-ctime";
 export { mockGameInterface as game } from "./mock-game";
 export { mockLevelInterface as level } from "./mock-level";
 

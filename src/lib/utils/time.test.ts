@@ -10,6 +10,7 @@ import { MAX_I32, MAX_U8, MIN_I32 } from "../constants";
 import { type Nillable } from "../types";
 
 import {
+  createTime,
   deserializeTime,
   gameTimeToString,
   globalTimeToString,
@@ -75,7 +76,7 @@ describe("writeTimeToPacket and readTimeFromPacket utils", () => {
   });
 });
 
-describe("toTimeDigit util", () => {
+describe("toTimeDigit", () => {
   it("should correctly convert time digits", () => {
     expect(toTimeDigit(0)).toBe("00");
     expect(toTimeDigit(1)).toBe("01");
@@ -86,21 +87,29 @@ describe("toTimeDigit util", () => {
   });
 });
 
-describe("gameTimeToString util", () => {
+describe("createTime", () => {
+  it("should create time object with provided date parts", () => {
+    const time: Time = createTime(2015, 2, 15, 12, 45, 30, 250);
+
+    expect(time.toString()).toBe(MockCTime.create(2015, 2, 15, 12, 45, 30, 250).toString());
+  });
+});
+
+describe("gameTimeToString", () => {
   it("should correctly stringify game time", () => {
     expect(gameTimeToString(MockCTime.mock(2015, 2, 15, 12, 45, 30, 250))).toBe("12:45 02/15/2015");
     expect(gameTimeToString(MockCTime.mock(2004, 11, 1, 4, 5, 2, 20))).toBe("04:05 11/01/2004");
   });
 });
 
-describe("globalTimeToString util", () => {
+describe("globalTimeToString", () => {
   it("should correctly stringify global time", () => {
     expect(globalTimeToString(3_600_000 * 3 + 4 * 60_000 + 5 * 1000)).toBe("3:04:05");
     expect(globalTimeToString(3_600_000 * 11 + 25 * 60_000 + 16 * 1000)).toBe("11:25:16");
   });
 });
 
-describe("isInTimeInterval util", () => {
+describe("isInTimeInterval", () => {
   it("should correctly check time intervals", () => {
     jest.mocked(level.get_time_hours).mockImplementation(() => 12);
 
@@ -128,14 +137,14 @@ describe("isInTimeInterval util", () => {
   });
 });
 
-describe("serializeTime util", () => {
+describe("serializeTime", () => {
   it("should correctly serialize", () => {
     expect(serializeTime(MockCTime.mock(2012, 6, 15, 12, 30, 10, 100))).toBe("[2012,6,15,12,30,10,100]");
     expect(serializeTime(MockCTime.mock(2016, 12, 10, 10, 1, 50, 500))).toBe("[2016,12,10,10,1,50,500]");
   });
 });
 
-describe("deserializeTime util", () => {
+describe("deserializeTime", () => {
   it("should correctly deserialize", () => {
     expect(deserializeTime("[2012,6,15,12,30,10,100]").toString()).toBe(
       MockCTime.create(2012, 6, 15, 12, 30, 10, 100).toString()
@@ -146,7 +155,7 @@ describe("deserializeTime util", () => {
   });
 });
 
-describe("hoursToWeatherPeriod util", () => {
+describe("hoursToWeatherPeriod", () => {
   it("should correctly transform hours", () => {
     expect(hoursToWeatherPeriod(0).toString()).toBe("00:00:00");
     expect(hoursToWeatherPeriod(1).toString()).toBe("01:00:00");

@@ -1,4 +1,4 @@
-import { game, level, type CTime } from "xray16";
+import { game, level, CTime, type i32 } from "xray16";
 import { type NetPacket, type NetProcessor, type Time } from "xray16/alias";
 
 import { MAX_U8 } from "../constants";
@@ -6,6 +6,26 @@ import { type TLabel, type TRate, type TTimestamp } from "../scalars";
 import { type Nillable } from "../types";
 
 import { wait } from "./game-wait";
+
+/**
+ * Create and initialize an X-Ray `CTime` value.
+ *
+ * @param y - Year.
+ * @param m - Month.
+ * @param d - Day of month.
+ * @param h - Hour.
+ * @param min - Minute.
+ * @param sec - Second.
+ * @param ms - Millisecond.
+ * @returns Created time object.
+ */
+export function createTime(y: i32, m: i32, d: i32, h: i32, min: i32, sec: i32, ms: i32): CTime {
+  const time = new CTime();
+
+  time.set(y, m, d, h, min, sec, ms);
+
+  return time;
+}
 
 /**
  * Add part of time digit to a data string.
