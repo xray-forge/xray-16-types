@@ -1,0 +1,13 @@
+import { type task } from "xray16";
+
+/**
+ * Mock of the X-Ray engine `task` state enumeration.
+ */
+export class MockTask implements task {
+  public static readonly additional: number = 1;
+  public static readonly completed: number = 2;
+  public static readonly fail: number = 0;
+  public static readonly in_progress: number = 1;
+  public static readonly storyline: number = 0;
+  public static readonly task_dummy: number = 65_535;
+}

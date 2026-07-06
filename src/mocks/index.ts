@@ -20,7 +20,17 @@ export { mockType } from "./lua/lua-type";
 
 export { EMockPacketDataType, MockNetProcessor } from "./xray/net-processor";
 export { MockAnim } from "./xray/mock-anim";
+export { MockCALifeSmartTerrainTask } from "./xray/mock-alife-smart-terrain-task";
 export { MockCAlifeMonsterBrain } from "./xray/mock-alife-monster-brain";
+export { MockCArtefact } from "./xray/mock-artefact";
+export { MockCHelicopter } from "./xray/mock-helicopter";
+export { MockConsole } from "./xray/mock-console";
+export { MockCZoneCampfire } from "./xray/mock-zone-campfire";
+export { MockHangingLamp } from "./xray/mock-hanging-lamp";
+export { MockObjectFactory, mockObjectFactory } from "./xray/mock-object-factory";
+export { MockParticleObject } from "./xray/mock-particle-object";
+export { MockSoundObject } from "./xray/mock-sound-object";
+export { MockTask } from "./xray/mock-task";
 export { MockCGameFont } from "./xray/mock-game-font";
 export { MockCSightParams } from "./xray/mock-sight-params";
 export { MockCTime } from "./xray/mock-ctime";
