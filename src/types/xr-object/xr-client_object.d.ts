@@ -1,4 +1,4 @@
-import type { Nullable } from "../../internal";
+import type { Nullable } from "../internal";
 
 declare module "xray16" {
   /**
