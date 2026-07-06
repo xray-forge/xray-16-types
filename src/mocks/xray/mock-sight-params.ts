@@ -2,17 +2,17 @@
  * Mock of the X-Ray engine `CSightParams` sight-type enumeration class.
  */
 export class MockCSightParams {
-  public static readonly eSightTypeDummy: number = -1;
-  public static readonly eSightTypeCurrentDirection: number = 0;
-  public static readonly eSightTypePathDirection: number = 1;
-  public static readonly eSightTypeDirection: number = 2;
-  public static readonly eSightTypePosition: number = 3;
-  public static readonly eSightTypeObject: number = 4;
-  public static readonly eSightTypeCover: number = 5;
-  public static readonly eSightTypeSearch: number = 6;
-  public static readonly eSightTypeLookOver: number = 7;
-  public static readonly eSightTypeCoverLookOver: number = 8;
-  public static readonly eSightTypeFireObject: number = 9;
-  public static readonly eSightTypeFirePosition: number = 10;
-  public static readonly eSightTypeAnimationDirection: number = 11;
+  public static readonly eSightTypeDummy = -1 as const;
+  public static readonly eSightTypeCurrentDirection = 0 as const;
+  public static readonly eSightTypePathDirection = 1 as const;
+  public static readonly eSightTypeDirection = 2 as const;
+  public static readonly eSightTypePosition = 3 as const;
+  public static readonly eSightTypeObject = 4 as const;
+  public static readonly eSightTypeCover = 5 as const;
+  public static readonly eSightTypeSearch = 6 as const;
+  public static readonly eSightTypeLookOver = 7 as const;
+  public static readonly eSightTypeCoverLookOver = 8 as const;
+  public static readonly eSightTypeFireObject = 9 as const;
+  public static readonly eSightTypeFirePosition = 10 as const;
+  public static readonly eSightTypeAnimationDirection = 11 as const;
 }
