@@ -21,8 +21,12 @@
     "format": "prettier --write \"**/*.(js|ts|tsx|md)\" && eslint . --fix",
     "lint": "eslint ."
   },
+  "dependencies": {
+    "ini": "^5.0.0"
+  },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
+    "@types/ini": "^4.1.1",
     "@types/jest": "^29.5.14",
     "@types/node": "22.10.2",
     "@typescript-eslint/eslint-plugin": "^8.62.0",

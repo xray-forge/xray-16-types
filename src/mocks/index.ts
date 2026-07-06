@@ -1,5 +1,5 @@
 /**
- * `xray16/mocks` — runtime Lua environment mocks for testing X-Ray TypeScriptToLua code under jest/node.
+ * `xray16/mocks` - runtime Lua environment mocks for testing X-Ray TypeScriptToLua code under jest/node.
  */
 
 export { MockLuaMap, mockFromLuaMap } from "./mock-lua-map";
@@ -67,6 +67,8 @@ export { MockFbox } from "./xray/mock-fbox";
 export { MockFlags32 } from "./xray/mock-flags32";
 export { MockFrect } from "./xray/mock-frect";
 export { MockHit } from "./xray/mock-hit";
+export { MockIniFile } from "./xray/mock-ini-file";
+export { mockCreateIniFile } from "./xray/mock-create-ini-file";
 export { MockLook } from "./xray/mock-look";
 export { MockLuabindClass } from "./xray/mock-luabind";
 export { MockNoise } from "./xray/mock-noise";
