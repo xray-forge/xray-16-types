@@ -30,6 +30,7 @@ import type {
   cse_alife_dynamic_object_visual,
   cse_alife_helicopter,
   cse_alife_human_abstract,
+  cse_alife_human_stalker,
   cse_alife_inventory_box,
   cse_alife_item,
   cse_alife_item_ammo,
@@ -184,6 +185,7 @@ export type ServerGroupObject = cse_alife_online_offline_group;
 export type ServerHangingLampObject = cse_alife_object_hanging_lamp;
 export type ServerHelicopterObject = cse_alife_helicopter;
 export type ServerHumanObject = cse_alife_human_abstract;
+export type ServerHumanStalkerObject = cse_alife_human_stalker;
 export type ServerInventoryBox = cse_alife_inventory_box;
 export type ServerItemAmmoObject = cse_alife_item_ammo;
 export type ServerItemArtefactObject = cse_alife_item_artefact;
