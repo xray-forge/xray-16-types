@@ -1,8 +1,8 @@
 import { jest } from "@jest/globals";
 import type { cse_alife_creature_abstract, cse_alife_online_offline_group, IXR_squad_member } from "xray16";
 
-import { type TCommunity } from "../game-constants";
 import { mockClsid } from "../mock-clsid";
+import { type TDefaultCommunity } from "../mock-constants";
 
 import { MockAlifeDynamicObject } from "./mock-alife-dynamic-object";
 import { type IMockAlifeObjectConfig } from "./mock-alife-object";
@@ -18,12 +18,15 @@ type TConditionList = Array<Record<string, any>>;
  */
 export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject {
   public static override mock(config: IMockAlifeObjectConfig = {}): cse_alife_online_offline_group {
-    return new this({ ...config, clsid: mockClsid.online_offline_group_s }) as unknown as cse_alife_online_offline_group;
+    return new this({
+      ...config,
+      clsid: mockClsid.online_offline_group_s,
+    }) as unknown as cse_alife_online_offline_group;
   }
 
   public members: Array<IXR_squad_member<cse_alife_creature_abstract>> = [];
   public invulnerable!: TConditionList;
-  public faction!: TCommunity;
+  public faction!: TDefaultCommunity;
 
   public squad_members = jest.fn((): Array<IXR_squad_member<cse_alife_creature_abstract>> => {
     return this.members;

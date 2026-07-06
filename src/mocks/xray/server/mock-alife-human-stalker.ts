@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 import type { CALifeMonsterBrain, cse_alife_human_abstract } from "xray16";
+import { MAX_ALIFE_ID } from "xray16/lib";
 
-import { MAX_ALIFE_ID } from "../game-constants";
 import { MockCAlifeMonsterBrain } from "../mock-alife-monster-brain";
 import { mockClsid } from "../mock-clsid";
 

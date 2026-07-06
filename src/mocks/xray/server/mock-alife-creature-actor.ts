@@ -1,8 +1,9 @@
 import { jest } from "@jest/globals";
 import type { cse_alife_creature_actor } from "xray16";
+import { ACTOR_ID } from "xray16/lib";
 
-import { ACTOR_ID, defaultCommunities } from "../game-constants";
 import { mockClsid } from "../mock-clsid";
+import { defaultCommunities } from "../mock-constants";
 
 import { MockAlifeDynamicObjectVisual } from "./mock-alife-dynamic-object-visual";
 import { type IMockAlifeObjectConfig } from "./mock-alife-object";

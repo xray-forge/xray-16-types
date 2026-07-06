@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 import type { alife_simulator, cse_alife_object, vector } from "xray16";
+import { ACTOR_ID } from "xray16/lib";
 
-import { ACTOR_ID } from "../game-constants";
 import { mockClsid } from "../mock-clsid";
 import { type MockVector } from "../mock-vector";
 

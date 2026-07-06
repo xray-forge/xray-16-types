@@ -1,7 +1,6 @@
 import { jest } from "@jest/globals";
 import type { cse_alife_creature_abstract } from "xray16";
-
-import { MAX_ALIFE_ID } from "../game-constants";
+import { MAX_ALIFE_ID } from "xray16/lib";
 
 import { MockAlifeDynamicObjectVisual } from "./mock-alife-dynamic-object-visual";
 import { type IMockAlifeObjectConfig } from "./mock-alife-object";

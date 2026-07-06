@@ -18,7 +18,7 @@ export { mockToString } from "./lua/lua-tostring";
 export { mockTonumber } from "./lua/lua-tonumber";
 export { mockType } from "./lua/lua-type";
 
-export { ACTOR_ID, defaultCommunities, MAX_ALIFE_ID, type TCommunity } from "./xray/game-constants";
+export { defaultCommunities, type TDefaultCommunity } from "./xray/mock-constants";
 export { mockConfig } from "./xray/mock-config";
 
 // NOTE: `MockAlifeSimulator` must be re-exported before `MockAlifeObject`. The base object and the simulator form an
