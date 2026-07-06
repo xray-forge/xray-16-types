@@ -6,6 +6,8 @@ import { createPrinter } from "typescript-to-lua/dist/LuaPrinter";
 import { createVisitorMap, transformSourceFile } from "typescript-to-lua/dist/transformation";
 import { type EmitFile } from "typescript-to-lua/dist/transpilation/utils";
 
+import { createPlugin as createStripPlugin } from "../../strip/plugin";
+
 import { type ILibContext } from "./context";
 
 /**
@@ -34,7 +36,15 @@ export function emitLibBundle(
     }
   }
 
-  const { file } = transformSourceFile(program, context.libFile, createVisitorMap([]));
+  // Apply the strip plugin so engine-module imports (`xray16`) are dropped:
+  const stripVisitors = createStripPlugin({ engineImports: true, luaLogger: false }).visitors;
+
+  const { file } = transformSourceFile(
+    program,
+    context.libFile,
+    createVisitorMap(stripVisitors ? [stripVisitors] : [])
+  );
+
   const printed = createPrinter([])(program, emitHost, context.libFile.fileName, file);
 
   result.push({ code: printed.code, outputPath: context.bundlePath, sourceMap: printed.sourceMap, sourceFiles: [] });
