@@ -9,6 +9,8 @@ export * from "./scalars";
 export * from "./types";
 export * from "./constants";
 
+export * from "./utils/game-wait";
 export * from "./utils/number";
+export * from "./utils/time";
 export * from "./utils/vector";
 export * from "./utils/vectors";

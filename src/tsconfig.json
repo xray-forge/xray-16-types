@@ -1,6 +1,6 @@
 {
   "extends": "../tsconfig.json",
-  "include": ["."],
+  "include": [".", "../typedefs/marshal.d.ts"],
   "exclude": [],
   "compilerOptions": {
     "module": "commonjs",

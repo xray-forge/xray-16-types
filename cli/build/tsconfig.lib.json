@@ -14,6 +14,6 @@
       "xray16/alias": ["../../target/pkg/xray16/alias"]
     }
   },
-  "include": ["../../target/tmp/lib/**/*", "../../src/types/**/*.d.ts"],
+  "include": ["../../target/tmp/lib/**/*", "../../src/types/**/*.d.ts", "../../typedefs/*.d.ts"],
   "exclude": []
 }
