@@ -1,4 +1,4 @@
-import { type ILuaState, lauxlib, lua, lualib, to_jsstring, to_luastring } from "mocks/fengari";
+import { type ILuaState, lauxlib, lua, lualib, to_jsstring, to_luastring } from "fengari";
 
 /**
  * Mock lua `tonumber` global, backed by a real Lua VM for 1-1 parsing behaviour.

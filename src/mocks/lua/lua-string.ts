@@ -1,4 +1,4 @@
-import { type ILuaState, type ILuaString, lauxlib, lua, lualib, to_jsstring, to_luastring } from "mocks/fengari";
+import { type ILuaState, type ILuaString, lauxlib, lua, lualib, to_jsstring, to_luastring } from "fengari";
 
 import { MAX_U32, type Nillable } from "../internal";
 
