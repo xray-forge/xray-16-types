@@ -32,13 +32,21 @@ function normalizeParameterPath(externalPath: string): string {
  */
 export class MockIniFile<T extends AnyObject = AnyObject> {
   private static configsDir: string | null = null;
-  private static readonly registry: Record<string, AnyObject> = {};
+  private static registry: Record<string, AnyObject> = {};
 
   /**
-   * Configure the base directory used to read real `.ltx` or `.ini` files for unregistered paths.
+   * Configure the base directory used to read real `.ltx` or `.ini` files for unregistered paths, and
+   * optionally inject the registry object holding pre-registered data.
+   *
+   * The consumer (engine) passes its `FILES_MOCKS` object here **by reference**, so paths registered via
+   * {@link MockIniFile.register} — or mutated directly on that object by tests — are seen by the mock.
    */
-  public static setup(options: { configsDir?: string | null }): void {
+  public static setup(options: { configsDir?: string | null; files?: Record<string, AnyObject> }): void {
     MockIniFile.configsDir = options.configsDir ?? null;
+
+    if (options.files) {
+      MockIniFile.registry = options.files;
+    }
   }
 
   /**
@@ -48,10 +56,7 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
    */
   public static reset(): void {
     MockIniFile.configsDir = null;
-
-    for (const key of Object.keys(MockIniFile.registry)) {
-      delete MockIniFile.registry[key];
-    }
+    MockIniFile.registry = {};
   }
 
   /**
