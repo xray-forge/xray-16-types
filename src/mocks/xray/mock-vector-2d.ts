@@ -1,3 +1,5 @@
+import { type Vector2D } from "xray16/alias";
+
 /**
  * Mock of the X-Ray engine 2D `vector2` class for jest/node.
  *
@@ -7,6 +9,10 @@
 export class MockVector2D {
   public static create(x: number = 0, y: number = 0): MockVector2D {
     return new MockVector2D().set(x, y);
+  }
+
+  public static mock(x: number = 0, y: number = 0): Vector2D {
+    return new MockVector2D().set(x, y) as unknown as Vector2D;
   }
 
   public static DEFAULT_DISTANCE: number = 20;
