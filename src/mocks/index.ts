@@ -19,7 +19,11 @@ export { mockTonumber } from "./lua/lua-tonumber";
 export { mockType } from "./lua/lua-type";
 
 export { EMockPacketDataType, MockNetProcessor } from "./xray/net-processor";
+export { MockActionBase, mockActionBase } from "./xray/mock-action-base";
+export { MockActionPlanner, mockActionPlanner } from "./xray/mock-action-planner";
 export { MockAnim } from "./xray/mock-anim";
+export { MockObjectBinder } from "./xray/mock-object-binder";
+export { mockCastPlanner } from "./xray/mock-cast-planner";
 export { MockCALifeSmartTerrainTask } from "./xray/mock-alife-smart-terrain-task";
 export { MockCAlifeMonsterBrain } from "./xray/mock-alife-monster-brain";
 export { MockCArtefact } from "./xray/mock-artefact";
