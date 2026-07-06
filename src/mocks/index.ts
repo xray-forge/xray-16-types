@@ -22,9 +22,15 @@ export { mockToString } from "./lua/lua-tostring";
 export { mockTonumber } from "./lua/lua-tonumber";
 export { mockType } from "./lua/lua-type";
 
+export { EPacketDataType, MockNetProcessor } from "./xray/net-processor";
+export { MockCGameFont } from "./xray/mock-game-font";
+export { MockCTime } from "./xray/mock-ctime";
+export { MockColor, mockGetARGB } from "./xray/mock-color";
+export { MockEffector } from "./xray/mock-effector";
+export { MockFbox } from "./xray/mock-fbox";
+export { MockHit } from "./xray/mock-hit";
+export { MockNoise } from "./xray/mock-noise";
 export { MockVector } from "./xray/mock-vector";
 export { MockVector2D } from "./xray/mock-vector-2d";
-export { MockCTime } from "./xray/mock-ctime";
-export { EPacketDataType, MockNetProcessor } from "./xray/net-processor";
 export { mockGameInterface } from "./xray/mock-game";
 export { mockLevelInterface } from "./xray/mock-level";
