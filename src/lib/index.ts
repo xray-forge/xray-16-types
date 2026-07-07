@@ -9,10 +9,13 @@ export * from "./scalars";
 export * from "./types";
 export * from "./constants";
 
+export * from "./utils/binding";
 export * from "./utils/decamelize";
 export * from "./utils/game-wait";
+export * from "./utils/logging";
 export * from "./utils/number";
 export * from "./utils/object-set";
+export * from "./utils/screen";
 export * from "./utils/string";
 export * from "./utils/time";
 export * from "./utils/vector";
