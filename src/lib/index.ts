@@ -9,8 +9,12 @@ export * from "./scalars";
 export * from "./types";
 export * from "./constants";
 
+export * from "./utils/decamelize";
 export * from "./utils/game-wait";
 export * from "./utils/number";
+export * from "./utils/object-set";
+export * from "./utils/string";
 export * from "./utils/time";
 export * from "./utils/vector";
 export * from "./utils/vectors";
+export * from "./utils/vertex";

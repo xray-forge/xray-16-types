@@ -9,7 +9,8 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "xray16/alias": ["./alias.ts"]
+      "xray16/alias": ["./alias.ts"],
+      "xray16/macros": ["./macros.ts"]
     },
     "types": ["node", "jest", "@typescript-to-lua/language-extensions", "lua-types/jit"]
   }

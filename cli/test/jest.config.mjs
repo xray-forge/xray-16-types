@@ -6,6 +6,7 @@ export default {
   testEnvironment: "node",
   moduleNameMapper: {
     "^xray16$": "<rootDir>/src/mocks/xray/xray16-runtime.ts",
+    "^xray16/macros$": "<rootDir>/src/macros.ts",
   },
   transform: {
     "^.+\\.ts$": ["ts-jest", { tsconfig: "<rootDir>/src/tsconfig.json" }],

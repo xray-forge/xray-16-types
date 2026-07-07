@@ -11,7 +11,8 @@
     "ignoreDeprecations": "6.0",
     "types": ["@typescript-to-lua/language-extensions", "lua-types/jit"],
     "paths": {
-      "xray16/alias": ["../../target/pkg/xray16/alias"]
+      "xray16/alias": ["../../target/pkg/xray16/alias"],
+      "xray16/macros": ["../../target/pkg/xray16/macros"]
     }
   },
   "include": ["../../target/tmp/lib/**/*", "../../src/types/**/*.d.ts", "../../typedefs/*.d.ts"],

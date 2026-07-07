@@ -6,6 +6,8 @@ import { createPrinter } from "typescript-to-lua/dist/LuaPrinter";
 import { createVisitorMap, transformSourceFile } from "typescript-to-lua/dist/transformation";
 import { type EmitFile } from "typescript-to-lua/dist/transpilation/utils";
 
+import { plugin as inlinePlugin } from "../../inline/plugin";
+import { createPlugin as createMacrosPlugin } from "../../macros/plugin";
 import { createPlugin as createStripPlugin } from "../../strip/plugin";
 
 import { type ILibContext } from "./context";
@@ -36,13 +38,18 @@ export function emitLibBundle(
     }
   }
 
+  // The bundle is transpiled in isolation, so it does not see the macros/inline plugins from the consumer build.
+  // Re-apply them here so lib-internal `@inline` folds (`MAX_U32` -> `4294967295`, inline calls) and `$` macros
+  // (`$isNotNil` -> `~= nil`) match the main transform.
+  const inlineVisitors = inlinePlugin.visitors;
+  const macrosVisitors = createMacrosPlugin({ buildTimestamp: false }).visitors;
   // Apply the strip plugin so engine-module imports (`xray16`) are dropped:
   const stripVisitors = createStripPlugin({ engineImports: true, luaLogger: false }).visitors;
 
   const { file } = transformSourceFile(
     program,
     context.libFile,
-    createVisitorMap(stripVisitors ? [stripVisitors] : [])
+    createVisitorMap([inlineVisitors, macrosVisitors, stripVisitors].filter((visitors) => visitors !== undefined))
   );
 
   const printed = createPrinter([])(program, emitHost, context.libFile.fileName, file);
