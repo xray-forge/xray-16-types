@@ -17,5 +17,5 @@ export class MockAlifeSmartCover extends MockAlifeObject {
 
   public description = jest.fn(() => "default");
 
-  public FillProps(): void {}
+  public override FillProps(): void {}
 }

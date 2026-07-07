@@ -7,14 +7,34 @@ import { ACTOR_ID } from "../mock-constants";
 import { MockAlifeHumanStalker } from "./mock-alife-human-stalker";
 import { MockAlifeObject } from "./mock-alife-object";
 import { MockAlifeOnlineOfflineGroup } from "./mock-alife-online-offline-group";
+import {
+  addMockAlifeObjectToRegistry,
+  mockAlifeRegistry,
+  removeMockAlifeObjectFromRegistry,
+  resetMockAlifeRegistry,
+} from "./mock-alife-registry";
 
 /**
  * Mock alife simulator registry containing data with server objects.
  */
 export class MockAlifeSimulator {
   public static simulator: MockAlifeSimulator | null = null;
-  public static registry: Record<number, cse_alife_object> = {};
-  public static infoPortions: Record<number, Set<string>> = {};
+
+  public static get registry(): Record<number, cse_alife_object> {
+    return mockAlifeRegistry.objects;
+  }
+
+  public static set registry(value: Record<number, cse_alife_object>) {
+    mockAlifeRegistry.objects = value;
+  }
+
+  public static get infoPortions(): Record<number, Set<string>> {
+    return mockAlifeRegistry.infoPortions;
+  }
+
+  public static set infoPortions(value: Record<number, Set<string>>) {
+    mockAlifeRegistry.infoPortions = value;
+  }
 
   public static getInstance(): MockAlifeSimulator {
     if (!MockAlifeSimulator.simulator) {
@@ -30,17 +50,15 @@ export class MockAlifeSimulator {
 
   public static reset(): void {
     MockAlifeSimulator.simulator = new MockAlifeSimulator();
-    MockAlifeSimulator.registry = {};
-    MockAlifeSimulator.infoPortions = {};
+    resetMockAlifeRegistry();
   }
 
   public static addToRegistry(object: cse_alife_object): void {
-    MockAlifeSimulator.registry[object.id] = object;
+    addMockAlifeObjectToRegistry(object);
   }
 
   public static removeFromRegistry(id: number): void {
-    delete MockAlifeSimulator.registry[id];
-    delete MockAlifeSimulator.infoPortions[id];
+    removeMockAlifeObjectFromRegistry(id);
   }
 
   public static getFromRegistry<T extends cse_alife_object = cse_alife_object>(id: number): T | null {
