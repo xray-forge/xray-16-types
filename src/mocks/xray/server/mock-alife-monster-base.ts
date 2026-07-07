@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals";
-import type { CALifeMonsterBrain, cse_alife_monster_base } from "xray16";
+import type { CAILifeMonsterBrain, cse_alife_monster_base } from "xray16";
 
 import { MockCAlifeMonsterBrain } from "../mock-alife-monster-brain";
 import { mockClsid } from "../mock-clsid";
@@ -10,7 +10,7 @@ import { type IMockAlifeObjectConfig } from "./mock-alife-object";
 /**
  * Mock alife monster creature server object.
  */
-export class MockAlifeMonsterBase extends MockServerAlifeCreatureAbstract {
+export class MockAlifeMonsterBase extends MockServerAlifeCreatureAbstract implements cse_alife_monster_base {
   public static override mockWithClassId(classId: number): cse_alife_monster_base {
     return new this({ clsid: classId }) as unknown as cse_alife_monster_base;
   }
@@ -23,11 +23,11 @@ export class MockAlifeMonsterBase extends MockServerAlifeCreatureAbstract {
     return object as unknown as cse_alife_monster_base;
   }
 
-  public aiBrain: CALifeMonsterBrain = MockCAlifeMonsterBrain.mock();
+  public override aiBrain: CAILifeMonsterBrain = MockCAlifeMonsterBrain.mockInterface();
 
-  public objectRank: number = -1;
+  public override objectRank: number = -1;
 
-  public brain = jest.fn(() => this.aiBrain);
+  public override brain = jest.fn(() => this.aiBrain);
 
-  public rank = jest.fn(() => this.objectRank);
+  public override rank = jest.fn(() => this.objectRank);
 }

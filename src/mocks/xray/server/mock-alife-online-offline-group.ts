@@ -1,5 +1,10 @@
 import { jest } from "@jest/globals";
-import type { cse_alife_creature_abstract, cse_alife_online_offline_group, IXR_squad_member } from "xray16";
+import type {
+  CALifeSmartTerrainTask,
+  cse_alife_creature_abstract,
+  cse_alife_online_offline_group,
+  IXR_squad_member,
+} from "xray16";
 
 import { mockClsid } from "../mock-clsid";
 import { type TDefaultCommunity } from "../mock-constants";
@@ -16,7 +21,7 @@ type TConditionList = Array<Record<string, any>>;
 /**
  * Class mocking generic server offline-online group.
  */
-export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject {
+export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject implements cse_alife_online_offline_group {
   public static override mock(config: IMockAlifeObjectConfig = {}): cse_alife_online_offline_group {
     return new this({
       ...config,
@@ -25,15 +30,19 @@ export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject {
   }
 
   public members: Array<IXR_squad_member<cse_alife_creature_abstract>> = [];
+  public object: cse_alife_creature_abstract = null as unknown as cse_alife_creature_abstract;
   public invulnerable!: TConditionList;
   public faction!: TDefaultCommunity;
 
-  public squad_members = jest.fn((): Array<IXR_squad_member<cse_alife_creature_abstract>> => {
-    return this.members;
+  public squad_members = jest.fn((): LuaIterable<IXR_squad_member<cse_alife_creature_abstract>> => {
+    return this.members as unknown as LuaIterable<IXR_squad_member<cse_alife_creature_abstract>>;
   });
 
   public register_member(id: number): void {
-    this.members.push({ id: id, object: MockAlifeSimulator.getFromRegistry(id) as cse_alife_creature_abstract });
+    const object = MockAlifeSimulator.getFromRegistry(id) as cse_alife_creature_abstract;
+
+    this.object = object;
+    this.members.push({ id: id, object });
   }
 
   public unregister_member(id: number): void {
@@ -50,14 +59,18 @@ export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject {
 
   public getScriptedSimulationTarget(): void {}
 
+  public get_current_task(): CALifeSmartTerrainTask {
+    return null as unknown as CALifeSmartTerrainTask;
+  }
+
   public add_location_type = jest.fn(() => {});
 
   public clear_location_types = jest.fn(() => {});
 
   public force_change_position = jest.fn(() => {});
 
-  public commander_id(): number | null {
-    return null;
+  public commander_id(): number {
+    return this.members[0]?.id ?? 65535;
   }
 
   public npc_count = jest.fn((): number => {

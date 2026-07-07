@@ -6,7 +6,7 @@ import { type IMockAlifeObjectConfig } from "./mock-alife-object";
 /**
  * Mock alife inventory box server object.
  */
-export class MockAlifeInventoryBox extends MockAlifeDynamicObjectVisual {
+export class MockAlifeInventoryBox extends MockAlifeDynamicObjectVisual implements cse_alife_inventory_box {
   public static override mock(config: IMockAlifeObjectConfig = {}): cse_alife_inventory_box {
     return new this(config) as unknown as cse_alife_inventory_box;
   }

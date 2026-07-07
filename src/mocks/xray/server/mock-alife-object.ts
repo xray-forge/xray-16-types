@@ -18,6 +18,8 @@ export interface IMockAlifeObjectConfig {
   community?: string;
   gameVertexId?: number;
   groupId?: number;
+  hasDetector?: boolean;
+  health?: number;
   id?: number;
   interactive?: boolean;
   levelVertexId?: number;
@@ -32,6 +34,10 @@ export interface IMockAlifeObjectConfig {
   smartTerrainId?: number;
   spawnIni?: ini_file;
   storyId?: number;
+  squad?: number;
+  team?: number;
+  travelSpeed?: number;
+  currentLevelTravelSpeed?: number;
   usedAiLocations?: boolean;
   visibleForMap?: boolean;
 }
@@ -221,7 +227,9 @@ export class MockAlifeObject extends MockLuabindClass implements cse_alife_objec
 
   public spawn_ini = jest.fn(() => this.spawnIni);
 
-  public community = jest.fn(() => this.objectCommunity);
+  public community<T extends string = string>(): T {
+    return this.objectCommunity as T;
+  }
 
   public alive = jest.fn(() => this.objectAlive);
 
