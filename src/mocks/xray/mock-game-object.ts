@@ -45,6 +45,31 @@ export interface IMockGameObjectConfig {
  * Abstract game object mock.
  */
 export class MockGameObject {
+  public static readonly dummy: number = -1;
+  public static readonly game_path: number = 0;
+  public static readonly level_path: number = 1;
+  public static readonly patrol_path: number = 2;
+  public static readonly no_path: number = 3;
+  public static readonly friend: number = 0;
+  public static readonly neutral: number = 1;
+  public static readonly enemy: number = 2;
+  public static readonly alifeMovementTypeMask: number = 0;
+  public static readonly alifeMovementTypeRandom: number = 1;
+  public static readonly dialog_pda_msg: number = 0;
+  public static readonly info_pda_msg: number = 1;
+  public static readonly no_pda_msg: number = 2;
+  public static readonly relation_kill: number = 0;
+  public static readonly relation_attack: number = 1;
+  public static readonly relation_fight_help_human: number = 2;
+  public static readonly relation_fight_help_monster: number = 4;
+  public static readonly movement: number = 0;
+  public static readonly watch: number = 1;
+  public static readonly animation: number = 2;
+  public static readonly sound: number = 3;
+  public static readonly particle: number = 4;
+  public static readonly object: number = 5;
+  public static readonly action_type_count: number = 6;
+
   public static REGISTRY: Map<number, game_object> = new Map();
 
   public static mock(config: IMockGameObjectConfig = {}): game_object {
@@ -146,6 +171,24 @@ export class MockGameObject {
   public objectSpawnIni: ini_file | null;
   public objectUpgradesSet: Set<string>;
   public objectVisual: string = "object_visual_name";
+  public objectAmmoCount: number = 0;
+  public objectAmmoElapsed: number = 0;
+  public objectAmmoType: number = 0;
+  public objectMaxUses: number = 1;
+  public objectRemainingUses: number = 1;
+  public objectRestrictorType: number = 0;
+  public objectSpatialType: number = 0;
+  public objectTaskStates: Map<string, number> = new Map();
+  public objectWeight: number = 0;
+  public disabledInventoryUpgrades: Set<string> = new Set();
+  public isDeadBodyCanTake: boolean = true;
+  public isDeadBodyClosed: boolean = false;
+  public isDoorLockedForNpc: boolean = false;
+  public isInventoryBoxCanTake: boolean = true;
+  public isInventoryBoxClosed: boolean = false;
+  public isMarkedDropped: boolean = false;
+  public isVisible: boolean = true;
+  public isVisualMemoryEnabled: boolean = true;
 
   public constructor(config: IMockGameObjectConfig = {}) {
     this.objectAlive = config.alive ?? true;
@@ -403,6 +446,8 @@ export class MockGameObject {
 
   public get_visual_name = jest.fn(() => this.objectVisual);
 
+  public get_ammo_in_magazine = jest.fn(() => this.objectAmmoElapsed);
+
   public get_bone_id = jest.fn(() => -1);
 
   public get_campfire = jest.fn(() => null);
@@ -433,6 +478,10 @@ export class MockGameObject {
     return false;
   });
 
+  public info_add = jest.fn((it: string) => this.give_info_portion(it));
+
+  public info_clear = jest.fn((it: string) => this.disable_info_portion(it));
+
   public give_game_news = jest.fn();
 
   public give_money = jest.fn((value: number) => (this.objectMoney += value));
@@ -446,6 +495,8 @@ export class MockGameObject {
   public group_throw_time_interval = jest.fn();
 
   public has_info = jest.fn((it: string) => this.objectInfoPortions.includes(it));
+
+  public dont_has_info = jest.fn((it: string) => !this.has_info(it));
 
   public hit = jest.fn();
 
@@ -491,6 +542,8 @@ export class MockGameObject {
 
   public money = jest.fn(() => this.objectMoney);
 
+  public weight = jest.fn(() => this.objectWeight);
+
   public motivation_action_manager = jest.fn(() => {
     this.objectActionManager.object = this.asGameObject();
 
@@ -514,6 +567,8 @@ export class MockGameObject {
 
     return this.objectInventory.get(key) ?? null;
   });
+
+  public object_count = jest.fn(() => this.objectInventory.size);
 
   public out_restrictions = jest.fn(() => this.objectOutRestrictions.join(","));
 
@@ -632,6 +687,10 @@ export class MockGameObject {
 
   public set_condition = jest.fn();
 
+  public set_health_ex = jest.fn((value: number) => {
+    this.objectHealth = MockGameObject.clamp(value, 0, 1);
+  });
+
   public set_const_force = jest.fn();
 
   public set_desired_direction = jest.fn();
@@ -702,7 +761,17 @@ export class MockGameObject {
 
   public set_tip_text = jest.fn();
 
-  public set_visual_name = jest.fn();
+  public set_visual_name = jest.fn((name: string) => {
+    this.objectVisual = name;
+  });
+
+  public set_ammo_elapsed = jest.fn((value: number) => {
+    this.objectAmmoElapsed = value;
+  });
+
+  public set_weight = jest.fn((value: number) => {
+    this.objectWeight = value;
+  });
 
   public sight_params = jest.fn(() => {
     const params: MockSightParameters = new MockSightParameters();

@@ -12,5 +12,13 @@ export class MockFileSystemList {
     return this.list.length;
   }
 
+  public GetAt(index: number): unknown {
+    return this.list[index];
+  }
+
   public Sort(): void {}
+
+  public Free(): void {
+    this.list = [];
+  }
 }

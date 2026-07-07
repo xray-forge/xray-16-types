@@ -3,7 +3,9 @@ import * as path from "node:path";
 
 import { jest } from "@jest/globals";
 import { parse } from "ini";
-import { type ini_file } from "xray16";
+import { type ini_file, type vector, type vector2 } from "xray16";
+
+import { MockVector } from "./mock-vector";
 
 /**
  * Loosely typed INI data store (section -> field -> value).
@@ -17,6 +19,14 @@ type AnyObject = Record<string, any>;
  */
 function normalizeParameterPath(externalPath: string): string {
   return externalPath.replace(/\\/g, path.sep);
+}
+
+function formatVector(value: vector | vector2): string {
+  if ("z" in value) {
+    return `${value.x}, ${value.y}, ${value.z}`;
+  }
+
+  return `${value.x}, ${value.y}`;
 }
 
 /**
@@ -129,38 +139,74 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
     }
   }
 
-  public w_string = jest.fn((section: string, field: string, value: string) => {
+  private ensureSection(section: string): AnyObject {
     if (!this.data[section]) {
       (this.data as AnyObject)[section] = {};
     }
 
-    this.data[section][field] = value;
-  });
+    return this.data[section];
+  }
 
-  public r_float = jest.fn((section: string, field: string) => +this.data[section][field]);
-
-  public r_u32 = jest.fn((section: string, field: string) => {
+  private readValue(section: string, field: string): any {
     if (!(section in this.data)) {
       throw new Error(`Section '${section}' does not exist in '${this.path}'.`);
     }
 
     return this.data[section][field];
+  }
+
+  private writeValue(section: string, field: string, value: any): void {
+    this.ensureSection(section)[field] = value;
+  }
+
+  public w_string = jest.fn((section: string, field: string, value: string) => {
+    this.writeValue(section, field, value);
   });
 
-  public r_s32 = jest.fn((section: string, field: string) => this.data[section][field]);
+  public r_float = jest.fn((section: string, field: string) => +this.readValue(section, field));
 
-  public r_string = jest.fn((section: string, field: string) => this.data[section][field]);
+  public r_u32 = jest.fn((section: string, field: string) => {
+    return this.readValue(section, field);
+  });
+
+  public r_s32 = jest.fn((section: string, field: string) => this.readValue(section, field));
+
+  public r_string = jest.fn((section: string, field: string) => this.readValue(section, field));
 
   public r_string_wb = jest.fn((section: string, field: string) => {
-    return (this.data[section][field] as string).trim().replace(/^"(.*)"$/, "$1");
+    return String(this.readValue(section, field)).trim().replace(/^"(.*)"$/, "$1");
   });
 
+  public r_string_wq = jest.fn((section: string, field: string) => this.r_string_wb(section, field));
+
   public r_bool = jest.fn((section: string, field: string) => {
-    if (typeof this.data[section][field] === "string") {
-      return this.data[section][field] === "true";
+    const value = this.readValue(section, field);
+
+    if (typeof value === "string") {
+      return value === "true" || value === "1";
     } else {
-      return Boolean(this.data[section][field]);
+      return Boolean(value);
     }
+  });
+
+  public r_clsid = jest.fn((section: string, field: string) => this.r_s32(section, field));
+
+  public r_token = jest.fn((section: string, field: string) => this.r_s32(section, field));
+
+  public r_vector = jest.fn((section: string, field: string) => {
+    const value = this.readValue(section, field);
+
+    if (value instanceof MockVector) {
+      return value.asMock();
+    } else if (typeof value === "object" && value !== null && "x" in value && "y" in value && "z" in value) {
+      return MockVector.mock(value.x, value.y, value.z);
+    }
+
+    const [x, y, z] = String(value)
+      .split(",")
+      .map((it) => Number(it.trim()));
+
+    return MockVector.mock(x || 0, y || 0, z || 0);
   });
 
   public line_count = jest.fn((section: string) => {
@@ -193,6 +239,12 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
     return this.data[section]?.[param] !== undefined;
   });
 
+  public remove_line = jest.fn((section: string, field: string) => {
+    if (this.data[section]) {
+      delete this.data[section][field];
+    }
+  });
+
   public fname = jest.fn(() => this.path);
 
   public set_readonly = jest.fn();
@@ -202,6 +254,66 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
   public save_as = jest.fn();
 
   public save_at_end = jest.fn();
+
+  public w_fvector2 = jest.fn((section: string, field: string, value: vector2) => {
+    this.writeValue(section, field, formatVector(value));
+  });
+
+  public w_fvector3 = jest.fn((section: string, field: string, value: vector) => {
+    this.writeValue(section, field, formatVector(value));
+  });
+
+  public w_fvector4 = jest.fn((section: string, field: string, value: never) => {
+    this.writeValue(section, field, value);
+  });
+
+  public w_fcolor = jest.fn((section: string, field: string, value: unknown) => {
+    this.writeValue(section, field, value);
+  });
+
+  public w_color = jest.fn((section: string, field: string, value: number) => {
+    this.writeValue(section, field, value);
+  });
+
+  public w_bool = jest.fn((section: string, field: string, value: boolean) => {
+    this.writeValue(section, field, value);
+  });
+
+  public w_s8 = jest.fn((section: string, field: string, value: number) => {
+    this.writeValue(section, field, value);
+  });
+
+  public w_u8 = jest.fn((section: string, field: string, value: number) => {
+    this.writeValue(section, field, value);
+  });
+
+  public w_s16 = jest.fn((section: string, field: string, value: number) => {
+    this.writeValue(section, field, value);
+  });
+
+  public w_u16 = jest.fn((section: string, field: string, value: number) => {
+    this.writeValue(section, field, value);
+  });
+
+  public w_s32 = jest.fn((section: string, field: string, value: number) => {
+    this.writeValue(section, field, value);
+  });
+
+  public w_u32 = jest.fn((section: string, field: string, value: number) => {
+    this.writeValue(section, field, value);
+  });
+
+  public w_s64 = jest.fn((section: string, field: string, value: number) => {
+    this.writeValue(section, field, value);
+  });
+
+  public w_u64 = jest.fn((section: string, field: string, value: number) => {
+    this.writeValue(section, field, value);
+  });
+
+  public w_float = jest.fn((section: string, field: string, value: number) => {
+    this.writeValue(section, field, value);
+  });
 
   public section_for_each = jest.fn((cb: (section: string) => void) => {
     Object.keys(this.data).forEach((it) => cb(it));
