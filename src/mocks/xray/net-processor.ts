@@ -1,4 +1,4 @@
-import { type net_packet, type reader } from "xray16";
+import { type net_packet, type reader, type TXR_net_processor } from "xray16";
 
 const MAX_U32: number = 4_294_967_295;
 
@@ -21,6 +21,18 @@ export enum EMockPacketDataType {
  * X-Ray net processor mock for testing save/load of data.
  */
 export class MockNetProcessor {
+  public static mock(): TXR_net_processor {
+    return new MockNetProcessor() as unknown as TXR_net_processor;
+  }
+
+  public static mockNetPacket(): net_packet {
+    return new MockNetProcessor() as unknown as net_packet;
+  }
+
+  public static mockReader(): reader {
+    return new MockNetProcessor() as unknown as reader;
+  }
+
   public readDataOrder: Array<EMockPacketDataType> = [];
   public writeDataOrder: Array<EMockPacketDataType> = [];
 
