@@ -29,6 +29,13 @@ export class MockPatrol {
     return new MockPatrol(name) as unknown as patrol;
   }
 
+  /**
+   * @returns Whether a patrol with the given name is registered (used by the `level` mock's `patrol_path_exists`).
+   */
+  public static has(name: string): boolean {
+    return name in MockPatrol.registry;
+  }
+
   public patrolMock: IPatrolMock;
 
   public constructor(name: string) {

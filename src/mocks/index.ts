@@ -133,6 +133,7 @@ export { MockObjectFactory, mockObjectFactory } from "./xray/mock-object-factory
 export { MockParticleObject } from "./xray/mock-particle-object";
 export { MockSoundObject } from "./xray/mock-sound-object";
 export { MockTask } from "./xray/mock-task";
+export { MockCGameTask, mockCGameTask } from "./xray/mock-game-task";
 export { MockCGameFont } from "./xray/mock-game-font";
 export { MockCSightParams } from "./xray/mock-sight-params";
 export { MockCTime } from "./xray/mock-ctime";
