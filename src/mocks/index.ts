@@ -25,6 +25,7 @@ export { mockRelationRegistryInterface } from "./xray/mock-relation-registry-int
 
 // NOTE: `MockAlifeSimulator` must be re-exported before `MockAlifeObject`.
 export { MockAlifeSimulator } from "./xray/server/mock-alife-simulator";
+
 export { type IMockAlifeObjectConfig, MockAlifeObject } from "./xray/server/mock-alife-object";
 export { MockAlifeDynamicObject } from "./xray/server/mock-alife-dynamic-object";
 export { MockAlifeDynamicObjectVisual } from "./xray/server/mock-alife-dynamic-object-visual";
@@ -59,6 +60,10 @@ export { MockAnomalousZone } from "./xray/server/mock-anomalous-zone";
 export { MockTorridZone } from "./xray/server/mock-torrid-zone";
 export { MockZoneVisual } from "./xray/server/mock-zone-visual";
 export { MockAlifeObjectPhysic } from "./xray/server/mock-alife-object-physic";
+
+export { type IMockGameObjectConfig, MockGameObject } from "./xray/mock-game-object";
+export { MockDangerObject } from "./xray/mock-danger-object";
+export { MockMonsterHitInfo } from "./xray/mock-monster-hit-info";
 
 export { EMockPacketDataType, MockNetProcessor } from "./xray/net-processor";
 export { MockActionBase, mockActionBase } from "./xray/mock-action-base";
