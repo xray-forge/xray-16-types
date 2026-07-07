@@ -10,10 +10,7 @@ import { type IMockAlifeObjectConfig } from "./mock-alife-object";
 /**
  * Mock server creature object.
  */
-export class MockServerAlifeCreatureAbstract
-  extends MockAlifeDynamicObjectVisual
-  implements cse_alife_creature_abstract
-{
+export class MockServerAlifeCreatureAbstract extends MockAlifeDynamicObjectVisual implements cse_alife_creature_abstract {
   public static override mock(config: IMockAlifeObjectConfig = {}): cse_alife_creature_abstract {
     return new this(config) as unknown as cse_alife_creature_abstract;
   }

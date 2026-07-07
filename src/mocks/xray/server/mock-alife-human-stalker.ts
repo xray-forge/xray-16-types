@@ -20,8 +20,8 @@ export class MockAlifeHumanStalker extends MockServerAlifeCreatureAbstract imple
     }) as unknown as cse_alife_human_abstract;
   }
 
-  public static create(section: string = "test_human_stalker"): MockAlifeHumanStalker {
-    return new MockAlifeHumanStalker({ section });
+  public static override create(config: IMockAlifeObjectConfig | string = {}): MockAlifeHumanStalker {
+    return new MockAlifeHumanStalker(typeof config === "string" ? { section: config } : config);
   }
 
   public static override mockWithClassId(clsid: number): cse_alife_human_abstract {

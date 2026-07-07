@@ -50,6 +50,10 @@ export class MockAlifeObject extends MockLuabindClass implements cse_alife_objec
     return new this(config) as unknown as cse_alife_object;
   }
 
+  public static create(config: IMockAlifeObjectConfig = {}): MockAlifeObject {
+    return new this(config);
+  }
+
   public static mockWithClassId(classId: number): cse_alife_object {
     const object: MockAlifeObject = new this({ clsid: classId });
 

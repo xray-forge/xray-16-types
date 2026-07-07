@@ -48,6 +48,10 @@ export class MockAlifeSimulator implements alife_simulator {
     return MockAlifeSimulator.getInstance() as unknown as alife_simulator;
   }
 
+  public static create(): MockAlifeSimulator {
+    return new MockAlifeSimulator();
+  }
+
   public static reset(): void {
     MockAlifeSimulator.simulator = new MockAlifeSimulator();
     resetMockAlifeRegistry();
