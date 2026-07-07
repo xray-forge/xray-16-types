@@ -201,8 +201,8 @@ export function use(x: number): number {
     );
 
     expect(errors).toEqual([
-      "'@inline' function 'clampBad' must have a single 'return <expression>' body and only plain parameters " +
-        "(no rest or destructuring) to be inlinable.",
+      "'@inline' function 'clampBad' must have a single 'return <expression>' or 'void' expression-statement body " +
+        "and only plain parameters (no rest or destructuring) to be inlinable.",
     ]);
     expect(lua["main.lua"]).toBe(`local ____exports = {}
 ---
@@ -218,5 +218,28 @@ function ____exports.use(self, x)
 end
 return ____exports
 `);
+  });
+
+  it("should inline a void expression-statement function at statement position", () => {
+    const { errors, lua } = transpileWithPlugins(
+      {
+        "main.ts": `
+/** @inline */
+function poke(target: { set(this: void, key: string): void }, key: string): void {
+  target.set(key);
+}
+
+export function use(data: { set(this: void, key: string): void }): void {
+  poke(data, "flag");
+}
+`,
+      },
+      { plugins: [plugin] }
+    );
+
+    expect(errors).toEqual([]);
+    // The call to the inlinable helper is spliced into `use`; only its definition remains.
+    expect(lua["main.lua"]).toContain(`data.set("flag")`);
+    expect(lua["main.lua"]).not.toContain("poke(data");
   });
 });

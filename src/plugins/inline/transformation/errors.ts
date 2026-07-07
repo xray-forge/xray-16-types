@@ -9,8 +9,8 @@ export const createUnsupportedDeclarationError = createErrorDiagnosticFactory(
 
 export const createNotInlinableFunctionError = createErrorDiagnosticFactory(
   (name: string) =>
-    `'@${INLINE_TAG}' function '${name}' must have a single 'return <expression>' body and only plain ` +
-    "parameters (no rest or destructuring) to be inlinable."
+    `'@${INLINE_TAG}' function '${name}' must have a single 'return <expression>' or 'void' expression-statement ` +
+    "body and only plain parameters (no rest or destructuring) to be inlinable."
 );
 
 export const createVirtualValueReferenceError = createErrorDiagnosticFactory(

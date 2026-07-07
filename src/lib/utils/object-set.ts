@@ -6,6 +6,8 @@ import { copyVector } from "./vector";
 /**
  * Point one object's sight direction at another object's current position.
  *
+ * @inline
+ *
  * @param object - Object whose sight direction is updated.
  * @param target - Object to look at.
  */

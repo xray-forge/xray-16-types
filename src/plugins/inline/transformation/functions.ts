@@ -16,13 +16,27 @@ const SUBSTITUTION_CONTEXT: ts.TransformationContext = {
 } as unknown as ts.TransformationContext;
 
 /**
- * Get the single `return <expression>` of a function declaration, or null when the body is not exactly one
- * return statement with a value. Only such functions can be inlined into a Lua expression position.
+ * The splice-able body of an inlinable function.
+ */
+export interface IInlineBody {
+  /** Expression substituted at the call site. */
+  expression: ts.Expression;
+  /**
+   * Whether the body is a `void` expression statement (e.g. `object.foo()`), which lacks a return value and so
+   * can only be inlined at Lua statement position (where the result is discarded). A `return <expr>` body is
+   * `false` and inlines in any position.
+   */
+  statementOnly: boolean;
+}
+
+/**
+ * Get the single splice-able body of a function declaration: either its `return <expression>` (inlinable in
+ * any position) or a lone `void` expression statement (inlinable only at statement position). Null otherwise.
  *
  * @param declaration - Function declaration to inspect.
- * @returns The returned expression, or null.
+ * @returns The inline body descriptor, or null.
  */
-export function getSingleReturnExpression(declaration: ts.FunctionDeclaration): ts.Expression | null {
+export function getInlineBody(declaration: ts.FunctionDeclaration): IInlineBody | null {
   const body: ts.Block | undefined = declaration.body;
 
   if (body === undefined || body.statements.length !== 1) {
@@ -31,11 +45,25 @@ export function getSingleReturnExpression(declaration: ts.FunctionDeclaration): 
 
   const [statement] = body.statements;
 
-  if (!ts.isReturnStatement(statement) || statement.expression === undefined) {
-    return null;
+  if (ts.isReturnStatement(statement) && statement.expression !== undefined) {
+    return { expression: statement.expression, statementOnly: false };
   }
 
-  return statement.expression;
+  if (ts.isExpressionStatement(statement)) {
+    return { expression: statement.expression, statementOnly: true };
+  }
+
+  return null;
+}
+
+/**
+ * Whether a call sits at Lua statement position (a bare expression statement, its result discarded).
+ *
+ * @param node - Call expression to check.
+ * @returns Whether the call is a statement-position call.
+ */
+function isStatementPositionCall(node: ts.CallExpression): boolean {
+  return node.parent !== undefined && ts.isExpressionStatement(node.parent) && node.parent.expression === node;
 }
 
 /**
@@ -46,7 +74,7 @@ export function getSingleReturnExpression(declaration: ts.FunctionDeclaration): 
  * @returns Whether the function is inlinable.
  */
 export function isInlinableFunction(declaration: ts.FunctionDeclaration): boolean {
-  if (getSingleReturnExpression(declaration) === null) {
+  if (getInlineBody(declaration) === null) {
     return false;
   }
 
@@ -224,13 +252,19 @@ export function canInlineCall(
   declaration: ts.FunctionDeclaration,
   node: ts.CallExpression
 ): boolean {
-  const returnExpression: ts.Expression | null = getSingleReturnExpression(declaration);
+  const body: IInlineBody | null = getInlineBody(declaration);
 
-  if (returnExpression === null) {
+  if (body === null) {
     return false;
   }
 
-  const usageCounts: Map<ts.Symbol, number> = countParameterUsages(checker, declaration, returnExpression);
+  // A `void` expression-statement body has no return value, so it may only be spliced where the result is
+  // discarded (statement position); elsewhere fall back to a real call.
+  if (body.statementOnly && !isStatementPositionCall(node)) {
+    return false;
+  }
+
+  const usageCounts: Map<ts.Symbol, number> = countParameterUsages(checker, declaration, body.expression);
 
   for (let index = 0; index < declaration.parameters.length; index += 1) {
     const parameterSymbol: ts.Symbol | undefined = checker.getSymbolAtLocation(declaration.parameters[index].name);
@@ -288,7 +322,7 @@ function tryInlineFunctionCall(
     return null;
   }
 
-  const returnExpression: ts.Expression = getSingleReturnExpression(declaration) as ts.Expression;
+  const body: IInlineBody = getInlineBody(declaration) as IInlineBody;
   const substitutions: Map<ts.Symbol, ts.Expression> = new Map();
 
   for (let index = 0; index < declaration.parameters.length; index += 1) {
@@ -297,7 +331,7 @@ function tryInlineFunctionCall(
     substitutions.set(parameterSymbol, getArgumentForParameter(declaration, node, index));
   }
 
-  return context.transformExpression(substituteParameters(checker, returnExpression, substitutions));
+  return context.transformExpression(substituteParameters(checker, body.expression, substitutions));
 }
 
 /**
