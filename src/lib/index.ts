@@ -16,6 +16,7 @@ export * from "./utils/game-wait";
 export * from "./utils/logging";
 export * from "./utils/number";
 export * from "./utils/object-set";
+export * from "./utils/random";
 export * from "./utils/screen";
 export * from "./utils/string";
 export * from "./utils/time";
