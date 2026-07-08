@@ -8,9 +8,16 @@
 export * from "./scalars";
 export * from "./types";
 export * from "./constants";
+export * from "./data";
+export * from "./game-difficulties";
+export * from "./game-types";
+export * from "./ids";
+export * from "./memory";
+export * from "./words";
 
 export * from "./utils/assertion";
 export * from "./utils/binding";
+export * from "./utils/class-ids";
 export * from "./utils/decamelize";
 export * from "./utils/game-wait";
 export * from "./utils/logging";
