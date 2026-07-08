@@ -1,4 +1,5 @@
 import * as ts from "typescript";
+import * as lua from "typescript-to-lua";
 
 import {
   getContainingVariableStatement,
@@ -23,6 +24,70 @@ const TREE_BINARY_OPERATORS: Partial<Record<ts.SyntaxKind, TFoldedBinaryOperator
   [ts.SyntaxKind.SlashToken]: "/",
   [ts.SyntaxKind.AsteriskAsteriskToken]: "**",
 };
+
+const TREE_LUA_OPERATORS: Record<TFoldedBinaryOperator, lua.BinaryOperator> = {
+  "+": lua.SyntaxKind.AdditionOperator,
+  "-": lua.SyntaxKind.SubtractionOperator,
+  "*": lua.SyntaxKind.MultiplicationOperator,
+  "/": lua.SyntaxKind.DivisionOperator,
+  "**": lua.SyntaxKind.PowerOperator,
+};
+
+/**
+ * Create a Lua expression for the provided folded value.
+ * Literals become Lua literals; expression trees with engine references become global access
+ * expressions and arithmetic over them.
+ *
+ * @param value - Folded value to create expression for.
+ * @param node - Original TypeScript node.
+ * @returns Lua expression.
+ */
+export function createFoldedExpression(value: TFoldedValue, node: ts.Node): lua.Expression {
+  if (typeof value === "string") {
+    return lua.createStringLiteral(value, node);
+  }
+
+  if (typeof value === "boolean") {
+    return lua.createBooleanLiteral(value, node);
+  }
+
+  if (typeof value === "number") {
+    return value < 0
+      ? lua.createUnaryExpression(
+          lua.createNumericLiteral(Math.abs(value), node),
+          lua.SyntaxKind.NegationOperator,
+          node
+        )
+      : lua.createNumericLiteral(value, node);
+  }
+
+  switch (value.kind) {
+    case "engine-ref": {
+      let expression: lua.Expression = lua.createIdentifier(value.path[0]);
+
+      for (const member of value.path.slice(1)) {
+        expression = lua.createTableIndexExpression(expression, lua.createStringLiteral(member), node);
+      }
+
+      return expression;
+    }
+
+    case "binary":
+      return lua.createBinaryExpression(
+        createFoldedExpression(value.left, node),
+        createFoldedExpression(value.right, node),
+        TREE_LUA_OPERATORS[value.operator],
+        node
+      );
+
+    case "negate":
+      return lua.createUnaryExpression(
+        createFoldedExpression(value.operand, node),
+        lua.SyntaxKind.NegationOperator,
+        node
+      );
+  }
+}
 
 /**
  * Resolve the member symbol for a property or element access expression.

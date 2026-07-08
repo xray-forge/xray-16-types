@@ -5,7 +5,14 @@
 The helper module has a real Node/Jest runtime, so source code can import it normally. During a game build, this plugin removes the import and replaces supported helper usage with Lua-friendly output.
 
 ```json
-{ "name": "xray16/plugins/macros", "buildTimestamp": true, "fileName": true, "dirName": true, "castHelpers": true }
+{
+  "name": "xray16/plugins/macros",
+  "buildTimestamp": true,
+  "fileName": true,
+  "dirName": true,
+  "castHelpers": true,
+  "inlineHints": true
+}
 ```
 
 All options default to `true`. Token-driven options do nothing unless the matching helper appears in the source.
@@ -57,6 +64,12 @@ export function run(value: unknown): unknown {
 ```
 
 A cast helper called with anything other than one argument reports: `Invalid transformer call, expected function to have exactly 1 argument.`
+
+### `inlineHints`
+
+Unwraps `$inline` and `$noInline` to their single argument when the `inline` plugin has not consumed them.
+
+These hints are owned by the `inline` plugin, which forces or suppresses inlining for the wrapped target (see its [README](../inline/README.md)). In the recommended plugin order, `inline` runs before `macros` and consumes the hints. This option exists for builds that run the macros plugin without the inline plugin: the hints become plain calls instead of emitted `$` identifiers.
 
 ## Limitations
 

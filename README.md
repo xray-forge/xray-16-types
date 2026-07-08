@@ -139,7 +139,7 @@ Add plugins through the TypeScriptToLua `luaPlugins` config. A typical XRF build
 | `strip`      | Removes Lua logger calls and runtime imports for engine-only typedef modules.        | [README](src/plugins/strip/README.md)       |
 | `macros`     | Folds `$filename`, `$dirname`, nil checks, cast helpers, and optional build headers. | [README](src/plugins/macros/README.md)      |
 | `optimize`   | Rewrites returned ternaries into direct Lua `if` / `else` returns.                   | [README](src/plugins/optimize/README.md)    |
-| `inline`     | Inlines constants tagged with `@inline` or `@virtual`.                               | [README](src/plugins/inline/README.md)      |
+| `inline`     | Inlines tagged constants, functions, and `$inline` / `$noInline` call-site hints.    | [README](src/plugins/inline/README.md)      |
 | `libcompile` | Emits `xray16/lib` source as a flat `xray_bundle` module for game builds.            | [README](src/plugins/libcompile/README.md)  |
 | `tracy`      | Injects Tracy profiler zones when enabled.                                           | [README](src/plugins/tracy/README.md)       |
 

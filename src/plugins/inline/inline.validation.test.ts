@@ -156,7 +156,7 @@ export const RUNTIME_VALUE: number = Date.now();
     );
 
     expect(errors).toEqual([
-      "'@inline' constant 'RUNTIME_VALUE' must have a compile-time constant value, use a literal or an expression computable on build time.",
+      "'@inline' constant 'RUNTIME_VALUE' must have a compile-time constant value, use a literal or an expression computable at build time.",
     ]);
     expect(lua["main.lua"]).toBe(`local ____exports = {}
 ---

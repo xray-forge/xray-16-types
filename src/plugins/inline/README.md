@@ -1,14 +1,14 @@
 ﻿# inline Plugin
 
-`xray16/plugins/inline` replaces tagged constant references with Lua literals at build time.
+`xray16/plugins/inline` replaces tagged constants and function calls with Lua expressions at build time.
 
-The plugin only touches declarations tagged with `@inline` or `@virtual`. If a tagged declaration cannot be folded safely, the build fails instead of emitting a runtime lookup.
+The plugin only touches declarations tagged with `@inline` or `@virtual`, plus call sites wrapped in the `$inline` / `$noInline` macros. If a tagged declaration cannot be folded safely, the build fails instead of emitting a runtime lookup.
 
 ## Annotations
 
 ### `@inline`
 
-Use `@inline` when consumers should get literal values and the exported declaration should still exist at runtime.
+Use `@inline` when consumers should get folded values or spliced function bodies, while the exported declaration still exists at runtime.
 
 ```ts
 /** @inline */
@@ -46,6 +46,57 @@ Effects:
 - Enums with compile-time constant members.
 - Module-level scalar `const` declarations.
 - Module-level flat object literals with an `as const` assertion.
+- Module-level functions with a supported body shape.
+
+## Call-Site Overrides
+
+`$inline` and `$noInline` from `xray16/macros` override inlining decisions for one call site. Both are identity functions at runtime, so the same code runs under jest/node.
+
+### `$inline`
+
+Use `$inline(target)` to force inlining of a call or constant expression whose declaration carries no tag.
+
+```ts
+import { $inline } from "xray16/macros";
+
+function add(a: number, b: number): number {
+  return a + b;
+}
+
+const MINUTE = 60 * 1000;
+
+export function use(x: number): number {
+  return $inline(add(x, 5)) + $inline(MINUTE);
+}
+// Emits: return x + 5 + 60000
+```
+
+The macro is an explicit demand. When the target cannot be inlined, the build fails instead of falling back to a runtime call. Common causes are unsupported function body shapes, values that cannot be computed at build time, and side-effecting arguments passed to parameters used more than once.
+
+Function targets follow the same rules as `@inline` functions. A single `return <expression>` body and a `void` expression-statement body inline where an expression is allowed. A single guard `if` body inlines only at statement position.
+
+Unlike `@inline` function declarations with erased call sites, the import binding of a force-inlined function is kept, since the declaration itself stays untagged and may have other runtime users.
+
+### `$noInline`
+
+Use `$noInline(target)` to keep a direct runtime call or reference to a declaration tagged with `@inline`.
+
+```ts
+import { $noInline } from "xray16/macros";
+
+/** @inline */
+const TIMEOUT: number = 500;
+
+export function use(): number {
+  return $noInline(TIMEOUT); // Emits: return TIMEOUT
+}
+```
+
+Suppression applies only to the wrapped target itself. Tagged constants inside call arguments still inline, so `@virtual` values remain usable there.
+
+`$noInline` of a `@virtual` declaration fails the build: virtual declarations are erased from emitted output, so no runtime value exists to reference. Demote the declaration to `@inline` when runtime access is needed.
+
+Plugin order matters. The recommended `luaPlugins` list places `xray16/plugins/macros` before `xray16/plugins/inline`; TypeScriptToLua runs the later inline plugin first, so it consumes the hints. When only the macros plugin is enabled, the hints unwrap as identity calls and no forcing or suppression happens.
 
 ## Computed Values
 

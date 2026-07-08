@@ -10,6 +10,18 @@ export const INLINE_TAG: string = "inline";
 export const VIRTUAL_TAG: string = "virtual";
 
 /**
+ * Call-site macro forcing inlining of the wrapped call or constant expression, even when the target
+ * declaration carries no inlining tag. Imported from `xray16/macros`, identity function at runtime.
+ */
+export const INLINE_MACRO: string = "$inline";
+
+/**
+ * Call-site macro suppressing inlining of the wrapped call or reference to a tagged declaration.
+ * Imported from `xray16/macros`, identity function at runtime.
+ */
+export const NO_INLINE_MACRO: string = "$noInline";
+
+/**
  * Value types that can be inlined as Lua literals.
  */
 export type TInlineValue = string | number | boolean;

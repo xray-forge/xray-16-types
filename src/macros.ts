@@ -25,6 +25,35 @@ export const $filename: string = "$filename";
 export const $dirname: string = "$dirname";
 
 /**
+ * Force compile-time inlining of the wrapped call or constant expression.
+ *
+ * The `inline` plugin splices the target function body or folds the constant at this call site even when
+ * the target declaration carries no inlining tag, and fails the build when the target cannot be inlined.
+ * At runtime the helper returns the provided value unchanged.
+ *
+ * @param value - Call or constant expression to inline.
+ * @returns Same value.
+ */
+export function $inline<T>(value: T): T {
+  return value;
+}
+
+/**
+ * Suppress compile-time inlining of the wrapped call or reference.
+ *
+ * The `inline` plugin emits a direct runtime call or reference for the wrapped target even when its
+ * declaration is tagged for inlining. Virtual declarations are erased from emitted output and cannot be
+ * referenced directly, so suppressing them fails the build. At runtime the helper returns the provided
+ * value unchanged.
+ *
+ * @param value - Call or reference to keep as a runtime access.
+ * @returns Same value.
+ */
+export function $noInline<T>(value: T): T {
+  return value;
+}
+
+/**
  * Check whether a value is nil-compatible in Lua and Jest runtimes.
  *
  * @param value - Value to check.

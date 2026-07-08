@@ -3,7 +3,7 @@ import { transpileWithPlugins } from "../testing";
 import { plugin } from "./plugin";
 
 describe("inline plugin computed values handling", () => {
-  it("should inline computed scalar constants folded on build time", () => {
+  it("should inline computed scalar constants folded at build time", () => {
     const { errors, lua } = transpileWithPlugins(
       {
         "constants.ts": `
@@ -56,7 +56,7 @@ return ____exports
 `);
   });
 
-  it("should inline computed object properties folded on build time", () => {
+  it("should inline computed object properties folded at build time", () => {
     const { errors, lua } = transpileWithPlugins(
       {
         "main.ts": `
@@ -188,10 +188,10 @@ export const FLOAT_CONCAT = "x" + 1 / 3;
     );
 
     expect(errors).toEqual([
-      "'@inline' constant 'FROM_CALL' must have a compile-time constant value, use a literal or an expression computable on build time.",
-      "'@inline' constant 'NOT_FINITE' must have a compile-time constant value, use a literal or an expression computable on build time.",
-      "'@inline' constant 'FROM_MUTABLE' must have a compile-time constant value, use a literal or an expression computable on build time.",
-      "'@inline' constant 'FLOAT_CONCAT' must have a compile-time constant value, use a literal or an expression computable on build time.",
+      "'@inline' constant 'FROM_CALL' must have a compile-time constant value, use a literal or an expression computable at build time.",
+      "'@inline' constant 'NOT_FINITE' must have a compile-time constant value, use a literal or an expression computable at build time.",
+      "'@inline' constant 'FROM_MUTABLE' must have a compile-time constant value, use a literal or an expression computable at build time.",
+      "'@inline' constant 'FLOAT_CONCAT' must have a compile-time constant value, use a literal or an expression computable at build time.",
     ]);
     expect(lua["main.lua"]).toBe(`local ____exports = {}
 local mutable = {x = 1}

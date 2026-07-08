@@ -2,9 +2,10 @@ import * as ts from "typescript";
 import * as lua from "typescript-to-lua";
 
 import { getContainingVariableStatement, hasInlineTag, hasVirtualTag, isValueUsagePosition } from "./ast";
-import { type TFoldedBinaryOperator, type TFoldedValue } from "./constants";
-import { resolveMemberSymbol, tryGetInlineValue } from "./evaluation";
+import { type TFoldedValue } from "./constants";
+import { createFoldedExpression, resolveMemberSymbol, tryGetInlineValue } from "./evaluation";
 import { isInlinedCalleeReference } from "./functions";
+import { isNoInlineArgument } from "./overrides";
 import {
   getVirtualDeclaration,
   getVirtualObjectEntries,
@@ -16,71 +17,7 @@ import {
 
 const NUMERIC_KEY_PATTERN: RegExp = /^(0|[1-9][0-9]*)$/;
 
-const TREE_LUA_OPERATORS: Record<TFoldedBinaryOperator, lua.BinaryOperator> = {
-  "+": lua.SyntaxKind.AdditionOperator,
-  "-": lua.SyntaxKind.SubtractionOperator,
-  "*": lua.SyntaxKind.MultiplicationOperator,
-  "/": lua.SyntaxKind.DivisionOperator,
-  "**": lua.SyntaxKind.PowerOperator,
-};
-
 const fileBindingUsageCache: WeakMap<ts.SourceFile, Map<ts.Symbol, boolean>> = new WeakMap();
-
-/**
- * Create a Lua expression for the provided folded value.
- * Literals become Lua literals; expression trees with engine references become global access
- * expressions and arithmetic over them.
- *
- * @param value - Folded value to create expression for.
- * @param node - Original TypeScript node.
- * @returns Lua expression.
- */
-export function createFoldedExpression(value: TFoldedValue, node: ts.Node): lua.Expression {
-  if (typeof value === "string") {
-    return lua.createStringLiteral(value, node);
-  }
-
-  if (typeof value === "boolean") {
-    return lua.createBooleanLiteral(value, node);
-  }
-
-  if (typeof value === "number") {
-    return value < 0
-      ? lua.createUnaryExpression(
-          lua.createNumericLiteral(Math.abs(value), node),
-          lua.SyntaxKind.NegationOperator,
-          node
-        )
-      : lua.createNumericLiteral(value, node);
-  }
-
-  switch (value.kind) {
-    case "engine-ref": {
-      let expression: lua.Expression = lua.createIdentifier(value.path[0]);
-
-      for (const member of value.path.slice(1)) {
-        expression = lua.createTableIndexExpression(expression, lua.createStringLiteral(member), node);
-      }
-
-      return expression;
-    }
-
-    case "binary":
-      return lua.createBinaryExpression(
-        createFoldedExpression(value.left, node),
-        createFoldedExpression(value.right, node),
-        TREE_LUA_OPERATORS[value.operator],
-        node
-      );
-
-    case "negate":
-      return lua.createUnaryExpression(
-        createFoldedExpression(value.operand, node),
-        lua.SyntaxKind.NegationOperator,
-        node
-      );
-  }
-}
 
 /**
  * Create a Lua table literal that replaces an object spread of a `@virtual` object.
@@ -125,6 +62,11 @@ export function transformAccessExpression(
   node: ts.PropertyAccessExpression | ts.ElementAccessExpression,
   context: lua.TransformationContext
 ): lua.Expression {
+  // `$noInline(target)` keeps the direct runtime access for its wrapped target.
+  if (isNoInlineArgument(node)) {
+    return context.superTransformExpression(node);
+  }
+
   const symbol: ts.Symbol | null = resolveMemberSymbol(context.checker, node);
 
   if (symbol === null) {
@@ -157,6 +99,11 @@ export function transformAccessExpression(
  * @returns Lua literal when the identifier resolves to a tagged constant, default transformation otherwise.
  */
 export function transformIdentifierExpression(node: ts.Identifier, context: lua.TransformationContext): lua.Expression {
+  // `$noInline(target)` keeps the direct runtime reference for its wrapped target.
+  if (isNoInlineArgument(node)) {
+    return context.superTransformExpression(node);
+  }
+
   if (node.parent !== undefined && ts.isSpreadAssignment(node.parent)) {
     const symbol: ts.Symbol | undefined = context.checker.getSymbolAtLocation(node);
     const table: lua.Expression | null =

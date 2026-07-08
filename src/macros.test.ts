@@ -1,4 +1,4 @@
-import { $fromArray, $fromLuaArray, $fromLuaTable, $fromObject, $isNil, $isNotNil } from "./macros";
+import { $fromArray, $fromLuaArray, $fromLuaTable, $fromObject, $inline, $isNil, $isNotNil, $noInline } from "./macros";
 
 describe("macros runtime module", () => {
   // Minimal Map-based `LuaTable` runtime, like the one a consumer provides via `globalThis.LuaTable`.
@@ -12,6 +12,20 @@ describe("macros runtime module", () => {
 
   afterAll(() => {
     (globalThis as Record<string, unknown>).LuaTable = originalLuaTable;
+  });
+
+  it("inline hints return the provided value unchanged", () => {
+    const object: Record<string, number> = { a: 1 };
+
+    expect($inline(5)).toBe(5);
+    expect($inline(object)).toBe(object);
+  });
+
+  it("noInline hints return the provided value unchanged", () => {
+    const object: Record<string, number> = { a: 1 };
+
+    expect($noInline("value")).toBe("value");
+    expect($noInline(object)).toBe(object);
   });
 
   it("nil checks match Lua semantics without globals or mocks", () => {

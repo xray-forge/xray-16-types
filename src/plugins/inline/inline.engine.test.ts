@@ -172,9 +172,9 @@ export const BITWISE = stalker_ids.action_base & 1;
     );
 
     expect(errors).toEqual([
-      "'@inline' constant 'MODULO' must have a compile-time constant value, use a literal or an expression computable on build time.",
-      "'@inline' constant 'CONCAT' must have a compile-time constant value, use a literal or an expression computable on build time.",
-      "'@inline' constant 'BITWISE' must have a compile-time constant value, use a literal or an expression computable on build time.",
+      "'@inline' constant 'MODULO' must have a compile-time constant value, use a literal or an expression computable at build time.",
+      "'@inline' constant 'CONCAT' must have a compile-time constant value, use a literal or an expression computable at build time.",
+      "'@inline' constant 'BITWISE' must have a compile-time constant value, use a literal or an expression computable at build time.",
     ]);
     expect(lua["main.lua"]).toBe(`local ____exports = {}
 local ____xray16 = require("xray16")
@@ -209,7 +209,7 @@ export const VALUE = instance.value;
     );
 
     expect(errors).toEqual([
-      "'@inline' constant 'VALUE' must have a compile-time constant value, use a literal or an expression computable on build time.",
+      "'@inline' constant 'VALUE' must have a compile-time constant value, use a literal or an expression computable at build time.",
     ]);
     expect(lua["main.lua"]).toBe(`local ____exports = {}
 ---

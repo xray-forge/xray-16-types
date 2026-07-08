@@ -1,8 +1,18 @@
 import * as ts from "typescript";
-import type * as lua from "typescript-to-lua";
+import * as lua from "typescript-to-lua";
 
 import { hasInlineTag, unwrapInitializer } from "./ast";
-import { resolveAliasedSymbol } from "./virtual";
+import { type TFoldedValue } from "./constants";
+import {
+  createInlineMacroCallSiteError,
+  createInlineMacroFunctionError,
+  createInlineMacroTargetError,
+  createInvalidOverrideMacroError,
+  createNoInlineVirtualError,
+} from "./errors";
+import { createFoldedExpression, evaluateConstantExpression } from "./evaluation";
+import { getOverrideMacroKind, getOverrideWrapperTop, isNoInlineArgument, type TInlineOverrideKind } from "./overrides";
+import { getVirtualDeclaration, getVirtualOverrideTargetName, resolveAliasedSymbol } from "./virtual";
 
 // Minimal context for `ts.visitEachChild`; only `factory` is used when cloning expression trees.
 const SUBSTITUTION_CONTEXT: ts.TransformationContext = {
@@ -58,12 +68,15 @@ export function getInlineBody(declaration: ts.FunctionDeclaration): IInlineBody 
 
 /**
  * Whether a call sits at Lua statement position (a bare expression statement, its result discarded).
+ * Wrapping `$inline` / `$noInline` macro calls are transparent, so `$inline(voidCall());` still counts.
  *
  * @param node - Call expression to check.
  * @returns Whether the call is a statement-position call.
  */
 function isStatementPositionCall(node: ts.CallExpression): boolean {
-  return node.parent !== undefined && ts.isExpressionStatement(node.parent) && node.parent.expression === node;
+  const top: ts.Expression = getOverrideWrapperTop(node);
+
+  return top.parent !== undefined && ts.isExpressionStatement(top.parent) && top.parent.expression === top;
 }
 
 /**
@@ -138,16 +151,13 @@ export function isInlinableGuardFunction(declaration: ts.FunctionDeclaration): b
 }
 
 /**
- * Resolve a call expression to the inlinable `@inline` function declaration it targets, or null.
+ * Resolve a call expression to the function declaration its identifier callee targets, without tag requirements.
  *
  * @param checker - Program type checker.
  * @param node - Call expression to resolve.
- * @returns The inlinable target function declaration, or null.
+ * @returns The target function declaration, or null.
  */
-export function getInlineFunctionDeclaration(
-  checker: ts.TypeChecker,
-  node: ts.CallExpression
-): ts.FunctionDeclaration | null {
+function getCalleeFunctionDeclaration(checker: ts.TypeChecker, node: ts.CallExpression): ts.FunctionDeclaration | null {
   if (!ts.isIdentifier(node.expression)) {
     return null;
   }
@@ -160,7 +170,28 @@ export function getInlineFunctionDeclaration(
 
   const declaration: ts.Declaration | undefined = resolveAliasedSymbol(checker, symbol).valueDeclaration;
 
-  if (declaration === undefined || !ts.isFunctionDeclaration(declaration) || !hasInlineTag(declaration)) {
+  return declaration !== undefined && ts.isFunctionDeclaration(declaration) ? declaration : null;
+}
+
+/**
+ * Resolve a call expression to the inlinable `@inline` function declaration it targets, or null.
+ * Calls wrapped in `$noInline` never resolve, keeping them as direct runtime calls.
+ *
+ * @param checker - Program type checker.
+ * @param node - Call expression to resolve.
+ * @returns The inlinable target function declaration, or null.
+ */
+export function getInlineFunctionDeclaration(
+  checker: ts.TypeChecker,
+  node: ts.CallExpression
+): ts.FunctionDeclaration | null {
+  if (isNoInlineArgument(node)) {
+    return null;
+  }
+
+  const declaration: ts.FunctionDeclaration | null = getCalleeFunctionDeclaration(checker, node);
+
+  if (declaration === null || !hasInlineTag(declaration)) {
     return null;
   }
 
@@ -502,13 +533,142 @@ function tryInlineFunctionCall(
 }
 
 /**
- * Transform call expressions by inlining calls to `@inline` single-return functions.
+ * Transform a `$inline(target)` macro call by force-inlining its wrapped call or folding its wrapped expression,
+ * regardless of tags on the target declaration. Targets that cannot be inlined fail the build - the macro is an
+ * explicit demand, so a silent fallback would hide the miss.
+ *
+ * @param node - The `$inline` macro call.
+ * @param target - The wrapped target expression.
+ * @param context - Transformation context.
+ * @returns Inlined Lua expression, or the plain transformation after reporting an error.
+ */
+function transformForcedInline(
+  node: ts.CallExpression,
+  target: ts.Expression,
+  context: lua.TransformationContext
+): lua.Expression {
+  const checker: ts.TypeChecker = context.checker;
+
+  if (ts.isCallExpression(target)) {
+    const declaration: ts.FunctionDeclaration | null = getCalleeFunctionDeclaration(checker, target);
+
+    if (declaration === null) {
+      context.diagnostics.push(createInlineMacroTargetError(node));
+
+      return context.transformExpression(target);
+    }
+
+    const name: string = declaration.name?.getText() ?? "<anonymous>";
+
+    if (!isInlinableFunction(declaration)) {
+      context.diagnostics.push(
+        isInlinableGuardFunction(declaration)
+          ? createInlineMacroCallSiteError(node, name)
+          : createInlineMacroFunctionError(node, name)
+      );
+
+      return context.transformExpression(target);
+    }
+
+    if (!canInlineCall(checker, declaration, target)) {
+      context.diagnostics.push(createInlineMacroCallSiteError(node, name));
+
+      return context.transformExpression(target);
+    }
+
+    const body: IInlineBody = getInlineBody(declaration) as IInlineBody;
+    const { substitutions, restSubstitution } = buildSubstitutions(checker, declaration, target);
+
+    return context.transformExpression(substituteInNode(checker, body.expression, substitutions, restSubstitution));
+  }
+
+  const value: TFoldedValue | null = evaluateConstantExpression(checker, target, new Set());
+
+  if (value === null) {
+    context.diagnostics.push(createInlineMacroTargetError(node));
+
+    return context.transformExpression(target);
+  }
+
+  return createFoldedExpression(value, node);
+}
+
+/**
+ * Check whether a `$noInline` virtual target is already reported by the program-wide virtual validation pass.
+ * That pass prefilters identifiers by declared names, so alias-renamed imports are reported here instead.
+ *
+ * @param checker - Program type checker.
+ * @param target - The `$noInline` macro argument expression.
+ * @returns Whether the validation pass produces a diagnostic for the target.
+ */
+function isValidationReportedVirtualTarget(checker: ts.TypeChecker, target: ts.Expression): boolean {
+  if (!ts.isIdentifier(target)) {
+    return false;
+  }
+
+  const symbol: ts.Symbol | undefined = checker.getSymbolAtLocation(target);
+
+  if (symbol === undefined || getVirtualDeclaration(checker, symbol) === null) {
+    return false;
+  }
+
+  return resolveAliasedSymbol(checker, symbol).name === target.text;
+}
+
+/**
+ * Transform a `$inline` / `$noInline` macro call.
+ *
+ * `$inline` force-inlines its target; `$noInline` keeps the target as a direct runtime call or reference
+ * (suppression itself happens through `isNoInlineArgument` checks in the transformers). Suppressing a
+ * `@virtual` target fails the build, since erased declarations cannot be referenced at runtime.
+ *
+ * @param node - The macro call expression.
+ * @param kind - Override kind of the macro.
+ * @param context - Transformation context.
+ * @returns Transformed Lua expression.
+ */
+function transformOverrideMacroCall(
+  node: ts.CallExpression,
+  kind: TInlineOverrideKind,
+  context: lua.TransformationContext
+): lua.Expression {
+  if (node.arguments.length !== 1) {
+    context.diagnostics.push(createInvalidOverrideMacroError(node, (node.expression as ts.Identifier).text));
+
+    // The macro identifier must not survive to emitted output, so a placeholder replaces the broken call.
+    return node.arguments.length > 0 ? context.transformExpression(node.arguments[0]) : lua.createNilLiteral(node);
+  }
+
+  const target: ts.Expression = node.arguments[0];
+
+  if (kind === "suppress") {
+    const virtualName: string | null = getVirtualOverrideTargetName(context.checker, target);
+
+    if (virtualName !== null && !isValidationReportedVirtualTarget(context.checker, target)) {
+      context.diagnostics.push(createNoInlineVirtualError(node, virtualName));
+    }
+
+    return context.transformExpression(target);
+  }
+
+  return transformForcedInline(node, target, context);
+}
+
+/**
+ * Transform call expressions by inlining calls to `@inline` single-return functions and applying
+ * the `$inline` / `$noInline` call-site override macros.
  *
  * @param node - Call expression to transform.
  * @param context - Transformation context.
  * @returns Inlined Lua expression when applicable, default transformation otherwise.
  */
 export function transformCallExpression(node: ts.CallExpression, context: lua.TransformationContext): lua.Expression {
+  const overrideKind: TInlineOverrideKind | null = getOverrideMacroKind(node);
+
+  if (overrideKind !== null) {
+    return transformOverrideMacroCall(node, overrideKind, context);
+  }
+
   const declaration: ts.FunctionDeclaration | null = getInlineFunctionDeclaration(context.checker, node);
 
   if (declaration !== null) {
@@ -530,23 +690,31 @@ export function transformCallExpression(node: ts.CallExpression, context: lua.Tr
  * @returns The guard-inlinable target function declaration, or null.
  */
 function getInlineGuardDeclaration(checker: ts.TypeChecker, node: ts.CallExpression): ts.FunctionDeclaration | null {
-  if (!ts.isIdentifier(node.expression)) {
+  if (isNoInlineArgument(node)) {
     return null;
   }
 
-  const symbol: ts.Symbol | undefined = checker.getSymbolAtLocation(node.expression);
+  const declaration: ts.FunctionDeclaration | null = getCalleeFunctionDeclaration(checker, node);
 
-  if (symbol === undefined) {
-    return null;
-  }
-
-  const declaration: ts.Declaration | undefined = resolveAliasedSymbol(checker, symbol).valueDeclaration;
-
-  if (declaration === undefined || !ts.isFunctionDeclaration(declaration) || !hasInlineTag(declaration)) {
+  if (declaration === null || !hasInlineTag(declaration)) {
     return null;
   }
 
   return isInlinableGuardFunction(declaration) ? declaration : null;
+}
+
+/**
+ * Resolve a `$inline`-wrapped call expression to the guard-inlinable function declaration it targets,
+ * without tag requirements.
+ *
+ * @param checker - Program type checker.
+ * @param node - Call expression to resolve.
+ * @returns The guard-inlinable target function declaration, or null.
+ */
+function getForcedGuardDeclaration(checker: ts.TypeChecker, node: ts.CallExpression): ts.FunctionDeclaration | null {
+  const declaration: ts.FunctionDeclaration | null = getCalleeFunctionDeclaration(checker, node);
+
+  return declaration !== null && isInlinableGuardFunction(declaration) ? declaration : null;
 }
 
 /**
@@ -563,8 +731,22 @@ export function transformExpressionStatement(
   context: lua.TransformationContext
 ): lua.Statement | Array<lua.Statement> {
   if (ts.isCallExpression(node.expression)) {
-    const call: ts.CallExpression = node.expression;
-    const declaration: ts.FunctionDeclaration | null = getInlineGuardDeclaration(context.checker, call);
+    let call: ts.CallExpression = node.expression;
+    let isForced: boolean = false;
+
+    // `$inline(guardCall(...));` forces guard inlining of untagged functions at statement position.
+    if (
+      getOverrideMacroKind(call) === "force" &&
+      call.arguments.length === 1 &&
+      ts.isCallExpression(call.arguments[0])
+    ) {
+      call = call.arguments[0];
+      isForced = true;
+    }
+
+    const declaration: ts.FunctionDeclaration | null = isForced
+      ? getForcedGuardDeclaration(context.checker, call)
+      : getInlineGuardDeclaration(context.checker, call);
 
     if (declaration !== null && canInlineGuardCall(context.checker, declaration, call)) {
       const guard: ts.IfStatement = getInlineGuard(declaration) as ts.IfStatement;

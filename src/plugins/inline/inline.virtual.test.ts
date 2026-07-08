@@ -131,7 +131,7 @@ export function all(): unknown {
     );
 
     expect(errors).toEqual([
-      "'@virtual' declaration 'detectors' is referenced as a value and cannot be erased, demote it to '@inline' or make the reference computable on build time.",
+      "'@virtual' declaration 'detectors' is referenced as a value and cannot be erased, demote it to '@inline' or make the reference computable at build time.",
     ]);
     expect(lua["constants.lua"]).toBe(`local ____exports = {}
 return ____exports
@@ -167,7 +167,7 @@ export function reverse(id: number): unknown {
     );
 
     expect(errors).toEqual([
-      "'@virtual' declaration 'EVirtual' is referenced as a value and cannot be erased, demote it to '@inline' or make the reference computable on build time.",
+      "'@virtual' declaration 'EVirtual' is referenced as a value and cannot be erased, demote it to '@inline' or make the reference computable at build time.",
     ]);
     expect(lua["constants.lua"]).toBe(`local ____exports = {}
 return ____exports
@@ -221,7 +221,7 @@ export { values } from "./constants";
     );
 
     expect(errors).toEqual([
-      "'@virtual' declaration 'values' is referenced as a value and cannot be erased, demote it to '@inline' or make the reference computable on build time.",
+      "'@virtual' declaration 'values' is referenced as a value and cannot be erased, demote it to '@inline' or make the reference computable at build time.",
     ]);
     expect(lua["barrel.lua"]).toBe(`local ____exports = {}
 do

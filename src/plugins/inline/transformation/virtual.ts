@@ -2,8 +2,9 @@ import * as ts from "typescript";
 
 import { getContainingVariableStatement, hasInlineTag, hasVirtualTag, isValueUsagePosition } from "./ast";
 import { type TFoldedValue } from "./constants";
-import { createVirtualValueReferenceError } from "./errors";
+import { createNoInlineVirtualError, createVirtualValueReferenceError } from "./errors";
 import { isComputableEnumMember, resolveMemberSymbol, tryGetInlineValue } from "./evaluation";
+import { isNoInlineArgument } from "./overrides";
 
 const modulePurityCache: WeakMap<ts.SourceFile, boolean> = new WeakMap();
 
@@ -104,6 +105,11 @@ export function isErasableReference(
 
   if (parent === undefined || ts.isPartOfTypeNode(node)) {
     return true;
+  }
+
+  // `$noInline(target)` keeps the reference as a runtime access, so it never erases.
+  if (isNoInlineArgument(node)) {
+    return false;
   }
 
   // In a type query such as 'typeof values', the entity name is not itself a type node:
@@ -348,7 +354,9 @@ export function collectVirtualDiagnostics(program: ts.Program): Array<ts.Diagnos
       const symbol: ts.Symbol | undefined = checker.getSymbolAtLocation(node);
 
       if (symbol !== undefined && getVirtualDeclaration(checker, symbol) !== null) {
-        if (ts.isExportSpecifier(node.parent)) {
+        if (isNoInlineArgument(node)) {
+          diagnostics.push(createNoInlineVirtualError(node, node.text));
+        } else if (ts.isExportSpecifier(node.parent)) {
           diagnostics.push(createVirtualValueReferenceError(node, node.text));
         } else if (!isErasableReference(checker, node, symbol, true)) {
           diagnostics.push(createVirtualValueReferenceError(node, node.text));
@@ -358,6 +366,60 @@ export function collectVirtualDiagnostics(program: ts.Program): Array<ts.Diagnos
 
     node.forEachChild(visitReferences);
   }
+}
+
+/**
+ * Get the name of the `@virtual` declaration targeted by a `$noInline` macro argument, if any.
+ * Virtual declarations are erased from emitted output, so suppressing their inlining must fail the build.
+ * Covers direct references, member accesses into virtual enums/objects, and calls to virtual-tagged functions.
+ *
+ * @param checker - Program type checker.
+ * @param expression - The `$noInline` macro argument expression.
+ * @returns Name of the targeted virtual declaration, or null when the target is not virtual.
+ */
+export function getVirtualOverrideTargetName(checker: ts.TypeChecker, expression: ts.Expression): string | null {
+  let symbol: ts.Symbol | undefined | null = null;
+
+  if (ts.isCallExpression(expression)) {
+    symbol = ts.isIdentifier(expression.expression) ? checker.getSymbolAtLocation(expression.expression) : null;
+  } else if (ts.isIdentifier(expression)) {
+    symbol = checker.getSymbolAtLocation(expression);
+  } else if (ts.isPropertyAccessExpression(expression) || ts.isElementAccessExpression(expression)) {
+    symbol = resolveMemberSymbol(checker, expression);
+  }
+
+  if (symbol === null || symbol === undefined) {
+    return null;
+  }
+
+  const resolved: ts.Symbol = resolveAliasedSymbol(checker, symbol);
+  const declaration: ts.Declaration | undefined = resolved.valueDeclaration;
+
+  if (declaration === undefined) {
+    return null;
+  }
+
+  if (getVirtualDeclaration(checker, resolved) !== null) {
+    return resolved.name;
+  }
+
+  if (ts.isEnumMember(declaration) && hasVirtualTag(declaration.parent)) {
+    return declaration.name.getText();
+  }
+
+  if (ts.isPropertyAssignment(declaration) || ts.isShorthandPropertyAssignment(declaration)) {
+    const statement: ts.VariableStatement | null = getContainingVariableStatement(declaration);
+
+    if (statement !== null && hasVirtualTag(statement)) {
+      return declaration.name.getText();
+    }
+  }
+
+  if (ts.isFunctionDeclaration(declaration) && hasVirtualTag(declaration)) {
+    return declaration.name?.getText() ?? "<anonymous>";
+  }
+
+  return null;
 }
 
 /**

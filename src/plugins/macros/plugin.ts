@@ -23,6 +23,10 @@ const NIL_CHECK_METHODS: Map<string, lua.BinaryOperator> = new Map([
   ["$isNotNil", lua.SyntaxKind.InequalityOperator],
 ]);
 
+// Inline-hint helpers owned by the `inline` plugin. In the recommended plugin order the `inline` plugin consumes
+// them first; this identity unwrap is a fallback for builds running the macros plugin without it.
+const INLINE_HINT_METHODS: Array<string> = ["$inline", "$noInline"];
+
 /**
  * Push generic error to notify about cast helper usage issue.
  */
@@ -44,10 +48,12 @@ export interface IMacrosPluginConfig {
   dirName?: boolean;
   /** Expand `$fromObject`/`$fromArray`/`$fromLuaArray`/`$fromLuaTable`/`$isNil`/`$isNotNil` helpers. Defaults to `true`. */
   castHelpers?: boolean;
+  /** Unwrap `$inline`/`$noInline` hints not consumed by the `inline` plugin. Defaults to `true`. */
+  inlineHints?: boolean;
 }
 
 /**
- * Create a plugin that applies compile-time macros: file metadata tokens, cast helpers and a build header.
+ * Create a plugin that applies compile-time macros: file metadata tokens, cast helpers, inline hints, and a build header.
  *
  * @param config - Selection of which macro features are enabled.
  * @returns Configured TypeScriptToLua plugin.
@@ -56,6 +62,7 @@ export function createPlugin(config: IMacrosPluginConfig = {}): Plugin {
   const injectFileName: boolean = config.fileName ?? true;
   const injectDirName: boolean = config.dirName ?? true;
   const castHelpers: boolean = config.castHelpers ?? true;
+  const inlineHints: boolean = config.inlineHints ?? true;
   const buildTimestamp: boolean = config.buildTimestamp ?? true;
 
   const plugin: Plugin = {
@@ -84,6 +91,16 @@ export function createPlugin(config: IMacrosPluginConfig = {}): Plugin {
         if (castHelpers && isIdentifier(node.expression) && FROM_CAST_METHODS.includes(node.expression.text)) {
           if (node.arguments.length !== 1) {
             context.diagnostics.push(createInvalidFunctionCallError(node));
+          }
+
+          return context.transformExpression(node.arguments[0]);
+        }
+
+        if (inlineHints && isIdentifier(node.expression) && INLINE_HINT_METHODS.includes(node.expression.text)) {
+          if (node.arguments.length !== 1) {
+            context.diagnostics.push(createInvalidFunctionCallError(node));
+
+            return context.superTransformExpression(node);
           }
 
           return context.transformExpression(node.arguments[0]);
