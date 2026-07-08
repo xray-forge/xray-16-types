@@ -1,4 +1,4 @@
-import { mockRange } from "./lua-range";
+import { mockRange } from "./mock-lua-range";
 
 describe("mockRange", () => {
   it("should produce an inclusive ascending range", () => {

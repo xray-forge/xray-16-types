@@ -5,19 +5,19 @@
 export { MockLuaMap, mockFromLuaMap } from "./mock-lua-map";
 export { MockLuaTable, mockFromLuaTable } from "./mock-lua-table";
 
-export { luaTableToArray, luaTableToObject, mapFromLua } from "./lua/lua-utils";
-export { mockDebug } from "./lua/lua-debug";
-export { mockError } from "./lua/lua-error";
-export { mockIo, MockIoFile } from "./lua/lua-io";
-export { mockJit } from "./lua/lua-jit";
-export { mockMarshal } from "./lua/lua-marshal";
-export { mockMath } from "./lua/lua-math";
-export { mockRange } from "./lua/lua-range";
-export { mockString } from "./lua/lua-string";
-export { mockTable } from "./lua/lua-table";
-export { mockToString } from "./lua/lua-tostring";
-export { mockTonumber } from "./lua/lua-tonumber";
-export { mockType } from "./lua/lua-type";
+export { luaTableToArray, luaTableToObject, mapFromLua } from "./lua/mock-lua-utils";
+export { mockDebug } from "./lua/mock-lua-debug";
+export { mockError } from "./lua/mock-lua-error";
+export { mockIo, MockIoFile } from "./lua/mock-lua-io";
+export { mockJit } from "./lua/mock-lua-jit";
+export { mockMarshal } from "./lua/mock-lua-marshal";
+export { mockMath } from "./lua/mock-lua-math";
+export { mockRange } from "./lua/mock-lua-range";
+export { mockString } from "./lua/mock-lua-string";
+export { mockTable } from "./lua/mock-lua-table";
+export { mockToString } from "./lua/mock-lua-tostring";
+export { mockTonumber } from "./lua/mock-lua-tonumber";
+export { mockType } from "./lua/mock-lua-type";
 
 export { defaultCommunities, type TDefaultCommunity } from "./xray/mock-constants";
 export { mockConfig } from "./xray/mock-config";

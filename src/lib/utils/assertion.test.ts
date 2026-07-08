@@ -1,10 +1,10 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
 import { print_stack } from "xray16";
 
-import { mockDebug } from "../../mocks/lua/lua-debug";
-import { mockError } from "../../mocks/lua/lua-error";
-import { mockString } from "../../mocks/lua/lua-string";
-import { mockToString } from "../../mocks/lua/lua-tostring";
+import { mockDebug } from "../../mocks/lua/mock-lua-debug";
+import { mockError } from "../../mocks/lua/mock-lua-error";
+import { mockString } from "../../mocks/lua/mock-lua-string";
+import { mockToString } from "../../mocks/lua/mock-lua-tostring";
 
 import { abort, assert, assertDefined, assertNonEmptyString, callstack } from "./assertion";
 

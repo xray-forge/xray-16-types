@@ -1,6 +1,6 @@
 import { MockLuaTable } from "../mock-lua-table";
 
-import { mockTable } from "./lua-table";
+import { mockTable } from "./mock-lua-table";
 
 describe("mockTable", () => {
   it("should insert appending to the next index", () => {

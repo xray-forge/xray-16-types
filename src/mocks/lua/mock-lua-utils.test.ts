@@ -1,6 +1,6 @@
 import { MockLuaTable } from "../mock-lua-table";
 
-import { luaTableToArray, luaTableToObject, mapFromLua } from "./lua-utils";
+import { luaTableToArray, luaTableToObject, mapFromLua } from "./mock-lua-utils";
 
 describe("lua conversion utils", () => {
   describe("luaTableToArray", () => {

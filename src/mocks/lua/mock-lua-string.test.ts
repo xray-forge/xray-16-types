@@ -1,5 +1,5 @@
-import { mockString } from "./lua-string";
-import { mockToString } from "./lua-tostring";
+import { mockString } from "./mock-lua-string";
+import { mockToString } from "./mock-lua-tostring";
 
 describe("mockString (fengari-backed)", () => {
   // `string.format` delegates to the global `tostring`, installed by the runtime; provide it here.

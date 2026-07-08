@@ -1,4 +1,4 @@
-import { mockType } from "./lua-type";
+import { mockType } from "./mock-lua-type";
 
 describe("mockType", () => {
   it("should report nil for null and undefined", () => {

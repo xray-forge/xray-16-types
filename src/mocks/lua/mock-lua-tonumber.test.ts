@@ -1,4 +1,4 @@
-import { mockTonumber } from "./lua-tonumber";
+import { mockTonumber } from "./mock-lua-tonumber";
 
 describe("mockTonumber", () => {
   it("should parse numeric strings", () => {

@@ -3,9 +3,9 @@ import { game, level } from "xray16";
 import { type Time } from "xray16/alias";
 
 import { mockMarshal, MockCTime, EMockPacketDataType, MockNetProcessor } from "../../mocks";
-import { mockMath } from "../../mocks/lua/lua-math";
-import { mockString } from "../../mocks/lua/lua-string";
-import { mockToString } from "../../mocks/lua/lua-tostring";
+import { mockMath } from "../../mocks/lua/mock-lua-math";
+import { mockString } from "../../mocks/lua/mock-lua-string";
+import { mockToString } from "../../mocks/lua/mock-lua-tostring";
 import { MAX_I32, MAX_U8, MIN_I32 } from "../constants";
 import { type Nillable } from "../types";
 

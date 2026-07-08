@@ -1,8 +1,8 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 
-import { mockString } from "../../mocks/lua/lua-string";
-import { mockToString } from "../../mocks/lua/lua-tostring";
-import { mockType } from "../../mocks/lua/lua-type";
+import { mockString } from "../../mocks/lua/mock-lua-string";
+import { mockToString } from "../../mocks/lua/mock-lua-tostring";
+import { mockType } from "../../mocks/lua/mock-lua-type";
 
 import { toLogValue } from "./logging";
 

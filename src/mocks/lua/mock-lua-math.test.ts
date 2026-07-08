@@ -1,4 +1,4 @@
-import { mockMath } from "./lua-math";
+import { mockMath } from "./mock-lua-math";
 
 describe("mockMath", () => {
   it("should mirror plain math helpers", () => {

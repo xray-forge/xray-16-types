@@ -1,4 +1,4 @@
-import { MockIoFile, mockIo } from "./lua-io";
+import { MockIoFile, mockIo } from "./mock-lua-io";
 
 describe("MockIoFile", () => {
   it("should write and read back content while open", () => {

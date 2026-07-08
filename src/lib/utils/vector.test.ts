@@ -3,8 +3,8 @@ import { vector, vector2 } from "xray16";
 
 import { type Vector, type Vector2D } from "../../alias";
 import { MockVector, MockVector2D } from "../../mocks";
-import { mockMath } from "../../mocks/lua/lua-math";
-import { mockString } from "../../mocks/lua/lua-string";
+import { mockMath } from "../../mocks/lua/mock-lua-math";
+import { mockString } from "../../mocks/lua/mock-lua-string";
 
 import {
   addVectors,

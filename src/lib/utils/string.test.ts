@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
 
-import { mockString } from "../../mocks/lua/lua-string";
+import { mockString } from "../../mocks/lua/mock-lua-string";
 
 import { containsSubstring } from "./string";
 

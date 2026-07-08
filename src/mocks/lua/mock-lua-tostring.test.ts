@@ -1,4 +1,4 @@
-import { mockToString } from "./lua-tostring";
+import { mockToString } from "./mock-lua-tostring";
 
 describe("mockToString", () => {
   it("should stringify nil values", () => {
