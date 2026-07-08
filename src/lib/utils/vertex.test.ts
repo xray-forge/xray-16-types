@@ -7,7 +7,7 @@ import { MAX_U32 } from "../constants";
 
 import { graphDistance, graphDistanceSqr, isGameVertexFromLevel, isValidAccessibleVertex } from "./vertex";
 
-describe("isGameVertexFromLevel util", () => {
+describe("isGameVertexFromLevel", () => {
   it("isGameVertexFromLevel should correctly check level name", () => {
     expect(isGameVertexFromLevel("pripyat", 3213)).toBe(true);
     expect(isGameVertexFromLevel("pripyat", 232)).toBe(false);
@@ -16,7 +16,7 @@ describe("isGameVertexFromLevel util", () => {
   });
 });
 
-describe("graphDistance util", () => {
+describe("graphDistance", () => {
   it("should correctly get graph distance", () => {
     expect(graphDistance(1, 2)).toBe(20);
 
@@ -30,7 +30,7 @@ describe("graphDistance util", () => {
   });
 });
 
-describe("graphDistanceSqr util", () => {
+describe("graphDistanceSqr", () => {
   it("should correctly get graph distance sqr", () => {
     expect(graphDistanceSqr(1, 2)).toBe(400);
 
@@ -44,7 +44,7 @@ describe("graphDistanceSqr util", () => {
   });
 });
 
-describe("isValidAccessibleVertex util", () => {
+describe("isValidAccessibleVertex", () => {
   it("should correctly reject invalid vertex values and check with object method", () => {
     const object: GameObject = MockGameObject.mock();
 

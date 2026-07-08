@@ -16,7 +16,7 @@ beforeAll(() => {
   (globalThis as Record<string, unknown>).debug = mockDebug;
 });
 
-describe("abort util", () => {
+describe("abort", () => {
   it("abort should correctly throw exceptions", () => {
     expect(() => abort("Basic.")).toThrow("Basic.");
     expect(print_stack).toHaveBeenCalledTimes(1);
@@ -29,7 +29,7 @@ describe("abort util", () => {
   });
 });
 
-describe("assert util", () => {
+describe("assert", () => {
   it("assert should correctly check and throw exceptions", () => {
     expect(() => assert(false, "Basic.")).toThrow("Basic.");
     expect(() => assert(2 + 2 === 5, "Basic: %s.", "reason")).toThrow("Basic: reason.");
@@ -41,9 +41,10 @@ describe("assert util", () => {
   });
 });
 
-describe("assertDefined util", () => {
+describe("assertDefined", () => {
   it("assertDefined should correctly check and throw exceptions", () => {
-    expect(() => assertDefined(null)).toThrow();
+    expect(() => assertDefined(null)).toThrow("Type assertion failed, unexpected 'nil' value provided.");
+    expect(() => assertDefined(null, "Test message.")).toThrow("Test message.");
     expect(() => assertDefined("abc")).not.toThrow();
     expect(() => assertDefined(123)).not.toThrow();
     expect(() => assertDefined(true)).not.toThrow();
@@ -52,9 +53,10 @@ describe("assertDefined util", () => {
   });
 });
 
-describe("assertNonEmptyString util", () => {
+describe("assertNonEmptyString", () => {
   it("assertNonEmptyString should correctly check and throw exceptions", () => {
-    expect(() => assertNonEmptyString(null)).toThrow();
+    expect(() => assertNonEmptyString(null)).toThrow("Type assertion failed, expected non-empty string value.");
+    expect(() => assertNonEmptyString(null, "Test message.")).toThrow("Test message.");
     expect(() => assertNonEmptyString("")).toThrow();
     expect(() => assertNonEmptyString("a")).not.toThrow();
     expect(() => assertNonEmptyString("abc")).not.toThrow();
@@ -63,7 +65,7 @@ describe("assertNonEmptyString util", () => {
   });
 });
 
-describe("callstack util", () => {
+describe("callstack", () => {
   it("callstack should correctly print debug stack", () => {
     callstack();
     callstack(6);

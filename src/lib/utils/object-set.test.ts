@@ -5,7 +5,7 @@ import { MockGameObject, MockVector } from "../../mocks";
 
 import { setObjectLookAtAnotherObject } from "./object-set";
 
-describe("setObjectLookAtAnotherObject util", () => {
+describe("setObjectLookAtAnotherObject", () => {
   it("should correctly look at another object", () => {
     const first: GameObject = MockGameObject.mock();
     const second: GameObject = MockGameObject.mock();

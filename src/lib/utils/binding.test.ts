@@ -9,7 +9,7 @@ beforeEach(() => {
   (globalThis as Record<string, unknown>)._G = {};
 });
 
-describe("extern/getExtern utils", () => {
+describe("extern/getExtern", () => {
   it("binding utils should correctly work in pair with simple examples", () => {
     extern("sample1", 10);
     expect(getExtern("sample1")).toBe(10);

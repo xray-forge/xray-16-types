@@ -4,7 +4,7 @@ import { MockDevice } from "../../mocks";
 
 import { isWideScreen } from "./screen";
 
-describe("isWideScreen util", () => {
+describe("isWideScreen", () => {
   beforeEach(() => {
     MockDevice.getInstance().width = 1920;
     MockDevice.getInstance().height = 1080;

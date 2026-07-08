@@ -13,7 +13,7 @@ beforeAll(() => {
   (globalThis as Record<string, unknown>).string = mockString;
 });
 
-describe("toLogValue util", () => {
+describe("toLogValue", () => {
   it("should correctly cast values", () => {
     expect(toLogValue(null)).toBe("<nil>");
     expect(toLogValue("")).toBe("<empty_str>");

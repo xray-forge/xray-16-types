@@ -5,10 +5,9 @@ import { type TCount } from "../scalars";
 import { type AnyArgs, type Nillable } from "../types";
 
 /**
- * Call game abort and print reason.
- * Way to throw exceptions from lua code in x-ray engine.
+ * Print the current stack and raise a formatted Lua error.
  *
- * Error message should start with capitalized letter and end with period.
+ * Error messages should start with a capital letter and end with a period.
  *
  * @param format - C-like formatted string for interpolation.
  * @param rest - Rest parameters to interpolate into format string.
@@ -20,23 +19,33 @@ export function abort(format: string, ...rest: AnyArgs): never {
 
 /**
  * Assertion function to ensure provided condition is truthy.
- * Call 'abort' in case of invalid condition.
+ * Raises a formatted error when the condition is falsy.
  *
- * @param condition - Condition to call assertion abort.
+ * @remarks
+ * `@inline` keeps the happy path as a local `if` check and avoids a function call at runtime.
+ *
+ * @inline
+ *
+ * @param condition - Condition to assert.
  * @param format - C-like formatted string for interpolation.
  * @param rest - Rest parameters to interpolate into format string.
  */
 export function assert<T = boolean>(condition: T, format: string, ...rest: AnyArgs): asserts condition {
   if (!condition) {
-    abort(string.format(format, ...rest));
+    error(string.format(format, ...rest), 2);
   }
 }
 
 /**
- * Assertion function to ensure provided value is not null.
+ * Assertion function to ensure provided value is not nil.
+ *
+ * @remarks
+ * `@inline` keeps the happy path as a local `if` check and avoids a function call at runtime.
+ *
+ * @inline
  *
  * @param value - Value to check.
- * @param format - Optional c-like formatted string for interpolation.
+ * @param format - Optional C-like formatted string for interpolation.
  * @param rest - Rest parameters to interpolate into format string.
  */
 export function assertDefined<T>(
@@ -45,29 +54,36 @@ export function assertDefined<T>(
   ...rest: AnyArgs
 ): asserts value is T {
   if ($isNil(value)) {
-    abort(string.format(format, ...rest));
+    error(string.format(format, ...rest), 2);
   }
 }
 
 /**
- * Assertion function to ensure provided value is boolean.
+ * Assertion function to ensure provided value is a non-empty string.
+ *
+ * @remarks
+ * `@inline` keeps the happy path as a local `if` check and avoids a function call at runtime.
+ *
+ * @inline
  *
  * @param value - Value to check.
- * @param format - Optional c-like formatted string for interpolation.
+ * @param format - Optional C-like formatted string for interpolation.
  * @param rest - Rest parameters to interpolate into format string.
  */
 export function assertNonEmptyString(
   value: Nillable<string>,
-  format: string = "Type assertion failed, expected boolean value.",
+  format: string = "Type assertion failed, expected non-empty string value.",
   ...rest: AnyArgs
 ): asserts value is string {
   if ($isNil(value) || value === "") {
-    abort(string.format(format, ...rest));
+    error(string.format(format, ...rest), 2);
   }
 }
 
 /**
  * Print callstack for debugging purposes.
+ *
+ * @inline
  *
  * @param level - Stack levels to print in trace logs.
  */

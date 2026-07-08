@@ -30,7 +30,7 @@ beforeAll(() => {
   (globalThis as Record<string, unknown>).marshal = mockMarshal;
 });
 
-describe("writeTimeToPacket and readTimeFromPacket utils", () => {
+describe("writeTimeToPacket and readTimeFromPacket", () => {
   it("should correctly save and load", () => {
     const processor: MockNetProcessor = new MockNetProcessor();
     const timeToWrite: Time = game.get_game_time();
