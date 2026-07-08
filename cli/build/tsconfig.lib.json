@@ -5,6 +5,7 @@
     "moduleResolution": "node",
     "target": "esnext",
     "declaration": true,
+    "preserveConstEnums": true,
     "outDir": "../../target/pkg/xray16/lib",
     "rootDir": "../../target/tmp/lib",
     "skipLibCheck": true,

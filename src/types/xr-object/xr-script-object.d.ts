@@ -645,9 +645,9 @@ declare module "xray16" {
      * Requires this object to own a physics shell or physics holder. Other object types return `null`
      * or do nothing.
      *
-     * @returns Physics object.
+     * @returns Physics object, or `null` when this object is not a physics object.
      */
-    public get_physics_object(): CPhysicObject;
+    public get_physics_object(): Nullable<CPhysicObject>;
 
     /**
      * @remarks
@@ -1701,9 +1701,9 @@ declare module "xray16" {
      * Requires this object to be an artefact. Other object types log a script error and return a
      * default value or do nothing.
      *
-     * @returns Artefact object.
+     * @returns Artefact object, or `null` when this object is not an artefact.
      */
-    public get_artefact(): CArtefact;
+    public get_artefact(): Nullable<CArtefact>;
 
     /**
      * Cast this object to a campfire.
@@ -1711,9 +1711,9 @@ declare module "xray16" {
      * @remarks
      * Requires this object to be a campfire zone. Other object types log a script error.
      *
-     * @returns Campfire object.
+     * @returns Campfire object, or `null` when this object is not a campfire.
      */
-    public get_campfire(): CZoneCampfire;
+    public get_campfire(): Nullable<CZoneCampfire>;
 
     /**
      * Get currently equipped outfit.
@@ -4737,9 +4737,9 @@ declare module "xray16" {
      * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
      * cast result may be `null` at runtime.
      *
-     * @returns Stalker wrapper.
+     * @returns Stalker wrapper, or `null`.
      */
-    public cast_Stalker(): CAI_Stalker;
+    public cast_Stalker(): Nullable<CAI_Stalker>;
 
     /**
      * Cast this object to an artefact wrapper.
@@ -4748,19 +4748,20 @@ declare module "xray16" {
      * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
      * cast result may be `null` at runtime.
      *
-     * @returns Artefact wrapper.
+     * @returns Artefact wrapper, or `null`.
      */
-    public cast_Artefact(): CArtefact;
+    public cast_Artefact(): Nullable<CArtefact>;
 
     /**
      * Cast this object to a car wrapper.
      *
      * @remarks
-     * Requires this object to be a car. Other object types log a script error.
+     * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
+     * cast result may be `null` at runtime.
      *
-     * @returns Car wrapper.
+     * @returns Car wrapper, or `null`.
      */
-    public cast_Car(): CCar;
+    public cast_Car(): Nullable<CCar>;
 
     /**
      * Cast this object to a base game object wrapper.
@@ -4769,19 +4770,20 @@ declare module "xray16" {
      * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
      * cast result may be `null` at runtime.
      *
-     * @returns Game object wrapper.
+     * @returns Game object wrapper, or `null`.
      */
-    public cast_GameObject(): CGameObject;
+    public cast_GameObject(): Nullable<CGameObject>;
 
     /**
      * Cast this object to a helicopter wrapper.
      *
      * @remarks
-     * Requires this object to be a helicopter. Other object types log a script error.
+     * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
+     * cast result may be `null` at runtime.
      *
-     * @returns Helicopter wrapper.
+     * @returns Helicopter wrapper, or `null`.
      */
-    public cast_Heli(): CHelicopter;
+    public cast_Heli(): Nullable<CHelicopter>;
 
     /**
      * Cast this object to a space restrictor wrapper.
@@ -4790,20 +4792,53 @@ declare module "xray16" {
      * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
      * cast result may be `null` at runtime.
      *
-     * @returns Space restrictor wrapper.
+     * @returns Space restrictor wrapper, or `null`.
      */
-    public cast_SpaceRestrictor(): CSpaceRestrictor;
+    public cast_SpaceRestrictor(): Nullable<CSpaceRestrictor>;
 
     /**
      * Cast this object to a holder wrapper.
      *
      * @remarks
-     * Requires this object to be a holder object. Other object types log a script error or return
-     * `null`.
+     * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
+     * cast result may be `null` at runtime.
      *
-     * @returns Holder wrapper.
+     * @returns Holder wrapper, or `null`.
      */
-    public cast_HolderCustom(): holder;
+    public cast_HolderCustom(): Nullable<holder>;
+
+    /**
+     * Cast this object to an inventory item wrapper.
+     *
+     * @remarks
+     * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
+     * cast result may be `null` at runtime.
+     *
+     * @returns Inventory item wrapper, or `null`.
+     */
+    public cast_InventoryItem(): Nullable<CInventoryItem>;
+
+    /**
+     * Cast this object to an inventory owner wrapper.
+     *
+     * @remarks
+     * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
+     * cast result may be `null` at runtime.
+     *
+     * @returns Inventory owner wrapper, or `null`.
+     */
+    public cast_InventoryOwner(): Nullable<CInventoryOwner>;
+
+    /**
+     * Cast this object to an actor wrapper.
+     *
+     * @remarks
+     * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
+     * cast result may be `null` at runtime.
+     *
+     * @returns Actor wrapper, or `null`.
+     */
+    public cast_Actor(): Nullable<CActor>;
 
     /**
      * Cast this object to a weapon wrapper.
@@ -4812,9 +4847,9 @@ declare module "xray16" {
      * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
      * cast result may be `null` at runtime.
      *
-     * @returns Weapon wrapper.
+     * @returns Weapon wrapper, or `null`.
      */
-    public cast_Weapon(): CWeapon;
+    public cast_Weapon(): Nullable<CWeapon>;
 
     /**
      * Cast this object to an ammo wrapper.
@@ -4823,9 +4858,9 @@ declare module "xray16" {
      * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
      * cast result may be `null` at runtime.
      *
-     * @returns Ammo wrapper.
+     * @returns Ammo wrapper, or `null`.
      */
-    public cast_Ammo(): CWeaponAmmo;
+    public cast_Ammo(): Nullable<CWeaponAmmo>;
 
     /**
      * Cast this object to a magazined weapon wrapper.
@@ -4834,9 +4869,9 @@ declare module "xray16" {
      * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
      * cast result may be `null` at runtime.
      *
-     * @returns Magazined weapon wrapper.
+     * @returns Magazined weapon wrapper, or `null`.
      */
-    public cast_WeaponMagazined(): CWeaponMagazined;
+    public cast_WeaponMagazined(): Nullable<CWeaponMagazined>;
 
     /**
      * Cast this object to a script zone wrapper.
@@ -4845,9 +4880,9 @@ declare module "xray16" {
      * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
      * cast result may be `null` at runtime.
      *
-     * @returns Script zone wrapper.
+     * @returns Script zone wrapper, or `null`.
      */
-    public cast_ScriptZone(): ce_script_zone;
+    public cast_ScriptZone(): Nullable<ce_script_zone>;
 
     /**
      * Cast this object to a custom zone wrapper.
@@ -4856,9 +4891,20 @@ declare module "xray16" {
      * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
      * cast result may be `null` at runtime.
      *
-     * @returns Custom zone wrapper.
+     * @returns Custom zone wrapper, or `null`.
      */
-    public cast_CustomZone(): CCustomZone;
+    public cast_CustomZone(): Nullable<CCustomZone>;
+
+    /**
+     * Cast this object to a custom monster wrapper.
+     *
+     * @remarks
+     * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
+     * cast result may be `null` at runtime.
+     *
+     * @returns Custom monster wrapper, or `null`.
+     */
+    public cast_Monster(): Nullable<CCustomMonster>;
 
     /**
      * Cast this object to an alive entity wrapper.
@@ -4867,9 +4913,9 @@ declare module "xray16" {
      * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
      * cast result may be `null` at runtime.
      *
-     * @returns Alive entity wrapper.
+     * @returns Alive entity wrapper, or `null`.
      */
-    public cast_EntityAlive(): CEntityAlive;
+    public cast_EntityAlive(): Nullable<CEntityAlive>;
 
     /**
      * Cast this object to an explosive wrapper.
@@ -4878,20 +4924,20 @@ declare module "xray16" {
      * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
      * cast result may be `null` at runtime.
      *
-     * @returns Explosive wrapper.
+     * @returns Explosive wrapper, or `null`.
      */
-    public cast_Explosive(): explosive;
+    public cast_Explosive(): Nullable<explosive>;
 
     /**
      * Cast this object to a physics shell holder wrapper.
      *
      * @remarks
-     * Requires this object to own a physics shell or physics holder. Other object types return `null`
-     * or do nothing.
+     * Returns the requested wrapper only when the runtime object has that engine type; otherwise the
+     * cast result may be `null` at runtime.
      *
-     * @returns Physics shell holder wrapper.
+     * @returns Physics shell holder wrapper, or `null`.
      */
-    public cast_PhysicsShellHolder(): CPhysicsShellHolder;
+    public cast_PhysicsShellHolder(): Nullable<CPhysicsShellHolder>;
 
     /**
      * Get time when an info portion was received.
