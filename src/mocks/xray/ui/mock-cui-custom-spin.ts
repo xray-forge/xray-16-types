@@ -3,9 +3,13 @@ import { type CUICustomSpin } from "xray16";
 
 import { MockCUIWindow } from "./mock-cui-window";
 
-export class MockCUICustomSpin extends MockCUIWindow {
+export class MockCUICustomSpin extends MockCUIWindow implements CUICustomSpin {
   public static override mock(): CUICustomSpin {
-    return new MockCUICustomSpin() as unknown as CUICustomSpin;
+    return new this() as unknown as CUICustomSpin;
+  }
+
+  public static override create(): MockCUICustomSpin {
+    return new this();
   }
 
   public text: string = "test-cs";

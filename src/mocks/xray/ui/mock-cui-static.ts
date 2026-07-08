@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals";
-import { type CUIStatic } from "xray16";
+import { type CUILines, type CUIStatic, type Frect } from "xray16";
 
 import { MockFrect } from "../mock-frect";
 
@@ -9,16 +9,20 @@ import { MockCUIWindow } from "./mock-cui-window";
 /**
  * Mock CUI static.
  */
-export class MockCUIStatic extends MockCUIWindow {
+export class MockCUIStatic extends MockCUIWindow implements CUIStatic {
   public static override mock(): CUIStatic {
-    return new MockCUIStatic() as unknown as CUIStatic;
+    return new this() as unknown as CUIStatic;
   }
 
-  public textControl: MockCUILines = new MockCUILines();
+  public static override create(): MockCUIStatic {
+    return new this();
+  }
+
+  public textControl: CUILines = MockCUILines.mock();
   public textureColor: number = 0xffffffff;
   public textColor: number = 0xffffffff;
-  public textureRect: MockFrect = new MockFrect(0, 0, 0, 0);
-  public originalRect: MockFrect = new MockFrect(0, 0, 0, 0);
+  public textureRect: Frect = new MockFrect(0, 0, 0, 0) as unknown as Frect;
+  public originalRect: Frect = new MockFrect(0, 0, 0, 0) as unknown as Frect;
   public stretchTexture: boolean = false;
   public heading: number = 0;
   public text: string = "";
@@ -46,7 +50,7 @@ export class MockCUIStatic extends MockCUIWindow {
     this.stretchTexture = stretch;
   });
 
-  public SetTextureRect = jest.fn((rect: MockFrect) => {
+  public SetTextureRect = jest.fn((rect: Frect) => {
     this.textureRect = rect;
   });
 
@@ -112,7 +116,7 @@ export class MockCUIStatic extends MockCUIWindow {
 
   public GetOriginalRect = jest.fn(() => this.originalRect);
 
-  public SetOriginalRect = jest.fn((rect: MockFrect) => {
+  public SetOriginalRect = jest.fn((rect: Frect) => {
     this.originalRect = rect;
   });
 }

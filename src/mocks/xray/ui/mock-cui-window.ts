@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals";
-import { type CUIWindow } from "xray16";
+import { type CGameFont, type CUIWindow, type Frect, type vector2 } from "xray16";
 
 import { MockFrect } from "../mock-frect";
 import { MockLuabindClass } from "../mock-luabind";
@@ -8,9 +8,13 @@ import { MockVector2D } from "../mock-vector-2d";
 /**
  * Mock base window class.
  */
-export class MockCUIWindow extends MockLuabindClass {
+export class MockCUIWindow extends MockLuabindClass implements CUIWindow {
   public static mock(): CUIWindow {
-    return new MockCUIWindow() as unknown as CUIWindow;
+    return new this() as unknown as CUIWindow;
+  }
+
+  public static create(): MockCUIWindow {
+    return new this();
   }
 
   public isEnabled: boolean = false;
@@ -21,13 +25,13 @@ export class MockCUIWindow extends MockLuabindClass {
   public mouseX: number = 0;
   public mouseY: number = 0;
 
-  public children: Array<MockCUIWindow> = [];
+  public children: Array<CUIWindow> = [];
 
-  public windowFont: unknown = null;
+  public windowFont: CGameFont | null = null;
   public windowName: string | null = null;
-  public windowRect: MockFrect | null = null;
-  public windowPosition: MockVector2D | null = MockVector2D.create();
-  public windowSize: MockVector2D | null = MockVector2D.create();
+  public windowRect: Frect | null = null;
+  public windowPosition: vector2 = MockVector2D.mock();
+  public windowSize: vector2 = MockVector2D.mock();
 
   public Enable = jest.fn((isEnabled: boolean) => {
     this.isEnabled = isEnabled;
@@ -45,56 +49,56 @@ export class MockCUIWindow extends MockLuabindClass {
 
   public IsCursorOverWindow = jest.fn(() => false);
 
-  public GetFont = jest.fn(() => this.windowFont);
+  public GetFont = jest.fn(() => this.windowFont as CGameFont);
 
   public GetMouseX = jest.fn(() => this.mouseX);
 
   public GetMouseY = jest.fn(() => this.mouseY);
 
   public GetWidth(): number {
-    return this.windowSize?.y ?? -1;
+    return this.windowSize.y;
   }
 
   public GetHeight(): number {
-    return this.windowSize?.x ?? -1;
+    return this.windowSize.x;
   }
 
   public SetAutoDelete = jest.fn((isAutoDelete: boolean) => {
     this.isAutoDelete = isAutoDelete;
   });
 
-  public SetWndPos = jest.fn((positionOrX: MockVector2D | number, y?: number) => {
+  public SetWndPos = jest.fn((positionOrX: vector2 | number, y?: number) => {
     this.windowPosition =
-      typeof positionOrX === "number" ? MockVector2D.create(positionOrX, y ?? 0) : positionOrX;
+      typeof positionOrX === "number" ? MockVector2D.mock(positionOrX, y ?? 0) : positionOrX;
   });
 
-  public SetWndSize = jest.fn((sizeOrWidth: MockVector2D | number, height?: number) => {
+  public SetWndSize = jest.fn((sizeOrWidth: vector2 | number, height?: number) => {
     this.windowSize =
-      typeof sizeOrWidth === "number" ? MockVector2D.create(sizeOrWidth, height ?? 0) : sizeOrWidth;
+      typeof sizeOrWidth === "number" ? MockVector2D.mock(sizeOrWidth, height ?? 0) : sizeOrWidth;
   });
 
   public GetWndPos = jest.fn(() => {
     return this.windowPosition;
   });
 
-  public SetWndRect = jest.fn((rectOrX: MockFrect | number, y?: number, width?: number, height?: number) => {
+  public SetWndRect = jest.fn((rectOrX: Frect | number, y?: number, width?: number, height?: number) => {
     this.windowRect =
-      typeof rectOrX === "number" ? new MockFrect(rectOrX, y ?? 0, width ?? 0, height ?? 0) : rectOrX;
+      typeof rectOrX === "number" ? (new MockFrect(rectOrX, y ?? 0, width ?? 0, height ?? 0) as unknown as Frect) : rectOrX;
   });
 
   public GetAbsoluteRect = jest.fn(() => {
-    return this.windowRect ?? new MockFrect(0, 0, this.GetWidth(), this.GetHeight());
+    return this.windowRect ?? (new MockFrect(0, 0, this.GetWidth(), this.GetHeight()) as unknown as Frect);
   });
 
   public SetWindowName = jest.fn((name: string): void => {
     this.windowName = name;
   });
 
-  public AttachChild = jest.fn((window: MockCUIWindow): void => {
+  public AttachChild = jest.fn((window: CUIWindow): void => {
     this.children.push(window);
   });
 
-  public DetachChild = jest.fn((window: MockCUIWindow): void => {
+  public DetachChild = jest.fn((window: CUIWindow): void => {
     const index = this.children.indexOf(window);
 
     if (index >= 0) {
@@ -102,9 +106,9 @@ export class MockCUIWindow extends MockLuabindClass {
     }
   });
 
-  public WindowName = jest.fn(() => this.windowName);
+  public WindowName = jest.fn(() => this.windowName ?? "");
 
-  public SetFont = jest.fn((font: unknown) => {
+  public SetFont = jest.fn((font: CGameFont) => {
     this.windowFont = font;
   });
 
@@ -113,17 +117,17 @@ export class MockCUIWindow extends MockLuabindClass {
   });
 
   public SetHeight = jest.fn((height: number) => {
-    this.windowSize = MockVector2D.create(this.GetWidth(), height);
+    this.windowSize = MockVector2D.mock(this.GetWidth(), height);
   });
 
   public SetWidth = jest.fn((width: number) => {
-    this.windowSize = MockVector2D.create(width, this.GetHeight());
+    this.windowSize = MockVector2D.mock(width, this.GetHeight());
   });
 
   public FocusReceiveTime = jest.fn(() => this.focusReceiveTime);
 
-  public Init = jest.fn((rectOrX: MockFrect | number, y?: number, width?: number, height?: number) => {
-    this.SetWndRect(rectOrX as MockFrect, y, width, height);
+  public Init = jest.fn((rectOrX: Frect | number, y?: number, width?: number, height?: number) => {
+    this.SetWndRect(rectOrX, y, width, height);
   });
 
   public ResetPPMode = jest.fn(() => {
