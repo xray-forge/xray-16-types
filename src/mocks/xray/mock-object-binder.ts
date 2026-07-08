@@ -1,7 +1,7 @@
 import { type game_object, type object_binder } from "xray16";
 
 import { MockLuabindClass } from "./mock-luabind";
-import { type MockNetProcessor } from "./net-processor";
+import { type MockNetProcessor } from "./mock-net-processor";
 
 /**
  * Mock of the X-Ray engine object binder (client object lifecycle wrapper).

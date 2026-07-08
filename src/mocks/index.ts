@@ -95,7 +95,7 @@ export { MockStaticDrawableWrapper } from "./xray/ui/mock-static-drawable-wrappe
 export { MockConnectErrorCb } from "./xray/ui/mock-connect-error-cb";
 export { MockLoginOperationCb } from "./xray/ui/mock-login-operation-cb";
 export { MockProfile } from "./xray/ui/mock-profile";
-export { EMockPacketDataType, MockNetProcessor } from "./xray/net-processor";
+export { EMockPacketDataType, MockNetProcessor } from "./xray/mock-net-processor";
 export { MockActionBase, mockActionBase } from "./xray/mock-action-base";
 export { MockActionPlanner, mockActionPlanner } from "./xray/mock-action-planner";
 export { MockAnim } from "./xray/mock-anim";

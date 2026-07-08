@@ -5,7 +5,7 @@ export default {
   roots: ["<rootDir>/src"],
   testEnvironment: "node",
   moduleNameMapper: {
-    "^xray16$": "<rootDir>/src/mocks/xray/xray16-runtime.ts",
+    "^xray16$": "<rootDir>/src/mocks/xray16-runtime.ts",
     "^xray16/macros$": "<rootDir>/src/macros.ts",
   },
   transform: {

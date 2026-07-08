@@ -1,19 +1,19 @@
 import { jest } from "@jest/globals";
 
-import { MockDevice } from "./mock-device";
-import { MockCGameGraph } from "./mock-game-graph";
-import { MockAlifeSimulator } from "./server/mock-alife-simulator";
+import { MockDevice } from "./xray/mock-device";
+import { MockCGameGraph } from "./xray/mock-game-graph";
+import { MockAlifeSimulator } from "./xray/server/mock-alife-simulator";
 
 /**
  * Runtime stand-in for the `xray16` engine module under jest/node.
  * The real `xray16` module only exists inside the game process.
  */
-export { MockVector as vector } from "./mock-vector";
-export { MockVector2D as vector2 } from "./mock-vector-2d";
-export { MockCTime as CTime } from "./mock-ctime";
-export { MockCSightParams as CSightParams } from "./mock-sight-params";
-export { mockGameInterface as game } from "./mock-game";
-export { mockLevelInterface as level } from "./mock-level";
+export { MockVector as vector } from "./xray/mock-vector";
+export { MockVector2D as vector2 } from "./xray/mock-vector-2d";
+export { MockCTime as CTime } from "./xray/mock-ctime";
+export { MockCSightParams as CSightParams } from "./xray/mock-sight-params";
+export { mockGameInterface as game } from "./xray/mock-game";
+export { mockLevelInterface as level } from "./xray/mock-level";
 
 export const alife = jest.fn(() => MockAlifeSimulator.mock());
 export const device = jest.fn(() => MockDevice.getInstance());
