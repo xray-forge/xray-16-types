@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals";
-import type { CAILifeMonsterBrain, cse_alife_creature_abstract, cse_alife_object, rotation } from "xray16";
+import type { CALifeMonsterBrain, cse_alife_creature_abstract, cse_alife_object, rotation } from "xray16";
 
 import { MockCAlifeMonsterBrain } from "../mock-alife-monster-brain";
 import { MAX_ALIFE_ID } from "../mock-constants";
@@ -30,7 +30,7 @@ export class MockServerAlifeCreatureAbstract extends MockAlifeDynamicObjectVisua
   public objectTravelSpeed: number;
   public objectCurrentLevelTravelSpeed: number;
   public objectHasDetector: boolean;
-  public aiBrain: CAILifeMonsterBrain = MockCAlifeMonsterBrain.mockInterface();
+  public aiBrain: CALifeMonsterBrain = MockCAlifeMonsterBrain.mock();
 
   public constructor(config: IMockAlifeObjectConfig) {
     super(config);

@@ -550,7 +550,7 @@ declare module "xray16" {
    * @remarks
    * Belongs to an offline monster server object. Do not use it with client-side `game_object` instances.
    */
-  export class CAILifeMonsterBrain {
+  export class CALifeMonsterBrain {
     /**
      * Create a brain for a monster server object.
      *
@@ -676,44 +676,6 @@ declare module "xray16" {
      * @returns Smart terrain assigned to the owner.
      */
     public smart_terrain(): cse_alife_smart_zone;
-  }
-
-  /**
-   * ALife monster brain binding.
-   *
-   * @source C++ class CALifeMonsterBrain
-   * @customConstructor CALifeMonsterBrain
-   * @group xr_alife
-   *
-   * @remarks
-   * Script-visible subset of the offline monster brain. `update()` is bound as a forced update.
-   */
-  export class CALifeMonsterBrain {
-    /**
-     * Get the offline movement manager.
-     *
-     * @returns Monster movement manager.
-     */
-    public movement(): CALifeMonsterMovementManager;
-
-    /**
-     * Update offline ALife planning for the monster.
-     */
-    public update(): void;
-
-    /**
-     * Check whether this brain may choose ALife tasks.
-     *
-     * @returns Whether ALife task selection is enabled.
-     */
-    public can_choose_alife_tasks(): boolean;
-
-    /**
-     * Enable or disable ALife task selection.
-     *
-     * @param can_choose - New task-selection state.
-     */
-    public can_choose_alife_tasks(can_choose: boolean): void;
   }
 
   /**

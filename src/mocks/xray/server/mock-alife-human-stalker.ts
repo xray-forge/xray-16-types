@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals";
-import type { CAILifeMonsterBrain, cse_alife_human_abstract } from "xray16";
+import type { CALifeMonsterBrain, cse_alife_human_abstract } from "xray16";
 
 import { MockCAlifeMonsterBrain } from "../mock-alife-monster-brain";
 import { mockClsid } from "../mock-clsid";
@@ -35,7 +35,7 @@ export class MockAlifeHumanStalker extends MockServerAlifeCreatureAbstract imple
   }
 
   public override m_smart_terrain_id: number = MAX_ALIFE_ID;
-  public override aiBrain: CAILifeMonsterBrain = MockCAlifeMonsterBrain.mockInterface();
+  public override aiBrain: CALifeMonsterBrain = MockCAlifeMonsterBrain.mock();
   public objectProfileName: string = "stalker_profile";
   public objectReputation: number = 0;
 

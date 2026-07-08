@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals";
-import { type CAILifeMonsterBrain, type CALifeMonsterBrain } from "xray16";
+import { type CALifeMonsterBrain } from "xray16";
 
 /**
  * Mock of the X-Ray engine `CALifeMonsterBrain` alife brain.
@@ -9,10 +9,6 @@ export class MockCAlifeMonsterBrain {
 
   public static mock(): CALifeMonsterBrain {
     return new MockCAlifeMonsterBrain() as unknown as CALifeMonsterBrain;
-  }
-
-  public static mockInterface(): CAILifeMonsterBrain {
-    return new MockCAlifeMonsterBrain() as unknown as CAILifeMonsterBrain;
   }
 
   public select_task = jest.fn();

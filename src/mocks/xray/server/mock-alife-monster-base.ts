@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals";
-import type { CAILifeMonsterBrain, cse_alife_monster_base } from "xray16";
+import type { CALifeMonsterBrain, cse_alife_monster_base } from "xray16";
 
 import { MockCAlifeMonsterBrain } from "../mock-alife-monster-brain";
 import { mockClsid } from "../mock-clsid";
@@ -31,7 +31,7 @@ export class MockAlifeMonsterBase extends MockServerAlifeCreatureAbstract implem
     return object;
   }
 
-  public override aiBrain: CAILifeMonsterBrain = MockCAlifeMonsterBrain.mockInterface();
+  public override aiBrain: CALifeMonsterBrain = MockCAlifeMonsterBrain.mock();
 
   public override objectRank: number = -1;
 

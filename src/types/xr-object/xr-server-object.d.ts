@@ -711,7 +711,7 @@ declare module "xray16" {
      *
      * @returns ALife brain that drives offline monster behavior.
      */
-    public brain(): CAILifeMonsterBrain;
+    public brain(): CALifeMonsterBrain;
 
     /**
      * @returns Whether the creature has a detector.
