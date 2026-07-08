@@ -1,5 +1,6 @@
 import { jest } from "@jest/globals";
 
+import { MockConsole } from "./xray/mock-console";
 import { MockDevice } from "./xray/mock-device";
 import {
   mockGetFontDI,
@@ -41,6 +42,7 @@ export const GetFontLetterica18Russian = mockGetFontLetterica18Russian;
 export const GetFontLetterica25 = mockGetFontLetterica25;
 export const GetFontMedium = mockGetFontMedium;
 export const GetFontSmall = mockGetFontSmall;
+export const get_console = jest.fn((): MockConsole => MockConsole.getInstance());
 export const time_global = jest.fn((): number => 0);
 export const verify_if_thread_is_running = jest.fn((): void => {});
 export const log = jest.fn((): void => {});
