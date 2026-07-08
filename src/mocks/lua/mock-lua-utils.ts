@@ -19,36 +19,47 @@ export function luaTableToArray<T = unknown>(value: Nillable<LuaArray<T>>): Arra
 /**
  * Transform in a recursive way lua tables to JS arrays for easier testing/verification.
  */
-export function luaTableToObject(value: unknown): unknown {
-  if (value === null) {
+export function luaTableToObject(value: unknown, ancestors: WeakSet<object> = new WeakSet()): unknown {
+  if (value === null || typeof value !== "object") {
     return value;
   }
 
-  if (value instanceof MockLuaTable) {
-    return [...value.entries()].reduce((acc, [key, value]) => {
-      acc[key] = luaTableToObject(value);
+  // A back-reference to an ancestor closes a cycle; return it as-is instead of recursing forever.
+  if (ancestors.has(value)) {
+    return value;
+  }
 
-      return acc;
-    }, {} as AnyObject);
-  } else if (Array.isArray(value)) {
-    return value.reduce((acc: Array<unknown>, it, index) => {
-      acc[index + 1] = luaTableToObject(it as AnyObject);
+  if ((value as AnyObject)["$$typeof"]) {
+    return value;
+  }
 
-      return acc;
-    }, {});
-  } else if (typeof value === "object") {
-    if ((value as AnyObject)["$$typeof"]) {
-      return value;
+  ancestors.add(value);
+
+  const result: AnyObject = (() => {
+    if (value instanceof MockLuaTable) {
+      return [...value.entries()].reduce((acc, [key, entry]) => {
+        acc[key] = luaTableToObject(entry, ancestors);
+
+        return acc;
+      }, {} as AnyObject);
+    } else if (Array.isArray(value)) {
+      return value.reduce((acc: Array<unknown>, it, index) => {
+        acc[index + 1] = luaTableToObject(it as AnyObject, ancestors);
+
+        return acc;
+      }, {} as Array<unknown>) as unknown as AnyObject;
     }
 
-    return Object.entries(value).reduce((acc, [key, value]) => {
-      acc[key as unknown as string] = luaTableToObject(value);
+    return Object.entries(value).reduce((acc, [key, entry]) => {
+      acc[key] = luaTableToObject(entry, ancestors);
 
       return acc;
     }, {} as AnyObject);
-  } else {
-    return value;
-  }
+  })();
+
+  ancestors.delete(value);
+
+  return result;
 }
 
 /**
