@@ -201,8 +201,9 @@ export function use(x: number): number {
     );
 
     expect(errors).toEqual([
-      "'@inline' function 'clampBad' must have a single 'return <expression>' or 'void' expression-statement body " +
-        "and only plain parameters (no rest or destructuring) to be inlinable.",
+      "'@inline' function 'clampBad' must have a single 'return <expression>' or 'void' expression-statement body, " +
+        "or a single 'if (condition) { ... }' guard statement, and only plain parameters (a trailing rest is " +
+        "allowed for guards; no destructuring) to be inlinable.",
     ]);
     expect(lua["main.lua"]).toBe(`local ____exports = {}
 ---
@@ -215,6 +216,124 @@ local function clampBad(self, value, min, max)
 end
 function ____exports.use(self, x)
     return clampBad(nil, x, 0, 10)
+end
+return ____exports
+`);
+  });
+
+  it("should inline a guard function into a statement-position 'if'", () => {
+    const { errors, lua } = transpileWithPlugins(
+      {
+        "main.ts": `
+declare function fail(this: void, msg: string): void;
+
+/** @inline */
+function assertPositive(value: number, msg: string): void {
+  if (value < 0) {
+    fail(msg);
+  }
+}
+
+export function use(x: number): void {
+  assertPositive(x, "must be positive");
+}
+`,
+      },
+      { plugins: [plugin] }
+    );
+
+    expect(errors).toEqual([]);
+    // The guard folds into a bare `if`; the happy path is a branch, not a call.
+    expect(lua["main.lua"]).toBe(`local ____exports = {}
+---
+-- @inline
+local function assertPositive(self, value, msg)
+    if value < 0 then
+        fail(msg)
+    end
+end
+function ____exports.use(self, x)
+    if x < 0 then
+        fail("must be positive")
+    end
+end
+return ____exports
+`);
+  });
+
+  it("should spread a trailing rest parameter of a guard function", () => {
+    const { errors, lua } = transpileWithPlugins(
+      {
+        "main.ts": `
+declare function fail(this: void, ...rest: Array<unknown>): void;
+
+/** @inline */
+function guard(condition: boolean, ...rest: Array<unknown>): void {
+  if (!condition) {
+    fail("prefix", ...rest);
+  }
+}
+
+export function use(x: number): void {
+  guard(x > 0, x, "extra");
+}
+`,
+      },
+      { plugins: [plugin] }
+    );
+
+    expect(errors).toEqual([]);
+    // `...rest` expands to the caller's trailing arguments.
+    expect(lua["main.lua"]).toBe(`local ____exports = {}
+---
+-- @inline
+local function guard(self, condition, ...)
+    if not condition then
+        fail("prefix", ...)
+    end
+end
+function ____exports.use(self, x)
+    if not (x > 0) then
+        fail("prefix", x, "extra")
+    end
+end
+return ____exports
+`);
+  });
+
+  it("should keep a real call when a guard function is not at statement position", () => {
+    const { errors, lua } = transpileWithPlugins(
+      {
+        "main.ts": `
+declare function fail(this: void, msg: string): void;
+
+/** @inline */
+function guard(condition: boolean, msg: string): void {
+  if (!condition) {
+    fail(msg);
+  }
+}
+
+export function use(x: number): () => void {
+  return () => guard(x > 0, "bad");
+}
+`,
+      },
+      { plugins: [plugin] }
+    );
+
+    // A concise-body arrow call is not Lua statement position, so the guard is not spliced. It stays a call.
+    expect(errors).toEqual([]);
+    expect(lua["main.lua"]).toBe(`local ____exports = {}
+---
+-- @inline
+local function guard(self, condition, msg)
+    if not condition then
+        fail(msg)
+    end
+end
+function ____exports.use(self, x)
+    return function() return guard(nil, x > 0, "bad") end
 end
 return ____exports
 `);
@@ -239,7 +358,16 @@ export function use(data: { set(this: void, key: string): void }): void {
 
     expect(errors).toEqual([]);
     // The call to the inlinable helper is spliced into `use`; only its definition remains.
-    expect(lua["main.lua"]).toContain(`data.set("flag")`);
-    expect(lua["main.lua"]).not.toContain("poke(data");
+    expect(lua["main.lua"]).toBe(`local ____exports = {}
+---
+-- @inline
+local function poke(self, target, key)
+    target.set(key)
+end
+function ____exports.use(self, data)
+    data.set("flag")
+end
+return ____exports
+`);
   });
 });

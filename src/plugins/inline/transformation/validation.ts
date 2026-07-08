@@ -14,7 +14,7 @@ import {
   createUnsupportedDeclarationError,
 } from "./errors";
 import { getComputedDeclarationValue, isComputableEnumMember } from "./evaluation";
-import { isInlinableFunction } from "./functions";
+import { isInlinableFunction, isInlinableGuardFunction } from "./functions";
 
 /**
  * Validate `@inline` tagged variable statement and push diagnostics for not supported shapes.
@@ -105,7 +105,7 @@ export function validateTopLevelTags(program: ts.Program): Array<ts.Diagnostic> 
       }
 
       if (ts.isFunctionDeclaration(statement)) {
-        if (!isInlinableFunction(statement)) {
+        if (!isInlinableFunction(statement) && !isInlinableGuardFunction(statement)) {
           diagnostics.push(createNotInlinableFunctionError(statement, statement.name?.getText() ?? "<anonymous>"));
         }
       } else if (!ts.isVariableStatement(statement) && !ts.isEnumDeclaration(statement)) {
