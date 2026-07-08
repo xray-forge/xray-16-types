@@ -1,9 +1,9 @@
-﻿# X-Ray 16 TypeScript Bindings
+﻿# XRF X-Ray 16 SDK
 
 [![npm version](https://img.shields.io/npm/v/xray16)](https://www.npmjs.com/package/xray16)
-[![types](https://img.shields.io/badge/docs-types-blue.svg?style=flat)](https://xray-forge.github.io/xray-16-types/index.html)
+[![types](https://img.shields.io/badge/docs-types-blue.svg?style=flat)](https://xray-forge.github.io/stalker-xrf-xray16-sdk/index.html)
 [![book](https://img.shields.io/badge/docs-book-blue.svg?style=flat)](https://xray-forge.github.io/stalker-xrf-book)
-[![Node.js CI](https://github.com/xray-forge/xray-16-types/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/xray-forge/xray-16-types/actions/workflows/build_and_test.yml)
+[![Node.js CI](https://github.com/xray-forge/stalker-xrf-xray16-sdk/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/xray-forge/stalker-xrf-xray16-sdk/actions/workflows/build_and_test.yml)
 
 `xray16` provides TypeScript declarations for Lua-visible X-Ray 16 engine APIs. It is built for projects that compile TypeScript to Lua with [TypeScriptToLua](https://typescripttolua.github.io/docs/getting-started), such as [stalker-xrf-engine](https://github.com/xray-forge/stalker-xrf-engine).
 
@@ -23,10 +23,10 @@ The package includes:
 npm install xray16 typescript-to-lua
 ```
 
-Pre-release builds are available through two channels: `xray16@experimental` on npm for manually published release candidates, and a rolling [nightly GitHub release](https://github.com/xray-forge/xray-16-types/releases/tag/nightly) with a tarball uploaded after every successful `main` build:
+Pre-release builds are available through two channels: `xray16@experimental` on npm for manually published release candidates, and a rolling [nightly GitHub release](https://github.com/xray-forge/stalker-xrf-xray16-sdk/releases/tag/nightly) with a tarball uploaded after every successful `main` build:
 
 ```sh
-npm install https://github.com/xray-forge/xray-16-types/releases/download/nightly/xray16-nightly.tgz
+npm install https://github.com/xray-forge/stalker-xrf-xray16-sdk/releases/download/nightly/xray16-nightly.tgz
 ```
 
 Add the base declarations to the TypeScript `types` array. Add only the ambient typedef packages your project uses.
@@ -169,7 +169,7 @@ See [src/plugins/luabind/README.md](src/plugins/luabind/README.md) for construct
 
 ## API Documentation
 
-Generated TypeDoc output is published at [xray-forge.github.io/xray-16-types](https://xray-forge.github.io/xray-16-types/index.html).
+Generated TypeDoc output is published at [xray-forge.github.io/stalker-xrf-xray16-sdk](https://xray-forge.github.io/stalker-xrf-xray16-sdk/index.html).
 
 The declarations document TypeScript-visible API shape. Runtime behavior is still defined by the engine C++ bindings. For ambiguous behavior, check the X-Ray source before relying on declaration syntax alone.
 

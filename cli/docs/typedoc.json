@@ -10,7 +10,7 @@
   "cleanOutputDir": true,
   "searchInComments": true,
   "navigationLinks": {
-    "GitHub": "https://github.com/xray-forge/xray-16-types",
+    "GitHub": "https://github.com/xray-forge/stalker-xrf-xray16-sdk",
     "npm": "https://www.npmjs.com/package/xray16"
   },
   "intentionallyNotExported": ["Nullable", "Nillable"],

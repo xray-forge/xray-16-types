@@ -1,9 +1,9 @@
 {
-  "name": "xray-16-types-project",
+  "name": "stalker-xrf-xray16-sdk",
   "version": "1.0.0",
   "author": "Neloreck",
-  "repository": "https://github.com/xray-forge/xray-16-types",
-  "homepage": "https://xray-forge.github.io/xray-16-types/index.html",
+  "repository": "https://github.com/xray-forge/stalker-xrf-xray16-sdk",
+  "homepage": "https://xray-forge.github.io/stalker-xrf-xray16-sdk/index.html",
   "private": true,
   "scripts": {
     "clean": "rimraf ./target",
