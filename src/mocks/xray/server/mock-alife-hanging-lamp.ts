@@ -10,4 +10,8 @@ export class MockAlifeHangingLamp extends MockAlifeDynamicObjectVisual implement
   public static override mock(config: IMockAlifeObjectConfig = {}): cse_alife_object_hanging_lamp {
     return new this(config) as unknown as cse_alife_object_hanging_lamp;
   }
+
+  public static override create(config: IMockAlifeObjectConfig = {}): MockAlifeHangingLamp {
+    return new this(config);
+  }
 }

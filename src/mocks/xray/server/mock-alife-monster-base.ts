@@ -23,6 +23,14 @@ export class MockAlifeMonsterBase extends MockServerAlifeCreatureAbstract implem
     return object as unknown as cse_alife_monster_base;
   }
 
+  public static override create(config: IMockAlifeObjectConfig = {}): MockAlifeMonsterBase {
+    const object: MockAlifeMonsterBase = new this({ ...config, clsid: config.clsid ?? mockClsid.bloodsucker_s });
+
+    object.objectRank = config.rank ?? -1;
+
+    return object;
+  }
+
   public override aiBrain: CAILifeMonsterBrain = MockCAlifeMonsterBrain.mockInterface();
 
   public override objectRank: number = -1;

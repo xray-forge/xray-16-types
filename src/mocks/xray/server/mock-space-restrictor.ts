@@ -10,4 +10,8 @@ export class MockSpaceRestrictor extends MockAlifeDynamicObject implements cse_a
   public static override mock(config: IMockAlifeObjectConfig = {}): cse_alife_space_restrictor {
     return new this(config) as unknown as cse_alife_space_restrictor;
   }
+
+  public static override create(config: IMockAlifeObjectConfig = {}): MockSpaceRestrictor {
+    return new this(config);
+  }
 }

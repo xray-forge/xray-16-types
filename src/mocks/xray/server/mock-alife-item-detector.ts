@@ -10,4 +10,8 @@ export class MockAlifeItemDetector extends MockAlifeItem implements cse_alife_it
   public static override mock(config: IMockAlifeObjectConfig = {}): cse_alife_item_detector {
     return new this(config) as unknown as cse_alife_item_detector;
   }
+
+  public static override create(config: IMockAlifeObjectConfig = {}): MockAlifeItemDetector {
+    return new this(config);
+  }
 }

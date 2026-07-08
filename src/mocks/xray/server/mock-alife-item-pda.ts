@@ -10,4 +10,8 @@ export class MockAlifeItemPda extends MockAlifeItem implements cse_alife_item_pd
   public static override mock(config: IMockAlifeObjectConfig = {}): cse_alife_item_pda {
     return new this(config) as unknown as cse_alife_item_pda;
   }
+
+  public static override create(config: IMockAlifeObjectConfig = {}): MockAlifeItemPda {
+    return new this(config);
+  }
 }

@@ -15,6 +15,10 @@ export class MockAlifeCreatureActor extends MockServerAlifeCreatureAbstract impl
     return new this(config) as unknown as cse_alife_creature_actor;
   }
 
+  public static override create(config: IMockAlifeObjectConfig = {}): MockAlifeCreatureActor {
+    return new this(config);
+  }
+
   public constructor(config: IMockAlifeObjectConfig = {}) {
     super({
       ...config,

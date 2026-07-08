@@ -10,4 +10,8 @@ export class MockZoneVisual extends MockAnomalousZone implements cse_zone_visual
   public static override mock(config: IMockAlifeObjectConfig = {}): cse_zone_visual {
     return new this(config) as unknown as cse_zone_visual;
   }
+
+  public static override create(config: IMockAlifeObjectConfig = {}): MockZoneVisual {
+    return new this(config);
+  }
 }

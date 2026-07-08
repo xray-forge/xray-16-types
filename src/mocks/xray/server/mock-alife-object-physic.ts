@@ -10,4 +10,8 @@ export class MockAlifeObjectPhysic extends MockAlifeDynamicObjectVisual implemen
   public static override mock(config: IMockAlifeObjectConfig = {}): cse_alife_object_physic {
     return new this(config) as unknown as cse_alife_object_physic;
   }
+
+  public static override create(config: IMockAlifeObjectConfig = {}): MockAlifeObjectPhysic {
+    return new this(config);
+  }
 }

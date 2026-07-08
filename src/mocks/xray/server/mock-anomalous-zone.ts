@@ -10,4 +10,8 @@ export class MockAnomalousZone extends MockAlifeDynamicObject implements cse_ano
   public static override mock(config: IMockAlifeObjectConfig = {}): cse_anomalous_zone {
     return new this(config) as unknown as cse_anomalous_zone;
   }
+
+  public static override create(config: IMockAlifeObjectConfig = {}): MockAnomalousZone {
+    return new this(config);
+  }
 }

@@ -10,4 +10,8 @@ export class MockAlifeItemTorch extends MockAlifeItem implements cse_alife_item_
   public static override mock(config: IMockAlifeObjectConfig = {}): cse_alife_item_torch {
     return new this(config) as unknown as cse_alife_item_torch;
   }
+
+  public static override create(config: IMockAlifeObjectConfig = {}): MockAlifeItemTorch {
+    return new this(config);
+  }
 }

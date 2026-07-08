@@ -10,4 +10,8 @@ export class MockAlifeHelicopter extends MockAlifeDynamicObjectVisual implements
   public static override mock(config: IMockAlifeObjectConfig = {}): cse_alife_helicopter {
     return new this(config) as unknown as cse_alife_helicopter;
   }
+
+  public static override create(config: IMockAlifeObjectConfig = {}): MockAlifeHelicopter {
+    return new this(config);
+  }
 }

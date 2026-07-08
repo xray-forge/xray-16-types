@@ -27,6 +27,10 @@ export class MockAlifeSmartZone extends MockAlifeDynamicObject implements cse_al
     return new this({ ...config, clsid: mockClsid.smart_zone }) as unknown as cse_alife_smart_zone;
   }
 
+  public static override create(config: IMockAlifeSmartZoneConfig = {}): MockAlifeSmartZone {
+    return new this({ ...config, clsid: config.clsid ?? mockClsid.smart_zone });
+  }
+
   public constructor(config: IMockAlifeSmartZoneConfig = {}) {
     super({ ...config, clsid: config.clsid ?? mockClsid.smart_zone });
 

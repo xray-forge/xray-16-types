@@ -14,6 +14,10 @@ export class MockAlifeItemWeapon extends MockAlifeItem implements cse_alife_item
     return new this(config) as unknown as cse_alife_item_weapon;
   }
 
+  public static override create(config: IMockAlifeObjectConfig = {}): MockAlifeItemWeapon {
+    return new this(config);
+  }
+
   public clone_addons(_weapon: cse_alife_item_weapon): void {}
 
   public set_ammo_elapsed(count: number): void {

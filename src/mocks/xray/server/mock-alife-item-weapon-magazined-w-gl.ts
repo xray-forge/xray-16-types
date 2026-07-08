@@ -10,4 +10,8 @@ export class MockAlifeItemWeaponMagazinedWGL extends MockAlifeItemWeapon impleme
   public static override mock(config: IMockAlifeObjectConfig = {}): cse_alife_item_weapon_magazined_w_gl {
     return new this(config) as unknown as cse_alife_item_weapon_magazined_w_gl;
   }
+
+  public static override create(config: IMockAlifeObjectConfig = {}): MockAlifeItemWeaponMagazinedWGL {
+    return new this(config);
+  }
 }

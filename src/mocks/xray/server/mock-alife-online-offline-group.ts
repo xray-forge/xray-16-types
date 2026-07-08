@@ -29,6 +29,13 @@ export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject implemen
     }) as unknown as cse_alife_online_offline_group;
   }
 
+  public static override create(config: IMockAlifeObjectConfig = {}): MockAlifeOnlineOfflineGroup {
+    return new this({
+      ...config,
+      clsid: mockClsid.online_offline_group_s,
+    });
+  }
+
   public members: Array<IXR_squad_member<cse_alife_creature_abstract>> = [];
   public object: cse_alife_creature_abstract = null as unknown as cse_alife_creature_abstract;
   public invulnerable!: TConditionList;

@@ -11,6 +11,10 @@ export class MockAlifeItem extends MockAlifeDynamicObjectVisual implements cse_a
     return new this(config) as unknown as cse_alife_item;
   }
 
+  public static override create(config: IMockAlifeObjectConfig = {}): MockAlifeItem {
+    return new this(config);
+  }
+
   public objectUpgrades: Set<string> = new Set();
   public isUsefulForNpc: boolean = false;
 

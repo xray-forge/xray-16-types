@@ -10,4 +10,8 @@ export class MockTorridZone extends MockAlifeDynamicObject implements cse_torrid
   public static override mock(config: IMockAlifeObjectConfig = {}): cse_torrid_zone {
     return new this(config) as unknown as cse_torrid_zone;
   }
+
+  public static override create(config: IMockAlifeObjectConfig = {}): MockTorridZone {
+    return new this(config);
+  }
 }

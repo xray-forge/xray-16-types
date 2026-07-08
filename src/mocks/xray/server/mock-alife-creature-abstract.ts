@@ -15,6 +15,10 @@ export class MockServerAlifeCreatureAbstract extends MockAlifeDynamicObjectVisua
     return new this(config) as unknown as cse_alife_creature_abstract;
   }
 
+  public static override create(config: IMockAlifeObjectConfig = {}): MockServerAlifeCreatureAbstract {
+    return new this(config);
+  }
+
   public squad: number;
   public team: number;
   public group: number;

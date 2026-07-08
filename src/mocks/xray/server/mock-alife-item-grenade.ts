@@ -10,4 +10,8 @@ export class MockAlifeItemGrenade extends MockAlifeItem implements cse_alife_ite
   public static override mock(config: IMockAlifeObjectConfig = {}): cse_alife_item_grenade {
     return new this(config) as unknown as cse_alife_item_grenade;
   }
+
+  public static override create(config: IMockAlifeObjectConfig = {}): MockAlifeItemGrenade {
+    return new this(config);
+  }
 }

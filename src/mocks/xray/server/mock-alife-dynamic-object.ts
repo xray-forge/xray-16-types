@@ -10,6 +10,10 @@ export class MockAlifeDynamicObject extends MockAlifeObject implements cse_alife
     return new this(config) as unknown as cse_alife_dynamic_object;
   }
 
+  public static override create(config: IMockAlifeObjectConfig = {}): MockAlifeDynamicObject {
+    return new this(config);
+  }
+
   public switch_offline(): void {
     this.online = false;
   }

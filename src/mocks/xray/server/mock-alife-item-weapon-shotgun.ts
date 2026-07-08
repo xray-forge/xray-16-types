@@ -10,4 +10,8 @@ export class MockAlifeItemWeaponShotgun extends MockAlifeItemWeapon implements c
   public static override mock(config: IMockAlifeObjectConfig = {}): cse_alife_item_weapon_shotgun {
     return new this(config) as unknown as cse_alife_item_weapon_shotgun;
   }
+
+  public static override create(config: IMockAlifeObjectConfig = {}): MockAlifeItemWeaponShotgun {
+    return new this(config);
+  }
 }

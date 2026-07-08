@@ -10,4 +10,8 @@ export class MockAlifeInventoryBox extends MockAlifeDynamicObjectVisual implemen
   public static override mock(config: IMockAlifeObjectConfig = {}): cse_alife_inventory_box {
     return new this(config) as unknown as cse_alife_inventory_box;
   }
+
+  public static override create(config: IMockAlifeObjectConfig = {}): MockAlifeInventoryBox {
+    return new this(config);
+  }
 }

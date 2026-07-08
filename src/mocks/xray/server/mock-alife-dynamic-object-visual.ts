@@ -11,6 +11,10 @@ export class MockAlifeDynamicObjectVisual extends MockAlifeDynamicObject impleme
     return new this(config) as unknown as cse_alife_dynamic_object_visual;
   }
 
+  public static override create(config: IMockAlifeObjectConfig = {}): MockAlifeDynamicObjectVisual {
+    return new this(config);
+  }
+
   public set_yaw(yaw: number): void {
     this.angle.y = yaw;
   }

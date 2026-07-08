@@ -14,6 +14,10 @@ export class MockAlifeSmartCover extends MockAlifeDynamicObject implements cse_s
     return new this(config) as unknown as cse_smart_cover;
   }
 
+  public static override create(config: IMockAlifeObjectConfig = {}): MockAlifeSmartCover {
+    return new this(config);
+  }
+
   public constructor(config: IMockAlifeObjectConfig = {}) {
     super(config);
 

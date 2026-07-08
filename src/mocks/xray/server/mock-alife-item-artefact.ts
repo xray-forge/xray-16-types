@@ -10,4 +10,8 @@ export class MockAlifeItemArtefact extends MockAlifeItem implements cse_alife_it
   public static override mock(config: IMockAlifeObjectConfig = {}): cse_alife_item_artefact {
     return new this(config) as unknown as cse_alife_item_artefact;
   }
+
+  public static override create(config: IMockAlifeObjectConfig = {}): MockAlifeItemArtefact {
+    return new this(config);
+  }
 }

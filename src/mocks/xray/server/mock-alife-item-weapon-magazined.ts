@@ -10,4 +10,8 @@ export class MockAlifeItemWeaponMagazined extends MockAlifeItemWeapon implements
   public static override mock(config: IMockAlifeObjectConfig = {}): cse_alife_item_weapon_magazined {
     return new this(config) as unknown as cse_alife_item_weapon_magazined;
   }
+
+  public static override create(config: IMockAlifeObjectConfig = {}): MockAlifeItemWeaponMagazined {
+    return new this(config);
+  }
 }

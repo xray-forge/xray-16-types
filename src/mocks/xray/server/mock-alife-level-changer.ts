@@ -17,6 +17,10 @@ export class MockAlifeLevelChanger extends MockSpaceRestrictor implements cse_al
     return new this(config) as unknown as cse_alife_level_changer;
   }
 
+  public static override create(config: IMockAlifeLevelChangerConfig = {}): MockAlifeLevelChanger {
+    return new this(config);
+  }
+
   public constructor(config: IMockAlifeLevelChangerConfig = {}) {
     super(config);
 

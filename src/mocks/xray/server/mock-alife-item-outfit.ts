@@ -10,4 +10,8 @@ export class MockAlifeItemOutfit extends MockAlifeItem implements cse_alife_item
   public static override mock(config: IMockAlifeObjectConfig = {}): cse_alife_item_custom_outfit {
     return new this(config) as unknown as cse_alife_item_custom_outfit;
   }
+
+  public static override create(config: IMockAlifeObjectConfig = {}): MockAlifeItemOutfit {
+    return new this(config);
+  }
 }

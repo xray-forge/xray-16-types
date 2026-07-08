@@ -10,4 +10,8 @@ export class MockAlifeItemWeaponAutoShotgun extends MockAlifeItemWeapon implemen
   public static override mock(config: IMockAlifeObjectConfig = {}): cse_alife_item_weapon_auto_shotgun {
     return new this(config) as unknown as cse_alife_item_weapon_auto_shotgun;
   }
+
+  public static override create(config: IMockAlifeObjectConfig = {}): MockAlifeItemWeaponAutoShotgun {
+    return new this(config);
+  }
 }
