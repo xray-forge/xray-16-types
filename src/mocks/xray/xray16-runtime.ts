@@ -20,3 +20,5 @@ export const device = jest.fn(() => MockDevice.getInstance());
 export const game_graph = jest.fn(() => MockCGameGraph.getInstance());
 export const time_global = jest.fn((): number => 0);
 export const verify_if_thread_is_running = jest.fn((): void => {});
+export const log = jest.fn((): void => {});
+export const print_stack = jest.fn((): void => {});

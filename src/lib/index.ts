@@ -9,6 +9,7 @@ export * from "./scalars";
 export * from "./types";
 export * from "./constants";
 
+export * from "./utils/assertion";
 export * from "./utils/binding";
 export * from "./utils/decamelize";
 export * from "./utils/game-wait";

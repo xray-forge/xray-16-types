@@ -7,6 +7,7 @@ export { MockLuaTable, mockFromLuaTable } from "./mock-lua-table";
 
 export { luaTableToArray, luaTableToObject, mapFromLua } from "./lua/lua-utils";
 export { mockDebug } from "./lua/lua-debug";
+export { mockError } from "./lua/lua-error";
 export { mockIo, MockIoFile } from "./lua/lua-io";
 export { mockJit } from "./lua/lua-jit";
 export { mockMarshal } from "./lua/lua-marshal";
