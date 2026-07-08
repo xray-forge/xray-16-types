@@ -1,27 +1,46 @@
-import { type action_base, type game_object } from "xray16";
+import { type property_storage, type u16, type u32, type action_base, type game_object } from "xray16";
 
 import { MockLuabindClass } from "./mock-luabind";
+import { MockPropertyStorage } from "./mock-property-storage";
 import { type MockWorldProperty } from "./mock-world-property";
 
 /**
  * Mock of the X-Ray engine GOAP action base class.
  */
-export class MockActionBase extends MockLuabindClass {
-  public static mock(object: game_object | null = null, name?: string): action_base {
+export class MockActionBase extends MockLuabindClass implements action_base {
+  public static mock(object: game_object, name?: string): action_base {
     return new MockActionBase(object, name) as unknown as action_base;
   }
 
-  public object: game_object | null;
+  public object!: game_object;
   public name: string;
 
   public preconditions: Array<MockWorldProperty> = [];
   public effects: Array<MockWorldProperty> = [];
+  public storage: property_storage;
 
-  public constructor(object: game_object | null = null, name?: string) {
+  public constructor(object: game_object, name?: string) {
     super();
 
     this.object = object;
+    this.storage = MockPropertyStorage.mock();
     this.name = name ?? this.constructor.name;
+  }
+
+  public set_weight(weight: u16): void {
+    throw new Error("Method not implemented.");
+  }
+
+  public remove_effect(id: u32): void {
+    throw new Error("Method not implemented.");
+  }
+
+  public remove_precondition(id: u32): void {
+    throw new Error("Method not implemented.");
+  }
+
+  public show(prefix?: string): void {
+    throw new Error("Method not implemented.");
   }
 
   public initialize(): void {}
@@ -54,6 +73,6 @@ export class MockActionBase extends MockLuabindClass {
 /**
  * Mock action base factory.
  */
-export function mockActionBase(object: game_object | null = null, name: string = "generic"): action_base {
+export function mockActionBase(object: game_object, name: string = "generic"): action_base {
   return new MockActionBase(object, name) as unknown as action_base;
 }

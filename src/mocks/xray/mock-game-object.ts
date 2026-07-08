@@ -142,7 +142,7 @@ export class MockGameObject {
   public callbacks: Partial<Record<TXR_callback, (this: void, ...args: Array<any>) => any>> = {};
   public sight: TXR_SightType = MockSightParameters.eSightTypeDummy;
 
-  public objectActionManager: MockActionPlanner = MockActionPlanner.mockDefault() as unknown as MockActionPlanner;
+  public objectActionManager: MockActionPlanner = MockActionPlanner.mockDefault(this) as unknown as MockActionPlanner;
   public objectAlive: boolean;
   public objectBleeding: number;
   public objectCenter: vector = MockVector.mock(0.15, 0.15, 0.15);

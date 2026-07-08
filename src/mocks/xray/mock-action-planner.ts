@@ -9,6 +9,7 @@ import {
 } from "xray16";
 
 import { type MockActionBase, mockActionBase } from "./mock-action-base";
+import { type MockGameObject } from "./mock-game-object";
 import { MockLuabindClass } from "./mock-luabind";
 import { type MockPropertyEvaluator } from "./mock-property-evaluator";
 import { mockStalkerIds } from "./mock-stalker-ids";
@@ -21,16 +22,16 @@ export class MockActionPlanner extends MockLuabindClass {
     return new MockActionPlanner() as unknown as action_planner;
   }
 
-  public static mockDefault(): action_planner {
+  public static mockDefault(object: game_object | MockGameObject): action_planner {
     const actionPlanner: MockActionPlanner = new MockActionPlanner();
 
-    actionPlanner.add_action(mockStalkerIds.action_alife_planner, mockActionBase());
-    actionPlanner.add_action(mockStalkerIds.action_gather_items, mockActionBase());
-    actionPlanner.add_action(mockStalkerIds.action_anomaly_planner, mockActionBase());
-    actionPlanner.add_action(mockStalkerIds.action_danger_planner, mockActionBase());
-    actionPlanner.add_action(mockStalkerIds.action_accomplish_task, mockActionBase());
-    actionPlanner.add_action(mockStalkerIds.action_combat_planner, mockActionBase());
-    actionPlanner.add_action(194 /* EActionId.STATE_TO_IDLE_ALIFE */, mockActionBase());
+    actionPlanner.add_action(mockStalkerIds.action_alife_planner, mockActionBase(object as game_object));
+    actionPlanner.add_action(mockStalkerIds.action_gather_items, mockActionBase(object as game_object));
+    actionPlanner.add_action(mockStalkerIds.action_anomaly_planner, mockActionBase(object as game_object));
+    actionPlanner.add_action(mockStalkerIds.action_danger_planner, mockActionBase(object as game_object));
+    actionPlanner.add_action(mockStalkerIds.action_accomplish_task, mockActionBase(object as game_object));
+    actionPlanner.add_action(mockStalkerIds.action_combat_planner, mockActionBase(object as game_object));
+    actionPlanner.add_action(194 /* EActionId.STATE_TO_IDLE_ALIFE */, mockActionBase(object as game_object));
 
     return actionPlanner as unknown as action_planner;
   }
