@@ -42,25 +42,33 @@ export class MockAlifeSmartZone extends MockAlifeDynamicObject implements cse_al
 
   public set_available_loopholes = jest.fn();
 
-  public detect_probability = jest.fn(() => this.objectDetectProbability);
+  public detect_probability(): number {
+    return this.objectDetectProbability;
+  }
 
-  public smart_touch = jest.fn();
+  public smart_touch(_monster: cse_alife_monster_abstract): void {}
 
-  public register_npc = jest.fn((monster: cse_alife_monster_abstract) => {
+  public register_npc(monster: cse_alife_monster_abstract): void {
     this.registeredNpcs.set(monster.id, monster);
 
     monster.m_smart_terrain_id = this.id;
-  });
+  }
 
-  public unregister_npc = jest.fn((monster: cse_alife_monster_abstract) => {
+  public unregister_npc(monster: cse_alife_monster_abstract): void {
     this.registeredNpcs.delete(monster.id);
 
     monster.m_smart_terrain_id = 65535;
-  });
+  }
 
-  public suitable = jest.fn((_monster: cse_alife_monster_abstract) => this.objectSuitable);
+  public suitable(_monster: cse_alife_monster_abstract): number {
+    return this.objectSuitable;
+  }
 
-  public task = jest.fn((_monster: cse_alife_monster_abstract): CALifeSmartTerrainTask | null => this.objectTask);
+  public task(_monster: cse_alife_monster_abstract): CALifeSmartTerrainTask | null {
+    return this.objectTask;
+  }
 
-  public enabled = jest.fn((_monster: cse_alife_monster_abstract) => this.objectEnabled);
+  public enabled(_monster: cse_alife_monster_abstract): boolean {
+    return this.objectEnabled;
+  }
 }

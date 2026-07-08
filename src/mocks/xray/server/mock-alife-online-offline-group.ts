@@ -77,7 +77,7 @@ export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject implemen
   public force_change_position = jest.fn(() => {});
 
   public commander_id(): number {
-    return this.members[0]?.id ?? 65535;
+    return null as unknown as number;
   }
 
   public npc_count = jest.fn((): number => {

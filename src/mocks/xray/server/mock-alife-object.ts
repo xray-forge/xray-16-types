@@ -231,9 +231,9 @@ export class MockAlifeObject extends MockLuabindClass implements cse_alife_objec
 
   public spawn_ini = jest.fn(() => this.spawnIni);
 
-  public community<T extends string = string>(): T {
-    return this.objectCommunity as T;
-  }
+  public community = jest.fn(<T extends string = string>(): T => this.objectCommunity as T) as <
+    T extends string = string,
+  >() => T;
 
   public alive = jest.fn(() => this.objectAlive);
 
