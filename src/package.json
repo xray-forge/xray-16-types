@@ -1,6 +1,6 @@
 {
   "name": "xray16",
-  "version": "2.0.0-experimental.7",
+  "version": "2.0.0",
   "description": "TypeScript declarations, mocks, helpers, and TypeScriptToLua plugins for XRF X-Ray 16 scripts.",
   "license": "MIT",
   "author": "Neloreck",
@@ -29,7 +29,21 @@
     "node": ">=20"
   },
   "peerDependencies": {
+    "jest": "^29.0.0 || ^30.0.0",
+    "ts-jest": "^29.0.0",
+    "typescript": "^6.0.0",
     "typescript-to-lua": "^1.37.0"
+  },
+  "peerDependenciesMeta": {
+    "jest": {
+      "optional": true
+    },
+    "ts-jest": {
+      "optional": true
+    },
+    "typescript": {
+      "optional": true
+    }
   },
   "dependencies": {
     "fengari": "^0.1.5",
