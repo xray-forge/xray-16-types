@@ -10,7 +10,7 @@ import { MockVector } from "./mock-vector";
 /**
  * Loosely typed INI data store (section -> field -> value).
  */
-type AnyObject = Record<string, any>;
+type TMockIniData = Record<string, any>;
 
 /**
  * Normalize an externally provided path (Windows separators -> current OS).
@@ -40,9 +40,9 @@ function formatVector(value: vector | vector2): string {
  * This is a focused test helper, not a full engine parser. It does not implement section inheritance or `#include`
  * expansion beyond what the `ini` package parses from a single file.
  */
-export class MockIniFile<T extends AnyObject = AnyObject> {
+export class MockIniFile<T extends TMockIniData = TMockIniData> {
   private static configsDir: string | null = null;
-  private static registry: Record<string, AnyObject> = {};
+  private static registry: Record<string, TMockIniData> = {};
 
   /**
    * Configure the base directory used to read real `.ltx` or `.ini` files for unregistered paths, and
@@ -51,7 +51,7 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
    * The consumer (engine) passes its `FILES_MOCKS` object here **by reference**, so paths registered via
    * {@link MockIniFile.register} — or mutated directly on that object by tests — are seen by the mock.
    */
-  public static setup(options: { configsDir?: string | null; files?: Record<string, AnyObject> }): void {
+  public static setup(options: { configsDir?: string | null; files?: Record<string, TMockIniData> }): void {
     MockIniFile.configsDir = options.configsDir ?? null;
 
     if (options.files) {
@@ -77,7 +77,7 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
    * @param content - Optional original source content.
    * @returns Mock typed as the engine `ini_file`.
    */
-  public static mock(iniPath: string, data?: AnyObject, content?: string): ini_file {
+  public static mock(iniPath: string, data?: TMockIniData, content?: string): ini_file {
     return new MockIniFile(iniPath, data, content) as unknown as ini_file;
   }
 
@@ -89,7 +89,11 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
    * @param content - Optional original source content.
    * @returns Mock instance with access to jest spies and stored data.
    */
-  public static create<T extends AnyObject = AnyObject>(iniPath: string, data?: T, content?: string): MockIniFile<T> {
+  public static create<T extends TMockIniData = TMockIniData>(
+    iniPath: string,
+    data?: T,
+    content?: string
+  ): MockIniFile<T> {
     return new MockIniFile<T>(iniPath, data, content);
   }
 
@@ -99,7 +103,7 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
    * @param iniPath - Config path to match in the constructor.
    * @param data - Parsed section data to reuse.
    */
-  public static register(iniPath: string, data: AnyObject): void {
+  public static register(iniPath: string, data: TMockIniData): void {
     MockIniFile.registry[iniPath] = data;
   }
 
@@ -139,9 +143,9 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
     }
   }
 
-  private ensureSection(section: string): AnyObject {
+  private ensureSection(section: string): TMockIniData {
     if (!this.data[section]) {
-      (this.data as AnyObject)[section] = {};
+      (this.data as TMockIniData)[section] = {};
     }
 
     return this.data[section];
@@ -174,7 +178,9 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
   public r_string = jest.fn((section: string, field: string) => this.readValue(section, field));
 
   public r_string_wb = jest.fn((section: string, field: string) => {
-    return String(this.readValue(section, field)).trim().replace(/^"(.*)"$/, "$1");
+    return String(this.readValue(section, field))
+      .trim()
+      .replace(/^"(.*)"$/, "$1");
   });
 
   public r_string_wq = jest.fn((section: string, field: string) => this.r_string_wb(section, field));

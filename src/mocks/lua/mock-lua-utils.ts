@@ -1,10 +1,10 @@
-import { type AnyObject, type LuaArray, type Nillable } from "../internal";
+import { type AnyObject } from "../internal";
 import { MockLuaTable } from "../mock-lua-table";
 
 /**
  * Transform lua table to array for easier testing with equals checks.
  */
-export function luaTableToArray<T = unknown>(value: Nillable<LuaArray<T>>): Array<T> {
+export function luaTableToArray<T = unknown>(value: LuaTable<number, T> | Array<T> | null | undefined): Array<T> {
   if (value instanceof MockLuaTable) {
     return [...(value as unknown as Map<number, T>).values()].map((it) => {
       return mapFromLua<any>(it);

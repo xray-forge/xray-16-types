@@ -1,4 +1,3 @@
-import { type AnyObject } from "../internal";
 import { type MockLuaMap } from "../mock-lua-map";
 import { MockLuaTable } from "../mock-lua-table";
 
@@ -29,7 +28,7 @@ export const mockTable = {
 
     return entries.length ? entries[Math.floor(entries.length * Math.random())] : [null, null];
   },
-  remove: (target: AnyObject, index: number): void => {
+  remove: (target: MockLuaTable<number, unknown> | Array<unknown>, index: number): void => {
     // Simulate lua behaviour by shifting all elements like with splice.
     if (target instanceof MockLuaTable) {
       const array = MockLuaTable.toArray(target);
@@ -49,7 +48,7 @@ export const mockTable = {
 
     throw new Error(`Currently '${typeof target}' is not supported.`);
   },
-  concat: (target: AnyObject, char: string) => {
+  concat: (target: MockLuaTable<number, unknown> | Array<unknown> | Record<string, unknown>, char: string) => {
     if (Array.isArray(target)) {
       return target.join(char);
     } else if (target instanceof MockLuaTable) {

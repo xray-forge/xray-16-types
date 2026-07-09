@@ -1,4 +1,4 @@
-import { type AnyObject, type LuaArray, type TIndex } from "./internal";
+import { type TIndex } from "./internal";
 import { MockLuaMap } from "./mock-lua-map";
 
 /**
@@ -17,7 +17,9 @@ export class MockLuaTable<K = unknown, V = unknown> extends Map<K, V> {
   /**
    * Get mock size in unified way.
    */
-  public static getSizeOf(table: LuaTable<any> | AnyObject): number {
+  public static getSizeOf(
+    table: LuaTable<any> | MockLuaMap<unknown, unknown> | MockLuaTable<unknown, unknown> | Record<string, unknown>
+  ): number {
     if (table instanceof MockLuaTable || table instanceof MockLuaMap) {
       return (table as unknown as MockLuaTable).size;
     }
@@ -90,14 +92,14 @@ export class MockLuaTable<K = unknown, V = unknown> extends Map<K, V> {
   /**
    * Create new map from JS array.
    */
-  public static mockFromArray<T>(from: Array<unknown>): LuaArray<T> {
-    return MockLuaTable.fromArray(from) as unknown as LuaArray<T>;
+  public static mockFromArray<T>(from: Array<T>): LuaTable<number, T> {
+    return MockLuaTable.fromArray(from) as unknown as LuaTable<number, T>;
   }
 
   /**
    * Create new array from LUA array.
    */
-  public static mockToArray<T>(from: LuaArray<T>): Array<T> {
+  public static mockToArray<T>(from: LuaTable<number, T>): Array<T> {
     return MockLuaTable.toArray(from as unknown as MockLuaTable<number, T>);
   }
 
