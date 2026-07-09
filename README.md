@@ -1,36 +1,23 @@
-﻿# XRF X-Ray 16 SDK
+# XRF X-Ray 16 SDK
 
 [![npm version](https://img.shields.io/npm/v/xray16)](https://www.npmjs.com/package/xray16)
 [![types](https://img.shields.io/badge/docs-types-blue.svg?style=flat)](https://xray-forge.github.io/stalker-xrf-xray16-sdk/index.html)
 [![book](https://img.shields.io/badge/docs-book-blue.svg?style=flat)](https://xray-forge.github.io/stalker-xrf-book)
 [![Node.js CI](https://github.com/xray-forge/stalker-xrf-xray16-sdk/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/xray-forge/stalker-xrf-xray16-sdk/actions/workflows/build_and_test.yml)
 
-`xray16` provides TypeScript declarations for Lua-visible X-Ray 16 engine APIs. It is built for projects that compile TypeScript to Lua with [TypeScriptToLua](https://typescripttolua.github.io/docs/getting-started), such as [stalker-xrf-engine](https://github.com/xray-forge/stalker-xrf-engine).
+`xray16` provides TypeScript declarations, test helpers, and TypeScriptToLua plugins for Lua-visible X-Ray 16 APIs. Use it when compiling XRF game scripts from TypeScript, including with [stalker-xrf-engine](https://github.com/xray-forge/stalker-xrf-engine).
 
-The package includes:
+## Quick start
 
-- `xray16`: engine globals, luabind classes, UI classes, GOAP classes, and script objects.
-- `xray16/alias`: friendlier type aliases over raw engine declaration names, plus virtual engine enums.
-- `xray16/lib`: shared scalar aliases, utility types, constants, and small runtime helpers.
-- `xray16/macros`: compile-time helper functions with a Node/Jest runtime fallback.
-- `xray16/typedefs/*`: opt-in ambient declarations for LuaJIT and bundled Lua libraries.
-- `xray16/plugins/*`: TypeScriptToLua plugins used by XRF builds.
-- `xray16/mocks`: test/runtime helpers for code that needs Lua-like behavior under Node.
-- `xray16/testing`: Jest support - a `createJestConfig()` factory and setup helpers.
-
-## Install
+Install the SDK and its required TypeScriptToLua peer dependency:
 
 ```sh
 npm install xray16 typescript-to-lua
 ```
 
-Pre-release builds are available through two channels: `xray16@experimental` on npm for manually published release candidates, and a rolling [nightly GitHub release](https://github.com/xray-forge/stalker-xrf-xray16-sdk/releases/tag/nightly) with a tarball uploaded after every successful `main` build:
+`typescript-to-lua` is the only required peer dependency. `jest`, `ts-jest`, and `typescript` are optional peers for `xray16/testing`. The `fengari` and `ini` dependencies required by `xray16/mocks` install automatically.
 
-```sh
-npm install https://github.com/xray-forge/stalker-xrf-xray16-sdk/releases/download/nightly/xray16-nightly.tgz
-```
-
-Add the base declarations to the TypeScript `types` array. Add only the ambient typedef packages your project uses.
+Add the base declarations to `compilerOptions.types`. Include only the ambient typedef packages your project uses.
 
 ```jsonc
 {
@@ -45,9 +32,28 @@ Add the base declarations to the TypeScript `types` array. Add only the ambient 
 }
 ```
 
-## Engine Types
+For an unreleased build, install `xray16@experimental` from npm, or use the rolling [nightly GitHub release](https://github.com/xray-forge/stalker-xrf-xray16-sdk/releases/tag/nightly):
 
-Import engine declarations from `xray16` when you want names that match the Lua binding dump.
+```sh
+npm install https://github.com/xray-forge/stalker-xrf-xray16-sdk/releases/download/nightly/xray16-nightly.tgz
+```
+
+## Entry points
+
+| Import              | Use it for                                                                |
+| ------------------- | ------------------------------------------------------------------------- |
+| `xray16`            | Engine globals, luabind classes, UI and GOAP classes, and script objects. |
+| `xray16/alias`      | Readable aliases for engine declaration names and virtual engine enums.   |
+| `xray16/macros`     | Compile-time helpers with a Node/Jest fallback.                           |
+| `xray16/lib`        | Shared aliases, constants, and small runtime helpers.                     |
+| `xray16/testing`    | Jest configuration and setup helpers.                                     |
+| `xray16/mocks`      | Lua-like runtime helpers for Node-based tests.                            |
+| `xray16/typedefs/*` | Opt-in ambient declarations for X-Ray and bundled Lua libraries.          |
+| `xray16/plugins/*`  | TypeScriptToLua build plugins.                                            |
+
+## Engine types and aliases
+
+Import from `xray16` when you want names that match the Lua binding dump.
 
 ```ts
 import { game_object, level } from "xray16";
@@ -57,7 +63,7 @@ export function isActorVisible(object: game_object): boolean {
 }
 ```
 
-Use `xray16/alias` when application code benefits from shorter names.
+Use `xray16/alias` when application code benefits from shorter more Typescript-friendly names.
 
 ```ts
 import type { GameObject, ServerObject, Vector } from "xray16/alias";
@@ -69,11 +75,11 @@ export interface SpawnPoint {
 }
 ```
 
-The alias module contains type aliases and `@virtual` enums. Type aliases have no runtime cost. Virtual enums are folded by the `inline` plugin in game builds, while Jest/Node can import real enum objects from `alias.js`.
+Aliases erase at build time. Virtual enums are folded by the `inline` plugin in game builds; Jest and Node can import their runtime objects from `alias.js`.
 
-## Macros
+## Macros and shared helpers
 
-Import macro helpers from `xray16/macros`.
+Use macros for code that should fold during compilation but still run under Jest or Node.
 
 ```ts
 import { $filename, $fromObject, $isNil } from "xray16/macros";
@@ -87,11 +93,9 @@ export function readConfig(value: unknown): LuaTable<string, string> {
 }
 ```
 
-At build time the `macros` plugin strips the import and folds helper usage. Under Jest or Node, the same import resolves to the shipped runtime module, so tests do not need hand-written globals.
+The `macros` plugin removes the import and folds helper usage in game builds. The shipped runtime module supports the same imports under Jest and Node.
 
-## Shared Lib
-
-Import shared aliases, constants, and utility helpers from `xray16/lib`.
+`xray16/lib` provides shared aliases, constants, and utility helpers:
 
 ```ts
 import { MAX_U16, clamp, type TSection } from "xray16/lib";
@@ -101,11 +105,11 @@ export function normalizeSection(section: TSection, value: number): string {
 }
 ```
 
-Type aliases erase at build time. Constants tagged with `@inline` can be folded by the `inline` plugin. Runtime helpers such as `round` and `range` need a real Lua module in game builds; use the `libcompile` plugin when compiling gamedata from `xray16/lib` source.
+Type aliases erase at build time, and `@inline` constants can be folded by the `inline` plugin. Runtime helpers such as `round` and `range` need a Lua module in game builds; enable `libcompile` when compiling gamedata from `xray16/lib` source.
 
-## Testing
+## Test X-Ray code under Node
 
-`xray16/testing` provides Jest defaults for projects that run X-Ray TypeScriptToLua code under Node. `createJestConfig()` returns a `ts-jest` config that maps bare `xray16` imports to the shipped runtime stand-in and runs the SDK setup file before each test file.
+`createJestConfig()` returns a `ts-jest` configuration that maps bare `xray16` imports to the SDK runtime stand-in.
 
 ```js
 // jest.config.js
@@ -117,17 +121,11 @@ module.exports = createJestConfig({
 });
 ```
 
-The generated config runs two setup files. `setupFiles` calls `setupLuaGlobals()` to inject Lua-like globals (`string`, `table`, `math`, `LuaTable`, `$range`, `error`, and related helpers) and `setupXrayRuntime()` to register the `xray16` module mock — code under test imports from `xray16` and receives the same mock objects tests can spy on. `setupFilesAfterEnv` calls `extendJest()` to register the custom matchers (`toBeNil`, `toEqualLuaTables`, `toEqualLuaArrays`, and strict variants); add `xray16/typedefs/jest` to `compilerOptions.types` so they type-check.
+It installs Lua-like globals and the `xray16` module mock before each test file, then registers Jest matchers such as `toBeNil`, `toEqualLuaTables`, and `toEqualLuaArrays`. Add `xray16/typedefs/jest` to `compilerOptions.types` to type-check those matchers.
 
-Jest-mock helpers for X-Ray code are available from `xray16/testing/utils`:
+Consumer `moduleNameMapper` entries override SDK entries. Consumer `setupFiles` and `setupFilesAfterEnv` entries run after the SDK setup; other top-level options replace their defaults.
 
-```ts
-import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
-```
-
-Consumer overrides are merged predictably: `moduleNameMapper` is merged with the SDK mapper, duplicate mapper keys use the consumer value, `setupFiles`/`setupFilesAfterEnv` are appended after the SDK entries, and other top-level options replace the defaults.
-
-Importing `xray16/testing` from a Jest config file is safe because the main entry does not load Jest-only runtime code. For custom setup, import `setupLuaGlobals()` from the main entry. Import `setupXrayRuntime()` only from a Jest setup file or test setup module; it eagerly loads the mock runtime and calls `jest.mock`.
+For a custom setup, call `setupLuaGlobals()` from `xray16/testing`. Import `setupXrayRuntime()` only from a Jest setup file or test setup module because it eagerly loads the mock runtime and calls `jest.mock`.
 
 ```ts
 import { setupLuaGlobals } from "xray16/testing";
@@ -139,21 +137,27 @@ setupXrayRuntime({
 });
 ```
 
-## Ambient Typedefs
+Jest mock helpers are available from `xray16/testing/utils`:
 
-Ambient typedefs describe globals from the X-Ray Lua runtime and bundled Lua libraries. They are not modules to import. Add them to `compilerOptions.types` or reference them with `/// <reference types="..." />`.
+```ts
+import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
+```
 
-| Typedef                      | Provides                                                                                                    |
-| ---------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `xray16/typedefs/extensions` | OpenXRay `table` and `string` extensions, such as `table.random`, `table.size`, and `string.trim` variants. |
-| `xray16/typedefs/luajit`     | LuaJIT globals and methods missing from the default TSTL typings.                                           |
-| `xray16/typedefs/lfs`        | LuaFileSystem (`lfs`).                                                                                      |
-| `xray16/typedefs/marshal`    | `marshal` serialization helpers.                                                                            |
-| `xray16/typedefs/jest`       | Types for the `xray16/testing` custom jest matchers (`toBeNil`, `toEqualLuaTables`, and related).           |
+## Ambient typedefs
 
-## TypeScriptToLua Plugins
+Ambient typedefs describe X-Ray globals and bundled Lua libraries. They are not modules to import; add them to `compilerOptions.types` or reference them with `/// <reference types="..." />`.
 
-Add plugins through the TypeScriptToLua `luaPlugins` config. A typical XRF build enables them in this order:
+| Typedef                      | Provides                                                                                                      |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `xray16/typedefs/extensions` | OpenXRay `table` and `string` extensions, including `table.random`, `table.size`, and `string.trim` variants. |
+| `xray16/typedefs/luajit`     | LuaJIT globals and methods missing from the default TSTL typings.                                             |
+| `xray16/typedefs/lfs`        | LuaFileSystem (`lfs`).                                                                                        |
+| `xray16/typedefs/marshal`    | `marshal` serialization helpers.                                                                              |
+| `xray16/typedefs/jest`       | Types for the custom Jest matchers.                                                                           |
+
+## TypeScriptToLua plugins
+
+Plugins are opt-in. An XRF build that needs every SDK transformation enables them in this order:
 
 ```jsonc
 {
@@ -171,26 +175,19 @@ Add plugins through the TypeScriptToLua `luaPlugins` config. A typical XRF build
 }
 ```
 
-| Plugin       | Purpose                                                                              | Docs                                        |
-| ------------ | ------------------------------------------------------------------------------------ | ------------------------------------------- |
-| `luabind`    | Emits `class("Name")` declarations for classes marked with `@LuabindClass()`.        | [README](src/plugins/luabind/README.md)     |
-| `strip`      | Removes Lua logger calls and runtime imports for engine-only typedef modules.        | [README](src/plugins/strip/README.md)       |
-| `macros`     | Folds `$filename`, `$dirname`, nil checks, cast helpers, and optional build headers. | [README](src/plugins/macros/README.md)      |
-| `optimize`   | Rewrites returned ternaries into direct Lua `if` / `else` returns.                   | [README](src/plugins/optimize/README.md)    |
-| `inline`     | Inlines tagged constants, functions, and `$inline` / `$noInline` call-site hints.    | [README](src/plugins/inline/README.md)      |
-| `libcompile` | Emits `xray16/lib` source as a flat `xray_bundle` module for game builds.            | [README](src/plugins/libcompile/README.md)  |
-| `tracy`      | Injects Tracy profiler zones when enabled.                                           | [README](src/plugins/tracy/README.md)       |
+| Plugin                                           | Purpose                                                                       |
+| ------------------------------------------------ | ----------------------------------------------------------------------------- |
+| [`luabind`](src/plugins/luabind/README.md)       | Emits `class("Name")` declarations for `@LuabindClass()` classes.             |
+| [`strip`](src/plugins/strip/README.md)           | Removes Lua logger calls and runtime imports for engine-only typedef modules. |
+| [`macros`](src/plugins/macros/README.md)         | Folds filename, dirname, nil-check, cast, and build-header helpers.           |
+| [`optimize`](src/plugins/optimize/README.md)     | Rewrites returned ternaries into direct Lua `if` / `else` returns.            |
+| [`inline`](src/plugins/inline/README.md)         | Inlines tagged constants, functions, and `$inline` / `$noInline` hints.       |
+| [`libcompile`](src/plugins/libcompile/README.md) | Emits `xray16/lib` source as a flat `xray_bundle` module.                     |
+| [`tracy`](src/plugins/tracy/README.md)           | Injects Tracy profiler zones when enabled.                                    |
 
-The `strip` and `tracy` plugins also support build toggles when their config fields are unset:
+When their config fields are unset, `strip.luaLogger` falls back to `XR_NO_LUA_LOGS=true` or `--no-lua-logs`, and `tracy.enabled` falls back to `XR_INJECT_TRACY_ZONES=true` or `--inject-tracy-zones`.
 
-| Plugin option     | Fallback                                               |
-| ----------------- | ------------------------------------------------------ |
-| `strip.luaLogger` | `XR_NO_LUA_LOGS=true` or `--no-lua-logs`               |
-| `tracy.enabled`   | `XR_INJECT_TRACY_ZONES=true` or `--inject-tracy-zones` |
-
-## Luabind Classes
-
-Engine classes that extend C++ objects need luabind class registration, not the default TypeScriptToLua prototype output. Mark those classes with `@LuabindClass()` and enable the `luabind` plugin.
+Classes that extend C++ objects need luabind registration rather than default TypeScriptToLua prototype output:
 
 ```ts
 import { LuabindClass, object_binder } from "xray16";
@@ -203,21 +200,13 @@ export class ActorBinder extends object_binder {
 }
 ```
 
-See [src/plugins/luabind/README.md](src/plugins/luabind/README.md) for constructor and inheritance details.
+See the [`luabind` plugin README](src/plugins/luabind/README.md) for constructor and inheritance rules.
 
-## API Documentation
+## API documentation and development
 
-Generated TypeDoc output is published at [xray-forge.github.io/stalker-xrf-xray16-sdk](https://xray-forge.github.io/stalker-xrf-xray16-sdk/index.html).
+Generated API documentation is available at [xray-forge.github.io/stalker-xrf-xray16-sdk](https://xray-forge.github.io/stalker-xrf-xray16-sdk/index.html). Declarations describe the TypeScript-visible API shape; C++ engine bindings define runtime behavior. Check the engine source when declaration syntax is ambiguous.
 
-The declarations document TypeScript-visible API shape. Runtime behavior is still defined by the engine C++ bindings. For ambiguous behavior, check the X-Ray source before relying on declaration syntax alone.
-
-To refresh local binding dumps from an engine build:
-
-1. Run the game engine with `-dump_bindings`.
-2. Open the generated `scriptbindings_*.txt` files in the user data directory.
-3. Compare the dump with the declarations in this package.
-
-## Development
+To refresh local binding dumps, run the game engine with `-dump_bindings`, open the generated `scriptbindings_*.txt` files in the user data directory, and compare them with this package's declarations.
 
 Useful package scripts:
 
@@ -229,6 +218,4 @@ npm run build
 npm run docs
 ```
 
-`npm run build` regenerates the packaged declarations, plugin output, macros runtime declarations, alias module, and mocks, then stages the publishable package in `target/pkg/xray16`. `npm run docs` builds TypeDoc output into `target/docs`.
-
-Build and tooling configuration lives in `cli/` (`cli/build` for the build orchestrator and compiler/bundler configs, `cli/test` for jest, `cli/docs` for TypeDoc). The published `package.json` manifest is maintained at `src/package.json`; the root manifest is a private project shell.
+`npm run build` stages the publishable package in `target/pkg/xray16`; `npm run docs` writes TypeDoc output to `target/docs`. Build and tooling configuration lives in `cli/`, and the published manifest is [`src/package.json`](src/package.json).
