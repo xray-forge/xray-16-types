@@ -1,0 +1,23 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "esnext",
+    "declaration": true,
+    "outDir": "../../target/pkg/xray16/testing",
+    "rootDir": "../../src/testing",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "ignoreDeprecations": "6.0",
+    "types": ["@typescript-to-lua/language-extensions", "lua-types/jit", "jest", "node"],
+    "paths": {
+      "xray16/lib": ["../../target/pkg/xray16/lib/index"],
+      "xray16/macros": ["../../target/pkg/xray16/macros"],
+      "xray16/mocks": ["../../target/pkg/xray16/mocks"],
+      "xray16/mocks/xray16-runtime": ["../../target/pkg/xray16/mocks/xray16-runtime"]
+    }
+  },
+  "include": ["../../src/testing/**/*", "../../src/types/**/*.d.ts"],
+  "exclude": ["../../src/testing/**/*.test.ts"]
+}

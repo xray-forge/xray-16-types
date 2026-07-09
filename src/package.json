@@ -56,6 +56,26 @@
       "types": "./mocks/index.d.ts",
       "default": "./mocks/index.js"
     },
+    "./mocks/xray16-runtime": {
+      "types": "./mocks/xray16-runtime.d.ts",
+      "default": "./mocks/xray16-runtime.js"
+    },
+    "./testing": {
+      "types": "./testing/index.d.ts",
+      "default": "./testing/index.js"
+    },
+    "./testing/setup-xray-runtime": {
+      "types": "./testing/setup-xray-runtime.d.ts",
+      "default": "./testing/setup-xray-runtime.js"
+    },
+    "./testing/utils": {
+      "types": "./testing/utils/index.d.ts",
+      "default": "./testing/utils/index.js"
+    },
+    "./testing/matchers": {
+      "types": "./testing/matchers/index.d.ts",
+      "default": "./testing/matchers/index.js"
+    },
     "./plugins/constants": {
       "types": "./plugins/constants.d.ts",
       "default": "./plugins/constants.js"
@@ -69,6 +89,7 @@
     "./plugins/tracy": "./plugins/tracy.js",
     "./package.json": "./package.json",
     "./typedefs/extensions": "./typedefs/extensions.d.ts",
+    "./typedefs/jest": "./typedefs/jest.d.ts",
     "./typedefs/luajit": "./typedefs/luajit.d.ts",
     "./typedefs/lfs": "./typedefs/lfs.d.ts",
     "./typedefs/marshal": "./typedefs/marshal.d.ts"

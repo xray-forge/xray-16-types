@@ -9,5 +9,5 @@
     "strict": true,
     "types": ["node", "@typescript-to-lua/language-extensions", "lua-types/jit"]
   },
-  "exclude": ["target", "cli", "src/alias.ts", "src/mocks", "src/**/*.test.ts"]
+  "exclude": ["target", "cli", "src/alias.ts", "src/mocks", "src/testing", "src/**/*.test.ts"]
 }

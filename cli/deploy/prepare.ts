@@ -15,6 +15,7 @@ const REQUIRED_ARTIFACTS: Array<string> = [
   "lib",
   "plugins",
   "mocks",
+  "testing",
 ];
 
 function verifyBuildArtifacts(): void {

@@ -16,6 +16,7 @@ The package includes:
 - `xray16/typedefs/*`: opt-in ambient declarations for LuaJIT and bundled Lua libraries.
 - `xray16/plugins/*`: TypeScriptToLua plugins used by XRF builds.
 - `xray16/mocks`: test/runtime helpers for code that needs Lua-like behavior under Node.
+- `xray16/testing`: Jest support - a `createJestConfig()` factory and setup helpers.
 
 ## Install
 
@@ -102,6 +103,42 @@ export function normalizeSection(section: TSection, value: number): string {
 
 Type aliases erase at build time. Constants tagged with `@inline` can be folded by the `inline` plugin. Runtime helpers such as `round` and `range` need a real Lua module in game builds; use the `libcompile` plugin when compiling gamedata from `xray16/lib` source.
 
+## Testing
+
+`xray16/testing` provides Jest defaults for projects that run X-Ray TypeScriptToLua code under Node. `createJestConfig()` returns a `ts-jest` config that maps bare `xray16` imports to the shipped runtime stand-in and runs the SDK setup file before each test file.
+
+```js
+// jest.config.js
+const { createJestConfig } = require("xray16/testing");
+
+module.exports = createJestConfig({
+  roots: ["<rootDir>/src"],
+  moduleNameMapper: { "^@/(.*)": "<rootDir>/src/$1" },
+});
+```
+
+The generated config runs two setup files. `setupFiles` calls `setupLuaGlobals()` to inject Lua-like globals (`string`, `table`, `math`, `LuaTable`, `$range`, `error`, and related helpers) and `setupXrayRuntime()` to register the `xray16` module mock — code under test imports from `xray16` and receives the same mock objects tests can spy on. `setupFilesAfterEnv` calls `extendJest()` to register the custom matchers (`toBeNil`, `toEqualLuaTables`, `toEqualLuaArrays`, and strict variants); add `xray16/typedefs/jest` to `compilerOptions.types` so they type-check.
+
+Jest-mock helpers for X-Ray code are available from `xray16/testing/utils`:
+
+```ts
+import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
+```
+
+Consumer overrides are merged predictably: `moduleNameMapper` is merged with the SDK mapper, duplicate mapper keys use the consumer value, `setupFiles`/`setupFilesAfterEnv` are appended after the SDK entries, and other top-level options replace the defaults.
+
+Importing `xray16/testing` from a Jest config file is safe because the main entry does not load Jest-only runtime code. For custom setup, import `setupLuaGlobals()` from the main entry. Import `setupXrayRuntime()` only from a Jest setup file or test setup module; it eagerly loads the mock runtime and calls `jest.mock`.
+
+```ts
+import { setupLuaGlobals } from "xray16/testing";
+import { setupXrayRuntime } from "xray16/testing/setup-xray-runtime";
+
+setupLuaGlobals();
+setupXrayRuntime({
+  editor: jest.fn(() => true),
+});
+```
+
 ## Ambient Typedefs
 
 Ambient typedefs describe globals from the X-Ray Lua runtime and bundled Lua libraries. They are not modules to import. Add them to `compilerOptions.types` or reference them with `/// <reference types="..." />`.
@@ -112,6 +149,7 @@ Ambient typedefs describe globals from the X-Ray Lua runtime and bundled Lua lib
 | `xray16/typedefs/luajit`     | LuaJIT globals and methods missing from the default TSTL typings.                                           |
 | `xray16/typedefs/lfs`        | LuaFileSystem (`lfs`).                                                                                      |
 | `xray16/typedefs/marshal`    | `marshal` serialization helpers.                                                                            |
+| `xray16/typedefs/jest`       | Types for the `xray16/testing` custom jest matchers (`toBeNil`, `toEqualLuaTables`, and related).           |
 
 ## TypeScriptToLua Plugins
 

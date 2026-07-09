@@ -1,6 +1,6 @@
 {
   "extends": "../tsconfig.json",
-  "include": [".", "../typedefs/marshal.d.ts"],
+  "include": [".", "../typedefs/marshal.d.ts", "../typedefs/jest.d.ts"],
   "exclude": [],
   "compilerOptions": {
     "module": "commonjs",
@@ -10,7 +10,10 @@
     "baseUrl": ".",
     "paths": {
       "xray16/alias": ["./alias.ts"],
-      "xray16/macros": ["./macros.ts"]
+      "xray16/lib": ["./lib/index.ts"],
+      "xray16/macros": ["./macros.ts"],
+      "xray16/mocks": ["./mocks/index.ts"],
+      "xray16/mocks/xray16-runtime": ["./mocks/xray16-runtime.ts"]
     },
     "types": ["node", "jest", "@typescript-to-lua/language-extensions", "lua-types/jit"]
   }
