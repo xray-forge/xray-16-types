@@ -196,6 +196,146 @@ return ____exports
 `);
   });
 
+  it("should hoist return expression work into the zone through a local", () => {
+    const { errors, lua } = transpileWithPlugins(
+      {
+        "main.ts": `
+declare function compute(a: number): number;
+
+export function run(a: number): number {
+  const b = a + 1;
+
+  return compute(b) * 2;
+}
+`,
+      },
+      { plugins: [createPlugin({ enabled: true })] }
+    );
+
+    expect(errors).toEqual([]);
+    expect(lua["main.lua"]).toBe(`local ____exports = {}
+tracy:ZoneBeginN("lua::file::main.script")
+function ____exports.run(self, a)
+    tracy:ZoneBeginN("lua::function::run")
+    local b = a + 1
+    local ____tracyZoneResult = compute(nil, b) * 2
+    tracy:ZoneEnd()
+    return ____tracyZoneResult
+end
+tracy:ZoneEnd()
+return ____exports
+`);
+  });
+
+  it("should measure single return statement bodies with computed expressions", () => {
+    const { errors, lua } = transpileWithPlugins(
+      {
+        "main.ts": `
+declare function compute(a: number): number;
+
+export function run(a: number): number {
+  return compute(a);
+}
+`,
+      },
+      { plugins: [createPlugin({ enabled: true })] }
+    );
+
+    expect(errors).toEqual([]);
+    expect(lua["main.lua"]).toBe(`local ____exports = {}
+tracy:ZoneBeginN("lua::file::main.script")
+function ____exports.run(self, a)
+    tracy:ZoneBeginN("lua::function::run")
+    local ____tracyZoneResult = compute(nil, a)
+    tracy:ZoneEnd()
+    return ____tracyZoneResult
+end
+tracy:ZoneEnd()
+return ____exports
+`);
+  });
+
+  it("should close zones for returns inside while loops and unbraced if bodies", () => {
+    const { errors, lua } = transpileWithPlugins(
+      {
+        "main.ts": `
+declare function compute(a: number): number;
+
+export function run(a: number): number {
+  while (a < 100) {
+    if (a > 50) {
+      return compute(a);
+    }
+
+    a += 1;
+  }
+
+  if (a === 100) return compute(a);
+
+  return a;
+}
+`,
+      },
+      { plugins: [createPlugin({ enabled: true })] }
+    );
+
+    expect(errors).toEqual([]);
+    expect(lua["main.lua"]).toBe(`local ____exports = {}
+tracy:ZoneBeginN("lua::file::main.script")
+function ____exports.run(self, a)
+    tracy:ZoneBeginN("lua::function::run")
+    while a < 100 do
+        if a > 50 then
+            local ____tracyZoneResult = compute(nil, a)
+            tracy:ZoneEnd()
+            return ____tracyZoneResult
+        end
+        a = a + 1
+    end
+    if a == 100 then
+        local ____tracyZoneResult = compute(nil, a)
+        tracy:ZoneEnd()
+        return ____tracyZoneResult
+    end
+    tracy:ZoneEnd()
+    return a
+end
+tracy:ZoneEnd()
+return ____exports
+`);
+  });
+
+  it("should not hoist multi-return expressions and keep them unmeasured", () => {
+    const { errors, lua } = transpileWithPlugins(
+      {
+        "main.ts": `
+declare type LuaMultiReturn<T extends unknown[]> = T & { readonly __luaMultiReturnBrand: unique symbol };
+declare function pack(a: number, b: number): LuaMultiReturn<[number, number]>;
+
+export function run(a: number): LuaMultiReturn<[number, number]> {
+  const b = a + 1;
+
+  return pack(a, b);
+}
+`,
+      },
+      { plugins: [createPlugin({ enabled: true })] }
+    );
+
+    expect(errors).toEqual([]);
+    expect(lua["main.lua"]).toBe(`local ____exports = {}
+tracy:ZoneBeginN("lua::file::main.script")
+function ____exports.run(self, a)
+    tracy:ZoneBeginN("lua::function::run")
+    local b = a + 1
+    tracy:ZoneEnd()
+    return pack(nil, a, b)
+end
+tracy:ZoneEnd()
+return ____exports
+`);
+  });
+
   describe("env fallback", () => {
     const originalInjectTracyZones = process.env[ENV_XR_INJECT_TRACY_ZONES];
 

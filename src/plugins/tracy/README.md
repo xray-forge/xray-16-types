@@ -42,9 +42,30 @@ end
 tracy:ZoneEnd()
 ```
 
-Zones close before early exits, including returns inside `if`, `for`, and `switch` blocks.
+Zones close before early exits, including returns inside `if`, `for`, `while`, `do`, `try`, and `switch` blocks.
+
+## Return Expression Timing
+
+Work performed inside a `return` expression is measured. Returns with computed expressions hoist the expression into a local declared before the zone closes:
+
+```ts
+export function run(a: number): number {
+  return compute(a);
+}
+```
+
+```lua
+function ____exports.run(self, a)
+    tracy:ZoneBeginN("lua::function::run")
+    local ____tracyZoneResult = compute(a)
+    tracy:ZoneEnd()
+    return ____tracyZoneResult
+end
+```
+
+Trivial returns (identifiers, literals, `this`) are not hoisted - there is no work to measure, so they keep the plain `ZoneEnd(); return value` order. Functions whose whole body is one trivial return are skipped entirely, since a zone would only measure its own overhead.
 
 ## Limitations
 
-- Single-expression return function bodies are skipped. Profiling them would require rewriting the return into a temporary.
+- `LuaMultiReturn` return expressions are not hoisted - a single local would truncate the value list - so their work is not measured; the zone still closes before the return.
 - The emitted Lua assumes a global `tracy` object exists at runtime.

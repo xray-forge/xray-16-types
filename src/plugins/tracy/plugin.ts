@@ -16,12 +16,13 @@ import { transformSourceFileNode } from "typescript-to-lua/dist/transformation/v
 
 import { getIdentifierText } from "../utils/ast";
 import { isTracyZonesInjectionEnabled } from "../utils/environment";
+
 import {
   createTraceZoneBeginNExpression,
   createTraceZoneEndExpression,
   transformArrowFunctionWithInjectedZones,
   transformWithInjectedZones,
-} from "../utils/tracy";
+} from "./utils/tracy";
 
 /**
  * Configuration for the tracy zones plugin, provided verbatim from the tsconfig `luaPlugins` entry.
@@ -78,7 +79,7 @@ export function createPlugin(config: IInjectTracyZonesPluginConfig = {}): Plugin
         return transformSourceFileNode(node, context);
       },
       [SyntaxKind.FunctionDeclaration]: (node, context) => {
-        return context.superTransformStatements(isEnabled() ? transformWithInjectedZones(node) : node);
+        return context.superTransformStatements(isEnabled() ? transformWithInjectedZones(node, context.checker) : node);
       },
       [SyntaxKind.ClassDeclaration]: (node, context) => {
         if (isEnabled()) {
@@ -93,7 +94,7 @@ export function createPlugin(config: IInjectTracyZonesPluginConfig = {}): Plugin
               node.heritageClauses,
               node.members.map((it) => {
                 if (isMethodDeclaration(it)) {
-                  return transformWithInjectedZones(it, name);
+                  return transformWithInjectedZones(it, context.checker, name);
                 }
 
                 return it;
@@ -136,6 +137,7 @@ export function createPlugin(config: IInjectTracyZonesPluginConfig = {}): Plugin
                             it.name,
                             transformArrowFunctionWithInjectedZones(
                               it.initializer,
+                              context.checker,
                               `${getIdentifierText(first)}.${it.name.getText()}`
                             )
                           );
@@ -153,7 +155,7 @@ export function createPlugin(config: IInjectTracyZonesPluginConfig = {}): Plugin
                   statement,
                   factory.updateCallExpression(expression, expression.expression, expression.typeArguments, [
                     first,
-                    transformArrowFunctionWithInjectedZones(second, getIdentifierText(first)),
+                    transformArrowFunctionWithInjectedZones(second, context.checker, getIdentifierText(first)),
                   ])
                 )
               );
