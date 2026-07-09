@@ -1,16 +1,39 @@
 {
   "name": "xray16",
   "version": "2.0.0-experimental.6",
+  "description": "TypeScript declarations, mocks, helpers, and TypeScriptToLua plugins for XRF X-Ray 16 scripts.",
+  "license": "MIT",
   "author": "Neloreck",
-  "repository": "https://github.com/xray-forge/stalker-xrf-xray16-sdk",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xray-forge/stalker-xrf-xray16-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xray-forge/stalker-xrf-xray16-sdk/issues"
+  },
   "homepage": "https://xray-forge.github.io/stalker-xrf-xray16-sdk/index.html",
+  "keywords": [
+    "stalker",
+    "xray",
+    "xray16",
+    "xrf",
+    "typescript",
+    "typescript-to-lua",
+    "tstl",
+    "lua",
+    "modding"
+  ],
   "main": "index.d.ts",
   "types": "index.d.ts",
+  "engines": {
+    "node": ">=20"
+  },
   "peerDependencies": {
     "typescript-to-lua": "^1.37.0"
   },
   "dependencies": {
-    "fengari": "^0.1.5"
+    "fengari": "^0.1.5",
+    "ini": "^5.0.0"
   },
   "exports": {
     ".": {
