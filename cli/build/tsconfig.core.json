@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "../../src",
+    "outDir": "../../target/pkg/xray16",
+    "esModuleInterop": true,
+    "types": ["@typescript-to-lua/language-extensions", "lua-types/jit", "jest", "node"]
+  },
+  "include": [
+    "../../src/macros.ts",
+    "../../src/alias.ts",
+    "../../src/plugins/constants.ts",
+    "../../src/mocks/**/*",
+    "../../src/types/**/*.d.ts"
+  ],
+  "exclude": ["../../src/**/*.test.ts"]
+}

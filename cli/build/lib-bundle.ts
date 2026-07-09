@@ -48,7 +48,7 @@ function collectLeaves(dir: string): Array<string> {
   return found.sort();
 }
 
-function mergeLib(): void {
+export function mergeLib(): void {
   const leaves: Array<string> = collectLeaves(LIB_SRC);
 
   // Non-relative imports (e.g. `xray16`, `xray16/alias`) must survive the merge. Named imports are grouped by

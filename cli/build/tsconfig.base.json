@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "esnext",
+    "declaration": true,
+    "skipLibCheck": true,
+    "ignoreDeprecations": "6.0"
+  }
+}

@@ -231,4 +231,4 @@ npm run docs
 
 `npm run build` regenerates the packaged declarations, plugin output, macros runtime declarations, alias module, and mocks, then stages the publishable package in `target/pkg/xray16`. `npm run docs` builds TypeDoc output into `target/docs`.
 
-Build and tooling configuration lives in `cli/` (`cli/build` for compiler/bundler configs, `cli/test` for jest, `cli/deploy` for package staging, `cli/docs` for TypeDoc). The published `package.json` manifest is maintained at `src/package.json`; the root manifest is a private project shell.
+Build and tooling configuration lives in `cli/` (`cli/build` for the build orchestrator and compiler/bundler configs, `cli/test` for jest, `cli/docs` for TypeDoc). The published `package.json` manifest is maintained at `src/package.json`; the root manifest is a private project shell.

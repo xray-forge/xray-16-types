@@ -1,15 +1,9 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "target": "esnext",
-    "declaration": true,
     "preserveConstEnums": true,
-    "outDir": "../../target/pkg/xray16/lib",
     "rootDir": "../../target/tmp/lib",
-    "skipLibCheck": true,
-    "ignoreDeprecations": "6.0",
+    "outDir": "../../target/pkg/xray16/lib",
     "types": ["@typescript-to-lua/language-extensions", "lua-types/jit"],
     "paths": {
       "xray16/alias": ["../../target/pkg/xray16/alias"],
