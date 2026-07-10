@@ -44,9 +44,6 @@ jobs:
       - name: Pack package tarball
         run: npm pack ./target/pkg/xray16 && mv xray16-*.tgz xray16-nightly.tgz
 
-      - name: Build API documentation
-        run: npm run docs
-
       - name: Upload package tarball
         uses: actions/upload-artifact@v4
         with:
