@@ -1,7 +1,7 @@
 # XRF X-Ray 16 SDK
 
 [![npm version](https://img.shields.io/npm/v/xray16)](https://www.npmjs.com/package/xray16)
-[![types](https://img.shields.io/badge/docs-types-blue.svg?style=flat)](https://xray-forge.github.io/stalker-xrf-xray16-sdk/api/types/)
+[![sdk](https://img.shields.io/badge/docs-sdk-blue.svg?style=flat)](https://xray-forge.github.io/stalker-xrf-xray16-sdk/api/types/)
 [![book](https://img.shields.io/badge/docs-book-blue.svg?style=flat)](https://xray-forge.github.io/stalker-xrf-book)
 [![Node.js CI](https://github.com/xray-forge/stalker-xrf-xray16-sdk/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/xray-forge/stalker-xrf-xray16-sdk/actions/workflows/build_and_test.yml)
 
