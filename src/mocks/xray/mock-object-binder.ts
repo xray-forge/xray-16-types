@@ -1,4 +1,4 @@
-import { type game_object, type object_binder } from "xray16";
+import { type game_object, type net_packet, type object_binder, type reader } from "xray16";
 
 import { MockLuabindClass } from "./mock-luabind";
 import { type MockNetProcessor } from "./mock-net-processor";
@@ -6,7 +6,7 @@ import { type MockNetProcessor } from "./mock-net-processor";
 /**
  * Mock of the X-Ray engine object binder (client object lifecycle wrapper).
  */
-export class MockObjectBinder extends MockLuabindClass {
+export class MockObjectBinder extends MockLuabindClass implements object_binder {
   public static asMock(binder: object_binder): MockObjectBinder {
     return binder as unknown as MockObjectBinder;
   }
@@ -37,12 +37,12 @@ export class MockObjectBinder extends MockLuabindClass {
 
   public reload(): void {}
 
-  public save(packet: MockNetProcessor): void {
-    packet.w_stringZ("save_from_" + this.constructor.name);
+  public save(packet: net_packet): void {
+    (packet as unknown as MockNetProcessor).w_stringZ("save_from_" + this.constructor.name);
   }
 
-  public load(packet: MockNetProcessor): void {
-    packet.r_stringZ();
+  public load(packet: reader): void {
+    (packet as unknown as MockNetProcessor).r_stringZ();
   }
 
   public update(): void {}

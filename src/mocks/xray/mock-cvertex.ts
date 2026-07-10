@@ -1,11 +1,14 @@
 import { jest } from "@jest/globals";
+import { type GameGraph__CVertex } from "xray16";
 
 import { MockVector } from "./mock-vector";
 
 /**
  * Mock of a game-level vertex object for jest/node.
  */
-export class MockCVertex {
+export class MockCVertex implements GameGraph__CVertex {
+  public __name: string = "GameGraph__CVertex";
+
   public vertexId: number;
   public gamePoint: MockVector = new MockVector();
   public levelPoint: MockVector = new MockVector();

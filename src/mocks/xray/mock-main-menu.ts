@@ -6,7 +6,7 @@ import { MockLoginManager } from "./mock-login-manager";
 /**
  * Mock of the X-Ray engine `CMainMenu` manager.
  */
-export class MockCMainMenu {
+export class MockCMainMenu implements CMainMenu {
   protected static instance: MockCMainMenu | null = null;
 
   public static getInstance(): MockCMainMenu {
@@ -29,13 +29,23 @@ export class MockCMainMenu {
 
   public GetLoginMngr = jest.fn(() => this.loginManager);
 
-  public GetAccountMngr = jest.fn();
+  public GetAccountMngr = jest.fn(() => null as unknown as ReturnType<CMainMenu["GetAccountMngr"]>);
+
+  public GetDemoInfo = jest.fn(() => null);
+
+  public GetPatchProgress = jest.fn(() => null as unknown as ReturnType<CMainMenu["GetPatchProgress"]>);
 
   public GetPlayerName = jest.fn(() => "test-player-name");
 
-  public GetProfileStore(): void {}
+  public GetProfileStore(): ReturnType<CMainMenu["GetProfileStore"]> {
+    return null as unknown as ReturnType<CMainMenu["GetProfileStore"]>;
+  }
 
   public GetGSVer = jest.fn(() => "1.0-test");
 
   public GetCDKey = jest.fn(() => "aaa-bb-c");
+
+  public CancelDownload = jest.fn();
+
+  public ValidateCDKey = jest.fn(() => true);
 }
