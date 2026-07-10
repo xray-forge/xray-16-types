@@ -29,19 +29,16 @@ interface IApiSurface {
 /**
  * One TypeDoc run per published surface, so each gets its own navigation section and page tree.
  *
- * The engine declarations are ambient `declare module "xray16"` augmentations aggregated through
- * side-effect imports — only entry-point files are documented, so `types` must expand the whole
- * directory instead of following imports from the barrel (`index.d.ts` itself is a pure import list
- * and is excluded).
+ * The engine declarations are ambient `declare module "xray16"` augmentations with no real exporting
+ * module, so `types` documents through `types-entry.d.ts` (`export * from "xray16"`) — one flat module
+ * grouped by the `@group` tags instead of a page tree mirroring the `src/types` directory layout.
  */
 const SURFACES: Array<IApiSurface> = [
   {
     id: "types",
     name: "xray16",
-    entryPoints: ["src/types"],
-    tsconfig: "tsconfig.json",
-    entryPointStrategy: "expand",
-    exclude: ["**/index.d.ts"],
+    entryPoints: ["cli/docs/types-entry.d.ts"],
+    tsconfig: "cli/docs/tsconfig.types.json",
   },
   { id: "alias", name: "xray16/alias", entryPoints: ["src/alias.ts"], tsconfig: "src/tsconfig.json" },
   { id: "macros", name: "xray16/macros", entryPoints: ["src/macros.ts"], tsconfig: "src/tsconfig.json" },
