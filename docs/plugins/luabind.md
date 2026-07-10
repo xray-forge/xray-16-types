@@ -1,6 +1,6 @@
 ﻿# luabind Plugin
 
-`xray16/plugins/luabind` transforms classes marked with `@LuabindClass()` into luabind class declarations.
+Use `xray16/plugins/luabind` to transform classes marked with `@LuabindClass()` into luabind class declarations.
 
 Default TypeScriptToLua classes use prototype tables and metatables. Engine classes that extend C++ objects need the luabind `class()` API so virtual overrides are registered with the engine. This plugin emits that form for decorated classes and leaves other classes to the default transform.
 
@@ -61,7 +61,7 @@ With `"reference"`, `Child.__init` calls `Base.__init(self, "child")`. With `"lu
 
 The setting only affects constructor calls. `super.method()` always emits a direct base class reference, such as `Base.method(self)`, because luabind has no global for arbitrary parent methods.
 
-## What It Handles
+## Supported output
 
 - Class setup through `class("Name")` and `class("Name")(Base)`.
 - Constructor bodies, instance field initialization, and generated constructors.
@@ -69,7 +69,7 @@ The setting only affects constructor calls. `super.method()` always emits a dire
 - Default exports assigned to `exports.default`.
 - `new Expr(...)` calls for luabind classes.
 
-## Unsupported Constructs
+## Unsupported constructs
 
 These produce build errors instead of silent miscompiles:
 

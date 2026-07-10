@@ -12,7 +12,7 @@ export function isActorVisible(object: game_object): boolean {
 }
 ```
 
-Declarations describe the TypeScript-visible API shape; C++ engine bindings define runtime behavior. Check the engine source when declaration syntax is ambiguous.
+Declarations describe the TypeScript-visible API shape. C++ engine bindings define runtime behavior, so check the engine source when declaration syntax is ambiguous.
 
 Browse the full surface in the [engine types API reference](../api/types/).
 
@@ -30,10 +30,15 @@ export interface SpawnPoint {
 }
 ```
 
-Aliases erase at build time. Virtual enums are folded by the [`inline` plugin](../plugins/inline.md) in game builds; Jest and Node can import their runtime objects from `alias.js`.
+Aliases erase at build time. Virtual enums fold in game builds with the [`inline` plugin](../plugins/inline); Jest and Node can import their runtime objects from `alias.js`.
 
 Browse the exported names in the [alias API reference](../api/alias/).
 
 ## Refreshing binding dumps
 
 To compare declarations with a live engine, run the game engine with `-dump_bindings`, open the generated `scriptbindings_*.txt` files in the user data directory, and diff them against this package's declarations.
+
+## Next steps
+
+- Use [macros and shared lib](./macros-and-lib) for compile-time helpers and shared values.
+- Use [testing](./testing) when running script code under Node.

@@ -1,6 +1,6 @@
 ﻿# macros Plugin
 
-`xray16/plugins/macros` folds compile-time helpers from `xray16/macros`.
+Use `xray16/plugins/macros` to fold compile-time helpers from `xray16/macros`.
 
 The helper module has a real Node/Jest runtime, so source code can import it normally. During a game build, this plugin removes the import and replaces supported helper usage with Lua-friendly output.
 
@@ -15,7 +15,7 @@ The helper module has a real Node/Jest runtime, so source code can import it nor
 }
 ```
 
-All options default to `true`. Token-driven options do nothing unless the matching helper appears in the source.
+All options default to `true`. Token-driven options do nothing until the matching helper appears in source.
 
 ## Configuration
 

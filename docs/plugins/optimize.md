@@ -1,6 +1,6 @@
 ﻿# optimize Plugin
 
-`xray16/plugins/optimize` rewrites returned ternary expressions into direct Lua `if` / `else` returns.
+Use `xray16/plugins/optimize` to rewrite returned ternary expressions into direct Lua `if` / `else` returns.
 
 Default TypeScriptToLua output for `return condition ? first : second` introduces a temporary local. This plugin avoids that local while preserving ternary behavior. It has no configuration.
 

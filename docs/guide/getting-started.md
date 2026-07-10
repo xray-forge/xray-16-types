@@ -1,6 +1,6 @@
 # Getting Started
 
-`xray16` provides TypeScript declarations, test helpers, and TypeScriptToLua plugins for Lua-visible X-Ray 16 APIs. Use it when compiling XRF game scripts from TypeScript, including with [stalker-xrf-engine](https://github.com/xray-forge/stalker-xrf-engine).
+`xray16` provides TypeScript declarations, Node test helpers, and TypeScriptToLua plugins for Lua-visible X-Ray 16 APIs. Use it to compile XRF game scripts from TypeScript, including with [stalker-xrf-engine](https://github.com/xray-forge/stalker-xrf-engine).
 
 ## Install
 
@@ -10,7 +10,7 @@ Install the SDK and its required TypeScriptToLua peer dependency:
 npm install xray16 typescript-to-lua
 ```
 
-`typescript-to-lua` is the only required peer dependency. `jest`, `ts-jest`, and `typescript` are optional peers for `xray16/testing`. The `fengari` and `ini` dependencies required by `xray16/mocks` install automatically.
+`typescript-to-lua` is the only required peer dependency. Install `jest`, `ts-jest`, and `typescript` when using `xray16/testing`. The `fengari` and `ini` dependencies used by `xray16/mocks` install automatically.
 
 Add the base declarations to `compilerOptions.types`. Include only the ambient typedef packages your project uses.
 
@@ -27,7 +27,7 @@ Add the base declarations to `compilerOptions.types`. Include only the ambient t
 }
 ```
 
-For an unreleased build, install `xray16@experimental` from npm, or use the rolling [nightly GitHub release](https://github.com/xray-forge/stalker-xrf-xray16-sdk/releases/tag/nightly):
+For an unreleased build, install `xray16@experimental` from npm or use the rolling [nightly GitHub release](https://github.com/xray-forge/stalker-xrf-xray16-sdk/releases/tag/nightly):
 
 ```sh
 npm install https://github.com/xray-forge/stalker-xrf-xray16-sdk/releases/download/nightly/xray16-nightly.tgz
@@ -46,7 +46,7 @@ npm install https://github.com/xray-forge/stalker-xrf-xray16-sdk/releases/downlo
 | `xray16/typedefs/*` | Opt-in ambient declarations for X-Ray and bundled Lua libraries.          |
 | `xray16/plugins/*`  | TypeScriptToLua build plugins.                                            |
 
-## Where to go next
+## Next steps
 
 - [Engine types and aliases](./engine-types.md) — import declarations that match the Lua binding dump, or TypeScript-friendly aliases.
 - [Macros and shared lib](./macros-and-lib.md) — compile-time helpers and shared constants.

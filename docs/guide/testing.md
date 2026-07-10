@@ -1,6 +1,6 @@
 # Testing
 
-Run X-Ray script code under Node with jest. Requires the optional peer dependencies `jest` and `ts-jest`.
+Run X-Ray script code under Node with Jest. Install the optional `jest`, `ts-jest`, and `typescript` peer dependencies first.
 
 ## Jest configuration
 
@@ -16,7 +16,7 @@ module.exports = createJestConfig({
 });
 ```
 
-It installs Lua-like globals and the `xray16` module mock before each test file, then registers Jest matchers such as `toBeNil`, `toEqualLuaTables`, and `toEqualLuaArrays`. Add `xray16/typedefs/jest` to `compilerOptions.types` to type-check those matchers.
+It installs Lua-like globals and the `xray16` module mock before each test file, then registers matchers such as `toBeNil`, `toEqualLuaTables`, and `toEqualLuaArrays`. Add `xray16/typedefs/jest` to `compilerOptions.types` to type-check them.
 
 Consumer `moduleNameMapper` entries override SDK entries. Consumer `setupFiles` and `setupFilesAfterEnv` entries run after the SDK setup; other top-level options replace their defaults.
 

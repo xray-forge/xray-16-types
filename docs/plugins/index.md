@@ -1,6 +1,6 @@
 # TypeScriptToLua Plugins
 
-Plugins are opt-in build transforms loaded by TypeScriptToLua through `luaPlugins`. An XRF build that needs every SDK transformation enables them in this order:
+Plugins are opt-in TypeScriptToLua build transforms. Enable only the plugins your project uses. An XRF build that needs every SDK transformation uses this order:
 
 ```jsonc
 {
@@ -18,15 +18,15 @@ Plugins are opt-in build transforms loaded by TypeScriptToLua through `luaPlugin
 }
 ```
 
-| Plugin                          | Purpose                                                                       |
-| ------------------------------- | ----------------------------------------------------------------------------- |
-| [`luabind`](./luabind.md)       | Emits `class("Name")` declarations for `@LuabindClass()` classes.             |
-| [`strip`](./strip.md)           | Removes Lua logger calls and runtime imports for engine-only typedef modules. |
-| [`macros`](./macros.md)         | Folds filename, dirname, nil-check, cast, and build-header helpers.           |
-| [`optimize`](./optimize.md)     | Rewrites returned ternaries into direct Lua `if` / `else` returns.            |
-| [`inline`](./inline.md)         | Inlines tagged constants, functions, and `$inline` / `$noInline` hints.       |
-| [`libcompile`](./libcompile.md) | Emits `xray16/lib` source as a flat `xray_bundle` module.                     |
-| [`tracy`](./tracy.md)           | Injects Tracy profiler zones when enabled.                                    |
+| Plugin                       | Use it when you need                                                   |
+| ---------------------------- | ---------------------------------------------------------------------- |
+| [`luabind`](./luabind)       | Emit `class("Name")` declarations for `@LuabindClass()` classes.       |
+| [`strip`](./strip)           | Remove Lua logger calls and imports for engine-only typedef modules.   |
+| [`macros`](./macros)         | Fold filename, dirname, nil-check, cast, and build-header helpers.     |
+| [`optimize`](./optimize)     | Rewrite returned ternaries into direct Lua `if` / `else` returns.      |
+| [`inline`](./inline)         | Inline tagged constants, functions, and `$inline` / `$noInline` hints. |
+| [`libcompile`](./libcompile) | Emit `xray16/lib` source as a flat `xray_bundle` module.               |
+| [`tracy`](./tracy)           | Inject Tracy profiler zones.                                           |
 
 When their config fields are unset, `strip.luaLogger` falls back to `XR_NO_LUA_LOGS=true` or `--no-lua-logs`, and `tracy.enabled` falls back to `XR_INJECT_TRACY_ZONES=true` or `--inject-tracy-zones`.
 

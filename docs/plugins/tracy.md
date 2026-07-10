@@ -1,6 +1,6 @@
 ﻿# tracy Plugin
 
-`xray16/plugins/tracy` injects [Tracy profiler](https://github.com/wolfpld/tracy) zone markers into emitted Lua.
+Use `xray16/plugins/tracy` to inject [Tracy profiler](https://github.com/wolfpld/tracy) zone markers into emitted Lua.
 
 Enable it for profiling builds. Keep it disabled for release builds.
 

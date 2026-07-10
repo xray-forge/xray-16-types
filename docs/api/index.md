@@ -1,6 +1,6 @@
 # API Reference
 
-Generated reference for every `xray16` package surface. Each package page lists its exports grouped by topic; entries link to per-member pages.
+This generated reference covers every published `xray16` package surface. Choose a package to browse its exports and member pages.
 
 | Package                              | Description                                                                              |
 | ------------------------------------ | ---------------------------------------------------------------------------------------- |
@@ -11,4 +11,4 @@ Generated reference for every `xray16` package surface. Each package page lists 
 | [xray16/testing](./testing/index.md) | Jest configuration factory, setup helpers, and matchers.                                 |
 | [xray16/mocks](./mocks/index.md)     | Lua-like runtime helpers and engine class mocks for Node-based tests.                    |
 
-Declarations describe the TypeScript-visible API shape; C++ engine bindings define runtime behavior. Check the engine source when declaration syntax is ambiguous.
+Declarations describe the TypeScript-visible API shape. C++ engine bindings define runtime behavior, so check the engine source when declaration syntax is ambiguous.

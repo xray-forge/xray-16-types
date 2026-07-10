@@ -1,10 +1,10 @@
 ﻿# inline Plugin
 
-`xray16/plugins/inline` replaces tagged constants and function calls with Lua expressions at build time.
+Use `xray16/plugins/inline` to replace tagged constants and function calls with Lua expressions at build time.
 
 The plugin only touches declarations tagged with `@inline` or `@virtual`, plus call sites wrapped in the `$inline` / `$noInline` macros. If a tagged declaration cannot be folded safely, the build fails instead of emitting a runtime lookup.
 
-## Annotations
+## Choose an annotation
 
 ### `@inline`
 
@@ -41,16 +41,16 @@ Effects:
 - No `weapons` table is emitted.
 - Runtime object usage, such as `pairs(weapons)`, fails the build. Use `@inline` instead when runtime code needs the object.
 
-## Supported Targets
+## Supported declarations
 
 - Enums with compile-time constant members.
 - Module-level scalar `const` declarations.
 - Module-level flat object literals with an `as const` assertion.
 - Module-level functions with a supported body shape.
 
-## Call-Site Overrides
+## Override one call site
 
-`$inline` and `$noInline` from `xray16/macros` override inlining decisions for one call site. Both are identity functions at runtime, so the same code runs under jest/node.
+`$inline` and `$noInline` from `xray16/macros` override inlining decisions for one call site. Both are identity functions at runtime, so the same code runs under Jest and Node.
 
 ### `$inline`
 

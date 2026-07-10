@@ -1,6 +1,6 @@
 # Ambient Typedefs
 
-Ambient typedefs describe X-Ray globals and bundled Lua libraries. They are not modules to import; add them to `compilerOptions.types` or reference them with `/// <reference types="..." />`.
+Ambient typedefs describe X-Ray globals and bundled Lua libraries. They are not modules to import. Add the entries your runtime provides to `compilerOptions.types`, or reference them with `/// <reference types="..." />`.
 
 | Typedef                      | Provides                                                                                                      |
 | ---------------------------- | ------------------------------------------------------------------------------------------------------------- |
@@ -22,3 +22,5 @@ Ambient typedefs describe X-Ray globals and bundled Lua libraries. They are not 
   },
 }
 ```
+
+`xray16/typedefs/jest` is only needed when tests use the custom Jest matchers. See [testing](./testing) for setup.

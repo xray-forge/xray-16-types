@@ -1,6 +1,6 @@
 ﻿# strip Plugin
 
-`xray16/plugins/strip` removes selected constructs from TypeScriptToLua output.
+Use `xray16/plugins/strip` to remove selected constructs from TypeScriptToLua output.
 
 Use it to keep release Lua smaller and to erase imports that only exist for TypeScript typing. The plugin reads its options from the `luaPlugins` entry.
 
