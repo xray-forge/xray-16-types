@@ -1,0 +1,5 @@
+/* Generated API reference pages: monospace headings read as code identifiers, not prose. */
+.api-reference .vp-doc :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--vp-font-family-mono);
+  letter-spacing: normal;
+}
