@@ -6,12 +6,15 @@ hero:
   text: ""
   tagline: ""
   actions:
-    - theme: brand
+    - theme: alt
       text: Get Started
       link: /guide/getting-started
     - theme: alt
       text: Plugins
       link: /plugins/
+    - theme: alt
+      text: Engine API
+      link: /api/types/
     - theme: alt
       text: API Reference
       link: /api/types/

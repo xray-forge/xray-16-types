@@ -1,11 +1,13 @@
 # XRF X-Ray 16 SDK
 
 [![npm version](https://img.shields.io/npm/v/xray16)](https://www.npmjs.com/package/xray16)
-[![types](https://img.shields.io/badge/docs-types-blue.svg?style=flat)](https://xray-forge.github.io/stalker-xrf-xray16-sdk/index.html)
+[![types](https://img.shields.io/badge/docs-types-blue.svg?style=flat)](https://xray-forge.github.io/stalker-xrf-xray16-sdk/api/types/)
 [![book](https://img.shields.io/badge/docs-book-blue.svg?style=flat)](https://xray-forge.github.io/stalker-xrf-book)
 [![Node.js CI](https://github.com/xray-forge/stalker-xrf-xray16-sdk/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/xray-forge/stalker-xrf-xray16-sdk/actions/workflows/build_and_test.yml)
 
 `xray16` provides TypeScript declarations, test helpers, and TypeScriptToLua plugins for Lua-visible X-Ray 16 APIs. Use it when compiling XRF game scripts from TypeScript, including with [stalker-xrf-engine](https://github.com/xray-forge/stalker-xrf-engine).
+
+[X-Ray 16 engine API](https://xray-forge.github.io/stalker-xrf-xray16-sdk/api/types/) documents game globals, luabind classes, UI and GOAP classes, and script objects.
 
 ## Quick start
 
