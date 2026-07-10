@@ -1,4 +1,4 @@
-import { type net_packet, type reader, type TXR_net_processor, type vector } from "xray16";
+import { type ClientID, type matrix, type net_packet, type reader, type TXR_net_processor, type vector } from "xray16";
 
 const MAX_U32: number = 4_294_967_295;
 
@@ -21,7 +21,7 @@ export enum EMockPacketDataType {
 /**
  * X-Ray net processor mock for testing save/load of data.
  */
-export class MockNetProcessor implements reader {
+export class MockNetProcessor implements reader, net_packet {
   public static create(dataList: Array<unknown> = []): MockNetProcessor {
     return new MockNetProcessor(dataList);
   }
@@ -31,7 +31,7 @@ export class MockNetProcessor implements reader {
   }
 
   public static mockNetPacket(): net_packet {
-    return new MockNetProcessor() as unknown as net_packet;
+    return new MockNetProcessor();
   }
 
   public static mockReader(): reader {
@@ -89,6 +89,14 @@ export class MockNetProcessor implements reader {
     this.dataList.splice(0, size);
   }
 
+  public r_begin(_type: number): number {
+    return 0;
+  }
+
+  public r_clientID(): ClientID {
+    return this.read<ClientID>(EMockPacketDataType.U32);
+  }
+
   public r_sdir(vector: vector): void {
     vector.set(this.read<vector>(EMockPacketDataType.VECTOR));
   }
@@ -103,12 +111,24 @@ export class MockNetProcessor implements reader {
     vector.set(this.read<vector>(EMockPacketDataType.VECTOR));
   }
 
-  public r_angle16(): number {
-    return this.read<number>(EMockPacketDataType.F32);
+  public r_angle16(): number;
+  public r_angle16(value: number): void;
+  public r_angle16(value?: number): number | void {
+    const angle: number = this.read<number>(EMockPacketDataType.F32);
+
+    if (value === undefined) {
+      return angle;
+    }
   }
 
-  public r_angle8(): number {
-    return this.read<number>(EMockPacketDataType.F32);
+  public r_angle8(): number;
+  public r_angle8(value: number): void;
+  public r_angle8(value?: number): number | void {
+    const angle: number = this.read<number>(EMockPacketDataType.F32);
+
+    if (value === undefined) {
+      return angle;
+    }
   }
 
   public r_float_q16<T extends number>(_: T, _max: T): T {
@@ -117,6 +137,10 @@ export class MockNetProcessor implements reader {
 
   public r_float_q8<T extends number>(_: T, _max: T): T {
     return this.read<T>(EMockPacketDataType.F32);
+  }
+
+  public r_matrix(matrix: matrix): matrix {
+    return this.read<matrix>(EMockPacketDataType.VECTOR) ?? matrix;
   }
 
   public r_s16<T extends number = number>(_: T | undefined = undefined): T {
@@ -135,39 +159,94 @@ export class MockNetProcessor implements reader {
     return this.read<T>(EMockPacketDataType.U32);
   }
 
+  public w_angle16(value: number): void {
+    this.write(EMockPacketDataType.F32, value);
+  }
+
+  public w_angle8(value: number): void {
+    this.write(EMockPacketDataType.F32, value);
+  }
+
+  public w_begin(type: number): void {
+    this.dataList = [];
+    this.writeDataOrder = [];
+    this.write(EMockPacketDataType.U16, type);
+  }
+
+  public w_chunk_close16(_marker: number): void {}
+
+  public w_chunk_close8(_marker: number): void {}
+
+  public w_chunk_open16(_marker: number): void {}
+
+  public w_chunk_open8(_marker: number): void {}
+
+  public w_clientID(clientId: ClientID): void {
+    this.write(EMockPacketDataType.U32, clientId);
+  }
+
+  public w_dir(vector: vector): void {
+    this.write(EMockPacketDataType.VECTOR, vector);
+  }
+
+  public w_float_q16(value: number, _min: number, _max: number): void {
+    this.write(EMockPacketDataType.F32, value);
+  }
+
+  public w_float_q8(value: number, _min: number, _max: number): void {
+    this.write(EMockPacketDataType.F32, value);
+  }
+
+  public w_matrix(matrix: matrix): void {
+    this.write(EMockPacketDataType.VECTOR, matrix);
+  }
+
+  public w_s16(value: number): void {
+    this.write(EMockPacketDataType.I16, value);
+  }
+
+  public w_s64(value: number): void {
+    this.write(EMockPacketDataType.I32, value);
+  }
+
+  public w_sdir(vector: vector): void {
+    this.write(EMockPacketDataType.VECTOR, vector);
+  }
+
+  public w_u64(value: number): void {
+    this.write(EMockPacketDataType.U32, value);
+  }
+
+  public w_vec3(vector: vector): void {
+    this.write(EMockPacketDataType.VECTOR, vector);
+  }
+
   public w_stringZ(data: string): void {
-    this.writeDataOrder.push(EMockPacketDataType.STRING);
-    this.dataList.push(data);
+    this.write(EMockPacketDataType.STRING, data);
   }
 
   public w_u16(data: number): void {
-    this.writeDataOrder.push(EMockPacketDataType.U16);
-    this.dataList.push(data);
+    this.write(EMockPacketDataType.U16, data);
   }
 
   public w_u32(data: number): void {
-    this.writeDataOrder.push(EMockPacketDataType.U32);
-    this.dataList.push(data === -1 ? MAX_U32 : data);
+    this.write(EMockPacketDataType.U32, data === -1 ? MAX_U32 : data);
   }
 
   public w_s32(data: number): void {
-    this.writeDataOrder.push(EMockPacketDataType.I32);
-    this.dataList.push(data);
+    this.write(EMockPacketDataType.I32, data);
   }
 
   public w_u8(data: number): void {
-    this.writeDataOrder.push(EMockPacketDataType.U8);
-    this.dataList.push(data);
+    this.write(EMockPacketDataType.U8, data);
   }
 
   public w_float(data: number): void {
-    this.writeDataOrder.push(EMockPacketDataType.F32);
-    this.dataList.push(data);
+    this.write(EMockPacketDataType.F32, data);
   }
 
   public w_bool(data: boolean): void {
-    this.writeDataOrder.push(EMockPacketDataType.BOOLEAN);
-    this.dataList.push(data);
+    this.write(EMockPacketDataType.BOOLEAN, data);
   }
 
   public w_tell(): number {
@@ -190,15 +269,20 @@ export class MockNetProcessor implements reader {
     return this.dataList.length > 0;
   }
 
+  private write(type: EMockPacketDataType, data: unknown): void {
+    this.writeDataOrder.push(type);
+    this.dataList.push(data);
+  }
+
   public asNetReader(): reader {
     return this;
   }
 
   public asNetPacket(): net_packet {
-    return this as unknown as net_packet;
+    return this;
   }
 
   public asNetProcessor(): net_packet {
-    return this as unknown as net_packet;
+    return this;
   }
 }
