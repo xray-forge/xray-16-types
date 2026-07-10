@@ -15,8 +15,10 @@ export interface IPatrolMock {
  *
  * The patrol point data is engine test-domain, so it is injected via {@link MockPatrol.setup} rather than bundled.
  */
-export class MockPatrol {
+export class MockPatrol implements patrol {
   private static registry: Record<string, IPatrolMock> = {};
+
+  public __name: string = "patrol";
 
   /**
    * Inject the registry of named patrol mocks (by reference). Call once at test setup.
@@ -46,12 +48,18 @@ export class MockPatrol {
     }
   }
 
-  public flags(): flags32 {
-    return MockFlags32.mock();
+  public flags(index: number): flags32 {
+    return new MockFlags32().assign(this.patrolMock.points[index]?.flag ?? 0);
   }
 
-  public flag(index: number, flag: number): boolean {
-    const normalizedFlag: number = flag + 1;
+  public flag(index: number, flag: number | string): boolean {
+    const numericFlag: number = typeof flag === "string" ? Number(flag) : flag;
+
+    if (!Number.isFinite(numericFlag)) {
+      return false;
+    }
+
+    const normalizedFlag: number = numericFlag + 1;
 
     return ((this.patrolMock.points[index].flag ?? 0) & normalizedFlag) === normalizedFlag;
   }
@@ -61,7 +69,19 @@ export class MockPatrol {
   }
 
   public get_nearest(vector: vector): number {
-    return 121;
+    let nearestIndex: number = 0;
+    let nearestDistance: number = Number.POSITIVE_INFINITY;
+
+    this.patrolMock.points.forEach((point, index) => {
+      const distance: number = point.position.distance_to(vector);
+
+      if (distance < nearestDistance) {
+        nearestIndex = index;
+        nearestDistance = distance;
+      }
+    });
+
+    return nearestIndex;
   }
 
   public index(name: string): number {
