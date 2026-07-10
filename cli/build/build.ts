@@ -1,8 +1,8 @@
-import { spawn } from "node:child_process";
 import * as fs from "node:fs";
 import * as path from "node:path";
 
 import { PKG_ROOT, PROJECT_ROOT, SRC_ROOT, TARGET_ROOT, TYPEDEFS_ROOT } from "../config/build.constants";
+import { run } from "../config/run";
 
 import { mergeLib } from "./lib-bundle";
 
@@ -35,60 +35,11 @@ const REQUIRED_ARTIFACTS: Array<string> = [
   "testing",
 ];
 
-/**
- * Run a build tool from `node_modules/.bin` in the project root, streaming its output.
- *
- * @param command - Full shell command; binaries resolve through PATH (`.bin` is prepended, matching npm
- *   script behavior) and paths are relative to the project root. Must not need shell escaping.
- * @returns Promise resolving on zero exit code, rejecting otherwise.
- */
-function run(command: string): Promise<void> {
-  return new Promise((resolve, reject) => {
-    const child = spawn(command, {
-      cwd: PROJECT_ROOT,
-      stdio: "inherit",
-      shell: true,
-      env: {
-        ...process.env,
-        PATH: `${path.resolve(PROJECT_ROOT, "node_modules/.bin")}${path.delimiter}${process.env["PATH"] ?? ""}`,
-      },
-    });
-
-    child.on("error", reject);
-    child.on("exit", (code) => {
-      if (code === 0) {
-        resolve();
-      } else {
-        reject(new Error(`'${command}' exited with code ${code}.`));
-      }
-    });
-  });
-}
-
 function verifyBuildArtifacts(): void {
   const missing: Array<string> = REQUIRED_ARTIFACTS.filter((it) => !fs.existsSync(path.resolve(PKG_ROOT, it)));
 
   if (missing.length > 0) {
     throw new Error(`Build artifacts missing in target/pkg/xray16: ${missing.join(", ")}.`);
-  }
-}
-
-function stagePluginReadmes(): void {
-  const pluginsSrcRoot: string = path.resolve(SRC_ROOT, "plugins");
-
-  for (const entry of fs.readdirSync(pluginsSrcRoot, { withFileTypes: true })) {
-    if (!entry.isDirectory()) {
-      continue;
-    }
-
-    const readmePath: string = path.resolve(pluginsSrcRoot, entry.name, "README.md");
-
-    if (fs.existsSync(readmePath)) {
-      const destinationDir: string = path.resolve(PKG_ROOT, "plugins", entry.name);
-
-      fs.mkdirSync(destinationDir, { recursive: true });
-      fs.copyFileSync(readmePath, path.resolve(destinationDir, "README.md"));
-    }
   }
 }
 
@@ -115,8 +66,6 @@ function stagePackage(): void {
   fs.copyFileSync(path.resolve(PROJECT_ROOT, "LICENSE"), path.resolve(PKG_ROOT, "LICENSE"));
 
   fs.cpSync(TYPEDEFS_ROOT, path.resolve(PKG_ROOT, "typedefs"), { recursive: true });
-
-  stagePluginReadmes();
 }
 
 async function buildPackage(): Promise<void> {

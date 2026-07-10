@@ -175,15 +175,15 @@ Plugins are opt-in. An XRF build that needs every SDK transformation enables the
 }
 ```
 
-| Plugin                                           | Purpose                                                                       |
-| ------------------------------------------------ | ----------------------------------------------------------------------------- |
-| [`luabind`](src/plugins/luabind/README.md)       | Emits `class("Name")` declarations for `@LuabindClass()` classes.             |
-| [`strip`](src/plugins/strip/README.md)           | Removes Lua logger calls and runtime imports for engine-only typedef modules. |
-| [`macros`](src/plugins/macros/README.md)         | Folds filename, dirname, nil-check, cast, and build-header helpers.           |
-| [`optimize`](src/plugins/optimize/README.md)     | Rewrites returned ternaries into direct Lua `if` / `else` returns.            |
-| [`inline`](src/plugins/inline/README.md)         | Inlines tagged constants, functions, and `$inline` / `$noInline` hints.       |
-| [`libcompile`](src/plugins/libcompile/README.md) | Emits `xray16/lib` source as a flat `xray_bundle` module.                     |
-| [`tracy`](src/plugins/tracy/README.md)           | Injects Tracy profiler zones when enabled.                                    |
+| Plugin                                     | Purpose                                                                       |
+| ------------------------------------------ | ----------------------------------------------------------------------------- |
+| [`luabind`](docs/plugins/luabind.md)       | Emits `class("Name")` declarations for `@LuabindClass()` classes.             |
+| [`strip`](docs/plugins/strip.md)           | Removes Lua logger calls and runtime imports for engine-only typedef modules. |
+| [`macros`](docs/plugins/macros.md)         | Folds filename, dirname, nil-check, cast, and build-header helpers.           |
+| [`optimize`](docs/plugins/optimize.md)     | Rewrites returned ternaries into direct Lua `if` / `else` returns.            |
+| [`inline`](docs/plugins/inline.md)         | Inlines tagged constants, functions, and `$inline` / `$noInline` hints.       |
+| [`libcompile`](docs/plugins/libcompile.md) | Emits `xray16/lib` source as a flat `xray_bundle` module.                     |
+| [`tracy`](docs/plugins/tracy.md)           | Injects Tracy profiler zones when enabled.                                    |
 
 When their config fields are unset, `strip.luaLogger` falls back to `XR_NO_LUA_LOGS=true` or `--no-lua-logs`, and `tracy.enabled` falls back to `XR_INJECT_TRACY_ZONES=true` or `--inject-tracy-zones`.
 
@@ -200,11 +200,11 @@ export class ActorBinder extends object_binder {
 }
 ```
 
-See the [`luabind` plugin README](src/plugins/luabind/README.md) for constructor and inheritance rules.
+See the [`luabind` plugin README](docs/plugins/luabind.md) for constructor and inheritance rules.
 
 ## API documentation and development
 
-Generated API documentation is available at [xray-forge.github.io/stalker-xrf-xray16-sdk](https://xray-forge.github.io/stalker-xrf-xray16-sdk/index.html). Declarations describe the TypeScript-visible API shape; C++ engine bindings define runtime behavior. Check the engine source when declaration syntax is ambiguous.
+The documentation website is available at [xray-forge.github.io/stalker-xrf-xray16-sdk](https://xray-forge.github.io/stalker-xrf-xray16-sdk/index.html) — guides, plugin pages, and a generated API reference per package surface. Declarations describe the TypeScript-visible API shape; C++ engine bindings define runtime behavior. Check the engine source when declaration syntax is ambiguous.
 
 To refresh local binding dumps, run the game engine with `-dump_bindings`, open the generated `scriptbindings_*.txt` files in the user data directory, and compare them with this package's declarations.
 
@@ -218,4 +218,4 @@ npm run build
 npm run docs
 ```
 
-`npm run build` stages the publishable package in `target/pkg/xray16`; `npm run docs` writes TypeDoc output to `target/docs`. Build and tooling configuration lives in `cli/`, and the published manifest is [`src/package.json`](src/package.json).
+`npm run build` stages the publishable package in `target/pkg/xray16`; `npm run docs` builds the VitePress website (with TypeDoc API sections) into `target/docs`, and `npm run docs:dev` serves it locally. Website content lives in `docs/`, build and tooling configuration in `cli/`, and the published manifest is [`src/package.json`](src/package.json).

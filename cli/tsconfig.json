@@ -7,6 +7,6 @@
     "skipLibCheck": true,
     "types": ["node"]
   },
-  "include": ["build/**/*.ts", "config/**/*.ts"],
+  "include": ["build/**/*.ts", "config/**/*.ts", "docs/**/*.ts"],
   "exclude": []
 }

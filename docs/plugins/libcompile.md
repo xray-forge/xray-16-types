@@ -14,15 +14,12 @@ Map `xray16/lib` to source and run `libcompile` after `inline`.
 {
   "compilerOptions": {
     "paths": {
-      "xray16/lib": ["../../node_modules/xray16/lib/index"]
-    }
+      "xray16/lib": ["../../node_modules/xray16/lib/index"],
+    },
   },
   "tstl": {
-    "luaPlugins": [
-      { "name": "xray16/plugins/inline" },
-      { "name": "xray16/plugins/libcompile" }
-    ]
-  }
+    "luaPlugins": [{ "name": "xray16/plugins/inline" }, { "name": "xray16/plugins/libcompile" }],
+  },
 }
 ```
 

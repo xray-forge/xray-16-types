@@ -69,7 +69,7 @@ A cast helper called with anything other than one argument reports: `Invalid tra
 
 Unwraps `$inline` and `$noInline` to their single argument when the `inline` plugin has not consumed them.
 
-These hints are owned by the `inline` plugin, which forces or suppresses inlining for the wrapped target (see its [README](../inline/README.md)). In the recommended plugin order, `inline` runs before `macros` and consumes the hints. This option exists for builds that run the macros plugin without the inline plugin: the hints become plain calls instead of emitted `$` identifiers.
+These hints are owned by the `inline` plugin, which forces or suppresses inlining for the wrapped target (see the [`inline` plugin page](./inline.md)). In the recommended plugin order, `inline` runs before `macros` and consumes the hints. This option exists for builds that run the macros plugin without the inline plugin: the hints become plain calls instead of emitted `$` identifiers.
 
 ## Limitations
 

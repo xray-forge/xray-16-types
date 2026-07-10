@@ -13,6 +13,8 @@ export default [
       "target/**/*",
       "src/plugins/**/*.js",
       "node_modules/**/*",
+      "docs/.vitepress/cache/**/*",
+      "docs/.vitepress/dist/**/*",
     ],
   },
   jsdocPlugin.configs["flat/recommended"],

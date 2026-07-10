@@ -21,7 +21,10 @@ declare namespace marshal {
   /**
    * Decode a byte stream into a table-like value.
    */
-  function decode<T extends LuaTable | Record<any, any> | Array<unknown>>(serialized: string, constants?: Partial<T>): T;
+  function decode<T extends LuaTable | Record<any, any> | Array<unknown>>(
+    serialized: string,
+    constants?: Partial<T>
+  ): T;
 
   /**
    * Encode a table-like value into a byte stream.

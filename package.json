@@ -8,7 +8,9 @@
   "scripts": {
     "clean": "rimraf ./target",
     "build": "tsx cli/build/build.ts",
-    "docs": "typedoc --options cli/docs/typedoc.json",
+    "docs": "tsx cli/docs/docs.ts",
+    "docs:dev": "tsx cli/docs/docs.ts --dev",
+    "docs:preview": "vitepress preview docs",
     "test": "jest --config cli/test/jest.config.mjs",
     "typecheck": "tsc --noEmit && tsc --noEmit -p ./src/tsconfig.json && tsc --noEmit -p ./cli/build/tsconfig.core.json && tsc --noEmit -p ./cli/tsconfig.json",
     "format": "prettier --write \"**/*.(js|ts|tsx|md)\" && eslint . --fix",
@@ -41,8 +43,11 @@
     "ts-jest": "^29.4.11",
     "tsx": "^4.22.4",
     "typedoc": "^0.28.19",
+    "typedoc-plugin-markdown": "^4.12.0",
+    "typedoc-vitepress-theme": "^1.1.3",
     "typescript": "6.0.2",
     "typescript-eslint": "^8.62.0",
-    "typescript-to-lua": "1.37.0"
+    "typescript-to-lua": "1.37.0",
+    "vitepress": "^1.6.4"
   }
 }
