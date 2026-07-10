@@ -7,11 +7,11 @@ import { MockCGameObject } from "./mock-c-game-object";
  * Mock of the X-Ray engine campfire object.
  */
 export class MockCZoneCampfire extends MockCGameObject implements CZoneCampfire {
-  public static create(state: boolean = false): MockCZoneCampfire {
+  public static override create(state: boolean = false): MockCZoneCampfire {
     return new MockCZoneCampfire(state);
   }
 
-  public static mock(state: boolean = false): CZoneCampfire {
+  public static override mock(state: boolean = false): CZoneCampfire {
     return new MockCZoneCampfire(state) as unknown as CZoneCampfire;
   }
 

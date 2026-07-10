@@ -7,11 +7,11 @@ import { MockCGameObject } from "./mock-c-game-object";
  * Mock of the X-Ray engine artefact object.
  */
 export class MockCArtefact extends MockCGameObject implements CArtefact {
-  public static create(): MockCArtefact {
+  public static override create(): MockCArtefact {
     return new MockCArtefact();
   }
 
-  public static mock(): CArtefact {
+  public static override mock(): CArtefact {
     return new MockCArtefact() as unknown as CArtefact;
   }
 

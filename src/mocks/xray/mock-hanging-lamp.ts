@@ -7,11 +7,11 @@ import { MockCGameObject } from "./mock-c-game-object";
  * Mock of the X-Ray engine hanging lamp object.
  */
 export class MockHangingLamp extends MockCGameObject implements hanging_lamp {
-  public static create(): MockHangingLamp {
+  public static override create(): MockHangingLamp {
     return new MockHangingLamp();
   }
 
-  public static mock(): hanging_lamp {
+  public static override mock(): hanging_lamp {
     return new MockHangingLamp() as unknown as hanging_lamp;
   }
 

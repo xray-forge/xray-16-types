@@ -7,11 +7,11 @@ import { MockCGameObject } from "./mock-c-game-object";
  * Mock of the X-Ray engine `CPhysicObject`.
  */
 export class MockPhysicObject extends MockCGameObject implements CPhysicObject {
-  public static create(): MockPhysicObject {
+  public static override create(): MockPhysicObject {
     return new MockPhysicObject();
   }
 
-  public static mock(): CPhysicObject {
+  public static override mock(): CPhysicObject {
     return new MockPhysicObject() as unknown as CPhysicObject;
   }
 

@@ -5,6 +5,14 @@ import type { CGameObject } from "xray16";
  * Minimal native client-object base shared by engine wrapper mocks.
  */
 export class MockCGameObject implements CGameObject {
+  public static create(): MockCGameObject {
+    return new MockCGameObject();
+  }
+
+  public static mock(): CGameObject {
+    return new MockCGameObject();
+  }
+
   public __name: string = "CGameObject";
 
   public Visual = jest.fn() as unknown as jest.MockedFunction<CGameObject["Visual"]>;
