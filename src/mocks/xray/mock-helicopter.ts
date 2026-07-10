@@ -1,8 +1,8 @@
 import { jest } from "@jest/globals";
 import { type CHelicopter } from "xray16";
 
-import { MockVector } from "./mock-vector";
 import { MockCGameObject } from "./mock-c-game-object";
+import { MockVector } from "./mock-vector";
 
 /**
  * Mock of the X-Ray engine helicopter object.

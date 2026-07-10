@@ -1,10 +1,12 @@
 import { jest } from "@jest/globals";
 import { type CArtefact } from "xray16";
 
+import { MockCGameObject } from "./mock-c-game-object";
+
 /**
  * Mock of the X-Ray engine artefact object.
  */
-export class MockCArtefact {
+export class MockCArtefact extends MockCGameObject implements CArtefact {
   public static create(): MockCArtefact {
     return new MockCArtefact();
   }

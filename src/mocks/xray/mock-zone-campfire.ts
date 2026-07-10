@@ -1,10 +1,12 @@
 import { jest } from "@jest/globals";
 import { type CZoneCampfire } from "xray16";
 
+import { MockCGameObject } from "./mock-c-game-object";
+
 /**
  * Mock of the X-Ray engine campfire object.
  */
-export class MockCZoneCampfire {
+export class MockCZoneCampfire extends MockCGameObject implements CZoneCampfire {
   public static create(state: boolean = false): MockCZoneCampfire {
     return new MockCZoneCampfire(state);
   }
@@ -16,6 +18,7 @@ export class MockCZoneCampfire {
   public state: boolean;
 
   public constructor(state: boolean = false) {
+    super();
     this.state = state;
   }
 
