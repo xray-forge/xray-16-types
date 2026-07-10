@@ -1,4 +1,4 @@
-import type { danger_object, game_object, TXR_danger_object } from "xray16";
+import type { danger_object, game_object, TXR_danger_object, TXR_danger_perceive_type } from "xray16";
 
 import { MockGameObject } from "./mock-game-object";
 import { MockVector } from "./mock-vector";
@@ -6,7 +6,7 @@ import { MockVector } from "./mock-vector";
 /**
  * Mock xray engine danger object.
  */
-export class MockDangerObject {
+export class MockDangerObject implements danger_object {
   public static create(dangerTime: number = -1): MockDangerObject {
     return new MockDangerObject(dangerTime);
   }
@@ -31,6 +31,7 @@ export class MockDangerObject {
   public dangerObject: game_object = MockGameObject.mock();
   public dangerDependentObject: game_object | null = null;
   public dangerPosition: MockVector = MockVector.create(1.5, -0.5, 1);
+  public dangerPerceiveType: TXR_danger_perceive_type = 0;
   public dangerTime: number = -1;
 
   public constructor(dangerTime: number = -1) {
@@ -55,6 +56,10 @@ export class MockDangerObject {
 
   public type(): TXR_danger_object {
     return this.dangerType;
+  }
+
+  public perceive_type(): TXR_danger_perceive_type {
+    return this.dangerPerceiveType;
   }
 
   public asMock(): danger_object {

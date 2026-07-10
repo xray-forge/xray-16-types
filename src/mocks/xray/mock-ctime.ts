@@ -4,7 +4,7 @@ import { type CTime } from "xray16";
 /**
  * Mock of the X-Ray engine `CTime` object for jest/node.
  */
-export class MockCTime {
+export class MockCTime implements CTime {
   public static create(y: number, m: number, d: number, h: number, min: number, sec: number, ms: number): MockCTime {
     const time: MockCTime = new MockCTime();
 
@@ -30,6 +30,8 @@ export class MockCTime {
     return MockCTime.nowTime.copy();
   }
 
+  public __name: string = "CTime";
+
   public y: number = 2012;
   public m: number = 6;
   public d: number = 12;
@@ -38,8 +40,10 @@ export class MockCTime {
   public sec: number = 0;
   public ms: number = 0;
 
-  public get = jest.fn((): [number, number, number, number, number, number, number] => {
-    return [this.y, this.m, this.d, this.h, this.min, this.sec, this.ms];
+  public get = jest.fn((_y: number, _m: number, _d: number, _h: number, _min: number, _sec: number, _ms: number) => {
+    return [this.y, this.m, this.d, this.h, this.min, this.sec, this.ms] as unknown as LuaMultiReturn<
+      [number, number, number, number, number, number, number]
+    >;
   });
 
   public set = jest.fn((y: number, m: number, d: number, h: number, min: number, sec: number, ms: number): void => {
@@ -52,9 +56,19 @@ export class MockCTime {
     this.ms = ms;
   });
 
-  public diffSec = jest.fn((target: MockCTime): number => {
-    return Math.abs(this.toAbsolute() - target.toAbsolute());
+  public diffSec = jest.fn((target: CTime): number => {
+    const [y, m, d, h, min, sec, ms] = target.get(0, 0, 0, 0, 0, 0, 0);
+
+    return Math.abs(this.toAbsolute() - MockCTime.create(y, m, d, h, min, sec, ms).toAbsolute());
   });
+
+  public add(time: CTime): void {
+    this.applyTimeDelta(time, 1);
+  }
+
+  public dateToString(mode: number): string {
+    return [this.d, this.m, this.y][mode]?.toString() ?? "";
+  }
 
   public copy(): MockCTime {
     const time: MockCTime = new MockCTime();
@@ -76,6 +90,25 @@ export class MockCTime {
       this.sec === sec &&
       this.ms === ms
     );
+  }
+
+  public setHMS(h: number, m: number, s: number): void {
+    this.h = h;
+    this.min = m;
+    this.sec = s;
+  }
+
+  public setHMSms(h: number, m: number, s: number, ms: number): void {
+    this.setHMS(h, m, s);
+    this.ms = ms;
+  }
+
+  public sub(time: CTime): void {
+    this.applyTimeDelta(time, -1);
+  }
+
+  public timeToString(mode: number): string {
+    return [this.h, this.min, this.sec, this.ms][mode]?.toString() ?? "";
   }
 
   public toString(): string {
@@ -103,5 +136,28 @@ export class MockCTime {
     }
 
     return current - base;
+  }
+
+  private applyTimeDelta(time: CTime, direction: 1 | -1): void {
+    const [y, m, d, h, min, sec, ms] = time.get(0, 0, 0, 0, 0, 0, 0);
+    const date = new Date(this.y, this.m - 1, this.d, this.h, this.min, this.sec, this.ms);
+
+    date.setFullYear(date.getFullYear() + direction * y);
+    date.setMonth(date.getMonth() + direction * m);
+    date.setDate(date.getDate() + direction * d);
+    date.setHours(date.getHours() + direction * h);
+    date.setMinutes(date.getMinutes() + direction * min);
+    date.setSeconds(date.getSeconds() + direction * sec);
+    date.setMilliseconds(date.getMilliseconds() + direction * ms);
+
+    this.set(
+      date.getFullYear(),
+      date.getMonth() + 1,
+      date.getDate(),
+      date.getHours(),
+      date.getMinutes(),
+      date.getSeconds(),
+      date.getMilliseconds()
+    );
   }
 }

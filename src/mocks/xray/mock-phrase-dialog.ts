@@ -6,7 +6,7 @@ import { MockPhrase } from "./mock-phrase";
 /**
  * Mock of the X-Ray engine dialog phrase container.
  */
-export class MockPhraseDialog {
+export class MockPhraseDialog implements CPhraseDialog {
   public static mock(dialog = new MockPhraseDialog()): CPhraseDialog {
     return dialog as unknown as CPhraseDialog;
   }

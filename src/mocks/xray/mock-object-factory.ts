@@ -3,7 +3,7 @@ import { type object_factory, type TXR_class_key } from "xray16";
 /**
  * Mock of the X-Ray engine game object factory.
  */
-export class MockObjectFactory {
+export class MockObjectFactory implements object_factory {
   public registeredClientClasses: Set<string> = new Set();
   public registeredServerClasses: Set<string> = new Set();
   public registeredClassIds: Set<string> = new Set();
@@ -24,8 +24,8 @@ export class MockObjectFactory {
       this.registeredClassIds.add(args[2]);
       this.registeredScriptClassIds.add(args[3]);
     } else {
-      this.registeredClassIds.add(args[2]);
-      this.registeredScriptClassIds.add(args[3]);
+      this.registeredClassIds.add(args[1]);
+      this.registeredScriptClassIds.add(args[2]);
     }
   }
 }

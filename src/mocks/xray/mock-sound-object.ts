@@ -1,10 +1,12 @@
 import { jest } from "@jest/globals";
 import { type sound_object } from "xray16";
 
+import { MockVector } from "./mock-vector";
+
 /**
  * Mock of the X-Ray engine sound object.
  */
-export class MockSoundObject {
+export class MockSoundObject implements sound_object {
   public static readonly SOUND_OBJECT_REGISTRY: Array<MockSoundObject> = [];
 
   public static resetRegistry(): void {
@@ -24,8 +26,12 @@ export class MockSoundObject {
   }
 
   public path: string;
+  public frequency: number = 1;
+  public max_distance: number = 1;
+  public min_distance: number = 0;
   public volume: number = 0;
   public soundLength: number = 30;
+  public position: MockVector = MockVector.create();
 
   public isPlaying: boolean = false;
 
@@ -53,5 +59,15 @@ export class MockSoundObject {
 
   public length = jest.fn(() => this.soundLength);
 
+  public get_position = jest.fn(() => this.position);
+
+  public set_position = jest.fn((position: MockVector) => {
+    this.position.set(position);
+  });
+
   public attach_tail = jest.fn();
+
+  public stop_deffered = jest.fn(() => this.stop());
+
+  public stop_deferred = jest.fn(() => this.stop());
 }
