@@ -44,7 +44,7 @@ export interface IMockGameObjectConfig {
 /**
  * Abstract game object mock.
  */
-export class MockGameObject {
+export class MockGameObject implements game_object {
   public static readonly dummy: number = -1;
   public static readonly game_path: number = 0;
   public static readonly level_path: number = 1;
@@ -190,6 +190,648 @@ export class MockGameObject {
   public isVisible: boolean = true;
   public isVisualMemoryEnabled: boolean = true;
 
+  public story_id = jest.fn() as unknown as jest.MockedFunction<game_object["story_id"]>;
+
+  public action_count = jest.fn() as unknown as jest.MockedFunction<game_object["action_count"]>;
+
+  public active_zone_contact = jest.fn() as unknown as jest.MockedFunction<game_object["active_zone_contact"]>;
+
+  public base_out_restrictions = jest.fn() as unknown as jest.MockedFunction<game_object["base_out_restrictions"]>;
+
+  public binded_object = jest.fn() as unknown as jest.MockedFunction<game_object["binded_object"]>;
+
+  public can_throw_grenades = jest.fn() as unknown as jest.MockedFunction<game_object["can_throw_grenades"]>;
+
+  public external_sound_start = jest.fn() as unknown as jest.MockedFunction<game_object["external_sound_start"]>;
+
+  public get_current_direction = jest.fn() as unknown as jest.MockedFunction<game_object["get_current_direction"]>;
+
+  public get_current_outfit_protection = jest.fn() as unknown as jest.MockedFunction<
+    game_object["get_current_outfit_protection"]
+  >;
+
+  public get_dest_smart_cover = jest.fn() as unknown as jest.MockedFunction<game_object["get_dest_smart_cover"]>;
+
+  public get_dest_smart_cover_name = jest.fn() as unknown as jest.MockedFunction<
+    game_object["get_dest_smart_cover_name"]
+  >;
+
+  public get_smart_cover_description = jest.fn() as unknown as jest.MockedFunction<
+    game_object["get_smart_cover_description"]
+  >;
+
+  public give_talk_message = jest.fn() as unknown as jest.MockedFunction<game_object["give_talk_message"]>;
+
+  public inventory_for_each = jest.fn() as unknown as jest.MockedFunction<game_object["inventory_for_each"]>;
+
+  public iterate_inventory_box = jest.fn() as unknown as jest.MockedFunction<game_object["iterate_inventory_box"]>;
+
+  public memory_hit_objects = jest.fn() as unknown as jest.MockedFunction<game_object["memory_hit_objects"]>;
+
+  public remove_memory_hit_object = jest.fn() as unknown as jest.MockedFunction<
+    game_object["remove_memory_hit_object"]
+  >;
+
+  public memory_visible_objects = jest.fn() as unknown as jest.MockedFunction<game_object["memory_visible_objects"]>;
+
+  public remove_memory_visible_object = jest.fn() as unknown as jest.MockedFunction<
+    game_object["remove_memory_visible_object"]
+  >;
+
+  public mental_state = jest.fn() as unknown as jest.MockedFunction<game_object["mental_state"]>;
+
+  public not_yet_visible_objects = jest.fn() as unknown as jest.MockedFunction<game_object["not_yet_visible_objects"]>;
+
+  public path_completed = jest.fn() as unknown as jest.MockedFunction<game_object["path_completed"]>;
+
+  public reset_action_queue = jest.fn() as unknown as jest.MockedFunction<game_object["reset_action_queue"]>;
+
+  public restore_sound_threshold = jest.fn() as unknown as jest.MockedFunction<game_object["restore_sound_threshold"]>;
+
+  public set_enemy = jest.fn() as unknown as jest.MockedFunction<game_object["set_enemy"]>;
+
+  public set_fov = jest.fn() as unknown as jest.MockedFunction<game_object["set_fov"]>;
+
+  public set_override_animation = jest.fn() as unknown as jest.MockedFunction<game_object["set_override_animation"]>;
+
+  public set_previous_point = jest.fn() as unknown as jest.MockedFunction<game_object["set_previous_point"]>;
+
+  public set_start_point = jest.fn() as unknown as jest.MockedFunction<game_object["set_start_point"]>;
+
+  public sound_voice_prefix = jest.fn() as unknown as jest.MockedFunction<game_object["sound_voice_prefix"]>;
+
+  public switch_to_talk = jest.fn() as unknown as jest.MockedFunction<game_object["switch_to_talk"]>;
+
+  public weapon_addon_attach = jest.fn() as unknown as jest.MockedFunction<game_object["weapon_addon_attach"]>;
+
+  public weapon_addon_detach = jest.fn() as unknown as jest.MockedFunction<game_object["weapon_addon_detach"]>;
+
+  public weapon_is_scope = jest.fn() as unknown as jest.MockedFunction<game_object["weapon_is_scope"]>;
+
+  public weapon_silencer_status = jest.fn() as unknown as jest.MockedFunction<game_object["weapon_silencer_status"]>;
+
+  public who_hit_name = jest.fn() as unknown as jest.MockedFunction<game_object["who_hit_name"]>;
+
+  public who_hit_section_name = jest.fn() as unknown as jest.MockedFunction<game_object["who_hit_section_name"]>;
+
+  public actor_look_at_point = jest.fn() as unknown as jest.MockedFunction<game_object["actor_look_at_point"]>;
+
+  public aim_bone_id = jest.fn() as unknown as jest.MockedFunction<game_object["aim_bone_id"]>;
+
+  public allow_sprint = jest.fn() as unknown as jest.MockedFunction<game_object["allow_sprint"]>;
+
+  public remove_danger = jest.fn() as unknown as jest.MockedFunction<game_object["remove_danger"]>;
+
+  public body_state = jest.fn() as unknown as jest.MockedFunction<game_object["body_state"]>;
+
+  public bone_position = jest.fn() as unknown as jest.MockedFunction<game_object["bone_position"]>;
+
+  public character_name = jest.fn() as unknown as jest.MockedFunction<game_object["character_name"]>;
+
+  public condition = jest.fn() as unknown as jest.MockedFunction<game_object["condition"]>;
+
+  public cost = jest.fn() as unknown as jest.MockedFunction<game_object["cost"]>;
+
+  public deadbody_closed = jest.fn() as unknown as jest.MockedFunction<game_object["deadbody_closed"]>;
+
+  public death_sound_enabled = jest.fn() as unknown as jest.MockedFunction<game_object["death_sound_enabled"]>;
+
+  public disable_inv_upgrade = jest.fn() as unknown as jest.MockedFunction<game_object["disable_inv_upgrade"]>;
+
+  public enable_inv_upgrade = jest.fn() as unknown as jest.MockedFunction<game_object["enable_inv_upgrade"]>;
+
+  public enable_memory_object = jest.fn() as unknown as jest.MockedFunction<game_object["enable_memory_object"]>;
+
+  public extrapolate_length = jest.fn() as unknown as jest.MockedFunction<game_object["extrapolate_length"]>;
+
+  public fake_death_stand_up = jest.fn() as unknown as jest.MockedFunction<game_object["fake_death_stand_up"]>;
+
+  public get_ammo_total = jest.fn() as unknown as jest.MockedFunction<game_object["get_ammo_total"]>;
+
+  public get_ammo_type = jest.fn() as unknown as jest.MockedFunction<game_object["get_ammo_type"]>;
+
+  public get_current_outfit = jest.fn() as unknown as jest.MockedFunction<game_object["get_current_outfit"]>;
+
+  public get_holder_class = jest.fn() as unknown as jest.MockedFunction<game_object["get_holder_class"]>;
+
+  public hide_weapon = jest.fn() as unknown as jest.MockedFunction<game_object["hide_weapon"]>;
+
+  public in_loophole_fov = jest.fn() as unknown as jest.MockedFunction<game_object["in_loophole_fov"]>;
+
+  public inv_box_can_take = jest.fn() as unknown as jest.MockedFunction<game_object["inv_box_can_take"]>;
+
+  public is_body_turning = jest.fn() as unknown as jest.MockedFunction<game_object["is_body_turning"]>;
+
+  public is_level_changer_enabled = jest.fn() as unknown as jest.MockedFunction<
+    game_object["is_level_changer_enabled"]
+  >;
+
+  public lock_door_for_npc = jest.fn() as unknown as jest.MockedFunction<game_object["lock_door_for_npc"]>;
+
+  public marked_dropped = jest.fn() as unknown as jest.MockedFunction<game_object["marked_dropped"]>;
+
+  public memory_sound_objects = jest.fn() as unknown as jest.MockedFunction<game_object["memory_sound_objects"]>;
+
+  public remove_memory_sound_object = jest.fn() as unknown as jest.MockedFunction<
+    game_object["remove_memory_sound_object"]
+  >;
+
+  public movement_type = jest.fn() as unknown as jest.MockedFunction<game_object["movement_type"]>;
+
+  public patrol = jest.fn() as unknown as jest.MockedFunction<game_object["patrol"]>;
+
+  public register_door_for_npc = jest.fn() as unknown as jest.MockedFunction<game_object["register_door_for_npc"]>;
+
+  public remove_sound = jest.fn() as unknown as jest.MockedFunction<game_object["remove_sound"]>;
+
+  public restore_default_start_dialog = jest.fn() as unknown as jest.MockedFunction<
+    game_object["restore_default_start_dialog"]
+  >;
+
+  public set__force = jest.fn() as unknown as jest.MockedFunction<game_object["set__force"]>;
+
+  public set_actor_relation_flags = jest.fn() as unknown as jest.MockedFunction<
+    game_object["set_actor_relation_flags"]
+  >;
+
+  public set_alien_control = jest.fn() as unknown as jest.MockedFunction<game_object["set_alien_control"]>;
+
+  public set_capture_anim = jest.fn() as unknown as jest.MockedFunction<game_object["set_capture_anim"]>;
+
+  public set_character_community = jest.fn() as unknown as jest.MockedFunction<game_object["set_character_community"]>;
+
+  public set_character_rank = jest.fn() as unknown as jest.MockedFunction<game_object["set_character_rank"]>;
+
+  public set_character_reputation = jest.fn() as unknown as jest.MockedFunction<
+    game_object["set_character_reputation"]
+  >;
+
+  public set_collision_off = jest.fn() as unknown as jest.MockedFunction<game_object["set_collision_off"]>;
+
+  public set_default_panic_threshold = jest.fn() as unknown as jest.MockedFunction<
+    game_object["set_default_panic_threshold"]
+  >;
+
+  public set_trader_sound = jest.fn() as unknown as jest.MockedFunction<game_object["set_trader_sound"]>;
+
+  public skip_transfer_enemy = jest.fn() as unknown as jest.MockedFunction<game_object["skip_transfer_enemy"]>;
+
+  public sniper_update_rate = jest.fn() as unknown as jest.MockedFunction<game_object["sniper_update_rate"]>;
+
+  public switch_to_trade = jest.fn() as unknown as jest.MockedFunction<game_object["switch_to_trade"]>;
+
+  public sympathy = jest.fn() as unknown as jest.MockedFunction<game_object["sympathy"]>;
+
+  public unload_magazine = jest.fn() as unknown as jest.MockedFunction<game_object["unload_magazine"]>;
+
+  public unlock_door_for_npc = jest.fn() as unknown as jest.MockedFunction<game_object["unlock_door_for_npc"]>;
+
+  public visibility_threshold = jest.fn() as unknown as jest.MockedFunction<game_object["visibility_threshold"]>;
+
+  public weapon_is_grenadelauncher = jest.fn() as unknown as jest.MockedFunction<
+    game_object["weapon_is_grenadelauncher"]
+  >;
+
+  public set_task_state = jest.fn() as unknown as jest.MockedFunction<game_object["set_task_state"]>;
+
+  public set_visual_memory_enabled = jest.fn() as unknown as jest.MockedFunction<
+    game_object["set_visual_memory_enabled"]
+  >;
+
+  public show_condition = jest.fn() as unknown as jest.MockedFunction<game_object["show_condition"]>;
+
+  public sound_prefix = jest.fn() as unknown as jest.MockedFunction<game_object["sound_prefix"]>;
+
+  public add_sound = jest.fn() as unknown as jest.MockedFunction<game_object["add_sound"]>;
+
+  public active_sound_count = jest.fn() as unknown as jest.MockedFunction<game_object["active_sound_count"]>;
+
+  public allow_break_talk_dialog = jest.fn() as unknown as jest.MockedFunction<game_object["allow_break_talk_dialog"]>;
+
+  public attachable_item_enabled = jest.fn() as unknown as jest.MockedFunction<game_object["attachable_item_enabled"]>;
+
+  public change_goodwill = jest.fn() as unknown as jest.MockedFunction<game_object["change_goodwill"]>;
+
+  public change_character_rank = jest.fn() as unknown as jest.MockedFunction<game_object["change_character_rank"]>;
+
+  public character_reputation = jest.fn() as unknown as jest.MockedFunction<game_object["character_reputation"]>;
+
+  public community_goodwill = jest.fn() as unknown as jest.MockedFunction<game_object["community_goodwill"]>;
+
+  public deadbody_can_take = jest.fn() as unknown as jest.MockedFunction<game_object["deadbody_can_take"]>;
+
+  public deadbody_can_take_status = jest.fn() as unknown as jest.MockedFunction<
+    game_object["deadbody_can_take_status"]
+  >;
+
+  public detail_path_type = jest.fn() as unknown as jest.MockedFunction<game_object["detail_path_type"]>;
+
+  public disable_show_hide_sounds = jest.fn() as unknown as jest.MockedFunction<
+    game_object["disable_show_hide_sounds"]
+  >;
+
+  public enable_vision = jest.fn() as unknown as jest.MockedFunction<game_object["enable_vision"]>;
+
+  public fake_death_fall_down = jest.fn() as unknown as jest.MockedFunction<game_object["fake_death_fall_down"]>;
+
+  public force_visibility_state = jest.fn() as unknown as jest.MockedFunction<game_object["force_visibility_state"]>;
+
+  public get_actor_relation_flags = jest.fn() as unknown as jest.MockedFunction<
+    game_object["get_actor_relation_flags"]
+  >;
+
+  public get_corpse = jest.fn() as unknown as jest.MockedFunction<game_object["get_corpse"]>;
+
+  public get_current_holder = jest.fn() as unknown as jest.MockedFunction<game_object["get_current_holder"]>;
+
+  public get_enemy_strength = jest.fn() as unknown as jest.MockedFunction<game_object["get_enemy_strength"]>;
+
+  public get_start_dialog = jest.fn() as unknown as jest.MockedFunction<game_object["get_start_dialog"]>;
+
+  public get_task_state = jest.fn() as unknown as jest.MockedFunction<game_object["get_task_state"]>;
+
+  public goodwill = jest.fn() as unknown as jest.MockedFunction<game_object["goodwill"]>;
+
+  public head_orientation = jest.fn() as unknown as jest.MockedFunction<game_object["head_orientation"]>;
+
+  public in_current_loophole_range = jest.fn() as unknown as jest.MockedFunction<
+    game_object["in_current_loophole_range"]
+  >;
+
+  public inv_box_can_take_status = jest.fn() as unknown as jest.MockedFunction<game_object["inv_box_can_take_status"]>;
+
+  public inv_box_closed = jest.fn() as unknown as jest.MockedFunction<game_object["inv_box_closed"]>;
+
+  public is_active_task = jest.fn() as unknown as jest.MockedFunction<game_object["is_active_task"]>;
+
+  public is_door_locked_for_npc = jest.fn() as unknown as jest.MockedFunction<game_object["is_door_locked_for_npc"]>;
+
+  public is_inv_upgrade_enabled = jest.fn() as unknown as jest.MockedFunction<game_object["is_inv_upgrade_enabled"]>;
+
+  public is_trade_enabled = jest.fn() as unknown as jest.MockedFunction<game_object["is_trade_enabled"]>;
+
+  public item_on_belt = jest.fn() as unknown as jest.MockedFunction<game_object["item_on_belt"]>;
+
+  public mark_item_dropped = jest.fn() as unknown as jest.MockedFunction<game_object["mark_item_dropped"]>;
+
+  public mass = jest.fn() as unknown as jest.MockedFunction<game_object["mass"]>;
+
+  public max_health = jest.fn() as unknown as jest.MockedFunction<game_object["max_health"]>;
+
+  public on_door_is_closed = jest.fn() as unknown as jest.MockedFunction<game_object["on_door_is_closed"]>;
+
+  public on_door_is_open = jest.fn() as unknown as jest.MockedFunction<game_object["on_door_is_open"]>;
+
+  public path_type = jest.fn() as unknown as jest.MockedFunction<game_object["path_type"]>;
+
+  public profile_name = jest.fn() as unknown as jest.MockedFunction<game_object["profile_name"]>;
+
+  public range = jest.fn() as unknown as jest.MockedFunction<game_object["range"]>;
+
+  public remove_all_restrictions = jest.fn() as unknown as jest.MockedFunction<game_object["remove_all_restrictions"]>;
+
+  public restore_weapon = jest.fn() as unknown as jest.MockedFunction<game_object["restore_weapon"]>;
+
+  public run_talk_dialog = jest.fn() as unknown as jest.MockedFunction<game_object["run_talk_dialog"]>;
+
+  public set_anomaly_power = jest.fn() as unknown as jest.MockedFunction<game_object["set_anomaly_power"]>;
+
+  public set_custom_panic_threshold = jest.fn() as unknown as jest.MockedFunction<
+    game_object["set_custom_panic_threshold"]
+  >;
+
+  public set_goodwill = jest.fn() as unknown as jest.MockedFunction<game_object["set_goodwill"]>;
+
+  public set_queue_size = jest.fn() as unknown as jest.MockedFunction<game_object["set_queue_size"]>;
+
+  public set_tip_text_default = jest.fn() as unknown as jest.MockedFunction<game_object["set_tip_text_default"]>;
+
+  public set_trader_global_anim = jest.fn() as unknown as jest.MockedFunction<game_object["set_trader_global_anim"]>;
+
+  public set_vis_state = jest.fn() as unknown as jest.MockedFunction<game_object["set_vis_state"]>;
+
+  public sniper_fire_mode = jest.fn() as unknown as jest.MockedFunction<game_object["sniper_fire_mode"]>;
+
+  public switch_to_upgrade = jest.fn() as unknown as jest.MockedFunction<game_object["switch_to_upgrade"]>;
+
+  public can_add_upgrade = jest.fn() as unknown as jest.MockedFunction<game_object["can_add_upgrade"]>;
+
+  public can_install_upgrade = jest.fn() as unknown as jest.MockedFunction<game_object["can_install_upgrade"]>;
+
+  public has_upgrade = jest.fn() as unknown as jest.MockedFunction<game_object["has_upgrade"]>;
+
+  public has_upgrade_group = jest.fn() as unknown as jest.MockedFunction<game_object["has_upgrade_group"]>;
+
+  public has_upgrade_group_by_upgrade_id = jest.fn() as unknown as jest.MockedFunction<
+    game_object["has_upgrade_group_by_upgrade_id"]
+  >;
+
+  public install_upgrade = jest.fn() as unknown as jest.MockedFunction<game_object["install_upgrade"]>;
+
+  public unregister_in_combat = jest.fn() as unknown as jest.MockedFunction<game_object["unregister_in_combat"]>;
+
+  public vertex_in_direction = jest.fn() as unknown as jest.MockedFunction<game_object["vertex_in_direction"]>;
+
+  public vision_enabled = jest.fn() as unknown as jest.MockedFunction<game_object["vision_enabled"]>;
+
+  public weapon_grenadelauncher_status = jest.fn() as unknown as jest.MockedFunction<
+    game_object["weapon_grenadelauncher_status"]
+  >;
+
+  public weapon_is_silencer = jest.fn() as unknown as jest.MockedFunction<game_object["weapon_is_silencer"]>;
+
+  public weapon_scope_status = jest.fn() as unknown as jest.MockedFunction<game_object["weapon_scope_status"]>;
+
+  public accuracy = jest.fn() as unknown as jest.MockedFunction<game_object["accuracy"]>;
+
+  public attachable_item_load_attach = jest.fn() as unknown as jest.MockedFunction<
+    game_object["attachable_item_load_attach"]
+  >;
+
+  public best_cover = jest.fn() as unknown as jest.MockedFunction<game_object["best_cover"]>;
+
+  public deadbody_closed_status = jest.fn() as unknown as jest.MockedFunction<game_object["deadbody_closed_status"]>;
+
+  public death_time = jest.fn() as unknown as jest.MockedFunction<game_object["death_time"]>;
+
+  public force_stand_sleep_animation = jest.fn() as unknown as jest.MockedFunction<
+    game_object["force_stand_sleep_animation"]
+  >;
+
+  public get_visibility_state = jest.fn() as unknown as jest.MockedFunction<game_object["get_visibility_state"]>;
+
+  public in_loophole_range = jest.fn() as unknown as jest.MockedFunction<game_object["in_loophole_range"]>;
+
+  public set_range = jest.fn() as unknown as jest.MockedFunction<game_object["set_range"]>;
+
+  public suitable_smart_cover = jest.fn() as unknown as jest.MockedFunction<game_object["suitable_smart_cover"]>;
+
+  public add_combat_sound = jest.fn() as unknown as jest.MockedFunction<game_object["add_combat_sound"]>;
+
+  public berserk = jest.fn() as unknown as jest.MockedFunction<game_object["berserk"]>;
+
+  public inactualize_level_path = jest.fn() as unknown as jest.MockedFunction<game_object["inactualize_level_path"]>;
+
+  public inactualize_game_path = jest.fn() as unknown as jest.MockedFunction<game_object["inactualize_game_path"]>;
+
+  public action_by_index = jest.fn() as unknown as jest.MockedFunction<game_object["action_by_index"]>;
+
+  public base_in_restrictions = jest.fn() as unknown as jest.MockedFunction<game_object["base_in_restrictions"]>;
+
+  public can_script_capture = jest.fn() as unknown as jest.MockedFunction<game_object["can_script_capture"]>;
+
+  public external_sound_stop = jest.fn() as unknown as jest.MockedFunction<game_object["external_sound_stop"]>;
+
+  public find_best_cover = jest.fn() as unknown as jest.MockedFunction<game_object["find_best_cover"]>;
+
+  public get_sound_info = jest.fn() as unknown as jest.MockedFunction<game_object["get_sound_info"]>;
+
+  public inv_box_closed_status = jest.fn() as unknown as jest.MockedFunction<game_object["inv_box_closed_status"]>;
+
+  public movement_target_reached = jest.fn() as unknown as jest.MockedFunction<game_object["movement_target_reached"]>;
+
+  public register_in_combat = jest.fn() as unknown as jest.MockedFunction<game_object["register_in_combat"]>;
+
+  public safe_cover = jest.fn() as unknown as jest.MockedFunction<game_object["safe_cover"]>;
+
+  public set_sound_threshold = jest.fn() as unknown as jest.MockedFunction<game_object["set_sound_threshold"]>;
+
+  public set_trader_head_anim = jest.fn() as unknown as jest.MockedFunction<game_object["set_trader_head_anim"]>;
+
+  public unregister_door_for_npc = jest.fn() as unknown as jest.MockedFunction<game_object["unregister_door_for_npc"]>;
+
+  public ammo_get_count = jest.fn() as unknown as jest.MockedFunction<game_object["ammo_get_count"]>;
+
+  public ammo_set_count = jest.fn() as unknown as jest.MockedFunction<game_object["ammo_set_count"]>;
+
+  public ammo_box_size = jest.fn() as unknown as jest.MockedFunction<game_object["ammo_box_size"]>;
+
+  public cast_Stalker = jest.fn() as unknown as jest.MockedFunction<game_object["cast_Stalker"]>;
+
+  public cast_Artefact = jest.fn() as unknown as jest.MockedFunction<game_object["cast_Artefact"]>;
+
+  public cast_Car = jest.fn() as unknown as jest.MockedFunction<game_object["cast_Car"]>;
+
+  public cast_GameObject = jest.fn() as unknown as jest.MockedFunction<game_object["cast_GameObject"]>;
+
+  public cast_Heli = jest.fn() as unknown as jest.MockedFunction<game_object["cast_Heli"]>;
+
+  public cast_SpaceRestrictor = jest.fn() as unknown as jest.MockedFunction<game_object["cast_SpaceRestrictor"]>;
+
+  public cast_HolderCustom = jest.fn() as unknown as jest.MockedFunction<game_object["cast_HolderCustom"]>;
+
+  public cast_InventoryItem = jest.fn() as unknown as jest.MockedFunction<game_object["cast_InventoryItem"]>;
+
+  public cast_InventoryOwner = jest.fn() as unknown as jest.MockedFunction<game_object["cast_InventoryOwner"]>;
+
+  public cast_Actor = jest.fn() as unknown as jest.MockedFunction<game_object["cast_Actor"]>;
+
+  public cast_Weapon = jest.fn() as unknown as jest.MockedFunction<game_object["cast_Weapon"]>;
+
+  public cast_Ammo = jest.fn() as unknown as jest.MockedFunction<game_object["cast_Ammo"]>;
+
+  public cast_WeaponMagazined = jest.fn() as unknown as jest.MockedFunction<game_object["cast_WeaponMagazined"]>;
+
+  public cast_ScriptZone = jest.fn() as unknown as jest.MockedFunction<game_object["cast_ScriptZone"]>;
+
+  public cast_CustomZone = jest.fn() as unknown as jest.MockedFunction<game_object["cast_CustomZone"]>;
+
+  public cast_Monster = jest.fn() as unknown as jest.MockedFunction<game_object["cast_Monster"]>;
+
+  public cast_EntityAlive = jest.fn() as unknown as jest.MockedFunction<game_object["cast_EntityAlive"]>;
+
+  public cast_Explosive = jest.fn() as unknown as jest.MockedFunction<game_object["cast_Explosive"]>;
+
+  public cast_PhysicsShellHolder = jest.fn() as unknown as jest.MockedFunction<game_object["cast_PhysicsShellHolder"]>;
+
+  public get_info_time = jest.fn() as unknown as jest.MockedFunction<game_object["get_info_time"]>;
+
+  public bone_visible = jest.fn() as unknown as jest.MockedFunction<game_object["bone_visible"]>;
+
+  public has_ammo_type = jest.fn() as unknown as jest.MockedFunction<game_object["has_ammo_type"]>;
+
+  public is_on_belt = jest.fn() as unknown as jest.MockedFunction<game_object["is_on_belt"]>;
+
+  public use = jest.fn() as unknown as jest.MockedFunction<game_object["use"]>;
+
+  public set_remaining_uses = jest.fn() as unknown as jest.MockedFunction<game_object["set_remaining_uses"]>;
+
+  public get_max_uses = jest.fn() as unknown as jest.MockedFunction<game_object["get_max_uses"]>;
+
+  public get_remaining_uses = jest.fn() as unknown as jest.MockedFunction<game_object["get_remaining_uses"]>;
+
+  public set_restrictor_type = jest.fn() as unknown as jest.MockedFunction<game_object["set_restrictor_type"]>;
+
+  public get_restrictor_type = jest.fn() as unknown as jest.MockedFunction<game_object["get_restrictor_type"]>;
+
+  public set_spatial_type = jest.fn() as unknown as jest.MockedFunction<game_object["set_spatial_type"]>;
+
+  public set_weapon_type = jest.fn() as unknown as jest.MockedFunction<game_object["set_weapon_type"]>;
+
+  public get_weapon_substate = jest.fn() as unknown as jest.MockedFunction<game_object["get_weapon_substate"]>;
+
+  public start_trade = jest.fn() as unknown as jest.MockedFunction<game_object["start_trade"]>;
+
+  public start_upgrade = jest.fn() as unknown as jest.MockedFunction<game_object["start_upgrade"]>;
+
+  public switch_state = jest.fn() as unknown as jest.MockedFunction<game_object["switch_state"]>;
+
+  public phantom_set_enemy = jest.fn() as unknown as jest.MockedFunction<game_object["phantom_set_enemy"]>;
+
+  public set_actor_jump_speed = jest.fn() as unknown as jest.MockedFunction<game_object["set_actor_jump_speed"]>;
+
+  public set_actor_max_walk_weight = jest.fn() as unknown as jest.MockedFunction<
+    game_object["set_actor_max_walk_weight"]
+  >;
+
+  public set_actor_max_weight = jest.fn() as unknown as jest.MockedFunction<game_object["set_actor_max_weight"]>;
+
+  public set_actor_run_coef = jest.fn() as unknown as jest.MockedFunction<game_object["set_actor_run_coef"]>;
+
+  public set_actor_runback_coef = jest.fn() as unknown as jest.MockedFunction<game_object["set_actor_runback_coef"]>;
+
+  public set_actor_sprint_koef = jest.fn() as unknown as jest.MockedFunction<game_object["set_actor_sprint_koef"]>;
+
+  public set_additional_max_walk_weight = jest.fn() as unknown as jest.MockedFunction<
+    game_object["set_additional_max_walk_weight"]
+  >;
+
+  public set_additional_max_weight = jest.fn() as unknown as jest.MockedFunction<
+    game_object["set_additional_max_weight"]
+  >;
+
+  public set_ammo_type = jest.fn() as unknown as jest.MockedFunction<game_object["set_ammo_type"]>;
+
+  public set_artefact_bleeding = jest.fn() as unknown as jest.MockedFunction<game_object["set_artefact_bleeding"]>;
+
+  public set_artefact_health = jest.fn() as unknown as jest.MockedFunction<game_object["set_artefact_health"]>;
+
+  public set_artefact_power = jest.fn() as unknown as jest.MockedFunction<game_object["set_artefact_power"]>;
+
+  public set_artefact_radiation = jest.fn() as unknown as jest.MockedFunction<game_object["set_artefact_radiation"]>;
+
+  public set_artefact_satiety = jest.fn() as unknown as jest.MockedFunction<game_object["set_artefact_satiety"]>;
+
+  public set_bone_visible = jest.fn() as unknown as jest.MockedFunction<game_object["set_bone_visible"]>;
+
+  public set_character_icon = jest.fn() as unknown as jest.MockedFunction<game_object["set_character_icon"]>;
+
+  public set_main_weapon_type = jest.fn() as unknown as jest.MockedFunction<game_object["set_main_weapon_type"]>;
+
+  public get_actor_jump_speed = jest.fn() as unknown as jest.MockedFunction<game_object["get_actor_jump_speed"]>;
+
+  public get_actor_max_walk_weight = jest.fn() as unknown as jest.MockedFunction<
+    game_object["get_actor_max_walk_weight"]
+  >;
+
+  public get_actor_max_weight = jest.fn() as unknown as jest.MockedFunction<game_object["get_actor_max_weight"]>;
+
+  public get_actor_run_coef = jest.fn() as unknown as jest.MockedFunction<game_object["get_actor_run_coef"]>;
+
+  public get_actor_runback_coef = jest.fn() as unknown as jest.MockedFunction<game_object["get_actor_runback_coef"]>;
+
+  public get_actor_sprint_koef = jest.fn() as unknown as jest.MockedFunction<game_object["get_actor_sprint_koef"]>;
+
+  public get_additional_max_walk_weight = jest.fn() as unknown as jest.MockedFunction<
+    game_object["get_additional_max_walk_weight"]
+  >;
+
+  public get_additional_max_weight = jest.fn() as unknown as jest.MockedFunction<
+    game_object["get_additional_max_weight"]
+  >;
+
+  public get_anomaly_power = jest.fn() as unknown as jest.MockedFunction<game_object["get_anomaly_power"]>;
+
+  public get_artefact_bleeding = jest.fn() as unknown as jest.MockedFunction<game_object["get_artefact_bleeding"]>;
+
+  public get_artefact_health = jest.fn() as unknown as jest.MockedFunction<game_object["get_artefact_health"]>;
+
+  public get_artefact_power = jest.fn() as unknown as jest.MockedFunction<game_object["get_artefact_power"]>;
+
+  public get_artefact_radiation = jest.fn() as unknown as jest.MockedFunction<game_object["get_artefact_radiation"]>;
+
+  public get_artefact_satiety = jest.fn() as unknown as jest.MockedFunction<game_object["get_artefact_satiety"]>;
+
+  public get_luminocity = jest.fn() as unknown as jest.MockedFunction<game_object["get_luminocity"]>;
+
+  public get_luminocity_hemi = jest.fn() as unknown as jest.MockedFunction<game_object["get_luminocity_hemi"]>;
+
+  public get_total_weight = jest.fn() as unknown as jest.MockedFunction<game_object["get_total_weight"]>;
+
+  public get_attached_vehicle = jest.fn() as unknown as jest.MockedFunction<game_object["get_attached_vehicle"]>;
+
+  public belt_count = jest.fn() as unknown as jest.MockedFunction<game_object["belt_count"]>;
+
+  public get_main_weapon_type = jest.fn() as unknown as jest.MockedFunction<game_object["get_main_weapon_type"]>;
+
+  public get_spatial_type = jest.fn() as unknown as jest.MockedFunction<game_object["get_spatial_type"]>;
+
+  public get_state = jest.fn() as unknown as jest.MockedFunction<game_object["get_state"]>;
+
+  public get_weapon_type = jest.fn() as unknown as jest.MockedFunction<game_object["get_weapon_type"]>;
+
+  public play_hud_motion = jest.fn() as unknown as jest.MockedFunction<game_object["play_hud_motion"]>;
+
+  public attach_vehicle = jest.fn() as unknown as jest.MockedFunction<game_object["attach_vehicle"]>;
+
+  public clear_game_news = jest.fn() as unknown as jest.MockedFunction<game_object["clear_game_news"]>;
+
+  public detach_vehicle = jest.fn() as unknown as jest.MockedFunction<game_object["detach_vehicle"]>;
+
+  public force_set_position = jest.fn() as unknown as jest.MockedFunction<game_object["force_set_position"]>;
+
+  public reset_bone_protections = jest.fn() as unknown as jest.MockedFunction<game_object["reset_bone_protections"]>;
+
+  public iterate_feel_touch = jest.fn() as unknown as jest.MockedFunction<game_object["iterate_feel_touch"]>;
+
+  public get_ammo_count_for_type = jest.fn() as unknown as jest.MockedFunction<game_object["get_ammo_count_for_type"]>;
+
+  public weapon_in_grenade_mode = jest.fn() as unknown as jest.MockedFunction<game_object["weapon_in_grenade_mode"]>;
+
+  public is_entity_alive = jest.fn() as unknown as jest.MockedFunction<game_object["is_entity_alive"]>;
+
+  public is_inventory_item = jest.fn() as unknown as jest.MockedFunction<game_object["is_inventory_item"]>;
+
+  public is_inventory_owner = jest.fn() as unknown as jest.MockedFunction<game_object["is_inventory_owner"]>;
+
+  public is_actor = jest.fn() as unknown as jest.MockedFunction<game_object["is_actor"]>;
+
+  public is_custom_monster = jest.fn() as unknown as jest.MockedFunction<game_object["is_custom_monster"]>;
+
+  public is_weapon = jest.fn() as unknown as jest.MockedFunction<game_object["is_weapon"]>;
+
+  public is_outfit = jest.fn() as unknown as jest.MockedFunction<game_object["is_outfit"]>;
+
+  public is_scope = jest.fn() as unknown as jest.MockedFunction<game_object["is_scope"]>;
+
+  public is_silencer = jest.fn() as unknown as jest.MockedFunction<game_object["is_silencer"]>;
+
+  public is_grenade_launcher = jest.fn() as unknown as jest.MockedFunction<game_object["is_grenade_launcher"]>;
+
+  public is_weapon_magazined = jest.fn() as unknown as jest.MockedFunction<game_object["is_weapon_magazined"]>;
+
+  public is_space_restrictor = jest.fn() as unknown as jest.MockedFunction<game_object["is_space_restrictor"]>;
+
+  public is_stalker = jest.fn() as unknown as jest.MockedFunction<game_object["is_stalker"]>;
+
+  public is_anomaly = jest.fn() as unknown as jest.MockedFunction<game_object["is_anomaly"]>;
+
+  public is_monster = jest.fn() as unknown as jest.MockedFunction<game_object["is_monster"]>;
+
+  public is_artefact = jest.fn() as unknown as jest.MockedFunction<game_object["is_artefact"]>;
+
+  public is_ammo = jest.fn() as unknown as jest.MockedFunction<game_object["is_ammo"]>;
+
+  public is_trader = jest.fn() as unknown as jest.MockedFunction<game_object["is_trader"]>;
+
+  public is_hud_item = jest.fn() as unknown as jest.MockedFunction<game_object["is_hud_item"]>;
+
+  public is_weapon_gl = jest.fn() as unknown as jest.MockedFunction<game_object["is_weapon_gl"]>;
+
+  public is_inventory_box = jest.fn() as unknown as jest.MockedFunction<game_object["is_inventory_box"]>;
+
+  public set_enemy_callback = jest.fn() as unknown as jest.MockedFunction<game_object["set_enemy_callback"]>;
+
   public constructor(config: IMockGameObjectConfig = {}) {
     this.objectAlive = config.alive ?? true;
     this.objectClsid = (config.clsid ?? -1) as TXR_class_id;
@@ -221,6 +863,22 @@ export class MockGameObject {
     this.objectGameVertexId = config.gameVertexId ?? 512;
 
     MockGameObject.REGISTRY.set(this.id(), this.asGameObject());
+
+    return new Proxy(this, {
+      get: (target, property, receiver) => {
+        const value: unknown = Reflect.get(target, property, receiver);
+
+        if (value !== undefined || typeof property !== "string" || property === "then") {
+          return value;
+        }
+
+        const fallback = jest.fn();
+
+        Object.defineProperty(target, property, { configurable: true, value: fallback, writable: true });
+
+        return fallback;
+      },
+    });
   }
 
   public get bleeding(): number {
@@ -360,9 +1018,9 @@ export class MockGameObject {
 
   public change_character_reputation = jest.fn();
 
-  public character_community = jest.fn(<T extends string = string>(): T => this.objectCommunity as T) as jest.MockedFunction<
-    game_object["character_community"]
-  >;
+  public character_community = jest.fn(
+    <T extends string = string>(): T => this.objectCommunity as T
+  ) as jest.MockedFunction<game_object["character_community"]>;
 
   public character_icon = jest.fn(() => "test_character_icon") as <T>() => T;
 
@@ -504,7 +1162,9 @@ export class MockGameObject {
 
   public group = jest.fn(() => 0);
 
-  public group_throw_time_interval = jest.fn(() => 0) as unknown as jest.MockedFunction<game_object["group_throw_time_interval"]>;
+  public group_throw_time_interval = jest.fn(() => 0) as unknown as jest.MockedFunction<
+    game_object["group_throw_time_interval"]
+  >;
 
   public has_info = jest.fn((it: string) => this.objectInfoPortions.includes(it));
 
@@ -518,7 +1178,9 @@ export class MockGameObject {
 
   public idle_min_time = jest.fn(() => 0) as unknown as jest.MockedFunction<game_object["idle_min_time"]>;
 
-  public ignore_monster_threshold = jest.fn(() => 0) as unknown as jest.MockedFunction<game_object["ignore_monster_threshold"]>;
+  public ignore_monster_threshold = jest.fn(() => 0) as unknown as jest.MockedFunction<
+    game_object["ignore_monster_threshold"]
+  >;
 
   public inside = jest.fn(() => false);
 
@@ -843,7 +1505,9 @@ export class MockGameObject {
     }
   });
 
-  public use_smart_covers_only = jest.fn(() => false) as unknown as jest.MockedFunction<game_object["use_smart_covers_only"]>;
+  public use_smart_covers_only = jest.fn(() => false) as unknown as jest.MockedFunction<
+    game_object["use_smart_covers_only"]
+  >;
 
   public is_door_blocked_by_npc = jest.fn(() => false);
 

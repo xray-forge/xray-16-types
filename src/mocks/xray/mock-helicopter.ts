@@ -2,11 +2,12 @@ import { jest } from "@jest/globals";
 import { type CHelicopter } from "xray16";
 
 import { MockVector } from "./mock-vector";
+import { MockCGameObject } from "./mock-c-game-object";
 
 /**
  * Mock of the X-Ray engine helicopter object.
  */
-export class MockCHelicopter {
+export class MockCHelicopter extends MockCGameObject {
   public static create(health: number = 1): MockCHelicopter {
     const helicopter: MockCHelicopter = new MockCHelicopter();
 
@@ -36,7 +37,7 @@ export class MockCHelicopter {
   public SetLinearAcc = jest.fn();
   public SetMaxVelocity = jest.fn();
   public SetSpeedInDestPoint = jest.fn();
-  public UseFireTrail = jest.fn();
+  public UseFireTrail = jest.fn(() => false) as unknown as jest.MockedFunction<CHelicopter["UseFireTrail"]>;
   public GoPatrolByRoundPath = jest.fn();
   public ClearEnemy = jest.fn();
   public LookAtPoint = jest.fn();
