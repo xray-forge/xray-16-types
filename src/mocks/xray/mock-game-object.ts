@@ -293,17 +293,21 @@ export class MockGameObject {
 
   public add_upgrade = jest.fn((it: string) => {
     this.objectUpgradesSet.add(it);
-  });
+
+    return true;
+  }) as jest.MockedFunction<game_object["add_upgrade"]>;
 
   public animation_slot = jest.fn(() => 1);
 
   public alive = jest.fn(() => this.objectAlive);
 
-  public accessible_nearest = jest.fn(() => 15326);
+  public accessible_nearest = jest.fn(() => $multi(15326, MockVector.mock())) as jest.MockedFunction<
+    game_object["accessible_nearest"]
+  >;
 
   public active_detector = jest.fn(() => null);
 
-  public active_slot = jest.fn(() => 3);
+  public active_slot = jest.fn(<T extends number>(): T => 3 as T) as jest.MockedFunction<game_object["active_slot"]>;
 
   public add_restrictions = jest.fn((outAdd: string, inAdd: string) => {
     outAdd
@@ -318,7 +322,9 @@ export class MockGameObject {
       .forEach((it) => this.objectInRestrictions.push(it));
   });
 
-  public apply_loophole_direction_distance = jest.fn();
+  public apply_loophole_direction_distance = jest.fn(() => 0) as unknown as jest.MockedFunction<
+    game_object["apply_loophole_direction_distance"]
+  >;
 
   public aim_time = jest.fn((_weapon: game_object, _aimTime?: number) => 300);
 
@@ -344,7 +350,7 @@ export class MockGameObject {
 
   public callCallback = jest.fn((id: TXR_callback, ...args: Array<any>) => this.callbacks[id]!(...args));
 
-  public can_select_weapon = jest.fn();
+  public can_select_weapon = jest.fn(() => false) as unknown as jest.MockedFunction<game_object["can_select_weapon"]>;
 
   public center = jest.fn(() => this.objectCenter);
 
@@ -354,11 +360,13 @@ export class MockGameObject {
 
   public change_character_reputation = jest.fn();
 
-  public character_community = jest.fn(() => this.objectCommunity);
+  public character_community = jest.fn(<T extends string = string>(): T => this.objectCommunity as T) as jest.MockedFunction<
+    game_object["character_community"]
+  >;
 
   public character_icon = jest.fn(() => "test_character_icon") as <T>() => T;
 
-  public character_rank = jest.fn(() => this.objectCharacterRank);
+  public character_rank = jest.fn(() => this.objectCharacterRank ?? 0);
 
   public clear_animations = jest.fn();
 
@@ -380,11 +388,11 @@ export class MockGameObject {
 
   public disable_anomaly = jest.fn();
 
-  public memory_time = jest.fn(() => 0 as number | null);
+  public memory_time = jest.fn((_another: game_object) => 0);
 
   public memory_position = jest.fn(() => MockVector.mock());
 
-  public disable_hit_marks = jest.fn();
+  public disable_hit_marks = jest.fn(() => false) as unknown as jest.MockedFunction<game_object["disable_hit_marks"]>;
 
   public disable_info_portion = jest.fn((it: string) => {
     const index: number = this.objectInfoPortions.indexOf(it);
@@ -440,11 +448,13 @@ export class MockGameObject {
 
   public get_artefact = jest.fn(() => null);
 
-  public get_car = jest.fn(() => null);
+  public get_car = jest.fn(() => null as unknown as ReturnType<game_object["get_car"]>);
 
-  public get_hanging_lamp = jest.fn(() => null);
+  public get_hanging_lamp = jest.fn(() => null as unknown as ReturnType<game_object["get_hanging_lamp"]>);
 
-  public get_visual_name = jest.fn(() => this.objectVisual);
+  public get_visual_name = jest.fn(<T extends string = string>(): T => this.objectVisual as T) as jest.MockedFunction<
+    game_object["get_visual_name"]
+  >;
 
   public get_ammo_in_magazine = jest.fn(() => this.objectAmmoElapsed);
 
@@ -452,15 +462,15 @@ export class MockGameObject {
 
   public get_campfire = jest.fn(() => null);
 
-  public get_current_point_index = jest.fn(() => null);
+  public get_current_point_index = jest.fn(() => 0);
 
   public get_enemy = jest.fn(() => null);
 
-  public get_monster_hit_info = jest.fn(() => null);
+  public get_monster_hit_info = jest.fn(() => null as unknown as ReturnType<game_object["get_monster_hit_info"]>);
 
   public get_movement_speed = jest.fn(() => MockVector.mock(0, 0, 0));
 
-  public get_helicopter = jest.fn(() => null as CHelicopter | null);
+  public get_helicopter = jest.fn(() => null as unknown as CHelicopter);
 
   public get_physics_object = jest.fn(() => null);
 
@@ -468,7 +478,7 @@ export class MockGameObject {
 
   public get_script = jest.fn(() => false);
 
-  public get_script_name = jest.fn(() => null);
+  public get_script_name = jest.fn(() => "");
 
   public get_task = jest.fn(() => null);
 
@@ -480,7 +490,9 @@ export class MockGameObject {
 
   public info_add = jest.fn((it: string) => this.give_info_portion(it));
 
-  public info_clear = jest.fn((it: string) => this.disable_info_portion(it));
+  public info_clear = jest.fn(() => {
+    this.objectInfoPortions = [];
+  });
 
   public give_game_news = jest.fn();
 
@@ -490,9 +502,9 @@ export class MockGameObject {
 
   public give_task = jest.fn();
 
-  public group = jest.fn();
+  public group = jest.fn(() => 0);
 
-  public group_throw_time_interval = jest.fn();
+  public group_throw_time_interval = jest.fn(() => 0) as unknown as jest.MockedFunction<game_object["group_throw_time_interval"]>;
 
   public has_info = jest.fn((it: string) => this.objectInfoPortions.includes(it));
 
@@ -502,11 +514,11 @@ export class MockGameObject {
 
   public id = jest.fn(() => this.objectId);
 
-  public idle_max_time = jest.fn();
+  public idle_max_time = jest.fn(() => 0) as unknown as jest.MockedFunction<game_object["idle_max_time"]>;
 
-  public idle_min_time = jest.fn();
+  public idle_min_time = jest.fn(() => 0) as unknown as jest.MockedFunction<game_object["idle_min_time"]>;
 
-  public ignore_monster_threshold = jest.fn();
+  public ignore_monster_threshold = jest.fn(() => 0) as unknown as jest.MockedFunction<game_object["ignore_monster_threshold"]>;
 
   public inside = jest.fn(() => false);
 
@@ -514,7 +526,7 @@ export class MockGameObject {
 
   public is_talking = jest.fn(() => false);
 
-  public is_inv_box_empty = jest.fn(() => null);
+  public is_inv_box_empty = jest.fn(() => true);
 
   public is_talk_enabled = jest.fn(() => false);
 
@@ -528,17 +540,19 @@ export class MockGameObject {
 
   public level_vertex_id = jest.fn(() => this.objectLevelVertexId);
 
-  public location_on_path = jest.fn(() => null);
+  public location_on_path = jest.fn((_distance: number, _position: vector) => 0);
 
-  public lookout_max_time = jest.fn();
+  public lookout_max_time = jest.fn(() => 0) as unknown as jest.MockedFunction<game_object["lookout_max_time"]>;
 
-  public lookout_min_time = jest.fn();
+  public lookout_min_time = jest.fn(() => 0) as unknown as jest.MockedFunction<game_object["lookout_min_time"]>;
 
   public make_item_active = jest.fn();
 
   public make_object_visible_somewhen = jest.fn();
 
-  public max_ignore_monster_distance = jest.fn();
+  public max_ignore_monster_distance = jest.fn(() => 0) as unknown as jest.MockedFunction<
+    game_object["max_ignore_monster_distance"]
+  >;
 
   public money = jest.fn(() => this.objectMoney);
 
@@ -550,11 +564,11 @@ export class MockGameObject {
     return this.objectActionManager;
   });
 
-  public movement_enabled = jest.fn();
+  public movement_enabled = jest.fn(() => false) as unknown as jest.MockedFunction<game_object["movement_enabled"]>;
 
   public name = jest.fn(() => this.objectName);
 
-  public night_vision_enabled = jest.fn();
+  public night_vision_enabled = jest.fn(() => false);
 
   public object = jest.fn((key: string | number) => {
     if (typeof key === "string") {
@@ -584,7 +598,7 @@ export class MockGameObject {
     } else {
       return this.isInvulnerable;
     }
-  });
+  }) as jest.MockedFunction<game_object["invulnerable"]>;
 
   public item_in_slot = jest.fn(() => null);
 
@@ -620,9 +634,9 @@ export class MockGameObject {
 
   public rank = jest.fn(() => this.objectRank);
 
-  public relation = jest.fn(() => {
+  public relation = jest.fn((_object: game_object) => {
     return 0;
-  });
+  }) as jest.MockedFunction<game_object["relation"]>;
 
   public remove_home = jest.fn();
 
@@ -655,7 +669,9 @@ export class MockGameObject {
 
   public script = jest.fn();
 
-  public section = jest.fn(() => this.objectSection);
+  public section = jest.fn(<T extends string = string>(): T => this.objectSection as T) as jest.MockedFunction<
+    game_object["section"]
+  >;
 
   public see = jest.fn(() => false);
 
@@ -681,7 +697,7 @@ export class MockGameObject {
         delete this.callbacks[id];
       }
     }
-  );
+  ) as unknown as jest.MockedFunction<game_object["set_callback"]>;
 
   public set_community_goodwill = jest.fn();
 
@@ -737,7 +753,9 @@ export class MockGameObject {
 
   public set_relation = jest.fn();
 
-  public set_sight = jest.fn((nextSight: TXR_SightType) => (this.sight = nextSight));
+  public set_sight = jest.fn((nextSight: TXR_SightType) => {
+    this.sight = nextSight;
+  }) as unknown as jest.MockedFunction<game_object["set_sight"]>;
 
   public set_smart_cover_target = jest.fn();
 
@@ -795,7 +813,7 @@ export class MockGameObject {
 
   public stop_talk = jest.fn();
 
-  public take_items_enabled = jest.fn();
+  public take_items_enabled = jest.fn(() => false) as unknown as jest.MockedFunction<game_object["take_items_enabled"]>;
 
   public target_body_state = jest.fn(() => {
     return MockMove.standing;
@@ -809,15 +827,15 @@ export class MockGameObject {
 
   public team = jest.fn(() => 140);
 
-  public torch_enabled = jest.fn();
+  public torch_enabled = jest.fn(() => false);
 
   public transfer_money = jest.fn();
 
-  public transfer_item = jest.fn((item: MockGameObject, to: MockGameObject) => {
-    const targetInventory: Map<string | number, game_object> = to.objectInventory;
+  public transfer_item = jest.fn((item: game_object, to: game_object) => {
+    const targetInventory: Map<string | number, game_object> = MockGameObject.asMock(to).objectInventory;
 
     for (const [key, it] of this.objectInventory) {
-      if (it === item.asGameObject()) {
+      if (it === item) {
         this.objectInventory.delete(key);
         targetInventory.set(it.section(), it);
         break;
@@ -825,7 +843,7 @@ export class MockGameObject {
     }
   });
 
-  public use_smart_covers_only = jest.fn();
+  public use_smart_covers_only = jest.fn(() => false) as unknown as jest.MockedFunction<game_object["use_smart_covers_only"]>;
 
   public is_door_blocked_by_npc = jest.fn(() => false);
 
@@ -839,7 +857,7 @@ export class MockGameObject {
 
   public weapon_unstrapped = jest.fn(() => false);
 
-  public wounded = jest.fn();
+  public wounded = jest.fn(() => false) as unknown as jest.MockedFunction<game_object["wounded"]>;
 
   public asGameObject(): game_object {
     return this as unknown as game_object;
