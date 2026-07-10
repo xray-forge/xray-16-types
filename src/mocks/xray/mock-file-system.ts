@@ -136,7 +136,7 @@ export class MockFileSystem implements FS {
       return MockFileStatus.mock(exists, requestedFsType === MockFileSystem.FSType_External);
     }
 
-    return exists
+    return (path !== undefined && path !== null) || exists
       ? {
           modif: 0,
           name: path ?? rootOrPath,
