@@ -1,7 +1,9 @@
+import type { game_object, TXR_object_action, XR_object } from "xray16";
+
 /**
  * Mock of the X-Ray engine `object` action/state enumeration.
  */
-export class MockObject {
+export class MockObject implements XR_object {
   public static readonly activate = 16 as const;
   public static readonly aim1 = 4 as const;
   public static readonly aim2 = 5 as const;
@@ -23,4 +25,27 @@ export class MockObject {
   public static readonly turn_off = 20 as const;
   public static readonly turn_on = 19 as const;
   public static readonly use = 18 as const;
+
+  public __name: string = "object";
+
+  public args: Array<unknown>;
+  public isCompleted: boolean = false;
+  public objectAction: TXR_object_action | null = null;
+  public targetObject: game_object | string | null = null;
+
+  public constructor(...args: Array<unknown>) {
+    this.args = args;
+  }
+
+  public action(action: TXR_object_action): void {
+    this.objectAction = action;
+  }
+
+  public object(object: game_object | string): void {
+    this.targetObject = object;
+  }
+
+  public completed(): boolean {
+    return this.isCompleted;
+  }
 }
