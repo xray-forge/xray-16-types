@@ -1,31 +1,33 @@
 import { jest } from "@jest/globals";
+import type { FS } from "xray16";
 
 import { MockFileStatus } from "./mock-file-status";
 import { MockFileSystemList } from "./mock-file-system-list";
+import { MockNetProcessor } from "./mock-net-processor";
 
 /**
  * Mock engine FS manager.
  */
-export class MockFileSystem {
+export class MockFileSystem implements FS {
   public static MOCKS: Record<string, Record<string, boolean>> = {
     ["$game_sounds$"]: {
       "device\\pda\\pda_objective.ogg": true,
     },
   };
 
-  public static FS_ClampExt: number = 4;
-  public static FS_ListFiles: number = 1;
-  public static FS_ListFolders: number = 2;
-  public static FS_RootOnly: number = 8;
-  public static FS_sort_by_modif_down: number = 5;
-  public static FS_sort_by_modif_up: number = 4;
-  public static FS_sort_by_name_down: number = 1;
-  public static FS_sort_by_name_up: number = 0;
-  public static FS_sort_by_size_down: number = 3;
-  public static FS_sort_by_size_up: number = 2;
-  public static FSType_Virtual: number = 1;
-  public static FSType_External: number = 2;
-  public static FSType_Any: number = 3;
+  public static readonly FS_ClampExt = 4 as const;
+  public static readonly FS_ListFiles = 1 as const;
+  public static readonly FS_ListFolders = 2 as const;
+  public static readonly FS_RootOnly = 8 as const;
+  public static readonly FS_sort_by_modif_down = 5 as const;
+  public static readonly FS_sort_by_modif_up = 4 as const;
+  public static readonly FS_sort_by_name_down = 1 as const;
+  public static readonly FS_sort_by_name_up = 0 as const;
+  public static readonly FS_sort_by_size_down = 3 as const;
+  public static readonly FS_sort_by_size_up = 2 as const;
+  public static readonly FSType_Virtual = 1 as const;
+  public static readonly FSType_External = 2 as const;
+  public static readonly FSType_Any = 3 as const;
 
   private static instance: MockFileSystem | null = null;
 
@@ -119,20 +121,29 @@ export class MockFileSystem {
 
   public r_close = jest.fn();
 
-  public r_open = jest.fn(() => ({}));
+  public r_open = jest.fn(() => MockNetProcessor.mockReader()) as unknown as jest.MockedFunction<FS["r_open"]>;
 
   public w_close = jest.fn();
 
   public w_open = jest.fn(() => ({}));
 
-  public exist = jest.fn((rootOrPath: string, path?: string, fsType?: number) => {
-    const exists: boolean =
-      path === undefined ? Boolean(this.mocks[rootOrPath]) : Boolean(this.mocks[rootOrPath]?.[path]);
+  public exist = jest.fn((rootOrPath: string, pathOrFsType?: string | number, fsType?: number) => {
+    const path: string | null = typeof pathOrFsType === "string" ? pathOrFsType : null;
+    const requestedFsType: number | null = typeof pathOrFsType === "number" ? pathOrFsType : (fsType ?? null);
+    const exists: boolean = path === null ? Boolean(this.mocks[rootOrPath]) : Boolean(this.mocks[rootOrPath]?.[path]);
 
-    if (fsType !== undefined) {
-      return exists ? MockFileStatus.mock(true, fsType === MockFileSystem.FSType_External) : null;
+    if (requestedFsType !== null) {
+      return MockFileStatus.mock(exists, requestedFsType === MockFileSystem.FSType_External);
     }
 
-    return exists;
-  });
+    return exists
+      ? {
+          modif: 0,
+          name: path ?? rootOrPath,
+          ptr: 0,
+          size_compressed: 0,
+          size_real: 0,
+        }
+      : null;
+  }) as unknown as jest.MockedFunction<FS["exist"]>;
 }

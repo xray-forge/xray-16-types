@@ -159,6 +159,14 @@ export class MockNetProcessor {
     return this.readDataOrder.length;
   }
 
+  public r_elapsed(): number {
+    return this.dataList.length;
+  }
+
+  public r_eof(): boolean {
+    return !this.hasData();
+  }
+
   public hasData(): boolean {
     return this.dataList.length > 0;
   }
