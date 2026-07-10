@@ -68,13 +68,11 @@ export class MockCUIWindow extends MockLuabindClass implements CUIWindow {
   });
 
   public SetWndPos = jest.fn((positionOrX: vector2 | number, y?: number) => {
-    this.windowPosition =
-      typeof positionOrX === "number" ? MockVector2D.mock(positionOrX, y ?? 0) : positionOrX;
+    this.windowPosition = typeof positionOrX === "number" ? MockVector2D.mock(positionOrX, y ?? 0) : positionOrX;
   });
 
   public SetWndSize = jest.fn((sizeOrWidth: vector2 | number, height?: number) => {
-    this.windowSize =
-      typeof sizeOrWidth === "number" ? MockVector2D.mock(sizeOrWidth, height ?? 0) : sizeOrWidth;
+    this.windowSize = typeof sizeOrWidth === "number" ? MockVector2D.mock(sizeOrWidth, height ?? 0) : sizeOrWidth;
   });
 
   public GetWndPos = jest.fn(() => {
@@ -83,7 +81,9 @@ export class MockCUIWindow extends MockLuabindClass implements CUIWindow {
 
   public SetWndRect = jest.fn((rectOrX: Frect | number, y?: number, width?: number, height?: number) => {
     this.windowRect =
-      typeof rectOrX === "number" ? (new MockFrect(rectOrX, y ?? 0, width ?? 0, height ?? 0) as unknown as Frect) : rectOrX;
+      typeof rectOrX === "number"
+        ? (new MockFrect(rectOrX, y ?? 0, width ?? 0, height ?? 0) as unknown as Frect)
+        : rectOrX;
   });
 
   public GetAbsoluteRect = jest.fn(() => {

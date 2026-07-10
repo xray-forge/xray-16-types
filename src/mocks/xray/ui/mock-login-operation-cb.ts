@@ -27,10 +27,12 @@ export class MockLoginOperationCb implements login_operation_cb {
     this.cb = cb;
   }
 
-  public bind = jest.fn((object: object, cb: (this: object, profile: profile | null | undefined, description: string) => void) => {
-    this.object = object;
-    this.cb = cb;
-  });
+  public bind = jest.fn(
+    (object: object, cb: (this: object, profile: profile | null | undefined, description: string) => void) => {
+      this.object = object;
+      this.cb = cb;
+    }
+  );
 
   public clear = jest.fn(() => {
     this.object = null;

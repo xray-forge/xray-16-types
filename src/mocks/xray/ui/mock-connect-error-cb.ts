@@ -19,10 +19,7 @@ export class MockConnectErrorCb implements connect_error_cb {
   public object: object | null;
   public cb: ((this: object, code: number, description: string) => void) | null;
 
-  public constructor(
-    object: object = {},
-    cb: (this: object, code: number, description: string) => void = () => {}
-  ) {
+  public constructor(object: object = {}, cb: (this: object, code: number, description: string) => void = () => {}) {
     this.object = object;
     this.cb = cb;
   }

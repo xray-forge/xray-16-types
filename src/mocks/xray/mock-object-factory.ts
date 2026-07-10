@@ -9,7 +9,12 @@ export class MockObjectFactory {
   public registeredClassIds: Set<string> = new Set();
   public registeredScriptClassIds: Set<string> = new Set();
 
-  public register(clientObjectClass: string, serverObjectClass: string, clsId: string, scriptClsId: TXR_class_key): void;
+  public register(
+    clientObjectClass: string,
+    serverObjectClass: string,
+    clsId: string,
+    scriptClsId: TXR_class_key
+  ): void;
   public register(clientObjectClass: string, clsId: string, scriptClsId: TXR_class_key): void;
   public register(...args: Array<string>): void {
     this.registeredClientClasses.add(args[0]);

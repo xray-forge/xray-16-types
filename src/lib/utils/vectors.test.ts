@@ -1,15 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import {
-  MX_VECTOR,
-  MY_VECTOR,
-  MZ_VECTOR,
-  ONE_VECTOR,
-  X_VECTOR,
-  Y_VECTOR,
-  Z_VECTOR,
-  ZERO_VECTOR,
-} from "./vectors";
+import { MX_VECTOR, MY_VECTOR, MZ_VECTOR, ONE_VECTOR, X_VECTOR, Y_VECTOR, Z_VECTOR, ZERO_VECTOR } from "./vectors";
 
 describe("shared vector constants", () => {
   it("should expose the expected coordinates", () => {

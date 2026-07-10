@@ -320,7 +320,10 @@ export function transformNestedStatementsToInjectEndZones(statement: Statement, 
               mapNestedStatements(remapStatementsWithZoneEnd(it, checker), checker)
             );
           } else if (isDefaultClause(it)) {
-            return factory.updateDefaultClause(it, mapNestedStatements(remapStatementsWithZoneEnd(it, checker), checker));
+            return factory.updateDefaultClause(
+              it,
+              mapNestedStatements(remapStatementsWithZoneEnd(it, checker), checker)
+            );
           } else {
             return it;
           }

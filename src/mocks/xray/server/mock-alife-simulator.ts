@@ -77,9 +77,7 @@ export class MockAlifeSimulator implements alife_simulator {
 
   public object = jest.fn(<T extends cse_alife_object = cse_alife_object>(id: number | string) => {
     if (typeof id === "string") {
-      return (
-        (Object.values(MockAlifeSimulator.registry).find((it) => it.name() === id) as T | undefined) ?? null
-      );
+      return (Object.values(MockAlifeSimulator.registry).find((it) => it.name() === id) as T | undefined) ?? null;
     }
 
     return (MockAlifeSimulator.registry[id] as T | undefined) ?? null;

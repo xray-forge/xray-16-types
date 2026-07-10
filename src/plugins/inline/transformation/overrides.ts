@@ -36,7 +36,11 @@ export function getOverrideMacroKind(node: ts.Node): TInlineOverrideKind | null 
 export function isNoInlineArgument(node: ts.Node): boolean {
   const parent: ts.Node | undefined = node.parent;
 
-  return parent !== undefined && getOverrideMacroKind(parent) === "suppress" && (parent as ts.CallExpression).arguments[0] === node;
+  return (
+    parent !== undefined &&
+    getOverrideMacroKind(parent) === "suppress" &&
+    (parent as ts.CallExpression).arguments[0] === node
+  );
 }
 
 /**
@@ -48,7 +52,11 @@ export function isNoInlineArgument(node: ts.Node): boolean {
 export function isInlineArgument(node: ts.Node): boolean {
   const parent: ts.Node | undefined = node.parent;
 
-  return parent !== undefined && getOverrideMacroKind(parent) === "force" && (parent as ts.CallExpression).arguments[0] === node;
+  return (
+    parent !== undefined &&
+    getOverrideMacroKind(parent) === "force" &&
+    (parent as ts.CallExpression).arguments[0] === node
+  );
 }
 
 /**

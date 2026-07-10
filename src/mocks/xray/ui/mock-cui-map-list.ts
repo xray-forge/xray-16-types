@@ -21,11 +21,9 @@ export class MockCUIMapList extends MockCUIWindow implements CUIMapList {
     this.isEmpty = true;
   });
 
-  public GetCommandLine = jest.fn(<T extends string = string>(value: string): T => `${value}${this.commandLine}` as T) as <
-    T extends string = string,
-  >(
-    value: string
-  ) => T;
+  public GetCommandLine = jest.fn(
+    <T extends string = string>(value: string): T => `${value}${this.commandLine}` as T
+  ) as <T extends string = string>(value: string) => T;
 
   public IsEmpty = jest.fn(() => this.isEmpty);
 

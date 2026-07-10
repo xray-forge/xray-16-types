@@ -7,7 +7,10 @@ import { MockCUIScrollView } from "./mock-cui-scroll-view";
 /**
  * Mock CUI list box.
  */
-export class MockCUIListBox<T extends CUIListBoxItem = CUIListBoxItem> extends MockCUIScrollView implements CUIListBox<T> {
+export class MockCUIListBox<T extends CUIListBoxItem = CUIListBoxItem>
+  extends MockCUIScrollView
+  implements CUIListBox<T>
+{
   public static override mock(): CUIListBox {
     return new this() as unknown as CUIListBox;
   }

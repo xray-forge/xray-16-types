@@ -65,7 +65,11 @@ export function createPlugin(config: IStripPluginConfig = {}): Plugin {
       [SyntaxKind.ExportDeclaration]: (node, context) => {
         // Re-exports of type-only engine modules (e.g. `export * from "xray16/alias"`) emit a runtime
         // require loop with no counterpart Lua module; drop them.
-        if (shouldStripEngineImports && node.moduleSpecifier !== undefined && isEngineModule(node.moduleSpecifier.getText())) {
+        if (
+          shouldStripEngineImports &&
+          node.moduleSpecifier !== undefined &&
+          isEngineModule(node.moduleSpecifier.getText())
+        ) {
           return undefined;
         }
 
