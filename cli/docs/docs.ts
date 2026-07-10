@@ -83,7 +83,7 @@ function generateApiSection(surface: IApiSurface): Promise<void> {
     `--name ${surface.name}`,
     ...surface.entryPoints.map((it) => `--entryPoints ${it}`),
     `--entryPointStrategy ${surface.entryPointStrategy ?? "resolve"}`,
-    ...(surface.exclude ?? []).map((it) => `--exclude ${it}`),
+    ...(surface.exclude ?? []).map((it) => `--exclude "${it}"`),
     `--tsconfig ${surface.tsconfig}`,
     `--out docs/api/${surface.id}`,
     "--readme none",
@@ -109,7 +109,7 @@ function generateApiSection(surface: IApiSurface): Promise<void> {
     "--expandObjects",
     "--hideBreadcrumbs",
     "--hidePageHeader",
-    "--groupOrder *",
+    '--groupOrder "*"',
   ];
 
   return run(`typedoc ${flags.join(" ")}`);
