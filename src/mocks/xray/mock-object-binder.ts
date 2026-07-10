@@ -7,6 +7,14 @@ import { type MockNetProcessor } from "./mock-net-processor";
  * Mock of the X-Ray engine object binder (client object lifecycle wrapper).
  */
 export class MockObjectBinder extends MockLuabindClass implements object_binder {
+  public static override create(object: game_object): MockObjectBinder {
+    return new MockObjectBinder(object);
+  }
+
+  public static override mock(object: game_object): object_binder {
+    return new MockObjectBinder(object);
+  }
+
   public static asMock(binder: object_binder): MockObjectBinder {
     return binder as unknown as MockObjectBinder;
   }

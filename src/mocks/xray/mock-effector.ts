@@ -5,6 +5,14 @@ import type { effector, effector_params } from "xray16";
  * Mock of a generic X-Ray engine effector class for jest/node.
  */
 export class MockEffector implements effector {
+  public static create(type: number, time: number): MockEffector {
+    return new MockEffector(type, time);
+  }
+
+  public static mock(type: number, time: number): effector {
+    return new MockEffector(type, time);
+  }
+
   public __name: string = "effector";
 
   public type: number;

@@ -7,8 +7,13 @@ import { MockLuabindClass } from "./mock-luabind";
  */
 export class MockPropertyStorage extends MockLuabindClass implements property_storage {
   public readonly values: Map<u32, boolean> = new Map();
-  public static mock(): property_storage {
-    return new MockPropertyStorage() as unknown as property_storage;
+
+  public static override create(): MockPropertyStorage {
+    return new MockPropertyStorage();
+  }
+
+  public static override mock(): property_storage {
+    return new MockPropertyStorage();
   }
 
   public property(id: u32): boolean {

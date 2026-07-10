@@ -5,6 +5,10 @@ import { type physics_element } from "xray16";
  * Mock of the X-Ray engine physics element.
  */
 export class MockPhysicsElement {
+  public static create(): MockPhysicsElement {
+    return new MockPhysicsElement();
+  }
+
   public static mock(): physics_element {
     return new MockPhysicsElement() as unknown as physics_element;
   }

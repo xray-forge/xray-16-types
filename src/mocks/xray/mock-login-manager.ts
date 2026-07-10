@@ -5,8 +5,12 @@ import { type login_manager } from "xray16";
  * Mock of the X-Ray engine multiplayer `login_manager`.
  */
 export class MockLoginManager implements login_manager {
+  public static create(): MockLoginManager {
+    return new MockLoginManager();
+  }
+
   public static mock(): login_manager {
-    return new MockLoginManager() as unknown as login_manager;
+    return new MockLoginManager();
   }
 
   public email: string = "";

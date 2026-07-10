@@ -7,6 +7,14 @@ import { type CConsole } from "xray16";
 export class MockConsole implements CConsole {
   public static instance: MockConsole | null = null;
 
+  public static create(): MockConsole {
+    return new MockConsole();
+  }
+
+  public static mock(): CConsole {
+    return this.getInstance();
+  }
+
   public static getInstance(): MockConsole {
     if (!this.instance) {
       this.instance = new MockConsole();

@@ -29,6 +29,14 @@ export class MockFileSystem {
 
   private static instance: MockFileSystem | null = null;
 
+  public static create(mocks: Record<string, any> = MockFileSystem.MOCKS): MockFileSystem {
+    return new MockFileSystem(mocks);
+  }
+
+  public static mock(): MockFileSystem {
+    return this.getInstance();
+  }
+
   public static getInstance(): MockFileSystem {
     if (!this.instance) {
       this.instance = new MockFileSystem();

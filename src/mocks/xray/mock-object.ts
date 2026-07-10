@@ -4,6 +4,14 @@ import type { game_object, TXR_object_action, XR_object } from "xray16";
  * Mock of the X-Ray engine `object` action/state enumeration.
  */
 export class MockObject implements XR_object {
+  public static create(...args: Array<unknown>): MockObject {
+    return new MockObject(...args);
+  }
+
+  public static mock(...args: Array<unknown>): XR_object {
+    return new MockObject(...args);
+  }
+
   public static readonly activate = 16 as const;
   public static readonly aim1 = 4 as const;
   public static readonly aim2 = 5 as const;

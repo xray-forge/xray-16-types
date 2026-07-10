@@ -4,12 +4,20 @@ import { MockGameObject } from "./mock-game-object";
 import { MockVector } from "./mock-vector";
 
 export class MockMonsterHitInfo implements MonsterHitInfo {
+  public static create(
+    direction: vector | null = MockVector.mock(1, 1, 1),
+    time: number = 1,
+    who: game_object | null = MockGameObject.mock()
+  ): MockMonsterHitInfo {
+    return new MockMonsterHitInfo(direction, time, who);
+  }
+
   public static mock(
     direction: vector | null = MockVector.mock(1, 1, 1),
     time: number = 1,
     who: game_object | null = MockGameObject.mock()
   ): MonsterHitInfo {
-    return new MockMonsterHitInfo(direction, time, who) as unknown as MonsterHitInfo;
+    return new MockMonsterHitInfo(direction, time, who);
   }
 
   public __name: string = "MonsterHitInfo";

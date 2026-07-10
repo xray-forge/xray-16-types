@@ -7,6 +7,14 @@ import { MockVector } from "./mock-vector";
  * Mock of a game-level vertex object for jest/node.
  */
 export class MockCVertex implements GameGraph__CVertex {
+  public static create(vertexId: number = 0): MockCVertex {
+    return new MockCVertex(vertexId);
+  }
+
+  public static mock(vertexId: number = 0): GameGraph__CVertex {
+    return new MockCVertex(vertexId);
+  }
+
   public __name: string = "GameGraph__CVertex";
 
   public vertexId: number;

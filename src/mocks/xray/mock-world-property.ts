@@ -6,6 +6,14 @@ import { MockLuabindClass } from "./mock-luabind";
  * Mock of the X-Ray engine logics world property.
  */
 export class MockWorldProperty extends MockLuabindClass implements world_property {
+  public static override create(condition: number, value: boolean): MockWorldProperty {
+    return new MockWorldProperty(condition, value);
+  }
+
+  public static override mock(condition: number, value: boolean): world_property {
+    return new MockWorldProperty(condition, value);
+  }
+
   private readonly worldCondition: number;
   private readonly worldValue: boolean;
 

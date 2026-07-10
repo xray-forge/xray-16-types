@@ -21,6 +21,10 @@ export enum EMockPacketDataType {
  * X-Ray net processor mock for testing save/load of data.
  */
 export class MockNetProcessor {
+  public static create(dataList: Array<unknown> = []): MockNetProcessor {
+    return new MockNetProcessor(dataList);
+  }
+
   public static mock(): TXR_net_processor {
     return new MockNetProcessor() as unknown as TXR_net_processor;
   }

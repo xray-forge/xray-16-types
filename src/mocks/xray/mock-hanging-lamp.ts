@@ -5,6 +5,10 @@ import { type hanging_lamp } from "xray16";
  * Mock of the X-Ray engine hanging lamp object.
  */
 export class MockHangingLamp {
+  public static create(): MockHangingLamp {
+    return new MockHangingLamp();
+  }
+
   public static mock(): hanging_lamp {
     return new MockHangingLamp() as unknown as hanging_lamp;
   }

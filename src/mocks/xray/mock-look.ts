@@ -4,6 +4,14 @@ import type { game_object, look, TXR_SightType, vector } from "xray16";
  * Mock of the X-Ray engine `look` action enumeration.
  */
 export class MockLook implements look {
+  public static create(...args: Array<unknown>): MockLook {
+    return new MockLook(...args);
+  }
+
+  public static mock(...args: Array<unknown>): look {
+    return new MockLook(...args);
+  }
+
   public static readonly cur_dir = 0 as const;
   public static readonly danger = 5 as const;
   public static readonly direction = 2 as const;

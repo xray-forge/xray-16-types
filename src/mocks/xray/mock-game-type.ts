@@ -1,4 +1,12 @@
 export class MockGameType {
+  public static create(): MockGameType {
+    return new MockGameType();
+  }
+
+  public static mock(): MockGameType {
+    return new MockGameType();
+  }
+
   public static eGameIDArtefactHunt: number = 8;
   public static eGameIDCaptureTheArtefact: number = 16;
   public static eGameIDDeathmatch: number = 2;

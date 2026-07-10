@@ -4,6 +4,14 @@ import type { sound, sound_object, TXR_snd_type, vector } from "xray16";
  * Mock of the X-Ray engine `sound` action enumeration.
  */
 export class MockSound implements sound {
+  public static create(...args: Array<unknown>): MockSound {
+    return new MockSound(...args);
+  }
+
+  public static mock(...args: Array<unknown>): sound {
+    return new MockSound(...args);
+  }
+
   public static readonly attack = 3 as const;
   public static readonly attack_hit = 4 as const;
   public static readonly die = 7 as const;

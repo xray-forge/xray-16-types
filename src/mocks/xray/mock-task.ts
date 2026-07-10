@@ -4,6 +4,14 @@ import { type task } from "xray16";
  * Mock of the X-Ray engine `task` state enumeration.
  */
 export class MockTask implements task {
+  public static create(): MockTask {
+    return new MockTask();
+  }
+
+  public static mock(): task {
+    return new MockTask();
+  }
+
   public static readonly additional: number = 1;
   public static readonly completed: number = 2;
   public static readonly fail: number = 0;

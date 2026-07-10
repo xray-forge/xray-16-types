@@ -9,12 +9,16 @@ import { MockVector } from "./mock-vector";
 export class MockSoundObject implements sound_object {
   public static readonly SOUND_OBJECT_REGISTRY: Array<MockSoundObject> = [];
 
+  public static create(path: string): MockSoundObject {
+    return new MockSoundObject(path);
+  }
+
   public static resetRegistry(): void {
     this.SOUND_OBJECT_REGISTRY.splice(0);
   }
 
   public static mock(path: string): sound_object {
-    return new MockSoundObject(path) as unknown as sound_object;
+    return new MockSoundObject(path);
   }
 
   public static asObject(sound: sound_object | null | undefined): MockSoundObject {

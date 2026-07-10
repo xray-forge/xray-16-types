@@ -6,6 +6,14 @@ import { MockCTime } from "./mock-ctime";
  * Mock of the X-Ray engine `CSavedGameWrapper`.
  */
 export class MockCSavedGameWrapper implements CSavedGameWrapper {
+  public static create(name: string = ""): MockCSavedGameWrapper {
+    return new MockCSavedGameWrapper(name);
+  }
+
+  public static mock(name: string = ""): CSavedGameWrapper {
+    return new MockCSavedGameWrapper(name);
+  }
+
   public __name: string = "CSavedGameWrapper";
 
   public constructor(_name: string = "") {}

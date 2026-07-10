@@ -4,6 +4,14 @@ import type { noise } from "xray16";
  * Mock of the X-Ray engine `noise` class for jest/node.
  */
 export class MockNoise implements noise {
+  public static create(intensity: number = 0, grain: number = 1, fps: number = 10): MockNoise {
+    return new MockNoise(intensity, grain, fps);
+  }
+
+  public static mock(intensity: number = 0, grain: number = 1, fps: number = 10): noise {
+    return new MockNoise(intensity, grain, fps);
+  }
+
   public intensity: number;
   public grain: number;
   public fps: number;

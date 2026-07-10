@@ -7,6 +7,10 @@ import { MockPhysicsJoint } from "./mock-physics-joint";
  * Mock of the X-Ray engine physics shell.
  */
 export class MockPhysicsShell {
+  public static create(): MockPhysicsShell {
+    return new MockPhysicsShell();
+  }
+
   public static mock(): physics_shell {
     return new MockPhysicsShell() as unknown as physics_shell;
   }

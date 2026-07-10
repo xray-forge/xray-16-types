@@ -7,6 +7,14 @@ import { MockVector } from "./mock-vector";
  * Mock of the X-Ray engine `CSightParams` sight-type enumeration class.
  */
 export class MockCSightParams implements CSightParams {
+  public static create(): MockCSightParams {
+    return new MockCSightParams();
+  }
+
+  public static mock(): CSightParams {
+    return new MockCSightParams();
+  }
+
   public static readonly eSightTypeDummy = -1 as const;
   public static readonly eSightTypeCurrentDirection = 0 as const;
   public static readonly eSightTypePathDirection = 1 as const;

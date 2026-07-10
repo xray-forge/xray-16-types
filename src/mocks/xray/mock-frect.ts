@@ -6,6 +6,14 @@ import { MockVector2D } from "./mock-vector-2d";
  * Mock of the X-Ray engine `Frect` rectangle class.
  */
 export class MockFrect implements Frect {
+  public static create(x1: number = 0, y1: number = 0, x2: number = 0, y2: number = 0): MockFrect {
+    return new MockFrect(x1, y1, x2, y2);
+  }
+
+  public static mock(x1: number = 0, y1: number = 0, x2: number = 0, y2: number = 0): Frect {
+    return new MockFrect(x1, y1, x2, y2);
+  }
+
   public __name: string = "Frect";
 
   public x1: number;

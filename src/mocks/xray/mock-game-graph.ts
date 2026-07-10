@@ -10,6 +10,14 @@ export class MockCGameGraph implements CGameGraph {
   public static instance: MockCGameGraph | null = null;
   public static registry: Record<number, MockCVertex> = {};
 
+  public static create(): MockCGameGraph {
+    return new MockCGameGraph();
+  }
+
+  public static mock(): CGameGraph {
+    return this.getInstance();
+  }
+
   public accessibleVertices: Map<number, boolean> = new Map();
 
   public static getInstance(): MockCGameGraph {

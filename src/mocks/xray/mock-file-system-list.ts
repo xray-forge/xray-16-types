@@ -14,6 +14,14 @@ function createFileSystemItem(name: string): FS_item {
  * Mock of the X-Ray engine FS file list.
  */
 export class MockFileSystemList implements FS_file_list, FS_file_list_ex {
+  public static create(list: Array<FS_item | string> = []): MockFileSystemList {
+    return new MockFileSystemList(list);
+  }
+
+  public static mock(list: Array<FS_item | string> = []): FS_file_list & FS_file_list_ex {
+    return new MockFileSystemList(list);
+  }
+
   public list: Array<FS_item>;
 
   public constructor(list: Array<FS_item | string> = []) {

@@ -9,6 +9,14 @@ import { MockVector } from "./mock-vector";
 export class MockDevice implements render_device {
   protected static instance: MockDevice | null = null;
 
+  public static create(): MockDevice {
+    return new MockDevice();
+  }
+
+  public static mock(): render_device {
+    return new MockDevice();
+  }
+
   public static getInstance(): MockDevice {
     if (!MockDevice.instance) {
       MockDevice.instance = new MockDevice();

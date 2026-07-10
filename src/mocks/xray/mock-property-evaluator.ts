@@ -4,6 +4,14 @@ import { type game_object, type property_evaluator, type property_storage } from
  * Mock of the X-Ray engine AI property evaluator.
  */
 export class MockPropertyEvaluator implements property_evaluator {
+  public static create(object: game_object | null = null, name: string = ""): MockPropertyEvaluator {
+    return new MockPropertyEvaluator(object, name);
+  }
+
+  public static mock(object: game_object | null = null, name: string = ""): property_evaluator {
+    return new MockPropertyEvaluator(object, name);
+  }
+
   public object!: game_object;
   public storage!: property_storage;
   public __name: string;

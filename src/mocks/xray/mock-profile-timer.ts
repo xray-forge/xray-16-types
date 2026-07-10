@@ -5,6 +5,14 @@ import { type profile_timer } from "xray16";
  * Mock of the X-Ray engine high-precision `profile_timer`.
  */
 export class MockProfileTimer implements profile_timer {
+  public static create(): MockProfileTimer {
+    return new MockProfileTimer();
+  }
+
+  public static mock(): profile_timer {
+    return new MockProfileTimer();
+  }
+
   public timestamp: number | null = null;
   public duration: number | null = null;
 

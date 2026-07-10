@@ -5,6 +5,10 @@ import { type CArtefact } from "xray16";
  * Mock of the X-Ray engine artefact object.
  */
 export class MockCArtefact {
+  public static create(): MockCArtefact {
+    return new MockCArtefact();
+  }
+
   public static mock(): CArtefact {
     return new MockCArtefact() as unknown as CArtefact;
   }

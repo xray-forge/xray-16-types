@@ -5,6 +5,14 @@ import type { entity_action } from "xray16";
  * Mock of the X-Ray engine `entity_action` class.
  */
 export class MockEntityAction implements entity_action {
+  public static create(...args: Array<unknown>): MockEntityAction {
+    return new MockEntityAction(...args);
+  }
+
+  public static mock(...args: Array<unknown>): entity_action {
+    return new MockEntityAction(...args);
+  }
+
   public __name: string = "entity_action";
 
   public args: Array<unknown>;

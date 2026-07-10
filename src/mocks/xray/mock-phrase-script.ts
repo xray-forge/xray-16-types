@@ -4,8 +4,12 @@ import { type CPhraseScript } from "xray16";
  * Mock of the X-Ray engine dialog `CPhraseScript`.
  */
 export class MockPhraseScript implements CPhraseScript {
+  public static create(): MockPhraseScript {
+    return new MockPhraseScript();
+  }
+
   public static mock(): CPhraseScript {
-    return new MockPhraseScript() as unknown as CPhraseScript;
+    return new MockPhraseScript();
   }
 
   public text: string | null = null;

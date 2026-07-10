@@ -5,6 +5,10 @@ import { type CPhysicObject } from "xray16";
  * Mock of the X-Ray engine `CPhysicObject`.
  */
 export class MockPhysicObject {
+  public static create(): MockPhysicObject {
+    return new MockPhysicObject();
+  }
+
   public static mock(): CPhysicObject {
     return new MockPhysicObject() as unknown as CPhysicObject;
   }

@@ -7,6 +7,14 @@ import { MockVector } from "./mock-vector";
  * Mock of the X-Ray engine helicopter object.
  */
 export class MockCHelicopter {
+  public static create(health: number = 1): MockCHelicopter {
+    const helicopter: MockCHelicopter = new MockCHelicopter();
+
+    helicopter.health = health;
+
+    return helicopter;
+  }
+
   public static mock(health: number = 1): CHelicopter {
     const helicopter: MockCHelicopter = new MockCHelicopter();
 

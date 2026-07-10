@@ -9,11 +9,11 @@ import { MockVector2D } from "../mock-vector-2d";
  * Mock base window class.
  */
 export class MockCUIWindow extends MockLuabindClass implements CUIWindow {
-  public static mock(): CUIWindow {
+  public static override mock(): CUIWindow {
     return new this() as unknown as CUIWindow;
   }
 
-  public static create(): MockCUIWindow {
+  public static override create(): MockCUIWindow {
     return new this();
   }
 

@@ -7,6 +7,14 @@ import { MockVector } from "./mock-vector";
  * Mock of the X-Ray engine `hit` object for jest/node.
  */
 export class MockHit implements hit {
+  public static create(source?: hit): MockHit {
+    return new MockHit(source);
+  }
+
+  public static mock(source?: hit): hit {
+    return new MockHit(source);
+  }
+
   public static readonly burn = 0 as const;
   public static readonly chemical_burn = 2 as const;
   public static readonly dummy = 12 as const;

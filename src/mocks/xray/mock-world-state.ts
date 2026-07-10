@@ -6,6 +6,14 @@ import { MockLuabindClass } from "./mock-luabind";
  * Mock of the X-Ray engine logics world state.
  */
 export class MockWorldState extends MockLuabindClass implements world_state {
+  public static override create(state?: world_state): MockWorldState {
+    return new MockWorldState(state);
+  }
+
+  public static override mock(state?: world_state): world_state {
+    return new MockWorldState(state);
+  }
+
   public properties: Array<world_property> = [];
 
   public constructor(state?: world_state) {

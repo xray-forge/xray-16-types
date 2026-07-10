@@ -4,6 +4,14 @@ import type { anim, TXR_mental_state } from "xray16";
  * Mock of the X-Ray engine `anim` action enumeration.
  */
 export class MockAnim implements anim {
+  public static create(...args: Array<unknown>): MockAnim {
+    return new MockAnim(...args);
+  }
+
+  public static mock(...args: Array<unknown>): anim {
+    return new MockAnim(...args);
+  }
+
   public static readonly danger = 0 as const;
   public static readonly free = 1 as const;
   public static readonly panic = 2 as const;

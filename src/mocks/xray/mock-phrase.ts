@@ -6,8 +6,12 @@ import { MockPhraseScript } from "./mock-phrase-script";
  * Mock of the X-Ray engine dialog phrase.
  */
 export class MockPhrase implements CPhrase {
+  public static create(id: string, text: string, prevPhraseId: string, goodwillLevel: number): MockPhrase {
+    return new MockPhrase(id, text, prevPhraseId, goodwillLevel);
+  }
+
   public static mock(id: string, text: string, prevPhraseId: string, goodwillLevel: number): CPhrase {
-    return new MockPhrase(id, text, prevPhraseId, goodwillLevel) as unknown as CPhrase;
+    return new MockPhrase(id, text, prevPhraseId, goodwillLevel);
   }
 
   public id: string;

@@ -12,6 +12,14 @@ import {
  * Mock move actions class.
  */
 export class MockMove implements move {
+  public static create(...args: Array<unknown>): MockMove {
+    return new MockMove(...args);
+  }
+
+  public static mock(...args: Array<unknown>): move {
+    return new MockMove(...args);
+  }
+
   public static readonly crouch = 0 as const;
 
   public static readonly back = 4 as const;

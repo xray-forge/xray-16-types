@@ -6,6 +6,18 @@ import { MockVector } from "./mock-vector";
  * Mock of the X-Ray engine alife task for smart terrains.
  */
 export class MockCALifeSmartTerrainTask implements CALifeSmartTerrainTask {
+  public static create(patrolPathName: string, patrolPointIndex?: number): MockCALifeSmartTerrainTask;
+  public static create(gameVertexId: number, levelVertexId: number): MockCALifeSmartTerrainTask;
+  public static create(gameVertexId: number | string, levelVertexId?: number): MockCALifeSmartTerrainTask {
+    return new MockCALifeSmartTerrainTask(gameVertexId, levelVertexId);
+  }
+
+  public static mock(patrolPathName: string, patrolPointIndex?: number): CALifeSmartTerrainTask;
+  public static mock(gameVertexId: number, levelVertexId: number): CALifeSmartTerrainTask;
+  public static mock(gameVertexId: number | string, levelVertexId?: number): CALifeSmartTerrainTask {
+    return new MockCALifeSmartTerrainTask(gameVertexId, levelVertexId);
+  }
+
   private readonly gameVertexId: number;
   private readonly levelVertexId: number;
   public readonly taskPosition: vector;

@@ -5,6 +5,10 @@ import type { CGameTask, TXR_TaskState, TXR_TaskType } from "xray16";
  * Mock x-ray task object.
  */
 export class MockCGameTask implements CGameTask {
+  public static create(): MockCGameTask {
+    return new MockCGameTask();
+  }
+
   public static mock(): CGameTask {
     return new MockCGameTask();
   }

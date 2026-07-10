@@ -17,8 +17,12 @@ import { mockStalkerIds } from "./mock-stalker-ids";
  * Mock of the X-Ray engine GOAP action planner.
  */
 export class MockActionPlanner extends MockLuabindClass implements action_planner {
-  public static mock(): action_planner {
-    return new MockActionPlanner() as unknown as action_planner;
+  public static override create(): MockActionPlanner {
+    return new MockActionPlanner();
+  }
+
+  public static override mock(): action_planner {
+    return new MockActionPlanner();
   }
 
   public static mockDefault(object: game_object | MockGameObject): action_planner {

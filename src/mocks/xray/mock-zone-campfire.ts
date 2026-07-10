@@ -5,7 +5,11 @@ import { type CZoneCampfire } from "xray16";
  * Mock of the X-Ray engine campfire object.
  */
 export class MockCZoneCampfire {
-  public static mock(state: boolean): CZoneCampfire {
+  public static create(state: boolean = false): MockCZoneCampfire {
+    return new MockCZoneCampfire(state);
+  }
+
+  public static mock(state: boolean = false): CZoneCampfire {
     return new MockCZoneCampfire(state) as unknown as CZoneCampfire;
   }
 

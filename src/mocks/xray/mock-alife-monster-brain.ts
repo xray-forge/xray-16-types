@@ -7,8 +7,12 @@ import { type CALifeMonsterBrain } from "xray16";
 export class MockCAlifeMonsterBrain implements CALifeMonsterBrain {
   public canChooseAlifeTasks: boolean = true;
 
+  public static create(): MockCAlifeMonsterBrain {
+    return new MockCAlifeMonsterBrain();
+  }
+
   public static mock(): CALifeMonsterBrain {
-    return new MockCAlifeMonsterBrain() as unknown as CALifeMonsterBrain;
+    return new MockCAlifeMonsterBrain();
   }
 
   public select_task = jest.fn();

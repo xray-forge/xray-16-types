@@ -9,6 +9,10 @@ import { MockLoginManager } from "./mock-login-manager";
 export class MockCMainMenu implements CMainMenu {
   protected static instance: MockCMainMenu | null = null;
 
+  public static create(): MockCMainMenu {
+    return new MockCMainMenu();
+  }
+
   public static getInstance(): MockCMainMenu {
     if (!this.instance) {
       this.instance = new MockCMainMenu();
@@ -22,7 +26,7 @@ export class MockCMainMenu implements CMainMenu {
   }
 
   public static mock(): CMainMenu {
-    return new MockCMainMenu() as unknown as CMainMenu;
+    return new MockCMainMenu();
   }
 
   public loginManager: MockLoginManager = new MockLoginManager();

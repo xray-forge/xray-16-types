@@ -9,6 +9,14 @@ import { MockVector } from "./mock-vector";
 export class MockParticleObject implements particles_object {
   public static REGISTRY: Map<string, MockParticleObject> = new Map();
 
+  public static create(name: string): MockParticleObject {
+    return new MockParticleObject(name);
+  }
+
+  public static mock(name: string): particles_object {
+    return new MockParticleObject(name);
+  }
+
   public name: string;
   public isPlaying: boolean = false;
   public isPaused: boolean = false;

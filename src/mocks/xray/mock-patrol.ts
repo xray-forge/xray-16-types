@@ -28,7 +28,11 @@ export class MockPatrol implements patrol {
   }
 
   public static mock(name: string): patrol {
-    return new MockPatrol(name) as unknown as patrol;
+    return new MockPatrol(name);
+  }
+
+  public static create(name: string): MockPatrol {
+    return new MockPatrol(name);
   }
 
   /**

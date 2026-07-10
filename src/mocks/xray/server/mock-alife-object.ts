@@ -46,11 +46,11 @@ export interface IMockAlifeObjectConfig {
  * Mock base alife object implementation.
  */
 export class MockAlifeObject extends MockLuabindClass implements cse_alife_object {
-  public static mock(config: IMockAlifeObjectConfig = {}): cse_alife_object {
+  public static override mock(config: IMockAlifeObjectConfig = {}): cse_alife_object {
     return new this(config) as unknown as cse_alife_object;
   }
 
-  public static create(config: IMockAlifeObjectConfig = {}): MockAlifeObject {
+  public static override create(config: IMockAlifeObjectConfig = {}): MockAlifeObject {
     return new this(config);
   }
 

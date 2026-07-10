@@ -4,6 +4,14 @@ import type { CSightParams, game_object, TXR_SightType, vector } from "xray16";
  * Mock AI sight parameters class.
  */
 export class MockSightParameters implements CSightParams {
+  public static create(): MockSightParameters {
+    return new MockSightParameters();
+  }
+
+  public static mock(): CSightParams {
+    return new MockSightParameters();
+  }
+
   public static readonly eSightTypeDummy = -1 as const;
   public static readonly eSightTypeCurrentDirection = 0 as const;
   public static readonly eSightTypePathDirection = 1 as const;

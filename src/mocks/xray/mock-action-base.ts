@@ -8,8 +8,12 @@ import { type MockWorldProperty } from "./mock-world-property";
  * Mock of the X-Ray engine GOAP action base class.
  */
 export class MockActionBase extends MockLuabindClass implements action_base {
-  public static mock(object: game_object, name?: string): action_base {
-    return new MockActionBase(object, name) as unknown as action_base;
+  public static override create(object: game_object, name?: string): MockActionBase {
+    return new MockActionBase(object, name);
+  }
+
+  public static override mock(object: game_object, name?: string): action_base {
+    return new MockActionBase(object, name);
   }
 
   public object!: game_object;

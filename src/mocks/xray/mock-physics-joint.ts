@@ -4,6 +4,10 @@ import { type physics_joint } from "xray16";
  * Mock of the X-Ray engine physics joint.
  */
 export class MockPhysicsJoint {
+  public static create(name: string): MockPhysicsJoint {
+    return new MockPhysicsJoint(name);
+  }
+
   public static mock(name: string): physics_joint {
     return new MockPhysicsJoint(name) as unknown as physics_joint;
   }

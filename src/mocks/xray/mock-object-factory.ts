@@ -4,6 +4,14 @@ import { type object_factory, type TXR_class_key } from "xray16";
  * Mock of the X-Ray engine game object factory.
  */
 export class MockObjectFactory implements object_factory {
+  public static create(): MockObjectFactory {
+    return new MockObjectFactory();
+  }
+
+  public static mock(): object_factory {
+    return new MockObjectFactory();
+  }
+
   public registeredClientClasses: Set<string> = new Set();
   public registeredServerClasses: Set<string> = new Set();
   public registeredClassIds: Set<string> = new Set();
