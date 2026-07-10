@@ -40,7 +40,7 @@ function formatVector(value: vector | vector2): string {
  * This is a focused test helper, not a full engine parser. It does not implement section inheritance or `#include`
  * expansion beyond what the `ini` package parses from a single file.
  */
-export class MockIniFile<T extends TMockIniData = TMockIniData> {
+export class MockIniFile<T extends TMockIniData = TMockIniData> implements ini_file {
   private static configsDir: string | null = null;
   private static registry: Record<string, TMockIniData> = {};
 
@@ -229,17 +229,21 @@ export class MockIniFile<T extends TMockIniData = TMockIniData> {
 
   public section_exist = jest.fn((section: string) => this.data[section] !== undefined);
 
-  public r_line = jest.fn((section: string, lineNumber: number) => {
+  public r_line = jest.fn((section: string, lineNumber: number, _key: string = "", _value: string = "") => {
     const data = this.data[section];
 
     if (Array.isArray(data)) {
-      return [true, data[lineNumber], null];
+      return (data[lineNumber] === undefined ? [false, "", ""] : [true, data[lineNumber], null]) as unknown as LuaMultiReturn<
+        [boolean, string, string]
+      >;
     }
 
     const entry = Object.entries(data)[lineNumber];
 
-    return [true, entry[0], entry[1]];
-  });
+    return (entry === undefined ? [false, "", ""] : [true, entry[0], entry[1]]) as unknown as LuaMultiReturn<
+      [boolean, string, string]
+    >;
+  }) as jest.MockedFunction<ini_file["r_line"]>;
 
   public line_exist = jest.fn((section: string, param: string) => {
     return this.data[section]?.[param] !== undefined;
@@ -257,7 +261,7 @@ export class MockIniFile<T extends TMockIniData = TMockIniData> {
 
   public set_override_names = jest.fn();
 
-  public save_as = jest.fn();
+  public save_as = jest.fn(() => true);
 
   public save_at_end = jest.fn();
 
