@@ -6,7 +6,7 @@ import { type vector2 } from "xray16";
  * Pure-JS implementation of the subset of `vector2` behaviour used by shared utilities, so code that calls
  * `new vector2()` can run under jest when `vector2` is bound to this mock.
  */
-export class MockVector2D {
+export class MockVector2D implements vector2 {
   public static create(x: number = 0, y: number = 0): MockVector2D {
     return new MockVector2D().set(x, y);
   }
@@ -21,18 +21,22 @@ export class MockVector2D {
   public y: number = 0;
 
   public set(x: number, y: number): MockVector2D;
-  public set(x: number | MockVector2D, y: number): MockVector2D {
-    if (x instanceof MockVector2D) {
-      return new MockVector2D().set(x.x, x.y);
+  public set(x: vector2): MockVector2D;
+  public set(x: number | vector2, y?: number): MockVector2D {
+    if (typeof x !== "number") {
+      this.x = x.x;
+      this.y = x.y;
+
+      return this;
     }
 
     this.x = x;
-    this.y = y;
+    this.y = y ?? 0;
 
     return this;
   }
 
-  public add(first: MockVector2D | number, second?: MockVector2D): MockVector2D {
+  public add(first: vector2 | number, second?: vector2): MockVector2D {
     if (typeof first === "number") {
       this.x += first;
       this.y += first;
@@ -47,7 +51,7 @@ export class MockVector2D {
     return this;
   }
 
-  public sub(first: MockVector2D, second?: MockVector2D): MockVector2D {
+  public sub(first: vector2, second?: vector2): MockVector2D {
     if (second) {
       this.x = first.x - second.x;
       this.y = first.y - second.y;
@@ -59,7 +63,7 @@ export class MockVector2D {
     return this;
   }
 
-  public mul(by: number | MockVector2D): MockVector2D {
+  public mul(by: number | vector2): MockVector2D {
     if (typeof by === "number") {
       this.x *= by;
       this.y *= by;
@@ -78,7 +82,7 @@ export class MockVector2D {
     return this.distance_to() * this.distance_to();
   }
 
-  public dotproduct(target: MockVector2D): number {
+  public dotproduct(target: vector2): number {
     return this.x * target.x + this.y * target.y;
   }
 

@@ -1,12 +1,14 @@
 import { type vector } from "xray16";
 
+type TReadonlyVector = Readonly<vector>;
+
 /**
  * Mock of the X-Ray engine 3D `vector` class for jest/node.
  *
  * Pure-JS implementation of the subset of `vector` behaviour used by shared utilities, so code that calls
  * `new vector()` can run under jest when `vector` is bound to this mock.
  */
-export class MockVector {
+export class MockVector implements vector {
   public static create(x: number = 0, y: number = 0, z: number = 0): MockVector {
     return new MockVector().set(x, y, z);
   }
@@ -22,9 +24,9 @@ export class MockVector {
   public z: number = 0;
 
   public set(x: number, y: number, z: number): MockVector;
-  public set(x: MockVector): MockVector;
-  public set(x: number | MockVector, y?: number, z?: number): MockVector {
-    if (x instanceof MockVector) {
+  public set(x: TReadonlyVector): MockVector;
+  public set(x: number | TReadonlyVector, y?: number, z?: number): MockVector {
+    if (typeof x !== "number") {
       this.x = x.x;
       this.y = x.y;
       this.z = x.z;
@@ -39,7 +41,7 @@ export class MockVector {
     return this;
   }
 
-  public abs(vector: MockVector): MockVector {
+  public abs(vector: TReadonlyVector): MockVector {
     this.x = Math.abs(vector.x);
     this.y = Math.abs(vector.y);
     this.z = Math.abs(vector.z);
@@ -47,7 +49,7 @@ export class MockVector {
     return this;
   }
 
-  public add(first: MockVector | number, second?: MockVector): MockVector {
+  public add(first: TReadonlyVector | number, second?: TReadonlyVector | number): MockVector {
     if (typeof first === "number") {
       this.x += first;
       this.y += first;
@@ -56,6 +58,10 @@ export class MockVector {
       this.x += first.x;
       this.y += first.y;
       this.z += first.z;
+    } else if (typeof second === "number") {
+      this.x = first.x + second;
+      this.y = first.y + second;
+      this.z = first.z + second;
     } else {
       this.x = first.x + second.x;
       this.y = first.y + second.y;
@@ -73,7 +79,7 @@ export class MockVector {
     return this;
   }
 
-  public average(first: MockVector, second?: MockVector): MockVector {
+  public average(first: TReadonlyVector, second?: TReadonlyVector): MockVector {
     if (second) {
       this.x = (first.x + second.x) / 2;
       this.y = (first.y + second.y) / 2;
@@ -87,9 +93,9 @@ export class MockVector {
     return this;
   }
 
-  public clamp(min: MockVector, max?: MockVector): MockVector {
-    const lower: MockVector = max ? min : MockVector.create(-Math.abs(min.x), -Math.abs(min.y), -Math.abs(min.z));
-    const upper: MockVector = max ?? MockVector.create(Math.abs(min.x), Math.abs(min.y), Math.abs(min.z));
+  public clamp(min: TReadonlyVector, max?: TReadonlyVector): MockVector {
+    const lower: TReadonlyVector = max ? min : MockVector.create(-Math.abs(min.x), -Math.abs(min.y), -Math.abs(min.z));
+    const upper: TReadonlyVector = max ?? MockVector.create(Math.abs(min.x), Math.abs(min.y), Math.abs(min.z));
 
     this.x = Math.max(lower.x, Math.min(upper.x, this.x));
     this.y = Math.max(lower.y, Math.min(upper.y, this.y));
@@ -98,7 +104,7 @@ export class MockVector {
     return this;
   }
 
-  public crossproduct(first: MockVector, second: MockVector): MockVector {
+  public crossproduct(first: TReadonlyVector, second: TReadonlyVector): MockVector {
     this.x = first.y * second.z - first.z * second.y;
     this.y = first.z * second.x - first.x * second.z;
     this.z = first.x * second.y - first.y * second.x;
@@ -106,7 +112,7 @@ export class MockVector {
     return this;
   }
 
-  public sub(first: MockVector | number, second?: MockVector | number): MockVector {
+  public sub(first: TReadonlyVector | number, second?: TReadonlyVector | number): MockVector {
     if (typeof first === "number") {
       this.x -= first;
       this.y -= first;
@@ -128,7 +134,7 @@ export class MockVector {
     return this;
   }
 
-  public mul(first: number | MockVector, second?: MockVector | number): MockVector {
+  public mul(first: number | TReadonlyVector, second?: TReadonlyVector | number): MockVector {
     if (typeof first === "number") {
       this.x *= first;
       this.y *= first;
@@ -150,7 +156,7 @@ export class MockVector {
     return this;
   }
 
-  public div(first: number | MockVector, second?: MockVector | number): MockVector {
+  public div(first: number | TReadonlyVector, second?: TReadonlyVector | number): MockVector {
     if (typeof first === "number") {
       this.x /= first;
       this.y /= first;
@@ -172,7 +178,9 @@ export class MockVector {
     return this;
   }
 
-  public distance_to(target?: MockVector): number {
+  public distance_to(target: TReadonlyVector): number;
+  public distance_to(): number;
+  public distance_to(target?: TReadonlyVector): number {
     if (!target) {
       return MockVector.DEFAULT_DISTANCE;
     }
@@ -191,13 +199,15 @@ export class MockVector {
     );
   }
 
-  public distance_to_sqr(target?: MockVector): number {
-    const distance: number = this.distance_to(target);
+  public distance_to_sqr(target: TReadonlyVector): number;
+  public distance_to_sqr(): number;
+  public distance_to_sqr(target?: TReadonlyVector): number {
+    const distance: number = target ? this.distance_to(target) : this.distance_to();
 
     return distance * distance;
   }
 
-  public distance_to_xz(target: MockVector): number {
+  public distance_to_xz(target: TReadonlyVector): number {
     const isThisOrigin = this.x === 0 && this.z === 0;
     const isTargetOrigin = target.x === 0 && target.z === 0;
 
@@ -208,7 +218,7 @@ export class MockVector {
     return Math.sqrt((this.x - target.x) * (this.x - target.x) + (this.z - target.z) * (this.z - target.z));
   }
 
-  public dotproduct(target: MockVector): number {
+  public dotproduct(target: TReadonlyVector): number {
     return this.x * target.x + this.y * target.y + this.z * target.z;
   }
 
@@ -220,7 +230,7 @@ export class MockVector {
     return this.normalize_safe();
   }
 
-  public normalize_safe(vector?: MockVector): MockVector {
+  public normalize_safe(vector?: TReadonlyVector): MockVector {
     if (vector) {
       this.set(vector);
     }
@@ -238,11 +248,11 @@ export class MockVector {
     return this;
   }
 
-  public inertion(vector: MockVector, value: number): MockVector {
+  public inertion(vector: TReadonlyVector, value: number): MockVector {
     return this.lerp(this, vector, value);
   }
 
-  public invert(vector?: MockVector): MockVector {
+  public invert(vector?: TReadonlyVector): MockVector {
     if (vector) {
       this.set(vector);
     }
@@ -254,7 +264,7 @@ export class MockVector {
     return this;
   }
 
-  public lerp(from: MockVector, to: MockVector, factor: number): MockVector {
+  public lerp(from: TReadonlyVector, to: TReadonlyVector, factor: number): MockVector {
     this.x = from.x + (to.x - from.x) * factor;
     this.y = from.y + (to.y - from.y) * factor;
     this.z = from.z + (to.z - from.z) * factor;
@@ -262,7 +272,7 @@ export class MockVector {
     return this;
   }
 
-  public mad(first: MockVector, second: MockVector | number, third?: MockVector | number): MockVector {
+  public mad(first: TReadonlyVector, second: TReadonlyVector | number, third?: TReadonlyVector | number): MockVector {
     if (typeof second === "number") {
       this.x += first.x * second;
       this.y += first.y * second;
@@ -284,9 +294,9 @@ export class MockVector {
     return this;
   }
 
-  public max(first: MockVector, second?: MockVector): MockVector {
-    const target: MockVector = second ?? this;
-    const source: MockVector = second ? first : first;
+  public max(first: TReadonlyVector, second?: TReadonlyVector): MockVector {
+    const target: TReadonlyVector = second ?? this;
+    const source: TReadonlyVector = first;
 
     this.x = Math.max(target.x, source.x);
     this.y = Math.max(target.y, source.y);
@@ -295,9 +305,9 @@ export class MockVector {
     return this;
   }
 
-  public min(first: MockVector, second?: MockVector): MockVector {
-    const target: MockVector = second ?? this;
-    const source: MockVector = second ? first : first;
+  public min(first: TReadonlyVector, second?: TReadonlyVector): MockVector {
+    const target: TReadonlyVector = second ?? this;
+    const source: TReadonlyVector = first;
 
     this.x = Math.min(target.x, source.x);
     this.y = Math.min(target.y, source.y);
@@ -306,7 +316,7 @@ export class MockVector {
     return this;
   }
 
-  public reflect(direction: MockVector, normal: MockVector): MockVector {
+  public reflect(direction: TReadonlyVector, normal: TReadonlyVector): MockVector {
     const projection: number = 2 * direction.dotproduct(normal);
 
     this.x = direction.x - projection * normal.x;
@@ -320,7 +330,7 @@ export class MockVector {
     return this.normalize_safe().mul(value);
   }
 
-  public similar(vector: MockVector, epsilon: number): boolean {
+  public similar(vector: TReadonlyVector, epsilon: number): boolean {
     return (
       Math.abs(this.x - vector.x) <= epsilon &&
       Math.abs(this.y - vector.y) <= epsilon &&
@@ -328,7 +338,7 @@ export class MockVector {
     );
   }
 
-  public slide(direction: MockVector, normal: MockVector): MockVector {
+  public slide(direction: TReadonlyVector, normal: TReadonlyVector): MockVector {
     const projection: number = direction.dotproduct(normal);
 
     this.x = direction.x - projection * normal.x;

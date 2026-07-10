@@ -4,7 +4,7 @@ import { type CALifeMonsterBrain } from "xray16";
 /**
  * Mock of the X-Ray engine `CALifeMonsterBrain` alife brain.
  */
-export class MockCAlifeMonsterBrain {
+export class MockCAlifeMonsterBrain implements CALifeMonsterBrain {
   public canChooseAlifeTasks: boolean = true;
 
   public static mock(): CALifeMonsterBrain {
@@ -17,13 +17,13 @@ export class MockCAlifeMonsterBrain {
 
   public default_behaviour = jest.fn();
 
-  public can_choose_alife_tasks = jest.fn((value?: boolean) => {
+  public can_choose_alife_tasks = jest.fn((value?: boolean): boolean | void => {
     if (typeof value === "boolean") {
       this.canChooseAlifeTasks = value;
     } else {
       return this.canChooseAlifeTasks;
     }
-  });
+  }) as jest.MockedFunction<CALifeMonsterBrain["can_choose_alife_tasks"]>;
 
   public on_state_write = jest.fn();
 
@@ -47,9 +47,9 @@ export class MockCAlifeMonsterBrain {
 
   public action_type = jest.fn(() => 0);
 
-  public object = jest.fn(() => null);
+  public object = jest.fn() as jest.MockedFunction<CALifeMonsterBrain["object"]>;
 
-  public movement = jest.fn(() => null);
+  public movement = jest.fn() as jest.MockedFunction<CALifeMonsterBrain["movement"]>;
 
-  public smart_terrain = jest.fn(() => null);
+  public smart_terrain = jest.fn() as jest.MockedFunction<CALifeMonsterBrain["smart_terrain"]>;
 }

@@ -1,9 +1,11 @@
+import { type world_property } from "xray16";
+
 import { MockLuabindClass } from "./mock-luabind";
 
 /**
  * Mock of the X-Ray engine logics world property.
  */
-export class MockWorldProperty extends MockLuabindClass {
+export class MockWorldProperty extends MockLuabindClass implements world_property {
   private readonly worldCondition: number;
   private readonly worldValue: boolean;
 

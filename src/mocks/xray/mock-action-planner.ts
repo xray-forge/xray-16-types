@@ -8,16 +8,15 @@ import {
   type world_state,
 } from "xray16";
 
-import { type MockActionBase, mockActionBase } from "./mock-action-base";
+import { mockActionBase } from "./mock-action-base";
 import { type MockGameObject } from "./mock-game-object";
 import { MockLuabindClass } from "./mock-luabind";
-import { type MockPropertyEvaluator } from "./mock-property-evaluator";
 import { mockStalkerIds } from "./mock-stalker-ids";
 
 /**
  * Mock of the X-Ray engine GOAP action planner.
  */
-export class MockActionPlanner extends MockLuabindClass {
+export class MockActionPlanner extends MockLuabindClass implements action_planner {
   public static mock(): action_planner {
     return new MockActionPlanner() as unknown as action_planner;
   }
@@ -50,6 +49,18 @@ export class MockActionPlanner extends MockLuabindClass {
     return this.isInitialized;
   }
 
+  public actual(): boolean {
+    return this.isInitialized;
+  }
+
+  public clear(): void {
+    this.evaluators = {};
+    this.actions = {};
+    this.goalWorldState = null;
+    this.currentActionId = null;
+    this.isInitialized = false;
+  }
+
   public update(): void {}
 
   public setup(object: game_object): void {
@@ -80,8 +91,12 @@ export class MockActionPlanner extends MockLuabindClass {
     delete this.actions[id];
   });
 
-  public current_action_id(): number | null {
-    return this.currentActionId;
+  public current_action(): action_base {
+    return (this.currentActionId === null ? null : this.actions[this.currentActionId]) as action_base;
+  }
+
+  public current_action_id(): number {
+    return this.currentActionId as number;
   }
 
   public set_goal_world_state(state: world_state): void {
@@ -96,12 +111,12 @@ export class MockActionPlanner extends MockLuabindClass {
     delete this.evaluators[id];
   });
 
-  public action = jest.fn((id: number): MockActionBase | null => {
-    return (this.actions[id] as unknown as MockActionBase) || null;
+  public action = jest.fn((id: number): action_base => {
+    return this.actions[id] ?? (null as unknown as action_base);
   });
 
-  public evaluator = jest.fn((id: number): MockPropertyEvaluator | null => {
-    return (this.evaluators[id] as unknown as MockPropertyEvaluator) || null;
+  public evaluator = jest.fn((id: number): property_evaluator => {
+    return this.evaluators[id] ?? (null as unknown as property_evaluator);
   });
 
   public show = jest.fn();
