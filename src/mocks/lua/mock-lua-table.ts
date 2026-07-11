@@ -13,8 +13,8 @@ export const mockTable = {
     }
   },
   size: (target: unknown): number => {
-    if (target instanceof MockLuaTable) {
-      return target.length();
+    if (target instanceof Map) {
+      return target.size;
     } else if (Array.isArray(target)) {
       return target.length;
     } else if (target && typeof target === "object") {
