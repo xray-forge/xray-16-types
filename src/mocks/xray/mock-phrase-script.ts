@@ -1,15 +1,38 @@
 import { type CPhraseScript } from "xray16";
 
 /**
+ * Initial state for a mocked `CPhraseScript`.
+ */
+export interface IMockPhraseScriptConfig {
+  text?: string | null;
+  actions?: Array<string>;
+  preconditions?: Array<string>;
+  disabledInfoPortions?: Array<string>;
+  excludedInfoPortions?: Array<string>;
+  givenInfoPortions?: Array<string>;
+  requiredInfoPortions?: Array<string>;
+}
+
+/**
  * Mock of the X-Ray engine dialog `CPhraseScript`.
  */
 export class MockPhraseScript implements CPhraseScript {
-  public static create(): MockPhraseScript {
-    return new MockPhraseScript();
+  public static create(config: IMockPhraseScriptConfig = {}): MockPhraseScript {
+    const script: MockPhraseScript = new MockPhraseScript();
+
+    script.text = config.text ?? null;
+    script.actions = config.actions ?? [];
+    script.preconditions = config.preconditions ?? [];
+    script.disabledInfoPortions = config.disabledInfoPortions ?? [];
+    script.excludedInfoPortions = config.excludedInfoPortions ?? [];
+    script.givenInfoPortions = config.givenInfoPortions ?? [];
+    script.requiredInfoPortions = config.requiredInfoPortions ?? [];
+
+    return script;
   }
 
-  public static mock(): CPhraseScript {
-    return new MockPhraseScript();
+  public static mock(config: IMockPhraseScriptConfig = {}): CPhraseScript {
+    return MockPhraseScript.create(config);
   }
 
   public text: string | null = null;

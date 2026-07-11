@@ -55,6 +55,11 @@ export class MockFileSystem implements FS {
     ["$logs$"]: "$logs$\\",
   };
 
+  /**
+   * Roots whose files are treated as existing unless a specific path is mocked otherwise.
+   */
+  public permissiveRoots: Set<string> = new Set();
+
   public constructor(mocks: Record<string, any> = MockFileSystem.MOCKS) {
     this.mocks = mocks;
   }
@@ -65,6 +70,21 @@ export class MockFileSystem implements FS {
     }
 
     this.mocks[root][path] = isExisting;
+  }
+
+  /**
+   * Mark a whole root as existing, so any unmocked path under it resolves as present.
+   * A specific `setMock(root, path, false)` still wins over the permissive default.
+   *
+   * @param root - Filesystem alias to treat as populated.
+   * @param isExisting - Whether files under the root should resolve as present.
+   */
+  public setMockRoot(root: string, isExisting: boolean = true): void {
+    if (isExisting) {
+      this.permissiveRoots.add(root);
+    } else {
+      this.permissiveRoots.delete(root);
+    }
   }
 
   public file_list_open_ex = jest.fn(() => new MockFileSystemList());
@@ -130,13 +150,14 @@ export class MockFileSystem implements FS {
   public exist = jest.fn((rootOrPath: string, pathOrFsType?: string | number, fsType?: number) => {
     const path: string | null = typeof pathOrFsType === "string" ? pathOrFsType : null;
     const requestedFsType: number | null = typeof pathOrFsType === "number" ? pathOrFsType : (fsType ?? null);
-    const exists: boolean = path === null ? Boolean(this.mocks[rootOrPath]) : Boolean(this.mocks[rootOrPath]?.[path]);
+    const explicit: unknown = path === null ? this.mocks[rootOrPath] : this.mocks[rootOrPath]?.[path];
+    const exists: boolean = explicit === undefined ? this.permissiveRoots.has(rootOrPath) : Boolean(explicit);
 
     if (requestedFsType !== null) {
       return MockFileStatus.mock(exists, requestedFsType === MockFileSystem.FSType_External);
     }
 
-    return (path !== undefined && path !== null) || exists
+    return exists
       ? {
           modif: 0,
           name: path ?? rootOrPath,

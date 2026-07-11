@@ -1,10 +1,10 @@
 import { describe, expect, it } from "@jest/globals";
-import { MockLuaMap, MockLuaTable, mockMath, mockString, mockTable } from "xray16/mocks";
+import { MockLuaMap, MockLuaTable, mockLfs, mockMarshal, mockMath, mockString, mockTable } from "xray16/mocks";
 
 import { setupLuaGlobals } from "./setup-lua-globals";
 
 describe("setupLuaGlobals", () => {
-  it("should inject the lua standard-library globals onto globalThis", () => {
+  it("should inject the lua and OpenXRay runtime globals onto globalThis", () => {
     setupLuaGlobals();
 
     const target: Record<string, unknown> = globalThis as Record<string, unknown>;
@@ -16,6 +16,8 @@ describe("setupLuaGlobals", () => {
     expect(target.table).toBe(mockTable);
     expect(target.math).toBe(mockMath);
     expect(target.debug).toBeDefined();
+    expect(target.lfs).toBe(mockLfs);
+    expect(target.marshal).toBe(mockMarshal);
 
     expect(typeof target.$range).toBe("function");
     expect((target.$multi as (...args: Array<unknown>) => Array<unknown>)(1, 2)).toEqual([1, 2]);

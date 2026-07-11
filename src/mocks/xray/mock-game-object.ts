@@ -862,23 +862,9 @@ export class MockGameObject implements game_object {
     this.objectLevelVertexId = config.levelVertexId ?? 255;
     this.objectGameVertexId = config.gameVertexId ?? 512;
 
-    MockGameObject.REGISTRY.set(this.id(), this.asGameObject());
-
-    return new Proxy(this, {
-      get: (target, property, receiver) => {
-        const value: unknown = Reflect.get(target, property, receiver);
-
-        if (value !== undefined || typeof property !== "string" || property === "then") {
-          return value;
-        }
-
-        const fallback = jest.fn();
-
-        Object.defineProperty(target, property, { configurable: true, value: fallback, writable: true });
-
-        return fallback;
-      },
-    });
+    // Register the same concrete instance that callers receive from `mock()`, so
+    // `level.object_by_id` and other registry lookups preserve object identity.
+    MockGameObject.REGISTRY.set(this.id(), this);
   }
 
   public get bleeding(): number {
@@ -1024,7 +1010,9 @@ export class MockGameObject implements game_object {
 
   public character_icon = jest.fn(() => "test_character_icon") as <T>() => T;
 
-  public character_rank = jest.fn(() => this.objectCharacterRank ?? 0);
+  public character_rank = jest.fn(() => this.objectCharacterRank) as unknown as jest.MockedFunction<
+    game_object["character_rank"]
+  >;
 
   public clear_animations = jest.fn();
 

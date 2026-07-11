@@ -6,12 +6,12 @@ import { type flags32, type u32 } from "xray16";
 export class MockFlags32 implements flags32 {
   private value: u32 = 0;
 
-  public static create(): MockFlags32 {
-    return new MockFlags32();
+  public static create(value: u32 = 0): MockFlags32 {
+    return new MockFlags32().assign(value);
   }
 
-  public static mock(): flags32 {
-    return new MockFlags32();
+  public static mock(value: u32 = 0): flags32 {
+    return MockFlags32.create(value);
   }
 
   public and(source: flags32, mask: u32): MockFlags32;
