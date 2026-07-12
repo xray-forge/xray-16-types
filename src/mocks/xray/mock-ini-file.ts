@@ -233,9 +233,9 @@ export class MockIniFile<T extends TMockIniData = TMockIniData> implements ini_f
     const data = this.data[section];
 
     if (Array.isArray(data)) {
-      return (data[lineNumber] === undefined ? [false, "", ""] : [true, data[lineNumber], null]) as unknown as LuaMultiReturn<
-        [boolean, string, string]
-      >;
+      return (data[lineNumber] === undefined
+        ? [false, "", ""]
+        : [true, data[lineNumber], null]) as unknown as LuaMultiReturn<[boolean, string, string]>;
     }
 
     const entry = Object.entries(data)[lineNumber];

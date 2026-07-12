@@ -1,7 +1,9 @@
 import * as ts from "typescript";
 import * as lua from "typescript-to-lua";
+import { createModuleRequire } from "typescript-to-lua/dist/transformation/visitors/modules/import";
 
 import { getContainingVariableStatement, hasInlineTag, hasVirtualTag, isValueUsagePosition } from "./ast";
+import { isRequiredInlineCaptureImport } from "./captures";
 import { type TFoldedValue } from "./constants";
 import { createFoldedExpression, resolveMemberSymbol, tryGetInlineValue } from "./evaluation";
 import { isInlinedCalleeReference } from "./functions";
@@ -228,6 +230,32 @@ function isTaggedImportTarget(checker: ts.TypeChecker, symbol: ts.Symbol): boole
 }
 
 /**
+ * Emit a local binding for an explicit caller import used only by a spliced inline body.
+ *
+ * @param statement - Original import declaration.
+ * @param specifier - Named import to preserve.
+ * @param context - Current transformation context.
+ * @returns Lua local binding for the imported field.
+ */
+function transformRequiredCaptureImport(
+  statement: ts.ImportDeclaration,
+  specifier: ts.ImportSpecifier,
+  context: lua.TransformationContext
+): lua.VariableDeclarationStatement {
+  const binding: lua.Identifier = context.transformExpression(specifier.name) as lua.Identifier;
+  const property: lua.StringLiteral = lua.createStringLiteral(
+    (specifier.propertyName ?? specifier.name).text,
+    specifier
+  );
+
+  return lua.createVariableDeclarationStatement(
+    binding,
+    lua.createTableIndexExpression(createModuleRequire(context, statement.moduleSpecifier), property),
+    specifier
+  );
+}
+
+/**
  * Transform import declarations by stripping bindings for tagged declarations with no remaining runtime usages.
  * When no runtime bindings remain, the require is dropped for provably pure modules
  * or kept as a side-effect import otherwise.
@@ -255,6 +283,7 @@ export function transformImportDeclaration(
   const checker: ts.TypeChecker = context.checker;
   const usage: Map<ts.Symbol, boolean> = getFileBindingUsage(checker, context.sourceFile);
   const kept: Array<ts.ImportSpecifier> = [];
+  const requiredCaptureImports: Array<ts.ImportSpecifier> = [];
 
   let hasRuntimeBindings: boolean = false;
 
@@ -269,6 +298,11 @@ export function transformImportDeclaration(
     if (symbol === undefined) {
       kept.push(specifier);
       hasRuntimeBindings = true;
+      continue;
+    }
+
+    if (isRequiredInlineCaptureImport(checker, context.sourceFile, symbol)) {
+      requiredCaptureImports.push(specifier);
       continue;
     }
 
@@ -294,7 +328,15 @@ export function transformImportDeclaration(
     return context.superTransformStatements(statement);
   }
 
+  const preservedBindings: Array<lua.Statement> = requiredCaptureImports.map((it) =>
+    transformRequiredCaptureImport(statement, it, context)
+  );
+
   if (!hasRuntimeBindings) {
+    if (preservedBindings.length > 0) {
+      return preservedBindings;
+    }
+
     const target: ts.SourceFile | null = resolveModuleSourceFile(checker, statement.moduleSpecifier);
 
     if (target !== null && isPureConstantsModule(checker, target)) {
@@ -313,18 +355,21 @@ export function transformImportDeclaration(
     );
   }
 
-  return context.superTransformStatements(
-    ts.factory.updateImportDeclaration(
-      statement,
-      statement.modifiers,
-      ts.factory.updateImportClause(
-        clause,
-        clause.isTypeOnly,
-        clause.name,
-        ts.factory.updateNamedImports(clause.namedBindings, kept)
-      ),
-      statement.moduleSpecifier,
-      undefined
-    )
-  );
+  return [
+    ...preservedBindings,
+    ...context.superTransformStatements(
+      ts.factory.updateImportDeclaration(
+        statement,
+        statement.modifiers,
+        ts.factory.updateImportClause(
+          clause,
+          clause.isTypeOnly,
+          clause.name,
+          ts.factory.updateNamedImports(clause.namedBindings, kept)
+        ),
+        statement.moduleSpecifier,
+        undefined
+      )
+    ),
+  ];
 }

@@ -76,6 +76,12 @@ export const createInlineMacroCallSiteError = createErrorDiagnosticFactory(
     "only at statement position, and parameters used repeatedly must receive side-effect free arguments."
 );
 
+export const createInlineCaptureError = createErrorDiagnosticFactory(
+  (functionName: string, captureName: string) =>
+    `Cannot inline function '${functionName}': its body captures runtime value '${captureName}', ` +
+    "which this module does not import."
+);
+
 export const createNoInlineVirtualError = createErrorDiagnosticFactory(
   (name: string) =>
     `'${NO_INLINE_MACRO}' cannot reference '@${VIRTUAL_TAG}' declaration '${name}' - virtual declarations are ` +

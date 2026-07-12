@@ -5,6 +5,7 @@ import {
   collectVirtualDiagnostics,
   hasInlineTag,
   hasVirtualTag,
+  prepareInlineCaptureImports,
   transformAccessExpression,
   transformCallExpression,
   transformExpressionStatement,
@@ -38,6 +39,7 @@ export const plugin: Plugin = {
     // Force binder to assign node parents before any 'getJSDocTags' call,
     // otherwise empty results are computed for parent-less nodes and cached on them forever.
     program.getTypeChecker();
+    prepareInlineCaptureImports(program);
 
     const diagnostics: Array<ts.Diagnostic> = [...validateTopLevelTags(program), ...collectVirtualDiagnostics(program)];
 

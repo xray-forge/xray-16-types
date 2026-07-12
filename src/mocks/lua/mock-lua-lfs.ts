@@ -11,9 +11,9 @@ export const mockLfs = {
   attributes: jest.fn((_path: string): LuaTable | null => null),
   dir: jest.fn(
     (_path: string): LuaMultiReturn<[LuaIterable<string, unknown>, { next: () => string | null }]> =>
-      [(() => null) as unknown as LuaIterable<string, unknown>, { close: () => {}, next: () => null }] as unknown as LuaMultiReturn<[
-        LuaIterable<string, unknown>,
-        { next: () => string | null },
-      ]>
+      [
+        (() => null) as unknown as LuaIterable<string, unknown>,
+        { close: () => {}, next: () => null },
+      ] as unknown as LuaMultiReturn<[LuaIterable<string, unknown>, { next: () => string | null }]>
   ),
 } satisfies Pick<typeof lfs, "attributes" | "dir" | "mkdir">;

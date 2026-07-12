@@ -75,6 +75,31 @@ The macro is an explicit demand. When the target cannot be inlined, the build fa
 
 Function targets follow the same rules as `@inline` functions. A single `return <expression>` body and a `void` expression-statement body inline where an expression is allowed. A single guard `if` body inlines only at statement position.
 
+## Captured Runtime Bindings
+
+An inlined function body is moved into the caller's module. If it references a runtime value outside its parameters,
+the caller must import that exact value too. This keeps the generated Lua binding explicit and prevents accidental
+global lookups.
+
+```ts
+// cache.ts
+import { registry } from "./registry";
+
+/** @inline */
+export function resetCache(): void {
+  registry.cache = {};
+}
+
+// consumer.ts
+import { registry as db } from "./registry";
+import { resetCache } from "./cache";
+
+resetCache(); // Emits: db.cache = {}
+```
+
+Without the `registry` import in `consumer.ts`, the build fails and identifies the missing captured value. Ambient
+engine/Lua globals and values that the plugin folds at build time do not require an import.
+
 Unlike `@inline` function declarations with erased call sites, the import binding of a force-inlined function is kept, since the declaration itself stays untagged and may have other runtime users.
 
 ### `$noInline`
@@ -96,7 +121,7 @@ Suppression applies only to the wrapped target itself. Tagged constants inside c
 
 `$noInline` of a `@virtual` declaration fails the build: virtual declarations are erased from emitted output, so no runtime value exists to reference. Demote the declaration to `@inline` when runtime access is needed.
 
-Plugin order matters. The recommended `luaPlugins` list places `xray16/plugins/macros` before `xray16/plugins/inline`; TypeScriptToLua runs the later inline plugin first, so it consumes the hints. When only the macros plugin is enabled, the hints unwrap as identity calls and no forcing or suppression happens.
+Plugin order matters. Place `xray16/plugins/macros` before `xray16/plugins/inline`; TypeScriptToLua runs the later inline plugin first, so it consumes the hints. In a larger plugin stack, set the macros option `inlineHints: false` when inline is enabled to ensure its fallback identity unwrap never consumes a hint first. When only the macros plugin is enabled, leave that option at its default (`true`) to unwrap hints as identity calls.
 
 ## Computed Values
 

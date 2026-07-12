@@ -17,7 +17,6 @@ export class MockPhysicObject extends MockCGameObject implements CPhysicObject {
 
   public animationTime: number = 0;
 
-
   public set_door_ignore_dynamics = jest.fn();
 
   public play_bones_sound = jest.fn();

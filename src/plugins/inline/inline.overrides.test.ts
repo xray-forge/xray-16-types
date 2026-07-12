@@ -93,6 +93,35 @@ return ____exports
 `);
   });
 
+  it("should fail forced inlining when an imported function captures an unavailable binding", () => {
+    const { errors } = transpileWithPlugins(
+      {
+        "registry.ts": `
+export const registry = { cache: 0 };
+`,
+        "lib.ts": `
+import { registry } from "./registry";
+
+export function resetCache(): void {
+  registry.cache = 1;
+}
+`,
+        "main.ts": `${INLINE_HINTS_DECLARATION}
+import { resetCache } from "./lib";
+
+export function use(): void {
+  $inline(resetCache());
+}
+`,
+      },
+      { plugins: [plugin] }
+    );
+
+    expect(errors).toEqual([
+      "Cannot inline function 'resetCache': its body captures runtime value 'registry', which this module does not import.",
+    ]);
+  });
+
   it("should splice void and guard bodies at statement position", () => {
     const { errors, lua } = transpileWithPlugins(
       {

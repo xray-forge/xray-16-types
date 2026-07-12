@@ -72,6 +72,108 @@ return ____exports
 `);
   });
 
+  it("should fail when an imported inline function captures an unavailable runtime binding", () => {
+    const { errors } = transpileWithPlugins(
+      {
+        "registry.ts": `
+export const registry = { cache: 0 };
+`,
+        "lib.ts": `
+import { registry } from "./registry";
+
+/** @inline */
+export function resetCache(): void {
+  registry.cache = 1;
+}
+`,
+        "main.ts": `
+import { resetCache } from "./lib";
+
+export function use(): void {
+  resetCache();
+}
+`,
+      },
+      { plugins: [plugin] }
+    );
+
+    expect(errors).toEqual([
+      "Cannot inline function 'resetCache': its body captures runtime value 'registry', which this module does not import.",
+    ]);
+  });
+
+  it("should inline through a matching caller import and preserve its Lua binding", () => {
+    const { errors, lua } = transpileWithPlugins(
+      {
+        "registry.ts": `
+export const registry = { cache: 0 };
+`,
+        "lib.ts": `
+import { registry } from "./registry";
+
+/** @inline */
+export function resetCache(): void {
+  registry.cache = 1;
+}
+`,
+        "main.ts": `
+import { resetCache } from "./lib";
+import { registry as db } from "./registry";
+
+export function use(): void {
+  resetCache();
+}
+`,
+      },
+      { plugins: [plugin] }
+    );
+
+    expect(errors).toEqual([]);
+    expect(lua["main.lua"]).toBe(`local ____exports = {}
+require("lib")
+local db = require("registry").registry
+function ____exports.use(self)
+    db.cache = 1
+    local ____ = 1
+end
+return ____exports
+`);
+  });
+
+  it("should reject an unrelated same-name import for a captured binding", () => {
+    const { errors } = transpileWithPlugins(
+      {
+        "registry.ts": `
+export const registry = { cache: 0 };
+`,
+        "other-registry.ts": `
+export const registry = { cache: 0 };
+`,
+        "lib.ts": `
+import { registry } from "./registry";
+
+/** @inline */
+export function resetCache(): void {
+  registry.cache = 1;
+}
+`,
+        "main.ts": `
+import { resetCache } from "./lib";
+import { registry } from "./other-registry";
+
+export function use(): void {
+  resetCache();
+}
+`,
+      },
+      { plugins: [plugin] }
+    );
+
+    expect(errors).toEqual([
+      "Cannot inline function 'resetCache': its body captures runtime value 'registry', which this module does not import.",
+    ]);
+  });
+
   it("should substitute default parameter values for omitted arguments", () => {
     const { errors, lua } = transpileWithPlugins(
       {

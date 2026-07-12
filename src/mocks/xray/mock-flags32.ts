@@ -37,7 +37,7 @@ export class MockFlags32 implements flags32 {
   }
 
   public invert(value?: flags32 | u32): MockFlags32 {
-    this.value = (~(value === undefined ? this.value : typeof value === "number" ? value : value.get())) >>> 0;
+    this.value = ~(value === undefined ? this.value : typeof value === "number" ? value : value.get()) >>> 0;
 
     return this;
   }
@@ -46,7 +46,7 @@ export class MockFlags32 implements flags32 {
   public is(mask: u32): boolean;
   public is(value: flags32 | u32, mask?: u32): boolean {
     const source: u32 = typeof value === "number" ? this.value : value.get();
-    const selected: u32 = typeof value === "number" ? value : mask ?? 0;
+    const selected: u32 = typeof value === "number" ? value : (mask ?? 0);
 
     return (source & selected) === selected;
   }
@@ -55,7 +55,7 @@ export class MockFlags32 implements flags32 {
   public is_any(mask: u32): boolean;
   public is_any(value: flags32 | u32, mask?: u32): boolean {
     const source: u32 = typeof value === "number" ? this.value : value.get();
-    const selected: u32 = typeof value === "number" ? value : mask ?? 0;
+    const selected: u32 = typeof value === "number" ? value : (mask ?? 0);
 
     return (source & selected) !== 0;
   }

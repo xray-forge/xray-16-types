@@ -2,8 +2,10 @@ import * as ts from "typescript";
 import * as lua from "typescript-to-lua";
 
 import { hasInlineTag, unwrapInitializer } from "./ast";
+import { getInlineCaptureBindings, requireInlineCaptureImports, resetRequiredCaptureImports } from "./captures";
 import { type TFoldedValue } from "./constants";
 import {
+  createInlineCaptureError,
   createInlineMacroCallSiteError,
   createInlineMacroFunctionError,
   createInlineMacroTargetError,
@@ -157,7 +159,10 @@ export function isInlinableGuardFunction(declaration: ts.FunctionDeclaration): b
  * @param node - Call expression to resolve.
  * @returns The target function declaration, or null.
  */
-function getCalleeFunctionDeclaration(checker: ts.TypeChecker, node: ts.CallExpression): ts.FunctionDeclaration | null {
+export function getCalleeFunctionDeclaration(
+  checker: ts.TypeChecker,
+  node: ts.CallExpression
+): ts.FunctionDeclaration | null {
   if (!ts.isIdentifier(node.expression)) {
     return null;
   }
@@ -293,13 +298,15 @@ interface IRestSubstitution {
  * @param node - Node to rewrite (expression body or guard `if` statement).
  * @param substitutions - Map of parameter symbol to argument expression.
  * @param restSubstitution - Trailing rest parameter substitution, or null.
+ * @param captureSubstitutions - Map of captured runtime symbols to caller import identifiers.
  * @returns Rewritten node.
  */
 function substituteInNode<T extends ts.Node>(
   checker: ts.TypeChecker,
   node: T,
   substitutions: Map<ts.Symbol, ts.Expression>,
-  restSubstitution: IRestSubstitution | null
+  restSubstitution: IRestSubstitution | null,
+  captureSubstitutions: Map<ts.Symbol, ts.Identifier>
 ): T {
   const visit = (current: ts.Node): ts.Node => {
     // Expand `...rest` of the rest parameter into the caller's trailing arguments inside a call.
@@ -332,6 +339,14 @@ function substituteInNode<T extends ts.Node>(
         return substitutions.get(symbol) as ts.Expression;
       }
 
+      if (symbol !== undefined) {
+        const capture: ts.Identifier | undefined = captureSubstitutions.get(resolveAliasedSymbol(checker, symbol));
+
+        if (capture !== undefined) {
+          return capture;
+        }
+      }
+
       return current;
     }
 
@@ -339,6 +354,52 @@ function substituteInNode<T extends ts.Node>(
   };
 
   return ts.visitNode(node, visit) as T;
+}
+
+/**
+ * Resolve capture substitutions for a body that is about to be spliced.
+ *
+ * @param checker - Program type checker.
+ * @param declaration - Inline function declaration.
+ * @param body - Expression or guard statement to splice.
+ * @param caller - Call expression in the receiving source file.
+ * @returns Capture substitutions, or null when the caller lacks a required runtime binding.
+ */
+function getAvailableCaptureSubstitutions(
+  checker: ts.TypeChecker,
+  declaration: ts.FunctionDeclaration,
+  body: ts.Node,
+  caller: ts.CallExpression
+): Map<ts.Symbol, ts.Identifier> | null {
+  const captures = getInlineCaptureBindings(checker, declaration, body, caller.getSourceFile());
+
+  return captures.missing.length === 0 ? captures.substitutions : null;
+}
+
+/**
+ * Report the first unavailable capture for a call that would otherwise inline.
+ *
+ * @param checker - Program type checker.
+ * @param declaration - Inline function declaration.
+ * @param body - Expression or guard statement to splice.
+ * @param caller - Call expression in the receiving source file.
+ * @param context - Transformation context receiving diagnostics.
+ */
+function reportMissingCapture(
+  checker: ts.TypeChecker,
+  declaration: ts.FunctionDeclaration,
+  body: ts.Node,
+  caller: ts.CallExpression,
+  context: lua.TransformationContext
+): void {
+  const captures = getInlineCaptureBindings(checker, declaration, body, caller.getSourceFile());
+  const missing = captures.missing[0];
+
+  if (missing !== undefined) {
+    context.diagnostics.push(
+      createInlineCaptureError(caller, declaration.name?.getText() ?? "<anonymous>", missing.name)
+    );
+  }
 }
 
 /**
@@ -471,7 +532,7 @@ export function canInlineCall(
  * @param node - Call expression to check.
  * @returns Whether the guard call can be inlined.
  */
-function canInlineGuardCall(
+export function canInlineGuardCall(
   checker: ts.TypeChecker,
   declaration: ts.FunctionDeclaration,
   node: ts.CallExpression
@@ -483,6 +544,68 @@ function canInlineGuardCall(
   }
 
   return hasSafeArguments(checker, declaration, node, guard);
+}
+
+/**
+ * Prepare imports that are only referenced by bodies spliced from another module.
+ *
+ * @param program - Program that will be transformed.
+ */
+export function prepareInlineCaptureImports(program: ts.Program): void {
+  const checker: ts.TypeChecker = program.getTypeChecker();
+
+  resetRequiredCaptureImports();
+
+  for (const sourceFile of program.getSourceFiles()) {
+    if (!sourceFile.isDeclarationFile) {
+      sourceFile.forEachChild(visit);
+    }
+  }
+
+  function visit(node: ts.Node): void {
+    if (ts.isCallExpression(node)) {
+      const override: TInlineOverrideKind | null = getOverrideMacroKind(node);
+      const target: ts.CallExpression | null =
+        override === "force" && node.arguments.length === 1 && ts.isCallExpression(node.arguments[0])
+          ? node.arguments[0]
+          : override === null
+            ? node
+            : null;
+
+      if (target !== null) {
+        const declaration: ts.FunctionDeclaration | null = getCalleeFunctionDeclaration(checker, target);
+        const isForced: boolean = override === "force";
+
+        if (
+          declaration !== null &&
+          (isForced || hasInlineTag(declaration)) &&
+          isInlinableFunction(declaration) &&
+          canInlineCall(checker, declaration, target)
+        ) {
+          const body: IInlineBody = getInlineBody(declaration) as IInlineBody;
+          const captures = getInlineCaptureBindings(checker, declaration, body.expression, target.getSourceFile());
+
+          if (captures.missing.length === 0) {
+            requireInlineCaptureImports(target.getSourceFile(), captures.substitutions);
+          }
+        } else if (
+          declaration !== null &&
+          (isForced || hasInlineTag(declaration)) &&
+          isInlinableGuardFunction(declaration) &&
+          canInlineGuardCall(checker, declaration, target)
+        ) {
+          const guard: ts.IfStatement = getInlineGuard(declaration) as ts.IfStatement;
+          const captures = getInlineCaptureBindings(checker, declaration, guard, target.getSourceFile());
+
+          if (captures.missing.length === 0) {
+            requireInlineCaptureImports(target.getSourceFile(), captures.substitutions);
+          }
+        }
+      }
+    }
+
+    node.forEachChild(visit);
+  }
 }
 
 /**
@@ -502,7 +625,13 @@ export function isInlinedCalleeReference(checker: ts.TypeChecker, node: ts.Ident
 
   const declaration: ts.FunctionDeclaration | null = getInlineFunctionDeclaration(checker, parent);
 
-  return declaration !== null && canInlineCall(checker, declaration, parent);
+  if (declaration === null || !canInlineCall(checker, declaration, parent)) {
+    return false;
+  }
+
+  const body: IInlineBody = getInlineBody(declaration) as IInlineBody;
+
+  return getAvailableCaptureSubstitutions(checker, declaration, body.expression, parent) !== null;
 }
 
 /**
@@ -527,9 +656,24 @@ function tryInlineFunctionCall(
   }
 
   const body: IInlineBody = getInlineBody(declaration) as IInlineBody;
+  const captureSubstitutions: Map<ts.Symbol, ts.Identifier> | null = getAvailableCaptureSubstitutions(
+    checker,
+    declaration,
+    body.expression,
+    node
+  );
+
+  if (captureSubstitutions === null) {
+    reportMissingCapture(checker, declaration, body.expression, node, context);
+
+    return null;
+  }
+
   const { substitutions, restSubstitution } = buildSubstitutions(checker, declaration, node);
 
-  return context.transformExpression(substituteInNode(checker, body.expression, substitutions, restSubstitution));
+  return context.transformExpression(
+    substituteInNode(checker, body.expression, substitutions, restSubstitution, captureSubstitutions)
+  );
 }
 
 /**
@@ -577,9 +721,24 @@ function transformForcedInline(
     }
 
     const body: IInlineBody = getInlineBody(declaration) as IInlineBody;
+    const captureSubstitutions: Map<ts.Symbol, ts.Identifier> | null = getAvailableCaptureSubstitutions(
+      checker,
+      declaration,
+      body.expression,
+      target
+    );
+
+    if (captureSubstitutions === null) {
+      reportMissingCapture(checker, declaration, body.expression, target, context);
+
+      return context.transformExpression(target);
+    }
+
     const { substitutions, restSubstitution } = buildSubstitutions(checker, declaration, target);
 
-    return context.transformExpression(substituteInNode(checker, body.expression, substitutions, restSubstitution));
+    return context.transformExpression(
+      substituteInNode(checker, body.expression, substitutions, restSubstitution, captureSubstitutions)
+    );
   }
 
   const value: TFoldedValue | null = evaluateConstantExpression(checker, target, new Set());
@@ -750,9 +909,24 @@ export function transformExpressionStatement(
 
     if (declaration !== null && canInlineGuardCall(context.checker, declaration, call)) {
       const guard: ts.IfStatement = getInlineGuard(declaration) as ts.IfStatement;
+      const captureSubstitutions: Map<ts.Symbol, ts.Identifier> | null = getAvailableCaptureSubstitutions(
+        context.checker,
+        declaration,
+        guard,
+        call
+      );
+
+      if (captureSubstitutions === null) {
+        reportMissingCapture(context.checker, declaration, guard, call, context);
+
+        return context.superTransformStatements(node);
+      }
+
       const { substitutions, restSubstitution } = buildSubstitutions(context.checker, declaration, call);
 
-      return context.transformStatements(substituteInNode(context.checker, guard, substitutions, restSubstitution));
+      return context.transformStatements(
+        substituteInNode(context.checker, guard, substitutions, restSubstitution, captureSubstitutions)
+      );
     }
   }
 

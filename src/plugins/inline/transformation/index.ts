@@ -1,4 +1,5 @@
 export * from "./ast";
+export * from "./captures";
 export * from "./constants";
 export * from "./errors";
 export * from "./evaluation";

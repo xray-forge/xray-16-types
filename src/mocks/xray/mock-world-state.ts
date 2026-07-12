@@ -34,11 +34,14 @@ export class MockWorldState extends MockLuabindClass implements world_state {
   }
 
   public includes(state: world_state): boolean {
-    return state instanceof MockWorldState && state.properties.every((property) => {
-      const own: world_property | undefined = this.properties.find((it) => it.condition() === property.condition());
+    return (
+      state instanceof MockWorldState &&
+      state.properties.every((property) => {
+        const own: world_property | undefined = this.properties.find((it) => it.condition() === property.condition());
 
-      return own?.value() === property.value();
-    });
+        return own?.value() === property.value();
+      })
+    );
   }
 
   public property(id: u32): world_property {
