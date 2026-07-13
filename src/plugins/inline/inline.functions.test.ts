@@ -174,6 +174,79 @@ export function use(): void {
     ]);
   });
 
+  it("should inline a computable virtual object member without importing the object in the caller", () => {
+    const { errors, lua } = transpileWithPlugins(
+      {
+        "config.ts": `
+/** @virtual */
+export const screenConfig = {
+  BASE_WIDTH: 1024,
+  BASE_HEIGHT: 768,
+} as const;
+`,
+        "lib.ts": `
+import { screenConfig } from "./config";
+
+/** @inline */
+export function getScreenArea(): number {
+  return screenConfig.BASE_WIDTH * screenConfig.BASE_HEIGHT;
+}
+`,
+        "main.ts": `
+import { getScreenArea } from "./lib";
+
+export function use(): number {
+  return getScreenArea();
+}
+`,
+      },
+      { plugins: [plugin] }
+    );
+
+    expect(errors).toEqual([]);
+    expect(lua["main.lua"]).toBe(`local ____exports = {}
+require("lib")
+function ____exports.use(self)
+    return 1024 * 768
+end
+return ____exports
+`);
+  });
+
+  it("should still require a caller import for a direct virtual object capture", () => {
+    const { errors } = transpileWithPlugins(
+      {
+        "config.ts": `
+/** @virtual */
+export const screenConfig = {
+  BASE_WIDTH: 1024,
+} as const;
+`,
+        "lib.ts": `
+import { screenConfig } from "./config";
+
+/** @inline */
+export function getScreenConfig(): unknown {
+  return screenConfig;
+}
+`,
+        "main.ts": `
+import { getScreenConfig } from "./lib";
+
+export function use(): unknown {
+  return getScreenConfig();
+}
+`,
+      },
+      { plugins: [plugin] }
+    );
+
+    expect(errors).toEqual([
+      "'@virtual' declaration 'screenConfig' is referenced as a value and cannot be erased, demote it to '@inline' or make the reference computable at build time.",
+      "Cannot inline function 'getScreenConfig': its body captures runtime value 'screenConfig', which this module does not import.",
+    ]);
+  });
+
   it("should substitute default parameter values for omitted arguments", () => {
     const { errors, lua } = transpileWithPlugins(
       {

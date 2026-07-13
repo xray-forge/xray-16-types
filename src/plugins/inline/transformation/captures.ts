@@ -1,7 +1,7 @@
 import * as ts from "typescript";
 
 import { isValueUsagePosition } from "./ast";
-import { tryGetInlineValue } from "./evaluation";
+import { resolveMemberSymbol, tryGetInlineValue } from "./evaluation";
 import { resolveAliasedSymbol } from "./virtual";
 
 let requiredCaptureImports: WeakMap<ts.SourceFile, Set<ts.Symbol>> = new WeakMap();
@@ -58,6 +58,31 @@ function isAmbientRuntimeSymbol(symbol: ts.Symbol): boolean {
 }
 
 /**
+ * Check whether an identifier is the object part of an access that will be folded by the inline plugin.
+ *
+ * A tagged object itself is not a scalar inline value, but a tagged `as const` property can be. Capture analysis
+ * must inspect the complete access so cross-module inlining does not require a runtime import for a literal value.
+ *
+ * @param checker - Program type checker.
+ * @param node - Identifier considered for capture.
+ * @returns Whether the enclosing property or element access is compile-time inlineable.
+ */
+function isInlineableAccessBase(checker: ts.TypeChecker, node: ts.Identifier): boolean {
+  const parent: ts.Node | undefined = node.parent;
+
+  if (
+    (ts.isPropertyAccessExpression(parent) || ts.isElementAccessExpression(parent)) &&
+    parent.expression === node
+  ) {
+    const member: ts.Symbol | null = resolveMemberSymbol(checker, parent);
+
+    return member !== null && tryGetInlineValue(checker, member) !== null;
+  }
+
+  return false;
+}
+
+/**
  * Collect free runtime bindings referenced by an inline body.
  *
  * @param checker - Program type checker.
@@ -85,7 +110,7 @@ export function getInlineCaptures(
     if (ts.isIdentifier(node) && isValueUsagePosition(node)) {
       const symbol: ts.Symbol | undefined = checker.getSymbolAtLocation(node);
 
-      if (symbol !== undefined && !parameterSymbols.has(symbol)) {
+      if (symbol !== undefined && !parameterSymbols.has(symbol) && !isInlineableAccessBase(checker, node)) {
         const resolved: ts.Symbol = resolveAliasedSymbol(checker, symbol);
         const valueDeclaration: ts.Declaration | undefined = resolved.valueDeclaration;
 
