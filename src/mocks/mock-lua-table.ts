@@ -1,5 +1,4 @@
 import { type TIndex } from "./internal";
-import { MockLuaMap } from "./mock-lua-map";
 
 /**
  * Mock `tstl` table data structure.
@@ -17,11 +16,9 @@ export class MockLuaTable<K = unknown, V = unknown> extends Map<K, V> {
   /**
    * Get mock size in unified way.
    */
-  public static getSizeOf(
-    table: LuaTable<any> | MockLuaMap<unknown, unknown> | MockLuaTable<unknown, unknown> | Record<string, unknown>
-  ): number {
-    if (table instanceof MockLuaTable || table instanceof MockLuaMap) {
-      return (table as unknown as MockLuaTable).size;
+  public static getSizeOf(table: LuaTable<any> | LuaMap<any> | Map<any, any> | Record<string, unknown>): number {
+    if (table instanceof Map) {
+      return table.size;
     }
 
     return Object.keys(table).length;

@@ -49,6 +49,7 @@ describe("MockLuaMap", () => {
 
   it("should measure size for maps and plain objects", () => {
     expect(MockLuaMap.getSizeOf(MockLuaMap.fromArray([1, 2, 3]))).toBe(3);
+    expect(MockLuaMap.getSizeOf(new Map([["a", 1], ["b", 2]]))).toBe(2);
     expect(MockLuaMap.getSizeOf({ a: 1 })).toBe(1);
   });
 

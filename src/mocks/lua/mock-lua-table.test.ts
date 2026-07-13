@@ -39,6 +39,10 @@ describe("mockTable", () => {
     expect(mockTable.random(table as unknown as MockLuaTable)).toEqual([1, "only"]);
   });
 
+  it("should pick a random entry from a native map", () => {
+    expect(mockTable.random(new Map([["key", "value"]]))).toEqual(["key", "value"]);
+  });
+
   it("should sort an array-style table with a comparator", () => {
     const table = MockLuaTable.fromArray([3, 1, 2]);
 

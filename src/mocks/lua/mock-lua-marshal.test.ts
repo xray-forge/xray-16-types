@@ -21,4 +21,10 @@ describe("mockMarshal", () => {
 
     expect(mockMarshal.encode(table)).toBe('{"key":"value"}');
   });
+
+  it("should encode native maps as objects", () => {
+    const map = new Map([["key", "value"]]);
+
+    expect(mockMarshal.encode(map)).toBe('{"key":"value"}');
+  });
 });

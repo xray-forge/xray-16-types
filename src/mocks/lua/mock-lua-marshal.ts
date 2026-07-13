@@ -1,7 +1,6 @@
 import { jest } from "@jest/globals";
 
-import { $fromLuaTable } from "../../macros";
-import { MockLuaTable } from "../mock-lua-table";
+import { mapFromLua } from "./mock-lua-utils";
 
 /**
  * Mock of the OpenXRay `marshal` global for jest/node.
@@ -11,9 +10,7 @@ import { MockLuaTable } from "../mock-lua-table";
  */
 export const mockMarshal = {
   encode: jest.fn((data: unknown): string => {
-    return JSON.stringify(
-      data instanceof MockLuaTable ? $fromLuaTable(data as unknown as LuaTable<string | number, unknown>) : data
-    );
+    return JSON.stringify(data instanceof Map ? mapFromLua(data) : data);
   }),
   decode: jest.fn((data: string): unknown => JSON.parse(data)),
 };

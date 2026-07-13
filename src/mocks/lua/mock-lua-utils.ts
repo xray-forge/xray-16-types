@@ -1,11 +1,12 @@
 import { type AnyObject } from "../internal";
-import { MockLuaTable } from "../mock-lua-table";
 
 /**
  * Transform lua table to array for easier testing with equals checks.
  */
-export function luaTableToArray<T = unknown>(value: LuaTable<number, T> | Array<T> | null | undefined): Array<T> {
-  if (value instanceof MockLuaTable) {
+export function luaTableToArray<T = unknown>(
+  value: LuaTable<number, T> | LuaMap<number, T> | Map<number, T> | Array<T> | null | undefined
+): Array<T> {
+  if (value instanceof Map) {
     return [...(value as unknown as Map<number, T>).values()].map((it) => {
       return mapFromLua<any>(it);
     });
@@ -36,7 +37,7 @@ export function luaTableToObject(value: unknown, ancestors: WeakSet<object> = ne
   ancestors.add(value);
 
   const result: AnyObject = (() => {
-    if (value instanceof MockLuaTable) {
+    if (value instanceof Map) {
       return [...value.entries()].reduce((acc, [key, entry]) => {
         acc[key] = luaTableToObject(entry, ancestors);
 
@@ -67,7 +68,7 @@ export function luaTableToObject(value: unknown, ancestors: WeakSet<object> = ne
  * @returns Object based map from lua value.
  */
 export function mapFromLua<T>(value: T): T {
-  if (value instanceof MockLuaTable) {
+  if (value instanceof Map) {
     return [...(value as unknown as Map<any, any>).entries()].reduce((acc: Record<any, any>, [key, value]) => {
       acc[key] = mapFromLua(value);
 
