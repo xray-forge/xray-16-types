@@ -1,5 +1,4 @@
-import { expect } from "@jest/globals";
-import { type ExpectationResult } from "expect";
+import { type ExpectationResult, type MatcherContext } from "expect";
 import { luaTableToArray } from "xray16/mocks";
 
 /**
@@ -10,10 +9,14 @@ import { luaTableToArray } from "xray16/mocks";
  * @returns Jest matcher result.
  */
 export function toEqualLuaArrays(
+  this: MatcherContext,
   received: LuaTable<number, unknown>,
   actual: LuaTable<number, unknown>
 ): ExpectationResult {
-  expect(luaTableToArray(received)).toEqual(luaTableToArray(actual));
+  const pass: boolean = this.equals(luaTableToArray(received), luaTableToArray(actual), [
+    ...this.customTesters,
+    this.utils.iterableEquality,
+  ]);
 
-  return { pass: true, message: () => "Expect two lua array tables to match." };
+  return { pass, message: () => "Expect two lua array tables to match." };
 }
