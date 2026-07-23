@@ -59,7 +59,9 @@ export {
   MockCUITrackBar as CUITrackBar,
   MockCUIWindow as CUIWindow,
   MockCZoneCampfire as CZoneCampfire,
+  MockCOptionsManager as COptionsManager,
   mockDikKeys as DIK_keys,
+  MockKeyBindings as key_bindings,
   MockFbox as Fbox,
   MockFileSystem as FS,
   MockFrect as Frect,
@@ -143,11 +145,13 @@ export {
   MockSoundObject as sound_object,
   mockStalkerIds as stalker_ids,
   MockTask as task,
+  mockDikToBind as dik_to_bind,
   mockUiEvents as ui_events,
   MockVector as vector,
   MockVector2D as vector2,
   MockWorldProperty as world_property,
   MockWorldState as world_state,
+  mockValidSavedGame as valid_saved_game,
 } from "./index";
 
 // Globals with behaviour beyond a plain mock re-export (computed values, singletons, primitive helpers).
