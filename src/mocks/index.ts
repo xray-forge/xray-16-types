@@ -80,6 +80,7 @@ export { MockCUIListBoxItem } from "./xray/ui/mock-cui-list-box-item";
 export { MockCUIListBoxItemMsgChain } from "./xray/ui/mock-cui-list-box-item-msg-chain";
 export { MockCUIMapInfo } from "./xray/ui/mock-cui-map-info";
 export { MockCUIMapList } from "./xray/ui/mock-cui-map-list";
+export { MockCUIMessageBox } from "./xray/ui/mock-cui-message-box";
 export { MockCUIMessageBoxEx } from "./xray/ui/mock-cui-message-box-ex";
 export { MockCUIMMShniaga } from "./xray/ui/mock-cui-mm-shniaga";
 export { MockCUIScriptWnd } from "./xray/ui/mock-cui-script-wnd";
