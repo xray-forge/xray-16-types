@@ -24,6 +24,7 @@ export const mockLevelInterface = {
   get_snd_volume: jest.fn(() => 1),
   get_time_hours: jest.fn(() => 12),
   get_time_minutes: jest.fn(() => 30),
+  is_wfx_playing: jest.fn(() => false),
   hide_indicators_safe: jest.fn(),
   iterate_online_objects: jest.fn((cb: (object: game_object) => void) => {
     return [...MockGameObject.REGISTRY.entries()].forEach(([k, v]) => {
